@@ -1,5 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+## Setup
+Install the dependencies
+```bash
+# Install Yarn:
+$ curl -o- -L https://yarnpkg.com/install.sh | bash
+# Install the package dependencies
+$ yarn
+```
 ## Available Scripts
 
 In the project directory, you can run:
