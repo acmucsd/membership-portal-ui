@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-function App() {
+import store from './store';
+
+const App = () => {
   return (
-    <div className="App">
+    <Provider store={store}>
       <h1>Hello world!</h1>
-    </div>
+    </Provider>
   );
-}
+***REMOVED***
 
 ReactDOM.render(<App />, document.getElementById('root'));
