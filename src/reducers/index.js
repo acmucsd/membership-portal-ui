@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
 import TempReducer from './TempReducer';
 
-export default combineReducers({
+export default (history) => combineReducers({
+  router: connectRouter(history),
   TempReducer
 });
