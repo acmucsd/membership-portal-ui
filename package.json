@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "react-app-rewired build",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "eject": "react-scripts eject",
     "lint": "eslint \"**/*.{js,jsx}\"",
     "lint:fix": "prettier --write --single-quote \"**/*.{js,jsx}\"",
