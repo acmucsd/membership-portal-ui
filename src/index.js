@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import EventCard from './components/EventCard/EventCard';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello world!</h1>
+    <div className='App'>
+      <EventCard />
     </div>
   );
 }
