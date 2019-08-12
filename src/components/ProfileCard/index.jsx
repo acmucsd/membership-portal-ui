@@ -26,8 +26,7 @@ const ProfileCard = (props) => {
               <span class='experience'> {props.exp}/100 </span>
             </p>
           </div>
-          <div className='scroll-fade'></div>
-          </div>
+        </div>
       </Card>
     </div>
   );
