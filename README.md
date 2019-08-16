@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/acmucsd/membership-portal-ui/badge.svg?branch=set-up-ci)](https://coveralls.io/github/acmucsd/membership-portal-ui?branch=set-up-ci)
+
 ## Setup
 Install the dependencies
 ```bash
