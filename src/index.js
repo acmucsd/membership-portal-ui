@@ -16,7 +16,7 @@ const App = () => {
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route path='/' component={HomePage} />
+            <Route path="/" component={HomePage} />
           </Switch>
         </>
       </ConnectedRouter>

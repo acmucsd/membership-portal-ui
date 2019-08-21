@@ -1,5 +1,3 @@
 module.exports = {
-  setupFiles: [
-    '<rootDir>/tests/setup/setupTests.js',
-  ]
+  setupFiles: ['<rootDir>/tests/setup/setupTests.js'],
 ***REMOVED***
