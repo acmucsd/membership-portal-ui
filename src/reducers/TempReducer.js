@@ -6,6 +6,6 @@
 
 const TempReducer = (state = {}, action) => {
   return state;
-}
+};
 
 export default TempReducer;
