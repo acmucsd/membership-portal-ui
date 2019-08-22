@@ -17,8 +17,8 @@ const App = () => {
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/signin' component={SigninPage} />
+            <Route exact path="/" component={HomePage} />
+            <Route path="/signin" component={SigninPage} />
           </Switch>
         </>
       </ConnectedRouter>
