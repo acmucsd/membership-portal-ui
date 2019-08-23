@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import configureStore, { history } from './store';
 
 import HomePage from './containers/HomePage';
+import './styles/reset.less';
 
 const store = configureStore();
 
