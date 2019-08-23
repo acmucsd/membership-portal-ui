@@ -12,7 +12,7 @@ import { ReactComponent as SwagIcon } from '../../assets/graphics/swag-icon.svg'
 
 export default () => {
   return (
-    <div className="sidebar-component">
+    <nav className="navbar-vertical">
       <section>
         <h1>Portal</h1>
         <NavLink activeClassName="selected" className="nav-item" to="/dashboard">
@@ -38,6 +38,6 @@ export default () => {
           <NavListItem icon={DiscordIcon} text="Discord" />
         </NavLink>
       </section>
-    </div>
+    </nav>
   );
 };
