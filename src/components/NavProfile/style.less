@@ -1,0 +1,38 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.nav-profile {
+  align-items: center;
+  display: flex;
+  font-size: @nav-body;
+  height: @nav-header-height;
+  overflow: hidden;
+  padding-right: 30px;
+  position: relative;
+  white-space: nowrap;
+  width: @nav-drop-width;
+
+  span {
+    margin: 0 10px;
+    overflow-x: scroll;
+  }
+
+  .arrow {
+    color: @blue-1;
+    font-size: @nav-heading;
+    margin-left: -15px;
+    position: absolute;
+    right: 10px;
+
+    &:hover {
+      color: @white;
+    }
+  }
+
+  .avatar {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: -1;
+  }
+}
