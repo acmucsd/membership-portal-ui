@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Divider } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
 import NavListItem from '../NavListItem';
 
-export default props => {
+const NavDropdown = props => {
   return (
     <nav className="nav-dropdown">
       <section>
@@ -41,3 +42,9 @@ export default props => {
     </nav>
   );
 };
+
+NavDropdown.propTypes = {
+  onClick: PropTypes.func
+};
+
+export default NavDropdown;
