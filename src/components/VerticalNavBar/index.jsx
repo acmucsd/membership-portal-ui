@@ -1,9 +1,8 @@
 import React from 'react';
-
-import './style.less';
-import NavItem from '../NavItem';
 import { NavLink } from 'react-router-dom';
 
+import './style.less';
+import VerticalNavItem from '../VerticalNavItem';
 import { ReactComponent as ACMIcon } from '../../assets/graphics/acm-icon.svg';
 import { ReactComponent as DashboardIcon } from '../../assets/graphics/dashboard-icon.svg';
 import { ReactComponent as DiscordIcon } from '../../assets/graphics/discord-icon.svg';
@@ -17,26 +16,26 @@ export default () => {
       <section>
         <h1>Portal</h1>
         <NavLink activeClassName="selected" className="nav-item" to="/dashboard">
-          <NavItem icon={DashboardIcon} link="/dashboard" text="Dashboard" />
+          <VerticalNavItem icon={DashboardIcon} link="/dashboard" text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
-          <NavItem icon={LBIcon} text="Leaderboard" />
+          <VerticalNavItem icon={LBIcon} text="Leaderboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/profile">
-          <NavItem icon={ProfileIcon} text="Profile" />
+          <VerticalNavItem icon={ProfileIcon} text="Profile" />
         </NavLink>
       </section>
 
       <section>
         <h1>ACM</h1>
         <NavLink activeClassName="selected" className="nav-item" to="/about">
-          <NavItem icon={ACMIcon} text="About ACM" />
+          <VerticalNavItem icon={ACMIcon} text="About ACM" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/swag">
-          <NavItem icon={SwagIcon} text="ACM Store" />
+          <VerticalNavItem icon={SwagIcon} text="ACM Store" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="https://discord.gg/mK9Zrf4d">
-          <NavItem icon={DiscordIcon} text="Discord" />
+          <VerticalNavItem icon={DiscordIcon} text="Discord" />
         </NavLink>
       </section>
     </div>
