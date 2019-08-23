@@ -1,0 +1,32 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.sidebar-component {
+  border-right: 1px solid rgba(51, 51, 51, 0.2);
+  height: 100%;
+  line-height: 50px;
+  max-width: 300px;
+  min-height: 100vh;
+  padding: 30px 0px 0px 150px;
+
+  h1 {
+    color: rgba(51, 51, 51, 0.3);
+    font-family: 'Roboto';
+    font-size: @nav-heading;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  section {
+    margin: 50px 0;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+  }
+
+  .selected {
+    color: @blue-1;
+  }
+}
