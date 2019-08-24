@@ -21,7 +21,7 @@ const NavDropdown = props => {
         </NavLink>
       </section>
 
-      <Divider style={{ margin: '0.5rem 0' }} />
+      <Divider style={{margin: '0.5rem 0'}} />
 
       <section>
         <NavLink activeClassName="selected" className="nav-item" to="/about">
