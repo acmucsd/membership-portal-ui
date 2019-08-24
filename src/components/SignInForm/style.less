@@ -1,11 +1,22 @@
+@import '../../styles/fonts.less';
 @import '../../styles/vars.less';
 
 .card {
     height: 550px;
     width: 400px;
     background: @gray-1;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    // align-items: center;
+    align-items: center;
+    font-family: 'Roboto';
+    h1 {
+        font-size: @card-heading-1;
+        font-family: 'Nunito';
+        margin-bottom: 24px;
+    }
+    label {
+        text-align: left;
+    }
 }
