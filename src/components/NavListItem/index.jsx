@@ -6,15 +6,15 @@ import './style.less';
 
 const NavItem = props => {
   return (
-    <div>
-      <Icon component={props.icon} />
+    <>
+      {props.icon ? <Icon component={props.icon} /> : null}
       <span>{props.text}</span>
-    </div>
+    </>
   );
 ***REMOVED***
 
 NavItem.propTypes = {
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.object,
   text: PropTypes.string.isRequired,
 ***REMOVED***
 
