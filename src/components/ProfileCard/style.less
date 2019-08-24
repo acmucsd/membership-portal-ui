@@ -1,0 +1,48 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.card {
+  align-items: center;
+  color: @black;
+  cursor: pointer;
+  background: @gray-1;
+  border-radius: 10px;
+  border: 2px solid rgba(6, 89, 188, 0.5);
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+  height: @db-card-height;
+  justify-content: center;
+  margin: 0;
+  width: @db-card-width;
+  white-space: nowrap;
+  overflow: hidden;
+
+  h2 {
+    font-weight: 700;
+    margin: 0;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  .avatar {
+    border: 2px solid rgba(6, 89, 188, 0.5);
+  }
+
+  .avatar-flex {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .experience {
+    float: right;
+  }
+
+  .info {
+    display: inline-block;
+    vertical-align: middle;
+    width: 120px;
+    overflow-x: scroll;
+  }
+}
