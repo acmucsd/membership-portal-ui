@@ -6,10 +6,6 @@ import './style.less'
 import logo from "../../assets/logo.svg"
 
 class SigninForm extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {  }
-    // }
     render() { 
         return (
             <div className="card">
