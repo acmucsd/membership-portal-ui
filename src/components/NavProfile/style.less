@@ -1,6 +1,10 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
 
+.nav-width {
+  width: @nav-drop-width;
+}
+
 .nav-profile {
   align-items: center;
   display: flex;
@@ -8,8 +12,14 @@
   height: @nav-header-height;
   overflow: hidden;
   position: relative;
-  white-space: nowrap;
   width: @nav-drop-width;
+  white-space: nowrap;
+
+  &:hover {
+    .arrow {
+      color: white;
+    }
+  }
 
   span {
     margin: 0 10px;
@@ -21,10 +31,6 @@
     font-size: @nav-heading;
     position: absolute;
     right: 10px;
-
-    &:hover {
-      color: white;
-    }
   }
 
   .avatar {

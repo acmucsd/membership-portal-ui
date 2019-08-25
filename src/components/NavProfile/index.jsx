@@ -8,6 +8,7 @@ import { ReactComponent as Caret } from '../../assets/graphics/caret-icon.svg';
 
 const NavProfile =(props) => {
   return (
+    <div className="nav-width">
     <Dropdown overlay={props.menu} trigger={['click']}>
       <a className="ant-dropdown-link">
         <div className="nav-profile">
@@ -24,6 +25,7 @@ const NavProfile =(props) => {
         </div>
       </a>
     </Dropdown>
+    </div>
   );
 };
 
