@@ -1,0 +1,21 @@
+@import '../../styles/vars.less';
+
+.navbar-horizontal {
+  color: @black;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  text-align: center;
+
+  .selected {
+    color: @blue-1;
+
+    .divider {
+      visibility: visible;
+    }
+
+    .nav-tile-item {
+      opacity: 1.0;
+    }
+  }
+}
