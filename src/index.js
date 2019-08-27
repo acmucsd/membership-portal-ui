@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import configureStore, { history } from './store';
 
-import SigninForm from './components/SigninForm';
+import SignInForm from './components/SignInForm';
 
 const store = configureStore();
 
@@ -16,7 +16,7 @@ const App = () => {
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route exact path="/" component={SigninForm} />
+            <Route exact path="/" component={SignInForm} />
           </Switch>
         </>
       </ConnectedRouter>
