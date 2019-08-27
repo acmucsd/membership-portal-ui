@@ -7,16 +7,16 @@ const { Meta } = Card;
 
 const EventCard = (props) => {
   return (
-      <div>
-          <Card
-            className="event-card"
-            cover={<img alt="event cover" src={props.eventCoverImage}/>}
-          >
-            <img alt="points circle" src={props.pointsCircleImage} className="points-circle"/>
-            <Meta title={props.title} description={props.description} />	
-            <img alt="down arrow" src={props.downArrowImage} className="down-arrow"/>
-          </Card>
-      </div>
+    <div>
+      <Card
+        className="event-card"
+        cover={<img alt="event cover" src={props.eventCoverImage}/>}
+      >
+        <img alt="points circle" src={props.pointsCircleImage} className="points-circle"/>
+        <Meta title={props.title} description={props.description} />	
+        <img alt="down arrow" src={props.downArrowImage} className="down-arrow"/>
+      </Card>
+    </div>
   );
 }
 
