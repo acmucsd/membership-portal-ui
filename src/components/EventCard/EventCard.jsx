@@ -13,7 +13,7 @@ const EventCard = (props) => {
             cover={<img alt="event cover" src={props.eventCoverImage}/>}
           >
             <img alt="points circle" src={props.pointsCircleImage} className="points-circle"/>
-            <Meta title="ACM Beginner Track #5: Intro to ML" description="May 18th · CSE 1202 · 10:00am - 3:00pm" />	
+            <Meta title={props.title} description={props.description} />	
             <img alt="down arrow" src={props.downArrowImage} className="down-arrow"/>
           </Card>
       </div>
@@ -21,9 +21,9 @@ const EventCard = (props) => {
 }
 
 EventCard.propTypes = {
-	eventCoverImage: PropTypes.string.isRequired,
-	pointsCircleImage: PropTypes.string.isRequired,
-	downArrowImage: PropTypes.string.isRequired
+  eventCoverImage: PropTypes.string.isRequired,
+  pointsCircleImage: PropTypes.string.isRequired,
+  downArrowImage: PropTypes.string.isRequired
 };
 
 export default EventCard;
