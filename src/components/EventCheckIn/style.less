@@ -1,17 +1,19 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
 .card {
-    width: 400px;
-    height: 200px;
+    width: @db-card-width;
+    height: @db-card-height;
     font-family: 'Nunito', sans-serif;
     display: flex;
-    background-color: #2c72c6;
+    background-color: @blue-3;
     border-radius: 10px;
     justify-content: center;
-    // align-items: center;
 
     h1 {
         font-weight: 700;
         margin: 20px 0px;
-        color: #fff;
+        color: @white;
     }
 
     .inputbox {
@@ -22,7 +24,7 @@
 
         .input {
             width: 200px;
-            color: rgba(44, 114, 198, 0.5);
+            color: @blue-3;
             border: none;
         }
 
@@ -31,12 +33,11 @@
             height: 40px;
             padding: 6px 11px;
             margin-left: 20px;
-            border: 2px solid #0659BC;
-            color: #fff;
-            background-color: #22acea;
+            border: 2px solid @blue-2;
+            color: @white;
+            background-color: @blue-1;
         }
     }
-
 }
 
 

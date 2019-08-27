@@ -1,8 +1,7 @@
 import React from 'react';
-import EventCheck from '../../event-check-in/index.jsx';
 
 const HomePage = () => {
-  return (<EventCheck />);
+  return <h1>Hello World</h1>;
 };
 
 export default HomePage;
