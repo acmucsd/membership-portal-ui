@@ -58,7 +58,7 @@ workflows:
     jobs:
       - lint
       - test
-      # TODO: reimplement Circle CI for unit testing
+      # TODO: reimplement coveralls for unit testing
       # - coveralls:
       #     requires:
       #       - lint
