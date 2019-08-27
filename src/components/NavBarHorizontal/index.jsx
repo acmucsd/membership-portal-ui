@@ -4,10 +4,10 @@ import { Divider } from 'antd';
 
 import './style.less';
 import NavTileItem from './NavTileItem';
-import { ReactComponent as DashboardIcon } from '../../assets/graphics/dashboard-icon.svg';
-import { ReactComponent as DiscordIcon } from '../../assets/graphics/discord-icon.svg';
-import { ReactComponent as LBIcon } from '../../assets/graphics/lb-icon.svg';
-import { ReactComponent as ProfileIcon } from '../../assets/graphics/profile-icon.svg';
+import { ReactComponent as DashboardIcon } from '../../assets/icons/dashboard-icon.svg';
+import { ReactComponent as DiscordIcon } from '../../assets/icons/discord-icon.svg';
+import { ReactComponent as LBIcon } from '../../assets/icons/lb-icon.svg';
+import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.svg';
 
 export default () => {
   return (
