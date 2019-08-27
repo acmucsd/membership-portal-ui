@@ -1,3 +1,5 @@
+@import '../../styles/vars.less';
+
 .ant-card-meta-title {
     white-space: normal;
 }
@@ -5,7 +7,7 @@
 .ant-card-cover img {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom: 2px solid @blue-2;
+    border-bottom: 2px solid rgba(6, 89, 188, 0.2);
 }
 
 .down-arrow {
@@ -18,7 +20,7 @@
     font-family: Roboto;
     width: 267px;
     border-radius: 10px;
-    border: 2px solid @blue-2;
+    border: 2px solid rgba(6, 89, 188, 0.2);
     overflow-wrap: break-word;
 }
 
@@ -28,5 +30,5 @@
 
 .title {
     font-weight: bold;
-    font-size: 15px;
+    font-size: @card-heading-1;
 }
