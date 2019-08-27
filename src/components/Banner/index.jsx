@@ -6,7 +6,6 @@ import DefaultBanner from '../../assets/graphics/default-banner.svg';
 
 const Banner = props => {
   const onError = e => {
-    console.log('error');
     e.target.src = DefaultBanner;
   };
 
