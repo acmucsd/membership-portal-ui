@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 
 import './style.less';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/graphics/logo.svg';
 
 const SignInForm = props => {
   return (

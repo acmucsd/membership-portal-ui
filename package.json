@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/storage": "^0.3.10",
     "antd": "^3.21.2",
     "babel-plugin-import": "^1.12.0",
     "connected-react-router": "^6.5.2",
     "customize-cra": "^0.4.1",
-    "husky": "^3.0.3",
+    "firebase": "^6.4.2",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "react": "^16.8.6",

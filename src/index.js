@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 
 import configureStore, { history } from './store';
 
-import SignInForm from './components/SignInForm';
+import HomePage from './containers/HomePage';
+import './styles/reset.less';
 
 const store = configureStore();
 
@@ -16,7 +17,7 @@ const App = () => {
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route exact path="/" component={SignInForm} />
+            <Route path="/" component={HomePage} />
           </Switch>
         </>
       </ConnectedRouter>
