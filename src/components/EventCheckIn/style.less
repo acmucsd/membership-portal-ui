@@ -1,0 +1,40 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.card {
+  width: @db-card-width;
+  height: @db-card-height;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  background-color: @blue-3;
+  border-radius: 10px;
+  justify-content: center;
+
+  h1 {
+    font-weight: 700;
+    margin: 20px 0px;
+    color: @white;
+  }
+
+  .inputbox {
+    * {
+      border-radius: 10px;
+    }
+
+    .input {
+      width: 200px;
+      color: @blue-3;
+      border: none;
+    }
+
+    .submit {
+      width: calc(100% - 220px);
+      height: 40px;
+      padding: 6px 11px;
+      margin-left: 20px;
+      border: 2px solid @blue-2;
+      color: @white;
+      background-color: @blue-1;
+    }
+  }
+}

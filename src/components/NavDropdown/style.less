@@ -1,0 +1,44 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.nav-dropdown {
+  background-color: @white;
+  border-radius: 2px;
+  filter: drop-shadow(0px 0px 5px #AAAAAA);
+  font-size: @nav-caption;
+  line-height: 2rem;
+  padding: 10px 20px;
+  position: relative;
+  width: @nav-drop-width;
+  z-index: 2;
+
+  &:after {
+    content: '';
+    border-color: @white transparent;
+    border-style: solid;
+    border-width: 0 15px 20px;
+    display: block;
+    margin-left: -15px;
+    position: absolute;
+    right: 10px;
+    top: -14px;
+    width: 0;
+    z-index: 1;
+  }
+
+  .nav-item {
+    &:hover {
+      background-color: @gray-2;
+    }
+  }
+
+  .logout {
+    color: @red;
+    cursor: pointer;
+    padding-left: 10px;
+
+    &:hover {
+      background-color: @gray-2;
+    }
+  }
+}
