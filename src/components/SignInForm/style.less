@@ -2,62 +2,66 @@
 @import '../../styles/vars.less';
 
 .card {
-	align-items: center;
-	background: @blue-2;
-	border-radius: 10px;
-	display: flex;
-	font-family: 'Roboto';
-	height: @sign-in-height;
-	justify-content: center;
-	text-align: center;
-	width: @db-card-width;
-	h1 {
-		color: @white;
-		font-family: 'Nunito';
-		font-size: @sign-in-heading;
-		margin: 24px 0px 35px 0px;
-	}
-	p {
-		color: @white;
-		font-size: @sign-in-paragraph;
-		font-weight: bold;
-		margin-bottom: 24px;
-		opacity: .7;
-		text-align: left;
-		&:hover {
-			opacity: .6;
-		}
-	}
-	.email {
-		margin-bottom: 17px;
-	}
-	.input-box {
-		height: @button-height-2;
-		width: @button-width;
-    }
+  align-items: center;
+  background: @blue-2;
+  border-radius: 10px;
+  display: flex;
+  font-family: 'Roboto';
+  height: @sign-in-height;
+  justify-content: center;
+  text-align: center;
+  width: @db-card-width;
 
-    .login-button {
-		background-color: @blue-1;
-		border: none;
-        font-family: 'Nunito';
-        height: @button-height;
-		width: @button-width;
-    }
+  h1 {
+    color: @white;
+    font-family: 'Nunito';
+    font-size: @sign-in-heading;
+    margin: 24px 0px 35px 0px;
+  }
 
-	.password {
-		margin-bottom: 11px;
+  p {
+    color: @white;
+    font-size: @sign-in-paragraph;
+    font-weight: bold;
+    margin-bottom: 24px;
+    opacity: 0.7;
+    text-align: left;
+    &:hover {
+      opacity: 0.6;
     }
-    
-    .register-button {
-		background-color: @blue-2;
-		border-color: @blue-1;
-        font-family: 'Nunito';
-        height: @button-height;
-        margin-bottom: 40px;
-        width: @button-width;
-    }
+  }
 
-    .sign-in {
-        margin-bottom: 18px;
-    }
+  .email {
+    margin-bottom: 17px;
+  }
+  
+  .input-box {
+    height: @button-height-2;
+    width: @button-width;
+  }
+
+  .login-button {
+    background-color: @blue-1;
+    border: none;
+    font-family: 'Nunito';
+    height: @button-height;
+    width: @button-width;
+  }
+
+  .password {
+    margin-bottom: 11px;
+  }
+
+  .register-button {
+    background-color: @blue-2;
+    border-color: @blue-1;
+    font-family: 'Nunito';
+    height: @button-height;
+    margin-bottom: 40px;
+    width: @button-width;
+  }
+
+  .sign-in {
+    margin-bottom: 18px;
+  }
 }
