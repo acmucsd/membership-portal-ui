@@ -21,9 +21,11 @@ const EventCard = (props) => {
 }
 
 EventCard.propTypes = {
+  description: PropTypes.string.isRequired,
+  downArrowImage: PropTypes.string.isRequired,
   eventCoverImage: PropTypes.string.isRequired,
   pointsCircleImage: PropTypes.string.isRequired,
-  downArrowImage: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default EventCard;
