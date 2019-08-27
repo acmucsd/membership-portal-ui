@@ -1,0 +1,42 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.nav-width {
+  width: @nav-drop-width;
+}
+
+.nav-profile {
+  align-items: center;
+  display: flex;
+  font-size: @nav-body;
+  height: @nav-header-height;
+  overflow: hidden;
+  position: relative;
+  width: @nav-drop-width;
+  white-space: nowrap;
+
+  &:hover {
+    .arrow {
+      color: white;
+    }
+  }
+
+  span {
+    margin: 0 10px;
+    overflow-x: scroll;
+  }
+
+  .arrow {
+    color: @blue-1;
+    font-size: @nav-heading;
+    position: absolute;
+    right: 10px;
+  }
+
+  .avatar {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: -1;
+  }
+}
