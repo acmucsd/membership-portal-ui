@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import TempReducer from './TempReducer';
+import BannerReducer from './BannerReducer';
 
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    TempReducer,
+    banner: BannerReducer,
   });

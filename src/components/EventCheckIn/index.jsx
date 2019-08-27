@@ -10,12 +10,12 @@ const EventCheck = props => {
       <Card className="card">
         <h1>Event Check-in</h1>
         <div className="inputbox">
-          <Input 
-            onChange={props.onChange} 
+          <Input
+            onChange={props.onChange}
             value={props.value}
-            className="input" 
-            size="large" 
-            placeholder="Attendance code..." 
+            className="input"
+            size="large"
+            placeholder="Attendance code..."
           />
           <Button onClick={props.onClick} className="submit">
             Submit
