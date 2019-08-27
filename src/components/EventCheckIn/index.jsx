@@ -15,7 +15,7 @@ const EventCheck = props => {
             value={props.value}
             className="input"
             size="large"
-            placeholder="Attendance code..."
+            placeholder="Attendance code..." 
           />
           <Button onClick={props.onClick} className="submit">
             Submit
