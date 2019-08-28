@@ -1,4 +1,5 @@
 @import '../../styles/fonts.less';
+@import '../../styles/mixins.less';
 @import '../../styles/vars.less';
 
 .nav-width {
@@ -6,11 +7,13 @@
 }
 
 .nav-profile {
+  .noselect;
+
   align-items: center;
+  cursor: pointer;
   display: flex;
   font-size: @nav-body;
   height: @nav-header-height;
-  overflow: hidden;
   position: relative;
   width: @nav-drop-width;
   white-space: nowrap;
@@ -21,9 +24,16 @@
     }
   }
 
-  span {
-    margin: 0 10px;
+  .name {
+    margin: 0px 40px 0px 10px;
+    -ms-overflow-style: none;
     overflow-x: scroll;
+    scrollbar-width: none;
+  }
+
+  .name::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 
   .arrow {
