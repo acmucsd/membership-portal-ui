@@ -58,10 +58,11 @@ workflows:
     jobs:
       - lint
       - test
-      - coveralls:
-          requires:
-            - lint
-            - test
-          filters:
-            branches:
-              only: master
+      # TODO: reimplement coveralls for unit testing
+      # - coveralls:
+      #     requires:
+      #       - lint
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: master
