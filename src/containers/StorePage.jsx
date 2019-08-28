@@ -1,7 +1,8 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 
 const StorePage = () => {
-  return <h1>This is the store page.</h1>;
+  return <PageLayout>This is the store page.</PageLayout>;
 };
 
 export default StorePage;

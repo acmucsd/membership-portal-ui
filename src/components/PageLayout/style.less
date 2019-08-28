@@ -1,0 +1,48 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+@import '../../styles/mixins.less';
+
+.header {
+  .noselect;
+
+  color: white;
+  padding: 0 10vw;
+  height: @nav-header-height;
+  font-size: @nav-body;
+  background: #0659BC;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  #logo {
+    width: 55px;
+    height: 55px;
+  }
+
+  .heading {
+    margin-left: 10px;
+  }
+
+  .subheading {
+    font-weight: 700;
+  }
+
+  .profile {
+    position: absolute;
+    right: 10%;
+  }
+
+  .title {
+    color: white;
+  }
+
+  span {
+
+  }
+}
+
+.content {
+  display: inline-block;
+  vertical-align: top;
+}
