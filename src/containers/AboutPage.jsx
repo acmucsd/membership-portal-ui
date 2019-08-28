@@ -1,7 +1,8 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 
 const AboutPage = () => {
-  return <h1>This is the about page.</h1>;
+  return <PageLayout>This is the about page.</PageLayout>;
 ***REMOVED***
 
 export default AboutPage;

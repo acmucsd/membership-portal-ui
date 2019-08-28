@@ -15,7 +15,7 @@ export default () => {
     <nav className="navbar-vertical">
       <section>
         <h1>Portal</h1>
-        <NavLink activeClassName="selected" to="/">
+        <NavLink exact activeClassName="selected" to="/">
           <NavListItem icon={DashboardIcon} link="/" text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" to="/leaderboard">

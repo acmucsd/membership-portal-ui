@@ -13,7 +13,7 @@ export default () => {
   return (
     <>
       <nav className="navbar-horizontal">
-        <NavLink activeClassName="selected" to="/">
+        <NavLink exact activeClassName="selected" to="/">
           <NavTileItem icon={DashboardIcon} link="/" text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" to="/leaderboard">
