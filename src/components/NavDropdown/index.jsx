@@ -36,7 +36,7 @@ const NavDropdown = props => {
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <div onClick={props.onClick} className="logout">
+      <div onClick={props.logout} className="logout">
         Sign Out
       </div>
     </nav>
@@ -44,7 +44,7 @@ const NavDropdown = props => {
 };
 
 NavDropdown.propTypes = {
-  onClick: PropTypes.func,
+  logout: PropTypes.func.isRequired,
 };
 
 export default NavDropdown;
