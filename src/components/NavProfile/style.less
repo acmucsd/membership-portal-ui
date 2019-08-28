@@ -7,13 +7,13 @@
 }
 
 .nav-profile {
-  .noselect;
-
   align-items: center;
+  color: white;
   cursor: pointer;
   display: flex;
   font-size: @nav-body;
   height: @nav-header-height;
+  justify-content: right;
   position: relative;
   width: @nav-drop-width;
   white-space: nowrap;
@@ -22,6 +22,17 @@
     .arrow {
       color: white;
     }
+  }
+
+  .arrow {
+    color: @blue-1;
+    font-size: @nav-heading;
+    position: absolute;
+    right: 10px;
+  }
+
+  .avatar {
+    position: absolute;
   }
 
   .name {
@@ -36,17 +47,21 @@
     height: 0;
   }
 
-  .arrow {
-    color: @blue-1;
-    font-size: @nav-heading;
-    position: absolute;
-    right: 10px;
+  .progress {
+    z-index: 2;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav-width {
+    width: 100px;
   }
 
-  .avatar {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    z-index: -1;
+  .nav-profile {
+    width: 100px;
+  }
+
+  .name {
+    .hidden;
   }
 }

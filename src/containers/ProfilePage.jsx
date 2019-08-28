@@ -1,7 +1,8 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 
 const ProfilePage = () => {
-  return <h1>This is the profile page.</h1>;
+  return <PageLayout>This is the profile page.</PageLayout>;
 };
 
 export default ProfilePage;

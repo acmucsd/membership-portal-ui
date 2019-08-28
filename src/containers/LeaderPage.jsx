@@ -1,7 +1,8 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 
 const LeaderPage = () => {
-  return <h1>This is the leaderboard page.</h1>;
+  return <PageLayout>This is the leaderboard page.</PageLayout>;
 };
 
 export default LeaderPage;

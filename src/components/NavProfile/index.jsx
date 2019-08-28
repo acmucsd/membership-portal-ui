@@ -10,7 +10,14 @@ const NavProfile = props => {
     <div className="nav-width">
       <Dropdown overlay={props.menu} trigger={['click']}>
         <div className="nav-profile">
-          <Progress percent={props.exp} showInfo={false} strokeColor="#22ACEA" type="circle" width={55} />
+          <Progress
+            className="progress"
+            percent={props.exp}
+            showInfo={false}
+            strokeColor="#22ACEA"
+            type="circle"
+            width={55}
+          />
           <Avatar size={55} icon="user" className="avatar" src={props.image} />
           <span className="name">{props.name}</span>
           <Icon component={Caret} className="arrow" />
