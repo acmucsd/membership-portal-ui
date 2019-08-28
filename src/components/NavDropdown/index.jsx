@@ -10,7 +10,7 @@ const NavDropdown = props => {
   return (
     <nav className="nav-dropdown">
       <section>
-        <NavLink activeClassName="selected" className="nav-item" to="/dashboard">
+        <NavLink activeClassName="selected" className="nav-item" to="/">
           <NavListItem link="/dashboard" text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
@@ -27,12 +27,12 @@ const NavDropdown = props => {
         <NavLink activeClassName="selected" className="nav-item" to="/about">
           <NavListItem text="About ACM" />
         </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/swag">
+        <NavLink activeClassName="selected" className="nav-item" to="/store">
           <NavListItem text="ACM Store" />
         </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="https://discord.gg/mK9Zrf4d">
+        <a className="nav-item" href="https://discord.gg/mK9Zrf4d">
           <NavListItem text="Discord" />
-        </NavLink>
+        </a>
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
