@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
+import { NavLink } from 'react-router-dom'
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
@@ -36,26 +37,26 @@ const SignInForm = props => {
               onBlur={props.handleBlur}
             />
           </Form.Item>
-          <a href="/forgot-password">
+          <NavLink to="/forgot-password">
             <p>Forgot your password?</p>
-          </a>
+          </NavLink>
           <Form.Item className="sign-in">
             <Button type="primary" htmlType="submit" className="login-button">
               Sign In
             </Button>
           </Form.Item>
-          <a href="/register">
+          <NavLink to="/register">
             <Button type="primary" className="register-button">
               Register for an account
             </Button>
-          </a>
+          </NavLink>
         </form>
       </div>
     </div>
   );
 };
 
-// TODO: swap out proptypes with formik's implentation
+// TODO: swap out proptypes with formik's implementation
 SignInForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
