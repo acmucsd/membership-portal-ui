@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Dropdown from '../components/NavDropdown';
+import NavDropdown from '../components/NavDropdown';
 import { logoutUser } from '../actions/authActions';
 
-const DropdownContainer = props => {
-  return <Dropdown logout={props.logout} />;
+const NavDropdownContainer = props => {
+  return <NavDropdown logout={props.logout} />;
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(DropdownContainer);
+)(NavDropdownContainer);
