@@ -15,8 +15,8 @@ export default () => {
     <nav className="navbar-vertical">
       <section>
         <h1>Portal</h1>
-        <NavLink activeClassName="selected" to="/dashboard">
-          <NavListItem icon={DashboardIcon} link="/dashboard" text="Dashboard" />
+        <NavLink activeClassName="selected" to="/">
+          <NavListItem icon={DashboardIcon} link="/" text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" to="/leaderboard">
           <NavListItem icon={LBIcon} text="Leaderboard" />
@@ -31,7 +31,7 @@ export default () => {
         <NavLink activeClassName="selected" to="/about">
           <NavListItem icon={ACMIcon} text="About ACM" />
         </NavLink>
-        <NavLink activeClassName="selected" to="/swag">
+        <NavLink activeClassName="selected" to="/store">
           <NavListItem icon={SwagIcon} text="ACM Store" />
         </NavLink>
         <a href="https://discord.gg/mK9Zrf4d">
