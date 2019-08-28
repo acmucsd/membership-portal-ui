@@ -11,6 +11,7 @@ import AboutPage from './containers/AboutPage';
 import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
 import LoginPage from './containers/LoginPage';
+import ProfilePage from './containers/ProfilePage';
 import StorePage from './containers/StorePage';
 
 const store = configureStore();
@@ -25,6 +26,7 @@ const App = () => {
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/leaderboard" component={LeaderPage} />
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/store" component={StorePage} />
           </Switch>
         </>
