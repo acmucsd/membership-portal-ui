@@ -14,7 +14,13 @@ const ProfileCard = props => {
         <div className="content">
           <h2>{props.name}</h2>
           <h3>{props.rank}</h3>
-          <Progress successPercent={props.exp} percent={100} showInfo={false} strokeWidth={12} strokeColor="#587291" />
+          <Progress
+            successPercent={props.exp}
+            percent={100}
+            showInfo={false}
+            strokeWidth={12}
+            strokeColor="#587291"
+          />
           <p>
             <span> LEVEL {props.level}</span>
             <span class="experience"> {props.exp} / 100 </span>
