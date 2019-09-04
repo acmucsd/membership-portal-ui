@@ -9,15 +9,15 @@ const NavProfileContainer = props => {
     props.fetchUser();
   });
 
-  return(
+  return (
     <ProfileCard
       exp={props.exp}
       image={props.image}
       level={props.level}
       name={props.name}
       rank={props.rank}
-    />;
-  )
+    />
+  );
 };
 
 const mapStateToProps = state => ({
