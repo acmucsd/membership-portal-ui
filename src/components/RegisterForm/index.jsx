@@ -7,6 +7,7 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 const { Option } = Select;
+const years = ['2020', '2021', '2022', '2023', '2024', '2025', 'Other'];
 
 const RegisterForm = props => {
   return (
@@ -15,7 +16,7 @@ const RegisterForm = props => {
         <img src={logo} alt="logo" height="115" width="115" />
         <h1>Register for ACM@UCSD</h1>
         <form onSubmit={props.handleSubmit}>
-          <div className="names">
+          <div className="horizontalitems">
             <Form.Item label="First Name" className="formitems">
               <Input
                 name="firstname"
@@ -65,7 +66,7 @@ const RegisterForm = props => {
               onBlur={props.handleBlur}
             />
           </Form.Item>
-          <div className="majoryear">
+          <div className="horizontalitems">
             <Form.Item label="Major" className="formitems">
               <Input
                 name="major"
@@ -77,11 +78,9 @@ const RegisterForm = props => {
             </Form.Item>
             <Form.Item label="Year" className="formitems">
               <Select className="year" value={props.values}>
-                <Option value="2020">2020</Option>
-                <Option value="2021">2021</Option>
-                <Option value="2022">2022</Option>
-                <Option value="2023">2023</Option>
-                <Option value="Other">Other</Option>
+                {years.map(num => (
+                  <Option value={num}>{num}</Option>
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -101,7 +100,7 @@ const RegisterForm = props => {
   );
 };
 
-// TODO: swap out proptypes with formik's implementation
+// TODO: Swap out proptypes with formik's implementation.
 RegisterForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
