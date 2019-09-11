@@ -9,12 +9,8 @@ import logo from '../../assets/graphics/logo.svg';
 const { Option } = Select;
 
 function getYears() {
-  let currentYear = new Date().getFullYear();
-  let years = [];
-  for (var i = currentYear; i < currentYear + 6; i++) {
-    years.push(i.toString());
-  }
-  return years.concat(['Other']);
+    const currentYear = new Date().getFullYear();
+    return [...Array(6)].map((_,i) => i + currentYear);
 }
 
 const years = getYears();
