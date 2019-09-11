@@ -1,0 +1,31 @@
+@import '../../styles/vars.less';
+
+.store-page {
+  color: @black;
+
+  h1 {
+    font-size: @general-heading-1;
+    font-weight: 700;
+  }
+
+  // TODO: Remove coming soon section.
+  .coming-soon {
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: @general-heading-2;
+    margin-top: 20vh;
+    width: 100%;
+
+    .temp-icon {
+      flex: 0 0 100%;
+      font-size: 200px;
+      opacity: 0.2;
+    }
+
+    p {
+      opacity: 0.8;
+    }
+  }
+}
