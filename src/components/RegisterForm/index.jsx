@@ -7,9 +7,19 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 const { Option } = Select;
-const years = ['2020', '2021', '2022', '2023', '2024', '2025', 'Other'];
 
-const RegisterForm = props => {
+function getYears() {
+  let currentYear = new Date().getFullYear();
+  let years = [];
+  for (var i = currentYear; i < currentYear + 6; i++) {
+    years.push(i.toString());
+  }
+  return years.concat(['Other']);
+}
+
+const years = getYears();
+
+const RegisterForm = props => { 
   return (
     <div className="registercard">
       <div className="content">
