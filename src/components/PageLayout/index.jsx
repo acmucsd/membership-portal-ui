@@ -26,14 +26,23 @@ const PageLayout = props => {
         </div>
       </div>
       <Banner />
-      {props.isMobile ? <NavBarHorizontal /> : <NavBarVertical />}
-      <div className="content">{props.children}</div>
+      {props.isMobile ? (
+        <>
+          <NavBarHorizontal />
+          <div className="content">{props.children}</div>
+        </>
+      ) : (
+        <div className="content-table">
+          <NavBarVertical />
+          <div className="content">{props.children}</div>
+        </div>
+      )}
     </>
   );
 };
 
 const mapSizesToProps = ({ width }) => ({
-  isMobile: width < 480,
+  isMobile: width < 768,
 });
 
 export default withSizes(mapSizesToProps)(PageLayout);
