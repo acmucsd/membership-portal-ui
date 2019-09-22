@@ -1,56 +1,67 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
 
-.container {
-  display: inline-flex;
-  flex-flow: row wrap;
-}
-.placement {
-  font-size: 80px;
-  font-weight: 500;
-  font-family: 'Nunito';
-  color: rgba(51,51,51,0.3);
-}
-
 .leaderboard-card {
+  background-color: @blue-3;
+  border-radius: 10px;
+  font-family: 'Nunito';
+  height: @leaderboard-card-height;
+  overflow: hidden;
   position: relative;
-  width: 300px;
-  height: 300px;
-  background-color: #4070C0;
-}
+  width: @leaderboard-card-width;
 
-.leaderboard-card-left {
-  position: absolute;
-  display: flex;
-  left: 0;
-  width: 40%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
+  > * {
+    align-items: center;
+    display: flex;
+    height: inherit;
+    justify-content: center;
+    position: absolute;
+  }
 
-.first {
-  background-color: #FFDA55;
-}
-.second {
-  background-color: #C5D9DF;
-}
-.third {
-  background-color: #E9CC9E;
-}
-.leaderboard-card-right {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 40%;
-  flex-flow: wrap;
-  color: white;
-}
+  .leaderboard-card-left {
+    color: rgba(51,51,51,0.3);
+    font-size: 5rem;
+    font-weight: 500;
+    left: 0;
+    width: 40%;
 
-.top-leaderboard {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+    &.first {
+      background-color: #FFDA55;
+    }
+
+    &.second {
+      background-color: #C5D9DF;
+    }
+
+    &a.third {
+      background-color: #E9CC9E;
+    }
+  }
+
+  .leaderboard-card-right {
+    color: white;
+    flex-wrap: wrap;
+    padding: 5% 0;
+    right: 0;
+    text-align: center;
+    width: 60%;
+
+    > * {
+      color: white;
+      margin-bottom: 0;
+      flex: 1 100%;
+    }
+
+    h1 {
+      font-size: @card-heading-1;
+    }
+
+    h2 {
+      font-size: @card-heading-2;
+    }
+
+    h3 {
+      font-size: @card-heading-3;
+    }
+  }
 }
