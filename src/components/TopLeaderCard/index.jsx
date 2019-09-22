@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Card, Progress } from 'antd';
+import { Avatar } from 'antd';
 
 import './style.less';
 
@@ -8,7 +8,10 @@ const TopLeaderCard = props => {
   return (
     <div>
       <div className="leaderboard-card">
-        <div className={`leaderboard-card-left ${props.placement == 1 ? "first" : (props.placement == 2 ? "second" : "third")}`}>
+        <div
+          className={`leaderboard-card-left
+          ${props.placement === 1 ? "first" :
+          (props.placement === 2 ? "second" : "third")}`}>
           <span className="placement">{props.placement}</span>
         </div>
         <div className="leaderboard-card-right">
