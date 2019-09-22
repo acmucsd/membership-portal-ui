@@ -12,6 +12,7 @@ import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
 import LoginPage from './containers/LoginPage';
 import ProfilePage from './containers/ProfilePage';
+import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
 
 const store = configureStore();
@@ -27,6 +28,7 @@ const App = () => {
             <Route exact path="/leaderboard" component={LeaderPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={ProfilePage} />
+            <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/store" component={StorePage} />
           </Switch>
         </>

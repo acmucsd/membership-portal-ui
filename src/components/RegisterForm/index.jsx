@@ -18,7 +18,7 @@ const years = getYears();
 const RegisterForm = props => { 
   return (
     <div className="registercard">
-      <div className="content">
+      <div className="formcontent">
         <img src={logo} alt="logo" height="115" width="115" />
         <h1>Register for ACM@UCSD</h1>
         <form onSubmit={props.handleSubmit}>

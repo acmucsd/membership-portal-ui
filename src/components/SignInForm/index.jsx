@@ -9,7 +9,7 @@ import logo from '../../assets/graphics/logo.svg';
 const SignInForm = props => {
   return (
     <div className="card">
-      <div className="content">
+      <div className="formcontent">
         <img src={logo} alt="logo" height="115" width="115" />
         <h1>Sign in to ACM@UCSD</h1>
         <form onSubmit={props.handleSubmit}>

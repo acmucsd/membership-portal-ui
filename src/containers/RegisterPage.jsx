@@ -1,13 +1,13 @@
 import React from 'react';
 import LoginLayout from '../components/LoginLayout';
-import SignInForm from '../components/SignInForm';
+import RegisterForm from '../components/RegisterForm';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <LoginLayout>
-      <SignInForm />
+      <RegisterForm />
     </LoginLayout>
   );
 ***REMOVED***
 
-export default LoginPage;
+export default RegisterPage;
