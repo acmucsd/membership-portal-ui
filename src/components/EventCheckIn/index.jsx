@@ -10,14 +10,14 @@ const EventCheck = props => {
       <Card className="card">
         <h1>Event Check-in</h1>
         <div className="inputbox">
-          <Input 
-            onChange={props.onChange} 
+          <Input
+            onChange={props.onChange}
             value={props.value}
-            className="input" 
-            size="large" 
-            placeholder="Attendance code..." 
+            className="input"
+            size="large"
+            placeholder="Attendance code..."
           />
-          <Button onClick={props.onClick} className="submit">
+          <Button onClick={props.onSubmit} className="submit">
             Submit
           </Button>
         </div>
@@ -27,8 +27,8 @@ const EventCheck = props => {
 };
 
 EventCheck.propTypes = {
-  onClick: PropTypes.func,
   onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
   value: PropTypes.string,
 };
 
