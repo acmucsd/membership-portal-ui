@@ -11,6 +11,7 @@ import AboutPage from './containers/AboutPage';
 import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
 import LoginPage from './containers/LoginPage';
+import PasswordPage from './containers/PasswordPage';
 import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
@@ -25,6 +26,7 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/forgot-password" component={PasswordPage} />
             <Route exact path="/leaderboard" component={LeaderPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={ProfilePage} />
