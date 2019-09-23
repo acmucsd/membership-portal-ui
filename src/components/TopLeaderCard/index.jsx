@@ -16,7 +16,7 @@ const TopLeaderCard = props => {
         </div>
         <div className="leaderboard-card-right">
           <div>
-            <Avatar size={81} src={props.imageSrc} />
+            <Avatar size={80} src={props.image} />
           </div>
           <h1>{props.name}</h1>
           <h3>{props.rank}</h3>
@@ -28,11 +28,11 @@ const TopLeaderCard = props => {
 ***REMOVED***
 
 TopLeaderCard.propTypes = {
-  placement: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  rank: PropTypes.string.isRequired,
   exp: PropTypes.number.isRequired,
-  imageSrc: PropTypes.string.isRequired
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placement: PropTypes.number.isRequired,
+  rank: PropTypes.string.isRequired,
 ***REMOVED***
 
 export default TopLeaderCard;
