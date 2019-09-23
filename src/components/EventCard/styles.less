@@ -1,35 +1,50 @@
 @import '../../styles/vars.less';
 
-.ant-card-meta-title {
-  white-space: normal;
-}
-
-.ant-card-cover img {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom: 2px solid rgba(6, 89, 188, 0.2);
-}
-
-.down-arrow {
-  display: block;
-  margin: 0 auto;
-  padding-top: 15px;
-}
-
 .event-card {
-  font-family: Roboto;
-  width: 267px;
-  border-radius: 10px;
   border: 2px solid rgba(6, 89, 188, 0.2);
-  opacity: 0.5;
-  overflow-wrap: break-word;
-}
+  border-radius: 10px;
+  height: @event-height;
+  font-family: Roboto;
+  overflow: scroll;
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+  width: @event-width;
 
-.points-circle {
-  float: right;
-}
+  img {
+    height: 60%;
+    margin: 0;
+    object-fit: cover;
+    width: 100%;
+  }
 
-.title {
-  font-weight: bold;
-  font-size: @card-heading-1;
+  .description {
+    overflow: scroll;
+    padding: 5% 10%;
+    width: 70%;
+
+    > * {
+      margin: 0;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: @card-heading-2;
+    }
+  }
+
+  .circle {
+    align-items: center;
+    display: flex;
+    height: 40%;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 60%;
+    width: 30%;
+
+    .points {
+      position: absolute;
+    }
+  }
 }

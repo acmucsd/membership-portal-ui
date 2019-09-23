@@ -1,0 +1,19 @@
+.events-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    margin: 10px 20px 10px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .events-list {
+    justify-content: center;
+
+    > * {
+      margin: 20px;
+    }
+  }
+
+}
