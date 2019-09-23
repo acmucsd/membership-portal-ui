@@ -6,7 +6,7 @@ const initialState = {
     exp: 0,
     image: '',
     level: 0,
-    rank: 0,
+    rank: '',
     year: 0,
   },
   error: null,

@@ -1,7 +1,7 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
 
-.card {
+.profile-card {
   align-items: center;
   color: @black;
   cursor: pointer;
@@ -13,11 +13,12 @@
   height: @db-card-height;
   justify-content: center;
   margin: 0;
-  width: @db-card-width;
+  max-width: @db-card-width;
   white-space: nowrap;
   overflow: hidden;
 
   h2 {
+    font-size: @card-heading-1;
     font-weight: 700;
     margin: 0;
   }

@@ -6,7 +6,7 @@ import './style.less';
 
 const ProfileCard = props => {
   return (
-    <Card bordered={false} className="card">
+    <Card bordered={false} className="profile-card">
       <div className="avatar-flex">
         <Avatar size={115} icon="user" className="avatar" src={props.image} />
       </div>
@@ -23,7 +23,7 @@ const ProfileCard = props => {
           />
           <p>
             <span> LEVEL {props.level}</span>
-            <span class="experience"> {props.exp} / 100 </span>
+            <span className="experience"> {props.exp} / 100 </span>
           </p>
         </div>
       </div>
