@@ -95,7 +95,7 @@ const RegisterForm = props => {
               Register
             </Button>
           </Form.Item>
-          <NavLink to="/forgot-password">
+          <NavLink to="/login">
             <p>
               Already have an account? <b>Sign in.</b>
             </p>
