@@ -12,8 +12,9 @@
   font-size: @nav-body;
   height: @nav-header-height;
   padding: 0 10vw;
-  position: relative;
+  position: fixed;
   width: 100%;
+  z-index: 1000;
 
   #logo {
     width: 55px;
@@ -36,6 +37,10 @@
   .title {
     color: white;
   }
+}
+
+.banner {
+  margin-top: @nav-header-height;
 }
 
 .content {
