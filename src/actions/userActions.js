@@ -5,7 +5,7 @@ export const fetchUser = () => async dispatch => {
   // Once the server is up, we'll fetch data from there.
 
   const user = {
-    name: 'Emily Nguyen',
+    name: 'Emily',
     exp: 40,
     image: 'http://placekitten.com/g/200/200',
     level: 2,
