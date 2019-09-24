@@ -1,0 +1,91 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.update-card {
+  display: flex;
+  font-family: 'Roboto';
+  width: @db-card-width;
+
+  label {
+    color: @blue-3;
+    font-size: @card-heading-2;
+    font-weight: 600;
+    &:after {
+      content: '';
+    }
+  }
+
+  h1 {
+    color: @black;
+    font-size: @general-heading-1;
+    font-weight: 800;
+  }
+
+  .save-button {
+    background-color: @green-1;
+    border-color: @green-2;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    margin-right: 19px;
+    width: @save-button-width;
+  }
+  .discard-button {
+    background-color: @white;
+    border-color: @red;
+    color: @red;
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    width: @discard-button-width;
+  }
+
+  .horizontal-input {
+    display: flex;
+    height: @button-height-2;
+    justify-content: space-between;
+    margin-bottom: 68px;
+    width: @db-card-width;
+
+    .year {
+      height: @profile-input-height;
+      vertical-align: top;
+      width: @year-width;
+
+      .ant-select-selection--single {
+        .input-style;
+      }
+    }
+
+    .major {
+      .input-style;
+      width: @major-width;
+    }
+  }
+
+  .ant-form-item-label {
+    line-height: 30px;
+  }
+
+  .input-style() {
+    background-color: @gray-1;
+    border-color: @gray-4;
+    color: @black;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    height: @profile-input-height;
+  }
+
+  .area-box {
+    .input-style;
+    font-size: @card-heading-2;
+    height: @text-input-height;
+    width: 100%;
+  }
+
+  .input-box {
+    .input-style;
+    width: @profile-input-width;
+  }
+}
