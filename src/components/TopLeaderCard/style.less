@@ -41,8 +41,12 @@
   .leaderboard-card-right {
     color: white;
     flex-wrap: wrap;
-    padding: 5% 0;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 5% 5px;
     right: 0;
+    scrollbar-width: none;
     text-align: center;
     width: 60%;
 
@@ -63,5 +67,10 @@
     h3 {
       font-size: @card-heading-3;
     }
+  }
+
+  .leaderboard-card-right::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 }

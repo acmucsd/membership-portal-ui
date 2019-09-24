@@ -1,0 +1,31 @@
+.leaderboard {
+
+  > * {
+    width: 90%;
+  }
+
+  .top-three {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 20px 0;
+
+    > * {
+      margin: 10px 0;
+    }
+  }
+
+  .four-and-more {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .leaderboard {
+    > * {
+      width: 100%;
+    }
+  }
+}

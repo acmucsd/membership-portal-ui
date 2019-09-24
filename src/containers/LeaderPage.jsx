@@ -1,9 +1,14 @@
 import React from 'react';
-import PageLayout from '../components/PageLayout';
-import TopLeaderCard from '../components/TopLeaderCard';
 
-const LeaderPage = () => {
-  return <PageLayout>This is the leaderboard page.</PageLayout>;
+import LeaderPage from '../components/LeaderPage';
+import PageLayout from '../components/PageLayout';
+
+const LeaderPageContainer = () => {
+  return (
+    <PageLayout>
+      <LeaderPage />
+    </PageLayout>
+  );
 ***REMOVED***
 
-export default LeaderPage;
+export default LeaderPageContainer;
