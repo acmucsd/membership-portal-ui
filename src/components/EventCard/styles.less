@@ -5,10 +5,12 @@
   border-radius: 10px;
   height: @event-height;
   font-family: Roboto;
-  overflow: hidden;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding: 0;
   position: relative;
-  white-space: nowrap;
+  scrollbar-width: none;
   width: @event-width;
 
   img {
@@ -18,17 +20,28 @@
     width: 100%;
   }
 
-  .description {
-    padding: 5% 10%;
+  .info {
+    padding: 5% 10% 0 10%;
     width: 70%;
 
     > * {
       margin: 0;
     }
 
+    .date {
+      opacity: .8;
+      white-space: nowrap;
+    }
+
+    .location {
+      opacity: .8;
+      white-space: nowrap
+    }
+
     .title {
       font-weight: bold;
       font-size: @card-heading-2;
+      white-space: nowrap;
     }
   }
 
@@ -46,4 +59,19 @@
       position: absolute;
     }
   }
+
+  .divider {
+    border: 1px solid rgba(51, 51, 51, 0.2);
+    margin: 20px 10%;
+    width: 80%;
+  }
+
+  .description {
+    padding: 0 10%;
+  }
+}
+
+.event-card::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

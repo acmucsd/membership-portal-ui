@@ -8,7 +8,7 @@ const EventCard = (props) => {
   return (
     <div className="event-card">
       <img className="image" src={props.cover} alt={props.title}/>
-      <div className="description">
+      <div className="info">
         <h2 className="title">{props.title}</h2>
         <p className="date">{props.date}</p>
         <p className="location">{props.location}</p>
@@ -23,8 +23,10 @@ const EventCard = (props) => {
           type="circle"
           width={50}
         />
-      <h2 className="points">{props.points}</h2>
+        <h2 className="points">{props.points}</h2>
       </div>
+      <hr className="divider"/>
+      <p className="description">{props.description}</p>
     </div>
   );
 }
