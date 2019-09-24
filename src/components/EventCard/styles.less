@@ -1,35 +1,77 @@
 @import '../../styles/vars.less';
 
-.ant-card-meta-title {
-  white-space: normal;
-}
-
-.ant-card-cover img {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom: 2px solid rgba(6, 89, 188, 0.2);
-}
-
-.down-arrow {
-  display: block;
-  margin: 0 auto;
-  padding-top: 15px;
-}
-
 .event-card {
-  font-family: Roboto;
-  width: 267px;
-  border-radius: 10px;
   border: 2px solid rgba(6, 89, 188, 0.2);
-  opacity: 0.5;
-  overflow-wrap: break-word;
+  border-radius: 10px;
+  height: @event-height;
+  font-family: Roboto;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: relative;
+  scrollbar-width: none;
+  width: @event-width;
+
+  img {
+    height: 60%;
+    margin: 0;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .info {
+    padding: 5% 10% 0 10%;
+    width: 70%;
+
+    > * {
+      margin: 0;
+    }
+
+    .date {
+      opacity: .8;
+      white-space: nowrap;
+    }
+
+    .location {
+      opacity: .8;
+      white-space: nowrap
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: @card-heading-2;
+      white-space: nowrap;
+    }
+  }
+
+  .circle {
+    align-items: center;
+    display: flex;
+    height: 40%;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 60%;
+    width: 30%;
+
+    .points {
+      position: absolute;
+    }
+  }
+
+  .divider {
+    border: 1px solid rgba(51, 51, 51, 0.2);
+    margin: 20px 10%;
+    width: 80%;
+  }
+
+  .description {
+    padding: 0 10%;
+  }
 }
 
-.points-circle {
-  float: right;
-}
-
-.title {
-  font-weight: bold;
-  font-size: @card-heading-1;
+.event-card::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

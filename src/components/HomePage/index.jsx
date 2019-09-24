@@ -2,7 +2,9 @@ import React from 'react';
 
 import './style.less';
 import EventCheckIn from '../../containers/EventCheckIn';
+import PastEvents from '../../containers/PastEvents';
 import ProfileCard from '../../containers/ProfileCard';
+import UpcomingEvents from '../../containers/UpcomingEvents';
 
 const HomePage = () => {
   return (
@@ -11,8 +13,13 @@ const HomePage = () => {
       <div className="dashboard">
         <ProfileCard />
         <EventCheckIn />
-        <hr className="border"></hr>
       </div>
+      <hr className="border" />
+      <h1 className="subtitle">Upcoming Events</h1>
+      <UpcomingEvents />
+      <hr className="border spaced" />
+      <h1 className="subtitle">Past Events</h1>
+      <PastEvents />
     </div>
   );
 ***REMOVED***
