@@ -15,6 +15,7 @@ import PasswordPage from './containers/PasswordPage';
 import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
+import requireAuth from './containers/requireAuth';
 
 const store = configureStore();
 
@@ -24,14 +25,14 @@ const App = () => {
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/about" component={requireAuth(AboutPage)} />
             <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route exact path="/leaderboard" component={LeaderPage} />
+            <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/profile" component={ProfilePage} />
+            <Route exact path="/profile" component={requireAuth(ProfilePage)} />
             <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/store" component={StorePage} />
+            <Route exact path="/store" component={requireAuth(StorePage)} />
+            <Route path="/" component={requireAuth(HomePage)} />
           </Switch>
         </>
       </ConnectedRouter>
