@@ -20,7 +20,7 @@ const SignInForm = props => {
               placeholder="Email (user@ucsd.edu)"
               className="input-box"
               // TODO: implement props.values.email with formik
-              value={props.values}
+              value={props.values.email}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -31,8 +31,7 @@ const SignInForm = props => {
               type="password"
               placeholder="Password"
               className="input-box"
-              // TODO: implement props.values.password with formik
-              value={props.values}
+              value={props.values.password}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -61,7 +60,7 @@ SignInForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.string,
+  values: PropTypes.object,
 };
 
 export default SignInForm;
