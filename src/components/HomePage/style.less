@@ -7,12 +7,16 @@
     border-top: 1px solid rgba(51, 51, 51, 0.2);
     margin: 0 -5vw;
     width: calc(100% + 10vw);
+
+    &.spaced {
+      margin-top: 40px;
+    }
   }
 
   .dashboard {
     display: flex;
     flex-wrap: wrap;
-    padding: 20px 0;
+    padding: 40px 0;
 
     > div {
       margin-bottom: 50px;
@@ -27,6 +31,13 @@
   .title {
     font-size: @general-heading-1;
     font-weight: 700;
+  }
+
+  .subtitle {
+    color: @blue-3;
+    font-size: @general-heading-2;
+    font-weight: 700;
+    margin: 40px 0;
   }
 }
 

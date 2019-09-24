@@ -42,8 +42,15 @@
 
   .info {
     display: inline-block;
+    -ms-overflow-style: none;
+    overflow-x: scroll;
+    scrollbar-width: none;
     vertical-align: middle;
     width: 120px;
-    overflow-x: scroll;
+  }
+
+  .info::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 }
