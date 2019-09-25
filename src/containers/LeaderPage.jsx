@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LeaderPage from '../components/LeaderPage';
-import PageLayout from '../components/PageLayout';
+import PageLayout from './PageLayout';
 
 const LeaderPageContainer = () => {
   return (
