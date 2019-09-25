@@ -11,7 +11,7 @@ const AuthenticateCard = () => {
       <h1>A verification email has been sent!</h1>
       <h3>Please wait up to 1 to 3 minutes for the email.</h3>
       <NavLink to="/login">
-        <p>
+        <p className="link">
           <b>Click here to go back to the log in page</b>
         </p>
       </NavLink>
