@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateEventForm from '../CreateEventForm';
+import CreateEventForm from '../../containers/CreateEventForm';
 
 import './style.less';
 
