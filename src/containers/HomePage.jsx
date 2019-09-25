@@ -1,6 +1,6 @@
 import React from 'react';
 import HomePage from '../components/HomePage';
-import PageLayout from '../components/PageLayout';
+import PageLayout from './PageLayout';
 
 const HomePageContainer = () => {
   return (
