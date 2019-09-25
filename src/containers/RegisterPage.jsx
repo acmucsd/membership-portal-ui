@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginLayout from '../components/LoginLayout';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../containers/RegisterForm';
 
 const RegisterPage = () => {
   return (
@@ -11,3 +11,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+

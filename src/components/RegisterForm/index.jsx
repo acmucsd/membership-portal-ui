@@ -27,7 +27,7 @@ const RegisterForm = props => {
               <Input
                 name="firstname"
                 className="firstname"
-                value={props.values}
+                value={props.values.firstname}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -36,7 +36,7 @@ const RegisterForm = props => {
               <Input
                 name="lastname"
                 className="lastname"
-                value={props.values}
+                value={props.values.lastname}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -47,7 +47,7 @@ const RegisterForm = props => {
               name="email"
               type="email"
               className="input-box"
-              value={props.values}
+              value={props.values.email}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -57,7 +57,7 @@ const RegisterForm = props => {
               name="password"
               type="password"
               className="input-box"
-              value={props.values}
+              value={props.values.password}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -67,7 +67,7 @@ const RegisterForm = props => {
               name="confirmpassword"
               type="password"
               className="input-box"
-              value={props.values}
+              value={props.values.confirmpassword}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -77,13 +77,13 @@ const RegisterForm = props => {
               <Input
                 name="major"
                 className="major"
-                value={props.values}
+                value={props.values.major}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item label="Year" className="formitems">
-              <Select className="year" value={props.values}>
+              <Select className="year" value={props.values.year}>
                 {years.map(num => (
                   <Option value={num}>{num}</Option>
                 ))}
@@ -111,7 +111,7 @@ RegisterForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.string,
+  values: PropTypes.object
 };
 
 export default RegisterForm;
