@@ -20,19 +20,17 @@ const months = [
   'October',
   'November',
   'December',
-]
+];
 
-let days = []
+let days = [];
 for (let i = 1; i <= 31; i++) {
   days.push(i);
 }
 
-let hours = []
+let hours = [];
 for (let i = 1; i <= 12; i++) {
   hours.push(i);
 }
-
-const ampm = ['AM', 'PM']
 
 const CreateEventForm = props => {
   return (
@@ -108,9 +106,8 @@ const CreateEventForm = props => {
                 ))}
               </Select>
               <Select className="ampm" value={props.values}>
-                {ampm.map(ampm => (
-                  <Option value={ampm}>{ampm}</Option>
-                ))}
+                <Option value="AM">AM</Option>
+                <Option value="PM">PM</Option>
               </Select>
             </Form.Item>
             <Form.Item
@@ -123,9 +120,8 @@ const CreateEventForm = props => {
                 ))}
               </Select>
               <Select className="ampm" value={props.values}>
-                {ampm.map(ampm => (
-                  <Option value={ampm}>{ampm}</Option>
-                ))}
+                <Option value="AM">AM</Option>
+                <Option value="PM">PM</Option>
               </Select>
             </Form.Item>
           </div>
