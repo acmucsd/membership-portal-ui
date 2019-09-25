@@ -11,7 +11,7 @@ const AuthReducer = (state = initialState, action) => {
     case AUTH_USER:
       return {
         ...state,
-        admin: false,
+        admin: true,
         authenticated: true
       ***REMOVED***
     case UNAUTH_USER:
