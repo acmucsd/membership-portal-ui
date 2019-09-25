@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
 import NavListItem from '../NavListItem';
 import { ReactComponent as ACMIcon } from '../../assets/icons/acm-icon.svg';
+import { ReactComponent as AdminIcon } from '../../assets/icons/admin-icon.svg';
 import { ReactComponent as DashboardIcon } from '../../assets/icons/dashboard-icon.svg';
 import { ReactComponent as DiscordIcon } from '../../assets/icons/discord-icon.svg';
 import { ReactComponent as LBIcon } from '../../assets/icons/lb-icon.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.svg';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
-export default () => {
+const NavbarVertical = props => {
   return (
     <nav className="navbar-vertical">
       <section>
@@ -24,6 +26,11 @@ export default () => {
         <NavLink activeClassName="selected" to="/profile">
           <NavListItem icon={ProfileIcon} text="Profile" />
         </NavLink>
+        { props.isAdmin &&
+          <NavLink activeClassName="selected" to="/admin">
+            <NavListItem icon={AdminIcon} text="Admin" />
+          </NavLink>
+        }
       </section>
 
       <section>
@@ -41,3 +48,9 @@ export default () => {
     </nav>
   );
 };
+
+NavbarVertical.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
+};
+
+export default NavbarVertical;

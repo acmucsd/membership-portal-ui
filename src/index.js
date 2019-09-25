@@ -8,6 +8,8 @@ import configureStore, { history } from './store';
 
 import './styles/reset.less';
 import AboutPage from './containers/AboutPage';
+import AdminPage from './containers/AdminPage';
+import AuthPage from './containers/AuthPage';
 import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
 import LoginPage from './containers/LoginPage';
@@ -26,6 +28,8 @@ const App = () => {
         <>
           <Switch>
             <Route exact path="/about" component={requireAuth(AboutPage)} />
+            <Route exact path="/admin" component={requireAuth(AdminPage)} />
+            <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/forgot-password" component={PasswordPage} />
             <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
             <Route exact path="/login" component={LoginPage} />
