@@ -40,9 +40,9 @@ const CreateEventForm = props => {
         <form onSubmit={props.handleSubmit}>
           <Form.Item label="Event Title">
             <Input
-              name="firstname"
+              name="title"
               className="input-box"
-              value={props.values}
+              value={props.values.title}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -55,7 +55,7 @@ const CreateEventForm = props => {
               <Input
                 name="location"
                 className="location"
-                value={props.values}
+                value={props.values.location}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -67,7 +67,7 @@ const CreateEventForm = props => {
               <Input
                 name="points"
                 className="points"
-                value={props.values}
+                value={props.values.points}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -78,9 +78,14 @@ const CreateEventForm = props => {
               className="month-wrapper"
               label="Month"
             >
-              <Select className="months" value={props.values}>
+              <Select className="months">
                 {months.map(month => (
-                  <Option value={month}>{month}</Option>
+                  <Option
+                    key={`month-${month}`}
+                    value={month}
+                  >
+                    {month}
+                  </Option>
             ***REMOVED***)}
               </Select>
             </Form.Item>
@@ -88,9 +93,14 @@ const CreateEventForm = props => {
               className="day-wrapper"
               label="Day"
             >
-              <Select className="days" value={props.values}>
-                {days.map(days => (
-                  <Option value={days}>{days}</Option>
+              <Select className="days">
+                {days.map(day => (
+                  <Option
+                    key={`day-${day}`}
+                    value={day}
+                  >
+                    {day}
+                  </Option>
             ***REMOVED***)}
               </Select>
             </Form.Item>
@@ -100,12 +110,27 @@ const CreateEventForm = props => {
               className="start-time"
               label="Start Time"
             >
-              <Select className="time" value={props.values}>
+              <Select
+                className="time"
+                onChange={(value) => props.setFieldValue('startTime', value)}
+                onBlur={()=> props.setFieldTouched('startTime', true)}
+                value={props.values.startTime}
+              >
                 {hours.map(hour => (
-                  <Option value={hour}>{hour}</Option>
+                  <Option
+                    key={`start-${hour}`}
+                    value={hour}
+                  >
+                    {hour}
+                  </Option>
             ***REMOVED***)}
               </Select>
-              <Select className="ampm" value={props.values}>
+              <Select
+                className="ampm"
+                onChange={(value) => props.setFieldValue('startAm', value)}
+                onBlur={()=> props.setFieldTouched('startAm', true)}
+                value={props.values.startAm}
+              >
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
@@ -114,12 +139,27 @@ const CreateEventForm = props => {
               className="end-time"
               label="End Time"
             >
-              <Select className="time" value={props.values}>
+              <Select
+                className="time"
+                onChange={(value) => props.setFieldValue('endTime', value)}
+                onBlur={()=> props.setFieldTouched('endTime', true)}
+                value={props.values.endTime}
+              >
                 {hours.map(hour => (
-                  <Option value={hour}>{hour}</Option>
+                  <Option
+                    key={`end-${hour}`}
+                    value={hour}
+                  >
+                    {hour}
+                  </Option>
             ***REMOVED***)}
               </Select>
-              <Select className="ampm" value={props.values}>
+              <Select
+                className="ampm"
+                onChange={(value) => props.setFieldValue('endAm', value)}
+                onBlur={()=> props.setFieldTouched('endAm', true)}
+                value={props.values.endAm}
+              >
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
@@ -127,9 +167,9 @@ const CreateEventForm = props => {
           </div>
           <Form.Item label="Facebook Link">
             <Input
-              name="firstname"
+              name="facebook"
               className="input-box"
-              value={props.values}
+              value={props.values.facebook}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -138,7 +178,7 @@ const CreateEventForm = props => {
             <TextArea
               name="description"
               className="area-box"
-              value={props.values}
+              value={props.values.description}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -159,7 +199,7 @@ CreateEventForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.string,
+  values: PropTypes.object.isRequired,
 ***REMOVED***
 
 export default CreateEventForm;
