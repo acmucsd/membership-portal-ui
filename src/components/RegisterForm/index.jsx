@@ -9,13 +9,13 @@ import logo from '../../assets/graphics/logo.svg';
 const { Option } = Select;
 
 function getYears() {
-    const currentYear = new Date().getFullYear();
-    return [...Array(6)].map((_,i) => i + currentYear);
+  const currentYear = new Date().getFullYear();
+  return [...Array(6)].map((_, i) => i + currentYear);
 }
 
 const years = getYears();
 
-const RegisterForm = props => { 
+const RegisterForm = props => {
   return (
     <div className="registercard">
       <div className="formcontent">
@@ -83,7 +83,11 @@ const RegisterForm = props => {
               />
             </Form.Item>
             <Form.Item label="Year" className="formitems">
-              <Select className="year" value={props.values.year}>
+              <Select
+                className="year"
+                onBlur={() => props.setFieldValue('year', true)}
+                onChange={value => props.setFieldValue('year', value)}
+                value={props.values.year}>
                 {years.map(num => (
                   <Option value={num}>{num}</Option>
                 ))}
@@ -106,12 +110,11 @@ const RegisterForm = props => {
   );
 };
 
-// TODO: Swap out proptypes with formik's implementation.
 RegisterForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.object
+  values: PropTypes.object,
 };
 
 export default RegisterForm;

@@ -8,10 +8,10 @@ const FormikRegisterForm = withFormik({
   mapPropsToValues() {
     return {
       email: '',
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       password: '',
-      confirmpassword: '',
+      confirmPassword: '',
       year: '',
       major: '',
     };
