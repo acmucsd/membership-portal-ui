@@ -1,7 +1,6 @@
 import { REGISTER_USER, REGISTER_FAIL } from '../actions/types';
 
 const initialState = {
-  user: {},
   registered: false,
   registerSuccess: false,
   error: null,
@@ -17,7 +16,6 @@ const RegisterReducer = (state = initialState, action) => {
     case REGISTER_FAIL:
       return ({
         ...state,
-        register: action.payload,
       });
     default:
       return state;
