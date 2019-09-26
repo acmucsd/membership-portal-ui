@@ -1,12 +1,24 @@
-import { browserHistory } from 'react-router'
+import { REGISTER_USER, REGISTER_FAIL } from '../actions/types';
 
-import { REGISTER_USER } from '../actions/types';
+const initialState = {
+  user: {},
+  registered: false,
+  registerSuccess: false,
+  error: null,
+};
 
-const RegisterReducer = (action) => {
+const RegisterReducer = (state = initialState, action) => {
   switch (action.type) {
-    // TODO Authentificated should not always be true.
     case REGISTER_USER:
-      return ({})
+      return {
+        ...state,
+        register: action.payload,
+      };
+    case REGISTER_FAIL:
+      return ({
+        ...state,
+        register: action.payload,
+      });
     default:
       return state;
   }

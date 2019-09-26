@@ -87,9 +87,9 @@ const RegisterForm = props => {
                 className="year"
                 onBlur={() => props.setFieldValue('year', true)}
                 onChange={value => props.setFieldValue('year', value)}
-                value={props.values.year}>
+                >
                 {years.map(num => (
-                  <Option value={num}>{num}</Option>
+                  <Option key={num} value={num}>{num}</Option>
                 ))}
               </Select>
             </Form.Item>
@@ -114,7 +114,7 @@ RegisterForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.object,
+  values: PropTypes.object.isRequired,
 };
 
 export default RegisterForm;

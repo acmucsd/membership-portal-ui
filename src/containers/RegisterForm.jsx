@@ -7,13 +7,13 @@ import { registerAccount } from '../actions/registerAction.js';
 const FormikRegisterForm = withFormik({
   mapPropsToValues() {
     return {
+      firstname: '',
+      lastname: '',
       email: '',
-      firstName: '',
-      lastName: '',
       password: '',
-      confirmPassword: '',
-      year: '',
+      confirmpassword: '',
       major: '',
+      year: '',
     };
   },
   handleSubmit(values, { resetForm, props }) {

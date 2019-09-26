@@ -1,9 +1,9 @@
 import { REGISTER_USER } from './types';
 
 export const registerAccount = (values) => dispatch => {
-  // TODO - Log in the user here.
-  console.log("works")
+  console.log(values)
   dispatch({
-    type: REGISTER_USER
+    type: REGISTER_USER,
+    payload: values
   })
 };
