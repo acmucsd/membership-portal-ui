@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import RegisterForm from '../components/RegisterForm';
-import { registerAccount } from '../actions/registerAction.js';
+import { registerAccount } from '../actions/registerActions.js';
 
 const FormikRegisterForm = withFormik({
   mapPropsToValues() {

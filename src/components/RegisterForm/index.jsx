@@ -86,10 +86,11 @@ const RegisterForm = props => {
               <Select
                 className="year"
                 onBlur={() => props.setFieldValue('year', true)}
-                onChange={value => props.setFieldValue('year', value)}
-                >
+                onChange={value => props.setFieldValue('year', value)}>
                 {years.map(num => (
-                  <Option key={num} value={num}>{num}</Option>
+                  <Option key={num} value={num}>
+                    {num}
+                  </Option>
                 ))}
               </Select>
             </Form.Item>

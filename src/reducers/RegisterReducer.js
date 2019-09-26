@@ -14,10 +14,10 @@ const RegisterReducer = (state = initialState, action) => {
         register: action.payload,
       };
     case REGISTER_FAIL:
-      return ({
+      return {
         ...state,
         error: true,
-      });
+      };
     default:
       return state;
   }
