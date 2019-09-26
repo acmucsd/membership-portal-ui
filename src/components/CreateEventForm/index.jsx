@@ -80,7 +80,12 @@ const CreateEventForm = props => {
             >
               <Select className="months">
                 {months.map(month => (
-                  <Option value={month}>{month}</Option>
+                  <Option
+                    key={`month-${month}`}
+                    value={month}
+                  >
+                    {month}
+                  </Option>
                 ))}
               </Select>
             </Form.Item>
@@ -89,8 +94,13 @@ const CreateEventForm = props => {
               label="Day"
             >
               <Select className="days">
-                {days.map(days => (
-                  <Option value={days}>{days}</Option>
+                {days.map(day => (
+                  <Option
+                    key={`day-${day}`}
+                    value={day}
+                  >
+                    {day}
+                  </Option>
                 ))}
               </Select>
             </Form.Item>
@@ -107,7 +117,12 @@ const CreateEventForm = props => {
                 value={props.values.startTime}
               >
                 {hours.map(hour => (
-                  <Option value={hour}>{hour}</Option>
+                  <Option
+                    key={`start-${hour}`}
+                    value={hour}
+                  >
+                    {hour}
+                  </Option>
                 ))}
               </Select>
               <Select
@@ -131,7 +146,12 @@ const CreateEventForm = props => {
                 value={props.values.endTime}
               >
                 {hours.map(hour => (
-                  <Option value={hour}>{hour}</Option>
+                  <Option
+                    key={`end-${hour}`}
+                    value={hour}
+                  >
+                    {hour}
+                  </Option>
                 ))}
               </Select>
               <Select
