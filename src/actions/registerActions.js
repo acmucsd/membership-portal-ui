@@ -1,11 +1,38 @@
-import { REGISTER_USER } from './types';
+import { REGISTER_FAIL, REGISTER_USER } from './types';
 import { replace } from 'connected-react-router';
 
-export const registerAccount = (values) => dispatch => {
-  dispatch({
-    type: REGISTER_USER,
-    payload: values
-  })
+import Config from '../config';
+
+export const registerAccount = (user) => async dispatch => {
+  try {
+    if (user.password !== user.confirmpassword) {
+      throw new Error('Passwords do not match!');
+    }
+
+    const response = await fetch(Config.API_URL + Config.routes.auth.register, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user }),
+***REMOVED***
+
+    const data = await response.json();
+
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+***REMOVED***
+        type: REGISTER_USER,
+        payload: user
+***REMOVED***
+      // TODO: Redirect to auth, then log user in on register.
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAIL,
+      error: error
+    })
+  }
 ***REMOVED***
 
 export const redirectAuth= () => dispatch => {
