@@ -19,7 +19,6 @@ const SignInForm = props => {
               type="email"
               placeholder="Email (user@ucsd.edu)"
               className="input-box"
-              // TODO: implement props.values.email with formik
               value={props.values.email}
               onChange={props.handleChange}
               onBlur={props.handleBlur}

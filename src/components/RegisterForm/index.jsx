@@ -9,13 +9,13 @@ import logo from '../../assets/graphics/logo.svg';
 const { Option } = Select;
 
 function getYears() {
-    const currentYear = new Date().getFullYear();
-    return [...Array(6)].map((_,i) => i + currentYear);
+  const currentYear = new Date().getFullYear();
+  return [...Array(6)].map((_, i) => i + currentYear);
 }
 
 const years = getYears();
 
-const RegisterForm = props => { 
+const RegisterForm = props => {
   return (
     <div className="registercard">
       <div className="formcontent">
@@ -27,7 +27,7 @@ const RegisterForm = props => {
               <Input
                 name="firstname"
                 className="firstname"
-                value={props.values}
+                value={props.values.firstname}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -36,7 +36,7 @@ const RegisterForm = props => {
               <Input
                 name="lastname"
                 className="lastname"
-                value={props.values}
+                value={props.values.lastname}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -47,7 +47,7 @@ const RegisterForm = props => {
               name="email"
               type="email"
               className="input-box"
-              value={props.values}
+              value={props.values.email}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -57,7 +57,7 @@ const RegisterForm = props => {
               name="password"
               type="password"
               className="input-box"
-              value={props.values}
+              value={props.values.password}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -67,7 +67,7 @@ const RegisterForm = props => {
               name="confirmpassword"
               type="password"
               className="input-box"
-              value={props.values}
+              value={props.values.confirmpassword}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -77,15 +77,20 @@ const RegisterForm = props => {
               <Input
                 name="major"
                 className="major"
-                value={props.values}
+                value={props.values.major}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item label="Year" className="formitems">
-              <Select className="year" value={props.values}>
+              <Select
+                className="year"
+                onBlur={() => props.setFieldValue('year', true)}
+                onChange={value => props.setFieldValue('year', value)}>
                 {years.map(num => (
-                  <Option value={num}>{num}</Option>
+                  <Option key={num} value={num}>
+                    {num}
+                  </Option>
             ***REMOVED***)}
               </Select>
             </Form.Item>
@@ -106,12 +111,11 @@ const RegisterForm = props => {
   );
 ***REMOVED***
 
-// TODO: Swap out proptypes with formik's implementation.
 RegisterForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.string,
+  values: PropTypes.object.isRequired,
 ***REMOVED***
 
 export default RegisterForm;
