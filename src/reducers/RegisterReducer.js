@@ -10,7 +10,7 @@ const RegisterReducer = (state = initialState, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        registeredSuccess: true,
+        registerSuccess: true,
         register: action.payload,
       };
     case REGISTER_FAIL:
