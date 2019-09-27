@@ -1,6 +1,9 @@
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 
+export const REGISTER_USER = 'REGISTER_USER';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+
 export const FETCH_BANNER = 'FETCH_BANNER';
 
 export const EVENT_CHECKIN = 'EVENT_CHECKIN';

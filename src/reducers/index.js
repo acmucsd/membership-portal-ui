@@ -5,6 +5,7 @@ import AuthReducer from './AuthReducer';
 import BannerReducer from './BannerReducer';
 import EventsReducer from './EventsReducer';
 import LeaderboardReducer from './LeaderboardReducer';
+import RegisterReducer from './RegisterReducer';
 import UserReducer from './UserReducer';
 
 export default history =>
@@ -14,5 +15,6 @@ export default history =>
     banner: BannerReducer,
     events: EventsReducer,
     leaderboard: LeaderboardReducer,
+    register: RegisterReducer,
     user: UserReducer,
   });
