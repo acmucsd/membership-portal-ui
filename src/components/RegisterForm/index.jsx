@@ -25,18 +25,18 @@ const RegisterForm = props => {
           <div className="horizontalitems">
             <Form.Item label="First Name" className="formitems">
               <Input
-                name="firstname"
+                name="firstName"
                 className="firstname"
-                value={props.values.firstname}
+                value={props.values.firstName}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item label="Last Name" className="formitems">
               <Input
-                name="lastname"
+                name="lastName"
                 className="lastname"
-                value={props.values.lastname}
+                value={props.values.lastName}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -85,8 +85,8 @@ const RegisterForm = props => {
             <Form.Item label="Year" className="formitems">
               <Select
                 className="year"
-                onBlur={() => props.setFieldValue('year', true)}
-                onChange={value => props.setFieldValue('year', value)}>
+                onBlur={() => props.setFieldValue('graduationYear', true)}
+                onChange={value => props.setFieldValue('graduationYear', value)}>
                 {years.map(num => (
                   <Option key={num} value={num}>
                     {num}
