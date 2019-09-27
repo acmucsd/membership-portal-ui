@@ -6,14 +6,15 @@ import { registerAccount } from '../actions/registerActions.js';
 
 const FormikRegisterForm = withFormik({
   mapPropsToValues() {
+    // TODO - Implement profile picture.
     return {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmpassword: '',
       major: '',
-      year: '',
+      graduationYear: '',
     };
   },
   handleSubmit(values, { resetForm, props }) {
