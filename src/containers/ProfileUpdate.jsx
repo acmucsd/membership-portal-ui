@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
-import SignInForm from '../components/SignInForm';
-
-const ProfileUpdate = withFormik({
+import ProfileUpdate from '../components/SignInForm';
+// TODO: fix the h1 size
+const FormikProfileUpdate = withFormik({
     mapPropsToValues() {
       return {
         email: '',

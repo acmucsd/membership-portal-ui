@@ -18,7 +18,7 @@ const ProfileUpdate = props => {
   return (
     <div className="update-card">
       <div className="updatecontent">
-        <h1>Profile</h1>
+        <h1 className="title">Profile</h1>
         <form onSubmit={props.handleSubmit}>
           <Form.Item label="First name">
             <Input
