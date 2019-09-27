@@ -1,6 +1,9 @@
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
+export const PROFILE_FAIL = 'PROFILE_FAIL';
+
 export const FETCH_BANNER = 'FETCH_BANNER';
 
 export const EVENT_CHECKIN = 'EVENT_CHECKIN';
