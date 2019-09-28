@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
 
 import './style.less';
+import { getRank } from '../../utils/ranks';
 
 const TopLeaderCard = props => {
   return (
@@ -19,7 +20,7 @@ const TopLeaderCard = props => {
             <Avatar size={80} src={props.image} />
           </div>
           <h1>{props.name}</h1>
-          <h3>{props.rank}</h3>
+          <h3>{getRank(props.exp)}</h3>
           <h2>{props.exp} points</h2>
         </div>
       </div>
@@ -29,10 +30,8 @@ const TopLeaderCard = props => {
 
 TopLeaderCard.propTypes = {
   exp: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
-  rank: PropTypes.string.isRequired,
 ***REMOVED***
 
 export default TopLeaderCard;

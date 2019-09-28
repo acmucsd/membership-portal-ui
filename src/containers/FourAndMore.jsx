@@ -7,7 +7,7 @@ import { fetchLeaderboard } from '../actions/leaderboardActions';
 const FourAndMoreContainer = props => {
   useEffect(() => {
     props.fetchLeaderboard();
-  });
+  }, []);
 
   return (
     <>
