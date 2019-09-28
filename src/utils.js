@@ -16,16 +16,15 @@ export const getDefaultProfile = () => {
       'eyes7', 'eyes9'];
   const nose = ['nose2', 'nose3', 'nose4', 'nose5', 'nose6', 'nose7', 'nose8',
       'nose9'];
-  const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5 ', 'mouth6',
+  const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6',
       'mouth7','mouth9'];
-  const colors = ['22ACEA', '0659BC', '2C72C6', '#BED9E6'];
+  const colors = ['22ACEA', '0659BC', '2C72C6', 'BED9E6'];
 
   const getRandom = (list) => {
     return list[Math.floor((Math.random()*list.length))];
   }
 
-  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}
-      /${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
+  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}/${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
 }
 
 /**
