@@ -2,8 +2,8 @@ import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
-import Storage from '../utils/storage';
-import { notify } from '../utils/notifications';
+import Storage from '../storage';
+import { notify } from '../utils';
 
 export const loginUser = (values) => async dispatch => {
   try {
@@ -43,10 +43,11 @@ export const loginUser = (values) => async dispatch => {
 };
 
 export const logoutUser = () => dispatch => {
-  // TODO - Log out the user here.
   dispatch({
     type: UNAUTH_USER
   })
+  Storage.remove('token');
+  dispatch(replace('/login'));
 };
 
 /**

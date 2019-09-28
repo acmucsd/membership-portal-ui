@@ -7,6 +7,7 @@ import EventsReducer from './EventsReducer';
 import LeaderboardReducer from './LeaderboardReducer';
 import RegisterReducer from './RegisterReducer';
 import UserReducer from './UserReducer';
+import ProfileReducer from './ProfileReducer';
 
 export default history =>
   combineReducers({
@@ -17,4 +18,5 @@ export default history =>
     leaderboard: LeaderboardReducer,
     register: RegisterReducer,
     user: UserReducer,
+    profile: ProfileReducer 
   });
