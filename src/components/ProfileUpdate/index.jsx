@@ -18,31 +18,36 @@ const ProfileUpdate = props => {
   return (
     <div className="update-card">
       <div className="updatecontent">
-        <h1>Profile</h1>
+        <h1 className="title">Profile</h1>
         <form onSubmit={props.handleSubmit}>
           <Form.Item label="First name">
             <Input
-              name="firstname"
+              name="firstName"
               className="input-box"
-              value={props.values}
+              value={props.values.firstName}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Last name">
             <Input
-              name="lastname"
+              name="lastName"
               className="input-box"
-              value={props.values}
+              value={props.values.lastName}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item label="Year">
-              <Select className="year" value={props.values}>
+              <Select
+                className="year"
+                onBlur={value => props.setFieldValue('graduationYear', value)}
+                onChange={value => props.setFieldValue('graduationYear', value)}>
                 {years.map(num => (
-                  <Option value={num}>{num}</Option>
+                  <Option key={num} value={num}>
+                    {num}
+                  </Option>
             ***REMOVED***)}
               </Select>
             </Form.Item>
@@ -50,7 +55,7 @@ const ProfileUpdate = props => {
               <Input
                 name="major"
                 className="major"
-                value={props.values}
+                value={props.values.major}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -60,7 +65,7 @@ const ProfileUpdate = props => {
             <TextArea
               name="about"
               className="area-box"
-              value={props.values}
+              value={props.values.about}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -81,7 +86,7 @@ ProfileUpdate.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  values: PropTypes.string,
+  values: PropTypes.object,
 ***REMOVED***
 
 export default ProfileUpdate;

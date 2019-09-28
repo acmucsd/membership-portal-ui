@@ -2,6 +2,9 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
+export const PROFILE_FAIL = 'PROFILE_FAIL';
+
 export const REGISTER_USER = 'REGISTER_USER';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
