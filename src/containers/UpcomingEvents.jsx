@@ -5,6 +5,8 @@ import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import { fetchFutureEvents } from '../actions/eventsActions';
 
+// TODO: Convert date to actual readable time.
+
 const UpcomingEventsContainer = props => {
   useEffect(() => {
     props.fetchFutureEvents();

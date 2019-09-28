@@ -5,6 +5,8 @@ import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import { fetchPastEvents } from '../actions/eventsActions';
 
+// TODO: Convert date to actual readable time.
+
 const PastEventsContainer = props => {
   useEffect(() => {
     props.fetchPastEvents();
