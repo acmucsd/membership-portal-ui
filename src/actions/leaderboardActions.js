@@ -1,48 +1,35 @@
-import { FETCH_LEADERBOARD } from './types';
+import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './types';
+
+import Config from '../config';
+import Storage from '../utils/storage';
 
 export const fetchLeaderboard = () => async dispatch => {
-  // TODO - Submit a request to get all users.
+  try {
+    const response = await fetch(Config.API_URL + Config.routes.leaderboard, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
-  const users = [
-    {
-      firstName: 'Emily',
-      lastName: 'Nguyen',
-      points: 200,
-      image: 'http://placekitten.com/g/200/300',
-      rank: 'Linear Lemur',
-    },
-    {
-      firstName: 'Sumeet',
-      lastName: 'Bansal',
-      points: 125,
-      image: 'http://placekitten.com/g/200/300',
-      rank: 'Linear Lemur',
-    },
-    {
-      firstName: 'Jaden',
-      lastName: 'Padua',
-      points: 225,
-      image: 'http://placekitten.com/g/200/300',
-      rank: 'Linear Lemur',
-    },
-    {
-      firstName: 'Ronak',
-      lastName: 'Shah',
-      points: 50,
-      image: 'http://placekitten.com/g/200/300',
-      rank: 'Linear Lemur',
-    },
-    {
-      firstName: 'Stanley',
-      lastName: 'Lee',
-      points: 80,
-      image: 'http://placekitten.com/g/200/300',
-      rank: 'Linear Lemur',
+    const status = await response.status;
+    if (status === 401 || status === 403) {
+      // TODO: Logout the user.
     }
-  ]
 
-  dispatch({
-    type: FETCH_LEADERBOARD,
-    payload: users,
-  });
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+    dispatch({
+      type: FETCH_LEADERBOARD,
+      payload: data.leaderboard,
+    });
+  } catch (error) {
+    dispatch({
+      type: LEADERBOARD_ERROR,
+      payload: error,
+    });
+  }
 }
