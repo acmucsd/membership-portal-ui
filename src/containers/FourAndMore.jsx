@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import LeaderListItem from '../components/LeaderListItem';
+import { getDefaultProfile } from '../utils';
 import { fetchLeaderboard } from '../actions/leaderboardActions';
 
 const FourAndMoreContainer = props => {
@@ -25,7 +26,7 @@ const getFourAndMore = users => {
       <LeaderListItem
         key={i}
         exp={user.points}
-        image={user.image}
+        image={getDefaultProfile()}
         name={`${user.firstName} ${user.lastName}`}
         placement={i+1}
         rank={user.rank}

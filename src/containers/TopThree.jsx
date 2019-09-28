@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TopLeaderCard from '../components/TopLeaderCard';
+import { getDefaultProfile } from '../utils';
 import { fetchLeaderboard } from '../actions/leaderboardActions';
 
 const TopThreeContainer = props => {
@@ -24,7 +25,7 @@ const getTopThree = users => {
       <TopLeaderCard
         key={i}
         exp={user.points}
-        image={user.image}
+        image={getDefaultProfile()}
         name={`${user.firstName} ${user.lastName}`}
         placement={i+1}
         rank={user.rank}
