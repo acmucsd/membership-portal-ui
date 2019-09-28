@@ -5,10 +5,8 @@ const initialState = {
   profile: {
     firstName: '',
     lastName: '',
-    exp: 0,
-    level: 0,
-    rank: '',
-    year: 0,
+    points: 0,
+    graduationYear: 0,
   },
   image: getDefaultProfile(),
   error: null,

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../assets/graphics/background.svg';
-import { getHour, formatDate } from '../utils';
 import { fetchPastEvents } from '../actions/eventsActions';
+import { formatDate } from '../utils';
 
 const PastEventsContainer = props => {
   useEffect(() => {

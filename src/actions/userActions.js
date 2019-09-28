@@ -1,7 +1,7 @@
 import { FETCH_USER } from './types';
 
 import Config from '../config';
-import Storage from '../utils/storage';
+import Storage from '../storage';
 
 export const fetchUser = () => async dispatch => {
   try {
