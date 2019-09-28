@@ -2,6 +2,7 @@ import { REGISTER_FAIL, REGISTER_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
+import { notify } from '../utils/notifications';
 
 export const registerAccount = (user) => async dispatch => {
   try {
@@ -28,6 +29,7 @@ export const registerAccount = (user) => async dispatch => {
 ***REMOVED***
       // TODO: Redirect to auth, then log user in on register.
   } catch (error) {
+    notify('Unable to register account!', error.message);
     dispatch({
       type: REGISTER_FAIL,
       error: error

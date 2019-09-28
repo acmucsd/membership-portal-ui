@@ -2,6 +2,7 @@ import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
+import { notify } from '../utils/notifications';
 
 export const loginUser = (values) => async dispatch => {
   try {
@@ -32,6 +33,7 @@ export const loginUser = (values) => async dispatch => {
     dispatch(replace('/'));
   }
   catch(error) {
+    notify('Unable to login!', error.message);
     dispatch({
       type: AUTH_ERROR,
       error: error
