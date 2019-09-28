@@ -6,7 +6,7 @@ import { fetchLeaderboard } from '../actions/leaderboardActions';
 
 const TopThreeContainer = props => {
   useEffect(() => {
-    props.fetchLeaderboard();
+    //props.fetchLeaderboard();
   });
 
   return (

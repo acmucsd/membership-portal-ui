@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 import {
-  FETCH_LEADERBOARD
+  FETCH_LEADERBOARD,
+  LEADERBOARD_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,11 @@ const LeaderboardReducer = (state = initialState, action) => {
           users: action.payload,
         };
       }
+    case LEADERBOARD_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }
