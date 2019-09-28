@@ -7,7 +7,6 @@ export const fetchUser = () => async dispatch => {
   const user = {
     name: 'Emily',
     exp: 40,
-    image: 'http://placekitten.com/g/200/200',
     level: 2,
     rank: 'Linear Lemur',
     year: 4,

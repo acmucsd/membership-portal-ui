@@ -2,7 +2,7 @@ import { REGISTER_FAIL, REGISTER_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
-import { notify } from '../utils/notifications';
+import { notify } from '../utils';
 
 export const registerAccount = (user) => async dispatch => {
   try {
