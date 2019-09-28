@@ -1,4 +1,5 @@
 import { FETCH_USER } from '../actions/types';
+import { getDefaultProfile } from '../utils';
 
 const initialState = {
   profile: {
@@ -9,7 +10,7 @@ const initialState = {
     rank: '',
     year: 0,
   },
-  image: '',
+  image: getDefaultProfile(),
   error: null,
 };
 
