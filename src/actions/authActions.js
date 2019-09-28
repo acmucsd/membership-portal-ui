@@ -43,10 +43,11 @@ export const loginUser = (values) => async dispatch => {
 };
 
 export const logoutUser = () => dispatch => {
-  // TODO - Log out the user here.
   dispatch({
     type: UNAUTH_USER
   })
+  Storage.remove('token');
+  dispatch(replace('/login'));
 };
 
 /**
