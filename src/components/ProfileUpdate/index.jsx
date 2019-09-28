@@ -13,7 +13,6 @@ function getYears() {
 }
 
 const years = getYears();
-console.log(years);
 
 const ProfileUpdate = props => {
   return (

@@ -1,24 +1,22 @@
-import { AUTH_USER, UNAUTH_USER } from '../actions/types';
+import { PROFILE_SUCCESS, PROFILE_FAIL } from '../actions/types';
 
 const initialState = {
-  admin: false,
-  authenticated: false
+  updateSuccess: false,
+  error: false
 };
 
 const ProfileReducer = (state = initialState, action) => {
-  switch (action.type) {
-    // TODO Authentificated should not always be true.
-    case AUTH_USER:
+  switch (action.type) {  
+    case PROFILE_SUCCESS:
       return {
         ...state,
-        admin: true,
-        authenticated: true
+        updateSuccess: true
       };
-    case UNAUTH_USER:
+    case PROFILE_FAIL:
       return {
         ...state,
-        admin: false,
-        authenticated: false
+        admin: action.isAdmin,
+        error: true
       };
     default:
       return state;
