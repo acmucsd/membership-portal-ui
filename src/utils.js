@@ -46,3 +46,40 @@ export const getRank = (points) => {
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
 }
+
+/**
+ * Formats a date to be readable.
+ * @param {string} time The time in unformatted form.
+ * @return {string} The formatted time in a readable format
+ */
+export const formatDate = (time) => {
+  const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  // TODO: Clean this up.
+  const date = time.slice(0,10).split('-');
+  const day = date[2];
+  const monthIndex = date[1];
+  const year = date[0];
+  // TODO: Include the time
+  //const hour = getHour(time);
+
+  return monthNames[monthIndex-1] + ' ' + day + ' ' + year
+}
+
+/**
+ * TODO: Actually read the time
+ * Retrieves the hour froma  time.
+ * @param {string} time The time in unformatted form.
+ * @return {string} The hour.
+ */
+export const getHour = (time) => {
+  const subTime = time.split('T')[1];
+  const hour = subTime.split(':')[0];
+
+  return hour;
+}

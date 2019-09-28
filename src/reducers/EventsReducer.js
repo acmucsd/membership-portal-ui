@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import {
   EVENT_CHECKIN,
+  EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS
 } from '../actions/types';
@@ -10,6 +11,7 @@ const initialState = {
   events: [],
   futureEvents: [],
   pastEvents: [],
+  error: null
 ***REMOVED***
 
 const EventsReducer = (state = initialState, action) => {
@@ -43,6 +45,11 @@ const EventsReducer = (state = initialState, action) => {
           pastEvents: action.payload,
         ***REMOVED***
       }
+    case EVENT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      ***REMOVED***
     default:
       return state;
   }
