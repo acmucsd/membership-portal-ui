@@ -29,7 +29,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"**/*.{js,jsx}\"",
     "lint:fix": "prettier --write --single-quote \"**/*.{js,jsx}\"",
-    "start": "react-app-rewired start",
+    "start": "PORT=8080 react-app-rewired start",
     "test": "jest",
     "test:watch": "jest --watch"
   },
