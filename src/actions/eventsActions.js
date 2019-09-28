@@ -1,7 +1,14 @@
-import { EVENT_CHECKIN, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS } from './types';
+import {
+  EVENT_CHECKIN,
+  EVENT_ERROR,
+  FETCH_FUTURE_EVENTS,
+  FETCH_PAST_EVENTS
+} from './types';
+
+import { logoutUser } from './authActions';
 
 import Config from '../config';
-import Storage from '../utils/storage';
+import Storage from '../storage';
 
 export const checkIn = (attendanceCode) => dispatch => {
   // TODO - Submit a request to the server to check into an event.
@@ -27,7 +34,7 @@ export const fetchFutureEvents = () => async dispatch => {
 
     let status = await eventsRes.status;
     if (status === 401 || status === 403) {
-      // TODO: Log out the user.
+      logoutUser();
       return;
     }
 
@@ -43,7 +50,10 @@ export const fetchFutureEvents = () => async dispatch => {
       payload: futureEvents.events,
     });
   } catch (error) {
-    // TODO: Dispatch error for event failure.
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error,
+    });
   }
 }
 
@@ -61,7 +71,7 @@ export const fetchPastEvents = () => async dispatch => {
 
     let status = await eventsRes.status;
     if (status === 401 || status === 403) {
-      // TODO: Log out the user.
+      logoutUser();
       return;
     }
 
@@ -77,6 +87,9 @@ export const fetchPastEvents = () => async dispatch => {
       payload: pastEvents.events,
     });
   } catch (error) {
-    // TODO: Dispatch error for event failure.
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error,
+    });
   }
 }
