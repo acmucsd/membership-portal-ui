@@ -8,7 +8,7 @@ export const notify = (title, description) => {
 };
 
 /**
- *  Returns a randomly generated default profile picture.
+ * Returns a randomly generated default profile picture.
  * @return {string} A link to a default profile picture.
  */
 export const getDefaultProfile = () => {
@@ -26,4 +26,24 @@ export const getDefaultProfile = () => {
 
   return `https://api.adorable.io/avatars/face/${getRandom(eyes)}
       /${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
+}
+
+/**
+ * Returns a rank based on the number of points.
+ * @param {number} points The number of points the user has.
+ * @return {string} A link to a default profile picture.
+ */
+export const getRank = (points) => {
+  const ranks = [
+    'Factorial Flea',
+    'Exponential Earthworm',
+    'Polynomial Piranha',
+    'Cubic Chicken',
+    'Quadratic Quail',
+    'Linear Lizard',
+    'Logarithmic Lion',
+    'Constant Croc',
+  ]
+  const index = Math.min(ranks.length, Math.floor(points / 100));
+  return ranks[index];
 }
