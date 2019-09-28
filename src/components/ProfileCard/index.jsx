@@ -15,7 +15,7 @@ const ProfileCard = props => {
           <h2>{props.name}</h2>
           <h3>{props.rank}</h3>
           <Progress
-            successPercent={props.exp}
+            successPercent={props.exp % 100}
             percent={100}
             showInfo={false}
             strokeWidth={12}
@@ -34,9 +34,7 @@ const ProfileCard = props => {
 ProfileCard.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  rank: PropTypes.string.isRequired,
   exp: PropTypes.number.isRequired,
-  level: PropTypes.number.isRequired,
 ***REMOVED***
 
 export default ProfileCard;

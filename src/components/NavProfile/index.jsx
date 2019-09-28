@@ -12,7 +12,7 @@ const NavProfile = props => {
         <div className="nav-profile">
           <Progress
             className="progress"
-            percent={props.exp}
+            percent={props.exp % 100}
             showInfo={false}
             strokeColor="#22ACEA"
             type="circle"

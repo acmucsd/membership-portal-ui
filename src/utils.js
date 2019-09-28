@@ -83,3 +83,12 @@ export const getHour = (time) => {
 
   return hour;
 }
+
+/**
+ * Retrieves the level from the number of points.
+ * @param {number} points The number of the points the user has.
+ * @return {number} The current level of the user.
+ */
+export const getLevel = (points) => {
+  return Math.floor(points / 100) + 1;
+}
