@@ -1,7 +1,7 @@
 import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './types';
 
 import Config from '../config';
-import Storage from '../utils/storage';
+import Storage from '../storage';
 
 export const fetchLeaderboard = () => async dispatch => {
   try {

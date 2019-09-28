@@ -2,8 +2,8 @@ import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
-import Storage from '../utils/storage';
-import { notify } from '../utils/notifications';
+import Storage from '../storage';
+import { notify } from '../utils';
 
 export const loginUser = (values) => async dispatch => {
   try {

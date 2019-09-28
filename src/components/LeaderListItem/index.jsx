@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
 
 import './style.less';
-import { getRank } from '../../utils/ranks';
+import { getRank } from '../../utils';
 
 const LeaderListItem = props => {
   return (
