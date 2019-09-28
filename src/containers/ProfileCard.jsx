@@ -21,10 +21,10 @@ const NavProfileContainer = props => {
 };
 
 const mapStateToProps = state => ({
-  exp: state.user.profile.exp,
+  exp: state.user.profile.points,
   image: state.user.profile.image,
   level: state.user.profile.level,
-  name: state.user.profile.name,
+  name: state.user.profile.firstName,
   rank: state.user.profile.rank,
 });
 

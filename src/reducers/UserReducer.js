@@ -2,13 +2,14 @@ import { FETCH_USER } from '../actions/types';
 
 const initialState = {
   profile: {
-    name: '',
+    firstName: '',
+    lastName: '',
     exp: 0,
-    image: '',
     level: 0,
     rank: '',
     year: 0,
   },
+  image: '',
   error: null,
 };
 
