@@ -1,8 +1,10 @@
 import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from '../actions/types';
 
+import Storage from '../utils/storage';
+
 const initialState = {
   admin: false,
-  authenticated: false,
+  authenticated: !! Storage.get('token'),
   error: false
 ***REMOVED***
 
@@ -18,7 +20,7 @@ const AuthReducer = (state = initialState, action) => {
       return {
         ...state,
         admin: action.isAdmin,
-        authenticated: true
+        authenticated: !! Storage.get('token')
       ***REMOVED***
     case UNAUTH_USER:
       return {
