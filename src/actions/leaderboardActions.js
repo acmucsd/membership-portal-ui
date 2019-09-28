@@ -5,17 +5,14 @@ import Storage from '../utils/storage';
 
 export const fetchLeaderboard = () => async dispatch => {
   try {
-    console.log(Storage.get('token'));
     const response = await fetch(Config.API_URL + Config.routes.leaderboard, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `${Storage.get('token')}`,
+        Authorization: `Bearer ${Storage.get('token')}`,
       },
     });
-
-    console.log(response);
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -30,7 +27,6 @@ export const fetchLeaderboard = () => async dispatch => {
       payload: data.leaderboard,
     });
   } catch (error) {
-    console.log(error)
     dispatch({
       type: LEADERBOARD_ERROR,
       payload: error,
