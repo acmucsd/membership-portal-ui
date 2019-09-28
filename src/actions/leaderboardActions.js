@@ -1,4 +1,5 @@
 import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './types';
+import { logoutUser } from './authActions';
 
 import Config from '../config';
 import Storage from '../storage';
@@ -16,7 +17,7 @@ export const fetchLeaderboard = () => async dispatch => {
 
     const status = await response.status;
     if (status === 401 || status === 403) {
-      // TODO: Logout the user.
+      logoutUser();
     }
 
     const data = await response.json();
