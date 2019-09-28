@@ -25,5 +25,10 @@ export default {
       past: '/api/v1/event/past',
       future: '/api/v1/event/future',
     },
+    attendance: {
+      fetch: '/api/v1/attendance',
+      attend: '/api/v1/attendance/attend',
+    },
+    leaderboard: '/api/v1/leaderboard',
   }
 }
