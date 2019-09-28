@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileUpdate from '../components/ProfileUpdate';
+import ProfileUpdate from './ProfileUpdate';
 import PageLayout from './PageLayout';
 
 const ProfilePage = () => {

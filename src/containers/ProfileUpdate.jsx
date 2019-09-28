@@ -2,21 +2,26 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import ProfileUpdate from '../components/ProfileUpdate';
-import { updateUser } from '../actions/authActions';
+import { updateProfile } from '../actions/profileActions';
+
 const FormikProfileUpdate = withFormik({
     mapPropsToValues() {
       return {
         firstName: '',
+        lastName: '',
+        graduationYear: 0,
+        major: '',
+        about: ''
       }
     },
     handleSubmit(values, { resetForm, props }) {
-      props.loginUser(values);
+      props.updateProfile(values);
       resetForm();
     },
   })(ProfileUpdate);
   
   export default connect(
     null,
-    { updateUser}
+    { updateProfile }
   )(FormikProfileUpdate);
   
