@@ -1,24 +1,22 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
-import ProfileUpdate from '../components/SignInForm';
-// TODO: fix the h1 size
+import ProfileUpdate from '../components/ProfileUpdate';
+import { updateUser } from '../actions/authActions';
 const FormikProfileUpdate = withFormik({
     mapPropsToValues() {
       return {
-        email: '',
-        password: '',
+        firstName: '',
       }
     },
     handleSubmit(values, { resetForm, props }) {
       props.loginUser(values);
       resetForm();
-      props.redirectHome();
     },
-  })(SignInForm);
+  })(ProfileUpdate);
   
   export default connect(
     null,
-    { loginUser, redirectHome}
-  )(FormikSignInForm);
+    { updateUser}
+  )(FormikProfileUpdate);
   

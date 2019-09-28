@@ -22,7 +22,7 @@ const ProfileUpdate = props => {
         <form onSubmit={props.handleSubmit}>
           <Form.Item label="First name">
             <Input
-              name="firstname"
+              name="firstName"
               className="input-box"
               value={props.values}
               onChange={props.handleChange}
