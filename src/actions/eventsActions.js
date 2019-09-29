@@ -1,23 +1,59 @@
 import {
   EVENT_CHECKIN,
+  EVENT_CHECKOUT,
   EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS
 } from './types';
 
+import { fetchUser } from './userActions';
 import { logoutUser } from './authActions';
 
 import Config from '../config';
 import Storage from '../storage';
+import { notify } from '../utils';
 
-export const checkIn = (attendanceCode) => dispatch => {
-  // TODO - Submit a request to the server to check into an event.
-  const response = {
+export const checkIn = (attendanceCode) => async dispatch => {
+  try {
+    const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+      body: JSON.stringify({ attendanceCode }),
+    });
+
+    const status = await response.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    dispatch(fetchUser());
+    dispatch(fetchPastEvents());
+    dispatch(fetchFutureEvents());
+    dispatch({
+      type: EVENT_CHECKIN
+    })
+  } catch (error) {
+    notify('Unable to checkin!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+      checkin: false,
+    });
   }
+};
 
+export const checkOut = () => dispatch => {
   dispatch({
-    type: EVENT_CHECKIN,
-    payload: response,
+    type: EVENT_CHECKOUT
   })
 };
 
@@ -34,7 +70,7 @@ export const fetchFutureEvents = () => async dispatch => {
 
     let status = await eventsRes.status;
     if (status === 401 || status === 403) {
-      logoutUser();
+      dispatch(logoutUser());
       return;
     }
 
@@ -43,16 +79,15 @@ export const fetchFutureEvents = () => async dispatch => {
     if (!futureEvents) throw new Error('Empty response from server');
     else if (futureEvents.error) throw new Error(futureEvents.error.message);
 
-    // TODO: Mark the events as checked in if the user has attended them.
-
     dispatch({
       type: FETCH_FUTURE_EVENTS,
       payload: futureEvents.events,
     });
   } catch (error) {
+    notify('Unable to fetch future events!', error.message);
     dispatch({
       type: EVENT_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 }
@@ -87,9 +122,10 @@ export const fetchPastEvents = () => async dispatch => {
       payload: pastEvents.events,
     });
   } catch (error) {
+    notify('Unable to fetch past events!', error.message);
     dispatch({
       type: EVENT_ERROR,
-      payload: error,
+      payload: error.message,
     });
   }
 }
