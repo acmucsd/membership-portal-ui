@@ -23,6 +23,7 @@ const FormikCreateEventForm = withFormik({
     }
   },
   handleSubmit(values, { resetForm, props }) {
+    console.log(values);
     if (values.startAm === 'PM') {
       values.startTime += 12;
     }
@@ -33,8 +34,8 @@ const FormikCreateEventForm = withFormik({
       title: values.title,
       location: values.location,
       pointValue: values.pointValue,
-      start: new Date(2019, values.day, getMonthIndex(values.month), values.startTime),
-      end: new Date(2019, values.day, getMonthIndex(values.month), values.endTime),
+      start: new Date(2019, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
+      end: new Date(2019, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description
