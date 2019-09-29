@@ -2,24 +2,30 @@ import _ from 'lodash';
 
 import {
   EVENT_CHECKIN,
+  EVENT_CHECKOUT,
   EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS
 } from '../actions/types';
 
 const initialState = {
-  events: [],
   futureEvents: [],
   pastEvents: [],
+  checkin: false,
   error: null
 };
 
 const EventsReducer = (state = initialState, action) => {
   switch (action.type) {
     case EVENT_CHECKIN:
-      // TODO: Locate the event in the events array and mark as checked in.
       return {
         ...state,
+        checkin: true,
+      };
+    case EVENT_CHECKOUT:
+      return {
+        ...state,
+        checkin: false,
       };
     case FETCH_FUTURE_EVENTS:
       if(_.isEqual(state.futureEvents, action.payload)) {
