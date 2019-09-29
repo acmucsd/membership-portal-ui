@@ -17,7 +17,7 @@ export const fetchLeaderboard = () => async dispatch => {
 
     const status = await response.status;
     if (status === 401 || status === 403) {
-      logoutUser();
+      dispatch(logoutUser());
     }
 
     const data = await response.json();
