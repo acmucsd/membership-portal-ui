@@ -4,6 +4,7 @@ import withSizes from 'react-sizes';
 import { NavLink } from 'react-router-dom';
 
 import Banner from '../../containers/Banner';
+import CheckInModal from '../../containers/CheckInModal';
 import NavDropdown from '../../containers/NavDropdown';
 import NavProfile from '../../containers/NavProfile';
 import NavBarHorizontal from '../NavBarHorizontal';
@@ -16,6 +17,7 @@ import './style.less';
 const PageLayout = props => {
   return (
     <>
+      <CheckInModal />
       <div className="header">
         <NavLink className="title" to="/">
           <img alt="ACM" id="logo" src={logo} />

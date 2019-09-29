@@ -85,6 +85,26 @@ export const getHour = (time) => {
 }
 
 /**
+ * Converts the month to an index
+ * @param {string} month The month in string form.
+ * @return {number} The month in number form.
+ */
+export const getMonthIndex = (month) => {
+  const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  function checkMonth(currMonth) {
+    return month === currMonth;
+  }
+
+  return monthNames.findIndex(checkMonth);
+}
+
+/**
  * Retrieves the level from the number of points.
  * @param {number} points The number of the points the user has.
  * @return {number} The current level of the user.
