@@ -18,7 +18,7 @@ export const getDefaultProfile = () => {
       'nose9'];
   const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6',
       'mouth7','mouth9'];
-  const colors = ['22ACEA', '0659BC', '2C72C6', 'BED9E6'];
+  const colors = ['22ACEA', '0659BC', 'BED9E6'];
 
   const getRandom = (list) => {
     return list[Math.floor((Math.random()*list.length))];
