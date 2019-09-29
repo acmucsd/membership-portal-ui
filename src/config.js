@@ -1,6 +1,10 @@
+let apiurl = 'https://acmucsd-membership-portal-api.herokuapp.com';
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  apiurl = 'http://localhost:3000';
+}
+
 export default {
-  // TODO: Add production URL.
-  API_URL: process.env.NODE_ENV.APIURL || 'http://localhost:3000',
+  API_URL: apiurl,
   about: `With 100,000 members and 500+ chapters, the Association for Computing
           Machinery is the world's largest society for computing. Here at UC
           San Diego, our chapter has been established with the mission of
