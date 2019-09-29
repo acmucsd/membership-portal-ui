@@ -2,6 +2,7 @@
   "name": "antd-demo",
   "version": "0.1.0",
   "private": true,
+  "proxy" : "https://acmucsd-membership-portal-api.herokuapp.com",
   "dependencies": {
     "@firebase/storage": "^0.3.10",
     "antd": "^3.21.2",
