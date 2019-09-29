@@ -6,7 +6,6 @@ import Storage from '../storage';
 import { notify } from '../utils';
 
 export const loginUser = (values) => async dispatch => {
-  console.log('hello');
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
