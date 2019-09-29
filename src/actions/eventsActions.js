@@ -71,7 +71,7 @@ export const fetchPastEvents = () => async dispatch => {
 
     let status = await eventsRes.status;
     if (status === 401 || status === 403) {
-      logoutUser();
+      dispatch(logoutUser());
       return;
     }
 
