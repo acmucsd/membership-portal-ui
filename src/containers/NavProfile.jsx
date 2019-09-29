@@ -13,9 +13,9 @@ const NavProfileContainer = props => {
 };
 
 const mapStateToProps = state => ({
-  exp: state.user.profile.exp,
-  image: state.user.profile.image,
-  name: state.user.profile.name,
+  exp: state.user.profile.points,
+  image: state.user.image,
+  name: state.user.profile.firstName,
 });
 
 export default connect(

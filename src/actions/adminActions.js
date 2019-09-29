@@ -1,34 +1,32 @@
-import { FETCH_USER } from './types';
-
 import Config from '../config';
 import Storage from '../storage';
 
-export const fetchUser = () => async dispatch => {
+import { notify } from '../utils';
+import { logoutUser } from './authActions';
+
+export const postEvent = (event) => async dispatch => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.user.user, {
-      method: 'GET',
+    const response = await fetch(Config.API_URL + Config.routes.events.event, {
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
+      body: JSON.stringify({ event }),
     });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
-      // TODO: Logout user.
-      return;
+      dispatch(logoutUser());
     }
 
     const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
 
-    dispatch({
-      type: FETCH_USER,
-      payload: data.user,
-    });
+    notify('Added an event!', event.title);
   } catch (error) {
-    // TODO: Dispatch error message.
+    notify('Unable to add events!', error.message);
   }
 };

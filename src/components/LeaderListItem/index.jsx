@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
 
 import './style.less';
+import { getRank } from '../../utils';
 
 const LeaderListItem = props => {
   return (
@@ -12,7 +13,7 @@ const LeaderListItem = props => {
       <span className="placement">{props.placement}</span>
       <Avatar size={40} src={props.image} />
       <span className="name">{props.name}</span>
-      <span className="rank">{props.rank}</span>
+      <span className="rank">{getRank(props.exp)}</span>
       <span className="exp">{props.exp} points</span>
     </div>
   );
@@ -20,10 +21,8 @@ const LeaderListItem = props => {
 
 LeaderListItem.propTypes = {
   exp: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
-  rank: PropTypes.string.isRequired,
 };
 
 export default LeaderListItem;

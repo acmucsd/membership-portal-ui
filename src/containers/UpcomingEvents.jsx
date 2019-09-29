@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
+import background from '../assets/graphics/background.svg';
 import { fetchFutureEvents } from '../actions/eventsActions';
+import { formatDate } from '../utils';
 
 const UpcomingEventsContainer = props => {
   useEffect(() => {
@@ -13,11 +15,12 @@ const UpcomingEventsContainer = props => {
   return (
     <EventsList>
       {props.events.map((event) => {
+        const startTime = formatDate(event.start);
         return (
           <EventCard
-            key={event.attendanceCode}
-            cover={event.cover}
-            date={event.start}
+            key={`upcoming-${event.uuid}`}
+            cover={event.cover || background}
+            date={startTime}
             description={event.description}
             location={event.location}
             points={event.pointValue}

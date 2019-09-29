@@ -1,14 +1,14 @@
 import { FETCH_USER } from '../actions/types';
+import { getDefaultProfile } from '../utils';
 
 const initialState = {
   profile: {
-    name: '',
-    exp: 0,
-    image: '',
-    level: 0,
-    rank: '',
-    year: 0,
+    firstName: '',
+    lastName: '',
+    points: 0,
+    graduationYear: 0,
   },
+  image: getDefaultProfile(),
   error: null,
 };
 

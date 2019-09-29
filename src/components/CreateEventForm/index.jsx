@@ -65,9 +65,9 @@ const CreateEventForm = props => {
               label="Points"
             >
               <Input
-                name="points"
+                name="pointValue"
                 className="points"
-                value={props.values.points}
+                value={props.values.pointValue}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
               />
@@ -165,11 +165,20 @@ const CreateEventForm = props => {
               </Select>
             </Form.Item>
           </div>
-          <Form.Item label="Facebook Link">
+          <Form.Item label="Cover Link">
             <Input
-              name="facebook"
+              name="cover"
               className="input-box"
-              value={props.values.facebook}
+              value={props.values.cover}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+          </Form.Item>
+          <Form.Item label="Attendance Code">
+            <Input
+              name="attendanceCode"
+              className="input-box"
+              value={props.values.attendanceCode}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />

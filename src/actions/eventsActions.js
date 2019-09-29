@@ -1,81 +1,131 @@
-import { EVENT_CHECKIN, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS } from './types';
+import {
+  EVENT_CHECKIN,
+  EVENT_CHECKOUT,
+  EVENT_ERROR,
+  FETCH_FUTURE_EVENTS,
+  FETCH_PAST_EVENTS
+} from './types';
 
-export const checkIn = (attendanceCode) => dispatch => {
-  // TODO - Submit a request to the server to check into an event.
-  const response = {
+import { fetchUser } from './userActions';
+import { logoutUser } from './authActions';
+
+import Config from '../config';
+import Storage from '../storage';
+import { notify } from '../utils';
+
+export const checkIn = (attendanceCode) => async dispatch => {
+  try {
+    const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+      body: JSON.stringify({ attendanceCode }),
+    });
+
+    const status = await response.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    dispatch(fetchUser());
+    dispatch(fetchPastEvents());
+    dispatch(fetchFutureEvents());
+    dispatch({
+      type: EVENT_CHECKIN
+    })
+  } catch (error) {
+    notify('Unable to checkin!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+      checkin: false,
+    });
   }
+};
 
+export const checkOut = () => dispatch => {
   dispatch({
-    type: EVENT_CHECKIN,
-    payload: response,
+    type: EVENT_CHECKOUT
   })
 };
 
 export const fetchFutureEvents = () => async dispatch => {
-  // TODO - Submit a request to get the future events.
+  try {
+    const eventsRes = await fetch(Config.API_URL + Config.routes.events.future, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
-  const futureEvents = [
-    {
-      title: 'Fall Kickoff',
-      cover: 'http://placekitten.com/g/200/300',
-      description: 'Inaugural GBM.',
-      committee: '',
-      location: 'PC East Ball Room',
-      start: 'September 29 6:00PM',
-      end: 'September 29 9:00PM',
-      attendanceCode: '@cmuc5d',
-      pointValue: 20,
-    },
-    {
-      title: 'Pool and Ping Pong',
-      cover: 'http://placekitten.com/g/200/300',
-      description: 'Game night.',
-      committee: '',
-      location: 'PC Game Room',
-      start: 'October 8 6:00PM',
-      end: 'October 8 8:00PM',
-      attendanceCode: 'p0ng',
-      pointValue: 10,
-    },
-    {
-      title: 'Hack School - NodeJS',
-      cover: 'http://placekitten.com/g/200/300',
-      description: 'Learn Node.',
-      committee: '',
-      location: 'PC ERC Room',
-      start: 'October 15 6:00PM',
-      end: 'October 15 8:00PM',
-      attendanceCode: 'n0d3',
-      pointValue: 30,
-    },
-  ]
+    let status = await eventsRes.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
 
-  dispatch({
-    type: FETCH_FUTURE_EVENTS,
-    payload: futureEvents,
-  });
+    const futureEvents = await eventsRes.json();
+
+    if (!futureEvents) throw new Error('Empty response from server');
+    else if (futureEvents.error) throw new Error(futureEvents.error.message);
+
+    dispatch({
+      type: FETCH_FUTURE_EVENTS,
+      payload: futureEvents.events,
+    });
+  } catch (error) {
+    notify('Unable to fetch future events!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
 }
 
 
 export const fetchPastEvents = () => async dispatch => {
-  // TODO - Submit a request to get the past events.
+  try {
+    const eventsRes = await fetch(Config.API_URL + Config.routes.events.past, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
-  const pastEvents = [
-    {
-      title: 'Past Event',
-      cover: 'http://placekitten.com/g/200/300',
-      description: 'No events have passed yet',
-      committee: '',
-      location: 'PC East Ball Room',
-      start: 'September 18 10:00AM',
-      end: 'September 18 3:00PM',
-      attendanceCode: 'p@5t',
-      pointValue: 20,
-    },
-  ]
+    let status = await eventsRes.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
 
-  dispatch({
-    type: FETCH_PAST_EVENTS,
-    payload: pastEvents,
-  });
+    const pastEvents = await eventsRes.json();
+
+    if (!pastEvents) throw new Error('Empty response from server');
+    else if (pastEvents.error) throw new Error(pastEvents.error.message);
+
+    // TODO: Mark the events as checked in if the user has attended them.
+
+    dispatch({
+      type: FETCH_PAST_EVENTS,
+      payload: pastEvents.events,
+    });
+  } catch (error) {
+    notify('Unable to fetch past events!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
 }
