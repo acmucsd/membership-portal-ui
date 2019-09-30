@@ -78,7 +78,12 @@ const CreateEventForm = props => {
               className="month-wrapper"
               label="Month"
             >
-              <Select className="months">
+              <Select
+                className="months"
+                onChange={(value) => props.setFieldValue('month', value)}
+                onBlur={()=> props.setFieldTouched('month', true)}
+                value={props.values.month}
+              >
                 {months.map(month => (
                   <Option
                     key={`month-${month}`}
@@ -93,7 +98,12 @@ const CreateEventForm = props => {
               className="day-wrapper"
               label="Day"
             >
-              <Select className="days">
+              <Select
+                className="days"
+                onChange={(value) => props.setFieldValue('day', value)}
+                onBlur={()=> props.setFieldTouched('day', true)}
+                value={props.values.day}
+              >
                 {days.map(day => (
                   <Option
                     key={`day-${day}`}

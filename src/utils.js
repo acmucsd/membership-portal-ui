@@ -53,22 +53,19 @@ export const getRank = (points) => {
  * @return {string} The formatted time in a readable format
  */
 export const formatDate = (time) => {
+  const parsedTime = Date.parse(time);
+  const parsedDate = new Date(parsedTime);
   const monthNames = [
     "January", "February", "March",
     "April", "May", "June", "July",
     "August", "September", "October",
     "November", "December"
   ];
+  const date = parsedDate.getDate();
+  const monthIndex = parsedDate.getMonth();
+  const year = parsedDate.getFullYear();
 
-  // TODO: Clean this up.
-  const date = time.slice(0,10).split('-');
-  const day = date[2];
-  const monthIndex = date[1];
-  const year = date[0];
-  // TODO: Include the time
-  //const hour = getHour(time);
-
-  return monthNames[monthIndex-1] + ' ' + day + ' ' + year
+  return monthNames[monthIndex] + ' ' + date + ' ' + year;
 }
 
 /**
