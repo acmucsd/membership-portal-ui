@@ -30,7 +30,7 @@ const NavDropdown = props => {
         <NavLink activeClassName="selected" className="nav-item" to="/store">
           <NavListItem text="ACM Store" />
         </NavLink>
-        <a className="nav-item" href="https://discord.gg/mK9Zrf4d">
+        <a className="nav-item" href="https://discord.gg/mK9Zrf4">
           <NavListItem text="Discord" />
         </a>
       </section>
