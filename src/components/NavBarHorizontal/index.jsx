@@ -22,7 +22,7 @@ export default () => {
         <NavLink activeClassName="selected" to="/profile">
           <NavTileItem icon={ProfileIcon} text="Profile" />
         </NavLink>
-        <a href="https://discord.gg/mK9Zrf4d">
+        <a href="https://discord.gg/mK9Zrf4">
           <NavTileItem icon={DiscordIcon} text="Discord" />
         </a>
       </nav>
