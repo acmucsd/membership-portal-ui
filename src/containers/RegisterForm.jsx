@@ -19,7 +19,6 @@ const FormikRegisterForm = withFormik({
   },
   handleSubmit(values, { resetForm,  props }) {
     props.registerAccount(values);
-    resetForm();
   },
 })(RegisterForm);
 
