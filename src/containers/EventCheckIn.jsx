@@ -15,10 +15,17 @@ const EventCheckInContainer = props => {
     props.checkIn(value)
   }
 
+  const handleEnter = (event) => {
+    if (event.key === 'Enter') {
+      props.checkIn(value)
+    }
+  }
+
   return (
     <EventCheckIn
       onChange={handleChange}
       onSubmit={handleSubmit}
+      onKeyPress={handleEnter}
       value={value}
     />
   )

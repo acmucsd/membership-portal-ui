@@ -11,6 +11,7 @@ const EventCheck = props => {
       <div className="inputbox">
         <Input
           onChange={props.onChange}
+          onKeyPress={props.onKeyPress}
           value={props.value}
           className="input"
           size="large"
