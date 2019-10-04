@@ -7,16 +7,27 @@ import logo from '../../assets/graphics/logo.svg';
 
 const PasswordForm = () => {
   return (
-    <div className="passwordcard">
+    <div className="resetcard">
       <img src={logo} className="logo" alt="logo" height="115" width="115" />
       <form>
-        <Form.Item className="email" label="Enter Email Here">
+        <Form.Item className="password" label="Reset your password">
           <Input
-            name="email"
-            type="email"
-            placeholder="Email (user@ucsd.edu)"
+            name="password"
+            type="password"
+            placeholder="Password"
             className="input-box"
             // value={props.values.email}
+            // onChange={props.handleChange}
+            // onBlur={props.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item className="password">
+          <Input
+            name="confirmpassword"
+            type="password"
+            placeholder="Confirm Password"
+            className="input-box"
+            // value={props.values.password}
             // onChange={props.handleChange}
             // onBlur={props.handleBlur}
           />
