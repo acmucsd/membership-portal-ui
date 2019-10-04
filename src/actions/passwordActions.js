@@ -5,7 +5,7 @@ import { notify } from '../utils';
 
 export const passwordReset = email => async dispatch => {
   try {
-    const response = await fetch(Config.password + email, {
+    const response = await fetch(Config.API_URL + Config.routes.auth.password, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -15,30 +15,19 @@ export const passwordReset = email => async dispatch => {
       body: JSON.stringify({ email }),
     });
 
-    // const status = await response.status;
-    // if (status === 401 || status === 403) {
-    //   dispatch(logoutUser());
-    //   return;
-    // }
-
     const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
 
-    dispatch(fetchUser());
-    dispatch(fetchPastEvents());
-    dispatch(fetchFutureEvents());
     dispatch({
-      type: EVENT_CHECKIN,
+      type: PASSWORD_SUCCESS,
     });
   } catch (error) {
-    notify('Unable to checkin!', error.message);
+    notify('Error with email!', error.message);
     dispatch({
-      type: EVENT_ERROR,
+      type: PASSWORD_FAIL,
       payload: error.message,
-      checkin: false,
+      error: true,
     });
   }
 };
-
-
