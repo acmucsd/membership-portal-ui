@@ -1,0 +1,52 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.resetcard {
+  align-items: center;
+  background: @blue-2;
+  border-radius: 10px;
+  color: @white;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto';
+  height: @reset-height ;
+  justify-content: center;
+  width: @sign-in-width;
+
+  label {
+    color: @white;
+    font-family: 'Nunito';
+    font-size: @general-body;
+  }
+
+  .input-box {
+    height: @button-height-2;
+    width: @button-width;
+  }
+
+  .logo {
+    height: 115px;
+    margin-bottom: 36px;
+    width: 115px;
+  }
+
+  .save-button {
+    background-color: @green-1;
+    border-color: @green-2;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    margin-right: 5%;
+    width: 50 %;
+  }
+  .discard-button {
+    background-color: @white;
+    border-color: @red;
+    color: @red;
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    width: 45%;
+  }
+}
