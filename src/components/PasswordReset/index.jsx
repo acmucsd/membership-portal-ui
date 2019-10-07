@@ -12,8 +12,8 @@ const PasswordForm = () => {
       <form>
         <Form.Item className="code" label="Reset your password">
           <Input
-            name="password"
-            type="password"
+            name="code"
+            type="text"
             placeholder="Activation code"
             className="input-box"
             // value={props.values.email}
