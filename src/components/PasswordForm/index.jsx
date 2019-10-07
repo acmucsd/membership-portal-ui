@@ -8,7 +8,7 @@ import logo from '../../assets/graphics/logo.svg';
 const PasswordForm = () => {
   return (
     <div className="passwordcard">
-      <img src={logo} className="logo" alt="logo"  />
+      <img src={logo} className="logo" alt="logo" />
       <form>
         <Form.Item className="email" label="Enter Email Here">
           <Input
