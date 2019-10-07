@@ -14,6 +14,7 @@ import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
 import LoginPage from './containers/LoginPage';
 import PasswordPage from './containers/PasswordPage';
+import PasswordUpdate from './containers/PasswordUpdate';
 import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
@@ -35,6 +36,7 @@ const App = () => {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={requireAuth(ProfilePage)} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/reset-password" component={PasswordUpdate} />
             <Route exact path="/store" component={requireAuth(StorePage)} />
             <Route path="/" component={requireAuth(HomePage)} />
           </Switch>

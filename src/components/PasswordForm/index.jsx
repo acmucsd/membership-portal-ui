@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Form, Input } from 'antd';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
@@ -7,16 +8,29 @@ import logo from '../../assets/graphics/logo.svg';
 const PasswordForm = () => {
   return (
     <div className="passwordcard">
-      <img src={logo} alt="logo" height="115" width="115" />
-      <h1>Sorry we are still working on a password reset :(</h1>
-      <h3>Please contact us at acmucsd@gmail.com</h3>
-      <NavLink to="/login">
-        <p>
-          <b>Click here to go back to the log in page</b>
-        </p>
-      </NavLink>
+      <img src={logo} className="logo" alt="logo" />
+      <form>
+        <Form.Item className="email" label="Enter Email Here">
+          <Input
+            name="email"
+            type="email"
+            placeholder="Email (user@ucsd.edu)"
+            className="input-box"
+            // value={props.values.email}
+            // onChange={props.handleChange}
+            // onBlur={props.handleBlur}
+          />
+        </Form.Item>
+      </form>
     </div>
   );
+};
+
+PasswordForm.propTypes = {
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  values: PropTypes.object,
 };
 
 export default PasswordForm;

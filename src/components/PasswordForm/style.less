@@ -5,14 +5,13 @@
   align-items: center;
   background: @blue-2;
   border-radius: 10px;
+  color: @white;
   display: flex;
   flex-direction: column;
   font-family: 'Roboto';
   height: @password-height;
   justify-content: center;
-  text-align: center;
   width: @sign-in-width;
-  color: @white;
 
   h1 {
     color: @white;
@@ -20,8 +19,20 @@
     margin-top: 24px;
   }
 
-  h3 {
-    color: @gray-2;
-    margin-bottom: 24px;
+  label {
+    color: @white;
+    font-family: 'Nunito';
+    font-size: @general-body;
+  }
+
+  .logo {
+    height: 115px;
+    margin-bottom: 36px;
+    width: 115px;
+  }
+
+  .input-box {
+    height: @button-height-2;
+    width: @button-width;
   }
 }
