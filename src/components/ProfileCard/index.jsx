@@ -22,8 +22,8 @@ const ProfileCard = props => {
             strokeColor="#587291"
           />
           <p>
-            <span> LEVEL {props.level}</span>
-            <span className="experience"> {props.exp} / 100 </span>
+            <span> LVL {props.level}</span>
+            <span className="experience"> {props.exp % 100} / 100 </span>
           </p>
         </div>
       </div>
