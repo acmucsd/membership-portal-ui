@@ -8,9 +8,20 @@ import logo from '../../assets/graphics/logo.svg';
 const PasswordForm = () => {
   return (
     <div className="resetcard">
-      <img src={logo} className="logo" alt="logo" height="115" width="115" />
+      <img src={logo} className="logo" alt="logo" />
       <form>
-        <Form.Item className="password" label="Reset your password">
+        <Form.Item className="code" label="Reset your password">
+          <Input
+            name="code"
+            type="text"
+            placeholder="Activation code"
+            className="input-box"
+            // value={props.values.email}
+            // onChange={props.handleChange}
+            // onBlur={props.handleBlur}
+          />
+        </Form.Item>
+        <Form.Item className="password">
           <Input
             name="password"
             type="password"
