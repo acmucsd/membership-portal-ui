@@ -34,6 +34,5 @@ export default {
       attend: '/api/v1/attendance/attend',
     },
     leaderboard: '/api/v1/leaderboard',
-    password: '/api/v1/auth/resetPassword',
   }
 }
