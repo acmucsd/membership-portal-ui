@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import LoginLayout from '../components/LoginLayout';
 import PasswordForm from '../components/PasswordForm';
-import { passwordReset } from '../actions/passwordActions';
+import { passwordReset } from '../actions/authActions';
 
 const PasswordPage = props => {
   const [value, setValue] = useState('');
@@ -14,13 +14,18 @@ const PasswordPage = props => {
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
+      event.preventDefault();
+      setValue('');
       props.passwordReset(value);
     }
   };
 
   return (
     <LoginLayout>
-      <PasswordForm onChange={handleChange} onKeyPress={handleEnter} value={value} />
+      <PasswordForm 
+        onChange={handleChange} 
+        onKeyPress={handleEnter} 
+        value={value} />
     </LoginLayout>
   );
 };
