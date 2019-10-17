@@ -5,7 +5,7 @@ import { Form, Input } from 'antd';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const PasswordForm = () => {
+const PasswordForm = (props) => {
   return (
     <div className="passwordcard">
       <img src={logo} className="logo" alt="logo" />
@@ -16,9 +16,9 @@ const PasswordForm = () => {
             type="email"
             placeholder="Email (user@ucsd.edu)"
             className="input-box"
-            // value={props.values.email}
-            // onChange={props.handleChange}
-            // onBlur={props.handleBlur}
+            onChange={props.onChange}
+            onKeyPress={props.onKeyPress}
+            value={props.value}
           />
         </Form.Item>
       </form>
@@ -27,10 +27,9 @@ const PasswordForm = () => {
 };
 
 PasswordForm.propTypes = {
-  handleBlur: PropTypes.func,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  values: PropTypes.object,
+  onKeyPress: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 };
 
 export default PasswordForm;
