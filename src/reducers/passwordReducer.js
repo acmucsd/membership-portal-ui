@@ -1,4 +1,4 @@
-import { PASSWORD_FAIL, PASSWORD_SUCCESS } from './types';
+import { PASSWORD_FAIL, PASSWORD_SUCCESS } from '../actions/types';
 
 const initialState = {
   emailSuccess: false,
@@ -7,17 +7,16 @@ const initialState = {
 
 const PasswordReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PASSWORD_SUCCESS:
-      return {
-        ...state,
-        error: false,
-        emailSuccess: true,
-        email: action.payload,
-      };
     case PASSWORD_FAIL:
       return {
         ...state,
         error: true,
+      };
+    case PASSWORD_SUCCESS:
+      return {
+        ...state,
+        emailSuccess: true,
+        error: false,
       };
     default:
       return state;

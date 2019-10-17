@@ -7,6 +7,7 @@ import EventsReducer from './EventsReducer';
 import LeaderboardReducer from './LeaderboardReducer';
 import RegisterReducer from './RegisterReducer';
 import UserReducer from './UserReducer';
+import PasswordReducer from './passwordReducer';
 import ProfileReducer from './ProfileReducer';
 
 export default history =>
@@ -18,5 +19,6 @@ export default history =>
     leaderboard: LeaderboardReducer,
     register: RegisterReducer,
     user: UserReducer,
+    pass: PasswordReducer,
     profile: ProfileReducer 
   });

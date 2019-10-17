@@ -1,4 +1,4 @@
-import { AUTH_ERROR, AUTH_USER, UNAUTH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS } from './types';
+import { AUTH_ERROR, AUTH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, UNAUTH_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
@@ -89,7 +89,6 @@ export const passwordReset = email => async dispatch => {
     dispatch({
       type: PASSWORD_FAIL,
       payload: error.message,
-      error: true,
     });
   }
 };
