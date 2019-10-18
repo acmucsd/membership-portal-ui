@@ -24,8 +24,14 @@ const FormikCreateEventForm = withFormik({
   },
   handleSubmit(values, { resetForm, props }) {
     console.log(values);
+    if (values.startTime === 12) {
+      values.startTime = 0;
+    }
     if (values.startAm === 'PM') {
       values.startTime += 12;
+    }
+    if (values.endTime === 12) {
+      values.endTime = 0;
     }
     if (values.endAm === 'PM') {
       values.endTime += 12;
