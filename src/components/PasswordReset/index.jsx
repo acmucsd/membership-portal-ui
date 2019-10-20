@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
@@ -10,18 +10,7 @@ const PasswordForm = () => {
     <div className="resetcard">
       <img src={logo} className="logo" alt="logo" />
       <form>
-        <Form.Item className="code" label="Reset your password">
-          <Input
-            name="code"
-            type="text"
-            placeholder="Activation code"
-            className="input-box"
-            // value={props.values.email}
-            // onChange={props.handleChange}
-            // onBlur={props.handleBlur}
-          />
-        </Form.Item>
-        <Form.Item className="password">
+        <Form.Item className="password" label="Reset your password">
           <Input
             name="password"
             type="password"
@@ -43,6 +32,11 @@ const PasswordForm = () => {
             // onBlur={props.handleBlur}
           />
         </Form.Item>
+        <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-button">
+              Submit
+            </Button>
+          </Form.Item>
       </form>
     </div>
   );

@@ -1,14 +1,39 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import { withFormik } from 'formik';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import LoginLayout from '../components/LoginLayout';
+import { updatePassword } from '../actions/authActions';
 import PasswordReset from '../components/PasswordReset';
 
-const PasswordUpdate = () => {
-  return (
-    <LoginLayout>
-      <PasswordReset />
-    </LoginLayout>
-  );
-};
+const PasswordResetContainer = (props) => {
+  const params = useParams();
+  useEffect(() => {
+    console.log(params);
+    props.setFieldValue('code', params.code);
+  }, []);
 
-export default PasswordUpdate;
+  return (
+    <PasswordReset />
+  )
+}
+
+const FormikPasswordForm = withFormik({
+  mapPropsToValues() {
+    return {
+      code: '',
+      newPassword: '',
+      confirmPassword: '',
+    };
+  },
+  handleSubmit(values, { resetForm, props }) {
+    console.log('WTF')
+    console.log(values);
+    props.updatePassword(values);
+  },
+})(PasswordResetContainer);
+
+export default connect(
+  null,
+  { updatePassword }
+)(FormikPasswordForm);
