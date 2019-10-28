@@ -9,6 +9,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
+  currentEvent: {},
   futureEvents: [],
   pastEvents: [],
   checkin: false,
@@ -21,6 +22,7 @@ const EventsReducer = (state = initialState, action) => {
       return {
         ...state,
         checkin: true,
+        currentEvent: action.payload,
       };
     case EVENT_CHECKOUT:
       return {
@@ -54,6 +56,7 @@ const EventsReducer = (state = initialState, action) => {
     case EVENT_ERROR:
       return {
         ...state,
+        checkin: false,
         error: action.payload,
       };
     default:
