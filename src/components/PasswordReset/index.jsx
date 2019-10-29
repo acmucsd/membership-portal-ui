@@ -5,30 +5,30 @@ import { Button, Form, Input } from 'antd';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const PasswordForm = () => {
+const PasswordForm = (props) => {
   return (
     <div className="resetcard">
       <img src={logo} className="logo" alt="logo" />
       <form>
         <Form.Item className="password" label="Reset your password">
           <Input
-            name="password"
+            name="newPassword"
             type="password"
             placeholder="Password"
             className="input-box"
-            // value={props.values.email}
-            // onChange={props.handleChange}
+            // value={props.values.newPassword}
+            onChange={props.handleChange}
             // onBlur={props.handleBlur}
           />
         </Form.Item>
         <Form.Item className="password">
           <Input
-            name="confirmpassword"
+            name="confirmPassword"
             type="password"
             placeholder="Confirm Password"
             className="input-box"
-            // value={props.values.password}
-            // onChange={props.handleChange}
+            // value={props.values.confirmPassword}
+            onChange={props.handleChange}
             // onBlur={props.handleBlur}
           />
         </Form.Item>

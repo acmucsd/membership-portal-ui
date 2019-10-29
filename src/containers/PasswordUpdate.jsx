@@ -9,7 +9,7 @@ import PasswordReset from '../components/PasswordReset';
 const PasswordResetContainer = (props) => {
   const params = useParams();
   useEffect(() => {
-    console.log(params);
+    // console.log(params);
     props.setFieldValue('code', params.code);
   }, []);
 
@@ -22,12 +22,11 @@ const FormikPasswordForm = withFormik({
   mapPropsToValues() {
     return {
       code: '',
-      newPassword: '',
-      confirmPassword: '',
+      // newPassword: '',
+      // confirmPassword: '',
     };
   },
-  handleSubmit(values, { resetForm, props }) {
-    console.log('WTF')
+  submitForm(values, { props }) {
     console.log(values);
     props.updatePassword(values);
   },
