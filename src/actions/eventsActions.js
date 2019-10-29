@@ -39,14 +39,14 @@ export const checkIn = (attendanceCode) => async dispatch => {
     dispatch(fetchPastEvents());
     dispatch(fetchFutureEvents());
     dispatch({
-      type: EVENT_CHECKIN
+      type: EVENT_CHECKIN,
+      payload: data.event,
     })
   } catch (error) {
     notify('Unable to checkin!', error.message);
     dispatch({
       type: EVENT_ERROR,
       payload: error.message,
-      checkin: false,
 ***REMOVED***
   }
 ***REMOVED***
