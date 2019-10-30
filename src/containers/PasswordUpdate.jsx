@@ -6,30 +6,16 @@ import { updatePassword } from '../actions/authActions';
 import PasswordReset from '../components/PasswordReset';
 
 const PasswordUpdate = props => {
-  const [newPass, setNewPass] = useState('');
   const [conPass, setConPass] = useState('');
+  const [newPass, setNewPass] = useState('');
   const params = useParams();
-
-  const handleNewChange = event => {
-    setNewPass(event.target.value);
-  };
 
   const handleConChange = event => {
     setConPass(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({user: {
-      code: params.code,
-      newPassword: newPass,
-      confirmPassword: conPass
-    }});
-    props.updatePassword({
-      code: params.code,
-      newPassword: newPass,
-      confirmPassword: conPass
-    });
+  const handleNewChange = event => {
+    setNewPass(event.target.value);
   };
 
   const handleEnter = event => {
@@ -37,19 +23,27 @@ const PasswordUpdate = props => {
       props.updatePassword({
         code: params.code,
         newPassword: newPass,
-        confirmPassword: conPass
+        confirmPassword: conPass,
       });
     }
   };
 
+  const handleSubmit = () => {
+    props.updatePassword({
+      code: params.code,
+      newPassword: newPass,
+      confirmPassword: conPass,
+    });
+  };
+
   return (
     <PasswordReset
+      conPass={conPass}
       handleNewChange={handleNewChange}
       handleConChange={handleConChange}
+      newPass={newPass}
       onSubmit={handleSubmit}
       onKeyPress={handleEnter}
-      newPass={newPass}
-      conPass={conPass}
     />
   );
 };

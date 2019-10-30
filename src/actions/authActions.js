@@ -102,7 +102,6 @@ export const passwordReset = email => async dispatch => {
 
 export const updatePassword = user => async dispatch => {
   try {
-    console.log(user.code);
     const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
       method: 'POST',
       headers: {
