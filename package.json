@@ -5,7 +5,7 @@
   "proxy": "https://acmucsd-membership-portal-api.herokuapp.com",
   "dependencies": {
     "@firebase/storage": "^0.3.15",
-    "antd": "^3.21.2",
+    "antd": "^3.24.3",
     "babel-plugin-import": "^1.12.0",
     "connected-react-router": "^6.5.2",
     "customize-cra": "^0.8.0",
@@ -30,7 +30,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"**/*.{js,jsx}\"",
     "lint:fix": "prettier --write --single-quote \"**/*.{js,jsx}\"",
-    "start": "PORT=8080 react-app-rewired start",
+    "start": "react-app-rewired start",
     "test": "jest",
     "test:watch": "jest --watch"
   },
