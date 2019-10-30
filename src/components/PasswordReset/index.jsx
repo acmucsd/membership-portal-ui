@@ -16,9 +16,8 @@ const PasswordForm = (props) => {
             type="password"
             placeholder="Password"
             className="input-box"
-            // value={props.values.newPassword}
-            onChange={props.handleChange}
-            // onBlur={props.handleBlur}
+            value={props.newPass}
+            onChange={props.handleNewChange}
           />
         </Form.Item>
         <Form.Item className="password">
@@ -27,13 +26,13 @@ const PasswordForm = (props) => {
             type="password"
             placeholder="Confirm Password"
             className="input-box"
-            // value={props.values.confirmPassword}
-            onChange={props.handleChange}
-            // onBlur={props.handleBlur}
+            value={props.conPass}
+            onChange={props.handleConChange}
+            onKeyPress={props.onKeyPress}
           />
         </Form.Item>
         <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-button">
+            <Button onClick={props.onSubmit} type="primary" htmlType="submit" className="login-button">
               Submit
             </Button>
           </Form.Item>

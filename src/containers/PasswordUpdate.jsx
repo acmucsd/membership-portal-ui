@@ -1,38 +1,60 @@
 import { connect } from 'react-redux';
-import { withFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { updatePassword } from '../actions/authActions';
 import PasswordReset from '../components/PasswordReset';
 
-const PasswordResetContainer = (props) => {
+const PasswordUpdate = props => {
+  const [newPass, setNewPass] = useState('');
+  const [conPass, setConPass] = useState('');
   const params = useParams();
-  useEffect(() => {
-    // console.log(params);
-    props.setFieldValue('code', params.code);
-  }, []);
+
+  const handleNewChange = event => {
+    setNewPass(event.target.value);
+  };
+
+  const handleConChange = event => {
+    setConPass(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log({user: {
+      code: params.code,
+      newPassword: newPass,
+      confirmPassword: conPass
+    }});
+    props.updatePassword({
+      code: params.code,
+      newPassword: newPass,
+      confirmPassword: conPass
+    });
+  };
+
+  const handleEnter = event => {
+    if (event.key === 'Enter') {
+      props.updatePassword({
+        code: params.code,
+        newPassword: newPass,
+        confirmPassword: conPass
+      });
+    }
+  };
 
   return (
-    <PasswordReset />
-  )
-}
-
-const FormikPasswordForm = withFormik({
-  mapPropsToValues() {
-    return {
-      code: '',
-      // newPassword: '',
-      // confirmPassword: '',
-    };
-  },
-  submitForm(values, { props }) {
-    console.log(values);
-    props.updatePassword(values);
-  },
-})(PasswordResetContainer);
+    <PasswordReset
+      handleNewChange={handleNewChange}
+      handleConChange={handleConChange}
+      onSubmit={handleSubmit}
+      onKeyPress={handleEnter}
+      newPass={newPass}
+      conPass={conPass}
+    />
+  );
+};
 
 export default connect(
   null,
   { updatePassword }
-)(FormikPasswordForm);
+)(PasswordUpdate);

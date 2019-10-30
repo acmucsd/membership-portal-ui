@@ -1,18 +1,19 @@
-import { 
-  AUTH_ERROR, 
-  AUTH_USER, 
-  PASSWORD_FAIL, 
-  PASSWORD_SUCCESS, 
-  RESET_FAIL, 
-  RESET_SUCCESS, 
-  UNAUTH_USER } from './types';
+import {
+  AUTH_ERROR,
+  AUTH_USER,
+  PASSWORD_FAIL,
+  PASSWORD_SUCCESS,
+  RESET_FAIL,
+  RESET_SUCCESS,
+  UNAUTH_USER,
+} from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const loginUser = (values) => async dispatch => {
+export const loginUser = values => async dispatch => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
@@ -22,7 +23,7 @@ export const loginUser = (values) => async dispatch => {
       },
       body: JSON.stringify({
         email: values.email,
-        password: values.password
+        password: values.password,
       }),
     });
 
@@ -34,25 +35,24 @@ export const loginUser = (values) => async dispatch => {
 
     dispatch({
       type: AUTH_USER,
-      isAdmin: !!tokenGetClaims(data.token).admin
+      isAdmin: !!tokenGetClaims(data.token).admin,
     });
 
     // Redirect to home on login.
     dispatch(replace('/'));
-  }
-  catch(error) {
+  } catch (error) {
     notify('Unable to login!', error.message);
     dispatch({
       type: AUTH_ERROR,
-      error: error
+      error: error,
     });
   }
 };
 
 export const logoutUser = () => dispatch => {
   dispatch({
-    type: UNAUTH_USER
-  })
+    type: UNAUTH_USER,
+  });
   Storage.remove('token');
   dispatch(replace('/login'));
 };
@@ -64,7 +64,7 @@ export const logoutUser = () => dispatch => {
  * @param {string} token - A jwt token returned from auth.
  * @return {object} The claims from the token.
  */
-const tokenGetClaims = (token) => {
+const tokenGetClaims = token => {
   if (!token) {
     return {};
   }
@@ -87,7 +87,7 @@ export const passwordReset = email => async dispatch => {
     const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    notify('Success! Check your email shortly', "Email has been sent to " + email);
+    notify('Success! Check your email shortly', 'Email has been sent to ' + email);
     dispatch({
       type: PASSWORD_SUCCESS,
     });
@@ -100,10 +100,9 @@ export const passwordReset = email => async dispatch => {
   }
 };
 
-export const updatePassword = (user) => async dispatch => {
-  console.log(user);
+export const updatePassword = user => async dispatch => {
   try {
-    console.log(user);
+    console.log(user.code);
     const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
       method: 'POST',
       headers: {
@@ -119,23 +118,19 @@ export const updatePassword = (user) => async dispatch => {
     if (data.error) throw new Error(data.error.message);
     dispatch({
       type: RESET_SUCCESS,
-      payload: user
-    })
+      payload: user,
+    });
 
-    dispatch(loginUser({
-      email: user.email,
-      password: user.password
-    }));
-
+    dispatch(replace('/'));
   } catch (error) {
     notify('Unable to reset password!', error.message);
     dispatch({
       type: RESET_FAIL,
-      error: error
-    })
+      error: error,
+    });
   }
 };
 
-export const redirectAuth= () => dispatch => {
+export const redirectAuth = () => dispatch => {
   dispatch(replace('/authenticate-email'));
 };
