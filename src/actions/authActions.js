@@ -5,7 +5,7 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const loginUser = (values) => async dispatch => {
+export const loginUser = values => async dispatch => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
@@ -15,7 +15,7 @@ export const loginUser = (values) => async dispatch => {
       },
       body: JSON.stringify({
         email: values.email,
-        password: values.password
+        password: values.password,
 ***REMOVED***,
 ***REMOVED***
 
@@ -27,25 +27,24 @@ export const loginUser = (values) => async dispatch => {
 
     dispatch({
       type: AUTH_USER,
-      isAdmin: !!tokenGetClaims(data.token).admin
+      isAdmin: !!tokenGetClaims(data.token).admin,
 ***REMOVED***
 
     // Redirect to home on login.
     dispatch(replace('/'));
-  }
-  catch(error) {
+  } catch (error) {
     notify('Unable to login!', error.message);
     dispatch({
       type: AUTH_ERROR,
-      error: error
+      error: error,
 ***REMOVED***
   }
 ***REMOVED***
 
 export const logoutUser = () => dispatch => {
   dispatch({
-    type: UNAUTH_USER
-  })
+    type: UNAUTH_USER,
+  });
   Storage.remove('token');
   dispatch(replace('/login'));
 ***REMOVED***
@@ -57,7 +56,7 @@ export const logoutUser = () => dispatch => {
  * @param {string} token - A jwt token returned from auth.
  * @return {object} The claims from the token.
  */
-const tokenGetClaims = (token) => {
+const tokenGetClaims = token => {
   if (!token) {
     return {***REMOVED***
   }
@@ -80,7 +79,7 @@ export const passwordReset = email => async dispatch => {
     const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    notify('Success! Check your email shortly', "Email has been sent to " + email);
+    notify('Success! Check your email shortly', 'Email has been sent to ' + email);
     dispatch({
       type: PASSWORD_SUCCESS,
 ***REMOVED***
@@ -90,5 +89,28 @@ export const passwordReset = email => async dispatch => {
       type: PASSWORD_FAIL,
       payload: error.message,
 ***REMOVED***
+  }
+***REMOVED***
+
+export const updatePassword = user => async dispatch => {
+  try {
+    const response = await fetch(`${Config.API_URL + 
+      Config.routes.auth.resetPassword}/${user.code}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user }),
+***REMOVED***
+
+    const data = await response.json();
+
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    dispatch(replace('/'));
+  } catch (error) {
+    notify('Unable to reset password!', error.message);
   }
 ***REMOVED***
