@@ -5,7 +5,7 @@ import EventCheckIn from '../components/EventCheckIn';
 import { checkIn } from '../actions/eventsActions';
 
 const EventCheckInContainer = props => {
-  const [value, setValue] = useState(''); 
+  const [value, setValue] = useState('');
 
   const handleChange = (event) => {
     setValue(event.target.value);
