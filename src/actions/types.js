@@ -11,9 +11,6 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const PASSWORD_SUCCESS = 'PASSWORD_SUCCESS' 
 export const PASSWORD_FAIL = 'PASSWORD_FAIL' 
 
-export const RESET_SUCCESS = 'RESET_SUCCESS' 
-export const RESET_FAIL = 'RESET_FAIL' 
-
 export const FETCH_BANNER = 'FETCH_BANNER';
 
 export const EVENT_CHECKIN = 'EVENT_CHECKIN';

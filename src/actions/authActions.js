@@ -1,12 +1,4 @@
-import {
-  AUTH_ERROR,
-  AUTH_USER,
-  PASSWORD_FAIL,
-  PASSWORD_SUCCESS,
-  RESET_FAIL,
-  RESET_SUCCESS,
-  UNAUTH_USER,
-} from './types';
+import { AUTH_ERROR, AUTH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, UNAUTH_USER } from './types';
 import { replace } from 'connected-react-router';
 
 import Config from '../config';
@@ -102,7 +94,8 @@ export const passwordReset = email => async dispatch => {
 
 export const updatePassword = user => async dispatch => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
+    const response = await fetch(`${Config.API_URL + 
+      Config.routes.auth.resetPassword}/${user.code}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -115,21 +108,9 @@ export const updatePassword = user => async dispatch => {
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    dispatch({
-      type: RESET_SUCCESS,
-      payload: user,
-    });
 
     dispatch(replace('/'));
   } catch (error) {
     notify('Unable to reset password!', error.message);
-    dispatch({
-      type: RESET_FAIL,
-      error: error,
-    });
   }
-};
-
-export const redirectAuth = () => dispatch => {
-  dispatch(replace('/authenticate-email'));
 };
