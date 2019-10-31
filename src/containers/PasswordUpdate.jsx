@@ -20,6 +20,7 @@ const PasswordUpdate = props => {
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
+      event.preventDefault();
       props.updatePassword({
         code: params.code,
         newPassword: newPass,
@@ -28,7 +29,8 @@ const PasswordUpdate = props => {
     }
   ***REMOVED***
 
-  const handleSubmit = () => {
+  const handleSubmit = event => {
+    event.preventDefault();
     props.updatePassword({
       code: params.code,
       newPassword: newPass,
