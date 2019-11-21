@@ -8,6 +8,7 @@
   },
   "extends": "airbnb",
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "linebreak-style": 0
   }
 }
