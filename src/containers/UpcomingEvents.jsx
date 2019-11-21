@@ -7,7 +7,7 @@ import background from '../assets/graphics/background.svg';
 import { fetchFutureEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
-const UpcomingEventsContainer = props => {
+const UpcomingEventsContainer = (props) => {
   useEffect(() => {
     props.fetchFutureEvents();
   });
@@ -32,11 +32,11 @@ const UpcomingEventsContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   events: state.events.futureEvents,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchFutureEvents }
+  { fetchFutureEvents },
 )(UpcomingEventsContainer);

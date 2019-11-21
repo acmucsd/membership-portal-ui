@@ -1,13 +1,11 @@
 import React from 'react';
 import LoginLayout from '../components/LoginLayout';
-import SignInForm from '../containers/SignInForm';
+import SignInForm from './SignInForm';
 
-const LoginPage = () => {
-  return (
-    <LoginLayout>
-      <SignInForm />
-    </LoginLayout>
-  );
-};
+const LoginPage = () => (
+  <LoginLayout>
+    <SignInForm />
+  </LoginLayout>
+);
 
 export default LoginPage;

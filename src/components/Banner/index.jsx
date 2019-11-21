@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './style.less';
 import DefaultBanner from '../../assets/graphics/default-banner.svg';
 
-const Banner = props => {
-  const onError = e => {
+const Banner = (props) => {
+  const onError = (e) => {
     e.target.src = DefaultBanner;
   };
 

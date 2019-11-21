@@ -3,20 +3,17 @@ import { connect } from 'react-redux';
 
 import PageLayout from '../components/PageLayout';
 
-const PageLayoutContainer = props => {
-
-  return (
+const PageLayoutContainer = (props) => (
     <PageLayout isAdmin={props.isAdmin}>
       {props.children}
     </PageLayout>
   );
-};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAdmin: state.auth.admin,
 });
 
 export default connect(
   mapStateToProps,
-  null
+  null,
 )(PageLayoutContainer);

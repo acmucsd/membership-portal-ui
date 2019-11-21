@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import NavDropdown from '../components/NavDropdown';
 import { logoutUser } from '../actions/authActions';
 
-const NavDropdownContainer = props => {
-  return <NavDropdown logout={props.logout} />;
-};
+const NavDropdownContainer = (props) => <NavDropdown logout={props.logout} />;
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   logout: () => {
     dispatch(logoutUser());
   },
@@ -16,5 +14,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(NavDropdownContainer);

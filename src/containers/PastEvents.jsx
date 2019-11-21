@@ -7,7 +7,7 @@ import background from '../assets/graphics/background.svg';
 import { fetchPastEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
-const PastEventsContainer = props => {
+const PastEventsContainer = (props) => {
   useEffect(() => {
     props.fetchPastEvents();
   });
@@ -32,11 +32,11 @@ const PastEventsContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   events: state.events.pastEvents,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchPastEvents }
+  { fetchPastEvents },
 )(PastEventsContainer);

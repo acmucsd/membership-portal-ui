@@ -22,5 +22,5 @@ const FormikProfileUpdate = withFormik({
 
 export default connect(
   null,
-  { updateProfile }
+  { updateProfile },
 )(FormikProfileUpdate);

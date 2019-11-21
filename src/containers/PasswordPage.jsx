@@ -5,14 +5,14 @@ import LoginLayout from '../components/LoginLayout';
 import PasswordForm from '../components/PasswordForm';
 import { passwordReset } from '../actions/authActions';
 
-const PasswordPage = props => {
+const PasswordPage = (props) => {
   const [value, setValue] = useState('');
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  const handleEnter = event => {
+  const handleEnter = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setValue('');
@@ -22,15 +22,16 @@ const PasswordPage = props => {
 
   return (
     <LoginLayout>
-      <PasswordForm 
-        onChange={handleChange} 
-        onKeyPress={handleEnter} 
-        value={value} />
+      <PasswordForm
+        onChange={handleChange}
+        onKeyPress={handleEnter}
+        value={value}
+      />
     </LoginLayout>
   );
 };
 
 export default connect(
   null,
-  { passwordReset }
+  { passwordReset },
 )(PasswordPage);

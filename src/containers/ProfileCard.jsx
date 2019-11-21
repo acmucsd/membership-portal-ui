@@ -5,7 +5,7 @@ import ProfileCard from '../components/ProfileCard';
 import { getLevel, getRank } from '../utils';
 import { fetchUser } from '../actions/userActions';
 
-const NavProfileContainer = props => {
+const NavProfileContainer = (props) => {
   useEffect(() => {
     props.fetchUser();
   });
@@ -21,7 +21,7 @@ const NavProfileContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   exp: state.user.profile.points,
   image: state.user.image,
   name: state.user.profile.firstName,
@@ -29,5 +29,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchUser }
+  { fetchUser },
 )(NavProfileContainer);

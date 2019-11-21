@@ -5,19 +5,22 @@ import { Avatar } from 'antd';
 import './style.less';
 import { getRank } from '../../utils';
 
-const LeaderListItem = props => {
-  return (
-    <div
-      className={`leaderboard-list-item
-      ${props.placement % 2 === 0 ? "even" : "odd"}`}>
-      <span className="placement">{props.placement}</span>
-      <Avatar size={40} src={props.image} />
-      <span className="name">{props.name}</span>
-      <span className="rank">{getRank(props.exp)}</span>
-      <span className="exp">{props.exp} points</span>
-    </div>
-  );
-};
+const LeaderListItem = (props) => (
+  <div
+    className={`leaderboard-list-item
+      ${props.placement % 2 === 0 ? 'even' : 'odd'}`}
+  >
+    <span className="placement">{props.placement}</span>
+    <Avatar size={40} src={props.image} />
+    <span className="name">{props.name}</span>
+    <span className="rank">{getRank(props.exp)}</span>
+    <span className="exp">
+      {props.exp}
+      {' '}
+points
+    </span>
+  </div>
+);
 
 LeaderListItem.propTypes = {
   exp: PropTypes.number.isRequired,

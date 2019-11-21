@@ -4,22 +4,22 @@ import { connect } from 'react-redux';
 import EventCheckIn from '../components/EventCheckIn';
 import { checkIn } from '../actions/eventsActions';
 
-const EventCheckInContainer = props => {
+const EventCheckInContainer = (props) => {
   const [value, setValue] = useState('');
 
   const handleChange = (event) => {
     setValue(event.target.value);
-  }
+  };
 
   const handleSubmit = () => {
-    props.checkIn(value)
-  }
+    props.checkIn(value);
+  };
 
   const handleEnter = (event) => {
     if (event.key === 'Enter') {
-      props.checkIn(value)
+      props.checkIn(value);
     }
-  }
+  };
 
   return (
     <EventCheckIn
@@ -28,10 +28,10 @@ const EventCheckInContainer = props => {
       onKeyPress={handleEnter}
       value={value}
     />
-  )
+  );
 };
 
 export default connect(
   null,
-  { checkIn }
+  { checkIn },
 )(EventCheckInContainer);

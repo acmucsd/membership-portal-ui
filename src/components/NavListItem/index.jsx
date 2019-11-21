@@ -4,14 +4,12 @@ import { Icon } from 'antd';
 
 import './style.less';
 
-const NavListItem = props => {
-  return (
-    <div className="nav-list-item">
-      {props.icon ? <Icon component={props.icon} /> : null}
-      <span>{props.text}</span>
-    </div>
-  );
-};
+const NavListItem = (props) => (
+  <div className="nav-list-item">
+    {props.icon ? <Icon component={props.icon} /> : null}
+    <span>{props.text}</span>
+  </div>
+);
 
 NavListItem.propTypes = {
   icon: PropTypes.object,

@@ -3,13 +3,11 @@ import CreateEventForm from '../../containers/CreateEventForm';
 
 import './style.less';
 
- const AdminPage = () => {
-  return (
-    <div className="admin-page">
-      <h1 className="title">Admin</h1>
-      <CreateEventForm />
-    </div>
-  );
-};
+const AdminPage = () => (
+  <div className="admin-page">
+    <h1 className="title">Admin</h1>
+    <CreateEventForm />
+  </div>
+);
 
- export default AdminPage;
+export default AdminPage;

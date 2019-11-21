@@ -1,13 +1,11 @@
 import React from 'react';
 import LoginLayout from '../components/LoginLayout';
-import RegisterForm from '../containers/RegisterForm';
+import RegisterForm from './RegisterForm';
 
-const RegisterPage = () => {
-  return (
-    <LoginLayout>
-      <RegisterForm />
-    </LoginLayout>
-  );
-};
+const RegisterPage = () => (
+  <LoginLayout>
+    <RegisterForm />
+  </LoginLayout>
+);
 
 export default RegisterPage;

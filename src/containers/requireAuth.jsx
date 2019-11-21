@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 
-const withAuth = Component => props => {
+const withAuth = (Component) => (props) => {
   useEffect(() => {
     if (!props.authenticated) {
       props.redirectLogin();
@@ -14,11 +14,11 @@ const withAuth = Component => props => {
   return <Component {...props} />;
 };
 
-const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated
+const mapStateToProps = (state) => ({
+  authenticated: state.auth.authenticated,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   redirectLogin: () => {
     dispatch(replace('/login'));
   },
@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
 
 const requireAuth = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withAuth
-)
+  withAuth,
+);
 
 export default requireAuth;

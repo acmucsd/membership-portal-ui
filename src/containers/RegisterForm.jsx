@@ -17,12 +17,12 @@ const FormikRegisterForm = withFormik({
       graduationYear: null,
     };
   },
-  handleSubmit(values, { resetForm,  props }) {
+  handleSubmit(values, { resetForm, props }) {
     props.registerAccount(values);
   },
 })(RegisterForm);
 
 export default connect(
   null,
-  { registerAccount }
+  { registerAccount },
 )(FormikRegisterForm);

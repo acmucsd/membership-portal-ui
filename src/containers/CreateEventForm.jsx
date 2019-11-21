@@ -20,7 +20,7 @@ const FormikCreateEventForm = withFormik({
       cover: '',
       description: '',
       attendanceCode: '',
-    }
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     console.log(values);
@@ -44,8 +44,8 @@ const FormikCreateEventForm = withFormik({
       end: new Date(2019, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
-      description: values.description
-    }
+      description: values.description,
+    };
     props.postEvent(event);
     resetForm();
   },
@@ -53,5 +53,5 @@ const FormikCreateEventForm = withFormik({
 
 export default connect(
   null,
-  { postEvent }
+  { postEvent },
 )(FormikCreateEventForm);

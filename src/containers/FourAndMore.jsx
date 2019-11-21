@@ -5,7 +5,7 @@ import LeaderListItem from '../components/LeaderListItem';
 import { getDefaultProfile } from '../utils';
 import { fetchLeaderboard } from '../actions/leaderboardActions';
 
-const FourAndMoreContainer = props => {
+const FourAndMoreContainer = (props) => {
   useEffect(() => {
     props.fetchLeaderboard();
   }, []);
@@ -14,11 +14,11 @@ const FourAndMoreContainer = props => {
     <>
       {getFourAndMore(props.users)}
     </>
-  )
+  );
 };
 
-const getFourAndMore = users => {
-  let fourAndMore = [];
+const getFourAndMore = (users) => {
+  const fourAndMore = [];
 
   for (let i = 3; i < users.length; i++) {
     const user = users[i];
@@ -28,20 +28,20 @@ const getFourAndMore = users => {
         exp={user.points}
         image={getDefaultProfile()}
         name={`${user.firstName} ${user.lastName}`}
-        placement={i+1}
+        placement={i + 1}
         rank={user.rank}
-        />
-    )
+      />
+    );
   }
 
   return fourAndMore;
-}
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   users: state.leaderboard.users,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchLeaderboard }
+  { fetchLeaderboard },
 )(FourAndMoreContainer);
