@@ -16,17 +16,17 @@ firebase.initializeApp(config);
 
 const storage = firebase.storage();
 
-export const fetchBanner = () => dispatch => {
+export const fetchBanner = () => (dispatch) => {
   storage
-    .ref(`/banner.png`)
+    .ref('/banner.png')
     .getDownloadURL()
-    .then(url =>
+    .then((url) =>
       dispatch({
         type: FETCH_BANNER,
         payload: url,
-      })
+      }),
     )
-    .catch(err => {
+    .catch((err) => {
       console.error('Failed to load banner image');
     });
 };

@@ -22,28 +22,26 @@ import requireAuth from './containers/requireAuth';
 
 const store = configureStore();
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <>
-          <Switch>
-            <Route exact path="/about" component={requireAuth(AboutPage)} />
-            <Route exact path="/admin" component={requireAuth(AdminPage)} />
-            <Route exact path="/authenticate-email" component={AuthPage} />
-            <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/profile" component={requireAuth(ProfilePage)} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route exact path="/store" component={requireAuth(StorePage)} />
-            <Route path="/" component={requireAuth(HomePage)} />
-          </Switch>
-        </>
-      </ConnectedRouter>
-    </Provider>
-  );
-};
+const App = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <>
+        <Switch>
+          <Route exact path="/about" component={requireAuth(AboutPage)} />
+          <Route exact path="/admin" component={requireAuth(AdminPage)} />
+          <Route exact path="/authenticate-email" component={AuthPage} />
+          <Route exact path="/forgot-password" component={PasswordPage} />
+          <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/profile" component={requireAuth(ProfilePage)} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/resetPassword/:code" component={ResetPage} />
+          <Route exact path="/store" component={requireAuth(StorePage)} />
+          <Route path="/" component={requireAuth(HomePage)} />
+        </Switch>
+      </>
+    </ConnectedRouter>
+  </Provider>
+);
 
 ReactDOM.render(<App />, document.getElementById('root'));

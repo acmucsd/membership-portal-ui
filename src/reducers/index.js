@@ -10,15 +10,14 @@ import UserReducer from './UserReducer';
 import PasswordReducer from './passwordReducer';
 import ProfileReducer from './ProfileReducer';
 
-export default history =>
-  combineReducers({
-    router: connectRouter(history),
-    auth: AuthReducer,
-    banner: BannerReducer,
-    events: EventsReducer,
-    leaderboard: LeaderboardReducer,
-    register: RegisterReducer,
-    user: UserReducer,
-    pass: PasswordReducer,
-    profile: ProfileReducer 
-  });
+export default (history) => combineReducers({
+  router: connectRouter(history),
+  auth: AuthReducer,
+  banner: BannerReducer,
+  events: EventsReducer,
+  leaderboard: LeaderboardReducer,
+  register: RegisterReducer,
+  user: UserReducer,
+  pass: PasswordReducer,
+  profile: ProfileReducer,
+});
