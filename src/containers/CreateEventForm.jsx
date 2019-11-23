@@ -46,8 +46,14 @@ const FormikCreateEventForm = withFormik({
       attendanceCode: values.attendanceCode,
       description: values.description
     }
-    props.postEvent(event);
-    resetForm();
+    props.postEvent(event)
+    .then((resp) => {
+      resetForm();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
   },
 })(CreateEventForm);
 
