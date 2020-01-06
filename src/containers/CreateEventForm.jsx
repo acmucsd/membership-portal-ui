@@ -40,8 +40,8 @@ const FormikCreateEventForm = withFormik({
       title: values.title,
       location: values.location,
       pointValue: values.pointValue,
-      start: new Date(2019, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
-      end: new Date(2019, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
+      start: new Date(2020, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
+      end: new Date(2020, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description
