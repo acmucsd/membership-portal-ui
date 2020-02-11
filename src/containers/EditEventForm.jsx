@@ -10,19 +10,19 @@ const curYear = new Date().getFullYear();
 const FormikEditEventForm = withFormik({
   mapPropsToValues() {
     return {
-      uuid: '0',
-      title: 'a',
-      location: 'a',
-      pointValue: '100',
-      startTime: '1',
-      startAm: 'AM',
-      endTime: '3',
-      endAm: 'AM',
-      month: '10',
+      uuid: '',
+      title: '',
+      location: '',
+      pointValue: '',
+      startTime: '',
+      startAm: '',
+      endTime: '',
+      endAm: '',
+      month: '',
       day: 0,
-      cover: 'google.com',
-      description: '123',
-      attendanceCode: '123',
+      cover: '',
+      description: '',
+      attendanceCode: '',
     }
   },
   handleSubmit(values, { resetForm, props }) {

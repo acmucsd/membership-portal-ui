@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
-
+import { fetchEvent } from '../../actions/eventsActions';
 import { useParams } from 'react-router-dom';
 
 import './style.less';
@@ -40,6 +40,35 @@ const EditEventForm = props => {
     console.log(params);
     props.setFieldValue('uuid', params.uuid);
   }, []);
+
+  useEffect(() => {
+    if (props.event) {
+      let keys = ['title', 'location', 'pointValue', ' startTime', ' startAm', 'endTime', 'month', 'day', 'cover', 'description', 'attendanceCode'];
+      keys.forEach((key) => {
+        props.setFieldValue(key, props.event[key]);
+      });
+      if (props.event['start']) {
+        let start = new Date(props.event['start']);
+        props.setFieldValue('month', months[start.getMonth()]);
+        props.setFieldValue('startTime', start.getHours() % 12);
+        let half = 'AM';
+        if (start.getHours() >= 12) {
+          half = 'PM';
+        }
+        props.setFieldValue('startAm', half);
+        props.setFieldValue('day', start.getDate());
+      }
+      if (props.event['end']) {
+        let end = new Date(props.event['end']);
+        let half = 'AM';
+        if (end.getHours() >= 12) {
+          half = 'PM';
+        }
+        props.setFieldValue('endTime', end.getHours() % 12);
+        props.setFieldValue('endAm', half);
+      }
+    }
+  }, [props.event]);
 
   return (
     <div className="edit-event-form">

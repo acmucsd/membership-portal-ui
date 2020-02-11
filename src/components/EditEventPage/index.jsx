@@ -3,11 +3,11 @@ import EditEventForm from '../../containers/EditEventForm';
 
 import './style.less';
 
- const EditEventPage = () => {
+ const EditEventPage = (props) => {
   return (
     <div className="edit-event-page">
       <h1 className="title">Admin</h1>
-      <EditEventForm />
+      <EditEventForm event={props.event}/>
     </div>
   );
 };

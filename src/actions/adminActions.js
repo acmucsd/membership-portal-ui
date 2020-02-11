@@ -38,7 +38,7 @@ export const postEvent = (event) => async dispatch => {
 export const editEvent = (event) => async dispatch => {
   return new Promise( async (resolve, reject) => {
     try {
-      const response = await fetch(Config.API_URL + Config.routes.events.event, {
+      const response = await fetch(Config.API_URL + Config.routes.events.event + "/" + event.uuid , {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',

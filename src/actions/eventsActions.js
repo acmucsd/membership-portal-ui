@@ -3,7 +3,8 @@ import {
   EVENT_CHECKOUT,
   EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
-  FETCH_PAST_EVENTS
+  FETCH_PAST_EVENTS,
+  FETCH_EVENT
 } from './types';
 
 import { fetchUser } from './userActions';
@@ -123,6 +124,42 @@ export const fetchPastEvents = () => async dispatch => {
     });
   } catch (error) {
     notify('Unable to fetch past events!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
+}
+
+export const fetchEvent = (uuid) => async dispatch => {
+  try {
+    const eventRes = await fetch(Config.API_URL + Config.routes.events.event + "/" + uuid, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
+
+    let status = await eventRes.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const thisEvent = await eventRes.json();
+
+    if (!thisEvent) throw new Error('Empty response from server');
+    else if (thisEvent.error) throw new Error(thisEvent.error.message);
+    console.log(thisEvent.event);
+    dispatch({
+      type: FETCH_EVENT,
+      payload: thisEvent.event
+    });
+  } catch (error) {
+    console.log(error);
+    notify('Unable to fetch an event!', error.message);
     dispatch({
       type: EVENT_ERROR,
       payload: error.message,
