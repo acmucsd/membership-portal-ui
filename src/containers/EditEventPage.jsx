@@ -12,9 +12,7 @@ const EditEventPageContainer = (props) => {
   const params = useParams();
   const [eventData, setEventData] = useState({});
   useEffect(() => {
-    console.log("trying to fetch " + params.uuid);
     props.fetchEvent(params.uuid);
-    console.log(props.event);
   }, []);
   return (
     <PageLayout>
@@ -24,7 +22,7 @@ const EditEventPageContainer = (props) => {
 };
 
 const mapStateToProps = state => ({
-  event: state.events.event,
+  event: state.events.event
 });
 export default connect(
   mapStateToProps,
