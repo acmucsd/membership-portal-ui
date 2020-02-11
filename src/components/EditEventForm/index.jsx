@@ -38,7 +38,7 @@ const EditEventForm = props => {
   const params = useParams();
   useEffect(() => {
     console.log(params);
-
+    props.setFieldValue('uuid', params.uuid);
   }, []);
 
   return (
@@ -46,7 +46,7 @@ const EditEventForm = props => {
       <div className="edit-event-form-wrapper">
         <h1 className="subtitle">Edit an Event</h1>
         <form onSubmit={props.handleSubmit}>
-          <Input type="hidden" value="12340" name="uuid" />
+          <Input type="hidden" value={props.values.uuid} name="uuid" />
           <Form.Item label="Event Title">
             <Input
               name="title"
