@@ -7,9 +7,6 @@ import './styles.less';
 
 const EventCard = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    console.log(props.auth);
-  }, [props.auth]);
   return (
     <div className="event-card">
       <img className="image" src={props.cover} alt={props.title}/>
@@ -30,11 +27,13 @@ const EventCard = (props) => {
         />
         <h2 className="points">{props.points}</h2>
       </div>
-      <div className="edit-icon-wrapper">
-        <Icon type="edit" className='edit-icon' onClick={() => {
-          history.push("/admin/editEvent/" + props.uuid);
-        }}/>
-      </div>
+      {props.auth.admin &&
+        <div className="edit-icon-wrapper">
+          <Icon type="edit" className='edit-icon' onClick={() => {
+            history.push("/admin/editEvent/" + props.uuid);
+          }}/>
+        </div>
+      }
       <hr className="divider"/>
       <p className="description">{props.description}</p>
     </div>
