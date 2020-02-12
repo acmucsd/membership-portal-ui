@@ -52,7 +52,6 @@ const FormikEditEventForm = withFormik({
     }
     props.editEvent(event)
     .then((resp) => {
-      resetForm();
     })
     .catch((error) => {
       console.log(error);
