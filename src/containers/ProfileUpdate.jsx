@@ -15,12 +15,21 @@ const FormikProfileUpdate = withFormik({
     };
   },
   handleSubmit(values, { resetForm, props }) {
-    props.updateProfile(values);
-    resetForm();
+    props.updateProfile(values)
+    .then((resp) => {
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   },
 })(ProfileUpdate);
 
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { updateProfile }
 )(FormikProfileUpdate);

@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const ProfileReducer = (state = initialState, action) => {
-  switch (action.type) {  
+  switch (action.type) {
     case PROFILE_SUCCESS:
       return {
         ...state,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 
@@ -15,11 +15,21 @@ function getYears() {
 const years = getYears();
 
 const ProfileUpdate = props => {
+  const [gradYear, setGradYear] = useState("");
+  useEffect(() => {
+    let keys = ['firstName', 'lastName', 'major', 'about'];
+    keys.forEach((key) => {
+      props.setFieldValue(key, props.user.profile[key]);
+    });
+    if (props.user.profile['graduationYear']) {
+      setGradYear(props.user.profile['graduationYear']);
+    }
+  }, [props.user]);
   return (
     <div className="update-card">
       <div className="updatecontent">
         <h1 className="title">Profile</h1>
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} className="update-profile-form">
           <Form.Item label="First name">
             <Input
               name="firstName"
@@ -41,6 +51,7 @@ const ProfileUpdate = props => {
           <div className="horizontal-input">
             <Form.Item label="Year">
               <Select
+                value={gradYear}
                 className="year"
                 onBlur={value => props.setFieldValue('graduationYear', value)}
                 onChange={value => props.setFieldValue('graduationYear', value)}>
