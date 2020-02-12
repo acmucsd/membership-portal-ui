@@ -10,7 +10,7 @@ import { formatDate } from '../utils';
 const PastEventsContainer = props => {
   useEffect(() => {
     props.fetchPastEvents();
-  });
+  }, []);
 
   return (
     <EventsList>
