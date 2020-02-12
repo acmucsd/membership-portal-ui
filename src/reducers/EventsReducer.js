@@ -5,11 +5,13 @@ import {
   EVENT_CHECKOUT,
   EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
-  FETCH_PAST_EVENTS
+  FETCH_PAST_EVENTS,
+  FETCH_EVENT
 } from '../actions/types';
 
 const initialState = {
   currentEvent: {},
+  event: {},
   futureEvents: [],
   pastEvents: [],
   checkin: false,
@@ -51,6 +53,18 @@ const EventsReducer = (state = initialState, action) => {
         return {
           ...state,
           pastEvents: action.payload,
+        ***REMOVED***
+      }
+    case FETCH_EVENT:
+      if(_.isEqual(state.event, action.payload)) {
+        return {
+          ...state,
+        }
+      }
+      else {
+        return {
+          ...state,
+          event: action.payload,
         ***REMOVED***
       }
     case EVENT_ERROR:
