@@ -19,12 +19,14 @@ const UpcomingEventsContainer = props => {
         return (
           <EventCard
             key={`upcoming-${event.uuid}`}
+            uuid={event.uuid}
             cover={event.cover || background}
             date={startTime}
             description={event.description}
             location={event.location}
             points={event.pointValue}
             title={event.title}
+            auth={props.auth}
           />
         );
       })}
@@ -34,6 +36,7 @@ const UpcomingEventsContainer = props => {
 
 const mapStateToProps = state => ({
   events: state.events.futureEvents,
+  auth: state.auth
 });
 
 export default connect(

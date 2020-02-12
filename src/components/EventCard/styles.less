@@ -13,6 +13,21 @@
   scrollbar-width: none;
   width: @event-width;
 
+  .edit-icon-wrapper {
+    position: absolute;
+    top: 10px;
+    font-size: 24px;
+    right: 10px;
+
+    .edit-icon {
+      color: @black;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .edit-icon:hover {
+      color: @gray-4;
+    }
+  }
   img {
     height: 60%;
     margin: 0;

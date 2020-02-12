@@ -1,0 +1,146 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+
+.edit-event-form {
+  display: flex;
+  font-family: 'Roboto';
+  width: 50%;
+
+  .subtitle {
+    color: @blue-3;
+    font-size: @general-heading-2;
+    font-weight: 700;
+  }
+
+  label {
+    color: @blue-3;
+    font-size: @card-heading-2;
+    font-weight: 600;
+    &:after {
+      content: '';
+    }
+  }
+
+  h1 {
+    color: @black;
+    font-size: @general-heading-1;
+    font-weight: 800;
+  }
+
+  .input-box {
+    .input-style;
+    width: 100%;
+  }
+
+  .save-button {
+    background-color: @green-1;
+    border-color: @green-2;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    margin-right: 20px;
+  }
+
+  .discard-button {
+    background-color: @white;
+    border-color: @red;
+    color: @red;
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    width: @discard-button-width;
+  }
+
+  .horizontal-input {
+    .ant-select-selection--single {
+      .input-style;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    > * {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .location-wrapper {
+      width: 60%;
+      .location {
+        .input-style;
+        height: @profile-input-height;
+        vertical-align: top;
+      }
+    }
+
+    .points-wrapper {
+      width: 20%;
+      .points {
+        .input-style;
+      }
+    }
+
+    .month-wrapper {
+      width: 30%;
+      .month {
+        .input-style;
+        height: @profile-input-height;
+        vertical-align: top;
+      }
+    }
+
+    .day-wrapper {
+      width: @form-dropdown-width;
+      .day {
+        .input-style;
+      }
+    }
+  }
+
+  .time-input {
+    display: flex;
+    justify-content: space-between;
+
+    .ant-select-selection--single {
+      .input-style;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    > * {
+      width: 50%;
+    }
+
+    .time {
+      margin-right: 20px;
+      width: @form-dropdown-width;
+    }
+
+    .ampm {
+      margin-right: 20px;
+      width: @form-dropdown-width;
+    }
+  }
+
+  .ant-form-item-label {
+    line-height: 30px;
+  }
+
+  .input-style() {
+    background-color: @gray-1;
+    border-color: @gray-4;
+    color: @black;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    height: @profile-input-height;
+  }
+
+  .area-box {
+    .input-style;
+    font-size: @card-heading-2;
+    height: @text-input-height;
+    width: 100%;
+  }
+}
