@@ -7,9 +7,6 @@ import './styles.less';
 
 const EventCard = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    console.log(props.auth);
-  }, [props.auth]);
   return (
     <div className="event-card">
       <img className="image" src={props.cover} alt={props.title}/>
