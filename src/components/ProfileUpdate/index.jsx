@@ -29,7 +29,7 @@ const ProfileUpdate = props => {
     <div className="update-card">
       <div className="updatecontent">
         <h1 className="title">Profile</h1>
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} className="update-profile-form">
           <Form.Item label="First name">
             <Input
               name="firstName"
