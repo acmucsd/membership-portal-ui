@@ -17,12 +17,10 @@ const years = getYears();
 const ProfileUpdate = props => {
   const [gradYear, setGradYear] = useState("");
   useEffect(() => {
-    console.log(props.user.profile);
     let keys = ['firstName', 'lastName', 'major', 'about'];
     keys.forEach((key) => {
       props.setFieldValue(key, props.user.profile[key]);
     });
-    console.log(props.user.profile['graduationYear'])
     if (props.user.profile['graduationYear']) {
       setGradYear(props.user.profile['graduationYear']);
     }

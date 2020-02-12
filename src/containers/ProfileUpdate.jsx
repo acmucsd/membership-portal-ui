@@ -15,8 +15,13 @@ const FormikProfileUpdate = withFormik({
     };
   },
   handleSubmit(values, { resetForm, props }) {
-    props.updateProfile(values);
-    resetForm();
+    props.updateProfile(values)
+    .then((resp) => {
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   },
 })(ProfileUpdate);
 
