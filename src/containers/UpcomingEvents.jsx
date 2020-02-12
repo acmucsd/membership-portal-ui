@@ -10,9 +10,6 @@ import { formatDate } from '../utils';
 const UpcomingEventsContainer = props => {
   useEffect(() => {
     props.fetchFutureEvents();
-  });
-  useEffect(() => {
-
   }, []);
 
   return (
