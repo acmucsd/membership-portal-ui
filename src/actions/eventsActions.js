@@ -152,7 +152,6 @@ export const fetchEvent = (uuid) => async dispatch => {
 
     if (!thisEvent) throw new Error('Empty response from server');
     else if (thisEvent.error) throw new Error(thisEvent.error.message);
-    console.log(thisEvent.event);
     dispatch({
       type: FETCH_EVENT,
       payload: thisEvent.event
