@@ -92,7 +92,7 @@ export const verifyToken = (dispatch) =>
         dispatch({
           type: UNAUTH_USER
         });
-        // redirerct to /lgoin
+        // redirerct to /login
         dispatch(replace('/login'));
         reject(error);
       }
@@ -102,7 +102,7 @@ export const verifyToken = (dispatch) =>
       dispatch({
         type: UNAUTH_USER
       });
-      // redirerct to /lgoin
+      // redirerct to /login
       dispatch(replace('/login'));
       resolve();
     }

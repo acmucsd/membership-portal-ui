@@ -10,19 +10,18 @@ const withAdminAuth = Component => props => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
+
+      // using then here because state doesn't update in right order
       props.verify()().then((data) => {
-        console.log(data);
-        console.log(props.state)
-        if (!props.isAdmin) {
+        if (!data.admin) {
           // if not an admin, redirect
-          console.log("NOT ADMIN");
-          //dispatch(replace('/'));
+          props.redirectHome();
         }
       }).catch((error) => {
 
       })
     }
-  });
+  }, []);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component {...props} />;
@@ -30,13 +29,11 @@ const withAdminAuth = Component => props => {
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,
-  isAdmin: state.auth.isAdmin,
-  state: state
 });
 
 const mapDispatchToProps = dispatch => ({
-  redirectLogin: () => {
-    dispatch(replace('/login'));
+  redirectHome: () => {
+    dispatch(replace('/'));
   },
   verify: () => {
     return verifyToken(dispatch);
