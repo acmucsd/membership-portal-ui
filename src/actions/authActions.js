@@ -24,10 +24,11 @@ export const loginUser = values => async dispatch => {
     if (data.error) throw new Error(data.error.message);
 
     Storage.set('token', data.token);
-
+    const userData = tokenGetClaims(data.token);
+s
     dispatch({
       type: AUTH_USER,
-      isAdmin: !!tokenGetClaims(data.token).admin,
+      isAdmin: userData.admin
     });
 
     // Redirect to home on login.
@@ -40,6 +41,66 @@ export const loginUser = values => async dispatch => {
     });
   }
 };
+
+export const verifyToken = (dispatch) =>
+  async () => {
+  const token = Storage.get('token');
+  if (token) {
+    try {
+      const response = await fetch(Config.API_URL + Config.routes.auth.verification, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+      if (!data) throw new Error('Empty response from server');
+      if (data.error) {
+         throw new Error(data.error.message);
+      }
+
+      if (!data.authenticated) {
+        // not authenticated? log out user
+        dispatch({
+          type: UNAUTH_USER
+        });
+        notify('Login expired', 'Please sign in again');
+        // redirect to /login
+        dispatch(replace('/login'));
+      }
+      dispatch({
+        type: AUTH_USER,
+        isAdmin: data.admin
+      });
+
+    } catch (error) {
+      notify('Unable to verify token!', error.message || "Try logging in again");
+
+      dispatch({
+        type: AUTH_ERROR,
+        error: error,
+      });
+
+      // log out user due to probably faulty token
+      dispatch({
+        type: UNAUTH_USER
+      });
+      // redirerct to /lgoin
+      dispatch(replace('/login'));
+    }
+  }
+  else {
+    // log out user due to no token
+    dispatch({
+      type: UNAUTH_USER
+    });
+    // redirerct to /lgoin
+    dispatch(replace('/login'));
+  }
+}
 
 export const logoutUser = () => dispatch => {
   dispatch({
@@ -94,7 +155,7 @@ export const passwordReset = email => async dispatch => {
 
 export const updatePassword = user => async dispatch => {
   try {
-    const response = await fetch(`${Config.API_URL + 
+    const response = await fetch(`${Config.API_URL +
       Config.routes.auth.resetPassword}/${user.code}`, {
       method: 'POST',
       headers: {
