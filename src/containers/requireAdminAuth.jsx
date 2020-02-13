@@ -6,11 +6,20 @@ import { notify } from '../utils';
 
 import { verifyToken } from '../actions/authActions';
 
-const withAuth = Component => props => {
+const withAdminAuth = Component => props => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
-      props.verify()()
+
+      // using then here because state doesn't update in right order
+      props.verify()().then((data) => {
+        if (!data.admin) {
+          // if not an admin, redirect
+          props.redirectHome();
+        }
+      }).catch((error) => {
+
+      })
     }
   }, []);
 
@@ -20,20 +29,19 @@ const withAuth = Component => props => {
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,
-  state: state
 });
 
 const mapDispatchToProps = dispatch => ({
-  redirectLogin: () => {
-    dispatch(replace('/login'));
+  redirectHome: () => {
+    dispatch(replace('/'));
   },
   verify: () => {
     return verifyToken(dispatch);
   }
 });
-const requireAuth = compose(
+const requireAdminAuth = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withAuth
+  withAdminAuth
 )
 
-export default requireAuth;
+export default requireAdminAuth;
