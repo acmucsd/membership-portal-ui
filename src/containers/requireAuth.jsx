@@ -12,7 +12,7 @@ const withAuth = Component => props => {
     if (!props.authenticated) {
       props.verify()()
     }
-  });
+  }, []);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component {...props} />;
@@ -20,6 +20,7 @@ const withAuth = Component => props => {
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,
+  state: state
 });
 
 const mapDispatchToProps = dispatch => ({
