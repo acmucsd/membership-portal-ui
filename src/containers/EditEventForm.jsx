@@ -26,7 +26,7 @@ const FormikEditEventForm = withFormik({
     }
   },
   handleSubmit(values, { resetForm, props }) {
-    console.log(values);
+
     if (values.startTime === 12) {
       values.startTime = 0;
     }
