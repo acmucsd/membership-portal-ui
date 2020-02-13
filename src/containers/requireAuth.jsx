@@ -20,7 +20,6 @@ const withAuth = Component => props => {
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,
-  state: state
 });
 
 const mapDispatchToProps = dispatch => ({
