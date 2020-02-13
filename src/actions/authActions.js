@@ -25,7 +25,6 @@ export const loginUser = values => async dispatch => {
 
     Storage.set('token', data.token);
     const userData = tokenGetClaims(data.token);
-
     dispatch({
       type: AUTH_USER,
       isAdmin: userData.admin
