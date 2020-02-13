@@ -37,7 +37,6 @@ for (let i = 1; i <= 12; i++) {
 const EditEventForm = props => {
   const params = useParams();
   useEffect(() => {
-    console.log(params);
     props.setFieldValue('uuid', params.uuid);
   }, []);
 

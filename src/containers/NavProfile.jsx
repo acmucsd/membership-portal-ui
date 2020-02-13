@@ -7,7 +7,7 @@ import { fetchUser } from '../actions/userActions';
 const NavProfileContainer = props => {
   useEffect(() => {
     props.fetchUser();
-  });
+  }, []);
 
   return <NavProfile exp={props.exp} image={props.image} name={props.name} menu={props.menu} />;
 ***REMOVED***

@@ -20,6 +20,7 @@ import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
 import requireAuth from './containers/requireAuth';
+import requireAdminAuth from './containers/requireAdminAuth';
 
 const store = configureStore();
 
@@ -30,8 +31,8 @@ const App = () => {
         <>
           <Switch>
             <Route exact path="/about" component={requireAuth(AboutPage)} />
-            <Route exact path="/admin" component={requireAuth(AdminPage)} />
-            <Route exact path="/admin/editEvent/:uuid" component={requireAuth(EditEventPage)} />
+            <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
+            <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage)} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/forgot-password" component={PasswordPage} />
             <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />

@@ -4,7 +4,7 @@ import Storage from '../storage';
 
 const initialState = {
   admin: false,
-  authenticated: !! Storage.get('token'),
+  authenticated: false,
   error: false
 ***REMOVED***
 
@@ -15,12 +15,12 @@ const AuthReducer = (state = initialState, action) => {
         ...state,
         error: action.error
       ***REMOVED***
-    // TODO Authentificated should not always be true.
+    // call this when we are authorizing a user, so authenticated: true default
     case AUTH_USER:
       return {
         ...state,
         admin: action.isAdmin,
-        authenticated: !! Storage.get('token')
+        authenticated: true
       ***REMOVED***
     case UNAUTH_USER:
       return {

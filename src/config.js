@@ -22,6 +22,7 @@ export default {
     auth: {
       register: '/api/v1/auth/register',
       login: '/api/v1/auth/login',
+      verification: '/api/v1/auth/verification',
       resetPassword: '/api/v1/auth/resetPassword',
     },
     events: {
