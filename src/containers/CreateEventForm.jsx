@@ -19,6 +19,7 @@ const FormikCreateEventForm = withFormik({
       endAm: '',
       month: '',
       day: 0,
+      year: curYear,
       cover: '',
       description: '',
       attendanceCode: '',
@@ -42,8 +43,8 @@ const FormikCreateEventForm = withFormik({
       title: values.title,
       location: values.location,
       pointValue: values.pointValue,
-      start: new Date(curYear, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
-      end: new Date(curYear, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
+      start: new Date(values.year, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
+      end: new Date(values.year, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description

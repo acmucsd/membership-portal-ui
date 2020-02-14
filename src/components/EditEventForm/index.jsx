@@ -42,18 +42,20 @@ const EditEventForm = props => {
 
   useEffect(() => {
     if (props.event) {
-      let keys = ['title', 'location', 'pointValue', ' startTime', ' startAm', 'endTime', 'month', 'day', 'cover', 'description', 'attendanceCode'];
+      let keys = ['title', 'location', 'pointValue', ' startTime', ' startAm', 'endTime', 'month', 'day', 'cover', 'description', 'attendanceCode', 'year'];
       keys.forEach((key) => {
         props.setFieldValue(key, props.event[key]);
       });
       if (props.event['start']) {
         let start = new Date(props.event['start']);
+        props.setFieldValue('year', start.getFullYear());
         props.setFieldValue('month', months[start.getMonth()]);
-        props.setFieldValue('startTime', start.getHours() % 12);
+
         let half = 'AM';
         if (start.getHours() >= 12) {
           half = 'PM';
         }
+        props.setFieldValue('startTime', start.getHours() % 12);
         props.setFieldValue('startAm', half);
         props.setFieldValue('day', start.getDate());
       }
@@ -111,6 +113,18 @@ const EditEventForm = props => {
             </Form.Item>
           </div>
           <div className="horizontal-input">
+            <Form.Item
+              className="year-wrapper"
+              label="Year"
+            >
+              <Input
+                name="year"
+                className="year"
+                value={props.values.year}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+              />
+            </Form.Item>
             <Form.Item
               className="month-wrapper"
               label="Month"
