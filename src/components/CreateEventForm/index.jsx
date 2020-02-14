@@ -32,6 +32,7 @@ for (let i = 1; i <= 12; i++) {
   hours.push(i);
 }
 
+/* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm = props => {
   return (
     <div className="create-event-form">
@@ -74,6 +75,18 @@ const CreateEventForm = props => {
             </Form.Item>
           </div>
           <div className="horizontal-input">
+            <Form.Item
+              className="year-wrapper"
+              label="Year"
+            >
+              <Input
+                name="year"
+                className="year"
+                value={props.values.year}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+              />
+            </Form.Item>
             <Form.Item
               className="month-wrapper"
               label="Month"
