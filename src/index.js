@@ -8,8 +8,13 @@ import configureStore, { history } from './store';
 
 import './styles/reset.less';
 import AboutPage from './containers/AboutPage';
+
+/* Admin Container Pages */
 import AdminPage from './containers/AdminPage';
+import AwardPointsPage from './containers/admin/AwardPointsPage';
 import EditEventPage from './containers/EditEventPage';
+import CreateEventPage from './containers/admin/CreateEventPage';
+
 import AuthPage from './containers/AuthPage';
 import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
@@ -33,6 +38,8 @@ const App = () => {
             <Route exact path="/about" component={requireAuth(AboutPage)} />
             <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
             <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage)} />
+            <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage)} />
+            <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage)} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/forgot-password" component={PasswordPage} />
             <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
