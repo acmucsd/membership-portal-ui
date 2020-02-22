@@ -16,6 +16,7 @@ export default {
   routes: {
     user: {
       user: '/api/v1/user',
+      bonus: '/api/v1/user/bonus',
       activity: '/api/v1/user/activity',
     },
     activity: '/api/v1/activity',

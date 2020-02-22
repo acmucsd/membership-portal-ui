@@ -65,3 +65,49 @@ export const editEvent = (event) => async dispatch => {
     }
   })
 }
+
+export const awardPoints = (pointDetails) => async dispatch => {
+  return new Promise( async (resolve, reject) => {
+    if (!pointDetails.points || !pointDetails.points === 0) {
+      notify('Validation Error!', "No points provided");
+      reject();
+      return;
+    }
+    if (!pointDetails.users || pointDetails.users.length === 0) {
+      notify('Validation Error!', "No awardees provided");
+      reject();
+      return;
+    }
+    if (!pointDetails.description) {
+      notify('Validation Error!', "Missing description field");
+      reject();
+      return;
+    }
+    try {
+      const response = await fetch(Config.API_URL + Config.routes.user.bonus, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: JSON.stringify({ bonus: pointDetails }),
+***REMOVED***;
+
+      const status = await response.status;
+      if (status === 401 || status === 403) {
+        dispatch(logoutUser());
+      }
+
+      const data = await response.json();
+      if (!data) throw new Error('Empty response from server');
+      if (data.error) throw new Error(data.error.message);
+
+      notify('Gave bonus points!', 'to ' + pointDetails.users.length + ' users');
+      resolve(pointDetails);
+    } catch (error) {
+      notify('Unable to award points!', error.message);
+      reject(error);
+    }
+  })
+}
