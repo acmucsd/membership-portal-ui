@@ -1,0 +1,93 @@
+@import '../../../styles/fonts.less';
+@import '../../../styles/vars.less';
+
+.award-points-form {
+  display: flex;
+  font-family: 'Roboto';
+  width: 50%;
+
+  .subtitle {
+    color: @blue-3;
+    font-size: @general-heading-2;
+    font-weight: 700;
+  }
+
+  label {
+    color: @blue-3;
+    font-size: @card-heading-2;
+    font-weight: 600;
+    &:after {
+      content: '';
+    }
+  }
+
+  h1 {
+    color: @black;
+    font-size: @general-heading-1;
+    font-weight: 800;
+  }
+
+  .input-box {
+    .input-style;
+    width: 100%;
+  }
+
+  .save-button {
+    background-color: @green-1;
+    border-color: @green-2;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    margin-right: 20px;
+  }
+
+  .discard-button {
+    background-color: @white;
+    border-color: @red;
+    color: @red;
+    font-size: @general-body;
+    font-weight: 500;
+    height: @button-height;
+    width: @discard-button-width;
+  }
+
+  .ant-form-item-label {
+    line-height: 30px;
+  }
+  .points-wrapper {
+    width: 100%;
+    .points {
+      .input-style;
+    }
+  }
+  .awardees-list-wrapper {
+    .awardee-input {
+      width: 90px;
+    }
+    .awardee-tag {
+      font-size: @card-body;
+    }
+    .add-new-awardee {
+      background: @white;
+      borderStyle: dashed;
+      font-size: @card-body;
+    }
+  }
+
+  .input-style() {
+    background-color: @gray-1;
+    border-color: @gray-4;
+    color: @black;
+    font-family: 'Nunito';
+    font-size: @general-body;
+    height: @profile-input-height;
+  }
+
+  .area-box {
+    .input-style;
+    font-size: @card-heading-2;
+    height: @text-input-height;
+    width: 100%;
+  }
+}

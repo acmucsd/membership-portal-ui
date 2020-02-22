@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
-import CreateEventForm from '../components/CreateEventForm';
-import { getMonthIndex } from '../utils';
-import { postEvent } from '../actions/adminActions';
+import CreateEventForm from '../../components/admin/CreateEventForm';
+import { getMonthIndex } from '../../utils';
+import { postEvent } from '../../actions/adminActions';
 
 const curYear = new Date().getFullYear();
 
