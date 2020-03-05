@@ -73,7 +73,7 @@ export const verifyToken = (dispatch) =>
           resolve(data);
           return;
         }
-        const userData = tokenGetClaims(data.token);
+        const userData = tokenGetClaims(token);
         dispatch({
           type: AUTH_USER,
           isAdmin: userData.admin
