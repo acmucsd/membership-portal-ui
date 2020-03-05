@@ -28,6 +28,7 @@ export default {
     },
     events: {
       event: '/api/v1/event',
+      adminFetch: '/api/v1/event/adminFetch',
       past: '/api/v1/event/past',
       future: '/api/v1/event/future',
     },
