@@ -73,9 +73,10 @@ export const verifyToken = (dispatch) =>
           resolve(data);
           return;
         }
+        const userData = tokenGetClaims(token);
   ***REMOVED***
           type: AUTH_USER,
-          isAdmin: data.admin
+          isAdmin: userData.admin
   ***REMOVED***;
         resolve(data);
 
