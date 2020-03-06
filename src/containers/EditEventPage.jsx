@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import EditEventPage from '../components/EditEventPage';
 import PageLayout from './PageLayout';
 
-import { fetchAdminEvent } from '../actions/eventsActions';
+import { fetchEvent } from '../actions/eventsActions';
 
 import { useParams } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const EditEventPageContainer = (props) => {
   const params = useParams();
   const [eventData, setEventData] = useState({});
   useEffect(() => {
-    props.fetchAdminEvent(params.uuid);
+    props.fetchEvent(params.uuid);
   }, []);
   return (
     <PageLayout>
@@ -26,5 +26,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { fetchAdminEvent }
+  { fetchEvent }
 )(EditEventPageContainer);
