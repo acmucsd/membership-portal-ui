@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Input, Button } from 'antd';
+import { Card, Input, Button, Checkbox } from 'antd';
 
 import './style.less';
 
 const EventCheck = props => {
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  }
   return (
     <Card className="checkin-card">
       <h1>Event Check-in</h1>
@@ -20,7 +23,14 @@ const EventCheck = props => {
         <Button onClick={props.onSubmit} className="submit">
           Submit
         </Button>
+
       </div>
+      { props.user.profile.accountType === "STAFF" &&
+        <div className="staff-checkin-div">
+          <label className="staff-check-in-label">Staff Check In</label>
+          <Checkbox onChange={props.onAsStaffChange}/>
+        </div>
+      }
     </Card>
   );
 };
