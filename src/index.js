@@ -24,6 +24,7 @@ import ResetPage from './containers/ResetPage';
 import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
+import EmailVerficationPage from './containers/EmailVerificationPage';
 import requireAuth from './containers/requireAuth';
 import requireAdminAuth from './containers/requireAdminAuth';
 
@@ -48,6 +49,7 @@ const App = () => {
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
             <Route exact path="/store" component={requireAuth(StorePage)} />
+            <Route exact path="/verifyEmail/:email/:code" component={EmailVerficationPage} />
             <Route path="/" component={requireAuth(HomePage)} />
           </Switch>
         </>

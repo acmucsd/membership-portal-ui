@@ -25,6 +25,7 @@ export default {
       login: '/api/v1/auth/login',
       verification: '/api/v1/auth/verification',
       resetPassword: '/api/v1/auth/resetPassword',
+      verifyEmail: '/api/v1/auth/verifyEmail'
     },
     events: {
       event: '/api/v1/event',
