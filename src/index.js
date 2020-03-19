@@ -24,6 +24,9 @@ import ResetPage from './containers/ResetPage';
 import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
+
+import ErrorPage from './containers/ErrorPage';
+
 import requireAuth from './containers/requireAuth';
 import requireAdminAuth from './containers/requireAdminAuth';
 
@@ -48,7 +51,8 @@ const App = () => {
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
             <Route exact path="/store" component={requireAuth(StorePage)} />
-            <Route path="/" component={requireAuth(HomePage)} />
+            <Route exact path="/" component={requireAuth(HomePage)} />
+            <Route path="/" component={ErrorPage} />
           </Switch>
         </>
       </ConnectedRouter>
