@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
+import { Link } from 'react-router-dom';
 
 import './style.less';
 import { getRank } from '../../utils';
@@ -12,7 +13,9 @@ const LeaderListItem = props => {
       ${props.placement % 2 === 0 ? "even" : "odd"}`}>
       <span className="placement">{props.placement}</span>
       <Avatar size={40} src={props.image} />
-      <span className="name">{props.name}</span>
+
+        <span className="name"><Link to={"/profile/" + props.uuid}>{props.name}</Link></span>
+
       <span className="rank">{getRank(props.exp)}</span>
       <span className="exp">{props.exp} points</span>
     </div>

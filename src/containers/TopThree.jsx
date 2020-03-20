@@ -29,6 +29,7 @@ const getTopThree = users => {
         name={`${user.firstName} ${user.lastName}`}
         placement={i+1}
         rank={user.rank}
+        uuid={user.uuid}
         />
 ***REMOVED***
   }

@@ -1,13 +1,20 @@
 import React from 'react';
-import ProfileUpdate from './ProfileUpdate';
+import ProfilePage from '../components/ProfilePage';
 import PageLayout from './PageLayout';
-
-const ProfilePage = () => {
+import { connect } from 'react-redux';
+import { fetchUser } from '../actions/userActions';
+const ProfilePageContainer = props => {
   return (
     <PageLayout>
-      <ProfileUpdate />
+      <ProfilePage user={props.user} />
     </PageLayout>
   );
 ***REMOVED***
+const mapStateToProps = state => ({
+  user: state.user
+});
 
-export default ProfilePage;
+export default connect(
+  mapStateToProps,
+  { fetchUser }
+)(ProfilePageContainer);
