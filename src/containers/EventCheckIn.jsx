@@ -6,32 +6,40 @@ import { checkIn } from '../actions/eventsActions';
 
 const EventCheckInContainer = props => {
   const [value, setValue] = useState('');
-
+  const [asStaff, setAsStaff] = useState(false);
   const handleChange = (event) => {
     setValue(event.target.value);
   }
+  const handleAsStaffChange = (event) => {
+    setAsStaff(event.target.checked);
+  }
 
   const handleSubmit = () => {
-    props.checkIn(value)
+    props.checkIn({ attendanceCode: value, asStaff: asStaff })
   }
 
   const handleEnter = (event) => {
     if (event.key === 'Enter') {
-      props.checkIn(value)
+      props.checkIn({ attendanceCode: value, asStaff: asStaff })
     }
   }
 
   return (
     <EventCheckIn
       onChange={handleChange}
+      onAsStaffChange={handleAsStaffChange}
       onSubmit={handleSubmit}
       onKeyPress={handleEnter}
       value={value}
+      user={props.user}
     />
   )
 ***REMOVED***
+const mapStateToProps = state => ({
+  user: state.user
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   { checkIn }
 )(EventCheckInContainer);

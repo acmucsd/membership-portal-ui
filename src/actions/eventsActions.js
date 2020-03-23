@@ -14,7 +14,7 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const checkIn = (attendanceCode) => async dispatch => {
+export const checkIn = (info) => async dispatch => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
       method: 'POST',
@@ -23,7 +23,7 @@ export const checkIn = (attendanceCode) => async dispatch => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-      body: JSON.stringify({ attendanceCode }),
+      body: JSON.stringify({ attendanceCode: info.attendanceCode, asStaff: info.asStaff }),
 ***REMOVED***
 
     const status = await response.status;
