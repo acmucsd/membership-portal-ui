@@ -22,10 +22,10 @@ import LoginPage from './containers/LoginPage';
 import PasswordPage from './containers/PasswordPage';
 import ResetPage from './containers/ResetPage';
 import ProfilePage from './containers/ProfilePage';
+import ProfileUpdatePage from './containers/ProfileUpdatePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
-import EmailVerficationPage from './containers/EmailVerificationPage';
-import ResendEmailVerificationPage from './containers/ResendEmailVerificationPage';
+import ErrorPage from './containers/ErrorPage';
 import requireAuth from './containers/requireAuth';
 import requireAdminAuth from './containers/requireAdminAuth';
 import requireStandardAccess from './containers/requireStandardAccess';
@@ -48,12 +48,15 @@ const App = () => {
             <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={requireAuth(ProfilePage)} />
+            <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage)} />
+            <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage)} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
             <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
             <Route exact path="/verifyEmail/:email/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
             <Route path="/" component={requireAuth(HomePage)} />
+            <Route path="/" component={ErrorPage} />
           </Switch>
         </>
       </ConnectedRouter>
