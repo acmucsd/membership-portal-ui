@@ -205,3 +205,25 @@ export const verifyEmail = async ( info ) => {
     notify('Unable to verify email!', error.message);
   }
 }
+
+export const sendEmailVerification = async ( email ) => {
+  try {
+    const response = await fetch(`${Config.API_URL +
+      Config.routes.auth.emailVerification}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email })
+    });
+
+    const data = await response.json();
+
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+    notify("Sent verification email!");
+  } catch (error) {
+    notify('Unable to send verification email!', error.message);
+  }
+}

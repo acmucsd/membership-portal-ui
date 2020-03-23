@@ -25,8 +25,10 @@ import ProfilePage from './containers/ProfilePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
 import EmailVerficationPage from './containers/EmailVerificationPage';
+import ResendEmailVerificationPage from './containers/ResendEmailVerificationPage';
 import requireAuth from './containers/requireAuth';
 import requireAdminAuth from './containers/requireAdminAuth';
+import requireStandardAccess from './containers/requireStandardAccess';
 
 const store = configureStore();
 
@@ -48,8 +50,9 @@ const App = () => {
             <Route exact path="/profile" component={requireAuth(ProfilePage)} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route exact path="/store" component={requireAuth(StorePage)} />
+            <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
             <Route exact path="/verifyEmail/:email/:code" component={EmailVerficationPage} />
+            <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
             <Route path="/" component={requireAuth(HomePage)} />
           </Switch>
         </>
