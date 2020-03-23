@@ -26,6 +26,8 @@ import ProfileUpdatePage from './containers/ProfileUpdatePage';
 import RegisterPage from './containers/RegisterPage';
 import StorePage from './containers/StorePage';
 import ErrorPage from './containers/ErrorPage';
+import EmailVerficationPage from './containers/EmailVerificationPage';
+import ResendEmailVerificationPage from './containers/ResendEmailVerificationPage';
 import requireAuth from './containers/requireAuth';
 import requireAdminAuth from './containers/requireAdminAuth';
 import requireStandardAccess from './containers/requireStandardAccess';
