@@ -187,7 +187,7 @@ export const updatePassword = user => async dispatch => {
 export const verifyEmail = async ( info ) => {
   try {
     const response = await fetch(`${Config.API_URL +
-      Config.routes.auth.verifyEmail}`, {
+      Config.routes.auth.emailVerification + '/' + info.email}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -209,13 +209,12 @@ export const verifyEmail = async ( info ) => {
 export const sendEmailVerification = async ( email ) => {
   try {
     const response = await fetch(`${Config.API_URL +
-      Config.routes.auth.emailVerification}`, {
-      method: 'POST',
+      Config.routes.auth.emailVerification + '/' + email}`, {
+      method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: email })
+      }
     });
 
     const data = await response.json();
