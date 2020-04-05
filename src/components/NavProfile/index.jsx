@@ -4,6 +4,7 @@ import { Avatar, Icon, Dropdown, Progress } from 'antd';
 
 import './style.less';
 import { ReactComponent as Caret } from '../../assets/icons/caret-icon.svg';
+import { getDefaultProfile } from '../../utils';
 
 const NavProfile = props => {
   return (
@@ -18,7 +19,7 @@ const NavProfile = props => {
             type="circle"
             width={55}
           />
-          <Avatar size={55} icon="user" className="avatar" src={props.image} />
+          <Avatar size={55} icon="user" className="avatar" src={props.profilePicture} />
           <span className="name">{props.name}</span>
           <Icon component={Caret} className="arrow" />
         </div>
@@ -29,7 +30,7 @@ const NavProfile = props => {
 
 NavProfile.propTypes = {
   exp: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
+  profilePicture: PropTypes.string.isRequired,
   menu: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 };

@@ -20,7 +20,7 @@ const ProfilePage = props => {
     else {
       setUser(props.user);
     }
-  }, [params.uuid]);
+  }, [params.uuid, props.user]);
   return (
     <div className="Profile-Page">
       <h1 className="title">Profile</h1>
@@ -29,7 +29,7 @@ const ProfilePage = props => {
         <div>
         <div className="avatar-flex">
           <h2 className="name">{ user.profile.firstName } { user.profile.lastName }</h2>
-          <Avatar size={115} icon="user" className="avatar" src={user.image || getDefaultProfile() } />
+          <Avatar size={115} icon="user" className="avatar" src={user.profile.profilePicture || getDefaultProfile() } />
         </div>
         <div className="level-info">
           <p className="rank">{getRank(user.profile.points)}</p>
