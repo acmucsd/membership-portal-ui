@@ -37,9 +37,7 @@ const ProfileUpdate = props => {
         setFileList([lastFile]);
       }
       let newBg = URL.createObjectURL(lastFile.originFileObj);
-      console.log(newBg);
       setBG(newBg);
-      console.log(lastFile);
     }
     else {
       setBG("");

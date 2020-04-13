@@ -6,9 +6,6 @@ import './style.less';
 import { getDefaultProfile } from '../../utils';
 
 const ProfileCard = props => {
-  React.useEffect(() => {
-    console.log(props.profilePicture);
-  }, [props.profilePicture]);
   return (
     <Card bordered={false} className="profile-card">
       <div className="avatar-flex">
