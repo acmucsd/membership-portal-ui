@@ -9,12 +9,12 @@ const NavProfileContainer = props => {
     props.fetchUser();
   }, []);
 
-  return <NavProfile exp={props.exp} image={props.image} name={props.name} menu={props.menu} />;
+  return <NavProfile exp={props.exp} profilePicture={props.profilePicture} name={props.name} menu={props.menu} />;
 };
 
 const mapStateToProps = state => ({
   exp: state.user.profile.points,
-  image: state.user.image,
+  profilePicture: state.user.profile.profilePicture,
   name: state.user.profile.firstName,
 });
 
