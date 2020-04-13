@@ -1,15 +1,15 @@
 import { Progress, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 import './styles.less';
 
-const EventCard = (props) => {
+const EventCard = props => {
   const history = useHistory();
   return (
     <div className="event-card">
-      <img className="image" src={props.cover} alt={props.title}/>
+      <img className="image" src={props.cover} alt={props.title} />
       <div className="info">
         <h2 className="title">{props.title}</h2>
         <p className="date">{props.date}</p>
@@ -27,18 +27,22 @@ const EventCard = (props) => {
         />
         <h2 className="points">{props.points}</h2>
       </div>
-      {props.auth.admin &&
+      {props.auth.admin && (
         <div className="edit-icon-wrapper">
-          <Icon type="edit" className='edit-icon' onClick={() => {
-            history.push("/admin/editEvent/" + props.uuid);
-          }}/>
+          <Icon
+            type="edit"
+            className="edit-icon"
+            onClick={() => {
+              history.push('/admin/editEvent/' + props.uuid);
+            }}
+          />
         </div>
-      }
-      <hr className="divider"/>
+      )}
+      <hr className="divider" />
       <p className="description">{props.description}</p>
     </div>
   );
-}
+};
 
 EventCard.propTypes = {
   cover: PropTypes.string.isRequired,
