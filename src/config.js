@@ -18,6 +18,7 @@ export default {
       user: '/api/v1/user',
       bonus: '/api/v1/user/bonus',
       activity: '/api/v1/user/activity',
+      profilepicture: '/api/v1/user/picture'
     },
     activity: '/api/v1/activity',
     auth: {

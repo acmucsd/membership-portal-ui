@@ -25,7 +25,7 @@ const getTopThree = users => {
       <TopLeaderCard
         key={i}
         exp={user.points}
-        image={getDefaultProfile()}
+        image={user.profilePicture}
         name={`${user.firstName} ${user.lastName}`}
         placement={i+1}
         rank={user.rank}

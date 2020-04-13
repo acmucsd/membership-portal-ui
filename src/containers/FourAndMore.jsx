@@ -22,11 +22,12 @@ const getFourAndMore = users => {
 
   for (let i = 3; i < users.length; i++) {
     const user = users[i];
+    console.log(user.profilePicture);
     fourAndMore.push(
       <LeaderListItem
         key={i}
         exp={user.points}
-        image={getDefaultProfile()}
+        image={user.profilePicture}
         name={`${user.firstName} ${user.lastName}`}
         placement={i+1}
         rank={user.rank}

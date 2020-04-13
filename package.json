@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "https://acmucsd-membership-portal-api.herokuapp.com",
   "dependencies": {
+    "@ant-design/icons": "^4.0.5",
     "@firebase/storage": "^0.3.15",
     "antd": "^3.24.3",
     "babel-plugin-import": "^1.12.0",
