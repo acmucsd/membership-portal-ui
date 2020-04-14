@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Icon } from 'antd';
+import { Divider } from 'antd';
+import Icon from '@ant-design/icons';
 
 import './style.less';
 

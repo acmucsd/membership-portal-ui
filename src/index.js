@@ -46,7 +46,7 @@ const App = () => {
             <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage)} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
+            <Route exact path="/leaderboard" component={(LeaderPage)} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={requireAuth(ProfilePage)} />
             <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage)} />
