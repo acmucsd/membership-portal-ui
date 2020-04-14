@@ -1,18 +1,15 @@
-import {
-  FETCH_LEADERBOARD,
-  LEADERBOARD_ERROR
-} from '../actions/types';
+import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from '../actions/types';
 import { getDefaultProfile } from '../utils';
 
 const initialState = {
-  users: []
+  users: [],
 };
 
 const LeaderboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_LEADERBOARD:
       // TODO: Look into Immutables.
-      action.payload.forEach((user) => {
+      action.payload.forEach(user => {
         if (user.profilePicture == null) {
           user.profilePicture = getDefaultProfile();
         }

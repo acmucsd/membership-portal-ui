@@ -8,7 +8,7 @@ import { fetchEvent } from '../actions/eventsActions';
 
 import { useParams } from 'react-router-dom';
 
-const EditEventPageContainer = (props) => {
+const EditEventPageContainer = props => {
   const params = useParams();
   const [eventData, setEventData] = useState({});
   useEffect(() => {
@@ -16,13 +16,13 @@ const EditEventPageContainer = (props) => {
   }, []);
   return (
     <PageLayout>
-      <EditEventPage event={props.event}/>
+      <EditEventPage event={props.event} />
     </PageLayout>
   );
 };
 
 const mapStateToProps = state => ({
-  event: state.events.event
+  event: state.events.event,
 });
 export default connect(
   mapStateToProps,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';

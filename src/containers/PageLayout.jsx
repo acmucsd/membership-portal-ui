@@ -4,12 +4,7 @@ import { connect } from 'react-redux';
 import PageLayout from '../components/PageLayout';
 
 const PageLayoutContainer = props => {
-
-  return (
-    <PageLayout isAdmin={props.isAdmin}>
-      {props.children}
-    </PageLayout>
-  );
+  return <PageLayout isAdmin={props.isAdmin}>{props.children}</PageLayout>;
 };
 
 const mapStateToProps = state => ({

@@ -9,7 +9,7 @@ const FormikSignInForm = withFormik({
     return {
       email: '',
       password: '',
-    }
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     props.loginUser(values);

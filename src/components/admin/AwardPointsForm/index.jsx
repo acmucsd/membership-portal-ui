@@ -10,8 +10,8 @@ const { TextArea } = Input;
 
 const AwardPointsForm = props => {
   const [awardees, _setAwardees] = useState([]);
-  const [inputVisible, setInputVisible ]= useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputVisible, setInputVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const showInput = () => {
     setInputVisible(true);
@@ -20,24 +20,23 @@ const AwardPointsForm = props => {
     const newAwardees = awardees.filter(awardee => awardee !== removedAwardee);
     updateAwardees(newAwardees);
   };
-  const handleAwardeeInputChange = (e) => {
+  const handleAwardeeInputChange = e => {
     setInputValue(e.target.value);
-  }
+  };
 
-  const updateAwardees = (awardees) => {
+  const updateAwardees = awardees => {
     _setAwardees(awardees);
     props.setFieldValue('awardees', awardees);
-  }
+  };
 
   const handleInputConfirm = () => {
-
     let newAwardees = awardees;
     if (inputValue && awardees.indexOf(inputValue) === -1) {
       newAwardees = [...newAwardees, inputValue];
     }
     updateAwardees(newAwardees);
     setInputVisible(false);
-    setInputValue("");
+    setInputValue('');
   };
 
   return (
@@ -47,10 +46,7 @@ const AwardPointsForm = props => {
         <form onSubmit={props.handleSubmit}>
           <Input type="hidden" value={props.values.uuid} name="uuid" />
           <Input type="hidden" value={awardees} name="awardees" />
-          <Form.Item
-            className="points-wrapper"
-            label="Points"
-          >
+          <Form.Item className="points-wrapper" label="Points">
             <Input
               name="points"
               className="points"
@@ -83,7 +79,7 @@ const AwardPointsForm = props => {
                   className="awardee-input"
                   value={inputValue}
                   onChange={handleAwardeeInputChange}
-                  onBlur={(e) => {
+                  onBlur={e => {
                     handleInputConfirm(e);
                     props.handleBlur(e);
                   }}
@@ -126,7 +122,6 @@ AwardPointsForm.propTypes = {
 };
 
 export default AwardPointsForm;
-
 
 /* Use this instaed of Tags once we have a api route to search for users. Remember to also debounce the fetch
 const [awardees, setAwardees] = useState([]);
