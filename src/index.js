@@ -54,7 +54,7 @@ const App = () => {
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
             <Route exact path="/store" component={requireAuth(StorePage)} />
-            <Route exact path="/" component={requireAuth(HomePage)} />
+            <Route exact path="/" component={(HomePage)} />
             <Route path="/" component={ErrorPage} />
           </Switch>
         </>

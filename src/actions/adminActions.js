@@ -4,8 +4,8 @@ import Storage from '../storage';
 import { notify } from '../utils';
 import { logoutUser } from './authActions';
 
-export const postEvent = (event) => async dispatch => {
-  return new Promise( async (resolve, reject) => {
+export const postEvent = event => async dispatch => {
+  return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(Config.API_URL + Config.routes.events.event, {
         method: 'POST',
@@ -32,13 +32,13 @@ export const postEvent = (event) => async dispatch => {
       notify('Unable to add events!', error.message);
       reject(error);
     }
-  })
+  });
 };
 
-export const editEvent = (event) => async dispatch => {
-  return new Promise( async (resolve, reject) => {
+export const editEvent = event => async dispatch => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(Config.API_URL + Config.routes.events.event + "/" + event.uuid , {
+      const response = await fetch(Config.API_URL + Config.routes.events.event + '/' + event.uuid, {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -63,23 +63,23 @@ export const editEvent = (event) => async dispatch => {
       notify('Unable to edit event!', error.message);
       reject(error);
     }
-  })
-}
+  });
+};
 
-export const awardPoints = (pointDetails) => async dispatch => {
-  return new Promise( async (resolve, reject) => {
+export const awardPoints = pointDetails => async dispatch => {
+  return new Promise(async (resolve, reject) => {
     if (!pointDetails.points || !pointDetails.points === 0) {
-      notify('Validation Error!', "No points provided");
+      notify('Validation Error!', 'No points provided');
       reject();
       return;
     }
     if (!pointDetails.users || pointDetails.users.length === 0) {
-      notify('Validation Error!', "No awardees provided");
+      notify('Validation Error!', 'No awardees provided');
       reject();
       return;
     }
     if (!pointDetails.description) {
-      notify('Validation Error!', "Missing description field");
+      notify('Validation Error!', 'Missing description field');
       reject();
       return;
     }
@@ -109,5 +109,5 @@ export const awardPoints = (pointDetails) => async dispatch => {
       notify('Unable to award points!', error.message);
       reject(error);
     }
-  })
-}
+  });
+};

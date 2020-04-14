@@ -20,5 +20,5 @@ export default history =>
     register: RegisterReducer,
     user: UserReducer,
     pass: PasswordReducer,
-    profile: ProfileReducer 
+    profile: ProfileReducer,
   });

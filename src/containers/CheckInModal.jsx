@@ -5,13 +5,13 @@ import ModalComponent from '../components/Modal';
 import { checkOut } from '../actions/eventsActions';
 
 const CheckInModalContainer = props => {
-  const checkInMessage=`Checked in to ${props.currentEvent.title}!`;
+  const checkInMessage = `Checked in to ${props.currentEvent.title}!`;
   // TODO: Add event name and points to this message.
-  const fullMessage="Please show this to a board member to enter the room!"
+  const fullMessage = 'Please show this to a board member to enter the room!';
 
   const hideMessage = () => {
     props.checkOut();
-  }
+  };
 
   return (
     <ModalComponent

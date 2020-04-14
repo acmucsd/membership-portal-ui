@@ -22,10 +22,7 @@ const PasswordPage = props => {
 
   return (
     <LoginLayout>
-      <PasswordForm 
-        onChange={handleChange} 
-        onKeyPress={handleEnter} 
-        value={value} />
+      <PasswordForm onChange={handleChange} onKeyPress={handleEnter} value={value} />
     </LoginLayout>
   );
 };

@@ -10,11 +10,7 @@ const FourAndMoreContainer = props => {
     props.fetchLeaderboard();
   }, []);
 
-  return (
-    <>
-      {getFourAndMore(props.users)}
-    </>
-  )
+  return <>{getFourAndMore(props.users)}</>;
 };
 
 const getFourAndMore = users => {
@@ -29,15 +25,15 @@ const getFourAndMore = users => {
         exp={user.points}
         image={user.profilePicture}
         name={`${user.firstName} ${user.lastName}`}
-        placement={i+1}
+        placement={i + 1}
         rank={user.rank}
         uuid={user.uuid}
-        />
-    )
+      />
+    );
   }
 
   return fourAndMore;
-}
+};
 
 const mapStateToProps = state => ({
   users: state.leaderboard.users,
