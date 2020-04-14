@@ -23,7 +23,7 @@ const FormikCreateEventForm = withFormik({
       cover: '',
       description: '',
       attendanceCode: '',
-    }
+    ***REMOVED***
   },
   handleSubmit(values, { resetForm, props }) {
     console.log(values);
@@ -47,16 +47,16 @@ const FormikCreateEventForm = withFormik({
       end: new Date(values.year, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
-      description: values.description
-    }
-    props.postEvent(event)
-    .then((resp) => {
-      resetForm();
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-
+      description: values.description,
+    ***REMOVED***
+    props
+      .postEvent(event)
+      .then(resp => {
+        resetForm();
+***REMOVED***
+      .catch(error => {
+        console.log(error);
+***REMOVED***;
   },
 })(CreateEventForm);
 

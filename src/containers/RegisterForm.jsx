@@ -17,7 +17,7 @@ const FormikRegisterForm = withFormik({
       graduationYear: null,
     ***REMOVED***
   },
-  handleSubmit(values, { resetForm,  props }) {
+  handleSubmit(values, { resetForm, props }) {
     props.registerAccount(values);
   },
 })(RegisterForm);

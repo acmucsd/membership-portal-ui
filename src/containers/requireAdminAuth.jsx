@@ -10,16 +10,16 @@ const withAdminAuth = Component => props => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
-
       // using then here because state doesn't update in right order
-      props.verify()().then((data) => {
-        if (!data.admin) {
-          // if not an admin, redirect
-          props.redirectHome();
-        }
-***REMOVED***.catch((error) => {
-
-***REMOVED***
+      props
+        .verify()()
+        .then(data => {
+          if (!data.admin) {
+            // if not an admin, redirect
+            props.redirectHome();
+          }
+  ***REMOVED***
+        .catch(error => {});
     }
   }, []);
 
@@ -37,11 +37,14 @@ const mapDispatchToProps = dispatch => ({
   },
   verify: () => {
     return verifyToken(dispatch);
-  }
+  },
 });
 const requireAdminAuth = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withAdminAuth
-)
+);
 
 export default requireAdminAuth;

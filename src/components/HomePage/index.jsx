@@ -24,4 +24,4 @@ const HomePage = () => {
   );
 ***REMOVED***
 
- export default HomePage;
+export default HomePage;

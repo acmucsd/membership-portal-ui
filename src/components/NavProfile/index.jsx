@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Icon, Dropdown, Progress } from 'antd';
+import { Avatar, Dropdown, Progress } from 'antd';
+import Icon from '@ant-design/icons';
 
 import './style.less';
 import { ReactComponent as Caret } from '../../assets/icons/caret-icon.svg';

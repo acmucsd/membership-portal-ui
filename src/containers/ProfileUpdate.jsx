@@ -15,13 +15,12 @@ const FormikProfileUpdate = withFormik({
     ***REMOVED***
   },
   handleSubmit(values, { resetForm, props }) {
-    props.updateProfile(values)
-    .then((resp) => {
-      
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    props
+      .updateProfile(values)
+      .then(resp => {})
+      .catch(error => {
+        console.log(error);
+***REMOVED***;
   },
 })(ProfileUpdate);
 

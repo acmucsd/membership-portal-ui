@@ -4,7 +4,7 @@ import Storage from '../storage';
 import { logoutUser } from './authActions';
 import { notify } from '../utils';
 
-export const updateProfile = (values) => async dispatch => {
+export const updateProfile = values => async dispatch => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.user.user, {
       method: 'PATCH',
@@ -24,9 +24,9 @@ export const updateProfile = (values) => async dispatch => {
     notify('Updated profile!', 'Just now');
     dispatch({
       type: PROFILE_SUCCESS,
-      payload: values
-    })
-  } catch(error) {
+      payload: values,
+***REMOVED***
+  } catch (error) {
     notify('Unable to update profile!', error.message);
     dispatch({
       type: PROFILE_FAIL,
@@ -35,8 +35,8 @@ export const updateProfile = (values) => async dispatch => {
   }
 ***REMOVED***
 
-export const uploadUserImage = async (file) => {
-  return new Promise( async (resolve, reject) => {
+export const uploadUserImage = async file => {
+  return new Promise(async (resolve, reject) => {
     try {
       let formdata = new FormData();
       formdata.append('image', file);
@@ -46,7 +46,7 @@ export const uploadUserImage = async (file) => {
           Accept: 'application/json',
           Authorization: `Bearer ${Storage.get('token')}`,
         },
-        body: formdata
+        body: formdata,
 ***REMOVED***;
 
       const status = await response.status;
@@ -67,4 +67,4 @@ export const uploadUserImage = async (file) => {
       reject(error);
     }
   });
-}
+***REMOVED***

@@ -12,9 +12,8 @@ const ModalComponent = props => {
       onOk={props.handleOk}
       onCancel={props.handleCancel}
       title={props.title}
-      visible={props.visible}
-    >
-      <img className="cover" src={props.image}/>
+      visible={props.visible}>
+      <img className="cover" src={props.image} />
       <p>{props.content}</p>
     </Modal>
   );

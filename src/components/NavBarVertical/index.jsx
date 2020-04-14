@@ -26,11 +26,11 @@ const NavbarVertical = props => {
         <NavLink activeClassName="selected" to="/profile">
           <NavListItem icon={ProfileIcon} text="Profile" />
         </NavLink>
-        { props.isAdmin &&
+        {props.isAdmin && (
           <NavLink activeClassName="selected" to="/admin">
             <NavListItem icon={AdminIcon} text="Admin" />
           </NavLink>
-        }
+    ***REMOVED***}
       </section>
 
       <section>

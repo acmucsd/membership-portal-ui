@@ -11,7 +11,7 @@ const ProfilePageContainer = props => {
   );
 ***REMOVED***
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
 });
 
 export default connect(

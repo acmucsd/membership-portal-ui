@@ -6,7 +6,7 @@ import {
   EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
-  FETCH_EVENT
+  FETCH_EVENT,
 } from '../actions/types';
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   futureEvents: [],
   pastEvents: [],
   checkin: false,
-  error: null
+  error: null,
 ***REMOVED***
 
 const EventsReducer = (state = initialState, action) => {
@@ -32,36 +32,33 @@ const EventsReducer = (state = initialState, action) => {
         checkin: false,
       ***REMOVED***
     case FETCH_FUTURE_EVENTS:
-      if(_.isEqual(state.futureEvents, action.payload)) {
+      if (_.isEqual(state.futureEvents, action.payload)) {
         return {
           ...state,
-        }
-      }
-      else {
+        ***REMOVED***
+      } else {
         return {
           ...state,
           futureEvents: action.payload,
         ***REMOVED***
       }
     case FETCH_PAST_EVENTS:
-      if(_.isEqual(state.pastEvents, action.payload)) {
+      if (_.isEqual(state.pastEvents, action.payload)) {
         return {
           ...state,
-        }
-      }
-      else {
+        ***REMOVED***
+      } else {
         return {
           ...state,
           pastEvents: action.payload,
         ***REMOVED***
       }
     case FETCH_EVENT:
-      if(_.isEqual(state.event, action.payload)) {
+      if (_.isEqual(state.event, action.payload)) {
         return {
           ...state,
-        }
-      }
-      else {
+        ***REMOVED***
+      } else {
         return {
           ...state,
           event: action.payload,

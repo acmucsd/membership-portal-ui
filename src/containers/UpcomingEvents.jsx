@@ -14,7 +14,7 @@ const UpcomingEventsContainer = props => {
 
   return (
     <EventsList>
-      {props.events.map((event) => {
+      {props.events.map(event => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
@@ -36,7 +36,7 @@ const UpcomingEventsContainer = props => {
 
 const mapStateToProps = state => ({
   events: state.events.futureEvents,
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(

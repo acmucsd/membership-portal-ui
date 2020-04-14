@@ -3,9 +3,9 @@ import { FETCH_USER } from './types';
 import Config from '../config';
 import Storage from '../storage';
 
-export const fetchUser = (uuid) => async dispatch => {
+export const fetchUser = uuid => async dispatch => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.user.user +"/" + (uuid ? uuid : ""), {
+    const response = await fetch(Config.API_URL + Config.routes.user.user + '/' + (uuid ? uuid : ''), {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -33,10 +33,10 @@ export const fetchUser = (uuid) => async dispatch => {
   }
 ***REMOVED***
 
-export const fetchUserByID = async (uuid) => {
-  return new Promise( async (resolve, reject) => {
+export const fetchUserByID = async uuid => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(Config.API_URL + Config.routes.user.user +"/" + uuid, {
+      const response = await fetch(Config.API_URL + Config.routes.user.user + '/' + uuid, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -59,6 +59,5 @@ export const fetchUserByID = async (uuid) => {
     } catch (error) {
       reject(error);
     }
-  })
-
+  });
 ***REMOVED***

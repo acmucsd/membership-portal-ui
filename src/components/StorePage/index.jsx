@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import Icon from '@ant-design/icons';
 
 import './style.less';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';

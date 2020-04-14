@@ -49,10 +49,7 @@ const CreateEventForm = props => {
             />
           </Form.Item>
           <div className="horizontal-input">
-            <Form.Item
-              className="location-wrapper"
-              label="Location"
-            >
+            <Form.Item className="location-wrapper" label="Location">
               <Input
                 name="location"
                 className="location"
@@ -61,10 +58,7 @@ const CreateEventForm = props => {
                 onBlur={props.handleBlur}
               />
             </Form.Item>
-            <Form.Item
-              className="points-wrapper"
-              label="Points"
-            >
+            <Form.Item className="points-wrapper" label="Points">
               <Input
                 name="pointValue"
                 className="points"
@@ -75,10 +69,7 @@ const CreateEventForm = props => {
             </Form.Item>
           </div>
           <div className="horizontal-input">
-            <Form.Item
-              className="year-wrapper"
-              label="Year"
-            >
+            <Form.Item className="year-wrapper" label="Year">
               <Input
                 name="year"
                 className="year"
@@ -87,41 +78,27 @@ const CreateEventForm = props => {
                 onBlur={props.handleBlur}
               />
             </Form.Item>
-            <Form.Item
-              className="month-wrapper"
-              label="Month"
-            >
+            <Form.Item className="month-wrapper" label="Month">
               <Select
                 className="months"
-                onChange={(value) => props.setFieldValue('month', value)}
-                onBlur={()=> props.setFieldTouched('month', true)}
-                value={props.values.month}
-              >
+                onChange={value => props.setFieldValue('month', value)}
+                onBlur={() => props.setFieldTouched('month', true)}
+                value={props.values.month}>
                 {months.map(month => (
-                  <Option
-                    key={`month-${month}`}
-                    value={month}
-                  >
+                  <Option key={`month-${month}`} value={month}>
                     {month}
                   </Option>
             ***REMOVED***)}
               </Select>
             </Form.Item>
-            <Form.Item
-              className="day-wrapper"
-              label="Day"
-            >
+            <Form.Item className="day-wrapper" label="Day">
               <Select
                 className="days"
-                onChange={(value) => props.setFieldValue('day', value)}
-                onBlur={()=> props.setFieldTouched('day', true)}
-                value={props.values.day}
-              >
+                onChange={value => props.setFieldValue('day', value)}
+                onBlur={() => props.setFieldTouched('day', true)}
+                value={props.values.day}>
                 {days.map(day => (
-                  <Option
-                    key={`day-${day}`}
-                    value={day}
-                  >
+                  <Option key={`day-${day}`} value={day}>
                     {day}
                   </Option>
             ***REMOVED***)}
@@ -129,60 +106,44 @@ const CreateEventForm = props => {
             </Form.Item>
           </div>
           <div className="time-input">
-            <Form.Item
-              className="start-time"
-              label="Start Time"
-            >
+            <Form.Item className="start-time" label="Start Time">
               <Select
                 className="time"
-                onChange={(value) => props.setFieldValue('startTime', value)}
-                onBlur={()=> props.setFieldTouched('startTime', true)}
-                value={props.values.startTime}
-              >
+                onChange={value => props.setFieldValue('startTime', value)}
+                onBlur={() => props.setFieldTouched('startTime', true)}
+                value={props.values.startTime}>
                 {hours.map(hour => (
-                  <Option
-                    key={`start-${hour}`}
-                    value={hour}
-                  >
+                  <Option key={`start-${hour}`} value={hour}>
                     {hour}
                   </Option>
             ***REMOVED***)}
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => props.setFieldValue('startAm', value)}
-                onBlur={()=> props.setFieldTouched('startAm', true)}
-                value={props.values.startAm}
-              >
+                onChange={value => props.setFieldValue('startAm', value)}
+                onBlur={() => props.setFieldTouched('startAm', true)}
+                value={props.values.startAm}>
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
             </Form.Item>
-            <Form.Item
-              className="end-time"
-              label="End Time"
-            >
+            <Form.Item className="end-time" label="End Time">
               <Select
                 className="time"
-                onChange={(value) => props.setFieldValue('endTime', value)}
-                onBlur={()=> props.setFieldTouched('endTime', true)}
-                value={props.values.endTime}
-              >
+                onChange={value => props.setFieldValue('endTime', value)}
+                onBlur={() => props.setFieldTouched('endTime', true)}
+                value={props.values.endTime}>
                 {hours.map(hour => (
-                  <Option
-                    key={`end-${hour}`}
-                    value={hour}
-                  >
+                  <Option key={`end-${hour}`} value={hour}>
                     {hour}
                   </Option>
             ***REMOVED***)}
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => props.setFieldValue('endAm', value)}
-                onBlur={()=> props.setFieldTouched('endAm', true)}
-                value={props.values.endAm}
-              >
+                onChange={value => props.setFieldValue('endAm', value)}
+                onBlur={() => props.setFieldTouched('endAm', true)}
+                value={props.values.endAm}>
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>

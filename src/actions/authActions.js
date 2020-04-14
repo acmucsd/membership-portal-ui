@@ -27,7 +27,7 @@ export const loginUser = values => async dispatch => {
     const userData = tokenGetClaims(data.token);
     dispatch({
       type: AUTH_USER,
-      isAdmin: userData.admin
+      isAdmin: userData.admin,
 ***REMOVED***
 
     // Redirect to home on login.
@@ -41,9 +41,8 @@ export const loginUser = values => async dispatch => {
   }
 ***REMOVED***
 
-export const verifyToken = (dispatch) =>
-  async () => {
-  return new Promise( async (resolve, reject) => {
+export const verifyToken = dispatch => async () => {
+  return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
       try {
@@ -52,20 +51,20 @@ export const verifyToken = (dispatch) =>
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
   ***REMOVED***;
 
         const data = await response.json();
         if (!data) throw new Error('Empty response from server');
         if (data.error) {
-           throw new Error(data.error.message);
+          throw new Error(data.error.message);
         }
 
         if (!data.authenticated) {
           // not authenticated? log out user
     ***REMOVED***
-            type: UNAUTH_USER
+            type: UNAUTH_USER,
     ***REMOVED***;
           notify('Login expired', 'Please sign in again');
           // redirect to /login
@@ -76,12 +75,11 @@ export const verifyToken = (dispatch) =>
         const userData = tokenGetClaims(token);
   ***REMOVED***
           type: AUTH_USER,
-          isAdmin: userData.admin
+          isAdmin: userData.admin,
   ***REMOVED***;
         resolve(data);
-
       } catch (error) {
-        notify('Unable to verify token!', error.message || "Try logging in again");
+        notify('Unable to verify token!', error.message || 'Try logging in again');
 
   ***REMOVED***
           type: AUTH_ERROR,
@@ -90,24 +88,23 @@ export const verifyToken = (dispatch) =>
 
         // log out user due to probably faulty token
   ***REMOVED***
-          type: UNAUTH_USER
+          type: UNAUTH_USER,
   ***REMOVED***;
         // redirerct to /login
         dispatch(replace('/login'));
         reject(error);
       }
-    }
-    else {
+    } else {
       // log out user due to no token
 ***REMOVED***
-        type: UNAUTH_USER
+        type: UNAUTH_USER,
 ***REMOVED***;
       // redirerct to /login
       dispatch(replace('/login'));
       resolve();
     }
-  })
-}
+  });
+***REMOVED***
 
 export const logoutUser = () => dispatch => {
   dispatch({
@@ -162,8 +159,7 @@ export const passwordReset = email => async dispatch => {
 
 export const updatePassword = user => async dispatch => {
   try {
-    const response = await fetch(`${Config.API_URL +
-      Config.routes.auth.resetPassword}/${user.code}`, {
+    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

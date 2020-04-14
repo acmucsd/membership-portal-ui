@@ -8,7 +8,7 @@ const initialState = {
     lastName: '',
     points: 0,
     graduationYear: 0,
-    profilePicture: defaultProfile
+    profilePicture: defaultProfile,
   },
   error: null,
 ***REMOVED***

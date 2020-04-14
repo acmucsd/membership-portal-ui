@@ -10,7 +10,7 @@ const withAuth = Component => props => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
-      props.verify()()
+      props.verify()();
     }
   }, []);
 
@@ -28,11 +28,14 @@ const mapDispatchToProps = dispatch => ({
   },
   verify: () => {
     return verifyToken(dispatch);
-  }
+  },
 });
 const requireAuth = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withAuth
-)
+);
 
 export default requireAuth;

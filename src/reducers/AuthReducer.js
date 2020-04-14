@@ -5,7 +5,7 @@ import Storage from '../storage';
 const initialState = {
   admin: false,
   authenticated: false,
-  error: false
+  error: false,
 ***REMOVED***
 
 const AuthReducer = (state = initialState, action) => {
@@ -13,20 +13,20 @@ const AuthReducer = (state = initialState, action) => {
     case AUTH_ERROR:
       return {
         ...state,
-        error: action.error
+        error: action.error,
       ***REMOVED***
     // call this when we are authorizing a user, so authenticated: true default
     case AUTH_USER:
       return {
         ...state,
         admin: action.isAdmin,
-        authenticated: true
+        authenticated: true,
       ***REMOVED***
     case UNAUTH_USER:
       return {
         ...state,
         admin: false,
-        authenticated: false
+        authenticated: false,
       ***REMOVED***
     default:
       return state;

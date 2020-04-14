@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select, Modal, Upload, Avatar } from 'antd';
-import { UploadOutlined } from '@ant-design/icons'
+import { UploadOutlined } from '@ant-design/icons';
 import { getDefaultProfile } from '../../utils';
 import { uploadUserImage } from '../../actions/profileActions';
 
@@ -18,17 +18,17 @@ function getYears() {
 const years = getYears();
 
 const ProfileUpdate = props => {
-  const [gradYear, setGradYear] = useState("");
-  const [ bg, setBG ] = useState(props.user.profile.profilePicture);
-  const [ fileList, setFileList ] = useState([]);
-  const [ visible, setVisible ] = useState(false);
-  const [ uploadState, setUploadState ] = useState("none");
+  const [gradYear, setGradYear] = useState('');
+  const [bg, setBG] = useState(props.user.profile.profilePicture);
+  const [fileList, setFileList] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [uploadState, setUploadState] = useState('none');
   const dummyRequest = ({ file, onSuccess }) => {
     setTimeout(() => {
-      onSuccess("ok");
+      onSuccess('ok');
     }, 0);
   ***REMOVED***
-  const onFileChange = (info) => {
+  const onFileChange = info => {
     let fileList = [...info.fileList];
     URL.revokeObjectURL(bg);
     if (fileList.length) {
@@ -38,32 +38,32 @@ const ProfileUpdate = props => {
       }
       let newBg = URL.createObjectURL(lastFile.originFileObj);
       setBG(newBg);
+    } else {
+      setBG('');
     }
-    else {
-      setBG("");
-    }
-
-  }
+  ***REMOVED***
   const handleCancel = () => {
     setVisible(false);
-    setUploadState("none");
-  }
+    setUploadState('none');
+  ***REMOVED***
   const showModal = () => {
     setVisible(true);
-  }
+  ***REMOVED***
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
-    setUploadState("uploading");
-    uploadUserImage(fileList[0].originFileObj).then((res) => {
-      setUploadState("none");
-      setVisible(false);
-    }).catch((error) => {
-      setUploadState("none");
-    })
+    setUploadState('uploading');
+    uploadUserImage(fileList[0].originFileObj)
+      .then(res => {
+        setUploadState('none');
+        setVisible(false);
+***REMOVED***
+      .catch(error => {
+        setUploadState('none');
+***REMOVED***;
   ***REMOVED***
   useEffect(() => {
     let keys = ['firstName', 'lastName', 'major', 'about'];
-    keys.forEach((key) => {
+    keys.forEach(key => {
       props.setFieldValue(key, props.user.profile[key]);
 ***REMOVED***
     if (props.user.profile['graduationYear']) {
@@ -74,9 +74,9 @@ const ProfileUpdate = props => {
     <div className="update-card">
       <div className="updatecontent">
         <h1 className="title">Profile</h1>
-        <Avatar size={155} src={bg} className="avatar"/>
+        <Avatar size={155} src={bg} className="avatar" />
         <br />
-        <Button type='primary' className="upload-modal-button" onClick={showModal}>
+        <Button type="primary" className="upload-modal-button" onClick={showModal}>
           Change Profile Picture
         </Button>
         <Modal
@@ -89,21 +89,28 @@ const ProfileUpdate = props => {
             <Button key="back" onClick={handleCancel}>
               Return
             </Button>,
-            <Button key="submit" type="primary" loading={uploadState === "uploading"} onClick={uploadPhoto} disabled={fileList.length == 0}>
-              {uploadState !== "uploading" && <UploadOutlined />} Upload
+            <Button
+              key="submit"
+              type="primary"
+              loading={uploadState === 'uploading'}
+              onClick={uploadPhoto}
+              disabled={fileList.length == 0}>
+              {uploadState !== 'uploading' && <UploadOutlined />} Upload
             </Button>,
-          ]}
-        >
+          ]}>
           <div className="upload-wrapper">
-            <Upload className="upload-profile-pic" name="file" type="file" customRequest={dummyRequest} fileList={fileList} onChange={onFileChange}
-              onRemove={
-                () => {
-                  setFileList([]);
-                }
-              }
-            >
+            <Upload
+              className="upload-profile-pic"
+              name="file"
+              type="file"
+              customRequest={dummyRequest}
+              fileList={fileList}
+              onChange={onFileChange}
+              onRemove={() => {
+                setFileList([]);
+              }}>
               <div className="new-profile-pic-wrapper">
-                <Avatar size={115} src={bg || getDefaultProfile() } className="avatar"/>
+                <Avatar size={115} src={bg || getDefaultProfile()} className="avatar" />
               </div>
               <Button className="upload-button" innerRef={uploadImageButton}>
                 Change Picture

@@ -10,11 +10,7 @@ const TopThreeContainer = props => {
     props.fetchLeaderboard();
   }, []);
 
-  return (
-    <>
-      {getTopThree(props.users)}
-    </>
-  )
+  return <>{getTopThree(props.users)}</>;
 ***REMOVED***
 
 const getTopThree = users => {
@@ -27,15 +23,15 @@ const getTopThree = users => {
         exp={user.points}
         image={user.profilePicture}
         name={`${user.firstName} ${user.lastName}`}
-        placement={i+1}
+        placement={i + 1}
         rank={user.rank}
         uuid={user.uuid}
-        />
-***REMOVED***
+      />
+***REMOVED***;
   }
 
   return topThree;
-}
+***REMOVED***
 
 const mapStateToProps = state => ({
   users: state.leaderboard.users,
