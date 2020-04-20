@@ -8,7 +8,6 @@ import { verifyToken } from '../actions/authActions';
 
 const withStandardAccess = Component => props => {
   useEffect(() => {
-    console.log(props.state);
     if (props.state === 'PENDING') {
       props.redirectHome();
     }
