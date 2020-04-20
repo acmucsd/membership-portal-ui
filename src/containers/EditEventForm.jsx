@@ -24,10 +24,9 @@ const FormikEditEventForm = withFormik({
       cover: '',
       description: '',
       attendanceCode: '',
-    }
+    };
   },
   handleSubmit(values, { resetForm, props }) {
-
     if (values.startTime === 12) {
       values.startTime = 0;
     }
@@ -49,15 +48,14 @@ const FormikEditEventForm = withFormik({
       end: new Date(values.year, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
-      description: values.description
-    }
-    props.editEvent(event)
-    .then((resp) => {
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-
+      description: values.description,
+    };
+    props
+      .editEvent(event)
+      .then(resp => {})
+      .catch(error => {
+        console.log(error);
+      });
   },
 })(EditEventform);
 

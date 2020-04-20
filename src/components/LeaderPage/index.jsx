@@ -4,7 +4,7 @@ import Leaderboard from '../Leaderboard';
 
 import './style.less';
 
- const LeaderPage = () => {
+const LeaderPage = () => {
   return (
     <div className="leader-page">
       <h1 className="title">Leaderboard</h1>
@@ -13,4 +13,4 @@ import './style.less';
   );
 };
 
- export default LeaderPage;
+export default LeaderPage;

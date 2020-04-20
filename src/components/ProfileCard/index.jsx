@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { Avatar, Card, Progress } from 'antd';
 
 import './style.less';
+import { getDefaultProfile } from '../../utils';
 
 const ProfileCard = props => {
   return (
     <Card bordered={false} className="profile-card">
       <div className="avatar-flex">
-        <Avatar size={115} icon="user" className="avatar" src={props.image} />
+        <Avatar size={115} icon="user" className="avatar" src={props.profilePicture} />
       </div>
       <div className="info">
         <div className="content">
@@ -32,7 +33,7 @@ const ProfileCard = props => {
 };
 
 ProfileCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  profilePicture: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   exp: PropTypes.number.isRequired,
 };

@@ -14,7 +14,7 @@ const PastEventsContainer = props => {
 
   return (
     <EventsList>
-      {props.events.reverse().map((event) => {
+      {props.events.reverse().map(event => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
@@ -36,7 +36,7 @@ const PastEventsContainer = props => {
 
 const mapStateToProps = state => ({
   events: state.events.pastEvents,
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(

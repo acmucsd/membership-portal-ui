@@ -4,7 +4,7 @@ import {
   EVENT_ERROR,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
-  FETCH_EVENT
+  FETCH_EVENT,
 } from './types';
 
 import { fetchUser } from './userActions';
@@ -14,7 +14,7 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const checkIn = (info) => async dispatch => {
+export const checkIn = info => async dispatch => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
       method: 'POST',
@@ -42,7 +42,7 @@ export const checkIn = (info) => async dispatch => {
     dispatch({
       type: EVENT_CHECKIN,
       payload: data.event,
-    })
+    });
   } catch (error) {
     notify('Unable to checkin!', error.message);
     dispatch({
@@ -54,8 +54,8 @@ export const checkIn = (info) => async dispatch => {
 
 export const checkOut = () => dispatch => {
   dispatch({
-    type: EVENT_CHECKOUT
-  })
+    type: EVENT_CHECKOUT,
+  });
 };
 
 export const fetchFutureEvents = () => async dispatch => {
@@ -91,8 +91,7 @@ export const fetchFutureEvents = () => async dispatch => {
       payload: error.message,
     });
   }
-}
-
+};
 
 export const fetchPastEvents = () => async dispatch => {
   try {
@@ -129,11 +128,11 @@ export const fetchPastEvents = () => async dispatch => {
       payload: error.message,
     });
   }
-}
+};
 
-export const fetchEvent = (uuid) => async dispatch => {
+export const fetchEvent = uuid => async dispatch => {
   try {
-    const eventRes = await fetch(Config.API_URL + Config.routes.events.event + "/" + uuid, {
+    const eventRes = await fetch(Config.API_URL + Config.routes.events.event + '/' + uuid, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -154,7 +153,7 @@ export const fetchEvent = (uuid) => async dispatch => {
     else if (thisEvent.error) throw new Error(thisEvent.error.message);
     dispatch({
       type: FETCH_EVENT,
-      payload: thisEvent.event
+      payload: thisEvent.event,
     });
   } catch (error) {
     console.log(error);
@@ -164,4 +163,4 @@ export const fetchEvent = (uuid) => async dispatch => {
       payload: error.message,
     });
   }
-}
+};

@@ -10,11 +10,13 @@ const LeaderListItem = props => {
   return (
     <div
       className={`leaderboard-list-item
-      ${props.placement % 2 === 0 ? "even" : "odd"}`}>
+      ${props.placement % 2 === 0 ? 'even' : 'odd'}`}>
       <span className="placement">{props.placement}</span>
       <Avatar size={40} src={props.image} />
 
-        <span className="name"><Link to={"/profile/" + props.uuid}>{props.name}</Link></span>
+      <span className="name">
+        <Link to={'/profile/' + props.uuid}>{props.name}</Link>
+      </span>
 
       <span className="rank">{getRank(props.exp)}</span>
       <span className="exp">{props.exp} points</span>

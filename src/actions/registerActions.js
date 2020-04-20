@@ -5,7 +5,7 @@ import Config from '../config';
 import { loginUser } from './authActions';
 import { notify } from '../utils';
 
-export const registerAccount = (user) => async dispatch => {
+export const registerAccount = user => async dispatch => {
   try {
     if (user.password !== user.confirmpassword) {
       throw new Error('Passwords do not match!');
@@ -26,24 +26,25 @@ export const registerAccount = (user) => async dispatch => {
     if (data.error) throw new Error(data.error.message);
     dispatch({
       type: REGISTER_USER,
-      payload: user
-    })
+      payload: user,
+    });
     // TODO: Redirect to auth, then log user in on register.
     // For now just login.
-    dispatch(loginUser({
-      email: user.email,
-      password: user.password
-    }));
-
+    dispatch(
+      loginUser({
+        email: user.email,
+        password: user.password,
+      })
+    );
   } catch (error) {
     notify('Unable to register account!', error.message);
     dispatch({
       type: REGISTER_FAIL,
-      error: error
-    })
+      error: error,
+    });
   }
 };
 
-export const redirectAuth= () => dispatch => {
+export const redirectAuth = () => dispatch => {
   dispatch(replace('/authenticate-email'));
 };

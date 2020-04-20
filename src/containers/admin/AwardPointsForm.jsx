@@ -11,27 +11,26 @@ const FormikAwardPointsForm = withFormik({
     return {
       points: 0,
       awardees: [],
-      description: ""
-    }
+      description: '',
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     const pointDetails = {
       points: values.points,
       users: values.awardees,
-      description: values.description
+      description: values.description,
     };
 
-    props.awardPoints(pointDetails)
-    .then((resp) => {
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-
+    props
+      .awardPoints(pointDetails)
+      .then(resp => {})
+      .catch(error => {
+        console.log(error);
+      });
   },
 })(AwardPointsForm);
 
 export default connect(
   null,
-  { awardPoints },
+  { awardPoints }
 )(FormikAwardPointsForm);

@@ -2,7 +2,7 @@ import { PROFILE_SUCCESS, PROFILE_FAIL } from '../actions/types';
 
 const initialState = {
   updateSuccess: false,
-  error: false
+  error: false,
 };
 
 const ProfileReducer = (state = initialState, action) => {
@@ -10,13 +10,13 @@ const ProfileReducer = (state = initialState, action) => {
     case PROFILE_SUCCESS:
       return {
         ...state,
-        updateSuccess: true
+        updateSuccess: true,
       };
     case PROFILE_FAIL:
       return {
         ...state,
         admin: action.isAdmin,
-        error: true
+        error: true,
       };
     default:
       return state;
