@@ -24,7 +24,7 @@ const PageLayoutContainer = props => {
       });
       notifiedAboutEmail = true;
     }
-  }, [props.user.profile.accountType]);
+  }, [props.user]);
   return (
     <PageLayout isAdmin={props.isAdmin}>
       {props.children}
