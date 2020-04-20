@@ -17,7 +17,7 @@ const EmailVerficationPage = props => {
     }
   }
   useEffect(() => {
-    verifyEmail({code: params.code, email: params.email}).then((res) => {
+    verifyEmail({code: params.code}).then((res) => {
       setText("Go to Login Page");
       setAction(verifiedEmail);
     }).catch((error) => {

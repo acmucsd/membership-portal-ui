@@ -55,7 +55,7 @@ const App = () => {
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
             <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
-            <Route exact path="/verifyEmail/:email/:code" component={EmailVerficationPage} />
+            <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
             <Route path="/" component={requireAuth(HomePage)} />
             <Route path="/" component={ErrorPage} />

@@ -8,7 +8,8 @@ import { verifyToken } from '../actions/authActions';
 
 const withStandardAccess = Component => props => {
   useEffect(() => {
-    if (props.accountType === 'RESTRICTED') {
+    console.log(props.state);
+    if (props.state === 'PENDING') {
       props.redirectHome();
     }
   }, []);
@@ -18,7 +19,7 @@ const withStandardAccess = Component => props => {
 };
 
 const mapStateToProps = state => ({
-  accountType: state.user.profile.accountType,
+  state: state.user.profile.state,
 });
 
 const mapDispatchToProps = dispatch => ({
