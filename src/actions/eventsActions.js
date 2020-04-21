@@ -117,6 +117,8 @@ export const fetchPastEvents = () => async dispatch => {
 
     // TODO: Mark the events as checked in if the user has attended them.
 
+    pastEvents.events.reverse();
+
     dispatch({
       type: FETCH_PAST_EVENTS,
       payload: pastEvents.events,
