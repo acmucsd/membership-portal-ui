@@ -16,15 +16,7 @@ const EventCard = props => {
         <p className="location">{props.location}</p>
       </div>
       <div className="circle">
-        <Progress
-          className="progress"
-          percent={100}
-          showInfo={false}
-          strokeColor="#22ACEA"
-          strokeWidth={12}
-          type="circle"
-          width={50}
-        />
+        <div className="inner"/>
         <h2 className="points">{props.points}</h2>
       </div>
       {props.auth.admin && (
