@@ -14,7 +14,7 @@ const PastEventsContainer = props => {
 
   return (
     <EventsList>
-      {props.events.reverse().map(event => {
+      {props.events.map(event => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
