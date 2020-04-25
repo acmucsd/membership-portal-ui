@@ -39,7 +39,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(
-  mapStateToProps,
-  { checkIn }
-)(EventCheckInContainer);
+export default connect(mapStateToProps, { checkIn })(EventCheckInContainer);

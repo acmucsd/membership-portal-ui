@@ -27,7 +27,4 @@ const PasswordPage = props => {
   );
 };
 
-export default connect(
-  null,
-  { passwordReset }
-)(PasswordPage);
+export default connect(null, { passwordReset })(PasswordPage);

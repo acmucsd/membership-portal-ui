@@ -12,7 +12,4 @@ const CreateEventPageContainer = props => {
   );
 };
 
-export default connect(
-  null,
-  {}
-)(CreateEventPageContainer);
+export default connect(null, {})(CreateEventPageContainer);

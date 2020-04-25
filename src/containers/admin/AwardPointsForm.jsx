@@ -30,7 +30,4 @@ const FormikAwardPointsForm = withFormik({
   },
 })(AwardPointsForm);
 
-export default connect(
-  null,
-  { awardPoints }
-)(FormikAwardPointsForm);
+export default connect(null, { awardPoints })(FormikAwardPointsForm);
