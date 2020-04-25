@@ -30,12 +30,6 @@ const mapDispatchToProps = dispatch => ({
     return verifyToken(dispatch);
   },
 });
-const requireAuth = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  withAuth
-);
+const requireAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAuth);
 
 export default requireAuth;

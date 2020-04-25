@@ -23,13 +23,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   redirectHome: () => {
-    notify("You need to verify your email first before accessing the ACM Store!");
+    notify('You need to verify your email first before accessing the ACM Store!');
     dispatch(replace('/'));
-  }
+  },
 });
-const requireStandardAccess = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withStandardAccess
-)
+const requireStandardAccess = compose(connect(mapStateToProps, mapDispatchToProps), withStandardAccess);
 
 export default requireStandardAccess;

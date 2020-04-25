@@ -14,7 +14,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchUser }
-)(ProfilePageContainer);
+export default connect(mapStateToProps, { fetchUser })(ProfilePageContainer);

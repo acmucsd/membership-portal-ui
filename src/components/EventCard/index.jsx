@@ -16,7 +16,7 @@ const EventCard = props => {
         <p className="location">{props.location}</p>
       </div>
       <div className="circle">
-        <div className="inner"/>
+        <div className="inner" />
         <h2 className="points">{props.points}</h2>
       </div>
       {props.auth.admin && (

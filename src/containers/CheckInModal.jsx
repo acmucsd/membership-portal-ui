@@ -30,7 +30,4 @@ const mapStateToProps = state => ({
   visible: state.events.checkin,
 });
 
-export default connect(
-  mapStateToProps,
-  { checkOut }
-)(CheckInModalContainer);
+export default connect(mapStateToProps, { checkOut })(CheckInModalContainer);

@@ -12,7 +12,4 @@ const AwardPointsPageContainer = props => {
   );
 };
 
-export default connect(
-  null,
-  {}
-)(AwardPointsPageContainer);
+export default connect(null, {})(AwardPointsPageContainer);

@@ -16,7 +16,4 @@ const mapStateToProps = state => ({
   src: state.banner.url,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchBanner }
-)(BannerContainer);
+export default connect(mapStateToProps, { fetchBanner })(BannerContainer);
