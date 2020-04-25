@@ -30,7 +30,7 @@
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "eject": "react-scripts eject",
     "lint": "eslint \"**/*.{js,jsx}\"",
-    "lint:fix": "prettier --write --single-quote \"**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"**/*.{js,jsx}\" --fix",
     "start": "cross-env PORT=8080 react-app-rewired start",
     "test": "jest",
     "test:watch": "jest --watch"
