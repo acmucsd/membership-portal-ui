@@ -17,7 +17,4 @@ const FormikSignInForm = withFormik({
   },
 })(SignInForm);
 
-export default connect(
-  null,
-  { loginUser }
-)(FormikSignInForm);
+export default connect(null, { loginUser })(FormikSignInForm);

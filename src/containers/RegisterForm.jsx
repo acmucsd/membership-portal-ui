@@ -22,7 +22,4 @@ const FormikRegisterForm = withFormik({
   },
 })(RegisterForm);
 
-export default connect(
-  null,
-  { registerAccount }
-)(FormikRegisterForm);
+export default connect(null, { registerAccount })(FormikRegisterForm);

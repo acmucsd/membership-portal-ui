@@ -37,7 +37,4 @@ const mapStateToProps = state => ({
   users: state.leaderboard.users,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchLeaderboard }
-)(TopThreeContainer);
+export default connect(mapStateToProps, { fetchLeaderboard })(TopThreeContainer);

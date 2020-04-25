@@ -18,7 +18,4 @@ const mapStateToProps = state => ({
   name: state.user.profile.firstName,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchUser }
-)(NavProfileContainer);
+export default connect(mapStateToProps, { fetchUser })(NavProfileContainer);

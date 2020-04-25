@@ -59,7 +59,4 @@ const FormikEditEventForm = withFormik({
   },
 })(EditEventform);
 
-export default connect(
-  null,
-  { editEvent }
-)(FormikEditEventForm);
+export default connect(null, { editEvent })(FormikEditEventForm);

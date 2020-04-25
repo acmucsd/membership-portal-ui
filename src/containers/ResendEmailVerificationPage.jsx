@@ -5,21 +5,15 @@ import PageLayout from './PageLayout';
 import ResendEmailVerificationPage from '../components/ResendEmailVerificationPage';
 
 const ResendEmailVerificationContainer = props => {
-
   return (
     <PageLayout>
-      <ResendEmailVerificationPage
-        email={props.user.profile.email}
-      />
+      <ResendEmailVerificationPage email={props.user.profile.email} />
     </PageLayout>
   );
 ***REMOVED***
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
 });
 
-export default connect(
-  mapStateToProps,
-  { }
-)(ResendEmailVerificationContainer);
+export default connect(mapStateToProps, {})(ResendEmailVerificationContainer);

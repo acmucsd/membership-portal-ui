@@ -39,7 +39,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchFutureEvents }
-)(UpcomingEventsContainer);
+export default connect(mapStateToProps, { fetchFutureEvents })(UpcomingEventsContainer);

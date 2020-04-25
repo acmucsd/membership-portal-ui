@@ -39,12 +39,6 @@ const mapDispatchToProps = dispatch => ({
     return verifyToken(dispatch);
   },
 });
-const requireAdminAuth = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  withAdminAuth
-);
+const requireAdminAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 
 export default requireAdminAuth;

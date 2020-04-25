@@ -50,7 +50,4 @@ const PasswordUpdate = props => {
   );
 ***REMOVED***
 
-export default connect(
-  null,
-  { updatePassword }
-)(PasswordUpdate);
+export default connect(null, { updatePassword })(PasswordUpdate);

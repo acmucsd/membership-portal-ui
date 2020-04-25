@@ -24,7 +24,4 @@ const EditEventPageContainer = props => {
 const mapStateToProps = state => ({
   event: state.events.event,
 });
-export default connect(
-  mapStateToProps,
-  { fetchEvent }
-)(EditEventPageContainer);
+export default connect(mapStateToProps, { fetchEvent })(EditEventPageContainer);

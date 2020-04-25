@@ -39,7 +39,4 @@ const mapStateToProps = state => ({
   users: state.leaderboard.users,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchLeaderboard }
-)(FourAndMoreContainer);
+export default connect(mapStateToProps, { fetchLeaderboard })(FourAndMoreContainer);

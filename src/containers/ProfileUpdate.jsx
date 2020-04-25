@@ -28,7 +28,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(
-  mapStateToProps,
-  { updateProfile }
-)(FormikProfileUpdate);
+export default connect(mapStateToProps, { updateProfile })(FormikProfileUpdate);

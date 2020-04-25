@@ -60,7 +60,4 @@ const FormikCreateEventForm = withFormik({
   },
 })(CreateEventForm);
 
-export default connect(
-  null,
-  { postEvent }
-)(FormikCreateEventForm);
+export default connect(null, { postEvent })(FormikCreateEventForm);
