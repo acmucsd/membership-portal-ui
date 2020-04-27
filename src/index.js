@@ -42,7 +42,7 @@ const App = () => {
   const [easterEggState, setEasterEggState] = useState('');
   konami.listen(() => {
     setEasterEggState('secret bread');
-    history.push('/secret-bread')
+    history.push('/secret-bread');
   });
   return (
     <Provider store={store}>
@@ -66,16 +66,18 @@ const App = () => {
             <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
-            <Route exact path="/secret-bread" component={() => {
-              // heh
-              if (easterEggState == 'secret bread') {
-                return <BreadPage />
-              }
-              return <Redirect to='/login' />
-            }} />
+            <Route
+              exact
+              path="/secret-bread"
+              component={() => {
+                if (easterEggState == 'secret bread') {
+                  return <BreadPage />;
+                }
+                return <Redirect to="/login" />;
+              }}
+            />
             <Route path="/" component={requireAuth(HomePage)} />
             <Route path="/" component={ErrorPage} />
-            
           </Switch>
         </>
       </ConnectedRouter>
