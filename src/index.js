@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
+import KonamiCode from 'konami-code';
+import BreadPage from './containers/egg/BreadPage/index';
 
 import configureStore, { history } from './store';
 
@@ -35,6 +38,12 @@ import requireStandardAccess from './containers/requireStandardAccess';
 const store = configureStore();
 
 const App = () => {
+  const konami = new KonamiCode();
+  const [easterEggState, setEasterEggState] = useState('');
+  konami.listen(() => {
+    setEasterEggState('secret bread');
+    history.push('/secret-bread')
+  });
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -57,8 +66,16 @@ const App = () => {
             <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
+            <Route exact path="/secret-bread" component={() => {
+              // heh
+              if (easterEggState == 'secret bread') {
+                return <BreadPage />
+              }
+              return <Redirect to='/login' />
+            }} />
             <Route path="/" component={requireAuth(HomePage)} />
             <Route path="/" component={ErrorPage} />
+            
           </Switch>
         </>
       </ConnectedRouter>
