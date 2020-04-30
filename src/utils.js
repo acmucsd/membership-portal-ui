@@ -36,11 +36,12 @@ export const getRank = points => {
     'Factorial Flea',
     'Exponential Earthworm',
     'Polynomial Piranha',
-    'Cubic Chicken',
+    'Sliced Croissant',
     'Quadratic Quail',
-    'Linear Lizard',
+    'Lemony Cat',
     'Logarithmic Lion',
-    'Constant Croc',
+    'Bubbling Tea',
+    'Super Snu',
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
