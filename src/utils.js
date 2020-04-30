@@ -33,16 +33,16 @@ export const getDefaultProfile = () => {
  */
 export const getRank = points => {
   const ranks = [
-    'Factorial Flea',
-    'Exponential Earthworm',
+    'Binary bee',
+    'Diverging Donut',
     'Crispy Croissant',
     'Baked Baguette',
     'Quadratic Quail',
-    'Lemony Cat',
+    'Catty Cat',
     'Logarithmic Lion',
     'Tasty Tea',
     'Super Snu',
-    'Super Saiyan Shiba'
+    'Saiyan Shiba'
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
