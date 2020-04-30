@@ -42,7 +42,8 @@ export const getRank = points => {
     'Logarithmic Lion',
     'Tasty Tea',
     'Super Snu',
-    'Sarcastic Shiba'
+    'Sarcastic Shiba',
+    'Galactic Gary',
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
