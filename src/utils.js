@@ -33,7 +33,7 @@ export const getDefaultProfile = () => {
  */
 export const getRank = points => {
   const ranks = [
-    'Binary bee',
+    'Binary Bee',
     'Diverging Donut',
     'Crispy Croissant',
     'Baked Baguette',
@@ -42,7 +42,7 @@ export const getRank = points => {
     'Logarithmic Lion',
     'Tasty Tea',
     'Super Snu',
-    'Saiyan Shiba'
+    'Sarcastic Shiba'
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
