@@ -43,7 +43,7 @@ export const getRank = points => {
     'Tasty Tea',
     'Super Snu',
     'Sarcastic Shiba',
-    'Galactic Gary',
+    'Galactic Gamer',
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
