@@ -33,17 +33,17 @@ export const getDefaultProfile = () => {
  */
 export const getRank = points => {
   const ranks = [
-    'Binary Bee',
-    'Diverging Donut',
-    'Crispy Croissant',
-    'Baked Baguette',
-    'Quadratic Quail',
-    'Catty Cat',
-    'Logarithmic Lion',
-    'Tasty Tea',
+    'Factorial Flatbread',
+    'Exponential Eclair',
+    'Polynomial Pita',
+    'Cubic Croissant',
+    'Quadratic Qornbread',
+    'Linear Loaf',
+    'nlog Naan',
+    'Constant Cornbread',
+    'Binary Baguette',
+    'Blessed Boba',
     'Super Snu',
-    'Sarcastic Shiba',
-    'Galactic Gamer',
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
