@@ -62,7 +62,7 @@ const ProfileUpdate = props => {
 ***REMOVED***;
   ***REMOVED***
   useEffect(() => {
-    let keys = ['firstName', 'lastName', 'major', 'about'];
+    let keys = ['firstName', 'lastName', 'major', 'bio'];
     keys.forEach(key => {
       props.setFieldValue(key, props.user.profile[key]);
 ***REMOVED***
@@ -161,11 +161,11 @@ const ProfileUpdate = props => {
               />
             </Form.Item>
           </div>
-          <Form.Item label="About">
+          <Form.Item label="Bio">
             <TextArea
-              name="about"
+              name="bio"
               className="area-box"
-              value={props.values.about}
+              value={props.values.bio}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />

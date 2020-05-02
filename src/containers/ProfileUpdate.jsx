@@ -11,7 +11,7 @@ const FormikProfileUpdate = withFormik({
       lastName: '',
       graduationYear: 0,
       major: '',
-      about: '',
+      bio: '',
     ***REMOVED***
   },
   handleSubmit(values, { resetForm, props }) {
