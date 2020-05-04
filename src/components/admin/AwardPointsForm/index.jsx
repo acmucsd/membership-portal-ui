@@ -12,6 +12,7 @@ const AwardPointsForm = props => {
   const [awardees, _setAwardees] = useState([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [submissionLoading, setSubmissionLoading] = useState(false);
 
   const showInput = () => {
     setInputVisible(true);
@@ -102,7 +103,11 @@ const AwardPointsForm = props => {
               onBlur={props.handleBlur}
             />
           </Form.Item>
-          <Button type="primary" htmlType="submit" className="save-button">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="save-button"
+            loading={props.isSubmitting && props.isValidating}>
             Submit Edits
           </Button>
           <Button type="danger" className="discard-button">
