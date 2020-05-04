@@ -103,12 +103,11 @@ const AwardPointsForm = props => {
               onBlur={props.handleBlur}
             />
           </Form.Item>
-          <Button 
-            type="primary" 
-            htmlType="submit" 
-            className="save-button" 
-            loading={props.isSubmitting && props.isValidating}
-          >
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="save-button"
+            loading={props.isSubmitting && props.isValidating}>
             Submit Edits
           </Button>
           <Button type="danger" className="discard-button">
