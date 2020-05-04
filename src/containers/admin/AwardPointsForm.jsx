@@ -23,7 +23,9 @@ const FormikAwardPointsForm = withFormik({
 
     props
       .awardPoints(pointDetails)
-      .then(resp => {})
+      .then(() => {
+        resetForm();
+      })
       .catch(error => {
         console.log(error);
       });
