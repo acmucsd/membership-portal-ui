@@ -32,7 +32,7 @@ export const generateDefaultProfile = () => {
  */
 
 export const getDefaultProfile = () => {
-  let randomIndex = Math.floor(Math.random() * 9);
+  const randomIndex = Math.floor(Math.random() * 9);
   return `${window.location.origin}/adorableprofiles/adorable${randomIndex}.png`;
 };
 
