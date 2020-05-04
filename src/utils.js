@@ -31,10 +31,10 @@ export const generateDefaultProfile = () => {
  * @return {string} A link to the profile picture
  */
 
- export const getDefaultProfile = () => {
-   let randomIndex = Math.floor(Math.random() * 9);
-   return `${window.location.origin}/adorableprofiles/adorable${randomIndex}.png`
- }
+export const getDefaultProfile = () => {
+  let randomIndex = Math.floor(Math.random() * 9);
+  return `${window.location.origin}/adorableprofiles/adorable${randomIndex}.png`;
+};
 
 /**
  * Returns a rank based on the number of points.
