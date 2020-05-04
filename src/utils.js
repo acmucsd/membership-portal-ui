@@ -11,7 +11,7 @@ export const notify = (title, description) => {
  * Returns a randomly generated default profile picture.
  * @return {string} A link to a default profile picture.
  */
-export const getDefaultProfile = () => {
+export const generateDefaultProfile = () => {
   const eyes = ['eyes1', 'eyes10', 'eyes2', 'eyes3', 'eyes4', 'eyes5', 'eyes6', 'eyes7', 'eyes9'];
   const nose = ['nose2', 'nose3', 'nose4', 'nose5', 'nose6', 'nose7', 'nose8', 'nose9'];
   const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6', 'mouth7', 'mouth9'];
@@ -24,6 +24,16 @@ export const getDefaultProfile = () => {
   return `https://api.adorable.io/avatars/face/${getRandom(eyes)}/${getRandom(nose)}/${getRandom(mouth)}/${getRandom(
     colors
   )}`;
+};
+
+/**
+ * Returns a random default profile picture out of a select few generated from getDefaultProfile
+ * @return {string} A link to the profile picture
+ */
+
+export const getDefaultProfile = () => {
+  const randomIndex = Math.floor(Math.random() * 9);
+  return `${window.location.origin}/adorableprofiles/adorable${randomIndex}.png`;
 };
 
 /**

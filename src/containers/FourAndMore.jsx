@@ -18,7 +18,6 @@ const getFourAndMore = users => {
 
   for (let i = 3; i < users.length; i++) {
     const user = users[i];
-    console.log(user.profilePicture);
     fourAndMore.push(
       <LeaderListItem
         key={i}
