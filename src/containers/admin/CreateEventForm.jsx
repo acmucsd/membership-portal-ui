@@ -23,6 +23,7 @@ const FormikCreateEventForm = withFormik({
       cover: '',
       description: '',
       attendanceCode: '',
+      committee: '',
     ***REMOVED***
   },
   handleSubmit(values, { resetForm, props }) {
@@ -48,6 +49,7 @@ const FormikCreateEventForm = withFormik({
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
+      committee: values.committee,
     ***REMOVED***
     props
       .postEvent(event)

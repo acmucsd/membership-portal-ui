@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import EditEventPage from '../components/EditEventPage';
-import PageLayout from './PageLayout';
+import EditEventPage from '../../components/EditEventPage';
+import PageLayout from '../PageLayout';
 
-import { fetchEvent } from '../actions/eventsActions';
+import { fetchEvent } from '../../actions/eventsActions';
 
 import { useParams } from 'react-router-dom';
 

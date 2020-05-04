@@ -15,7 +15,7 @@ import AboutPage from './containers/AboutPage';
 /* Admin Container Pages */
 import AdminPage from './containers/AdminPage';
 import AwardPointsPage from './containers/admin/AwardPointsPage';
-import EditEventPage from './containers/EditEventPage';
+import EditEventPage from './containers/admin/EditEventPage';
 import CreateEventPage from './containers/admin/CreateEventPage';
 
 import AuthPage from './containers/AuthPage';

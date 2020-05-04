@@ -48,6 +48,15 @@ const CreateEventForm = props => {
               onBlur={props.handleBlur}
             />
           </Form.Item>
+          <Form.Item label="Committee">
+            <Input
+              name="committee"
+              className="input-box"
+              value={props.values.committee}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+          </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
               <Input
