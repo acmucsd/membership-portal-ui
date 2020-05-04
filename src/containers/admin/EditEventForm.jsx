@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
-import EditEventform from '../components/EditEventForm';
-import { getMonthIndex } from '../utils';
-import { editEvent } from '../actions/adminActions';
+import EditEventform from '../../components/EditEventForm';
+import { getMonthIndex } from '../../utils';
+import { editEvent } from '../../actions/adminActions';
 
 const curYear = new Date().getFullYear();
 
@@ -24,6 +24,7 @@ const FormikEditEventForm = withFormik({
       cover: '',
       description: '',
       attendanceCode: '',
+      committee: '',
     };
   },
   handleSubmit(values, { resetForm, props }) {
@@ -49,6 +50,7 @@ const FormikEditEventForm = withFormik({
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
+      committee: values.committee,
     };
     props
       .editEvent(event)

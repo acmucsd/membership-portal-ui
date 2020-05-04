@@ -1,5 +1,5 @@
 import React from 'react';
-import EditEventForm from '../../containers/EditEventForm';
+import EditEventForm from '../../containers/admin/EditEventForm';
 
 import './style.less';
 

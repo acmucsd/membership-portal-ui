@@ -55,6 +55,7 @@ const EditEventForm = props => {
         'description',
         'attendanceCode',
         'year',
+        'committee',
       ];
       keys.forEach(key => {
         props.setFieldValue(key, props.event[key]);
@@ -95,6 +96,15 @@ const EditEventForm = props => {
               name="title"
               className="input-box"
               value={props.values.title}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+          </Form.Item>
+          <Form.Item label="Committee">
+            <Input
+              name="committee"
+              className="input-box"
+              value={props.values.committee}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
