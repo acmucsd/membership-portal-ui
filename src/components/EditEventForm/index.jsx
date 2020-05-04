@@ -55,7 +55,7 @@ const EditEventForm = props => {
         'description',
         'attendanceCode',
         'year',
-        'committee'
+        'committee',
       ];
       keys.forEach(key => {
         props.setFieldValue(key, props.event[key]);

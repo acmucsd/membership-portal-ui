@@ -50,7 +50,7 @@ const FormikEditEventForm = withFormik({
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
-      committee: values.committee
+      committee: values.committee,
     };
     props
       .editEvent(event)
