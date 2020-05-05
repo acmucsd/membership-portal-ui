@@ -10,7 +10,7 @@ import { getDefaultProfile } from '../../utils';
 const NavProfile = props => {
   return (
     <div className="nav-width">
-      <Dropdown overlay={props.menu} trigger={['click']}>
+      <Dropdown overlay={props.menu} trigger={['click']} getPopupContainer={trigger => trigger.parentNode}>
         <div className="nav-profile">
           <Progress
             className="progress"
