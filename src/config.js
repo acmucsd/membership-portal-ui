@@ -1,6 +1,6 @@
 let apiurl = 'https://acmucsd-membership-portal-api.herokuapp.com';
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  apiurl = 'http://localhost:3000';
+  apiurl = 'https://acmucsd-portal-testing.herokuapp.com';
 }
 
 export default {
