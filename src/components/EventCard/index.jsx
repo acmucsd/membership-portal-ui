@@ -10,22 +10,19 @@ import './styles.less';
 const EventCard = props => {
   const history = useHistory();
 
-  let location = <p className="location">{props.location}</p>;
-  if (isURL(props.location)) {
-    location = (
-      <a className="link" href={getAbsoluteURL(props.location)}>
-        {location}
-      </a>
-    );
-  }
-
   return (
     <div className="event-card">
       <img className="image" src={props.cover} alt={props.title} />
       <div className="info">
         <h2 className="title">{props.title}</h2>
         <p className="date">{props.date}</p>
-        {location}
+        {isURL(props.location) ? (
+          <a className="link" href={getAbsoluteURL(props.location)}>
+            <p className="location">{props.location}</p>
+          </a>
+        ) : (
+          <p className="location">{props.location}</p>
+        )}
       </div>
       <div className="circle">
         <div className="inner" />
