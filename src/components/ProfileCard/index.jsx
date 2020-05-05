@@ -5,33 +5,38 @@ import { Avatar, Card, Progress } from 'antd';
 
 import './style.less';
 import { getDefaultProfile } from '../../utils';
+import { useHistory } from 'react-router-dom';
 
 const ProfileCard = props => {
+  const history = useHistory();
   return (
-    <Link to="/profile">
-      <Card bordered={false} className="profile-card">
-        <div className="avatar-flex">
-          <Avatar size={115} icon="user" className="avatar" src={props.profilePicture} />
+    <Card
+      bordered={false}
+      className="profile-card"
+      onClick={() => {
+        history.push('/profile');
+      }}>
+      <div className="avatar-flex">
+        <Avatar size={115} icon="user" className="avatar" src={props.profilePicture} />
+      </div>
+      <div className="info">
+        <div className="content">
+          <h2>{props.name}</h2>
+          <h3>{props.rank}</h3>
+          <Progress
+            successPercent={props.exp % 100}
+            percent={100}
+            showInfo={false}
+            strokeWidth={12}
+            strokeColor="#587291"
+          />
+          <p>
+            <span> LVL {props.level}</span>
+            <span className="experience"> {props.exp % 100} / 100 </span>
+          </p>
         </div>
-        <div className="info">
-          <div className="content">
-            <h2>{props.name}</h2>
-            <h3>{props.rank}</h3>
-            <Progress
-              successPercent={props.exp % 100}
-              percent={100}
-              showInfo={false}
-              strokeWidth={12}
-              strokeColor="#587291"
-            />
-            <p>
-              <span> LVL {props.level}</span>
-              <span className="experience"> {props.exp % 100} / 100 </span>
-            </p>
-          </div>
-        </div>
-      </Card>
-    </Link>
+      </div>
+    </Card>
   );
 };
 
