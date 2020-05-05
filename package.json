@@ -1,6 +1,6 @@
 {
-  "name": "antd-demo",
-  "version": "0.1.0",
+  "name": "membership-portal-ui",
+  "version": "1.0.0",
   "private": true,
   "proxy": "https://acmucsd-membership-portal-api.herokuapp.com",
   "dependencies": {
