@@ -7,7 +7,7 @@ import FourAndMore from '../../containers/FourAndMore';
 import './style.less';
 
 const Leaderboard = props => {
-  const defaultPageSize = 10;
+  const defaultPageSize = props.itemLimit;
   return (
     <div className="leaderboard">
       <div className="top-three">
@@ -21,7 +21,7 @@ const Leaderboard = props => {
           defaultCurrent={1}
           current={props.pagination.page}
           onChange={props.pageOnChange}
-          total={50}
+          total={20}
           defaultPageSize={defaultPageSize}
         />
       </div>

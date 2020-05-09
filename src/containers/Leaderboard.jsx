@@ -21,7 +21,7 @@ const LeaderboardContainer = props => {
       setPagination(_pagination);
     });
   }, [_pagination]);
-  return <Leaderboard pageOnChange={pageOnChange} pagination={pagination} />;
+  return <Leaderboard pageOnChange={pageOnChange} pagination={pagination} itemLimit={ITEM_LIMIT} />;
 };
 
 const mapStateToProps = state => ({
