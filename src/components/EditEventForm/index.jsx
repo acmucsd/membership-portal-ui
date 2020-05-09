@@ -241,7 +241,12 @@ const EditEventForm = props => {
           <Button type="primary" htmlType="submit" className="save-button">
             Submit Edits
           </Button>
-          <Button type="danger" onClick={()=>{history.goBack()}} className="discard-button">
+          <Button 
+          type="danger"
+          onClick={()=>{
+            history.goBack()
+          }}
+          className="discard-button">
             Discard
           </Button>
         </form>
