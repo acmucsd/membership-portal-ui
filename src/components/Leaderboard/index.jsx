@@ -11,23 +11,18 @@ const Leaderboard = props => {
   return (
     <div className="leaderboard">
       <div className="top-three">
-        <TopThree 
-          firstPage={props.pagination.page === 1}
-        />
+        <TopThree firstPage={props.pagination.page === 1} />
       </div>
       <div className="four-and-more">
-        <FourAndMore 
-          firstPage={props.pagination.page === 1}
-          offset={props.pagination.offset}
-        />
+        <FourAndMore firstPage={props.pagination.page === 1} offset={props.pagination.offset} />
       </div>
       <div className="paginate-wrapper">
-        <Pagination 
-          defaultCurrent={1} 
-          current={props.pagination.page} 
-          onChange={props.pageOnChange} 
-          total={50} 
-          defaultPageSize={defaultPageSize} 
+        <Pagination
+          defaultCurrent={1}
+          current={props.pagination.page}
+          onChange={props.pageOnChange}
+          total={50}
+          defaultPageSize={defaultPageSize}
         />
       </div>
     </div>
