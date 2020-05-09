@@ -8,6 +8,8 @@ import KonamiCode from 'konami-code';
 import ReactGA from 'react-ga';
 import BreadPage from './containers/egg/BreadPage/index';
 
+import ReactGA from 'react-ga';
+
 import configureStore, { history } from './store';
 
 import './styles/reset.less';
