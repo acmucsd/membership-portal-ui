@@ -18,14 +18,7 @@ function getYears() {
 const years = getYears();
 
 const ProfileUpdate = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    user,
-    values,
-  } = props;
+  const { handleBlur, handleChange, handleSubmit, user, values } = props;
 
   const [gradYear, setGradYear] = useState('');
   const [bg, setBG] = useState(user.profile.profilePicture);
@@ -71,19 +64,9 @@ const ProfileUpdate = (props) => {
       });
   };
   useEffect(() => {
-<<<<<<< HEAD
-    const keys = ['firstName', 'lastName', 'major', 'bio'];
-    keys.forEach((key) => {
-      setFieldValue(key, user.profile[key]);
-||||||| parent of cfd8f0e... Fix graduation year value in update profile form
     const keys = ['firstName', 'lastName', 'major', 'bio', 'graduationYear'];
-    keys.forEach(key => {
+    keys.forEach((key) => {
       props.setFieldValue(key, props.user.profile[key]);
-=======
-    let keys = ['firstName', 'lastName', 'major', 'bio', 'graduationYear'];
-    keys.forEach(key => {
-      props.setFieldValue(key, props.user.profile[key]);
->>>>>>> cfd8f0e... Fix graduation year value in update profile form
     });
     if (user.profile.graduationYear) {
       setGradYear(user.profile.graduationYear);
@@ -173,20 +156,16 @@ const ProfileUpdate = (props) => {
               <Select
                 value={gradYear}
                 className="year"
-<<<<<<< HEAD
-                onBlur={(value) => setFieldValue('graduationYear', value)}
-                onChange={(value) => setFieldValue('graduationYear', value)}
+                onBlur={(value) => {
+                  setGradYear(value);
+                  props.setFieldValue('graduationYear', value);
+                }}
+                onChange={(value) => {
+                  setGradYear(value);
+                  props.setFieldValue('graduationYear', value);
+                }}
               >
                 {years.map((num) => (
-||||||| parent of cfd8f0e... Fix graduation year value in update profile form
-                onBlur={value => props.setFieldValue('graduationYear', value)}
-                onChange={value => props.setFieldValue('graduationYear', value)}>
-                {years.map(num => (
-=======
-                onBlur={value => { setGradYear(value); props.setFieldValue('graduationYear', value) }}
-                onChange={value => { setGradYear(value); props.setFieldValue('graduationYear', value) }}>
-                {years.map(num => (
->>>>>>> cfd8f0e... Fix graduation year value in update profile form
                   <Option key={num} value={num}>
                     {num}
                   </Option>
