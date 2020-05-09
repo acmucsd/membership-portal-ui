@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Leaderboard from '../Leaderboard';
+import Leaderboard from '../../containers/Leaderboard';
 
 import './style.less';
 

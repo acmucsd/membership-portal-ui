@@ -6,14 +6,11 @@ import { getDefaultProfile } from '../utils';
 import { fetchLeaderboard } from '../actions/leaderboardActions';
 
 const TopThreeContainer = props => {
-  useEffect(() => {
-    props.fetchLeaderboard();
-  }, []);
-
-  return <>{getTopThree(props.users)}</>;
+  if (props.firstPage) return <>{getTopThree(props.users)}</>;
+  return <></>;
 };
 
-const getTopThree = users => {
+const getTopThree = (users, firstPage) => {
   let topThree = [];
   for (let i = 0; i < Math.min(users.length, 3); i++) {
     const user = users[i];

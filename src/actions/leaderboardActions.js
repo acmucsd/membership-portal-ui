@@ -4,9 +4,9 @@ import { logoutUser } from './authActions';
 import Config from '../config';
 import Storage from '../storage';
 
-export const fetchLeaderboard = () => async dispatch => {
+export const fetchLeaderboard = (offset = 0, limit = -1) => async dispatch => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.leaderboard, {
+    const response = await fetch(Config.API_URL + Config.routes.leaderboard + `?offset=${offset}&limit=${limit}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

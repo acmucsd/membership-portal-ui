@@ -6,17 +6,15 @@ import { getDefaultProfile } from '../utils';
 import { fetchLeaderboard } from '../actions/leaderboardActions';
 
 const FourAndMoreContainer = props => {
-  useEffect(() => {
-    props.fetchLeaderboard();
-  }, []);
-
-  return <>{getFourAndMore(props.users)}</>;
+  return <>{getFourAndMore(props.users, props.firstPage, props.offset)}</>;
 };
 
-const getFourAndMore = users => {
+const getFourAndMore = (users, firstPage = true, offset = 0) => {
   let fourAndMore = [];
+  let i = 3;
+  if (!firstPage) i = 0;
 
-  for (let i = 3; i < users.length; i++) {
+  for (; i < users.length; i++) {
     const user = users[i];
     fourAndMore.push(
       <LeaderListItem
@@ -24,7 +22,7 @@ const getFourAndMore = users => {
         exp={user.points}
         image={user.profilePicture}
         name={`${user.firstName} ${user.lastName}`}
-        placement={i + 1}
+        placement={i + 1 + offset}
         rank={user.rank}
         uuid={user.uuid}
       />
