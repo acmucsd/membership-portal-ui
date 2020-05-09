@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { fetchEvent } from '../../actions/eventsActions';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import './style.less';
 
@@ -36,6 +36,7 @@ for (let i = 1; i <= 12; i++) {
 
 const EditEventForm = props => {
   const params = useParams();
+  const history = useHistory();
   useEffect(() => {
     props.setFieldValue('uuid', params.uuid);
   }, []);
@@ -240,7 +241,12 @@ const EditEventForm = props => {
           <Button type="primary" htmlType="submit" className="save-button">
             Submit Edits
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button
+            type="danger"
+            onClick={() => {
+              history.goBack();
+            }}
+            className="discard-button">
             Discard
           </Button>
         </form>
