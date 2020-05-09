@@ -244,7 +244,7 @@ const EditEventForm = props => {
           <Button
             type="danger"
             onClick={() => {
-              history.goBack()
+              history.goBack();
             }}
             className="discard-button">
             Discard
