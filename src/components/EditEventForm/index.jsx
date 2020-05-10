@@ -249,6 +249,19 @@ const EditEventForm = props => {
             className="discard-button">
             Discard
           </Button>
+          <Button type="danger" onClick={() => {
+            props
+              .deleteEvent(props.values.uuid)
+              .then(resp => {
+                history.push('/');
+              })
+              .catch(error => {
+                console.log(error);
+              });
+            }} 
+            className="delete-button">
+            Delete
+          </Button>
         </form>
       </div>
     </div>

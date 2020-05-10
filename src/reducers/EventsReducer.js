@@ -4,6 +4,7 @@ import {
   EVENT_CHECKIN,
   EVENT_CHECKOUT,
   EVENT_ERROR,
+  EVENT_DELETE,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
   FETCH_EVENT,
@@ -52,6 +53,13 @@ const EventsReducer = (state = initialState, action) => {
           ...state,
           pastEvents: action.payload,
         };
+      }
+    case EVENT_DELETE:
+      return{
+        ...state,
+        futureEvents: state.futureEvents.filter((ev) => {
+          return  ev.uuid != action.uuid;
+        })
       }
     case FETCH_EVENT:
       if (_.isEqual(state.event, action.payload)) {
