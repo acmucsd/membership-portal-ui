@@ -40,7 +40,7 @@ class LocalStore {
     window.localStorage.setItem(key, value);
   }
 
-  static get(key, value) {
+  static get(key) {
     return window.localStorage.getItem(key);
   }
 

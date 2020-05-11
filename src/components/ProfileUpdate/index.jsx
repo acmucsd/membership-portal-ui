@@ -38,10 +38,10 @@ const ProfileUpdate = (props) => {
     }, 0);
   };
   const onFileChange = (info) => {
-    const fileList = [...info.fileList];
+    const infoFileList = [...info.fileList];
     URL.revokeObjectURL(bg);
-    if (fileList.length) {
-      const lastFile = fileList[fileList.length - 1];
+    if (infoFileList.length) {
+      const lastFile = infoFileList[infoFileList.length - 1];
       if (lastFile) {
         setFileList([lastFile]);
       }
