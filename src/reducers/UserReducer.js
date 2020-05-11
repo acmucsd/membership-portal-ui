@@ -14,14 +14,15 @@ const initialState = {
 };
 
 const UserReducer = (state = initialState, action) => {
-  switch (action.type) {
+  const newAction = action;
+  switch (newAction.type) {
     case FETCH_USER:
-      if (action.payload.profilePicture == null) {
-        action.payload.profilePicture = defaultProfile;
+      if (newAction.payload.profilePicture == null) {
+        newAction.payload.profilePicture = defaultProfile;
       }
       return {
         ...state,
-        profile: action.payload,
+        profile: newAction.payload,
       };
     default:
       return state;

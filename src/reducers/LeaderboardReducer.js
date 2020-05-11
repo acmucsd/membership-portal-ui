@@ -9,10 +9,12 @@ const LeaderboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_LEADERBOARD:
       // TODO: Look into Immutables.
-      action.payload.forEach((user) => {
-        if (user.profilePicture == null) {
-          user.profilePicture = getDefaultProfile();
+      action.payload.map((user) => {
+        const newUser = user;
+        if (newUser.profilePicture == null) {
+          newUser.profilePicture = getDefaultProfile();
         }
+        return newUser;
       });
       return {
         ...state,
