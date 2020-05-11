@@ -5,29 +5,35 @@ import { Card, Input, Button, Checkbox } from 'antd';
 import './style.less';
 
 const EventCheck = (props) => {
-  const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
+  const {
+    onAsStaffChange,
+    onChange,
+    onKeyPress,
+    onSubmit,
+    user,
+    value,
+  } = props;
+
   return (
     <Card className="checkin-card">
       <h1>Event Check-in</h1>
       <div className="inputbox">
         <Input
-          onChange={props.onChange}
-          onKeyPress={props.onKeyPress}
-          value={props.value}
+          onChange={onChange}
+          onKeyPress={onKeyPress}
+          value={value}
           className="input"
           size="large"
           placeholder="Attendance code..."
         />
-        <Button onClick={props.onSubmit} className="submit">
+        <Button onClick={onSubmit} className="submit">
           Submit
         </Button>
       </div>
-      {props.user.profile.accountType === 'STAFF' && (
+      {user.profile.accountType === 'STAFF' && (
         <div className="staff-checkin-div">
           <label className="staff-check-in-label">Staff Check In</label>
-          <Checkbox onChange={props.onAsStaffChange} />
+          <Checkbox onChange={onAsStaffChange} />
         </div>
       )}
     </Card>
@@ -35,9 +41,12 @@ const EventCheck = (props) => {
 };
 
 EventCheck.propTypes = {
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  value: PropTypes.string,
+  onAsStaffChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default EventCheck;

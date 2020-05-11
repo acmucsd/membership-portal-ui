@@ -6,6 +6,15 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 const PasswordForm = (props) => {
+  const {
+    conPass,
+    newPass,
+    handleConChange,
+    handleNewChange,
+    onKeyPress,
+    onSubmit,
+  } = props;
+
   return (
     <div className="resetcard">
       <img src={logo} className="logo" alt="logo" />
@@ -16,8 +25,8 @@ const PasswordForm = (props) => {
             type="password"
             placeholder="Password"
             className="input-box"
-            value={props.newPass}
-            onChange={props.handleNewChange}
+            value={newPass}
+            onChange={handleNewChange}
           />
         </Form.Item>
         <Form.Item className="password">
@@ -26,14 +35,14 @@ const PasswordForm = (props) => {
             type="password"
             placeholder="Confirm Password"
             className="input-box"
-            value={props.conPass}
-            onChange={props.handleConChange}
-            onKeyPress={props.onKeyPress}
+            value={conPass}
+            onChange={handleConChange}
+            onKeyPress={onKeyPress}
           />
         </Form.Item>
         <Form.Item>
           <Button
-            onClick={props.onSubmit}
+            onClick={onSubmit}
             type="primary"
             htmlType="submit"
             className="login-button"
@@ -47,10 +56,12 @@ const PasswordForm = (props) => {
 };
 
 PasswordForm.propTypes = {
-  handleBlur: PropTypes.func,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  values: PropTypes.object,
+  conPass: PropTypes.string.isRequired,
+  newPass: PropTypes.string.isRequired,
+  handleConChange: PropTypes.func.isRequired,
+  handleNewChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default PasswordForm;

@@ -7,21 +7,23 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 const SignInForm = (props) => {
+  const { handleBlur, handleChange, handleSubmit, values } = props;
+
   return (
     <div className="card">
       <div className="formcontent">
         <img src={logo} alt="logo" height="115" width="115" />
         <h1>Sign in to ACM@UCSD</h1>
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Form.Item className="email">
             <Input
               name="email"
               type="email"
               placeholder="Email (user@ucsd.edu)"
               className="input-box"
-              value={props.values.email}
-              onChange={props.handleChange}
-              onBlur={props.handleBlur}
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </Form.Item>
           <Form.Item className="password">
@@ -30,9 +32,9 @@ const SignInForm = (props) => {
               type="password"
               placeholder="Password"
               className="input-box"
-              value={props.values.password}
-              onChange={props.handleChange}
-              onBlur={props.handleBlur}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </Form.Item>
           <NavLink to="/forgot-password">
@@ -56,10 +58,10 @@ const SignInForm = (props) => {
 
 // TODO: swap out proptypes with formik's implementation
 SignInForm.propTypes = {
-  handleBlur: PropTypes.func,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  values: PropTypes.object,
+  handleBlur: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 };
 
 export default SignInForm;

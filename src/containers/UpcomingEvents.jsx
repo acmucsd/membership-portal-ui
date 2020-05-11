@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import EventCard from '../components/EventCard';
@@ -8,13 +9,15 @@ import { fetchFutureEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
 const UpcomingEventsContainer = (props) => {
+  const { auth, events } = props;
+
   useEffect(() => {
     props.fetchFutureEvents();
   }, []);
 
   return (
     <EventsList>
-      {props.events.map((event) => {
+      {events.map((event) => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
@@ -26,7 +29,7 @@ const UpcomingEventsContainer = (props) => {
             location={event.location}
             points={event.pointValue}
             title={event.title}
-            auth={props.auth}
+            auth={auth}
           />
         );
       })}
@@ -38,6 +41,11 @@ const mapStateToProps = (state) => ({
   events: state.events.futureEvents,
   auth: state.auth,
 });
+
+UpcomingEventsContainer.propTypes = {
+  auth: PropTypes.bool.isRequired,
+  events: PropTypes.array.isRequired,
+};
 
 export default connect(mapStateToProps, { fetchFutureEvents })(
   UpcomingEventsContainer

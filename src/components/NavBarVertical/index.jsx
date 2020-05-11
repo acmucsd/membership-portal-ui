@@ -13,6 +13,8 @@ import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.s
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
 const NavbarVertical = (props) => {
+  const { isAdmin } = props;
+
   return (
     <nav className="navbar-vertical">
       <section>
@@ -26,7 +28,7 @@ const NavbarVertical = (props) => {
         <NavLink activeClassName="selected" to="/profile">
           <NavListItem icon={ProfileIcon} text="Profile" />
         </NavLink>
-        {props.isAdmin && (
+        {isAdmin && (
           <NavLink activeClassName="selected" to="/admin">
             <NavListItem icon={AdminIcon} text="Admin" />
           </NavLink>

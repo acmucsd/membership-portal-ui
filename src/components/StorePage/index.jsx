@@ -4,7 +4,7 @@ import Icon from '@ant-design/icons';
 import './style.less';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
-const StorePage = (props) => {
+const StorePage = () => {
   return (
     <div className="store-page">
       <h1>ACM Store</h1>

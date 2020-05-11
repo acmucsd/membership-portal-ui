@@ -7,6 +7,8 @@ import './style.less';
 import NavListItem from '../NavListItem';
 
 const NavDropdown = (props) => {
+  const { logout } = props;
+
   return (
     <nav className="nav-dropdown">
       <section>
@@ -40,7 +42,7 @@ const NavDropdown = (props) => {
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <div onClick={props.logout} className="logout">
+      <div onClick={logout} className="logout">
         Sign Out
       </div>
     </nav>

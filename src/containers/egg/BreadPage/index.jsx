@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginLayout from '../../../components/LoginLayout';
 import './style.less';
 
 const BreadPageContainer = () => {
@@ -10,6 +9,7 @@ const BreadPageContainer = () => {
       <br />
       <div className="iframe-container">
         <iframe
+          title="Cut Bread"
           className="BreadPageFrame"
           src="https://stonet2000.github.io/Cut-Bread/"
         />

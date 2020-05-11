@@ -6,6 +6,8 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 const PasswordForm = (props) => {
+  const { onKeyPress, onChange, value } = props;
+
   return (
     <div className="passwordcard">
       <img src={logo} className="logo" alt="logo" />
@@ -16,9 +18,9 @@ const PasswordForm = (props) => {
             type="email"
             placeholder="Email (user@ucsd.edu)"
             className="input-box"
-            onChange={props.onChange}
-            onKeyPress={props.onKeyPress}
-            value={props.value}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            value={value}
           />
         </Form.Item>
       </form>
@@ -29,7 +31,7 @@ const PasswordForm = (props) => {
 PasswordForm.propTypes = {
   onKeyPress: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired,
+  value: PropTypes.object.isRequired,
 };
 
 export default PasswordForm;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, notification } from 'antd';
 import { useHistory } from 'react-router-dom';
@@ -7,6 +8,8 @@ import PageLayout from '../components/PageLayout';
 let notifiedAboutEmail = false;
 
 const PageLayoutContainer = (props) => {
+  const { isAdmin, children, user } = props;
+
   const key = `open${Date.now()}`;
   const history = useHistory();
   const btn = (
@@ -20,7 +23,7 @@ const PageLayoutContainer = (props) => {
     </Button>
   );
   React.useEffect(() => {
-    if (!notifiedAboutEmail && props.user.profile.state === 'PENDING') {
+    if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
       notification.warning({
         message:
           'Make sure to check your email and click the verification link in order to get full access to all features!',
@@ -31,13 +34,19 @@ const PageLayoutContainer = (props) => {
       });
       notifiedAboutEmail = true;
     }
-  }, [props.user]);
-  return <PageLayout isAdmin={props.isAdmin}>{props.children}</PageLayout>;
+  }, [user]);
+  return <PageLayout isAdmin={isAdmin}>{children}</PageLayout>;
 };
 
 const mapStateToProps = (state) => ({
   isAdmin: state.auth.admin,
   user: state.user,
 });
+
+PageLayoutContainer.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
+  children: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, null)(PageLayoutContainer);

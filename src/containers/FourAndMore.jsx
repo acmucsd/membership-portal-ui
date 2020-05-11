@@ -1,22 +1,14 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import LeaderListItem from '../components/LeaderListItem';
-import { getDefaultProfile } from '../utils';
-import { fetchLeaderboard } from '../actions/leaderboardActions';
-
-const FourAndMoreContainer = (props) => {
-  useEffect(() => {
-    props.fetchLeaderboard();
-  }, []);
-
-  return <>{getFourAndMore(props.users)}</>;
-};
+import fetchLeaderboard from '../actions/leaderboardActions';
 
 const getFourAndMore = (users) => {
   const fourAndMore = [];
 
-  for (let i = 3; i < users.length; i++) {
+  for (let i = 3; i < users.length; i += 1) {
     const user = users[i];
     fourAndMore.push(
       <LeaderListItem
@@ -34,9 +26,23 @@ const getFourAndMore = (users) => {
   return fourAndMore;
 };
 
+const FourAndMoreContainer = (props) => {
+  const { users } = props;
+
+  useEffect(() => {
+    props.fetchLeaderboard();
+  }, []);
+
+  return <>{getFourAndMore(users)}</>;
+};
+
 const mapStateToProps = (state) => ({
   users: state.leaderboard.users,
 });
+
+FourAndMoreContainer.propTypes = {
+  users: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, { fetchLeaderboard })(
   FourAndMoreContainer

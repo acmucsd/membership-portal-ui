@@ -11,6 +11,26 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
+/**
+ * Helper function to get token claims.
+ * Credits to ACM @ UCLA for this function.
+ *
+ * @param {string} token - A jwt token returned from auth.
+ * @return {object} The claims from the token.
+ */
+const tokenGetClaims = (token) => {
+  if (!token) {
+    return {};
+  }
+  const tokenArray = token.split('.');
+  if (tokenArray.length !== 3) {
+    return {};
+  }
+  return JSON.parse(
+    window.atob(tokenArray[1].replace('-', '+').replace('_', '/'))
+  );
+};
+
 export const loginUser = (values) => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
@@ -124,26 +144,6 @@ export const logoutUser = () => (dispatch) => {
   });
   Storage.remove('token');
   dispatch(replace('/login'));
-};
-
-/**
- * Helper function to get token claims.
- * Credits to ACM @ UCLA for this function.
- *
- * @param {string} token - A jwt token returned from auth.
- * @return {object} The claims from the token.
- */
-const tokenGetClaims = (token) => {
-  if (!token) {
-    return {};
-  }
-  const tokenArray = token.split('.');
-  if (tokenArray.length !== 3) {
-    return {};
-  }
-  return JSON.parse(
-    window.atob(tokenArray[1].replace('-', '+').replace('_', '/'))
-  );
 };
 
 export const passwordReset = (email) => async (dispatch) => {

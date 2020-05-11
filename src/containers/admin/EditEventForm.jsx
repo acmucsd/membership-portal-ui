@@ -5,8 +5,6 @@ import EditEventform from '../../components/EditEventForm';
 import { getMonthIndex } from '../../utils';
 import { editEvent } from '../../actions/adminActions';
 
-const curYear = new Date().getFullYear();
-
 const FormikEditEventForm = withFormik({
   mapPropsToValues() {
     return {
@@ -28,17 +26,20 @@ const FormikEditEventForm = withFormik({
     };
   },
   handleSubmit(values, { resetForm, props }) {
+    let { startTime } = values;
+    let { endTime } = values;
+
     if (values.startTime === 12) {
-      values.startTime = 0;
+      startTime = 0;
     }
     if (values.startAm === 'PM') {
-      values.startTime += 12;
+      startTime += 12;
     }
     if (values.endTime === 12) {
-      values.endTime = 0;
+      endTime = 0;
     }
     if (values.endAm === 'PM') {
-      values.endTime += 12;
+      endTime += 12;
     }
     const event = {
       uuid: values.uuid,
@@ -49,13 +50,13 @@ const FormikEditEventForm = withFormik({
         values.year,
         getMonthIndex(values.month),
         values.day,
-        values.startTime
+        startTime
       ).toUTCString(),
       end: new Date(
         values.year,
         getMonthIndex(values.month),
         values.day,
-        values.endTime
+        endTime
       ).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
@@ -64,10 +65,8 @@ const FormikEditEventForm = withFormik({
     };
     props
       .editEvent(event)
-      .then((resp) => {})
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(() => {})
+      .catch(() => {});
   },
 })(EditEventform);
 

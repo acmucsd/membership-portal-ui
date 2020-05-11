@@ -9,9 +9,9 @@ const Banner = (props) => {
     e.target.src = DefaultBanner;
   };
 
-  return (
-    <img alt="banner" className="banner" src={props.src} onError={onError} />
-  );
+  const { src } = props;
+
+  return <img alt="banner" className="banner" src={src} onError={onError} />;
 };
 
 Banner.propTypes = {

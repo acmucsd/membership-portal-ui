@@ -113,7 +113,7 @@ const App = () => {
               exact
               path="/secret-bread"
               component={() => {
-                if (easterEggState == 'secret bread') {
+                if (easterEggState === 'secret bread') {
                   return <BreadPage />;
                 }
                 return <Redirect to="/login" />;

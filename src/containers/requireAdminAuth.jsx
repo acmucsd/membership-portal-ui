@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
-import { notify } from '../utils';
 
 import { verifyToken } from '../actions/authActions';
 
@@ -19,7 +18,7 @@ const withAdminAuth = (Component) => (props) => {
             props.redirectHome();
           }
         })
-        .catch((error) => {});
+        .catch(() => {});
     }
   }, []);
 

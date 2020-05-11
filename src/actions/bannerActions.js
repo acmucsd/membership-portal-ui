@@ -16,7 +16,7 @@ firebase.initializeApp(config);
 
 const storage = firebase.storage();
 
-export const fetchBanner = () => (dispatch) => {
+const fetchBanner = () => (dispatch) => {
   storage
     .ref(`/banner.png`)
     .getDownloadURL()
@@ -26,7 +26,7 @@ export const fetchBanner = () => (dispatch) => {
         payload: url,
       })
     )
-    .catch((err) => {
-      console.error('Failed to load banner image');
-    });
+    .catch(() => {});
 };
+
+export default fetchBanner;

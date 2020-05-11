@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import EventCheckIn from '../components/EventCheckIn';
 import { checkIn } from '../actions/eventsActions';
 
 const EventCheckInContainer = (props) => {
+  const { user } = props;
+
   const [value, setValue] = useState('');
   const [asStaff, setAsStaff] = useState(false);
   const handleChange = (event) => {
@@ -31,12 +34,16 @@ const EventCheckInContainer = (props) => {
       onSubmit={handleSubmit}
       onKeyPress={handleEnter}
       value={value}
-      user={props.user}
+      user={user}
     />
   );
 };
 const mapStateToProps = (state) => ({
   user: state.user,
 });
+
+EventCheckInContainer.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, { checkIn })(EventCheckInContainer);

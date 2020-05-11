@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import NavProfile from '../components/NavProfile';
 import { fetchUser } from '../actions/userActions';
 
 const NavProfileContainer = (props) => {
+  const { exp, profilePicture, name, menu } = props;
+
   useEffect(() => {
     props.fetchUser();
   }, []);
 
   return (
     <NavProfile
-      exp={props.exp}
-      profilePicture={props.profilePicture}
-      name={props.name}
-      menu={props.menu}
+      exp={exp}
+      profilePicture={profilePicture}
+      name={name}
+      menu={menu}
     />
   );
 };
@@ -24,5 +27,12 @@ const mapStateToProps = (state) => ({
   profilePicture: state.user.profile.profilePicture,
   name: state.user.profile.firstName,
 });
+
+NavProfileContainer.propTypes = {
+  exp: PropTypes.object.isRequired,
+  profilePicture: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  menu: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, { fetchUser })(NavProfileContainer);
