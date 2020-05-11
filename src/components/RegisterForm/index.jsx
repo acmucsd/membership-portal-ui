@@ -92,7 +92,7 @@ const RegisterForm = props => {
                   <Option key={num} value={num}>
                     {num}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -110,13 +110,13 @@ const RegisterForm = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 RegisterForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object.isRequired,
-***REMOVED***
+};
 
 export default RegisterForm;

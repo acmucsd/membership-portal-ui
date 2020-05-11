@@ -20,9 +20,9 @@ const EventCard = props => {
           <a className="link" href={getAbsoluteURL(props.location)}>
             <p className="location">{props.location}</p>
           </a>
-    ***REMOVED*** : (
+        ) : (
           <p className="location">{props.location}</p>
-    ***REMOVED***}
+        )}
       </div>
       <div className="circle">
         <div className="inner" />
@@ -38,12 +38,12 @@ const EventCard = props => {
             }}
           />
         </div>
-  ***REMOVED***}
+      )}
       <hr className="divider" />
       <p className="description">{props.description}</p>
     </div>
   );
-***REMOVED***
+};
 
 EventCard.propTypes = {
   cover: PropTypes.string.isRequired,
@@ -52,6 +52,6 @@ EventCard.propTypes = {
   location: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-***REMOVED***
+};
 
 export default EventCard;

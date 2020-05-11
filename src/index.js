@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import KonamiCode from 'konami-code';
 import BreadPage from './containers/egg/BreadPage/index';
 
+import ReactGA from 'react-ga';
+
 import configureStore, { history } from './store';
 
 import './styles/reset.less';
@@ -44,6 +46,8 @@ const App = () => {
     setEasterEggState('secret bread');
     history.push('/secret-bread');
   });
+  ReactGA.initialize('UA-165975388-1');
+  ReactGA.pageview('/');
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -83,6 +87,6 @@ const App = () => {
       </ConnectedRouter>
     </Provider>
   );
-***REMOVED***
+};
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -14,6 +14,6 @@ const StorePage = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 export default StorePage;

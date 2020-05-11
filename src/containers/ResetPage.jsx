@@ -8,6 +8,6 @@ const RegisterPage = () => {
       <PasswordUpdate />
     </LoginLayout>
   );
-***REMOVED***
+};
 
 export default RegisterPage;

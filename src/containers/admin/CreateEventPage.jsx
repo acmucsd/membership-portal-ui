@@ -10,6 +10,6 @@ const CreateEventPageContainer = props => {
       <CreateEventPage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default connect(null, {})(CreateEventPageContainer);

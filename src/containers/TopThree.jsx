@@ -11,7 +11,7 @@ const TopThreeContainer = props => {
   }, []);
 
   return <>{getTopThree(props.users)}</>;
-***REMOVED***
+};
 
 const getTopThree = users => {
   let topThree = [];
@@ -27,11 +27,11 @@ const getTopThree = users => {
         rank={user.rank}
         uuid={user.uuid}
       />
-***REMOVED***;
+    );
   }
 
   return topThree;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   users: state.leaderboard.users,

@@ -24,7 +24,7 @@ const FormikCreateEventForm = withFormik({
       description: '',
       attendanceCode: '',
       committee: '',
-    ***REMOVED***
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     console.log(values);
@@ -50,15 +50,15 @@ const FormikCreateEventForm = withFormik({
       attendanceCode: values.attendanceCode,
       description: values.description,
       committee: values.committee,
-    ***REMOVED***
+    };
     props
       .postEvent(event)
       .then(resp => {
         resetForm();
-***REMOVED***
+      })
       .catch(error => {
         console.log(error);
-***REMOVED***;
+      });
   },
 })(CreateEventForm);
 

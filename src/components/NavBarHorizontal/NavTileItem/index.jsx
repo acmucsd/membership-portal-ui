@@ -12,10 +12,10 @@ const NavTileItem = props => {
       <Divider className="divider" />
     </div>
   );
-***REMOVED***
+};
 
 NavTileItem.propTypes = {
   icon: PropTypes.object.isRequired,
-***REMOVED***
+};
 
 export default NavTileItem;

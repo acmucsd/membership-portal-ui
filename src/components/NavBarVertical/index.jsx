@@ -30,7 +30,7 @@ const NavbarVertical = props => {
           <NavLink activeClassName="selected" to="/admin">
             <NavListItem icon={AdminIcon} text="Admin" />
           </NavLink>
-    ***REMOVED***}
+        )}
       </section>
 
       <section>
@@ -47,10 +47,10 @@ const NavbarVertical = props => {
       </section>
     </nav>
   );
-***REMOVED***
+};
 
 NavbarVertical.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-***REMOVED***
+};
 
 export default NavbarVertical;

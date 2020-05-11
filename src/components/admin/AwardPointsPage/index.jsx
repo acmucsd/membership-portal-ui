@@ -10,6 +10,6 @@ const AwardPointsPage = props => {
       <AwardPointsForm />
     </div>
   );
-***REMOVED***
+};
 
 export default AwardPointsPage;

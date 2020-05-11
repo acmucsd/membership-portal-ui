@@ -18,14 +18,14 @@ const withAdminAuth = Component => props => {
             // if not an admin, redirect
             props.redirectHome();
           }
-  ***REMOVED***
+        })
         .catch(error => {});
     }
   }, []);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component {...props} />;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,

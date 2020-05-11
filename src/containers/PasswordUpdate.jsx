@@ -12,11 +12,11 @@ const PasswordUpdate = props => {
 
   const handleConChange = event => {
     setConPass(event.target.value);
-  ***REMOVED***
+  };
 
   const handleNewChange = event => {
     setNewPass(event.target.value);
-  ***REMOVED***
+  };
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
@@ -25,9 +25,9 @@ const PasswordUpdate = props => {
         code: params.code,
         newPassword: newPass,
         confirmPassword: conPass,
-***REMOVED***;
+      });
     }
-  ***REMOVED***
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -35,8 +35,8 @@ const PasswordUpdate = props => {
       code: params.code,
       newPassword: newPass,
       confirmPassword: conPass,
-***REMOVED***
-  ***REMOVED***
+    });
+  };
 
   return (
     <PasswordReset
@@ -48,6 +48,6 @@ const PasswordUpdate = props => {
       onKeyPress={handleEnter}
     />
   );
-***REMOVED***
+};
 
 export default connect(null, { updatePassword })(PasswordUpdate);

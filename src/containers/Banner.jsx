@@ -10,7 +10,7 @@ const BannerContainer = props => {
   });
 
   return <Banner src={props.src} />;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   src: state.banner.url,

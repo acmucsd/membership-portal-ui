@@ -8,6 +8,6 @@ const HomePageContainer = () => {
       <HomePage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default HomePageContainer;

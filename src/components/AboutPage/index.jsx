@@ -39,6 +39,6 @@ const AboutPage = () => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 export default AboutPage;

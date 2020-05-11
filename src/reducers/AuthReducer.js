@@ -6,7 +6,7 @@ const initialState = {
   admin: false,
   authenticated: false,
   error: false,
-***REMOVED***
+};
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,23 +14,23 @@ const AuthReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.error,
-      ***REMOVED***
+      };
     // call this when we are authorizing a user, so authenticated: true default
     case AUTH_USER:
       return {
         ...state,
         admin: action.isAdmin,
         authenticated: true,
-      ***REMOVED***
+      };
     case UNAUTH_USER:
       return {
         ...state,
         admin: false,
         authenticated: false,
-      ***REMOVED***
+      };
     default:
       return state;
   }
-***REMOVED***
+};
 
 export default AuthReducer;

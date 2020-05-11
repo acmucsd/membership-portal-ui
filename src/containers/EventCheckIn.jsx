@@ -9,20 +9,20 @@ const EventCheckInContainer = props => {
   const [asStaff, setAsStaff] = useState(false);
   const handleChange = event => {
     setValue(event.target.value);
-  ***REMOVED***
+  };
   const handleAsStaffChange = event => {
     setAsStaff(event.target.checked);
-  ***REMOVED***
+  };
 
   const handleSubmit = () => {
     props.checkIn({ attendanceCode: value, asStaff: asStaff });
-  ***REMOVED***
+  };
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
       props.checkIn({ attendanceCode: value, asStaff: asStaff });
     }
-  ***REMOVED***
+  };
 
   return (
     <EventCheckIn
@@ -34,7 +34,7 @@ const EventCheckInContainer = props => {
       user={props.user}
     />
   );
-***REMOVED***
+};
 const mapStateToProps = state => ({
   user: state.user,
 });

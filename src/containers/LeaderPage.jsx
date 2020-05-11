@@ -9,6 +9,6 @@ const LeaderPageContainer = () => {
       <LeaderPage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default LeaderPageContainer;

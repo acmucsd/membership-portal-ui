@@ -6,7 +6,7 @@ import { logoutUser } from '../actions/authActions';
 
 const NavDropdownContainer = props => {
   return <NavDropdown logout={props.logout} />;
-***REMOVED***
+};
 
 const mapDispatchToProps = dispatch => ({
   logout: () => {

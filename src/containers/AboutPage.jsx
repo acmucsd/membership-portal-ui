@@ -8,6 +8,6 @@ const AboutPageContainer = () => {
       <AboutPage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default AboutPageContainer;

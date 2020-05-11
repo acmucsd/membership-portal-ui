@@ -11,11 +11,11 @@ const NavListItem = props => {
       <span>{props.text}</span>
     </div>
   );
-***REMOVED***
+};
 
 NavListItem.propTypes = {
   icon: PropTypes.object,
   text: PropTypes.string.isRequired,
-***REMOVED***
+};
 
 export default NavListItem;

@@ -4,6 +4,6 @@ import './style.less';
 
 const LoginLayout = props => {
   return <div className="contents">{props.children}</div>;
-***REMOVED***
+};
 
 export default LoginLayout;

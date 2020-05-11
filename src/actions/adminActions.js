@@ -15,7 +15,7 @@ export const postEvent = event => async dispatch => {
           Authorization: `Bearer ${Storage.get('token')}`,
         },
         body: JSON.stringify({ event }),
-***REMOVED***;
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {
@@ -33,7 +33,7 @@ export const postEvent = event => async dispatch => {
       reject(error);
     }
   });
-***REMOVED***
+};
 
 export const editEvent = event => async dispatch => {
   return new Promise(async (resolve, reject) => {
@@ -46,7 +46,7 @@ export const editEvent = event => async dispatch => {
           Authorization: `Bearer ${Storage.get('token')}`,
         },
         body: JSON.stringify({ event }),
-***REMOVED***;
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {
@@ -64,7 +64,7 @@ export const editEvent = event => async dispatch => {
       reject(error);
     }
   });
-***REMOVED***
+};
 
 export const awardPoints = pointDetails => async dispatch => {
   return new Promise(async (resolve, reject) => {
@@ -92,7 +92,7 @@ export const awardPoints = pointDetails => async dispatch => {
           Authorization: `Bearer ${Storage.get('token')}`,
         },
         body: JSON.stringify({ bonus: pointDetails }),
-***REMOVED***;
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {
@@ -110,4 +110,4 @@ export const awardPoints = pointDetails => async dispatch => {
       reject(error);
     }
   });
-***REMOVED***
+};

@@ -8,13 +8,13 @@ const storageAvailable = type => {
   try {
     const storage = window[type];
     const x = '__storage_test__';
-  ***REMOVED***.setItem(x, x);
-  ***REMOVED***.removeItem(x);
+    storage.setItem(x, x);
+    storage.removeItem(x);
     return true;
   } catch (e) {
     return false;
   }
-***REMOVED***
+};
 
 class CookieStore {
   static set(key, value) {
@@ -23,10 +23,10 @@ class CookieStore {
 
   static get(key) {
     if (!document.cookie || document.cookie.length === 0) return undefined;
-    const cookies = {***REMOVED***
+    const cookies = {};
     document.cookie.split(';').forEach(cookie => {
       cookies[cookie.split('=')[0].trim()] = cookie.split('=')[1].trim();
-***REMOVED***
+    });
     return cookies[key];
   }
 

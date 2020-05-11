@@ -39,4 +39,4 @@ export default {
     },
     leaderboard: '/api/v1/leaderboard',
   },
-***REMOVED***
+};

@@ -27,12 +27,12 @@ const PageLayoutContainer = props => {
         btn,
         key,
         duration: 0,
-***REMOVED***;
+      });
       notifiedAboutEmail = true;
     }
   }, [props.user]);
   return <PageLayout isAdmin={props.isAdmin}>{props.children}</PageLayout>;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   isAdmin: state.auth.admin,

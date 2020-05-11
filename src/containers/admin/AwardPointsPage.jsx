@@ -10,6 +10,6 @@ const AwardPointsPageContainer = props => {
       <AwardPointsPage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default connect(null, {})(AwardPointsPageContainer);

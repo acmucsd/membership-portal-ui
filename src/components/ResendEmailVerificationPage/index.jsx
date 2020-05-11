@@ -13,19 +13,19 @@ const ResendEmailVerficationPage = props => {
   const verifiedEmail = () => {
     return () => {
       history.push('/');
-    ***REMOVED***
-  ***REMOVED***
+    };
+  };
   useEffect(() => {
     if (props.email) {
       sendEmailVerification(props.email)
         .then(res => {
           setText('Go to Home Page');
           setAction(verifiedEmail);
-  ***REMOVED***
+        })
         .catch(error => {})
         .finally(() => {
           setVerifying(false);
-  ***REMOVED***;
+        });
     }
   }, [props.email]);
   const [verifying, setVerifying] = useState(true);
@@ -42,6 +42,6 @@ const ResendEmailVerficationPage = props => {
       </Button>
     </div>
   );
-***REMOVED***
+};
 
 export default ResendEmailVerficationPage;

@@ -8,6 +8,6 @@ const ProfileUpdatePage = () => {
       <ProfileUpdate />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default ProfileUpdatePage;

@@ -17,6 +17,6 @@ const AuthenticateCard = () => {
       </NavLink>
     </div>
   );
-***REMOVED***
+};
 
 export default AuthenticateCard;

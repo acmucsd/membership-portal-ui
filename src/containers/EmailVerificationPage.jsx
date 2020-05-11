@@ -8,6 +8,6 @@ const EmailVerficationPageContainer = () => {
       <EmailVerificationPage />
     </LoginLayout>
   );
-***REMOVED***
+};
 
 export default EmailVerficationPageContainer;

@@ -34,15 +34,15 @@ const PageLayout = props => {
           <NavBarHorizontal />
           <div className="content">{props.children}</div>
         </>
-  ***REMOVED*** : (
+      ) : (
         <div className="content-table">
           <NavBarVertical isAdmin={props.isAdmin} />
           <div className="content">{props.children}</div>
         </div>
-  ***REMOVED***}
+      )}
     </>
   );
-***REMOVED***
+};
 
 const mapSizesToProps = ({ width }) => ({
   isMobile: width < 768,
@@ -50,6 +50,6 @@ const mapSizesToProps = ({ width }) => ({
 
 PageLayout.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-***REMOVED***
+};
 
 export default withSizes(mapSizesToProps)(PageLayout);

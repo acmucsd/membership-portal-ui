@@ -16,6 +16,6 @@ const Leaderboard = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 export default Leaderboard;

@@ -8,6 +8,6 @@ const AdminPageContainer = () => {
       <AdminPage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default AdminPageContainer;

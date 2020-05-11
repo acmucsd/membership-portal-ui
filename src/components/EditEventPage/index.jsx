@@ -10,6 +10,6 @@ const EditEventPage = props => {
       <EditEventForm event={props.event} />
     </div>
   );
-***REMOVED***
+};
 
 export default EditEventPage;

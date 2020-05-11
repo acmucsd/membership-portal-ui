@@ -41,10 +41,10 @@ const NavDropdown = props => {
       </div>
     </nav>
   );
-***REMOVED***
+};
 
 NavDropdown.propTypes = {
   logout: PropTypes.func.isRequired,
-***REMOVED***
+};
 
 export default NavDropdown;

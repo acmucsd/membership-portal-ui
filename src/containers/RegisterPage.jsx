@@ -8,6 +8,6 @@ const RegisterPage = () => {
       <RegisterForm />
     </LoginLayout>
   );
-***REMOVED***
+};
 
 export default RegisterPage;

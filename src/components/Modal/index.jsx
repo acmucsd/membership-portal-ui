@@ -17,7 +17,7 @@ const ModalComponent = props => {
       <p>{props.content}</p>
     </Modal>
   );
-***REMOVED***
+};
 
 ModalComponent.propTypes = {
   title: PropTypes.string.isRequired,
@@ -25,5 +25,5 @@ ModalComponent.propTypes = {
   handleOk: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   content: PropTypes.string.isRequired,
-***REMOVED***
+};
 export default ModalComponent;

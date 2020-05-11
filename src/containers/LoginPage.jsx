@@ -8,6 +8,6 @@ const LoginPage = () => {
       <SignInForm />
     </LoginLayout>
   );
-***REMOVED***
+};
 
 export default LoginPage;

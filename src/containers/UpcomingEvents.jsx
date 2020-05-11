@@ -28,11 +28,11 @@ const UpcomingEventsContainer = props => {
             title={event.title}
             auth={props.auth}
           />
-    ***REMOVED***;
-***REMOVED***}
+        );
+      })}
     </EventsList>
   );
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   events: state.events.futureEvents,

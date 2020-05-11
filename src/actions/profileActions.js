@@ -14,7 +14,7 @@ export const updateProfile = values => async dispatch => {
         Authorization: `Bearer ${Storage.get('token')}`,
       },
       body: JSON.stringify({ user: values }),
-***REMOVED***
+    });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -25,15 +25,15 @@ export const updateProfile = values => async dispatch => {
     dispatch({
       type: PROFILE_SUCCESS,
       payload: values,
-***REMOVED***
+    });
   } catch (error) {
     notify('Unable to update profile!', error.message);
     dispatch({
       type: PROFILE_FAIL,
       payload: error.message,
-***REMOVED***
+    });
   }
-***REMOVED***
+};
 
 export const uploadUserImage = async file => {
   return new Promise(async (resolve, reject) => {
@@ -47,7 +47,7 @@ export const uploadUserImage = async file => {
           Authorization: `Bearer ${Storage.get('token')}`,
         },
         body: formdata,
-***REMOVED***;
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {
@@ -67,4 +67,4 @@ export const uploadUserImage = async file => {
       reject(error);
     }
   });
-***REMOVED***
+};

@@ -11,7 +11,7 @@ const CheckInModalContainer = props => {
 
   const hideMessage = () => {
     props.checkOut();
-  ***REMOVED***
+  };
 
   return (
     <ModalComponent
@@ -23,7 +23,7 @@ const CheckInModalContainer = props => {
       content={fullMessage}
     />
   );
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   currentEvent: state.events.currentEvent,

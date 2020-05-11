@@ -39,13 +39,13 @@ const PasswordForm = props => {
       </form>
     </div>
   );
-***REMOVED***
+};
 
 PasswordForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object,
-***REMOVED***
+};
 
 export default PasswordForm;

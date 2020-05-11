@@ -97,7 +97,7 @@ const CreateEventForm = props => {
                   <Option key={`month-${month}`} value={month}>
                     {month}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
             </Form.Item>
             <Form.Item className="day-wrapper" label="Day">
@@ -110,7 +110,7 @@ const CreateEventForm = props => {
                   <Option key={`day-${day}`} value={day}>
                     {day}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -125,7 +125,7 @@ const CreateEventForm = props => {
                   <Option key={`start-${hour}`} value={hour}>
                     {hour}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
               <Select
                 className="ampm"
@@ -146,7 +146,7 @@ const CreateEventForm = props => {
                   <Option key={`end-${hour}`} value={hour}>
                     {hour}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
               <Select
                 className="ampm"
@@ -195,13 +195,13 @@ const CreateEventForm = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 CreateEventForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object.isRequired,
-***REMOVED***
+};
 
 export default CreateEventForm;

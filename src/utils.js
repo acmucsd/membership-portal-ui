@@ -5,7 +5,7 @@ export const notify = (title, description) => {
     message: title,
     description: description,
   });
-***REMOVED***
+};
 
 /**
  * Returns a randomly generated default profile picture.
@@ -19,12 +19,12 @@ export const generateDefaultProfile = () => {
 
   const getRandom = list => {
     return list[Math.floor(Math.random() * list.length)];
-  ***REMOVED***
+  };
 
   return `https://api.adorable.io/avatars/face/${getRandom(eyes)}/${getRandom(nose)}/${getRandom(mouth)}/${getRandom(
     colors
   )}`;
-***REMOVED***
+};
 
 /**
  * Returns a random default profile picture out of a select few generated from getDefaultProfile
@@ -34,7 +34,7 @@ export const generateDefaultProfile = () => {
 export const getDefaultProfile = () => {
   const randomIndex = Math.floor(Math.random() * 9);
   return `${window.location.origin}/adorableprofiles/adorable${randomIndex}.png`;
-***REMOVED***
+};
 
 /**
  * Returns a rank based on the number of points.
@@ -57,7 +57,7 @@ export const getRank = points => {
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
-***REMOVED***
+};
 
 /**
  * Formats a date to be readable.
@@ -86,7 +86,7 @@ export const formatDate = time => {
   const year = parsedDate.getFullYear();
 
   return monthNames[monthIndex] + ' ' + date + ' ' + year;
-***REMOVED***
+};
 
 /**
  * TODO: Actually read the time
@@ -99,7 +99,7 @@ export const getHour = time => {
   const hour = subTime.split(':')[0];
 
   return hour;
-***REMOVED***
+};
 
 /**
  * Converts the month to an index
@@ -127,7 +127,7 @@ export const getMonthIndex = month => {
   }
 
   return monthNames.findIndex(checkMonth);
-***REMOVED***
+};
 
 /**
  * Retrieves the level from the number of points.
@@ -136,7 +136,7 @@ export const getMonthIndex = month => {
  */
 export const getLevel = points => {
   return Math.floor(points / 100) + 1;
-***REMOVED***
+};
 
 /**
  * Determines if given string is a valid website link.
@@ -155,7 +155,7 @@ export const isURL = str => {
   );
 
   return !!pattern.test(str);
-***REMOVED***
+};
 
 /**
  * Ensures a valid website link is an absolute path.
@@ -168,4 +168,4 @@ export const getAbsoluteURL = str => {
   }
 
   return str;
-***REMOVED***
+};

@@ -26,6 +26,6 @@ const AdminPage = () => {
       </Button>
     </div>
   );
-***REMOVED***
+};
 
 export default AdminPage;

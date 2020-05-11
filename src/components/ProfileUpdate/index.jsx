@@ -27,7 +27,7 @@ const ProfileUpdate = props => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);
-  ***REMOVED***
+  };
   const onFileChange = info => {
     let fileList = [...info.fileList];
     URL.revokeObjectURL(bg);
@@ -41,14 +41,14 @@ const ProfileUpdate = props => {
     } else {
       setBG('');
     }
-  ***REMOVED***
+  };
   const handleCancel = () => {
     setVisible(false);
     setUploadState('none');
-  ***REMOVED***
+  };
   const showModal = () => {
     setVisible(true);
-  ***REMOVED***
+  };
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
     setUploadState('uploading');
@@ -56,16 +56,16 @@ const ProfileUpdate = props => {
       .then(res => {
         setUploadState('none');
         setVisible(false);
-***REMOVED***
+      })
       .catch(error => {
         setUploadState('none');
-***REMOVED***;
-  ***REMOVED***
+      });
+  };
   useEffect(() => {
     let keys = ['firstName', 'lastName', 'major', 'bio'];
     keys.forEach(key => {
       props.setFieldValue(key, props.user.profile[key]);
-***REMOVED***
+    });
     if (props.user.profile['graduationYear']) {
       setGradYear(props.user.profile['graduationYear']);
     }
@@ -148,7 +148,7 @@ const ProfileUpdate = props => {
                   <Option key={num} value={num}>
                     {num}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
             </Form.Item>
             <Form.Item label="Major">
@@ -180,13 +180,13 @@ const ProfileUpdate = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 ProfileUpdate.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object,
-***REMOVED***
+};
 
 export default ProfileUpdate;

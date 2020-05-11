@@ -11,7 +11,7 @@ const initialState = {
     profilePicture: defaultProfile,
   },
   error: null,
-***REMOVED***
+};
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -22,10 +22,10 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.payload,
-      ***REMOVED***
+      };
     default:
       return state;
   }
-***REMOVED***
+};
 
 export default UserReducer;

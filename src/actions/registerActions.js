@@ -18,7 +18,7 @@ export const registerAccount = user => async dispatch => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ user }),
-***REMOVED***
+    });
 
     const data = await response.json();
 
@@ -27,24 +27,24 @@ export const registerAccount = user => async dispatch => {
     dispatch({
       type: REGISTER_USER,
       payload: user,
-***REMOVED***
+    });
     // TODO: Redirect to auth, then log user in on register.
     // For now just login.
     dispatch(
       loginUser({
         email: user.email,
         password: user.password,
-***REMOVED***
-***REMOVED***;
+      })
+    );
   } catch (error) {
     notify('Unable to register account!', error.message);
     dispatch({
       type: REGISTER_FAIL,
       error: error,
-***REMOVED***
+    });
   }
-***REMOVED***
+};
 
 export const redirectAuth = () => dispatch => {
   dispatch(replace('/authenticate-email'));
-***REMOVED***
+};

@@ -38,12 +38,12 @@ const ProfileCard = props => {
       </div>
     </Card>
   );
-***REMOVED***
+};
 
 ProfileCard.propTypes = {
   profilePicture: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   exp: PropTypes.number.isRequired,
-***REMOVED***
+};
 
 export default ProfileCard;

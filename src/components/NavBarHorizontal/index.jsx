@@ -29,4 +29,4 @@ export default () => {
       <Divider style={{ height: '2px', margin: '0' }} />
     </>
   );
-***REMOVED***
+};

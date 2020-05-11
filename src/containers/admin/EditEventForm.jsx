@@ -25,7 +25,7 @@ const FormikEditEventForm = withFormik({
       description: '',
       attendanceCode: '',
       committee: '',
-    ***REMOVED***
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     if (values.startTime === 12) {
@@ -51,13 +51,13 @@ const FormikEditEventForm = withFormik({
       attendanceCode: values.attendanceCode,
       description: values.description,
       committee: values.committee,
-    ***REMOVED***
+    };
     props
       .editEvent(event)
       .then(resp => {})
       .catch(error => {
         console.log(error);
-***REMOVED***;
+      });
   },
 })(EditEventform);
 

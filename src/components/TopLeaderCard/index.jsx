@@ -27,12 +27,12 @@ const TopLeaderCard = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 TopLeaderCard.propTypes = {
   exp: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
-***REMOVED***
+};
 
 export default TopLeaderCard;

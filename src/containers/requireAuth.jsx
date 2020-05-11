@@ -16,7 +16,7 @@ const withAuth = Component => props => {
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component {...props} />;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,

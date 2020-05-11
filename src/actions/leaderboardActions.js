@@ -13,7 +13,7 @@ export const fetchLeaderboard = () => async dispatch => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-***REMOVED***
+    });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -26,11 +26,11 @@ export const fetchLeaderboard = () => async dispatch => {
     dispatch({
       type: FETCH_LEADERBOARD,
       payload: data.leaderboard,
-***REMOVED***
+    });
   } catch (error) {
     dispatch({
       type: LEADERBOARD_ERROR,
       payload: error,
-***REMOVED***
+    });
   }
-***REMOVED***
+};

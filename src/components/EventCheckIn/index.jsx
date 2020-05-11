@@ -7,7 +7,7 @@ import './style.less';
 const EventCheck = props => {
   const onChange = e => {
     console.log(`checked = ${e.target.checked}`);
-  ***REMOVED***
+  };
   return (
     <Card className="checkin-card">
       <h1>Event Check-in</h1>
@@ -29,15 +29,15 @@ const EventCheck = props => {
           <label className="staff-check-in-label">Staff Check In</label>
           <Checkbox onChange={props.onAsStaffChange} />
         </div>
-  ***REMOVED***}
+      )}
     </Card>
   );
-***REMOVED***
+};
 
 EventCheck.propTypes = {
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   value: PropTypes.string,
-***REMOVED***
+};
 
 export default EventCheck;

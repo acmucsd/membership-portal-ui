@@ -24,12 +24,12 @@ const PasswordForm = props => {
       </form>
     </div>
   );
-***REMOVED***
+};
 
 PasswordForm.propTypes = {
   onKeyPress: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired,
-***REMOVED***
+};
 
 export default PasswordForm;

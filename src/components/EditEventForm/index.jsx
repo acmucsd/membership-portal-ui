@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { fetchEvent } from '../../actions/eventsActions';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import './style.less';
 
@@ -36,6 +36,7 @@ for (let i = 1; i <= 12; i++) {
 
 const EditEventForm = props => {
   const params = useParams();
+  const history = useHistory();
   useEffect(() => {
     props.setFieldValue('uuid', params.uuid);
   }, []);
@@ -59,7 +60,7 @@ const EditEventForm = props => {
       ];
       keys.forEach(key => {
         props.setFieldValue(key, props.event[key]);
-***REMOVED***;
+      });
       if (props.event['start']) {
         let start = new Date(props.event['start']);
         props.setFieldValue('year', start.getFullYear());
@@ -149,7 +150,7 @@ const EditEventForm = props => {
                   <Option key={`month-${month}`} value={month}>
                     {month}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
             </Form.Item>
             <Form.Item className="day-wrapper" label="Day">
@@ -162,7 +163,7 @@ const EditEventForm = props => {
                   <Option key={`day-${day}`} value={day}>
                     {day}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -177,7 +178,7 @@ const EditEventForm = props => {
                   <Option key={`start-${hour}`} value={hour}>
                     {hour}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
               <Select
                 className="ampm"
@@ -198,7 +199,7 @@ const EditEventForm = props => {
                   <Option key={`end-${hour}`} value={hour}>
                     {hour}
                   </Option>
-            ***REMOVED***)}
+                ))}
               </Select>
               <Select
                 className="ampm"
@@ -240,20 +241,25 @@ const EditEventForm = props => {
           <Button type="primary" htmlType="submit" className="save-button">
             Submit Edits
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button
+            type="danger"
+            onClick={() => {
+              history.goBack();
+            }}
+            className="discard-button">
             Discard
           </Button>
         </form>
       </div>
     </div>
   );
-***REMOVED***
+};
 
 EditEventForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object.isRequired,
-***REMOVED***
+};
 
 export default EditEventForm;

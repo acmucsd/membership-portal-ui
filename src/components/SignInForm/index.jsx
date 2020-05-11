@@ -52,7 +52,7 @@ const SignInForm = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 // TODO: swap out proptypes with formik's implementation
 SignInForm.propTypes = {
@@ -60,6 +60,6 @@ SignInForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object,
-***REMOVED***
+};
 
 export default SignInForm;

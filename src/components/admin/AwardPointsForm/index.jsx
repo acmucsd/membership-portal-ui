@@ -16,19 +16,19 @@ const AwardPointsForm = props => {
 
   const showInput = () => {
     setInputVisible(true);
-  ***REMOVED***
+  };
   const handleClose = removedAwardee => {
     const newAwardees = awardees.filter(awardee => awardee !== removedAwardee);
     updateAwardees(newAwardees);
-  ***REMOVED***
+  };
   const handleAwardeeInputChange = e => {
     setInputValue(e.target.value);
-  ***REMOVED***
+  };
 
   const updateAwardees = awardees => {
     _setAwardees(awardees);
     props.setFieldValue('awardees', awardees);
-  ***REMOVED***
+  };
 
   const handleInputConfirm = () => {
     let newAwardees = awardees;
@@ -38,7 +38,7 @@ const AwardPointsForm = props => {
     updateAwardees(newAwardees);
     setInputVisible(false);
     setInputValue('');
-  ***REMOVED***
+  };
 
   return (
     <div className="award-points-form">
@@ -64,15 +64,15 @@ const AwardPointsForm = props => {
                   <Tag key={awardee} onClose={() => handleClose(awardees)} className="awardee-tag">
                     {isLongName ? `${awardee.slice(0, 10)}...` : awardee}
                   </Tag>
-            ***REMOVED***;
+                );
                 return isLongName ? (
                   <Tooltip title={awardee} key={awardee}>
                     {tagElem}
                   </Tooltip>
-            ***REMOVED*** : (
+                ) : (
                   tagElem
-            ***REMOVED***;
-        ***REMOVED***}
+                );
+              })}
               {inputVisible && (
                 <Input
                   type="text"
@@ -86,12 +86,12 @@ const AwardPointsForm = props => {
                   }}
                   onPressEnter={handleInputConfirm}
                 />
-          ***REMOVED***}
+              )}
               {!inputVisible && (
                 <Tag onClick={showInput} className="add-new-awardee">
                   <Icon type="plus" /> New Awardee
                 </Tag>
-          ***REMOVED***}
+              )}
             </div>
           </Form.Item>
           <Form.Item label="Description">
@@ -117,14 +117,14 @@ const AwardPointsForm = props => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 AwardPointsForm.propTypes = {
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   values: PropTypes.object.isRequired,
-***REMOVED***
+};
 
 export default AwardPointsForm;
 

@@ -8,6 +8,6 @@ const StorePageContainer = () => {
       <StorePage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default StorePageContainer;

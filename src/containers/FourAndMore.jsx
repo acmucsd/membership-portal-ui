@@ -11,7 +11,7 @@ const FourAndMoreContainer = props => {
   }, []);
 
   return <>{getFourAndMore(props.users)}</>;
-***REMOVED***
+};
 
 const getFourAndMore = users => {
   let fourAndMore = [];
@@ -28,11 +28,11 @@ const getFourAndMore = users => {
         rank={user.rank}
         uuid={user.uuid}
       />
-***REMOVED***;
+    );
   }
 
   return fourAndMore;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   users: state.leaderboard.users,

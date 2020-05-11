@@ -12,7 +12,7 @@ export const fetchUser = uuid => async dispatch => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-***REMOVED***
+    });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -27,11 +27,11 @@ export const fetchUser = uuid => async dispatch => {
     dispatch({
       type: FETCH_USER,
       payload: data.user,
-***REMOVED***
+    });
   } catch (error) {
     // TODO: Dispatch error message.
   }
-***REMOVED***
+};
 
 export const fetchUserByID = async uuid => {
   return new Promise(async (resolve, reject) => {
@@ -43,7 +43,7 @@ export const fetchUserByID = async uuid => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${Storage.get('token')}`,
         },
-***REMOVED***;
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {
@@ -60,4 +60,4 @@ export const fetchUserByID = async uuid => {
       reject(error);
     }
   });
-***REMOVED***
+};

@@ -15,7 +15,7 @@ const ProfilePage = props => {
       fetchUserByID(params.uuid).then(res => {
         console.log({ profile: { ...res.user }, image: res.user.profilePicture });
         setUser({ profile: { ...res.user }, image: res.user.profilePicture });
-***REMOVED***;
+      });
     } else {
       setUser(props.user);
     }
@@ -59,11 +59,11 @@ const ProfilePage = props => {
             <Link to="/editProfile">
               <Button className="edit-profile-btn">Edit Profile</Button>
             </Link>
-      ***REMOVED***}
+          )}
         </div>
-  ***REMOVED***}
+      )}
     </div>
   );
-***REMOVED***
+};
 
 export default ProfilePage;

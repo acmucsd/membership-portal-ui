@@ -15,7 +15,7 @@ const withStandardAccess = Component => props => {
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component {...props} />;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   state: state.user.profile.state,

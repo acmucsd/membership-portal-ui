@@ -24,7 +24,7 @@ export const checkIn = info => async dispatch => {
         Authorization: `Bearer ${Storage.get('token')}`,
       },
       body: JSON.stringify({ attendanceCode: info.attendanceCode, asStaff: info.asStaff }),
-***REMOVED***
+    });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -42,21 +42,21 @@ export const checkIn = info => async dispatch => {
     dispatch({
       type: EVENT_CHECKIN,
       payload: data.event,
-***REMOVED***
+    });
   } catch (error) {
     notify('Unable to checkin!', error.message);
     dispatch({
       type: EVENT_ERROR,
       payload: error.message,
-***REMOVED***
+    });
   }
-***REMOVED***
+};
 
 export const checkOut = () => dispatch => {
   dispatch({
     type: EVENT_CHECKOUT,
   });
-***REMOVED***
+};
 
 export const fetchFutureEvents = () => async dispatch => {
   try {
@@ -67,7 +67,7 @@ export const fetchFutureEvents = () => async dispatch => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-***REMOVED***
+    });
 
     let status = await eventsRes.status;
     if (status === 401 || status === 403) {
@@ -83,15 +83,15 @@ export const fetchFutureEvents = () => async dispatch => {
     dispatch({
       type: FETCH_FUTURE_EVENTS,
       payload: futureEvents.events,
-***REMOVED***
+    });
   } catch (error) {
     notify('Unable to fetch future events!', error.message);
     dispatch({
       type: EVENT_ERROR,
       payload: error.message,
-***REMOVED***
+    });
   }
-***REMOVED***
+};
 
 export const fetchPastEvents = () => async dispatch => {
   try {
@@ -102,7 +102,7 @@ export const fetchPastEvents = () => async dispatch => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-***REMOVED***
+    });
 
     let status = await eventsRes.status;
     if (status === 401 || status === 403) {
@@ -122,15 +122,15 @@ export const fetchPastEvents = () => async dispatch => {
     dispatch({
       type: FETCH_PAST_EVENTS,
       payload: pastEvents.events,
-***REMOVED***
+    });
   } catch (error) {
     notify('Unable to fetch past events!', error.message);
     dispatch({
       type: EVENT_ERROR,
       payload: error.message,
-***REMOVED***
+    });
   }
-***REMOVED***
+};
 
 export const fetchEvent = uuid => async dispatch => {
   try {
@@ -141,7 +141,7 @@ export const fetchEvent = uuid => async dispatch => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-***REMOVED***
+    });
 
     let status = await eventRes.status;
     if (status === 401 || status === 403) {
@@ -156,13 +156,13 @@ export const fetchEvent = uuid => async dispatch => {
     dispatch({
       type: FETCH_EVENT,
       payload: thisEvent.event,
-***REMOVED***
+    });
   } catch (error) {
     console.log(error);
     notify('Unable to fetch an event!', error.message);
     dispatch({
       type: EVENT_ERROR,
       payload: error.message,
-***REMOVED***
+    });
   }
-***REMOVED***
+};

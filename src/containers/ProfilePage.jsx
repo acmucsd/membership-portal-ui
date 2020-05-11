@@ -9,7 +9,7 @@ const ProfilePageContainer = props => {
       <ProfilePage user={props.user} />
     </PageLayout>
   );
-***REMOVED***
+};
 const mapStateToProps = state => ({
   user: state.user,
 });

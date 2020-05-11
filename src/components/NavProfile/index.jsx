@@ -27,13 +27,13 @@ const NavProfile = props => {
       </Dropdown>
     </div>
   );
-***REMOVED***
+};
 
 NavProfile.propTypes = {
   exp: PropTypes.number.isRequired,
   profilePicture: PropTypes.string.isRequired,
   menu: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-***REMOVED***
+};
 
 export default NavProfile;

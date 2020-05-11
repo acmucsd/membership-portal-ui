@@ -10,7 +10,7 @@ const PasswordPage = props => {
 
   const handleChange = event => {
     setValue(event.target.value);
-  ***REMOVED***
+  };
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
@@ -18,13 +18,13 @@ const PasswordPage = props => {
       setValue('');
       props.passwordReset(value);
     }
-  ***REMOVED***
+  };
 
   return (
     <LoginLayout>
       <PasswordForm onChange={handleChange} onKeyPress={handleEnter} value={value} />
     </LoginLayout>
   );
-***REMOVED***
+};
 
 export default connect(null, { passwordReset })(PasswordPage);

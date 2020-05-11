@@ -12,7 +12,7 @@ const FormikProfileUpdate = withFormik({
       graduationYear: 0,
       major: '',
       bio: '',
-    ***REMOVED***
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     props
@@ -20,7 +20,7 @@ const FormikProfileUpdate = withFormik({
       .then(resp => {})
       .catch(error => {
         console.log(error);
-***REMOVED***;
+      });
   },
 })(ProfileUpdate);
 

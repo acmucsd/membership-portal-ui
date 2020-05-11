@@ -8,6 +8,6 @@ const AuthPage = () => {
       <AuthenticateCard />
     </LoginLayout>
   );
-***REMOVED***
+};
 
 export default AuthPage;

@@ -8,6 +8,6 @@ const ErrorPageContainer = () => {
       <ErrorPage />
     </PageLayout>
   );
-***REMOVED***
+};
 
 export default ErrorPageContainer;

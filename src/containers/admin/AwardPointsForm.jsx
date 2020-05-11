@@ -12,23 +12,23 @@ const FormikAwardPointsForm = withFormik({
       points: 0,
       awardees: [],
       description: '',
-    ***REMOVED***
+    };
   },
   handleSubmit(values, { resetForm, props }) {
     const pointDetails = {
       points: values.points,
       users: values.awardees,
       description: values.description,
-    ***REMOVED***
+    };
 
     props
       .awardPoints(pointDetails)
       .then(() => {
         resetForm();
-***REMOVED***
+      })
       .catch(error => {
         console.log(error);
-***REMOVED***;
+      });
   },
 })(AwardPointsForm);
 

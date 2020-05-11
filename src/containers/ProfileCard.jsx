@@ -19,7 +19,7 @@ const NavProfileContainer = props => {
       rank={getRank(props.exp)}
     />
   );
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   profilePicture: state.user.profile.profilePicture,

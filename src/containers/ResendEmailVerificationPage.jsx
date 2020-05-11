@@ -10,7 +10,7 @@ const ResendEmailVerificationContainer = props => {
       <ResendEmailVerificationPage email={props.user.profile.email} />
     </PageLayout>
   );
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   user: state.user,

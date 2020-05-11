@@ -22,6 +22,6 @@ const HomePage = () => {
       <PastEvents />
     </div>
   );
-***REMOVED***
+};
 
 export default HomePage;

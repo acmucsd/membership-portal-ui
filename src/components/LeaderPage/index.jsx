@@ -11,6 +11,6 @@ const LeaderPage = () => {
       <Leaderboard />
     </div>
   );
-***REMOVED***
+};
 
 export default LeaderPage;

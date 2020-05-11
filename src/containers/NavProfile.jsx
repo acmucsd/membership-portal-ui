@@ -10,7 +10,7 @@ const NavProfileContainer = props => {
   }, []);
 
   return <NavProfile exp={props.exp} profilePicture={props.profilePicture} name={props.name} menu={props.menu} />;
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   exp: state.user.profile.points,

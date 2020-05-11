@@ -19,7 +19,7 @@ const EditEventPageContainer = props => {
       <EditEventPage event={props.event} />
     </PageLayout>
   );
-***REMOVED***
+};
 
 const mapStateToProps = state => ({
   event: state.events.event,

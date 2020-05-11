@@ -25,13 +25,13 @@ const LeaderListItem = props => {
       </span>
     </div>
   );
-***REMOVED***
+};
 
 LeaderListItem.propTypes = {
   exp: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
   uuid: PropTypes.string.isRequired,
-***REMOVED***
+};
 
 export default LeaderListItem;

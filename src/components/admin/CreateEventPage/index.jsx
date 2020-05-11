@@ -10,6 +10,6 @@ const CreateEventPage = props => {
       <CreateEventForm />
     </div>
   );
-***REMOVED***
+};
 
 export default CreateEventPage;

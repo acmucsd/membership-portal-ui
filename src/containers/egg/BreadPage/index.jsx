@@ -12,6 +12,6 @@ const BreadPageContainer = () => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 export default BreadPageContainer;

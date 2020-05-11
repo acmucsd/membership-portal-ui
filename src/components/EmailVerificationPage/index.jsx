@@ -13,18 +13,18 @@ const EmailVerficationPage = props => {
   const verifiedEmail = () => {
     return () => {
       history.push('/login');
-    ***REMOVED***
-  ***REMOVED***
+    };
+  };
   useEffect(() => {
     verifyEmail({ code: params.code })
       .then(res => {
         setText('Go to Login Page');
         setAction(verifiedEmail);
-***REMOVED***
+      })
       .catch(error => {})
       .finally(() => {
         setVerifying(false);
-***REMOVED***;
+      });
   }, []);
   const [verifying, setVerifying] = useState(true);
   return (
@@ -40,6 +40,6 @@ const EmailVerficationPage = props => {
       </Button>
     </div>
   );
-***REMOVED***
+};
 
 export default EmailVerficationPage;
