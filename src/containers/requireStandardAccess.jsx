@@ -12,7 +12,7 @@ const withStandardAccess = (Component) => (props) => {
   }, []);
 
   // TODO: Make redirecting screen and return that if not authenticated.
-  return <Component {...props} />;
+  return <Component />;
 };
 
 const mapStateToProps = (state) => ({
