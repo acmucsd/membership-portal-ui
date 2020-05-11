@@ -1,7 +1,7 @@
 import { FETCH_USER } from '../actions/types';
 import { getDefaultProfile } from '../utils';
 
-let defaultProfile = getDefaultProfile();
+const defaultProfile = getDefaultProfile();
 const initialState = {
   profile: {
     firstName: '',

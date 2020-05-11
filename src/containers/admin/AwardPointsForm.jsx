@@ -26,7 +26,7 @@ const FormikAwardPointsForm = withFormik({
       .then(() => {
         resetForm();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   },

@@ -5,7 +5,7 @@ import { Button, Form, Input } from 'antd';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const PasswordForm = props => {
+const PasswordForm = (props) => {
   return (
     <div className="resetcard">
       <img src={logo} className="logo" alt="logo" />
@@ -32,7 +32,12 @@ const PasswordForm = props => {
           />
         </Form.Item>
         <Form.Item>
-          <Button onClick={props.onSubmit} type="primary" htmlType="submit" className="login-button">
+          <Button
+            onClick={props.onSubmit}
+            type="primary"
+            htmlType="submit"
+            className="login-button"
+          >
             Submit
           </Button>
         </Form.Item>

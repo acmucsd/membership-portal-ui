@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Avatar, Card, Progress } from 'antd';
 
 import './style.less';
 import { getDefaultProfile } from '../../utils';
-import { useHistory } from 'react-router-dom';
 
-const ProfileCard = props => {
+const ProfileCard = (props) => {
   const history = useHistory();
   return (
     <Card
@@ -15,9 +14,15 @@ const ProfileCard = props => {
       className="profile-card"
       onClick={() => {
         history.push('/profile');
-      }}>
+      }}
+    >
       <div className="avatar-flex">
-        <Avatar size={115} icon="user" className="avatar" src={props.profilePicture} />
+        <Avatar
+          size={115}
+          icon="user"
+          className="avatar"
+          src={props.profilePicture}
+        />
       </div>
       <div className="info">
         <div className="content">

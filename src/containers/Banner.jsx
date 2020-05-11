@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Banner from '../components/Banner';
 import { fetchBanner } from '../actions/bannerActions';
 
-const BannerContainer = props => {
+const BannerContainer = (props) => {
   useEffect(() => {
     props.fetchBanner();
   });
@@ -12,7 +12,7 @@ const BannerContainer = props => {
   return <Banner src={props.src} />;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   src: state.banner.url,
 });
 

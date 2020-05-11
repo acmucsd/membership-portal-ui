@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginLayout from '../components/LoginLayout';
-import PasswordUpdate from '../containers/PasswordUpdate';
+import PasswordUpdate from './PasswordUpdate';
 
 const RegisterPage = () => {
   return (

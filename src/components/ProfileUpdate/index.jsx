@@ -17,7 +17,7 @@ function getYears() {
 
 const years = getYears();
 
-const ProfileUpdate = props => {
+const ProfileUpdate = (props) => {
   const [gradYear, setGradYear] = useState('');
   const [bg, setBG] = useState(props.user.profile.profilePicture);
   const [fileList, setFileList] = useState([]);
@@ -28,15 +28,15 @@ const ProfileUpdate = props => {
       onSuccess('ok');
     }, 0);
   };
-  const onFileChange = info => {
-    let fileList = [...info.fileList];
+  const onFileChange = (info) => {
+    const fileList = [...info.fileList];
     URL.revokeObjectURL(bg);
     if (fileList.length) {
-      let lastFile = fileList[fileList.length - 1];
+      const lastFile = fileList[fileList.length - 1];
       if (lastFile) {
         setFileList([lastFile]);
       }
-      let newBg = URL.createObjectURL(lastFile.originFileObj);
+      const newBg = URL.createObjectURL(lastFile.originFileObj);
       setBG(newBg);
     } else {
       setBG('');
@@ -53,21 +53,21 @@ const ProfileUpdate = props => {
   const uploadPhoto = () => {
     setUploadState('uploading');
     uploadUserImage(fileList[0].originFileObj)
-      .then(res => {
+      .then((res) => {
         setUploadState('none');
         setVisible(false);
       })
-      .catch(error => {
+      .catch((error) => {
         setUploadState('none');
       });
   };
   useEffect(() => {
-    let keys = ['firstName', 'lastName', 'major', 'bio'];
-    keys.forEach(key => {
+    const keys = ['firstName', 'lastName', 'major', 'bio'];
+    keys.forEach((key) => {
       props.setFieldValue(key, props.user.profile[key]);
     });
-    if (props.user.profile['graduationYear']) {
-      setGradYear(props.user.profile['graduationYear']);
+    if (props.user.profile.graduationYear) {
+      setGradYear(props.user.profile.graduationYear);
     }
   }, [props.user]);
   return (
@@ -76,7 +76,11 @@ const ProfileUpdate = props => {
         <h1 className="title">Profile</h1>
         <Avatar size={155} src={bg} className="avatar" />
         <br />
-        <Button type="primary" className="upload-modal-button" onClick={showModal}>
+        <Button
+          type="primary"
+          className="upload-modal-button"
+          onClick={showModal}
+        >
           Change Profile Picture
         </Button>
         <Modal
@@ -94,10 +98,12 @@ const ProfileUpdate = props => {
               type="primary"
               loading={uploadState === 'uploading'}
               onClick={uploadPhoto}
-              disabled={fileList.length == 0}>
+              disabled={fileList.length == 0}
+            >
               {uploadState !== 'uploading' && <UploadOutlined />} Upload
             </Button>,
-          ]}>
+          ]}
+        >
           <div className="upload-wrapper">
             <Upload
               className="upload-profile-pic"
@@ -108,9 +114,14 @@ const ProfileUpdate = props => {
               onChange={onFileChange}
               onRemove={() => {
                 setFileList([]);
-              }}>
+              }}
+            >
               <div className="new-profile-pic-wrapper">
-                <Avatar size={115} src={bg || getDefaultProfile()} className="avatar" />
+                <Avatar
+                  size={115}
+                  src={bg || getDefaultProfile()}
+                  className="avatar"
+                />
               </div>
               <Button className="upload-button" innerRef={uploadImageButton}>
                 Change Picture
@@ -142,9 +153,12 @@ const ProfileUpdate = props => {
               <Select
                 value={gradYear}
                 className="year"
-                onBlur={value => props.setFieldValue('graduationYear', value)}
-                onChange={value => props.setFieldValue('graduationYear', value)}>
-                {years.map(num => (
+                onBlur={(value) => props.setFieldValue('graduationYear', value)}
+                onChange={(value) =>
+                  props.setFieldValue('graduationYear', value)
+                }
+              >
+                {years.map((num) => (
                   <Option key={num} value={num}>
                     {num}
                   </Option>

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
-import { fetchEvent } from '../../actions/eventsActions';
 import { useParams, useHistory } from 'react-router-dom';
+import { fetchEvent } from '../../actions/eventsActions';
 
 import './style.less';
 
@@ -24,17 +24,17 @@ const months = [
   'December',
 ];
 
-let days = [];
+const days = [];
 for (let i = 1; i <= 31; i++) {
   days.push(i);
 }
 
-let hours = [];
+const hours = [];
 for (let i = 1; i <= 12; i++) {
   hours.push(i);
 }
 
-const EditEventForm = props => {
+const EditEventForm = (props) => {
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
@@ -43,7 +43,7 @@ const EditEventForm = props => {
 
   useEffect(() => {
     if (props.event) {
-      let keys = [
+      const keys = [
         'title',
         'location',
         'pointValue',
@@ -58,11 +58,11 @@ const EditEventForm = props => {
         'year',
         'committee',
       ];
-      keys.forEach(key => {
+      keys.forEach((key) => {
         props.setFieldValue(key, props.event[key]);
       });
-      if (props.event['start']) {
-        let start = new Date(props.event['start']);
+      if (props.event.start) {
+        const start = new Date(props.event.start);
         props.setFieldValue('year', start.getFullYear());
         props.setFieldValue('month', months[start.getMonth()]);
 
@@ -74,8 +74,8 @@ const EditEventForm = props => {
         props.setFieldValue('startAm', half);
         props.setFieldValue('day', start.getDate());
       }
-      if (props.event['end']) {
-        let end = new Date(props.event['end']);
+      if (props.event.end) {
+        const end = new Date(props.event.end);
         let half = 'AM';
         if (end.getHours() >= 12) {
           half = 'PM';
@@ -143,10 +143,11 @@ const EditEventForm = props => {
             <Form.Item className="month-wrapper" label="Month">
               <Select
                 className="months"
-                onChange={value => props.setFieldValue('month', value)}
+                onChange={(value) => props.setFieldValue('month', value)}
                 onBlur={() => props.setFieldTouched('month', true)}
-                value={props.values.month}>
-                {months.map(month => (
+                value={props.values.month}
+              >
+                {months.map((month) => (
                   <Option key={`month-${month}`} value={month}>
                     {month}
                   </Option>
@@ -156,10 +157,11 @@ const EditEventForm = props => {
             <Form.Item className="day-wrapper" label="Day">
               <Select
                 className="days"
-                onChange={value => props.setFieldValue('day', value)}
+                onChange={(value) => props.setFieldValue('day', value)}
                 onBlur={() => props.setFieldTouched('day', true)}
-                value={props.values.day}>
-                {days.map(day => (
+                value={props.values.day}
+              >
+                {days.map((day) => (
                   <Option key={`day-${day}`} value={day}>
                     {day}
                   </Option>
@@ -171,10 +173,11 @@ const EditEventForm = props => {
             <Form.Item className="start-time" label="Start Time">
               <Select
                 className="time"
-                onChange={value => props.setFieldValue('startTime', value)}
+                onChange={(value) => props.setFieldValue('startTime', value)}
                 onBlur={() => props.setFieldTouched('startTime', true)}
-                value={props.values.startTime}>
-                {hours.map(hour => (
+                value={props.values.startTime}
+              >
+                {hours.map((hour) => (
                   <Option key={`start-${hour}`} value={hour}>
                     {hour}
                   </Option>
@@ -182,9 +185,10 @@ const EditEventForm = props => {
               </Select>
               <Select
                 className="ampm"
-                onChange={value => props.setFieldValue('startAm', value)}
+                onChange={(value) => props.setFieldValue('startAm', value)}
                 onBlur={() => props.setFieldTouched('startAm', true)}
-                value={props.values.startAm}>
+                value={props.values.startAm}
+              >
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
@@ -192,10 +196,11 @@ const EditEventForm = props => {
             <Form.Item className="end-time" label="End Time">
               <Select
                 className="time"
-                onChange={value => props.setFieldValue('endTime', value)}
+                onChange={(value) => props.setFieldValue('endTime', value)}
                 onBlur={() => props.setFieldTouched('endTime', true)}
-                value={props.values.endTime}>
-                {hours.map(hour => (
+                value={props.values.endTime}
+              >
+                {hours.map((hour) => (
                   <Option key={`end-${hour}`} value={hour}>
                     {hour}
                   </Option>
@@ -203,9 +208,10 @@ const EditEventForm = props => {
               </Select>
               <Select
                 className="ampm"
-                onChange={value => props.setFieldValue('endAm', value)}
+                onChange={(value) => props.setFieldValue('endAm', value)}
                 onBlur={() => props.setFieldTouched('endAm', true)}
-                value={props.values.endAm}>
+                value={props.values.endAm}
+              >
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
@@ -246,7 +252,8 @@ const EditEventForm = props => {
             onClick={() => {
               history.goBack();
             }}
-            className="discard-button">
+            className="discard-button"
+          >
             Discard
           </Button>
         </form>

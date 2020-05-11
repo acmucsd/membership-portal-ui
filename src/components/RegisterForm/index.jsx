@@ -15,7 +15,7 @@ function getYears() {
 
 const years = getYears();
 
-const RegisterForm = props => {
+const RegisterForm = (props) => {
   return (
     <div className="registercard">
       <div className="formcontent">
@@ -85,10 +85,13 @@ const RegisterForm = props => {
             <Form.Item label="Year" className="formitems">
               <Select
                 className="year"
-                onBlur={value => props.setFieldValue('graduationYear', value)}
-                onChange={value => props.setFieldValue('graduationYear', value)}
-                value={props.values.graduationYear}>
-                {years.map(num => (
+                onBlur={(value) => props.setFieldValue('graduationYear', value)}
+                onChange={(value) =>
+                  props.setFieldValue('graduationYear', value)
+                }
+                value={props.values.graduationYear}
+              >
+                {years.map((num) => (
                   <Option key={num} value={num}>
                     {num}
                   </Option>
@@ -97,7 +100,11 @@ const RegisterForm = props => {
             </Form.Item>
           </div>
           <Form.Item className="register">
-            <Button type="primary" htmlType="submit" className="register-button">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="register-button"
+            >
               Register
             </Button>
           </Form.Item>

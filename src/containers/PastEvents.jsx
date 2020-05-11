@@ -7,14 +7,14 @@ import background from '../assets/graphics/background.svg';
 import { fetchPastEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
-const PastEventsContainer = props => {
+const PastEventsContainer = (props) => {
   useEffect(() => {
     props.fetchPastEvents();
   }, []);
 
   return (
     <EventsList>
-      {props.events.map(event => {
+      {props.events.map((event) => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
@@ -34,9 +34,11 @@ const PastEventsContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   events: state.events.pastEvents,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchPastEvents })(PastEventsContainer);
+export default connect(mapStateToProps, { fetchPastEvents })(
+  PastEventsContainer
+);

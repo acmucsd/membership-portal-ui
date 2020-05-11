@@ -4,7 +4,7 @@ import PageLayout from './PageLayout';
 
 import ResendEmailVerificationPage from '../components/ResendEmailVerificationPage';
 
-const ResendEmailVerificationContainer = props => {
+const ResendEmailVerificationContainer = (props) => {
   return (
     <PageLayout>
       <ResendEmailVerificationPage email={props.user.profile.email} />
@@ -12,7 +12,7 @@ const ResendEmailVerificationContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
 });
 

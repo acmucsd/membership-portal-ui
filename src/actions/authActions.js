@@ -1,11 +1,17 @@
-import { AUTH_ERROR, AUTH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, UNAUTH_USER } from './types';
 import { replace } from 'connected-react-router';
+import {
+  AUTH_ERROR,
+  AUTH_USER,
+  PASSWORD_FAIL,
+  PASSWORD_SUCCESS,
+  UNAUTH_USER,
+} from './types';
 
 import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const loginUser = values => async dispatch => {
+export const loginUser = (values) => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
@@ -36,24 +42,27 @@ export const loginUser = values => async dispatch => {
     notify('Unable to login!', error.message);
     dispatch({
       type: AUTH_ERROR,
-      error: error,
+      error,
     });
   }
 };
 
-export const verifyToken = dispatch => async () => {
+export const verifyToken = (dispatch) => async () => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
       try {
-        const response = await fetch(Config.API_URL + Config.routes.auth.verification, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          Config.API_URL + Config.routes.auth.verification,
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
         if (!data) throw new Error('Empty response from server');
@@ -79,11 +88,14 @@ export const verifyToken = dispatch => async () => {
         });
         resolve(data);
       } catch (error) {
-        notify('Unable to verify token!', error.message || 'Try logging in again');
+        notify(
+          'Unable to verify token!',
+          error.message || 'Try logging in again'
+        );
 
         dispatch({
           type: AUTH_ERROR,
-          error: error,
+          error,
         });
 
         // log out user due to probably faulty token
@@ -106,7 +118,7 @@ export const verifyToken = dispatch => async () => {
   });
 };
 
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => (dispatch) => {
   dispatch({
     type: UNAUTH_USER,
   });
@@ -121,7 +133,7 @@ export const logoutUser = () => dispatch => {
  * @param {string} token - A jwt token returned from auth.
  * @return {object} The claims from the token.
  */
-const tokenGetClaims = token => {
+const tokenGetClaims = (token) => {
   if (!token) {
     return {};
   }
@@ -129,22 +141,30 @@ const tokenGetClaims = token => {
   if (tokenArray.length !== 3) {
     return {};
   }
-  return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
+  return JSON.parse(
+    window.atob(tokenArray[1].replace('-', '+').replace('_', '/'))
+  );
 };
 
-export const passwordReset = email => async dispatch => {
+export const passwordReset = (email) => async (dispatch) => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${email}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `${Config.API_URL + Config.routes.auth.resetPassword}/${email}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    notify('Success! Check your email shortly', 'Email has been sent to ' + email);
+    notify(
+      'Success! Check your email shortly',
+      `Email has been sent to ${email}`
+    );
     dispatch({
       type: PASSWORD_SUCCESS,
     });
@@ -157,16 +177,19 @@ export const passwordReset = email => async dispatch => {
   }
 };
 
-export const updatePassword = user => async dispatch => {
+export const updatePassword = (user) => async (dispatch) => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user }),
-    });
+    const response = await fetch(
+      `${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user }),
+      }
+    );
 
     const data = await response.json();
 
@@ -180,16 +203,21 @@ export const updatePassword = user => async dispatch => {
 };
 
 // Verifies an email using a info object with email field and code field
-export const verifyEmail = async info => {
+export const verifyEmail = async (info) => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.emailVerification + '/' + info.code}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...info }),
-    });
+    const response = await fetch(
+      `${`${Config.API_URL + Config.routes.auth.emailVerification}/${
+        info.code
+      }`}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...info }),
+      }
+    );
 
     const data = await response.json();
 
@@ -201,15 +229,18 @@ export const verifyEmail = async info => {
   }
 };
 
-export const sendEmailVerification = async email => {
+export const sendEmailVerification = async (email) => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.emailVerification + '/' + email}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `${`${Config.API_URL + Config.routes.auth.emailVerification}/${email}`}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     const data = await response.json();
 

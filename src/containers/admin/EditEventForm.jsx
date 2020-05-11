@@ -45,8 +45,18 @@ const FormikEditEventForm = withFormik({
       title: values.title,
       location: values.location,
       pointValue: values.pointValue,
-      start: new Date(values.year, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
-      end: new Date(values.year, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
+      start: new Date(
+        values.year,
+        getMonthIndex(values.month),
+        values.day,
+        values.startTime
+      ).toUTCString(),
+      end: new Date(
+        values.year,
+        getMonthIndex(values.month),
+        values.day,
+        values.endTime
+      ).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
@@ -54,8 +64,8 @@ const FormikEditEventForm = withFormik({
     };
     props
       .editEvent(event)
-      .then(resp => {})
-      .catch(error => {
+      .then((resp) => {})
+      .catch((error) => {
         console.log(error);
       });
   },

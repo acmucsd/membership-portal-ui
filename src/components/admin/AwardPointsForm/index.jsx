@@ -8,7 +8,7 @@ import './style.less';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const AwardPointsForm = props => {
+const AwardPointsForm = (props) => {
   const [awardees, _setAwardees] = useState([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -17,15 +17,17 @@ const AwardPointsForm = props => {
   const showInput = () => {
     setInputVisible(true);
   };
-  const handleClose = removedAwardee => {
-    const newAwardees = awardees.filter(awardee => awardee !== removedAwardee);
+  const handleClose = (removedAwardee) => {
+    const newAwardees = awardees.filter(
+      (awardee) => awardee !== removedAwardee
+    );
     updateAwardees(newAwardees);
   };
-  const handleAwardeeInputChange = e => {
+  const handleAwardeeInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const updateAwardees = awardees => {
+  const updateAwardees = (awardees) => {
     _setAwardees(awardees);
     props.setFieldValue('awardees', awardees);
   };
@@ -61,7 +63,11 @@ const AwardPointsForm = props => {
               {awardees.map((awardee, index) => {
                 const isLongName = awardee.length > 20;
                 const tagElem = (
-                  <Tag key={awardee} onClose={() => handleClose(awardees)} className="awardee-tag">
+                  <Tag
+                    key={awardee}
+                    onClose={() => handleClose(awardees)}
+                    className="awardee-tag"
+                  >
                     {isLongName ? `${awardee.slice(0, 10)}...` : awardee}
                   </Tag>
                 );
@@ -80,7 +86,7 @@ const AwardPointsForm = props => {
                   className="awardee-input"
                   value={inputValue}
                   onChange={handleAwardeeInputChange}
-                  onBlur={e => {
+                  onBlur={(e) => {
                     handleInputConfirm(e);
                     props.handleBlur(e);
                   }}
@@ -107,7 +113,8 @@ const AwardPointsForm = props => {
             type="primary"
             htmlType="submit"
             className="save-button"
-            loading={props.isSubmitting && props.isValidating}>
+            loading={props.isSubmitting && props.isValidating}
+          >
             Submit Edits
           </Button>
           <Button type="danger" className="discard-button">

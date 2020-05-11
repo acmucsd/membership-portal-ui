@@ -5,7 +5,7 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 
-const NavTileItem = props => {
+const NavTileItem = (props) => {
   return (
     <div className="nav-tile-item">
       <Icon className="icon" component={props.icon} />

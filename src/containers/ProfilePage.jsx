@@ -1,16 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import ProfilePage from '../components/ProfilePage';
 import PageLayout from './PageLayout';
-import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userActions';
-const ProfilePageContainer = props => {
+
+const ProfilePageContainer = (props) => {
   return (
     <PageLayout>
       <ProfilePage user={props.user} />
     </PageLayout>
   );
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
 });
 

@@ -5,7 +5,7 @@ import { notify } from '../../utils';
 import { verifyEmail } from '../../actions/authActions';
 import './style.less';
 
-const EmailVerficationPage = props => {
+const EmailVerficationPage = (props) => {
   const params = useParams();
   const history = useHistory();
   const [buttonAction, setAction] = useState();
@@ -17,11 +17,11 @@ const EmailVerficationPage = props => {
   };
   useEffect(() => {
     verifyEmail({ code: params.code })
-      .then(res => {
+      .then((res) => {
         setText('Go to Login Page');
         setAction(verifiedEmail);
       })
-      .catch(error => {})
+      .catch((error) => {})
       .finally(() => {
         setVerifying(false);
       });
@@ -35,7 +35,8 @@ const EmailVerficationPage = props => {
         loading={verifying}
         onClick={() => {
           history.push('/login');
-        }}>
+        }}
+      >
         {btnText}
       </Button>
     </div>

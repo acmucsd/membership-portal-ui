@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom';
 import './style.less';
 import { getRank } from '../../utils';
 
-const LeaderListItem = props => {
+const LeaderListItem = (props) => {
   return (
     <div
       className={`leaderboard-list-item
-      ${props.placement % 2 === 0 ? 'even' : 'odd'}`}>
+      ${props.placement % 2 === 0 ? 'even' : 'odd'}`}
+    >
       <span className="placement">{props.placement}</span>
       <Avatar size={40} src={props.image} />
       <span className="column left">
         <div className="name">
-          <Link to={'/profile/' + props.uuid}>{props.name}</Link>
+          <Link to={`/profile/${props.uuid}`}>{props.name}</Link>
         </div>
         <div className="rank mobile">{getRank(props.exp)}</div>
       </span>

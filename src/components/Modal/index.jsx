@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 
 import './style.less';
 
-const ModalComponent = props => {
+const ModalComponent = (props) => {
   return (
     <Modal
       className="modal"
@@ -12,7 +12,8 @@ const ModalComponent = props => {
       onOk={props.handleOk}
       onCancel={props.handleCancel}
       title={props.title}
-      visible={props.visible}>
+      visible={props.visible}
+    >
       <img className="cover" src={props.image} />
       <p>{props.content}</p>
     </Modal>

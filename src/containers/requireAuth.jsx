@@ -6,7 +6,7 @@ import { notify } from '../utils';
 
 import { verifyToken } from '../actions/authActions';
 
-const withAuth = Component => props => {
+const withAuth = (Component) => (props) => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
@@ -18,11 +18,11 @@ const withAuth = Component => props => {
   return <Component {...props} />;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authenticated: state.auth.authenticated,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   redirectLogin: () => {
     dispatch(replace('/login'));
   },
@@ -30,6 +30,9 @@ const mapDispatchToProps = dispatch => ({
     return verifyToken(dispatch);
   },
 });
-const requireAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAuth);
+const requireAuth = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuth
+);
 
 export default requireAuth;

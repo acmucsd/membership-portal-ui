@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CreateEventPage from '../../components/admin/CreateEventPage';
 import PageLayout from '../PageLayout';
 
-const CreateEventPageContainer = props => {
+const CreateEventPageContainer = (props) => {
   return (
     <PageLayout>
       <CreateEventPage />

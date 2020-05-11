@@ -12,7 +12,7 @@ import { ReactComponent as LBIcon } from '../../assets/icons/lb-icon.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.svg';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
-const NavbarVertical = props => {
+const NavbarVertical = (props) => {
   return (
     <nav className="navbar-vertical">
       <section>

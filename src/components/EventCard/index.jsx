@@ -7,7 +7,7 @@ import { isURL, getAbsoluteURL } from '../../utils';
 
 import './styles.less';
 
-const EventCard = props => {
+const EventCard = (props) => {
   const history = useHistory();
 
   return (
@@ -34,7 +34,7 @@ const EventCard = props => {
             type="edit"
             className="edit-icon"
             onClick={() => {
-              history.push('/admin/editEvent/' + props.uuid);
+              history.push(`/admin/editEvent/${props.uuid}`);
             }}
           />
         </div>

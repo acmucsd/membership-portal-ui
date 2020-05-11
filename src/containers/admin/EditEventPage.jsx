@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import { useParams } from 'react-router-dom';
 import EditEventPage from '../../components/EditEventPage';
 import PageLayout from '../PageLayout';
 
 import { fetchEvent } from '../../actions/eventsActions';
 
-import { useParams } from 'react-router-dom';
-
-const EditEventPageContainer = props => {
+const EditEventPageContainer = (props) => {
   const params = useParams();
   const [eventData, setEventData] = useState({});
   useEffect(() => {
@@ -21,7 +20,7 @@ const EditEventPageContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   event: state.events.event,
 });
 export default connect(mapStateToProps, { fetchEvent })(EditEventPageContainer);

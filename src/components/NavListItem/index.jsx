@@ -4,7 +4,7 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 
-const NavListItem = props => {
+const NavListItem = (props) => {
   return (
     <div className="nav-list-item">
       {props.icon ? <Icon component={props.icon} /> : null}

@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Avatar, Progress } from 'antd';
 import { useHistory, useParams, Link } from 'react-router-dom';
-import { getLevel, getRank } from '../../utils';
+import { getLevel, getRank, getDefaultProfile } from '../../utils';
 import { fetchUserByID } from '../../actions/userActions';
-import { getDefaultProfile } from '../../utils';
+
 import './style.less';
 
-const ProfilePage = props => {
+const ProfilePage = (props) => {
   const params = useParams();
   const history = useHistory();
   const [user, setUser] = useState('');
   useEffect(() => {
     if (params.uuid) {
-      fetchUserByID(params.uuid).then(res => {
-        console.log({ profile: { ...res.user }, image: res.user.profilePicture });
+      fetchUserByID(params.uuid).then((res) => {
+        console.log({
+          profile: { ...res.user },
+          image: res.user.profilePicture,
+        });
         setUser({ profile: { ...res.user }, image: res.user.profilePicture });
       });
     } else {
@@ -48,7 +51,10 @@ const ProfilePage = props => {
             />
             <p className="level-stats">
               <span> LVL {getLevel(user.profile.points)}</span>
-              <span className="experience"> {user.profile.points % 100} / 100 </span>
+              <span className="experience">
+                {' '}
+                {user.profile.points % 100} / 100{' '}
+              </span>
             </p>
           </div>
           <div className="meta-data">

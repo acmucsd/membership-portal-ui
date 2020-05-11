@@ -4,8 +4,8 @@ import { Card, Input, Button, Checkbox } from 'antd';
 
 import './style.less';
 
-const EventCheck = props => {
-  const onChange = e => {
+const EventCheck = (props) => {
+  const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
   return (

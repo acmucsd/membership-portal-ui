@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const SignInForm = props => {
+const SignInForm = (props) => {
   return (
     <div className="card">
       <div className="formcontent">

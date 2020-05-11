@@ -5,7 +5,7 @@ import TopLeaderCard from '../components/TopLeaderCard';
 import { getDefaultProfile } from '../utils';
 import { fetchLeaderboard } from '../actions/leaderboardActions';
 
-const TopThreeContainer = props => {
+const TopThreeContainer = (props) => {
   useEffect(() => {
     props.fetchLeaderboard();
   }, []);
@@ -13,8 +13,8 @@ const TopThreeContainer = props => {
   return <>{getTopThree(props.users)}</>;
 };
 
-const getTopThree = users => {
-  let topThree = [];
+const getTopThree = (users) => {
+  const topThree = [];
   for (let i = 0; i < Math.min(users.length, 3); i++) {
     const user = users[i];
     topThree.push(
@@ -33,8 +33,10 @@ const getTopThree = users => {
   return topThree;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   users: state.leaderboard.users,
 });
 
-export default connect(mapStateToProps, { fetchLeaderboard })(TopThreeContainer);
+export default connect(mapStateToProps, { fetchLeaderboard })(
+  TopThreeContainer
+);

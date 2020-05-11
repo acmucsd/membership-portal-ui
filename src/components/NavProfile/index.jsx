@@ -7,10 +7,14 @@ import './style.less';
 import { ReactComponent as Caret } from '../../assets/icons/caret-icon.svg';
 import { getDefaultProfile } from '../../utils';
 
-const NavProfile = props => {
+const NavProfile = (props) => {
   return (
     <div className="nav-width">
-      <Dropdown overlay={props.menu} trigger={['click']} getPopupContainer={trigger => trigger.parentNode}>
+      <Dropdown
+        overlay={props.menu}
+        trigger={['click']}
+        getPopupContainer={(trigger) => trigger.parentNode}
+      >
         <div className="nav-profile">
           <Progress
             className="progress"
@@ -20,7 +24,12 @@ const NavProfile = props => {
             type="circle"
             width={55}
           />
-          <Avatar size={55} icon="user" className="avatar" src={props.profilePicture} />
+          <Avatar
+            size={55}
+            icon="user"
+            className="avatar"
+            src={props.profilePicture}
+          />
           <span className="name">{props.name}</span>
           <Icon component={Caret} className="arrow" />
         </div>

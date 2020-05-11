@@ -4,7 +4,7 @@
  * https://github.com/uclaacm/membership-portal-ui/blob/master/src/storage.js
  */
 
-const storageAvailable = type => {
+const storageAvailable = (type) => {
   try {
     const storage = window[type];
     const x = '__storage_test__';
@@ -24,7 +24,7 @@ class CookieStore {
   static get(key) {
     if (!document.cookie || document.cookie.length === 0) return undefined;
     const cookies = {};
-    document.cookie.split(';').forEach(cookie => {
+    document.cookie.split(';').forEach((cookie) => {
       cookies[cookie.split('=')[0].trim()] = cookie.split('=')[1].trim();
     });
     return cookies[key];

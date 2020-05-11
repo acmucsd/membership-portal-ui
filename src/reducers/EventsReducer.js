@@ -36,34 +36,34 @@ const EventsReducer = (state = initialState, action) => {
         return {
           ...state,
         };
-      } else {
-        return {
-          ...state,
-          futureEvents: action.payload,
-        };
       }
+      return {
+        ...state,
+        futureEvents: action.payload,
+      };
+
     case FETCH_PAST_EVENTS:
       if (_.isEqual(state.pastEvents, action.payload)) {
         return {
           ...state,
         };
-      } else {
-        return {
-          ...state,
-          pastEvents: action.payload,
-        };
       }
+      return {
+        ...state,
+        pastEvents: action.payload,
+      };
+
     case FETCH_EVENT:
       if (_.isEqual(state.event, action.payload)) {
         return {
           ...state,
         };
-      } else {
-        return {
-          ...state,
-          event: action.payload,
-        };
       }
+      return {
+        ...state,
+        event: action.payload,
+      };
+
     case EVENT_ERROR:
       return {
         ...state,

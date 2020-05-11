@@ -4,23 +4,23 @@ import { connect } from 'react-redux';
 import EventCheckIn from '../components/EventCheckIn';
 import { checkIn } from '../actions/eventsActions';
 
-const EventCheckInContainer = props => {
+const EventCheckInContainer = (props) => {
   const [value, setValue] = useState('');
   const [asStaff, setAsStaff] = useState(false);
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValue(event.target.value);
   };
-  const handleAsStaffChange = event => {
+  const handleAsStaffChange = (event) => {
     setAsStaff(event.target.checked);
   };
 
   const handleSubmit = () => {
-    props.checkIn({ attendanceCode: value, asStaff: asStaff });
+    props.checkIn({ attendanceCode: value, asStaff });
   };
 
-  const handleEnter = event => {
+  const handleEnter = (event) => {
     if (event.key === 'Enter') {
-      props.checkIn({ attendanceCode: value, asStaff: asStaff });
+      props.checkIn({ attendanceCode: value, asStaff });
     }
   };
 
@@ -35,7 +35,7 @@ const EventCheckInContainer = props => {
     />
   );
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
 });
 
