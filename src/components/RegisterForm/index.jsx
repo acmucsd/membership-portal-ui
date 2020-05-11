@@ -130,7 +130,15 @@ RegisterForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired,
+  values: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirmpassword: PropTypes.string.isRequired,
+    major: PropTypes.string.isRequired,
+    graduationYear: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default RegisterForm;

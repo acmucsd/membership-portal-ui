@@ -20,7 +20,11 @@ const mapStateToProps = (state) => ({
 });
 
 ResendEmailVerificationContainer.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, {})(ResendEmailVerificationContainer);

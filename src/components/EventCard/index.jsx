@@ -56,7 +56,9 @@ const EventCard = (props) => {
 };
 
 EventCard.propTypes = {
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.shape({
+    admin: PropTypes.bool.isRequired,
+  }).isRequired,
   cover: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

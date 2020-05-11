@@ -24,7 +24,7 @@ const ModalComponent = (props) => {
 
 ModalComponent.propTypes = {
   title: PropTypes.string.isRequired,
-  image: PropTypes.object.isRequired,
+  image: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   handleOk: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,

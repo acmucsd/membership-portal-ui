@@ -31,7 +31,7 @@ const PasswordForm = (props) => {
 PasswordForm.propTypes = {
   onKeyPress: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default PasswordForm;

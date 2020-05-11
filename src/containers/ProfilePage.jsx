@@ -20,7 +20,9 @@ const mapStateToProps = (state) => ({
 });
 
 ProfilePageContainer.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, { fetchUser })(ProfilePageContainer);

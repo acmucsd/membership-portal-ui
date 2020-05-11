@@ -142,7 +142,11 @@ AwardPointsForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   isValidating: PropTypes.bool.isRequired,
   setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired,
+  values: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+    points: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default AwardPointsForm;

@@ -16,7 +16,14 @@ const EditEventPage = (props) => {
 };
 
 EditEventPage.propTypes = {
-  event: PropTypes.object.isRequired,
+  event: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    pointValue: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default EditEventPage;

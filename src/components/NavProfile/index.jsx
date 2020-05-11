@@ -42,7 +42,7 @@ const NavProfile = (props) => {
 NavProfile.propTypes = {
   exp: PropTypes.number.isRequired,
   profilePicture: PropTypes.string.isRequired,
-  menu: PropTypes.object.isRequired,
+  menu: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,
 };
 

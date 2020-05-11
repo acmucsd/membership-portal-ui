@@ -32,7 +32,7 @@ const LeaderListItem = (props) => {
 
 LeaderListItem.propTypes = {
   exp: PropTypes.number.isRequired,
-  image: PropTypes.object.isRequired,
+  image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
   uuid: PropTypes.string.isRequired,

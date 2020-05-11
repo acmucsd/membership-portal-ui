@@ -218,7 +218,22 @@ CreateEventForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   setFieldTouched: PropTypes.func.isRequired,
   setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired,
+  values: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    committee: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    pointValue: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
+    month: PropTypes.string.isRequired,
+    day: PropTypes.string.isRequired,
+    startTime: PropTypes.string.isRequired,
+    startAm: PropTypes.string.isRequired,
+    endTime: PropTypes.string.isRequired,
+    endAm: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    attendanceCode: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default CreateEventForm;

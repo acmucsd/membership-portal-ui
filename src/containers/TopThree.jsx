@@ -40,7 +40,16 @@ const mapStateToProps = (state) => ({
 });
 
 TopThreeContainer.propTypes = {
-  users: PropTypes.object.isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      points: PropTypes.string.isRequired,
+      profilePicture: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      rank: PropTypes.string.isRequired,
+      uuid: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default connect(mapStateToProps, { fetchLeaderboard })(

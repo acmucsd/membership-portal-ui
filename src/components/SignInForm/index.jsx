@@ -61,7 +61,10 @@ SignInForm.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired,
+  values: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default SignInForm;

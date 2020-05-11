@@ -43,7 +43,11 @@ const mapStateToProps = (state) => ({
 });
 
 EventCheckInContainer.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      accountType: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, { checkIn })(EventCheckInContainer);

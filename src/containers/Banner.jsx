@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
 });
 
 BannerContainer.propTypes = {
-  src: PropTypes.object.isRequired,
+  src: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, { fetchBanner })(BannerContainer);

@@ -72,7 +72,9 @@ const ProfilePage = (props) => {
 };
 
 ProfilePage.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ProfilePage;

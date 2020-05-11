@@ -16,7 +16,7 @@ const NavTileItem = (props) => {
 };
 
 NavTileItem.propTypes = {
-  icon: PropTypes.object.isRequired,
+  icon: PropTypes.node.isRequired,
 };
 
 export default NavTileItem;

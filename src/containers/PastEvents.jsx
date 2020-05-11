@@ -43,8 +43,20 @@ const mapStateToProps = (state) => ({
 });
 
 PastEventsContainer.propTypes = {
-  auth: PropTypes.object.isRequired,
-  events: PropTypes.array.isRequired,
+  auth: PropTypes.shape({
+    admin: PropTypes.bool.isRequired,
+  }).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      uuid: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      pointValue: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default connect(mapStateToProps, { fetchPastEvents })(

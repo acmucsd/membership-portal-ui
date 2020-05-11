@@ -45,7 +45,11 @@ EventCheck.propTypes = {
   onChange: PropTypes.func.isRequired,
   onKeyPress: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      accountType: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   value: PropTypes.string.isRequired,
 };
 

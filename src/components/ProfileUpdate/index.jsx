@@ -209,8 +209,22 @@ ProfileUpdate.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   setFieldValue: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  values: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      major: PropTypes.string.isRequired,
+      bio: PropTypes.string.isRequired,
+      profilePicture: PropTypes.string.isRequired,
+      graduationYear: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  values: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    major: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ProfileUpdate;

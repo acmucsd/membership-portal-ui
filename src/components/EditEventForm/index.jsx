@@ -273,7 +273,10 @@ const EditEventForm = (props) => {
 };
 
 EditEventForm.propTypes = {
-  event: PropTypes.object.isRequired,
+  event: PropTypes.shape({
+    start: PropTypes.string.isRequired,
+    end: PropTypes.string.isRequired,
+  }).isRequired,
   setFieldValue: PropTypes.func.isRequired,
   setFieldTouched: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,

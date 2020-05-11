@@ -29,10 +29,10 @@ const mapStateToProps = (state) => ({
 });
 
 NavProfileContainer.propTypes = {
-  exp: PropTypes.object.isRequired,
-  profilePicture: PropTypes.object.isRequired,
+  exp: PropTypes.number.isRequired,
+  profilePicture: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  menu: PropTypes.object.isRequired,
+  menu: PropTypes.node.isRequired,
 };
 
 export default connect(mapStateToProps, { fetchUser })(NavProfileContainer);

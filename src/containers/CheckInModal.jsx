@@ -34,7 +34,9 @@ const mapStateToProps = (state) => ({
 });
 
 CheckInModalContainer.propTypes = {
-  currentEvent: PropTypes.object.isRequired,
+  currentEvent: PropTypes.shape({
+    cover: PropTypes.string.isRequired,
+  }).isRequired,
   visible: PropTypes.bool.isRequired,
 };
 
