@@ -1,6 +1,7 @@
 import Config from '../config';
 import Storage from '../storage';
 
+import { EVENT_DELETE } from './types';
 import { notify } from '../utils';
 import { logoutUser } from './authActions';
 
@@ -61,6 +62,43 @@ export const editEvent = event => async dispatch => {
       resolve(event);
     } catch (error) {
       notify('Unable to edit event!', error.message);
+      reject(error);
+    }
+  });
+};
+
+export const deleteEvent = uuid => async dispatch => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(Config.API_URL + Config.routes.events.event + '/' + uuid, {
+        method: 'delete',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      });
+
+      const status = await response.status;
+      if (status === 401 || status === 403) {
+        dispatch(logoutUser());
+      }
+
+      const data = await response.json();
+      if (!data) throw new Error('Empty response from server');
+      if (data.error) throw new Error(data.error.message);
+      if (data.numDeleted == 1) {
+        dispatch({
+          type: EVENT_DELETE,
+          uuid,
+        });
+        resolve('Deleted');
+      } else {
+        notify('Unable to delete event!', "Couldn't find the event in the database");
+        reject('Delete failed');
+      }
+    } catch (error) {
+      notify('Unable to delete event!', error.message);
       reject(error);
     }
   });
