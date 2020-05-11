@@ -32,7 +32,7 @@ const ProfileUpdate = (props) => {
   const [fileList, setFileList] = useState([]);
   const [visible, setVisible] = useState(false);
   const [uploadState, setUploadState] = useState('none');
-  const dummyRequest = ({ file, onSuccess }) => {
+  const dummyRequest = ({ onSuccess }) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);

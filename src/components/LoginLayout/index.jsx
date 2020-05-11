@@ -9,7 +9,7 @@ const LoginLayout = (props) => {
 };
 
 LoginLayout.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default LoginLayout;

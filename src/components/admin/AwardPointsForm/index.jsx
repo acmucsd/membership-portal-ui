@@ -25,9 +25,9 @@ const AwardPointsForm = (props) => {
     setInputVisible(true);
   };
 
-  const updateAwardees = (awardees) => {
-    _setAwardees(awardees);
-    setFieldValue('awardees', awardees);
+  const updateAwardees = (newAwardees) => {
+    _setAwardees(newAwardees);
+    setFieldValue('awardees', newAwardees);
   };
 
   const handleClose = (removedAwardee) => {

@@ -25,7 +25,7 @@ const FormikEditEventForm = withFormik({
       committee: '',
     };
   },
-  handleSubmit(values, { resetForm, props }) {
+  handleSubmit(values, { props }) {
     let { startTime } = values;
     let { endTime } = values;
 

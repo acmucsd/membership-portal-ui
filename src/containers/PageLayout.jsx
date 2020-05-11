@@ -45,7 +45,7 @@ const mapStateToProps = (state) => ({
 
 PageLayoutContainer.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
   user: PropTypes.object.isRequired,
 };
 

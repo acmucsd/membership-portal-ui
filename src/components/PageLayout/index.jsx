@@ -53,7 +53,7 @@ const mapSizesToProps = ({ width }) => ({
 });
 
 PageLayout.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
