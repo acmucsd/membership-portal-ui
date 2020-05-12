@@ -49,9 +49,8 @@ export const generateDefaultProfile = () => {
     return list[Math.floor(Math.random() * list.length)];
   };
 
-  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}/${getRandom(
-    nose
-  )}/${getRandom(mouth)}/${getRandom(colors)}`;
+  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}
+  /${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
 };
 
 /**
