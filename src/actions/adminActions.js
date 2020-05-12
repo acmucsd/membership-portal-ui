@@ -5,7 +5,7 @@ import { notify } from '../utils';
 import { logoutUser } from './authActions';
 
 export const postEvent = (event) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+  return async (resolve, reject) => {
     try {
       const response = await fetch(
         Config.API_URL + Config.routes.events.event,
@@ -35,11 +35,11 @@ export const postEvent = (event) => async (dispatch) => {
       notify('Unable to add events!', error.message);
       reject(error);
     }
-  });
+  };
 };
 
 export const editEvent = (event) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+  return async (resolve, reject) => {
     try {
       const response = await fetch(
         `${Config.API_URL + Config.routes.events.event}/${event.uuid}`,
@@ -69,11 +69,11 @@ export const editEvent = (event) => async (dispatch) => {
       notify('Unable to edit event!', error.message);
       reject(error);
     }
-  });
+  };
 };
 
 export const awardPoints = (pointDetails) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+  return async (resolve, reject) => {
     if (!pointDetails.points || !pointDetails.points === 0) {
       notify('Validation Error!', 'No points provided');
       reject();
@@ -115,5 +115,5 @@ export const awardPoints = (pointDetails) => async (dispatch) => {
       notify('Unable to award points!', error.message);
       reject(error);
     }
-  });
+  };
 };
