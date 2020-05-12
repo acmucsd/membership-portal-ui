@@ -5,7 +5,7 @@ import FourAndMore from '../../containers/FourAndMore';
 
 import './style.less';
 
-const Leaderboard = props => {
+const Leaderboard = () => {
   return (
     <div className="leaderboard">
       <div className="top-three">

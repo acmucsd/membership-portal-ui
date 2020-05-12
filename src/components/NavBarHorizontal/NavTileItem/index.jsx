@@ -5,17 +5,18 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 
-const NavTileItem = props => {
+const NavTileItem = (props) => {
+  const { icon } = props;
   return (
     <div className="nav-tile-item">
-      <Icon className="icon" component={props.icon} />
+      <Icon className="icon" component={icon} />
       <Divider className="divider" />
     </div>
   );
 };
 
 NavTileItem.propTypes = {
-  icon: PropTypes.object.isRequired,
+  icon: PropTypes.node.isRequired,
 };
 
 export default NavTileItem;
