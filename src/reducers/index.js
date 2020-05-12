@@ -10,7 +10,7 @@ import UserReducer from './UserReducer';
 import PasswordReducer from './passwordReducer';
 import ProfileReducer from './ProfileReducer';
 
-export default history =>
+export default (history) =>
   combineReducers({
     router: connectRouter(history),
     auth: AuthReducer,

@@ -1,59 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Avatar, Progress } from 'antd';
-import { useHistory, useParams, Link } from 'react-router-dom';
-import { getLevel, getRank } from '../../utils';
+import { useParams, Link } from 'react-router-dom';
+import { getLevel, getRank, getDefaultProfile } from '../../utils';
 import { fetchUserByID } from '../../actions/userActions';
-import { getDefaultProfile } from '../../utils';
+
 import './style.less';
 
-const ProfilePage = props => {
+const ProfilePage = (props) => {
+  const { user } = props;
+
   const params = useParams();
-  const history = useHistory();
-  const [user, setUser] = useState('');
+  const [stateUser, setUser] = useState('');
   useEffect(() => {
     if (params.uuid) {
-      fetchUserByID(params.uuid).then(res => {
-        console.log({ profile: { ...res.user }, image: res.user.profilePicture });
+      fetchUserByID(params.uuid).then((res) => {
         setUser({ profile: { ...res.user }, image: res.user.profilePicture });
       });
     } else {
-      setUser(props.user);
+      setUser(user);
     }
-  }, [params.uuid, props.user]);
+  }, [params.uuid, user]);
+
   return (
     <div className="Profile-Page">
       <h1 className="title">Profile</h1>
 
-      {user && user.profile && (
+      {stateUser && stateUser.profile && (
         <div>
           <div className="avatar-flex">
             <h2 className="name">
-              {user.profile.firstName} {user.profile.lastName}
+              {stateUser.profile.firstName} {stateUser.profile.lastName}
             </h2>
             <Avatar
               size={115}
               icon="user"
               className="avatar"
-              src={user.profile.profilePicture || getDefaultProfile()}
+              src={stateUser.profile.profilePicture || getDefaultProfile()}
             />
           </div>
           <div className="level-info">
-            <p className="rank">{getRank(user.profile.points)}</p>
+            <p className="rank">{getRank(stateUser.profile.points)}</p>
             <Progress
-              successPercent={user.profile.points % 100}
+              successPercent={stateUser.profile.points % 100}
               percent={100}
               showInfo={false}
               strokeWidth={12}
               strokeColor="#587291"
             />
             <p className="level-stats">
-              <span> LVL {getLevel(user.profile.points)}</span>
-              <span className="experience"> {user.profile.points % 100} / 100 </span>
+              <span> LVL {getLevel(stateUser.profile.points)}</span>
+              <span className="experience">
+                {' '}
+                {stateUser.profile.points % 100} / 100{' '}
+              </span>
             </p>
           </div>
           <div className="meta-data">
-            <p>Graduation Year: {user.profile.graduationYear}</p>
-            <p>Major: {user.profile.major}</p>
+            <p>Graduation Year: {stateUser.profile.graduationYear}</p>
+            <p>Major: {stateUser.profile.major}</p>
           </div>
           {!params.uuid && (
             <Link to="/editProfile">
@@ -64,6 +69,12 @@ const ProfilePage = props => {
       )}
     </div>
   );
+};
+
+ProfilePage.propTypes = {
+  user: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ProfilePage;

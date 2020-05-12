@@ -5,24 +5,37 @@ import { Link } from 'react-router-dom';
 import './style.less';
 import { getRank } from '../../utils';
 
-const TopLeaderCard = props => {
+const TopLeaderCard = (props) => {
+  const { exp, name, image, placement, uuid } = props;
+
+  let leaderboardClass = 'leaderboard-card-left ';
+
+  switch (placement) {
+    case 1:
+      leaderboardClass += 'first';
+      break;
+    case 2:
+      leaderboardClass += 'second';
+      break;
+    default:
+      leaderboardClass += 'third';
+  }
+
   return (
     <div>
       <div className="leaderboard-card">
-        <div
-          className={`leaderboard-card-left
-          ${props.placement === 1 ? 'first' : props.placement === 2 ? 'second' : 'third'}`}>
-          <span className="placement">{props.placement}</span>
+        <div className={leaderboardClass}>
+          <span className="placement">{placement}</span>
         </div>
         <div className="leaderboard-card-right">
           <div>
-            <Avatar size={80} src={props.image} />
+            <Avatar size={80} src={image} />
           </div>
           <h1 className="name">
-            <Link to={'/profile/' + props.uuid}>{props.name}</Link>
+            <Link to={`/profile/${uuid}`}>{name}</Link>
           </h1>
-          <h3>{getRank(props.exp)}</h3>
-          <h2>{props.exp} points</h2>
+          <h3>{getRank(exp)}</h3>
+          <h2>{exp} points</h2>
         </div>
       </div>
     </div>
@@ -32,7 +45,9 @@ const TopLeaderCard = props => {
 TopLeaderCard.propTypes = {
   exp: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
+  uuid: PropTypes.string.isRequired,
 };
 
 export default TopLeaderCard;

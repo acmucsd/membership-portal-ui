@@ -5,23 +5,33 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 import { ReactComponent as Caret } from '../../assets/icons/caret-icon.svg';
-import { getDefaultProfile } from '../../utils';
 
-const NavProfile = props => {
+const NavProfile = (props) => {
+  const { exp, profilePicture, menu, name } = props;
+
   return (
     <div className="nav-width">
-      <Dropdown overlay={props.menu} trigger={['click']} getPopupContainer={trigger => trigger.parentNode}>
+      <Dropdown
+        overlay={menu}
+        trigger={['click']}
+        getPopupContainer={(trigger) => trigger.parentNode}
+      >
         <div className="nav-profile">
           <Progress
             className="progress"
-            percent={props.exp % 100}
+            percent={exp % 100}
             showInfo={false}
             strokeColor="#22ACEA"
             type="circle"
             width={55}
           />
-          <Avatar size={55} icon="user" className="avatar" src={props.profilePicture} />
-          <span className="name">{props.name}</span>
+          <Avatar
+            size={55}
+            icon="user"
+            className="avatar"
+            src={profilePicture}
+          />
+          <span className="name">{name}</span>
           <Icon component={Caret} className="arrow" />
         </div>
       </Dropdown>
@@ -32,7 +42,7 @@ const NavProfile = props => {
 NavProfile.propTypes = {
   exp: PropTypes.number.isRequired,
   profilePicture: PropTypes.string.isRequired,
-  menu: PropTypes.object.isRequired,
+  menu: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,
 };
 

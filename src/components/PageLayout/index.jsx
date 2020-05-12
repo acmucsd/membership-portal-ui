@@ -14,7 +14,9 @@ import logo from '../../assets/graphics/logo.svg';
 
 import './style.less';
 
-const PageLayout = props => {
+const PageLayout = (props) => {
+  const { children, isAdmin, isMobile } = props;
+
   return (
     <>
       <CheckInModal />
@@ -22,22 +24,24 @@ const PageLayout = props => {
         <NavLink className="title" to="/">
           <img alt="ACM" id="logo" src={logo} />
           <span className="heading">ACM@UCSD</span>
-          <span className={props.isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
+          <span className={isMobile ? 'hidden' : 'subheading'}>
+            &nbsp;Membership Portal
+          </span>
         </NavLink>
         <div className="profile">
           <NavProfile menu={<NavDropdown />} />
         </div>
       </div>
       <Banner />
-      {props.isMobile ? (
+      {isMobile ? (
         <>
           <NavBarHorizontal />
-          <div className="content">{props.children}</div>
+          <div className="content">{children}</div>
         </>
       ) : (
         <div className="content-table">
-          <NavBarVertical isAdmin={props.isAdmin} />
-          <div className="content">{props.children}</div>
+          <NavBarVertical isAdmin={isAdmin} />
+          <div className="content">{children}</div>
         </div>
       )}
     </>
@@ -49,7 +53,9 @@ const mapSizesToProps = ({ width }) => ({
 });
 
 PageLayout.propTypes = {
+  children: PropTypes.node.isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default withSizes(mapSizesToProps)(PageLayout);

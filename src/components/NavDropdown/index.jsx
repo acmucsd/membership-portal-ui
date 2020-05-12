@@ -6,14 +6,20 @@ import { NavLink } from 'react-router-dom';
 import './style.less';
 import NavListItem from '../NavListItem';
 
-const NavDropdown = props => {
+const NavDropdown = (props) => {
+  const { logout } = props;
+
   return (
     <nav className="nav-dropdown">
       <section>
         <NavLink activeClassName="selected" className="nav-item" to="/">
           <NavListItem link="/dashboard" text="Dashboard" />
         </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
+        <NavLink
+          activeClassName="selected"
+          className="nav-item"
+          to="/leaderboard"
+        >
           <NavListItem text="Leaderboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/profile">
@@ -36,7 +42,7 @@ const NavDropdown = props => {
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <div onClick={props.logout} className="logout">
+      <div onClick={logout} className="logout">
         Sign Out
       </div>
     </nav>
