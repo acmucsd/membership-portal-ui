@@ -3,7 +3,7 @@ import React from 'react';
 import withSizes from 'react-sizes';
 import { NavLink } from 'react-router-dom';
 
-import Banner from '../../containers/Banner';
+import Banner from '../Banner';
 import CheckInModal from '../../containers/CheckInModal';
 import NavDropdown from '../../containers/NavDropdown';
 import NavProfile from '../../containers/NavProfile';
