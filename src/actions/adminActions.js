@@ -101,6 +101,7 @@ export const deleteEvent = (uuid) => async (dispatch) => {
           type: EVENT_DELETE,
           uuid,
         });
+        notify('Success!', 'You successfully deleted the event!');
         resolve('Deleted');
       } else {
         notify(
