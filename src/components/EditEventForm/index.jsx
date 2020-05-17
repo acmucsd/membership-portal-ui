@@ -41,6 +41,7 @@ const EditEventForm = (props) => {
     handleBlur,
     handleChange,
     handleSubmit,
+    handleDelete,
     values,
   } = props;
 
@@ -266,7 +267,11 @@ const EditEventForm = (props) => {
           >
             Discard
           </Button>
-          <Button type="danger" onClick={props.handleDelete} className="delete-button">
+          <Button
+            type="danger"
+            onClick={handleDelete}
+            className="delete-button"
+          >
             Delete
           </Button>
         </form>
@@ -285,6 +290,7 @@ EditEventForm.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired.isRequired,
 };
 

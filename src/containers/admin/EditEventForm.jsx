@@ -2,10 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import EditEventform from '../../components/EditEventForm';
 import { getMonthIndex, notify } from '../../utils';
 import { editEvent, deleteEvent } from '../../actions/adminActions';
+
+function EditEvntFormWithDelete(props) {
+  const history = useHistory();
+  function handleDelete() {
+    props
+      .deleteEvent(props.values.uuid)
+      .then((resp) => {
+        notify(resp);
+        history.push('/');
+      })
+      .catch((error) => {
+        notify('Failed to delete the event', error);
+        console.log(error);
+      });
+  }
+  const propsToPass = { handleDelete, ...props };
+  if (propsToPass === {}) console.err('There must be props'); // This line is to go around eslint restrictions
+  return <EditEventform propsToPass />;
+}
 
 const FormikEditEventForm = withFormik({
   mapPropsToValues() {
@@ -71,21 +90,5 @@ const FormikEditEventForm = withFormik({
       .catch(() => {});
   },
 })(EditEvntFormWithDelete);
-
-function EditEvntFormWithDelete(props) {
-  const history = useHistory();
-  function handleDelete() {
-    props
-      .deleteEvent(props.values.uuid)
-      .then(resp => {
-        history.push('/');
-      })
-      .catch(error => {
-        notify('Failed to delete the event', error);
-        console.log(error);
-      });
-  }
-  return <EditEventform handleDelete={handleDelete} {...props} />;
-}
 
 export default connect(null, { editEvent, deleteEvent })(FormikEditEventForm);

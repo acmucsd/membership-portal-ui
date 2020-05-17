@@ -74,7 +74,7 @@ export const editEvent = (event) => async (dispatch) => {
 };
 
 export const deleteEvent = (uuid) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+  return async (resolve, reject) => {
     try {
       const response = await fetch(
         `${Config.API_URL + Config.routes.events.event}/${uuid}`,
@@ -96,7 +96,7 @@ export const deleteEvent = (uuid) => async (dispatch) => {
       const data = await response.json();
       if (!data) throw new Error('Empty response from server');
       if (data.error) throw new Error(data.error.message);
-      if (data.numDeleted == 1) {
+      if (data.numDeleted === 1) {
         dispatch({
           type: EVENT_DELETE,
           uuid,
@@ -113,7 +113,7 @@ export const deleteEvent = (uuid) => async (dispatch) => {
       notify('Unable to delete event!', error.message);
       reject(error);
     }
-  });
+  };
 };
 
 export const awardPoints = (pointDetails) => async (dispatch) => {
