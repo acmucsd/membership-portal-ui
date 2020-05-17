@@ -266,6 +266,9 @@ const EditEventForm = (props) => {
           >
             Discard
           </Button>
+          <Button type="danger" onClick={props.handleDelete} className="delete-button">
+            Delete
+          </Button>
         </form>
       </div>
     </div>

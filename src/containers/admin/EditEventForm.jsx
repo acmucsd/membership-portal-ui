@@ -1,9 +1,11 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
+import {useHistory} from 'react-router-dom';
 import EditEventform from '../../components/EditEventForm';
-import { getMonthIndex } from '../../utils';
-import { editEvent } from '../../actions/adminActions';
+import { getMonthIndex, notify } from '../../utils';
+import { editEvent, deleteEvent } from '../../actions/adminActions';
 
 const FormikEditEventForm = withFormik({
   mapPropsToValues() {
@@ -68,6 +70,22 @@ const FormikEditEventForm = withFormik({
       .then(() => {})
       .catch(() => {});
   },
-})(EditEventform);
+})(EditEvntFormWithDelete);
 
-export default connect(null, { editEvent })(FormikEditEventForm);
+function EditEvntFormWithDelete(props) {
+  const history = useHistory();
+  function handleDelete() {
+    props
+      .deleteEvent(props.values.uuid)
+      .then(resp => {
+        history.push('/');
+      })
+      .catch(error => {
+        notify('Failed to delete the event', error);
+        console.log(error);
+      });
+  }
+  return <EditEventform handleDelete={handleDelete} {...props} />;
+}
+
+export default connect(null, { editEvent, deleteEvent })(FormikEditEventForm);
