@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import EventCard from '../components/EventCard';
@@ -7,14 +8,16 @@ import background from '../assets/graphics/background.svg';
 import { fetchPastEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
-const PastEventsContainer = props => {
+const PastEventsContainer = (props) => {
+  const { auth, events } = props;
+
   useEffect(() => {
     props.fetchPastEvents();
   }, []);
 
   return (
     <EventsList>
-      {props.events.map(event => {
+      {events.map((event) => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
@@ -26,7 +29,7 @@ const PastEventsContainer = props => {
             location={event.location}
             points={event.pointValue}
             title={event.title}
-            auth={props.auth}
+            auth={auth}
           />
         );
       })}
@@ -34,9 +37,28 @@ const PastEventsContainer = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   events: state.events.pastEvents,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchPastEvents })(PastEventsContainer);
+PastEventsContainer.propTypes = {
+  auth: PropTypes.shape({
+    admin: PropTypes.bool.isRequired,
+  }).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      uuid: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      pointValue: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
+export default connect(mapStateToProps, { fetchPastEvents })(
+  PastEventsContainer
+);

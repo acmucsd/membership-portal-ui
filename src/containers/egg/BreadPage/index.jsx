@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginLayout from '../../../components/LoginLayout';
 import './style.less';
+
 const BreadPageContainer = () => {
   // jank iframes
   return (
@@ -8,7 +8,11 @@ const BreadPageContainer = () => {
       <h1>ACM Bread</h1>
       <br />
       <div className="iframe-container">
-        <iframe className="BreadPageFrame" src="https://stonet2000.github.io/Cut-Bread/"></iframe>
+        <iframe
+          title="Cut Bread"
+          className="BreadPageFrame"
+          src="https://stonet2000.github.io/Cut-Bread/"
+        />
       </div>
     </div>
   );

@@ -14,62 +14,21 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const checkIn = info => async dispatch => {
+export const fetchFutureEvents = () => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
-      body: JSON.stringify({ attendanceCode: info.attendanceCode, asStaff: info.asStaff }),
-    });
+    const eventsRes = await fetch(
+      Config.API_URL + Config.routes.events.future,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      }
+    );
 
-    const status = await response.status;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
-
-    dispatch(fetchUser());
-    dispatch(fetchPastEvents());
-    dispatch(fetchFutureEvents());
-    dispatch({
-      type: EVENT_CHECKIN,
-      payload: data.event,
-    });
-  } catch (error) {
-    notify('Unable to checkin!', error.message);
-    dispatch({
-      type: EVENT_ERROR,
-      payload: error.message,
-    });
-  }
-};
-
-export const checkOut = () => dispatch => {
-  dispatch({
-    type: EVENT_CHECKOUT,
-  });
-};
-
-export const fetchFutureEvents = () => async dispatch => {
-  try {
-    const eventsRes = await fetch(Config.API_URL + Config.routes.events.future, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
-    });
-
-    let status = await eventsRes.status;
+    const status = await eventsRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -93,7 +52,7 @@ export const fetchFutureEvents = () => async dispatch => {
   }
 };
 
-export const fetchPastEvents = () => async dispatch => {
+export const fetchPastEvents = () => async (dispatch) => {
   try {
     const eventsRes = await fetch(Config.API_URL + Config.routes.events.past, {
       method: 'GET',
@@ -104,7 +63,7 @@ export const fetchPastEvents = () => async dispatch => {
       },
     });
 
-    let status = await eventsRes.status;
+    const status = await eventsRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -132,18 +91,71 @@ export const fetchPastEvents = () => async dispatch => {
   }
 };
 
-export const fetchEvent = uuid => async dispatch => {
+export const checkIn = (info) => async (dispatch) => {
   try {
-    const eventRes = await fetch(Config.API_URL + Config.routes.events.event + '/' + uuid, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
-    });
+    const response = await fetch(
+      Config.API_URL + Config.routes.attendance.attend,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: JSON.stringify({
+          attendanceCode: info.attendanceCode,
+          asStaff: info.asStaff,
+        }),
+      }
+    );
 
-    let status = await eventRes.status;
+    const status = await response.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    dispatch(fetchUser());
+    dispatch(fetchPastEvents());
+    dispatch(fetchFutureEvents());
+    dispatch({
+      type: EVENT_CHECKIN,
+      payload: data.event,
+    });
+  } catch (error) {
+    notify('Unable to checkin!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
+export const checkOut = () => (dispatch) => {
+  dispatch({
+    type: EVENT_CHECKOUT,
+  });
+};
+
+export const fetchEvent = (uuid) => async (dispatch) => {
+  try {
+    const eventRes = await fetch(
+      `${Config.API_URL + Config.routes.events.event}/${uuid}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      }
+    );
+
+    const status = await eventRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -158,7 +170,6 @@ export const fetchEvent = uuid => async dispatch => {
       payload: thisEvent.event,
     });
   } catch (error) {
-    console.log(error);
     notify('Unable to fetch an event!', error.message);
     dispatch({
       type: EVENT_ERROR,

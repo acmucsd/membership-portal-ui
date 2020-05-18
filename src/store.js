@@ -8,7 +8,7 @@ import ReactGA from 'react-ga';
 import createRootReducer from './reducers';
 
 export const history = createBrowserHistory();
-history.listen(location => ReactGA.pageview(location.pathname));
+history.listen((location) => ReactGA.pageview(location.pathname));
 
 export default function configureStore(preloadedState) {
   const store = createStore(

@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, Button } from 'antd';
-import { useParams, useHistory } from 'react-router-dom';
-import { notify } from '../../utils';
+import PropTypes from 'prop-types';
+import { Button } from 'antd';
+import { useHistory } from 'react-router-dom';
 import { sendEmailVerification } from '../../actions/authActions';
 import './style.less';
 
-const ResendEmailVerficationPage = props => {
-  const params = useParams();
+const ResendEmailVerficationPage = (props) => {
+  const { email } = props;
+
   const history = useHistory();
-  const [buttonAction, setAction] = useState();
+  const [, setAction] = useState();
   const [btnText, setText] = useState('Verifying Email');
+  const [verifying, setVerifying] = useState(true);
   const verifiedEmail = () => {
     return () => {
       history.push('/');
     };
   };
   useEffect(() => {
-    if (props.email) {
-      sendEmailVerification(props.email)
-        .then(res => {
+    if (email) {
+      sendEmailVerification(email)
+        .then(() => {
           setText('Go to Home Page');
           setAction(verifiedEmail);
         })
-        .catch(error => {})
+        .catch(() => {})
         .finally(() => {
           setVerifying(false);
         });
     }
-  }, [props.email]);
-  const [verifying, setVerifying] = useState(true);
+  }, [email]);
+
   return (
     <div className="Resend-Email-verification-page">
       <Button
@@ -37,11 +39,16 @@ const ResendEmailVerficationPage = props => {
         loading={verifying}
         onClick={() => {
           history.push('/');
-        }}>
+        }}
+      >
         {btnText}
       </Button>
     </div>
   );
+};
+
+ResendEmailVerficationPage.propTypes = {
+  email: PropTypes.string.isRequired,
 };
 
 export default ResendEmailVerficationPage;
