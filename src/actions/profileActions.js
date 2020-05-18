@@ -36,38 +36,36 @@ export const updateProfile = (values) => async (dispatch) => {
 };
 
 export const uploadUserImage = async (file) => {
-  return async (resolve, reject) => {
-    try {
-      const formdata = new FormData();
-      formdata.append('image', file);
-      const response = await fetch(
-        Config.API_URL + Config.routes.user.profilepicture,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-          body: formdata,
-        }
-      );
-
-      const status = await response.status;
-      if (status === 401 || status === 403) {
-        logoutUser();
-        return;
+  try {
+    const formdata = new FormData();
+    formdata.append('image', file);
+    const response = await fetch(
+      Config.API_URL + Config.routes.user.profilepicture,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: formdata,
       }
+    );
 
-      const data = await response.json();
-      if (!data) throw new Error('Empty response from server');
-      if (data.error) throw new Error(data.error.message);
-
-      notify('Updated profile picture!');
-
-      resolve(data);
-    } catch (error) {
-      notify('Unable to update profile picture!', error.message);
-      reject(error);
+    const status = await response.status;
+    if (status === 401 || status === 403) {
+      logoutUser();
+      return;
     }
-  };
+
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    notify('Updated profile picture!');
+
+    return data;
+  } catch (error) {
+    notify('Unable to update profile picture!', error.message);
+    throw error;
+  }
 };
