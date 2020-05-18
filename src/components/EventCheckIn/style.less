@@ -2,27 +2,30 @@
 @import '../../styles/vars.less';
 
 .checkin-card {
-  max-width: @db-card-width;
-  height: @db-card-height;
-  font-family: 'Nunito', sans-serif;
-  display: flex;
   background-color: @blue-3;
   border-radius: 10px;
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+  height: @db-card-height;
   justify-content: center;
   margin: 0;
+  max-width: @db-card-width;
+
   .staff-checkin-div {
     margin-top: 12px;
+
     .staff-check-in-label {
-      font-size: @card-heading-2;
       color: @white;
+      font-size: @card-heading-2;
       margin-right: 12px;
     }
   }
+
   h1 {
     color: @white;
     font-size: @card-heading-1;
     font-weight: 700;
-    margin: 20px 0px;
+    margin: 20px 0;
   }
 
   .inputbox {
@@ -33,21 +36,21 @@
     }
 
     .input {
-      max-width: 200px;
-      color: @blue-3;
       border: none;
+      color: @blue-3;
       margin-right: 20px;
-      min-width:calc(100% - 140px);
+      max-width: 200px;
+      min-width: calc(100% - 140px);
     }
 
     .submit {
-      width: calc(100% - 220px);
-      height: 40px;
-      padding: 6px 11px;
-      min-width: 100px;
+      background-color: @blue-1;
       border: 2px solid @blue-2;
       color: @white;
-      background-color: @blue-1;
+      height: 40px;
+      min-width: 100px;
+      padding: 6px 11px;
+      width: calc(100% - 220px);
     }
   }
 }

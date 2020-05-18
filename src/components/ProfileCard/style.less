@@ -3,19 +3,19 @@
 
 .profile-card {
   align-items: center;
+  background: @gray-1;
+  border: 2px solid rgba(6, 89, 188, 0.5);
+  border-radius: 10px;
   color: @black;
   cursor: pointer;
-  background: @gray-1;
-  border-radius: 10px;
-  border: 2px solid rgba(6, 89, 188, 0.5);
   display: flex;
   font-family: 'Nunito', sans-serif;
   height: @db-card-height;
   justify-content: center;
   margin: 0;
   max-width: @db-card-width;
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
 
   h2 {
     font-size: @card-heading-1;
@@ -50,7 +50,7 @@
   }
 
   .info::-webkit-scrollbar {
-    width: 0;
     height: 0;
+    width: 0;
   }
 }

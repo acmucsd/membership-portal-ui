@@ -18,24 +18,23 @@
     position: absolute;
   }
 
-
   .leaderboard-card-left {
-    color: rgba(51,51,51,0.3);
+    color: rgba(51, 51, 51, 0.3);
     font-size: 5rem;
     font-weight: 500;
     left: 0;
     width: 40%;
 
     &.first {
-      background-color: #FFDA55;
+      background-color: #ffda55;
     }
 
     &.second {
-      background-color: #C5D9DF;
+      background-color: #c5d9df;
     }
 
     &.third {
-      background-color: #E9CC9E;
+      background-color: #e9cc9e;
     }
   }
 
@@ -50,20 +49,19 @@
     scrollbar-width: none;
     text-align: center;
     width: 60%;
-    .name {
 
-    }
     > * {
       color: white;
-      margin-bottom: 0;
       flex: 1 100%;
+      margin-bottom: 0;
     }
 
     h1 {
       font-size: @card-heading-1;
     }
-    .name:hover  {
-      color: @gold
+
+    .name:hover {
+      color: @gold;
     }
 
     h2 {
@@ -76,7 +74,7 @@
   }
 
   .leaderboard-card-right::-webkit-scrollbar {
-    width: 0;
     height: 0;
+    width: 0;
   }
 }

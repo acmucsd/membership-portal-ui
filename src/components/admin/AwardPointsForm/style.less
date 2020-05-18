@@ -16,7 +16,8 @@
     color: @blue-3;
     font-size: @card-heading-2;
     font-weight: 600;
-    &:after {
+
+    &::after {
       content: '';
     }
   }
@@ -29,6 +30,7 @@
 
   .input-box {
     .input-style;
+
     width: 100%;
   }
 
@@ -55,22 +57,27 @@
   .ant-form-item-label {
     line-height: 30px;
   }
+
   .points-wrapper {
     width: 100%;
+
     .points {
       .input-style;
     }
   }
+
   .awardees-list-wrapper {
     .awardee-input {
       width: 90px;
     }
+
     .awardee-tag {
       font-size: @card-body;
     }
+
     .add-new-awardee {
       background: @white;
-      borderStyle: dashed;
+      border-style: dashed;
       font-size: @card-body;
     }
   }
@@ -86,6 +93,7 @@
 
   .area-box {
     .input-style;
+
     font-size: @card-heading-2;
     height: @text-input-height;
     width: 100%;
