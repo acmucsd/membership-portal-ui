@@ -5,8 +5,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import KonamiCode from 'konami-code';
-import ReactGA from 'react-ga';
 import BreadPage from './containers/egg/BreadPage/index';
+
+import ReactGA from 'react-ga';
 
 import configureStore, { history } from './store';
 
@@ -53,67 +54,27 @@ const App = () => {
         <>
           <Switch>
             <Route exact path="/about" component={requireAuth(AboutPage)} />
-            <Route
-              exact
-              path="/admin"
-              component={requireAdminAuth(AdminPage)}
-            />
-            <Route
-              exact
-              path="/admin/editEvent/:uuid"
-              component={requireAdminAuth(EditEventPage)}
-            />
-            <Route
-              exact
-              path="/admin/awardPoints"
-              component={requireAdminAuth(AwardPointsPage)}
-            />
-            <Route
-              exact
-              path="/admin/createEvent"
-              component={requireAdminAuth(CreateEventPage)}
-            />
+            <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
+            <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage)} />
+            <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage)} />
+            <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage)} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route
-              exact
-              path="/leaderboard"
-              component={requireAuth(LeaderPage)}
-            />
+            <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={requireAuth(ProfilePage)} />
-            <Route
-              exact
-              path="/profile/:uuid"
-              component={requireAuth(ProfilePage)}
-            />
-            <Route
-              exact
-              path="/editProfile"
-              component={requireAuth(ProfileUpdatePage)}
-            />
+            <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage)} />
+            <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage)} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route
-              exact
-              path="/store"
-              component={requireStandardAccess(requireAuth(StorePage))}
-            />
-            <Route
-              exact
-              path="/verifyEmail/:code"
-              component={EmailVerficationPage}
-            />
-            <Route
-              exact
-              path="/resendEmailVerification"
-              component={requireAuth(ResendEmailVerificationPage)}
-            />
+            <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
+            <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
+            <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
             <Route
               exact
               path="/secret-bread"
               component={() => {
-                if (easterEggState === 'secret bread') {
+                if (easterEggState == 'secret bread') {
                   return <BreadPage />;
                 }
                 return <Redirect to="/login" />;

@@ -1,71 +1,57 @@
-import { Icon } from 'antd';
+import { Progress, Icon } from 'antd';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { isURL, getAbsoluteURL } from '../../utils';
 
 import './styles.less';
 
-const EventCard = (props) => {
-  const {
-    auth,
-    cover,
-    date,
-    description,
-    location,
-    points,
-    title,
-    uuid,
-  } = props;
+const EventCard = props => {
   const history = useHistory();
 
   return (
     <div className="event-card">
-      <img className="image" src={cover} alt={title} />
+      <img className="image" src={props.cover} alt={props.title} />
       <div className="info">
-        <h2 className="title">{title}</h2>
-        <p className="date">{date}</p>
-        {isURL(location) ? (
-          <a className="link" href={getAbsoluteURL(location)}>
-            <p className="location">{location}</p>
+        <h2 className="title">{props.title}</h2>
+        <p className="date">{props.date}</p>
+        {isURL(props.location) ? (
+          <a className="link" href={getAbsoluteURL(props.location)}>
+            <p className="location">{props.location}</p>
           </a>
         ) : (
-          <p className="location">{location}</p>
+          <p className="location">{props.location}</p>
         )}
       </div>
       <div className="circle">
         <div className="inner" />
-        <h2 className="points">{points}</h2>
+        <h2 className="points">{props.points}</h2>
       </div>
-      {auth.admin && (
+      {props.auth.admin && (
         <div className="edit-icon-wrapper">
           <Icon
             type="edit"
             className="edit-icon"
             onClick={() => {
-              history.push(`/admin/editEvent/${uuid}`);
+              history.push('/admin/editEvent/' + props.uuid);
             }}
           />
         </div>
       )}
       <hr className="divider" />
-      <p className="description">{description}</p>
+      <p className="description">{props.description}</p>
     </div>
   );
 };
 
 EventCard.propTypes = {
-  auth: PropTypes.shape({
-    admin: PropTypes.bool.isRequired,
-  }).isRequired,
   cover: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  uuid: PropTypes.string.isRequired,
 };
 
 export default EventCard;

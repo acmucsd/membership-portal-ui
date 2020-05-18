@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
+import { fetchEvent } from '../../actions/eventsActions';
 import { useParams, useHistory } from 'react-router-dom';
 
 import './style.less';
@@ -23,37 +24,26 @@ const months = [
   'December',
 ];
 
-const days = [];
-for (let i = 1; i <= 31; i += 1) {
+let days = [];
+for (let i = 1; i <= 31; i++) {
   days.push(i);
 }
 
-const hours = [];
-for (let i = 1; i <= 12; i += 1) {
+let hours = [];
+for (let i = 1; i <= 12; i++) {
   hours.push(i);
 }
 
-const EditEventForm = (props) => {
-  const {
-    event,
-    setFieldValue,
-    setFieldTouched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    values,
-  } = props;
-
+const EditEventForm = props => {
   const params = useParams();
   const history = useHistory();
-
   useEffect(() => {
-    setFieldValue('uuid', params.uuid);
+    props.setFieldValue('uuid', params.uuid);
   }, []);
 
   useEffect(() => {
-    if (event) {
-      const keys = [
+    if (props.event) {
+      let keys = [
         'title',
         'location',
         'pointValue',
@@ -68,56 +58,56 @@ const EditEventForm = (props) => {
         'year',
         'committee',
       ];
-      keys.forEach((key) => {
-        setFieldValue(key, event[key]);
+      keys.forEach(key => {
+        props.setFieldValue(key, props.event[key]);
       });
-      if (event.start) {
-        const start = new Date(event.start);
-        setFieldValue('year', start.getFullYear());
-        setFieldValue('month', months[start.getMonth()]);
+      if (props.event['start']) {
+        let start = new Date(props.event['start']);
+        props.setFieldValue('year', start.getFullYear());
+        props.setFieldValue('month', months[start.getMonth()]);
 
         let half = 'AM';
         if (start.getHours() >= 12) {
           half = 'PM';
         }
-        setFieldValue('startTime', start.getHours() % 12);
-        setFieldValue('startAm', half);
-        setFieldValue('day', start.getDate());
+        props.setFieldValue('startTime', start.getHours() % 12);
+        props.setFieldValue('startAm', half);
+        props.setFieldValue('day', start.getDate());
       }
-      if (event.end) {
-        const end = new Date(event.end);
+      if (props.event['end']) {
+        let end = new Date(props.event['end']);
         let half = 'AM';
         if (end.getHours() >= 12) {
           half = 'PM';
         }
-        setFieldValue('endTime', end.getHours() % 12);
-        setFieldValue('endAm', half);
+        props.setFieldValue('endTime', end.getHours() % 12);
+        props.setFieldValue('endAm', half);
       }
     }
-  }, [event]);
+  }, [props.event]);
 
   return (
     <div className="edit-event-form">
       <div className="edit-event-form-wrapper">
         <h1 className="subtitle">Edit an Event</h1>
-        <form onSubmit={handleSubmit}>
-          <Input type="hidden" value={values.uuid} name="uuid" />
+        <form onSubmit={props.handleSubmit}>
+          <Input type="hidden" value={props.values.uuid} name="uuid" />
           <Form.Item label="Event Title">
             <Input
               name="title"
               className="input-box"
-              value={values.title}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.title}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Committee">
             <Input
               name="committee"
               className="input-box"
-              value={values.committee}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.committee}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <div className="horizontal-input">
@@ -125,18 +115,18 @@ const EditEventForm = (props) => {
               <Input
                 name="location"
                 className="location"
-                value={values.location}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.location}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item className="points-wrapper" label="Points">
               <Input
                 name="pointValue"
                 className="points"
-                value={values.pointValue}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.pointValue}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
           </div>
@@ -145,19 +135,18 @@ const EditEventForm = (props) => {
               <Input
                 name="year"
                 className="year"
-                value={values.year}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.year}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item className="month-wrapper" label="Month">
               <Select
                 className="months"
-                onChange={(value) => setFieldValue('month', value)}
-                onBlur={() => setFieldTouched('month', true)}
-                value={values.month}
-              >
-                {months.map((month) => (
+                onChange={value => props.setFieldValue('month', value)}
+                onBlur={() => props.setFieldTouched('month', true)}
+                value={props.values.month}>
+                {months.map(month => (
                   <Option key={`month-${month}`} value={month}>
                     {month}
                   </Option>
@@ -167,11 +156,10 @@ const EditEventForm = (props) => {
             <Form.Item className="day-wrapper" label="Day">
               <Select
                 className="days"
-                onChange={(value) => setFieldValue('day', value)}
-                onBlur={() => setFieldTouched('day', true)}
-                value={values.day}
-              >
-                {days.map((day) => (
+                onChange={value => props.setFieldValue('day', value)}
+                onBlur={() => props.setFieldTouched('day', true)}
+                value={props.values.day}>
+                {days.map(day => (
                   <Option key={`day-${day}`} value={day}>
                     {day}
                   </Option>
@@ -183,11 +171,10 @@ const EditEventForm = (props) => {
             <Form.Item className="start-time" label="Start Time">
               <Select
                 className="time"
-                onChange={(value) => setFieldValue('startTime', value)}
-                onBlur={() => setFieldTouched('startTime', true)}
-                value={values.startTime}
-              >
-                {hours.map((hour) => (
+                onChange={value => props.setFieldValue('startTime', value)}
+                onBlur={() => props.setFieldTouched('startTime', true)}
+                value={props.values.startTime}>
+                {hours.map(hour => (
                   <Option key={`start-${hour}`} value={hour}>
                     {hour}
                   </Option>
@@ -195,10 +182,9 @@ const EditEventForm = (props) => {
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => setFieldValue('startAm', value)}
-                onBlur={() => setFieldTouched('startAm', true)}
-                value={values.startAm}
-              >
+                onChange={value => props.setFieldValue('startAm', value)}
+                onBlur={() => props.setFieldTouched('startAm', true)}
+                value={props.values.startAm}>
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
@@ -206,11 +192,10 @@ const EditEventForm = (props) => {
             <Form.Item className="end-time" label="End Time">
               <Select
                 className="time"
-                onChange={(value) => setFieldValue('endTime', value)}
-                onBlur={() => setFieldTouched('endTime', true)}
-                value={values.endTime}
-              >
-                {hours.map((hour) => (
+                onChange={value => props.setFieldValue('endTime', value)}
+                onBlur={() => props.setFieldTouched('endTime', true)}
+                value={props.values.endTime}>
+                {hours.map(hour => (
                   <Option key={`end-${hour}`} value={hour}>
                     {hour}
                   </Option>
@@ -218,10 +203,9 @@ const EditEventForm = (props) => {
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => setFieldValue('endAm', value)}
-                onBlur={() => setFieldTouched('endAm', true)}
-                value={values.endAm}
-              >
+                onChange={value => props.setFieldValue('endAm', value)}
+                onBlur={() => props.setFieldTouched('endAm', true)}
+                value={props.values.endAm}>
                 <Option value="AM">AM</Option>
                 <Option value="PM">PM</Option>
               </Select>
@@ -231,27 +215,27 @@ const EditEventForm = (props) => {
             <Input
               name="cover"
               className="input-box"
-              value={values.cover}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.cover}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Attendance Code">
             <Input
               name="attendanceCode"
               className="input-box"
-              value={values.attendanceCode}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.attendanceCode}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Description">
             <TextArea
               name="description"
               className="area-box"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.description}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
@@ -262,8 +246,7 @@ const EditEventForm = (props) => {
             onClick={() => {
               history.goBack();
             }}
-            className="discard-button"
-          >
+            className="discard-button">
             Discard
           </Button>
         </form>
@@ -273,16 +256,10 @@ const EditEventForm = (props) => {
 };
 
 EditEventForm.propTypes = {
-  event: PropTypes.shape({
-    start: PropTypes.string.isRequired,
-    end: PropTypes.string.isRequired,
-  }).isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  setFieldTouched: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired.isRequired,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  values: PropTypes.object.isRequired,
 };
 
 export default EditEventForm;

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import EventCard from '../components/EventCard';
@@ -8,16 +7,14 @@ import background from '../assets/graphics/background.svg';
 import { fetchFutureEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
-const UpcomingEventsContainer = (props) => {
-  const { auth, events } = props;
-
+const UpcomingEventsContainer = props => {
   useEffect(() => {
     props.fetchFutureEvents();
   }, []);
 
   return (
     <EventsList>
-      {events.map((event) => {
+      {props.events.map(event => {
         const startTime = formatDate(event.start);
         return (
           <EventCard
@@ -29,7 +26,7 @@ const UpcomingEventsContainer = (props) => {
             location={event.location}
             points={event.pointValue}
             title={event.title}
-            auth={auth}
+            auth={props.auth}
           />
         );
       })}
@@ -37,25 +34,9 @@ const UpcomingEventsContainer = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   events: state.events.futureEvents,
   auth: state.auth,
 });
 
-UpcomingEventsContainer.propTypes = {
-  auth: PropTypes.bool.isRequired,
-  events: PropTypes.arrayOf(
-    PropTypes.shape({
-      uuid: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
-      pointValue: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-};
-
-export default connect(mapStateToProps, { fetchFutureEvents })(
-  UpcomingEventsContainer
-);
+export default connect(mapStateToProps, { fetchFutureEvents })(UpcomingEventsContainer);

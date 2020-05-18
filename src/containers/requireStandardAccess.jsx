@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 import { notify } from '../utils';
 
-const withStandardAccess = (Component) => (props) => {
+import { verifyToken } from '../actions/authActions';
+
+const withStandardAccess = Component => props => {
   useEffect(() => {
     if (props.state === 'PENDING') {
       props.redirectHome();
@@ -12,24 +14,19 @@ const withStandardAccess = (Component) => (props) => {
   }, []);
 
   // TODO: Make redirecting screen and return that if not authenticated.
-  return <Component />;
+  return <Component {...props} />;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   state: state.user.profile.state,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   redirectHome: () => {
-    notify(
-      'You need to verify your email first before accessing the ACM Store!'
-    );
+    notify('You need to verify your email first before accessing the ACM Store!');
     dispatch(replace('/'));
   },
 });
-const requireStandardAccess = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withStandardAccess
-);
+const requireStandardAccess = compose(connect(mapStateToProps, mapDispatchToProps), withStandardAccess);
 
 export default requireStandardAccess;

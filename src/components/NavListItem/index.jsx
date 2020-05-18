@@ -4,18 +4,17 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 
-const NavListItem = (props) => {
-  const { icon, text } = props;
+const NavListItem = props => {
   return (
     <div className="nav-list-item">
-      {icon ? <Icon component={icon} /> : null}
-      <span>{text}</span>
+      {props.icon ? <Icon component={props.icon} /> : null}
+      <span>{props.text}</span>
     </div>
   );
 };
 
 NavListItem.propTypes = {
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.object,
   text: PropTypes.string.isRequired,
 };
 

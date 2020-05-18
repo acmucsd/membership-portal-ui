@@ -3,7 +3,7 @@ import { notification } from 'antd';
 export const notify = (title, description) => {
   notification.open({
     message: title,
-    description,
+    description: description,
   });
 };
 
@@ -12,45 +12,18 @@ export const notify = (title, description) => {
  * @return {string} A link to a default profile picture.
  */
 export const generateDefaultProfile = () => {
-  const eyes = [
-    'eyes1',
-    'eyes10',
-    'eyes2',
-    'eyes3',
-    'eyes4',
-    'eyes5',
-    'eyes6',
-    'eyes7',
-    'eyes9',
-  ];
-  const nose = [
-    'nose2',
-    'nose3',
-    'nose4',
-    'nose5',
-    'nose6',
-    'nose7',
-    'nose8',
-    'nose9',
-  ];
-  const mouth = [
-    'mouth1',
-    'mouth10',
-    'mouth11',
-    'mouth3',
-    'mouth5',
-    'mouth6',
-    'mouth7',
-    'mouth9',
-  ];
+  const eyes = ['eyes1', 'eyes10', 'eyes2', 'eyes3', 'eyes4', 'eyes5', 'eyes6', 'eyes7', 'eyes9'];
+  const nose = ['nose2', 'nose3', 'nose4', 'nose5', 'nose6', 'nose7', 'nose8', 'nose9'];
+  const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6', 'mouth7', 'mouth9'];
   const colors = ['22ACEA', '0659BC', 'BED9E6'];
 
-  const getRandom = (list) => {
+  const getRandom = list => {
     return list[Math.floor(Math.random() * list.length)];
   };
 
-  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}
-  /${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
+  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}/${getRandom(nose)}/${getRandom(mouth)}/${getRandom(
+    colors
+  )}`;
 };
 
 /**
@@ -68,7 +41,7 @@ export const getDefaultProfile = () => {
  * @param {number} points The number of points the user has.
  * @return {string} A link to a default profile picture.
  */
-export const getRank = (points) => {
+export const getRank = points => {
   const ranks = [
     'Factorial Flatbread',
     'Exponential Eclair',
@@ -91,7 +64,7 @@ export const getRank = (points) => {
  * @param {string} time The time in unformatted form.
  * @return {string} The formatted time in a readable format
  */
-export const formatDate = (time) => {
+export const formatDate = time => {
   const parsedTime = Date.parse(time);
   const parsedDate = new Date(parsedTime);
   const monthNames = [
@@ -112,7 +85,7 @@ export const formatDate = (time) => {
   const monthIndex = parsedDate.getMonth();
   const year = parsedDate.getFullYear();
 
-  return `${monthNames[monthIndex]} ${date} ${year}`;
+  return monthNames[monthIndex] + ' ' + date + ' ' + year;
 };
 
 /**
@@ -121,7 +94,7 @@ export const formatDate = (time) => {
  * @param {string} time The time in unformatted form.
  * @return {string} The hour.
  */
-export const getHour = (time) => {
+export const getHour = time => {
   const subTime = time.split('T')[1];
   const hour = subTime.split(':')[0];
 
@@ -133,7 +106,7 @@ export const getHour = (time) => {
  * @param {string} month The month in string form.
  * @return {number} The month in number form.
  */
-export const getMonthIndex = (month) => {
+export const getMonthIndex = month => {
   const monthNames = [
     'January',
     'February',
@@ -161,7 +134,7 @@ export const getMonthIndex = (month) => {
  * @param {number} points The number of the points the user has.
  * @return {number} The current level of the user.
  */
-export const getLevel = (points) => {
+export const getLevel = points => {
   return Math.floor(points / 100) + 1;
 };
 
@@ -170,8 +143,8 @@ export const getLevel = (points) => {
  * @param {string} str The string containing a potential URL.
  * @return {boolean} True if valid URL, false otherwise.
  */
-export const isURL = (str) => {
-  const pattern = new RegExp(
+export const isURL = str => {
+  var pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -189,9 +162,9 @@ export const isURL = (str) => {
  * @param {string} str The string containing a URL.
  * @return {string} A guaranteed absolute path for the link.
  */
-export const getAbsoluteURL = (str) => {
+export const getAbsoluteURL = str => {
   if (isURL(str) && !/^https?:\/\//i.test(str)) {
-    return `http://${str}`;
+    return 'http://' + str;
   }
 
   return str;

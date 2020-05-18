@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import TopLeaderCard from '../components/TopLeaderCard';
-import fetchLeaderboard from '../actions/leaderboardActions';
+import { getDefaultProfile } from '../utils';
+import { fetchLeaderboard } from '../actions/leaderboardActions';
 
-const getTopThree = (users) => {
-  const topThree = [];
-  for (let i = 0; i < Math.min(users.length, 3); i += 1) {
+const TopThreeContainer = props => {
+  useEffect(() => {
+    props.fetchLeaderboard();
+  }, []);
+
+  return <>{getTopThree(props.users)}</>;
+};
+
+const getTopThree = users => {
+  let topThree = [];
+  for (let i = 0; i < Math.min(users.length, 3); i++) {
     const user = users[i];
     topThree.push(
       <TopLeaderCard
@@ -25,33 +33,8 @@ const getTopThree = (users) => {
   return topThree;
 };
 
-const TopThreeContainer = (props) => {
-  const { users } = props;
-
-  useEffect(() => {
-    props.fetchLeaderboard();
-  }, []);
-
-  return <>{getTopThree(users)}</>;
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   users: state.leaderboard.users,
 });
 
-TopThreeContainer.propTypes = {
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      points: PropTypes.string.isRequired,
-      profilePicture: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      rank: PropTypes.string.isRequired,
-      uuid: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
-
-export default connect(mapStateToProps, { fetchLeaderboard })(
-  TopThreeContainer
-);
+export default connect(mapStateToProps, { fetchLeaderboard })(TopThreeContainer);

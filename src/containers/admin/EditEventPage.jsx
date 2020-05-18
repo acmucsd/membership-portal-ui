@@ -1,42 +1,27 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { useParams } from 'react-router-dom';
 import EditEventPage from '../../components/EditEventPage';
 import PageLayout from '../PageLayout';
 
 import { fetchEvent } from '../../actions/eventsActions';
 
-const EditEventPageContainer = (props) => {
-  const { event } = props;
+import { useParams } from 'react-router-dom';
 
+const EditEventPageContainer = props => {
   const params = useParams();
-
+  const [eventData, setEventData] = useState({});
   useEffect(() => {
     props.fetchEvent(params.uuid);
   }, []);
-
   return (
     <PageLayout>
-      <EditEventPage event={event} />
+      <EditEventPage event={props.event} />
     </PageLayout>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   event: state.events.event,
 });
-
-EditEventPageContainer.propTypes = {
-  event: PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    pointValue: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
 export default connect(mapStateToProps, { fetchEvent })(EditEventPageContainer);

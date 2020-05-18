@@ -3,7 +3,7 @@ import AwardPointsForm from '../../../containers/admin/AwardPointsForm';
 
 import './style.less';
 
-const AwardPointsPage = () => {
+const AwardPointsPage = props => {
   return (
     <div className="award-points-page">
       <h1 className="title">Admin</h1>

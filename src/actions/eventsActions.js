@@ -14,100 +14,17 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const fetchFutureEvents = () => async (dispatch) => {
+export const checkIn = info => async dispatch => {
   try {
-    const eventsRes = await fetch(
-      Config.API_URL + Config.routes.events.future,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      }
-    );
-
-    const status = await eventsRes.status;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const futureEvents = await eventsRes.json();
-
-    if (!futureEvents) throw new Error('Empty response from server');
-    else if (futureEvents.error) throw new Error(futureEvents.error.message);
-
-    dispatch({
-      type: FETCH_FUTURE_EVENTS,
-      payload: futureEvents.events,
-    });
-  } catch (error) {
-    notify('Unable to fetch future events!', error.message);
-    dispatch({
-      type: EVENT_ERROR,
-      payload: error.message,
-    });
-  }
-};
-
-export const fetchPastEvents = () => async (dispatch) => {
-  try {
-    const eventsRes = await fetch(Config.API_URL + Config.routes.events.past, {
-      method: 'GET',
+    const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
+      body: JSON.stringify({ attendanceCode: info.attendanceCode, asStaff: info.asStaff }),
     });
-
-    const status = await eventsRes.status;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const pastEvents = await eventsRes.json();
-
-    if (!pastEvents) throw new Error('Empty response from server');
-    else if (pastEvents.error) throw new Error(pastEvents.error.message);
-
-    // TODO: Mark the events as checked in if the user has attended them.
-
-    pastEvents.events.reverse();
-
-    dispatch({
-      type: FETCH_PAST_EVENTS,
-      payload: pastEvents.events,
-    });
-  } catch (error) {
-    notify('Unable to fetch past events!', error.message);
-    dispatch({
-      type: EVENT_ERROR,
-      payload: error.message,
-    });
-  }
-};
-
-export const checkIn = (info) => async (dispatch) => {
-  try {
-    const response = await fetch(
-      Config.API_URL + Config.routes.attendance.attend,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-        body: JSON.stringify({
-          attendanceCode: info.attendanceCode,
-          asStaff: info.asStaff,
-        }),
-      }
-    );
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -135,27 +52,98 @@ export const checkIn = (info) => async (dispatch) => {
   }
 };
 
-export const checkOut = () => (dispatch) => {
+export const checkOut = () => dispatch => {
   dispatch({
     type: EVENT_CHECKOUT,
   });
 };
 
-export const fetchEvent = (uuid) => async (dispatch) => {
+export const fetchFutureEvents = () => async dispatch => {
   try {
-    const eventRes = await fetch(
-      `${Config.API_URL + Config.routes.events.event}/${uuid}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      }
-    );
+    const eventsRes = await fetch(Config.API_URL + Config.routes.events.future, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
-    const status = await eventRes.status;
+    let status = await eventsRes.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const futureEvents = await eventsRes.json();
+
+    if (!futureEvents) throw new Error('Empty response from server');
+    else if (futureEvents.error) throw new Error(futureEvents.error.message);
+
+    dispatch({
+      type: FETCH_FUTURE_EVENTS,
+      payload: futureEvents.events,
+    });
+  } catch (error) {
+    notify('Unable to fetch future events!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
+export const fetchPastEvents = () => async dispatch => {
+  try {
+    const eventsRes = await fetch(Config.API_URL + Config.routes.events.past, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
+
+    let status = await eventsRes.status;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const pastEvents = await eventsRes.json();
+
+    if (!pastEvents) throw new Error('Empty response from server');
+    else if (pastEvents.error) throw new Error(pastEvents.error.message);
+
+    // TODO: Mark the events as checked in if the user has attended them.
+
+    pastEvents.events.reverse();
+
+    dispatch({
+      type: FETCH_PAST_EVENTS,
+      payload: pastEvents.events,
+    });
+  } catch (error) {
+    notify('Unable to fetch past events!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
+export const fetchEvent = uuid => async dispatch => {
+  try {
+    const eventRes = await fetch(Config.API_URL + Config.routes.events.event + '/' + uuid, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
+
+    let status = await eventRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -170,6 +158,7 @@ export const fetchEvent = (uuid) => async (dispatch) => {
       payload: thisEvent.event,
     });
   } catch (error) {
+    console.log(error);
     notify('Unable to fetch an event!', error.message);
     dispatch({
       type: EVENT_ERROR,

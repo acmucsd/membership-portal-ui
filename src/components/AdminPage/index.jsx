@@ -14,16 +14,14 @@ const AdminPage = () => {
         className="admin-redirect-button"
         onClick={() => {
           history.push('/admin/awardPoints');
-        }}
-      >
+        }}>
         Award Points
       </Button>
       <Button
         className="admin-redirect-button"
         onClick={() => {
           history.push('/admin/createEvent');
-        }}
-      >
+        }}>
         Create Event
       </Button>
     </div>

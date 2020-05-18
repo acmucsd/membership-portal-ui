@@ -27,38 +27,25 @@ const FormikCreateEventForm = withFormik({
     };
   },
   handleSubmit(values, { resetForm, props }) {
-    let { startTime } = values;
-    let { endTime } = values;
-
+    console.log(values);
     if (values.startTime === 12) {
-      startTime = 0;
+      values.startTime = 0;
     }
     if (values.startAm === 'PM') {
-      startTime += 12;
+      values.startTime += 12;
     }
     if (values.endTime === 12) {
-      endTime = 0;
+      values.endTime = 0;
     }
     if (values.endAm === 'PM') {
-      endTime += 12;
+      values.endTime += 12;
     }
-
     const event = {
       title: values.title,
       location: values.location,
       pointValue: values.pointValue,
-      start: new Date(
-        values.year,
-        getMonthIndex(values.month),
-        values.day,
-        startTime
-      ).toUTCString(),
-      end: new Date(
-        values.year,
-        getMonthIndex(values.month),
-        values.day,
-        endTime
-      ).toUTCString(),
+      start: new Date(values.year, getMonthIndex(values.month), values.day, values.startTime).toUTCString(),
+      end: new Date(values.year, getMonthIndex(values.month), values.day, values.endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
@@ -66,10 +53,12 @@ const FormikCreateEventForm = withFormik({
     };
     props
       .postEvent(event)
-      .then(() => {
+      .then(resp => {
         resetForm();
       })
-      .catch(() => {});
+      .catch(error => {
+        console.log(error);
+      });
   },
 })(CreateEventForm);
 

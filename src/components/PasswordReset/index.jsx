@@ -5,16 +5,7 @@ import { Button, Form, Input } from 'antd';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const PasswordForm = (props) => {
-  const {
-    conPass,
-    newPass,
-    handleConChange,
-    handleNewChange,
-    onKeyPress,
-    onSubmit,
-  } = props;
-
+const PasswordForm = props => {
   return (
     <div className="resetcard">
       <img src={logo} className="logo" alt="logo" />
@@ -25,8 +16,8 @@ const PasswordForm = (props) => {
             type="password"
             placeholder="Password"
             className="input-box"
-            value={newPass}
-            onChange={handleNewChange}
+            value={props.newPass}
+            onChange={props.handleNewChange}
           />
         </Form.Item>
         <Form.Item className="password">
@@ -35,18 +26,13 @@ const PasswordForm = (props) => {
             type="password"
             placeholder="Confirm Password"
             className="input-box"
-            value={conPass}
-            onChange={handleConChange}
-            onKeyPress={onKeyPress}
+            value={props.conPass}
+            onChange={props.handleConChange}
+            onKeyPress={props.onKeyPress}
           />
         </Form.Item>
         <Form.Item>
-          <Button
-            onClick={onSubmit}
-            type="primary"
-            htmlType="submit"
-            className="login-button"
-          >
+          <Button onClick={props.onSubmit} type="primary" htmlType="submit" className="login-button">
             Submit
           </Button>
         </Form.Item>
@@ -56,12 +42,10 @@ const PasswordForm = (props) => {
 };
 
 PasswordForm.propTypes = {
-  conPass: PropTypes.string.isRequired,
-  newPass: PropTypes.string.isRequired,
-  handleConChange: PropTypes.func.isRequired,
-  handleNewChange: PropTypes.func.isRequired,
-  onKeyPress: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  values: PropTypes.object,
 };
 
 export default PasswordForm;

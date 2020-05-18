@@ -1,44 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Button, Tag, Tooltip, Icon } from 'antd';
+import { Form, Input, Button, Select, Tag, Tooltip, Icon } from 'antd';
+import { useParams } from 'react-router-dom';
 
 import './style.less';
 
+const { Option } = Select;
 const { TextArea } = Input;
 
-const AwardPointsForm = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    isSubmitting,
-    isValidating,
-    setFieldValue,
-    values,
-  } = props;
-
+const AwardPointsForm = props => {
   const [awardees, _setAwardees] = useState([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [submissionLoading, setSubmissionLoading] = useState(false);
 
   const showInput = () => {
     setInputVisible(true);
   };
-
-  const updateAwardees = (newAwardees) => {
-    _setAwardees(newAwardees);
-    setFieldValue('awardees', newAwardees);
-  };
-
-  const handleClose = (removedAwardee) => {
-    const newAwardees = awardees.filter(
-      (awardee) => awardee !== removedAwardee
-    );
+  const handleClose = removedAwardee => {
+    const newAwardees = awardees.filter(awardee => awardee !== removedAwardee);
     updateAwardees(newAwardees);
   };
-
-  const handleAwardeeInputChange = (e) => {
+  const handleAwardeeInputChange = e => {
     setInputValue(e.target.value);
+  };
+
+  const updateAwardees = awardees => {
+    _setAwardees(awardees);
+    props.setFieldValue('awardees', awardees);
   };
 
   const handleInputConfirm = () => {
@@ -55,28 +44,24 @@ const AwardPointsForm = (props) => {
     <div className="award-points-form">
       <div className="award-points-form-wrapper">
         <h1 className="subtitle">Award Points</h1>
-        <form onSubmit={handleSubmit}>
-          <Input type="hidden" value={values.uuid} name="uuid" />
+        <form onSubmit={props.handleSubmit}>
+          <Input type="hidden" value={props.values.uuid} name="uuid" />
           <Input type="hidden" value={awardees} name="awardees" />
           <Form.Item className="points-wrapper" label="Points">
             <Input
               name="points"
               className="points"
-              value={values.points}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.points}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Awardees" className="awardees-list-wrapper">
             <div>
-              {awardees.map((awardee) => {
+              {awardees.map((awardee, index) => {
                 const isLongName = awardee.length > 20;
                 const tagElem = (
-                  <Tag
-                    key={awardee}
-                    onClose={() => handleClose(awardees)}
-                    className="awardee-tag"
-                  >
+                  <Tag key={awardee} onClose={() => handleClose(awardees)} className="awardee-tag">
                     {isLongName ? `${awardee.slice(0, 10)}...` : awardee}
                   </Tag>
                 );
@@ -95,9 +80,9 @@ const AwardPointsForm = (props) => {
                   className="awardee-input"
                   value={inputValue}
                   onChange={handleAwardeeInputChange}
-                  onBlur={(e) => {
+                  onBlur={e => {
                     handleInputConfirm(e);
-                    handleBlur(e);
+                    props.handleBlur(e);
                   }}
                   onPressEnter={handleInputConfirm}
                 />
@@ -113,17 +98,16 @@ const AwardPointsForm = (props) => {
             <TextArea
               name="description"
               className="area-box"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.description}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Button
             type="primary"
             htmlType="submit"
             className="save-button"
-            loading={isSubmitting && isValidating}
-          >
+            loading={props.isSubmitting && props.isValidating}>
             Submit Edits
           </Button>
           <Button type="danger" className="discard-button">
@@ -136,17 +120,10 @@ const AwardPointsForm = (props) => {
 };
 
 AwardPointsForm.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-    points: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  values: PropTypes.object.isRequired,
 };
 
 export default AwardPointsForm;
@@ -163,7 +140,7 @@ const [searchedUsers, setSearchedUsers] = useState([]);
   placeholder="Select users"
   notFoundContent={fetching ? <Spin size="small" /> : null}
   filterOption={false}
-  onChange={handleChange}
+  onChange={props.handleChange}
   style={{ width: '100%' }}
 >
   {searchedUsers.map(d => (
