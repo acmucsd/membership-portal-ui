@@ -8,6 +8,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'no-async-promise-executor': ['off'],
     'jsx-a11y/click-events-have-key-events': ['off'],
     'jsx-a11y/href-no-hash': ['off'],
     'jsx-a11y/label-has-associated-control': ['off'],
