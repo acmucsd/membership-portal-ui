@@ -37,7 +37,7 @@ export const fetchUser = (uuid) => async (dispatch) => {
 };
 
 export const fetchUserByID = async (uuid) => {
-  return async (resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
         `${Config.API_URL + Config.routes.user.user}/${uuid}`,
@@ -65,5 +65,5 @@ export const fetchUserByID = async (uuid) => {
     } catch (error) {
       reject(error);
     }
-  };
+  });
 };

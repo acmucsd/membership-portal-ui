@@ -36,7 +36,7 @@ export const updateProfile = (values) => async (dispatch) => {
 };
 
 export const uploadUserImage = async (file) => {
-  return async (resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const formdata = new FormData();
       formdata.append('image', file);
@@ -69,5 +69,5 @@ export const uploadUserImage = async (file) => {
       notify('Unable to update profile picture!', error.message);
       reject(error);
     }
-  };
+  });
 };

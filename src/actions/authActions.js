@@ -68,7 +68,7 @@ export const loginUser = (values) => async (dispatch) => {
 };
 
 export const verifyToken = (dispatch) => async () => {
-  return async (resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
       try {
@@ -135,7 +135,7 @@ export const verifyToken = (dispatch) => async () => {
       dispatch(replace('/login'));
       resolve();
     }
-  };
+  });
 };
 
 export const logoutUser = () => (dispatch) => {
