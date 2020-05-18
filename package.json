@@ -33,8 +33,8 @@
     "build": "react-app-rewired build",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "eject": "react-scripts eject",
-    "lint": "eslint \"**/*.{js,jsx}\"",
-    "lint:fix": "eslint \"**/*.{js,jsx}\" --fix",
+    "lint": "eslint \"**/*.{js,jsx}\" && npx stylelint \"**/*.less\"",
+    "lint:fix": "eslint \"**/*.{js,jsx}\" --fix && npx stylelint \"**/*.less\" --fix",
     "start": "cross-env PORT=8080 react-app-rewired start",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -81,6 +81,9 @@
     "eslint-plugin-react": "^7.19.0",
     "prettier": "^2.0.5",
     "redux-mock-store": "^1.5.3",
+    "stylelint": "^13.4.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.0.0",
     "typescript": "^3.8.3"
   }
 }
