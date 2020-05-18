@@ -74,7 +74,7 @@ export const editEvent = (event) => async (dispatch) => {
 };
 
 export const deleteEvent = (uuid) => async (dispatch) => {
-  return async (resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
         `${Config.API_URL + Config.routes.events.event}/${uuid}`,
@@ -108,13 +108,13 @@ export const deleteEvent = (uuid) => async (dispatch) => {
           'Unable to delete event!',
           "Couldn't find the event in the database"
         );
-        reject('Delete failed');
+        reject(new Error('Delete failed'));
       }
     } catch (error) {
       notify('Unable to delete event!', error.message);
       reject(error);
     }
-  };
+  });
 };
 
 export const awardPoints = (pointDetails) => async (dispatch) => {
