@@ -4,7 +4,7 @@ import { logoutUser } from './authActions';
 import Config from '../config';
 import Storage from '../storage';
 
-const fetchLeaderboard = () => async (dispatch) => {
+export const fetchLeaderboard = () => async dispatch => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.leaderboard, {
       method: 'GET',
@@ -34,5 +34,3 @@ const fetchLeaderboard = () => async (dispatch) => {
     });
   }
 };
-
-export default fetchLeaderboard;

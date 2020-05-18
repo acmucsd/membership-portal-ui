@@ -13,7 +13,6 @@ export default {
           develop their skills at our many workshops and form new friendships at
           our many socials. Get involved today by signing up for an event on
           this portal or following us on social media!`,
-  banner: 'https://acmucsd.s3-us-west-1.amazonaws.com/portal/static/banner.png',
   routes: {
     user: {
       user: '/api/v1/user',

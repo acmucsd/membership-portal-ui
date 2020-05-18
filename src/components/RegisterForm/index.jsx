@@ -15,38 +15,30 @@ function getYears() {
 
 const years = getYears();
 
-const RegisterForm = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    values,
-  } = props;
-
+const RegisterForm = props => {
   return (
     <div className="registercard">
       <div className="formcontent">
         <img src={logo} alt="logo" height="115" width="115" />
         <h1>Register for ACM@UCSD</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={props.handleSubmit}>
           <div className="horizontalitems">
             <Form.Item label="First Name" className="formitems">
               <Input
                 name="firstName"
                 className="firstname"
-                value={values.firstName}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.firstName}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item label="Last Name" className="formitems">
               <Input
                 name="lastName"
                 className="lastname"
-                value={values.lastName}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.lastName}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
           </div>
@@ -55,9 +47,9 @@ const RegisterForm = (props) => {
               name="email"
               type="email"
               className="input-box"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.email}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Password" className="formitems">
@@ -65,9 +57,9 @@ const RegisterForm = (props) => {
               name="password"
               type="password"
               className="input-box"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.password}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Confirm password" className="formitems">
@@ -75,9 +67,9 @@ const RegisterForm = (props) => {
               name="confirmpassword"
               type="password"
               className="input-box"
-              value={values.confirmpassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.confirmpassword}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <div className="horizontalitems">
@@ -85,19 +77,18 @@ const RegisterForm = (props) => {
               <Input
                 name="major"
                 className="major"
-                value={values.major}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.major}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
             <Form.Item label="Year" className="formitems">
               <Select
                 className="year"
-                onBlur={(value) => setFieldValue('graduationYear', value)}
-                onChange={(value) => setFieldValue('graduationYear', value)}
-                value={values.graduationYear}
-              >
-                {years.map((num) => (
+                onBlur={value => props.setFieldValue('graduationYear', value)}
+                onChange={value => props.setFieldValue('graduationYear', value)}
+                value={props.values.graduationYear}>
+                {years.map(num => (
                   <Option key={num} value={num}>
                     {num}
                   </Option>
@@ -106,11 +97,7 @@ const RegisterForm = (props) => {
             </Form.Item>
           </div>
           <Form.Item className="register">
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="register-button"
-            >
+            <Button type="primary" htmlType="submit" className="register-button">
               Register
             </Button>
           </Form.Item>
@@ -126,19 +113,10 @@ const RegisterForm = (props) => {
 };
 
 RegisterForm.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    confirmpassword: PropTypes.string.isRequired,
-    major: PropTypes.string.isRequired,
-    graduationYear: PropTypes.string.isRequired,
-  }).isRequired,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  values: PropTypes.object.isRequired,
 };
 
 export default RegisterForm;

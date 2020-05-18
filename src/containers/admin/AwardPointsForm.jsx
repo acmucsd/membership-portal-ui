@@ -4,6 +4,8 @@ import { withFormik } from 'formik';
 import AwardPointsForm from '../../components/admin/AwardPointsForm';
 import { awardPoints } from '../../actions/adminActions';
 
+const curYear = new Date().getFullYear();
+
 const FormikAwardPointsForm = withFormik({
   mapPropsToValues() {
     return {
@@ -24,7 +26,9 @@ const FormikAwardPointsForm = withFormik({
       .then(() => {
         resetForm();
       })
-      .catch(() => {});
+      .catch(error => {
+        console.log(error);
+      });
   },
 })(AwardPointsForm);
 

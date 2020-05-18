@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import RegisterForm from '../components/RegisterForm';
-import { registerAccount } from '../actions/registerActions';
+import { registerAccount } from '../actions/registerActions.js';
 
 const FormikRegisterForm = withFormik({
   mapPropsToValues() {
@@ -17,7 +17,7 @@ const FormikRegisterForm = withFormik({
       graduationYear: null,
     };
   },
-  handleSubmit(values, { props }) {
+  handleSubmit(values, { resetForm, props }) {
     props.registerAccount(values);
   },
 })(RegisterForm);

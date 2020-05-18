@@ -6,25 +6,22 @@ import { Link } from 'react-router-dom';
 import './style.less';
 import { getRank } from '../../utils';
 
-const LeaderListItem = (props) => {
-  const { exp, image, name, placement, uuid } = props;
-
+const LeaderListItem = props => {
   return (
     <div
       className={`leaderboard-list-item
-      ${placement % 2 === 0 ? 'even' : 'odd'}`}
-    >
-      <span className="placement">{placement}</span>
-      <Avatar size={40} src={image} />
+      ${props.placement % 2 === 0 ? 'even' : 'odd'}`}>
+      <span className="placement">{props.placement}</span>
+      <Avatar size={40} src={props.image} />
       <span className="column left">
         <div className="name">
-          <Link to={`/profile/${uuid}`}>{name}</Link>
+          <Link to={'/profile/' + props.uuid}>{props.name}</Link>
         </div>
-        <div className="rank mobile">{getRank(exp)}</div>
+        <div className="rank mobile">{getRank(props.exp)}</div>
       </span>
-      <span className="rank desktop">{getRank(exp)}</span>
+      <span className="rank desktop">{getRank(props.exp)}</span>
       <span className="column right">
-        <div className="exp">{exp} points</div>
+        <div className="exp">{props.exp} points</div>
       </span>
     </div>
   );
@@ -32,7 +29,6 @@ const LeaderListItem = (props) => {
 
 LeaderListItem.propTypes = {
   exp: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placement: PropTypes.number.isRequired,
   uuid: PropTypes.string.isRequired,

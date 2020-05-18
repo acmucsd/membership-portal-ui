@@ -8,7 +8,7 @@ const ErrorPage = () => {
       <div className="title">
         <h1>ACM</h1>
       </div>
-      <h1>404: Whoops, we couldn&apos;t find this page!</h1>
+      <h1>404: Whoops, we couldn't find this page!</h1>
     </div>
   );
 };

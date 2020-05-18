@@ -17,35 +17,26 @@ function getYears() {
 
 const years = getYears();
 
-const ProfileUpdate = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    user,
-    values,
-  } = props;
-
+const ProfileUpdate = props => {
   const [gradYear, setGradYear] = useState('');
-  const [bg, setBG] = useState(user.profile.profilePicture);
+  const [bg, setBG] = useState(props.user.profile.profilePicture);
   const [fileList, setFileList] = useState([]);
   const [visible, setVisible] = useState(false);
   const [uploadState, setUploadState] = useState('none');
-  const dummyRequest = ({ onSuccess }) => {
+  const dummyRequest = ({ file, onSuccess }) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);
   };
-  const onFileChange = (info) => {
-    const infoFileList = [...info.fileList];
+  const onFileChange = info => {
+    let fileList = [...info.fileList];
     URL.revokeObjectURL(bg);
-    if (infoFileList.length) {
-      const lastFile = infoFileList[infoFileList.length - 1];
+    if (fileList.length) {
+      let lastFile = fileList[fileList.length - 1];
       if (lastFile) {
         setFileList([lastFile]);
       }
-      const newBg = URL.createObjectURL(lastFile.originFileObj);
+      let newBg = URL.createObjectURL(lastFile.originFileObj);
       setBG(newBg);
     } else {
       setBG('');
@@ -62,35 +53,30 @@ const ProfileUpdate = (props) => {
   const uploadPhoto = () => {
     setUploadState('uploading');
     uploadUserImage(fileList[0].originFileObj)
-      .then(() => {
+      .then(res => {
         setUploadState('none');
         setVisible(false);
       })
-      .catch(() => {
+      .catch(error => {
         setUploadState('none');
       });
   };
   useEffect(() => {
-    const keys = ['firstName', 'lastName', 'major', 'bio'];
-    keys.forEach((key) => {
-      setFieldValue(key, user.profile[key]);
+    let keys = ['firstName', 'lastName', 'major', 'bio'];
+    keys.forEach(key => {
+      props.setFieldValue(key, props.user.profile[key]);
     });
-    if (user.profile.graduationYear) {
-      setGradYear(user.profile.graduationYear);
+    if (props.user.profile['graduationYear']) {
+      setGradYear(props.user.profile['graduationYear']);
     }
-  }, [user]);
-
+  }, [props.user]);
   return (
     <div className="update-card">
       <div className="updatecontent">
         <h1 className="title">Profile</h1>
         <Avatar size={155} src={bg} className="avatar" />
         <br />
-        <Button
-          type="primary"
-          className="upload-modal-button"
-          onClick={showModal}
-        >
+        <Button type="primary" className="upload-modal-button" onClick={showModal}>
           Change Profile Picture
         </Button>
         <Modal
@@ -108,12 +94,10 @@ const ProfileUpdate = (props) => {
               type="primary"
               loading={uploadState === 'uploading'}
               onClick={uploadPhoto}
-              disabled={fileList.length === 0}
-            >
+              disabled={fileList.length == 0}>
               {uploadState !== 'uploading' && <UploadOutlined />} Upload
             </Button>,
-          ]}
-        >
+          ]}>
           <div className="upload-wrapper">
             <Upload
               className="upload-profile-pic"
@@ -124,14 +108,9 @@ const ProfileUpdate = (props) => {
               onChange={onFileChange}
               onRemove={() => {
                 setFileList([]);
-              }}
-            >
+              }}>
               <div className="new-profile-pic-wrapper">
-                <Avatar
-                  size={115}
-                  src={bg || getDefaultProfile()}
-                  className="avatar"
-                />
+                <Avatar size={115} src={bg || getDefaultProfile()} className="avatar" />
               </div>
               <Button className="upload-button" innerRef={uploadImageButton}>
                 Change Picture
@@ -139,23 +118,23 @@ const ProfileUpdate = (props) => {
             </Upload>
           </div>
         </Modal>
-        <form onSubmit={handleSubmit} className="update-profile-form">
+        <form onSubmit={props.handleSubmit} className="update-profile-form">
           <Form.Item label="First name">
             <Input
               name="firstName"
               className="input-box"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.firstName}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Form.Item label="Last name">
             <Input
               name="lastName"
               className="input-box"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.lastName}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <div className="horizontal-input">
@@ -163,10 +142,9 @@ const ProfileUpdate = (props) => {
               <Select
                 value={gradYear}
                 className="year"
-                onBlur={(value) => setFieldValue('graduationYear', value)}
-                onChange={(value) => setFieldValue('graduationYear', value)}
-              >
-                {years.map((num) => (
+                onBlur={value => props.setFieldValue('graduationYear', value)}
+                onChange={value => props.setFieldValue('graduationYear', value)}>
+                {years.map(num => (
                   <Option key={num} value={num}>
                     {num}
                   </Option>
@@ -177,9 +155,9 @@ const ProfileUpdate = (props) => {
               <Input
                 name="major"
                 className="major"
-                value={values.major}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={props.values.major}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
               />
             </Form.Item>
           </div>
@@ -187,9 +165,9 @@ const ProfileUpdate = (props) => {
             <TextArea
               name="bio"
               className="area-box"
-              value={values.bio}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={props.values.bio}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
             />
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
@@ -205,26 +183,10 @@ const ProfileUpdate = (props) => {
 };
 
 ProfileUpdate.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    profile: PropTypes.shape({
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      major: PropTypes.string.isRequired,
-      bio: PropTypes.string.isRequired,
-      profilePicture: PropTypes.string.isRequired,
-      graduationYear: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  values: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    major: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
-  }).isRequired,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  values: PropTypes.object,
 };
 
 export default ProfileUpdate;

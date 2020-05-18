@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import AwardPointsPage from '../../components/admin/AwardPointsPage';
 import PageLayout from '../PageLayout';
 
-const AwardPointsPageContainer = () => {
+const AwardPointsPageContainer = props => {
   return (
     <PageLayout>
       <AwardPointsPage />

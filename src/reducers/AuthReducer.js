@@ -1,5 +1,7 @@
 import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from '../actions/types';
 
+import Storage from '../storage';
+
 const initialState = {
   admin: false,
   authenticated: false,

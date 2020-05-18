@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import { Icon, Button } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
+import { notify } from '../../utils';
 import { verifyEmail } from '../../actions/authActions';
 import './style.less';
 
-const EmailVerficationPage = () => {
+const EmailVerficationPage = props => {
   const params = useParams();
   const history = useHistory();
-  const [, setAction] = useState();
+  const [buttonAction, setAction] = useState();
   const [btnText, setText] = useState('Verifying Email');
-  const [verifying, setVerifying] = useState(true);
-
   const verifiedEmail = () => {
     return () => {
       history.push('/login');
     };
   };
-
   useEffect(() => {
     verifyEmail({ code: params.code })
-      .then(() => {
+      .then(res => {
         setText('Go to Login Page');
         setAction(verifiedEmail);
       })
-      .catch(() => {})
+      .catch(error => {})
       .finally(() => {
         setVerifying(false);
       });
   }, []);
-
+  const [verifying, setVerifying] = useState(true);
   return (
     <div className="Email-verification-page">
       <Button
@@ -37,8 +35,7 @@ const EmailVerficationPage = () => {
         loading={verifying}
         onClick={() => {
           history.push('/login');
-        }}
-      >
+        }}>
         {btnText}
       </Button>
     </div>

@@ -3,19 +3,16 @@ import { FETCH_USER } from './types';
 import Config from '../config';
 import Storage from '../storage';
 
-export const fetchUser = (uuid) => async (dispatch) => {
+export const fetchUser = uuid => async dispatch => {
   try {
-    const response = await fetch(
-      `${Config.API_URL + Config.routes.user.user}/${uuid || ''}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      }
-    );
+    const response = await fetch(Config.API_URL + Config.routes.user.user + '/' + (uuid ? uuid : ''), {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -36,20 +33,17 @@ export const fetchUser = (uuid) => async (dispatch) => {
   }
 };
 
-export const fetchUserByID = async (uuid) => {
-  return async (resolve, reject) => {
+export const fetchUserByID = async uuid => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(
-        `${Config.API_URL + Config.routes.user.user}/${uuid}`,
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-        }
-      );
+      const response = await fetch(Config.API_URL + Config.routes.user.user + '/' + uuid, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {
@@ -65,5 +59,5 @@ export const fetchUserByID = async (uuid) => {
     } catch (error) {
       reject(error);
     }
-  };
+  });
 };

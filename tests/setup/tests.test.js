@@ -4,6 +4,8 @@
  * It will be deleted once the first test file is created.
  */
 
+import Jest from 'jest';
+
 describe('Jest Tests', () => {
   test('Verify Tests Work', () => {
     expect(true).toBeTruthy();
