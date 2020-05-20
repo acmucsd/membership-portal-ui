@@ -6,7 +6,7 @@ import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../assets/graphics/background.svg';
 import { fetchFutureEvents } from '../actions/eventsActions';
-import { formatDate } from '../utils';
+import { formatDate, formatTime } from '../utils';
 
 const UpcomingEventsContainer = (props) => {
   const { auth, events } = props;
@@ -18,13 +18,15 @@ const UpcomingEventsContainer = (props) => {
   return (
     <EventsList>
       {events.map((event) => {
-        const startTime = formatDate(event.start);
+        const startTime = formatTime(event.start);
+        const endTime = formatTime(event.end);
+        const date = `${formatDate(event.start)}, ${startTime} - ${endTime}`;
         return (
           <EventCard
             key={`upcoming-${event.uuid}`}
             uuid={event.uuid}
             cover={event.cover || background}
-            date={startTime}
+            date={date}
             description={event.description}
             location={event.location}
             points={event.pointValue}
