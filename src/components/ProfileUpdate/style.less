@@ -4,20 +4,22 @@
 .update-card {
   display: flex;
   font-family: 'Roboto';
-  width: @db-card-width;
   max-width: 100%;
+  width: @db-card-width;
 
   label {
     color: @blue-3;
     font-size: @card-heading-2;
     font-weight: 600;
-    &:after {
+
+    &::after {
       content: '';
     }
   }
 
   .updatecontent {
     width: 100%;
+
     .update-profile-form {
       width: 100%;
     }
@@ -27,7 +29,9 @@
     font-size: @general-heading-1;
     font-weight: 700;
   }
-  .save-button, .upload-modal-button {
+
+  .save-button,
+  .upload-modal-button {
     background-color: @green-1;
     border-color: @green-2;
     font-family: 'Nunito';
@@ -38,6 +42,7 @@
     margin-right: 19px;
     width: @save-button-width;
   }
+
   .discard-button {
     background-color: @white;
     border-color: @red;
@@ -50,18 +55,20 @@
 
   .horizontal-input {
     display: flex;
-    justify-content: space-between;
-    width: @db-card-width;
-    max-width: 100%;
     flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    width: @db-card-width;
 
     .year {
       height: @profile-input-height;
+      max-width: 100%;
       vertical-align: top;
       width: @year-width;
-      max-width: 100%;
+
       .ant-select-selection--single {
         .input-style;
+
         align-items: center;
         display: flex;
         justify-content: center;
@@ -70,8 +77,9 @@
 
     .major {
       .input-style;
-      width: @major-width;
+
       max-width: 100%;
+      width: @major-width;
     }
   }
 
@@ -90,6 +98,7 @@
 
   .area-box {
     .input-style;
+
     font-size: @card-heading-2;
     height: @text-input-height;
     width: 100%;
@@ -97,20 +106,24 @@
 
   .input-box {
     .input-style;
+
     max-width: 100%;
   }
+
   .avatar {
     margin-bottom: 24px;
   }
 }
+
 .EditProfilePage-Modal {
   .upload-wrapper {
+    text-align: center;
     width: 100%;
-    text-align: center;
   }
+
   .new-profile-pic-wrapper {
-    text-align: center;
     margin-bottom: 24px;
+    text-align: center;
     width: 100%;
   }
 }

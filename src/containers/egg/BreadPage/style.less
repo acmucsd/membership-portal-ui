@@ -1,21 +1,25 @@
 @import '../../../styles/vars.less';
+
 .BreadPage {
-  padding: 2rem;
   background-color: @blue-4;
   background-image: url('../../../assets/graphics/background.svg');
   background-size: cover;
-  width: 100vw;
   min-height: 100vh;
+  padding: 2rem;
+  width: 100vw;
+
   h1 {
     font-size: @general-heading-1;
     font-weight: 700;
   }
+
   .iframe-container {
-    width: 100%;
     height: calc(100vh - 12rem);
+    width: 100%;
+
     iframe {
-      width: 100%;
       height: 100%;
+      width: 100%;
     }
   }
 }

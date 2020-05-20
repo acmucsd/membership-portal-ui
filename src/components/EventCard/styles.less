@@ -3,8 +3,8 @@
 .event-card {
   border: 2px solid rgba(6, 89, 188, 0.2);
   border-radius: 10px;
-  height: @event-height;
   font-family: Roboto;
+  height: @event-height;
   -ms-overflow-style: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -14,20 +14,22 @@
   width: @event-width;
 
   .edit-icon-wrapper {
-    position: absolute;
-    top: 10px;
     font-size: 24px;
+    position: absolute;
     right: 10px;
+    top: 10px;
 
     .edit-icon {
       color: @black;
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .edit-icon:hover {
       color: @gray-4;
     }
   }
+
   img {
     height: 60%;
     margin: 0;
@@ -44,22 +46,22 @@
     }
 
     .date {
-      opacity: .8;
+      opacity: 0.8;
       white-space: nowrap;
     }
 
     .location {
-      opacity: .8;
-      white-space: nowrap
+      opacity: 0.8;
+      white-space: nowrap;
     }
 
     .link {
-      color: @blue-2
+      color: @blue-2;
     }
 
     .title {
-      font-weight: bold;
       font-size: @card-heading-2;
+      font-weight: bold;
     }
   }
 
@@ -83,8 +85,8 @@
     }
 
     .points {
-      position: absolute;
       font-weight: 600;
+      position: absolute;
     }
   }
 
@@ -100,6 +102,6 @@
 }
 
 .event-card::-webkit-scrollbar {
-  width: 0;
   height: 0;
+  width: 0;
 }

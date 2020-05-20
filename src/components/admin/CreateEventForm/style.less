@@ -16,7 +16,8 @@
     color: @blue-3;
     font-size: @card-heading-2;
     font-weight: 600;
-    &:after {
+
+    &::after {
       content: '';
     }
   }
@@ -29,6 +30,7 @@
 
   .input-box {
     .input-style;
+
     width: 100%;
   }
 
@@ -55,6 +57,7 @@
   .horizontal-input {
     .ant-select-selection--single {
       .input-style;
+
       align-items: center;
       display: flex;
       justify-content: center;
@@ -67,8 +70,10 @@
 
     .location-wrapper {
       width: 60%;
+
       .location {
         .input-style;
+
         height: @profile-input-height;
         vertical-align: top;
       }
@@ -76,23 +81,28 @@
 
     .points-wrapper {
       width: 20%;
+
       .points {
         .input-style;
       }
     }
+
     .year-wrapper {
-      width: 10%;
       min-width: 84px;
+      width: 10%;
+
       .year {
         .input-style;
       }
     }
 
     .month-wrapper {
-      width: 30%;
       min-width: px;
+      width: 30%;
+
       .month {
         .input-style;
+
         height: @profile-input-height;
         vertical-align: top;
       }
@@ -100,6 +110,7 @@
 
     .day-wrapper {
       width: @form-dropdown-width;
+
       .day {
         .input-style;
       }
@@ -112,6 +123,7 @@
 
     .ant-select-selection--single {
       .input-style;
+
       align-items: center;
       display: flex;
       justify-content: center;
@@ -147,6 +159,7 @@
 
   .area-box {
     .input-style;
+
     font-size: @card-heading-2;
     height: @text-input-height;
     width: 100%;
