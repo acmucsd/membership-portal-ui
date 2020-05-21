@@ -94,25 +94,32 @@ export const getRank = (points) => {
 export const formatDate = (time) => {
   const parsedTime = Date.parse(time);
   const parsedDate = new Date(parsedTime);
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const date = parsedDate.getDate();
-  const monthIndex = parsedDate.getMonth();
-  const year = parsedDate.getFullYear();
-
-  return `${monthNames[monthIndex]} ${date} ${year}`;
+  return parsedDate.toLocaleDateString(
+    {},
+    {
+      month: 'long',
+      day: 'numeric',
+    }
+  );
+};
+/**
+ * Extracts the time from a UTC-formatted timestamp.
+ *
+ * Example: '1970-01-01T17:00:00.000Z' => '5:00 PM'
+ *
+ * @param {string} time The time in UTC string format.
+ * @return {string} The time of day.
+ */
+export const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  return parsedTime.toLocaleTimeString(
+    {},
+    {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }
+  );
 };
 
 /**
