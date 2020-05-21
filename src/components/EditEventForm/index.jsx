@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
+import { notify } from '../../utils';
 
 import './style.less';
 
@@ -46,6 +47,17 @@ const EditEventForm = (props) => {
 
   const params = useParams();
   const history = useHistory();
+
+  const handleDelete = () => {
+    props
+      .deleteEvent(props.values.uuid)
+      .then(() => {
+        history.push('/');
+      })
+      .catch((error) => {
+        notify('Failed to delete the event', error);
+      });
+  };
 
   useEffect(() => {
     setFieldValue('uuid', params.uuid);
@@ -266,6 +278,13 @@ const EditEventForm = (props) => {
           >
             Discard
           </Button>
+          <Button
+            type="danger"
+            onClick={handleDelete}
+            className="delete-button"
+          >
+            Delete
+          </Button>
         </form>
       </div>
     </div>
@@ -277,6 +296,7 @@ EditEventForm.propTypes = {
     start: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
   }).isRequired,
+  deleteEvent: PropTypes.func.isRequired,
   setFieldValue: PropTypes.func.isRequired,
   setFieldTouched: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
