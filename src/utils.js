@@ -94,24 +94,13 @@ export const getRank = (points) => {
 export const formatDate = (time) => {
   const parsedTime = Date.parse(time);
   const parsedDate = new Date(parsedTime);
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const date = parsedDate.getDate();
-  const monthIndex = parsedDate.getMonth();
-
-  return `${monthNames[monthIndex]} ${date}`;
+  return parsedDate.toLocaleDateString(
+    {},
+    {
+      month: 'long',
+      day: 'numeric',
+    }
+  );
 };
 /**
  * Extracts the time from a UTC-formatted timestamp.
@@ -123,14 +112,14 @@ export const formatDate = (time) => {
  */
 export const formatTime = (time) => {
   const parsedTime = new Date(time);
-  const parsedHours = parsedTime.getHours();
-  const parsedMinutes = parsedTime.getMinutes();
-  const amOrPm = parsedHours >= 12 ? 'PM' : 'AM';
-  // edge case for midnight (0 in 24-hour format becomes 12 in 12-hour format)
-  const hours = parsedHours === 0 ? '12' : (parsedHours % 12).toString();
-  // pad single-minute times to double-digits (9 minutes => '09')
-  const minutes = parsedMinutes < 10 ? `0${parsedMinutes}` : parsedMinutes;
-  return `${hours}:${minutes} ${amOrPm}`;
+  return parsedTime.toLocaleTimeString(
+    {},
+    {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }
+  );
 };
 
 /**
