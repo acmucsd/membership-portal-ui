@@ -1,0 +1,80 @@
+@import '../../styles/vars.less';
+
+.item-card{
+  width: @item-card-width;
+  font-family: Roboto;
+  padding: 0, 30px;
+
+  .inside-rectangle{
+    display: block;
+    height:@item-rectangle-height;
+    width: @item-card-width;
+    display:flex;
+    text-align: center;
+
+    .rectangle{
+      position:absolute;
+      background: @gray-5;
+      border-color: @gray-5;
+      border-width: 1px;
+      border-radius: 10px;
+      height: @item-rectangle-height;
+      width: @item-card-width;
+    }
+    .top{
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      background: @black;
+      border-radius: 10px;
+    }
+    .bottom{
+      background: @gray-5;
+      filter: blur(2px);
+      border-radius: 10px;
+    }
+    .image-container{
+      position: absolute;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      width: @item-card-width;
+      height: @item-rectangle-height;
+
+      .image{
+        width: @item-image-width;
+      }
+    }
+  }
+  .info{
+    position: absolute;
+    top: 300px;
+    line-height: 28px;
+    letter-spacing: 0.03em
+    color: @black;
+    font-size: 24px;
+    font-style:normal;
+    width: @item-card-width;
+
+    .title{
+      font-style: normal;
+      font-weight: 500;
+      align-items: center;
+      margin: 4px 4px 4px 0px;
+    }
+
+    .price{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: baseline;
+    }
+
+      .diamond{
+      }
+
+      .amount{
+        display: inline;
+        font-weight: normal;
+        margin: 4px;
+      }
+    }
+  }
