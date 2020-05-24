@@ -22,9 +22,9 @@ export default () => {
         <NavLink activeClassName="selected" to="/profile">
           <NavTileItem icon={ProfileIcon} text="Profile" />
         </NavLink>
-        <a href="https://discord.gg/mK9Zrf4">
+        <NavLink activeClassName="selected" to="/discord">
           <NavTileItem icon={DiscordIcon} text="Discord" />
-        </a>
+        </NavLink>
       </nav>
       <Divider style={{ height: '2px', margin: '0' }} />
     </>
