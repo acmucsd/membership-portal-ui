@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 const PasswordForm = (props) => {
-  const { onKeyPress, onChange, value } = props;
+  const { handleClick, onKeyPress, onChange, value } = props;
 
   return (
     <div className="passwordcard">
@@ -22,6 +22,13 @@ const PasswordForm = (props) => {
             onKeyPress={onKeyPress}
             value={value}
           />
+          <Button
+            type="primary"
+            onClick={handleClick}
+            className="password-reset"
+          >
+            Submit
+          </Button>
         </Form.Item>
       </form>
     </div>
@@ -29,6 +36,7 @@ const PasswordForm = (props) => {
 };
 
 PasswordForm.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   onKeyPress: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
