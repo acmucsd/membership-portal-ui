@@ -20,11 +20,16 @@ const PasswordPage = (props) => {
     }
   };
 
+  const handleClick = () => {
+    props.passwordReset(value);
+  };
+
   return (
     <LoginLayout>
       <PasswordForm
         onChange={handleChange}
         onKeyPress={handleEnter}
+        handleClick={handleClick}
         value={value}
       />
     </LoginLayout>

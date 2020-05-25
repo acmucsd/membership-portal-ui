@@ -8,7 +8,7 @@
   color: @white;
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto';
+  font-family: 'Nunito' sans-serif;
   height: @password-height;
   justify-content: center;
   width: @sign-in-width;
@@ -27,12 +27,23 @@
 
   .logo {
     height: 115px;
-    margin-bottom: 36px;
+    margin-bottom: 10px;
     width: 115px;
   }
 
   .input-box {
     height: @button-height-2;
-    width: @button-width;
+    width: 200px;
+    margin-right: 10px;
+  }
+
+  .password-reset {
+    background-color: @blue-1;
+      border: 2px solid @blue-2;
+      color: @white;
+      height: 40px;
+      min-width: 100px;
+      padding: 6px 11px;
+      width: calc(100% - 220px);
   }
 }
