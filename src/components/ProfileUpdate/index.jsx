@@ -13,7 +13,14 @@ const { TextArea } = Input;
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
 const ProfileUpdate = (props) => {
-  const { handleBlur, handleChange, handleSubmit, user, values } = props;
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    user,
+    values,
+  } = props;
 
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([]);
@@ -60,7 +67,7 @@ const ProfileUpdate = (props) => {
   useEffect(() => {
     const keys = ['firstName', 'lastName', 'major', 'bio', 'graduationYear'];
     keys.forEach((key) => {
-      props.setFieldValue(key, props.user.profile[key]);
+      setFieldValue(key, user.profile[key]);
     });
   }, [user]);
 
@@ -149,10 +156,10 @@ const ProfileUpdate = (props) => {
                 value={values.graduationYear}
                 className="year"
                 onBlur={(value) => {
-                  props.setFieldValue('graduationYear', value);
+                  setFieldValue('graduationYear', value);
                 }}
                 onChange={(value) => {
-                  props.setFieldValue('graduationYear', value);
+                  setFieldValue('graduationYear', value);
                 }}
               >
                 {years.map((num) => (
