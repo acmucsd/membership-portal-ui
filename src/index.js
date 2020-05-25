@@ -20,6 +20,7 @@ import EditEventPage from './containers/admin/EditEventPage';
 import CreateEventPage from './containers/admin/CreateEventPage';
 
 import AuthPage from './containers/AuthPage';
+import DiscordPage from './containers/DiscordPage';
 import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
 import LoginPage from './containers/LoginPage';
@@ -74,6 +75,7 @@ const App = () => {
               component={requireAdminAuth(CreateEventPage)}
             />
             <Route exact path="/authenticate-email" component={AuthPage} />
+            <Route exact path="/discord" component={requireAuth(DiscordPage)} />
             <Route exact path="/forgot-password" component={PasswordPage} />
             <Route
               exact

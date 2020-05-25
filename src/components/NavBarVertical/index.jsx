@@ -43,9 +43,9 @@ const NavbarVertical = (props) => {
         <NavLink activeClassName="selected" to="/store">
           <NavListItem icon={SwagIcon} text="ACM Store" />
         </NavLink>
-        <a href="https://discord.gg/mK9Zrf4">
+        <NavLink activeClassName="selected" to="/discord">
           <NavListItem icon={DiscordIcon} text="Discord" />
-        </a>
+        </NavLink>
       </section>
     </nav>
   );

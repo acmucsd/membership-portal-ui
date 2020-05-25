@@ -36,9 +36,9 @@ const NavDropdown = (props) => {
         <NavLink activeClassName="selected" className="nav-item" to="/store">
           <NavListItem text="ACM Store" />
         </NavLink>
-        <a className="nav-item" href="https://discord.gg/mK9Zrf4">
+        <NavLink activeClassName="selected" className="nav-item" to="/discord">
           <NavListItem text="Discord" />
-        </a>
+        </NavLink>
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
