@@ -10,12 +10,7 @@ import './style.less';
 const { Option } = Select;
 const { TextArea } = Input;
 
-function getYears() {
-  const currentYear = new Date().getFullYear();
-  return [...Array(6)].map((_, i) => i + currentYear);
-}
-
-const years = getYears();
+const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
 const ProfileUpdate = (props) => {
   const {
@@ -27,7 +22,6 @@ const ProfileUpdate = (props) => {
     values,
   } = props;
 
-  const [gradYear, setGradYear] = useState('');
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -71,13 +65,10 @@ const ProfileUpdate = (props) => {
       });
   };
   useEffect(() => {
-    const keys = ['firstName', 'lastName', 'major', 'bio'];
+    const keys = ['firstName', 'lastName', 'major', 'bio', 'graduationYear'];
     keys.forEach((key) => {
       setFieldValue(key, user.profile[key]);
     });
-    if (user.profile.graduationYear) {
-      setGradYear(user.profile.graduationYear);
-    }
   }, [user]);
 
   return (
@@ -161,10 +152,15 @@ const ProfileUpdate = (props) => {
           <div className="horizontal-input">
             <Form.Item label="Year">
               <Select
-                value={gradYear}
+                name="graduationYear"
+                value={values.graduationYear}
                 className="year"
-                onBlur={(value) => setFieldValue('graduationYear', value)}
-                onChange={(value) => setFieldValue('graduationYear', value)}
+                onBlur={(value) => {
+                  setFieldValue('graduationYear', value);
+                }}
+                onChange={(value) => {
+                  setFieldValue('graduationYear', value);
+                }}
               >
                 {years.map((num) => (
                   <Option key={num} value={num}>
@@ -222,6 +218,7 @@ ProfileUpdate.propTypes = {
   values: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
+    graduationYear: PropTypes.number.isRequired,
     major: PropTypes.string.isRequired,
     bio: PropTypes.string.isRequired,
   }).isRequired,

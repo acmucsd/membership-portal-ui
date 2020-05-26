@@ -8,12 +8,7 @@ import logo from '../../assets/graphics/logo.svg';
 
 const { Option } = Select;
 
-function getYears() {
-  const currentYear = new Date().getFullYear();
-  return [...Array(6)].map((_, i) => i + currentYear);
-}
-
-const years = getYears();
+const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
 const RegisterForm = (props) => {
   const {
@@ -137,7 +132,7 @@ RegisterForm.propTypes = {
     password: PropTypes.string.isRequired,
     confirmpassword: PropTypes.string.isRequired,
     major: PropTypes.string.isRequired,
-    graduationYear: PropTypes.string.isRequired,
+    graduationYear: PropTypes.number.isRequired,
   }).isRequired,
 };
 

@@ -14,7 +14,7 @@ const FormikRegisterForm = withFormik({
       password: '',
       confirmpassword: '',
       major: '',
-      graduationYear: null,
+      graduationYear: 0,
     };
   },
   handleSubmit(values, { props }) {
