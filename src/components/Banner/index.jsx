@@ -1,10 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import withSizes from 'react-sizes';
 
 import './style.less';
 import DefaultBanner from '../../assets/graphics/default-banner.svg';
-import Config from '../../config';
 
-const Banner = () => {
+const Banner = (props) => {
+  const { isMobile } = props;
+
   const onError = (e) => {
     e.target.src = DefaultBanner;
   };
@@ -13,10 +16,22 @@ const Banner = () => {
     <img
       alt="banner"
       className="banner"
-      src={Config.banner}
+      src={
+        isMobile
+          ? 'https://acmucsd.s3-us-west-1.amazonaws.com/portal/static/banner_s.png'
+          : 'https://acmucsd.s3-us-west-1.amazonaws.com/portal/static/banner_l.png'
+      }
       onError={onError}
     />
   );
 };
 
-export default Banner;
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 768,
+});
+
+Banner.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};
+
+export default withSizes(mapSizesToProps)(Banner);
