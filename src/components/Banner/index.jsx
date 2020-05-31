@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withSizes from 'react-sizes';
 
 import './style.less';
+import Config from '../../config';
 import DefaultBanner from '../../assets/graphics/default-banner.svg';
 
 const Banner = (props) => {
@@ -18,8 +19,8 @@ const Banner = (props) => {
       className="banner"
       src={
         isMobile
-          ? 'https://acmucsd.s3-us-west-1.amazonaws.com/portal/static/banner_s.png'
-          : 'https://acmucsd.s3-us-west-1.amazonaws.com/portal/static/banner_l.png'
+          ? `${Config.AWS_URL}/static/banner_s.png`
+          : `${Config.AWS_URL}/static/banner_l.png`
       }
       onError={onError}
     />

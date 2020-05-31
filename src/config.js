@@ -5,6 +5,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 export default {
   API_URL: apiurl,
+  AWS_URL: 'https://acmucsd.s3-us-west-1.amazonaws.com/portal',
   about: `With 100,000 members and 500+ chapters, the Association for Computing
           Machinery is the world's largest society for computing. Here at UC
           San Diego, our chapter has been established with the mission of
