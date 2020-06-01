@@ -55,7 +55,7 @@ const ProfileUpdate = (props) => {
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
     setUploadState('uploading');
-    uploadUserImage(fileList[0].originFileObj)
+    uploadUserImage(fileList[0].originFileObj, user.profile.uuid)
       .then(() => {
         setUploadState('none');
         setVisible(false);
