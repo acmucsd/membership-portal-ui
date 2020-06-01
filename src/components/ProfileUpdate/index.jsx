@@ -207,6 +207,7 @@ ProfileUpdate.propTypes = {
   setFieldValue: PropTypes.func.isRequired,
   user: PropTypes.shape({
     profile: PropTypes.shape({
+      uuid: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
       major: PropTypes.string.isRequired,
