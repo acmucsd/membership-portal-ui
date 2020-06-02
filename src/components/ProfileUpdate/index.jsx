@@ -55,7 +55,7 @@ const ProfileUpdate = (props) => {
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
     setUploadState('uploading');
-    uploadUserImage(fileList[0].originFileObj)
+    uploadUserImage(fileList[0].originFileObj, user.profile.uuid)
       .then(() => {
         setUploadState('none');
         setVisible(false);
@@ -207,6 +207,7 @@ ProfileUpdate.propTypes = {
   setFieldValue: PropTypes.func.isRequired,
   user: PropTypes.shape({
     profile: PropTypes.shape({
+      uuid: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
       major: PropTypes.string.isRequired,

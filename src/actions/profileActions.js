@@ -35,13 +35,13 @@ export const updateProfile = (values) => async (dispatch) => {
   }
 };
 
-export const uploadUserImage = async (file) => {
+export const uploadUserImage = async (file, uuid) => {
   return new Promise(async (resolve, reject) => {
     try {
       const formdata = new FormData();
       formdata.append('image', file);
       const response = await fetch(
-        Config.API_URL + Config.routes.user.profilepicture,
+        `${Config.API_URL + Config.routes.user.profilepicture}/${uuid}`,
         {
           method: 'POST',
           headers: {
