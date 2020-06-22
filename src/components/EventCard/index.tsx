@@ -7,7 +7,18 @@ import { isURL, getAbsoluteURL } from '../../utils';
 
 import './styles.less';
 
-const EventCard = (props) => {
+interface EventCardProps {
+  auth: {admin: boolean}
+  cover: string,
+  date: string,
+  description: string,
+  location: string,
+  points: number,
+  title: string,
+  uuid: string
+}
+
+const EventCard: React.FC<EventCardProps> = (props) => {
   const {
     auth,
     cover,
@@ -53,19 +64,6 @@ const EventCard = (props) => {
       <p className="description">{description}</p>
     </div>
   );
-};
-
-EventCard.propTypes = {
-  auth: PropTypes.shape({
-    admin: PropTypes.bool.isRequired,
-  }).isRequired,
-  cover: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  points: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  uuid: PropTypes.string.isRequired,
 };
 
 export default EventCard;

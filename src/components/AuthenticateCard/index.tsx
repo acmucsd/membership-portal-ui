@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const AuthenticateCard = () => {
+const AuthenticateCard: React.FC = () => {
   return (
     <div className="auth-card">
       <img src={logo} alt="logo" height="115" width="115" />

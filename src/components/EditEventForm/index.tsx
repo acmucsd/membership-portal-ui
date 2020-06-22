@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
@@ -24,17 +24,34 @@ const months = [
   'December',
 ];
 
-const days = [];
+const days: number[] = [];
 for (let i = 1; i <= 31; i += 1) {
   days.push(i);
 }
 
-const hours = [];
+const hours: number[] = [];
 for (let i = 1; i <= 12; i += 1) {
   hours.push(i);
 }
 
-const EditEventForm = (props) => {
+interface EventProp {
+  start: string,
+  end: string,
+  [key: string]: any
+}
+
+interface EditEventFormProps {
+  event: EventProp
+  deleteEvent: Function
+  setFieldValue: Function
+  setFieldTouched: Function
+  handleBlur: FocusEventHandler
+  handleChange: ChangeEventHandler
+  handleSubmit: FormEventHandler
+  values: {[key: string]: any}
+}
+
+const EditEventForm: React.FC<EditEventFormProps> = (props) => {
   const {
     event,
     setFieldValue,
@@ -45,7 +62,7 @@ const EditEventForm = (props) => {
     values,
   } = props;
 
-  const params = useParams();
+  const params: {[key: string]: any} = useParams();
   const history = useHistory();
 
   const handleDelete = () => {
@@ -54,7 +71,7 @@ const EditEventForm = (props) => {
       .then(() => {
         history.push('/');
       })
-      .catch((error) => {
+      .catch((error: string) => {
         notify('Failed to delete the event', error);
       });
   };
@@ -165,7 +182,7 @@ const EditEventForm = (props) => {
             <Form.Item className="month-wrapper" label="Month">
               <Select
                 className="months"
-                onChange={(value) => setFieldValue('month', value)}
+                onChange={(value: string) => setFieldValue('month', value)}
                 onBlur={() => setFieldTouched('month', true)}
                 value={values.month}
               >
@@ -179,7 +196,7 @@ const EditEventForm = (props) => {
             <Form.Item className="day-wrapper" label="Day">
               <Select
                 className="days"
-                onChange={(value) => setFieldValue('day', value)}
+                onChange={(value: string) => setFieldValue('day', value)}
                 onBlur={() => setFieldTouched('day', true)}
                 value={values.day}
               >
@@ -195,7 +212,7 @@ const EditEventForm = (props) => {
             <Form.Item className="start-time" label="Start Time">
               <Select
                 className="time"
-                onChange={(value) => setFieldValue('startTime', value)}
+                onChange={(value: string) => setFieldValue('startTime', value)}
                 onBlur={() => setFieldTouched('startTime', true)}
                 value={values.startTime}
               >
@@ -207,7 +224,7 @@ const EditEventForm = (props) => {
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => setFieldValue('startAm', value)}
+                onChange={(value: string) => setFieldValue('startAm', value)}
                 onBlur={() => setFieldTouched('startAm', true)}
                 value={values.startAm}
               >
@@ -218,7 +235,7 @@ const EditEventForm = (props) => {
             <Form.Item className="end-time" label="End Time">
               <Select
                 className="time"
-                onChange={(value) => setFieldValue('endTime', value)}
+                onChange={(value: string) => setFieldValue('endTime', value)}
                 onBlur={() => setFieldTouched('endTime', true)}
                 value={values.endTime}
               >
@@ -230,7 +247,7 @@ const EditEventForm = (props) => {
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => setFieldValue('endAm', value)}
+                onChange={(value: string) => setFieldValue('endAm', value)}
                 onBlur={() => setFieldTouched('endAm', true)}
                 value={values.endAm}
               >
@@ -289,20 +306,6 @@ const EditEventForm = (props) => {
       </div>
     </div>
   );
-};
-
-EditEventForm.propTypes = {
-  event: PropTypes.shape({
-    start: PropTypes.string.isRequired,
-    end: PropTypes.string.isRequired,
-  }).isRequired,
-  deleteEvent: PropTypes.func.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  setFieldTouched: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired.isRequired,
 };
 
 export default EditEventForm;

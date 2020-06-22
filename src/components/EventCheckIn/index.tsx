@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Input, Button, Checkbox } from 'antd';
 
 import './style.less';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
-const EventCheck = (props) => {
+interface EventCheckProps {
+  onAsStaffChange: ((e: CheckboxChangeEvent) => void)
+  onChange: ChangeEventHandler
+  onKeyPress: KeyboardEventHandler
+  onSubmit: FormEventHandler
+  user: {
+    profile: {
+      accountType: string
+    }
+  }
+  value: string
+}
+
+const EventCheck: React.FC<EventCheckProps> = (props) => {
   const {
     onAsStaffChange,
     onChange,
@@ -38,19 +52,6 @@ const EventCheck = (props) => {
       )}
     </Card>
   );
-};
-
-EventCheck.propTypes = {
-  onAsStaffChange: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onKeyPress: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    profile: PropTypes.shape({
-      accountType: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default EventCheck;

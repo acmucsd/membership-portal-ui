@@ -1,12 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 
 import './style.less';
 import { getRank } from '../../utils';
 
-const LeaderListItem = (props) => {
+interface LeaderListItemProps {
+  exp: number
+  image: string
+  name: string
+  placement: number
+  uuid: string
+}
+
+const LeaderListItem: React.FC<LeaderListItemProps> = (props) => {
   const { exp, image, name, placement, uuid } = props;
 
   return (
@@ -28,14 +35,6 @@ const LeaderListItem = (props) => {
       </span>
     </div>
   );
-};
-
-LeaderListItem.propTypes = {
-  exp: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  placement: PropTypes.number.isRequired,
-  uuid: PropTypes.string.isRequired,
 };
 
 export default LeaderListItem;

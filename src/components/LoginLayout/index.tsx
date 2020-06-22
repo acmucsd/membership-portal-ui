@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import './style.less';
 
-const LoginLayout = (props) => {
+interface LoginLayoutProps {
+  children: React.ReactChildren
+}
+
+const LoginLayout: React.FC<LoginLayoutProps> = (props) => {
   const { children } = props;
   return <div className="contents">{children}</div>;
-};
-
-LoginLayout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default LoginLayout;

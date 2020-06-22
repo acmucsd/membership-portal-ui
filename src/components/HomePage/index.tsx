@@ -6,7 +6,7 @@ import PastEvents from '../../containers/PastEvents';
 import ProfileCard from '../../containers/ProfileCard';
 import UpcomingEvents from '../../containers/UpcomingEvents';
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <div className="home-page">
       <h1 className="title">Dashboard</h1>

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import './style.less';
 
-const AdminPage = () => {
+const AdminPage: React.FC = () => {
   const history = useHistory();
   return (
     <div className="admin-page">

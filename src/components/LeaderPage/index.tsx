@@ -4,7 +4,7 @@ import Leaderboard from '../Leaderboard';
 
 import './style.less';
 
-const LeaderPage = () => {
+const LeaderPage: React.FC = () => {
   return (
     <div className="leader-page">
       <h1 className="title">Leaderboard</h1>

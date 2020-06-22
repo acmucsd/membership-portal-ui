@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import PropTypes from 'prop-types';
 import withSizes from 'react-sizes';
 
@@ -6,11 +6,15 @@ import './style.less';
 import Config from '../../config';
 import DefaultBanner from '../../assets/graphics/default-banner.svg';
 
-const Banner = (props) => {
+interface BannerProps {
+  isMobile: boolean
+}
+
+const Banner: React.FC<BannerProps> = (props) => {
   const { isMobile } = props;
 
-  const onError = (e) => {
-    e.target.src = DefaultBanner;
+  const onError = (e: SyntheticEvent) => {
+    (e.target as any).src = DefaultBanner;
   };
 
   return (
@@ -27,12 +31,8 @@ const Banner = (props) => {
   );
 };
 
-const mapSizesToProps = ({ width }) => ({
+const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
-
-Banner.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-};
 
 export default withSizes(mapSizesToProps)(Banner);

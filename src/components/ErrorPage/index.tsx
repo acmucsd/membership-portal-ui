@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.less';
 
-const ErrorPage = () => {
+const ErrorPage: React.FC = () => {
   return (
     <div className="Error-Page">
       <div className="title">
