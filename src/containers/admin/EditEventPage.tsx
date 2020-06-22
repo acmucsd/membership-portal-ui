@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { useParams } from 'react-router-dom';
@@ -8,10 +7,22 @@ import PageLayout from '../PageLayout';
 
 import { fetchEvent } from '../../actions/eventsActions';
 
-const EditEventPageContainer = (props) => {
+interface EditEventPageContainerProps {
+  event: {
+    uuid: string,
+    cover: string,
+    description: string,
+    location: string,
+    pointValue: string,
+    title: string,
+  },
+  fetchEvent: Function
+};
+
+const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) => {
   const { event } = props;
 
-  const params = useParams();
+  const params: {[key: string]: any} = useParams();
 
   useEffect(() => {
     props.fetchEvent(params.uuid);
@@ -24,19 +35,8 @@ const EditEventPageContainer = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: {[key: string]: any}) => ({
   event: state.events.event,
 });
-
-EditEventPageContainer.propTypes = {
-  event: PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    pointValue: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default connect(mapStateToProps, { fetchEvent })(EditEventPageContainer);

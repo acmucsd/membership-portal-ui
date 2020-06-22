@@ -53,53 +53,53 @@ const App = () => {
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route exact path="/about" component={requireAuth(AboutPage)} />
+            <Route exact path="/about" component={requireAuth(AboutPage) as React.FC} />
             <Route
               exact
               path="/admin"
-              component={requireAdminAuth(AdminPage)}
+              component={requireAdminAuth(AdminPage) as React.FC}
             />
             <Route
               exact
               path="/admin/editEvent/:uuid"
-              component={requireAdminAuth(EditEventPage)}
+              component={requireAdminAuth(EditEventPage) as React.FC}
             />
             <Route
               exact
               path="/admin/awardPoints"
-              component={requireAdminAuth(AwardPointsPage)}
+              component={requireAdminAuth(AwardPointsPage) as React.FC}
             />
             <Route
               exact
               path="/admin/createEvent"
-              component={requireAdminAuth(CreateEventPage)}
+              component={requireAdminAuth(CreateEventPage) as React.FC}
             />
             <Route exact path="/authenticate-email" component={AuthPage} />
-            <Route exact path="/discord" component={requireAuth(DiscordPage)} />
+            <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
             <Route exact path="/forgot-password" component={PasswordPage} />
             <Route
               exact
               path="/leaderboard"
-              component={requireAuth(LeaderPage)}
+              component={requireAuth(LeaderPage) as React.FC}
             />
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/profile" component={requireAuth(ProfilePage)} />
+            <Route exact path="/profile" component={requireAuth(ProfilePage) as React.FC} />
             <Route
               exact
               path="/profile/:uuid"
-              component={requireAuth(ProfilePage)}
+              component={requireAuth(ProfilePage) as React.FC}
             />
             <Route
               exact
               path="/editProfile"
-              component={requireAuth(ProfileUpdatePage)}
+              component={requireAuth(ProfileUpdatePage) as React.FC}
             />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
             <Route
               exact
               path="/store"
-              component={requireStandardAccess(requireAuth(StorePage))}
+              component={requireStandardAccess(requireAuth(StorePage)) as React.FC}
             />
             <Route
               exact
@@ -109,7 +109,7 @@ const App = () => {
             <Route
               exact
               path="/resendEmailVerification"
-              component={requireAuth(ResendEmailVerificationPage)}
+              component={requireAuth(ResendEmailVerificationPage) as React.FC}
             />
             <Route
               exact
@@ -121,7 +121,7 @@ const App = () => {
                 return <Redirect to="/login" />;
               }}
             />
-            <Route path="/" component={requireAuth(HomePage)} />
+            <Route path="/" component={requireAuth(HomePage) as React.FC} />
             <Route path="/" component={ErrorPage} />
           </Switch>
         </>

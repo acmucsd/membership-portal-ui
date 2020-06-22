@@ -9,7 +9,7 @@ interface NavProfileContainerProps {
   exp: number,
   profilePicture: string,
   name: string,
-  menu: React.ComponentClass | React.FC,
+  menu: any,
   fetchUser: Function,
 };
 

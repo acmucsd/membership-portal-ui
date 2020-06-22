@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AwardPointsPage from '../../components/admin/AwardPointsPage';
 import PageLayout from '../PageLayout';
 
-const AwardPointsPageContainer = () => {
+const AwardPointsPageContainer: React.FC = () => {
   return (
     <PageLayout>
       <AwardPointsPage />

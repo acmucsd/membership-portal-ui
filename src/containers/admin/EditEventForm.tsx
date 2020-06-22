@@ -25,7 +25,7 @@ const FormikEditEventForm = withFormik({
       committee: '',
     };
   },
-  handleSubmit(values, { props }) {
+  handleSubmit(values, { props }: {[key: string]: any}) {
     let { startTime } = values;
     let { endTime } = values;
 
@@ -68,6 +68,6 @@ const FormikEditEventForm = withFormik({
       .then(() => {})
       .catch(() => {});
   },
-})(EditEventform);
+})(EditEventform as React.FC);
 
 export default connect(null, { editEvent, deleteEvent })(FormikEditEventForm);
