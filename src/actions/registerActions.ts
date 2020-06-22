@@ -1,11 +1,11 @@
 import { replace } from 'connected-react-router';
-import { REGISTER_FAIL, REGISTER_USER } from './types';
+import { REGISTER_FAIL, REGISTER_USER, ThunkActionCreator } from './types';
 
 import Config from '../config';
 import { loginUser } from './authActions';
 import { notify } from '../utils';
 
-export const registerAccount = (user) => async (dispatch) => {
+export const registerAccount: ThunkActionCreator = (user) => async (dispatch) => {
   try {
     if (user.password !== user.confirmpassword) {
       throw new Error('Passwords do not match!');
@@ -45,6 +45,6 @@ export const registerAccount = (user) => async (dispatch) => {
   }
 };
 
-export const redirectAuth = () => (dispatch) => {
+export const redirectAuth: ThunkActionCreator = () => (dispatch) => {
   dispatch(replace('/authenticate-email'));
 };

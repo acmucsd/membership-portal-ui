@@ -1,10 +1,10 @@
-import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './types';
+import { FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './types';
 import { logoutUser } from './authActions';
 
 import Config from '../config';
 import Storage from '../storage';
 
-const fetchLeaderboard = () => async (dispatch) => {
+const fetchLeaderboard: ThunkActionCreator = () => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.leaderboard, {
       method: 'GET',
@@ -15,7 +15,7 @@ const fetchLeaderboard = () => async (dispatch) => {
       },
     });
 
-    const status = await response.status;
+    const status = response.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
     }

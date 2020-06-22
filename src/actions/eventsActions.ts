@@ -5,6 +5,7 @@ import {
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
   FETCH_EVENT,
+  ThunkActionCreator,
 } from './types';
 
 import { fetchUser } from './userActions';
@@ -14,7 +15,7 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const fetchFutureEvents = () => async (dispatch) => {
+export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
   try {
     const eventsRes = await fetch(
       Config.API_URL + Config.routes.events.future,
@@ -28,7 +29,7 @@ export const fetchFutureEvents = () => async (dispatch) => {
       }
     );
 
-    const status = await eventsRes.status;
+    const status = eventsRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -52,7 +53,7 @@ export const fetchFutureEvents = () => async (dispatch) => {
   }
 };
 
-export const fetchPastEvents = () => async (dispatch) => {
+export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
   try {
     const eventsRes = await fetch(Config.API_URL + Config.routes.events.past, {
       method: 'GET',
@@ -63,7 +64,7 @@ export const fetchPastEvents = () => async (dispatch) => {
       },
     });
 
-    const status = await eventsRes.status;
+    const status = eventsRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -91,7 +92,7 @@ export const fetchPastEvents = () => async (dispatch) => {
   }
 };
 
-export const checkIn = (info) => async (dispatch) => {
+export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
   try {
     const response = await fetch(
       Config.API_URL + Config.routes.attendance.attend,
@@ -109,7 +110,7 @@ export const checkIn = (info) => async (dispatch) => {
       }
     );
 
-    const status = await response.status;
+    const status = response.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -135,13 +136,13 @@ export const checkIn = (info) => async (dispatch) => {
   }
 };
 
-export const checkOut = () => (dispatch) => {
+export const checkOut: ThunkActionCreator = () => (dispatch) => {
   dispatch({
     type: EVENT_CHECKOUT,
   });
 };
 
-export const fetchEvent = (uuid) => async (dispatch) => {
+export const fetchEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   try {
     const eventRes = await fetch(
       `${Config.API_URL + Config.routes.events.event}/${uuid}`,
@@ -155,7 +156,7 @@ export const fetchEvent = (uuid) => async (dispatch) => {
       }
     );
 
-    const status = await eventRes.status;
+    const status = eventRes.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;

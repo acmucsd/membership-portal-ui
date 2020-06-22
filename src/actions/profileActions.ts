@@ -1,10 +1,10 @@
-import { PROFILE_SUCCESS, PROFILE_FAIL } from './types';
+import { PROFILE_SUCCESS, PROFILE_FAIL, ThunkActionCreator } from './types';
 import Config from '../config';
 import Storage from '../storage';
 import { logoutUser } from './authActions';
 import { notify } from '../utils';
 
-export const updateProfile = (values) => async (dispatch) => {
+export const updateProfile: ThunkActionCreator = (values) => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.user.user, {
       method: 'PATCH',
@@ -16,7 +16,7 @@ export const updateProfile = (values) => async (dispatch) => {
       body: JSON.stringify({ user: values }),
     });
 
-    const status = await response.status;
+    const status = response.status;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -35,7 +35,7 @@ export const updateProfile = (values) => async (dispatch) => {
   }
 };
 
-export const uploadUserImage = async (file, uuid) => {
+export const uploadUserImage = async (file: string | Blob, uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       const formdata = new FormData();
@@ -62,7 +62,7 @@ export const uploadUserImage = async (file, uuid) => {
       if (!data) throw new Error('Empty response from server');
       if (data.error) throw new Error(data.error.message);
 
-      notify('Updated profile picture!');
+      notify('Updated profile picture!', '');
 
       resolve(data);
     } catch (error) {

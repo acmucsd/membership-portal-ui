@@ -10,7 +10,7 @@ import createRootReducer from './reducers';
 export const history = createBrowserHistory();
 history.listen((location) => ReactGA.pageview(location.pathname));
 
-export default function configureStore(preloadedState) {
+export default function configureStore(preloadedState?) {
   const store = createStore(
     createRootReducer(history), // root reducer with router state
     preloadedState,

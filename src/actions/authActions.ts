@@ -5,6 +5,7 @@ import {
   PASSWORD_FAIL,
   PASSWORD_SUCCESS,
   UNAUTH_USER,
+  ThunkActionCreator,
 } from './types';
 
 import Config from '../config';
@@ -18,7 +19,7 @@ import { notify } from '../utils';
  * @param {string} token - A jwt token returned from auth.
  * @return {object} The claims from the token.
  */
-const tokenGetClaims = (token) => {
+const tokenGetClaims = (token?: string): object => {
   if (!token) {
     return {};
   }
@@ -31,7 +32,7 @@ const tokenGetClaims = (token) => {
   );
 };
 
-export const loginUser = (values) => async (dispatch) => {
+export const loginUser: ThunkActionCreator = (values) => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
@@ -50,7 +51,7 @@ export const loginUser = (values) => async (dispatch) => {
     if (data.error) throw new Error(data.error.message);
 
     Storage.set('token', data.token);
-    const userData = tokenGetClaims(data.token);
+    const userData: {[key: string]: any} = tokenGetClaims(data.token);
     dispatch({
       type: AUTH_USER,
       isAdmin: userData.admin,
@@ -67,7 +68,7 @@ export const loginUser = (values) => async (dispatch) => {
   }
 };
 
-export const verifyToken = (dispatch) => async () => {
+export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
@@ -101,7 +102,7 @@ export const verifyToken = (dispatch) => async () => {
           resolve(data);
           return;
         }
-        const userData = tokenGetClaims(token);
+        const userData: {[key: string]: any} = tokenGetClaims(token);
         dispatch({
           type: AUTH_USER,
           isAdmin: userData.admin,
@@ -138,7 +139,7 @@ export const verifyToken = (dispatch) => async () => {
   });
 };
 
-export const logoutUser = () => (dispatch) => {
+export const logoutUser: ThunkActionCreator = () => (dispatch) => {
   dispatch({
     type: UNAUTH_USER,
   });
@@ -146,7 +147,7 @@ export const logoutUser = () => (dispatch) => {
   dispatch(replace('/login'));
 };
 
-export const passwordReset = (email) => async (dispatch) => {
+export const passwordReset: ThunkActionCreator = (email: string) => async (dispatch) => {
   try {
     const response = await fetch(
       `${Config.API_URL + Config.routes.auth.resetPassword}/${email}`,
@@ -177,7 +178,7 @@ export const passwordReset = (email) => async (dispatch) => {
   }
 };
 
-export const updatePassword = (user) => async (dispatch) => {
+export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => {
   try {
     const response = await fetch(
       `${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`,
@@ -203,7 +204,7 @@ export const updatePassword = (user) => async (dispatch) => {
 };
 
 // Verifies an email using a info object with email field and code field
-export const verifyEmail = async (info) => {
+export const verifyEmail = async (info: {[key: string]: any}) => {
   try {
     const response = await fetch(
       `${`${Config.API_URL + Config.routes.auth.emailVerification}/${
@@ -223,13 +224,13 @@ export const verifyEmail = async (info) => {
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    notify('Verified email!');
+    notify('Verified email!', '');
   } catch (error) {
     notify('Unable to verify email!', error.message);
   }
 };
 
-export const sendEmailVerification = async (email) => {
+export const sendEmailVerification = async (email: string) => {
   try {
     const response = await fetch(
       `${`${Config.API_URL + Config.routes.auth.emailVerification}/${email}`}`,
@@ -246,7 +247,7 @@ export const sendEmailVerification = async (email) => {
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    notify('Sent verification email!');
+    notify('Sent verification email!', '');
   } catch (error) {
     notify('Unable to send verification email!', error.message);
   }

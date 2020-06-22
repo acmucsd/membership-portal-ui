@@ -1,9 +1,9 @@
-import { FETCH_USER } from './types';
+import { FETCH_USER, ThunkActionCreator } from './types';
 
 import Config from '../config';
 import Storage from '../storage';
 
-export const fetchUser = (uuid) => async (dispatch) => {
+export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
   try {
     const response = await fetch(
       `${Config.API_URL + Config.routes.user.user}/${uuid || ''}`,
@@ -36,7 +36,7 @@ export const fetchUser = (uuid) => async (dispatch) => {
   }
 };
 
-export const fetchUserByID = async (uuid) => {
+export const fetchUserByID = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(

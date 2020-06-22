@@ -1,11 +1,11 @@
 import Config from '../config';
 import Storage from '../storage';
 
-import { EVENT_DELETE } from './types';
+import { EVENT_DELETE, ThunkActionCreator } from './types';
 import { notify } from '../utils';
 import { logoutUser } from './authActions';
 
-export const postEvent = (event) => async (dispatch) => {
+export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
@@ -21,7 +21,7 @@ export const postEvent = (event) => async (dispatch) => {
         }
       );
 
-      const status = await response.status;
+      const status = response.status;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
@@ -39,7 +39,7 @@ export const postEvent = (event) => async (dispatch) => {
   });
 };
 
-export const editEvent = (event) => async (dispatch) => {
+export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
@@ -55,7 +55,7 @@ export const editEvent = (event) => async (dispatch) => {
         }
       );
 
-      const status = await response.status;
+      const status = response.status;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
@@ -73,7 +73,7 @@ export const editEvent = (event) => async (dispatch) => {
   });
 };
 
-export const deleteEvent = (uuid) => async (dispatch) => {
+export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
@@ -88,7 +88,7 @@ export const deleteEvent = (uuid) => async (dispatch) => {
         }
       );
 
-      const status = await response.status;
+      const status = response.status;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
@@ -117,9 +117,9 @@ export const deleteEvent = (uuid) => async (dispatch) => {
   });
 };
 
-export const awardPoints = (pointDetails) => async (dispatch) => {
+export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
-    if (!pointDetails.points || !pointDetails.points === 0) {
+    if (!pointDetails.points) {
       notify('Validation Error!', 'No points provided');
       reject();
       return;
@@ -145,7 +145,7 @@ export const awardPoints = (pointDetails) => async (dispatch) => {
         body: JSON.stringify({ bonus: pointDetails }),
       });
 
-      const status = await response.status;
+      const status = response.status;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
