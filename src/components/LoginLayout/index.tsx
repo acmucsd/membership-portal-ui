@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './style.less';
 
 interface LoginLayoutProps {
-  children: React.ReactChildren
+  children: React.ReactChild | React.ReactChildren | React.ReactChild[]
 }
 
 const LoginLayout: React.FC<LoginLayoutProps> = (props) => {

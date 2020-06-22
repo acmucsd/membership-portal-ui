@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { ComponentType } from 'react';
 import withSizes from 'react-sizes';
 import { NavLink } from 'react-router-dom';

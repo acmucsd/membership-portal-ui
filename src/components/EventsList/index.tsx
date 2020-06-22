@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './style.less';
 
 interface EventList {
-  children: React.ReactChildren
+  children: React.ReactChildren | React.ReactChild[]
 }
 
 const EventsList: React.FC<EventList> = (props) => {

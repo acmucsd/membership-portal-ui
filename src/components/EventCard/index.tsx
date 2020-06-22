@@ -8,12 +8,12 @@ import { isURL, getAbsoluteURL } from '../../utils';
 import './styles.less';
 
 interface EventCardProps {
-  auth: {admin: boolean}
+  auth: any,
   cover: string,
   date: string,
   description: string,
   location: string,
-  points: number,
+  points: string,
   title: string,
   uuid: string
 }

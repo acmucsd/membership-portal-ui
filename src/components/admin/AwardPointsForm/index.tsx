@@ -1,5 +1,4 @@
 import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button, Tag, Tooltip, Icon } from 'antd';
 
 import './style.less';

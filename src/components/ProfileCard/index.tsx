@@ -8,7 +8,7 @@ interface ProfileCardProps {
   profilePicture: string,
   name: string,
   rank: string,
-  level: string,
+  level: number,
   exp: number,
 };
 

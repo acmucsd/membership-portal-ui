@@ -11,6 +11,7 @@ interface TopLeaderCardProps {
   image: string,
   placement: number,
   uuid: string,
+  rank: number,
 };
 
 const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
