@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Avatar, Progress } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import { getLevel, getRank, getDefaultProfile } from '../../utils';
@@ -7,15 +6,21 @@ import { fetchUserByID } from '../../actions/userActions';
 
 import './style.less';
 
-const ProfilePage = (props) => {
+interface ProfilePageProps {
+  user: {
+    uuid: string,
+  },
+};
+
+const ProfilePage: React.FC<ProfilePageProps> = (props) => {
   const { user } = props;
 
-  const params = useParams();
-  const [stateUser, setUser] = useState('');
+  const params: {[key: string]: any} = useParams();
+  const [stateUser, setUser] = useState<{[key: string]: any}>();
   useEffect(() => {
     if (params.uuid) {
       fetchUserByID(params.uuid).then((res) => {
-        setUser({ profile: { ...res.user }, image: res.user.profilePicture });
+        setUser({ profile: { ...(res as {[key: string]: any}).user }, image: (res as {[key: string]: any}).user.profilePicture });
       });
     } else {
       setUser(user);
@@ -69,12 +74,6 @@ const ProfilePage = (props) => {
       )}
     </div>
   );
-};
-
-ProfilePage.propTypes = {
-  user: PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ProfilePage;

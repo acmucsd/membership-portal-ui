@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler, FormEventHandler, FocusEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { NavLink } from 'react-router-dom';
@@ -10,7 +10,23 @@ const { Option } = Select;
 
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
-const RegisterForm = (props) => {
+interface RegisterFormProps {
+  handleBlur: FocusEventHandler,
+  handleChange: ChangeEventHandler,
+  handleSubmit: FormEventHandler,
+  setFieldValue: Function,
+  values: {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    confirmpassword: string,
+    major: string,
+    graduationYear: number,
+  },
+};
+
+const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const {
     handleBlur,
     handleChange,
@@ -88,8 +104,8 @@ const RegisterForm = (props) => {
             <Form.Item label="Year" className="formitems">
               <Select
                 className="year"
-                onBlur={(value) => setFieldValue('graduationYear', value)}
-                onChange={(value) => setFieldValue('graduationYear', value)}
+                onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
+                onChange={(value: string | number) => setFieldValue('graduationYear', value)}
                 value={values.graduationYear}
               >
                 {years.map((num) => (
@@ -118,22 +134,6 @@ const RegisterForm = (props) => {
       </div>
     </div>
   );
-};
-
-RegisterForm.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    confirmpassword: PropTypes.string.isRequired,
-    major: PropTypes.string.isRequired,
-    graduationYear: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export default RegisterForm;

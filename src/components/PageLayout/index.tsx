@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { ComponentType } from 'react';
 import withSizes from 'react-sizes';
 import { NavLink } from 'react-router-dom';
 
@@ -14,7 +14,13 @@ import logo from '../../assets/graphics/logo.svg';
 
 import './style.less';
 
-const PageLayout = (props) => {
+interface PageLayoutProps {
+  children: React.ComponentClass | React.FC,
+  isAdmin: boolean,
+  isMobile: boolean,
+};
+
+const PageLayout: React.FC<PageLayoutProps> = (props) => {
   const { children, isAdmin, isMobile } = props;
 
   return (
@@ -32,7 +38,7 @@ const PageLayout = (props) => {
           <NavProfile menu={<NavDropdown />} />
         </div>
       </div>
-      <Banner />
+      <Banner isMobile={isMobile} />
       {isMobile ? (
         <>
           <NavBarHorizontal />
@@ -48,14 +54,8 @@ const PageLayout = (props) => {
   );
 };
 
-const mapSizesToProps = ({ width }) => ({
+const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-PageLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
-  isMobile: PropTypes.bool.isRequired,
-};
-
-export default withSizes(mapSizesToProps)(PageLayout);
+export default withSizes(mapSizesToProps)(PageLayout as ComponentType<{isMobile: boolean;}>);

@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const PasswordForm = (props) => {
+interface PasswordFormProps {
+  handleClick: MouseEventHandler,
+  onKeyPress: KeyboardEventHandler,
+  onChange: ChangeEventHandler,
+  value: string,
+};
+
+const PasswordForm: React.FC<PasswordFormProps> = (props) => {
   const { handleClick, onKeyPress, onChange, value } = props;
 
   return (
@@ -33,13 +40,6 @@ const PasswordForm = (props) => {
       </form>
     </div>
   );
-};
-
-PasswordForm.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  onKeyPress: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default PasswordForm;

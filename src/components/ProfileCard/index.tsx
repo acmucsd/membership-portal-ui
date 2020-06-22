@@ -1,11 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { Avatar, Card, Progress } from 'antd';
 
 import './style.less';
 
-const ProfileCard = (props) => {
+interface ProfileCardProps {
+  profilePicture: string,
+  name: string,
+  rank: string,
+  level: string,
+  exp: number,
+};
+
+const ProfileCard: React.FC<ProfileCardProps> = (props) => {
   const { profilePicture, name, rank, level, exp } = props;
   const history = useHistory();
 
@@ -44,14 +51,6 @@ const ProfileCard = (props) => {
       </div>
     </Card>
   );
-};
-
-ProfileCard.propTypes = {
-  profilePicture: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  rank: PropTypes.string.isRequired,
-  level: PropTypes.string.isRequired,
-  exp: PropTypes.number.isRequired,
 };
 
 export default ProfileCard;

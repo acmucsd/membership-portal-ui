@@ -19,10 +19,12 @@ interface EditEventPageProps {
 const EditEventPage: React.FC<EditEventPageProps> = (props) => {
   const { event } = props;
 
+  const EditEventCustomForm = EditEventForm as unknown as React.ComponentClass<any>;
+
   return (
     <div className="edit-event-page">
       <h1 className="title">Admin</h1>
-      <EditEventForm event={event as any} />
+      <EditEventCustomForm event={event} />
     </div>
   );
 };

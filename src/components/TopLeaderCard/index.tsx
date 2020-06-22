@@ -5,7 +5,15 @@ import { Link } from 'react-router-dom';
 import './style.less';
 import { getRank } from '../../utils';
 
-const TopLeaderCard = (props) => {
+interface TopLeaderCardProps {
+  exp: number,
+  name: string,
+  image: string,
+  placement: number,
+  uuid: string,
+};
+
+const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
   const { exp, name, image, placement, uuid } = props;
 
   let leaderboardClass = 'leaderboard-card-left ';
@@ -40,14 +48,6 @@ const TopLeaderCard = (props) => {
       </div>
     </div>
   );
-};
-
-TopLeaderCard.propTypes = {
-  exp: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  placement: PropTypes.number.isRequired,
-  uuid: PropTypes.string.isRequired,
 };
 
 export default TopLeaderCard;

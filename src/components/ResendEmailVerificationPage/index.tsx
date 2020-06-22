@@ -5,7 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { sendEmailVerification } from '../../actions/authActions';
 import './style.less';
 
-const ResendEmailVerficationPage = (props) => {
+interface ResendEmailVerficationPageProps {
+  email: string,
+};
+
+const ResendEmailVerficationPage: React.FC<ResendEmailVerficationPageProps> = (props) => {
   const { email } = props;
 
   const history = useHistory();
@@ -45,10 +49,6 @@ const ResendEmailVerficationPage = (props) => {
       </Button>
     </div>
   );
-};
-
-ResendEmailVerficationPage.propTypes = {
-  email: PropTypes.string.isRequired,
 };
 
 export default ResendEmailVerficationPage;

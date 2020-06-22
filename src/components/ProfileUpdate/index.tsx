@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useRef, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button, Select, Modal, Upload, Avatar } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { getDefaultProfile } from '../../utils';
@@ -12,7 +11,33 @@ const { TextArea } = Input;
 
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
-const ProfileUpdate = (props) => {
+interface ProfileUpdateProps {
+  handleBlur: FocusEventHandler,
+  handleChange: ChangeEventHandler,
+  handleSubmit: FormEventHandler,
+  setFieldValue: Function,
+  user: {
+    profile: {
+      uuid: string,
+      firstName: string,
+      lastName: string,
+      major: string,
+      bio: string,
+      profilePicture: string,
+      graduationYear: string,
+      [key: string]: any
+    },
+  },
+  values: {
+    firstName: string,
+    lastName: string,
+    graduationYear: number,
+    major: string,
+    bio: string,
+  },
+};
+
+const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   const {
     handleBlur,
     handleChange,
@@ -23,15 +48,15 @@ const ProfileUpdate = (props) => {
   } = props;
 
   const [bg, setBG] = useState(user.profile.profilePicture);
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
   const [uploadState, setUploadState] = useState('none');
-  const dummyRequest = ({ onSuccess }) => {
+  const dummyRequest = ({ onSuccess }: { onSuccess: Function}) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);
   };
-  const onFileChange = (info) => {
+  const onFileChange = (info: {[key: string]: any}) => {
     const infoFileList = [...info.fileList];
     URL.revokeObjectURL(bg);
     if (infoFileList.length) {
@@ -71,6 +96,10 @@ const ProfileUpdate = (props) => {
     });
   }, [user]);
 
+  const InnerRefButton =  Button as React.ComponentClass<any>;
+  const CustomSelect = Select as React.ComponentClass<any>;
+  const CustomUpload = Upload as React.ComponentClass<any>;
+
   return (
     <div className="update-card">
       <div className="updatecontent">
@@ -106,7 +135,7 @@ const ProfileUpdate = (props) => {
           ]}
         >
           <div className="upload-wrapper">
-            <Upload
+            <CustomUpload
               className="upload-profile-pic"
               name="file"
               type="file"
@@ -124,10 +153,10 @@ const ProfileUpdate = (props) => {
                   className="avatar"
                 />
               </div>
-              <Button className="upload-button" innerRef={uploadImageButton}>
+              <InnerRefButton className="upload-button" innerRef={uploadImageButton}>
                 Change Picture
-              </Button>
-            </Upload>
+              </InnerRefButton>
+            </CustomUpload>
           </div>
         </Modal>
         <form onSubmit={handleSubmit} className="update-profile-form">
@@ -151,14 +180,14 @@ const ProfileUpdate = (props) => {
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item label="Year">
-              <Select
+              <CustomSelect
                 name="graduationYear"
                 value={values.graduationYear}
                 className="year"
-                onBlur={(value) => {
+                onBlur={(value: string | number) => {
                   setFieldValue('graduationYear', value);
                 }}
-                onChange={(value) => {
+                onChange={(value: string | number) => {
                   setFieldValue('graduationYear', value);
                 }}
               >
@@ -167,7 +196,7 @@ const ProfileUpdate = (props) => {
                     {num}
                   </Option>
                 ))}
-              </Select>
+              </CustomSelect>
             </Form.Item>
             <Form.Item label="Major">
               <Input
@@ -198,31 +227,6 @@ const ProfileUpdate = (props) => {
       </div>
     </div>
   );
-};
-
-ProfileUpdate.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    profile: PropTypes.shape({
-      uuid: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      major: PropTypes.string.isRequired,
-      bio: PropTypes.string.isRequired,
-      profilePicture: PropTypes.string.isRequired,
-      graduationYear: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  values: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    graduationYear: PropTypes.number.isRequired,
-    major: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ProfileUpdate;

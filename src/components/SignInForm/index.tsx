@@ -1,12 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
-const SignInForm = (props) => {
+interface SignInFormProps {
+  handleBlur: FocusEventHandler,
+  handleChange: ChangeEventHandler,
+  handleSubmit: FormEventHandler,
+  values: {
+    email: string,
+    password: string,
+  },
+};
+
+const SignInForm: React.FC<SignInFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, values } = props;
 
   return (
@@ -54,17 +63,6 @@ const SignInForm = (props) => {
       </div>
     </div>
   );
-};
-
-// TODO: swap out proptypes with formik's implementation
-SignInForm.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  values: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default SignInForm;
