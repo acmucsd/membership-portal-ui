@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
 import './style.less';
 
-const ModalComponent = (props) => {
+interface ModalComponentProps {
+  title: string,
+  image: string,
+  visible: boolean,
+  handleOk: MouseEventHandler,
+  handleCancel: MouseEventHandler,
+  content: string,
+}
+
+const ModalComponent: React.FC<ModalComponentProps> = (props) => {
   const { title, image, visible, handleOk, handleCancel, content } = props;
 
   return (
@@ -23,11 +32,5 @@ const ModalComponent = (props) => {
 };
 
 ModalComponent.propTypes = {
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  visible: PropTypes.bool.isRequired,
-  handleOk: PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired,
-  content: PropTypes.string.isRequired,
 };
 export default ModalComponent;

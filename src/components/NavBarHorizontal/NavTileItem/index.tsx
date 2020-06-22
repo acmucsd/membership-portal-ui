@@ -5,7 +5,12 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 
-const NavTileItem = (props) => {
+interface NavTileItemProps {
+  icon: React.ComponentClass | React.FC
+  text: string
+}
+
+const NavTileItem: React.FC<NavTileItemProps> = (props) => {
   const { icon } = props;
   return (
     <div className="nav-tile-item">
@@ -13,10 +18,6 @@ const NavTileItem = (props) => {
       <Divider className="divider" />
     </div>
   );
-};
-
-NavTileItem.propTypes = {
-  icon: PropTypes.node.isRequired,
 };
 
 export default NavTileItem;

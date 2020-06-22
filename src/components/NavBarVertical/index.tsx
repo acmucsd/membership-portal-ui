@@ -12,7 +12,11 @@ import { ReactComponent as LBIcon } from '../../assets/icons/lb-icon.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.svg';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
-const NavbarVertical = (props) => {
+interface NavbarVerticalProps {
+  isAdmin: boolean,
+};
+
+const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   const { isAdmin } = props;
 
   return (
@@ -20,7 +24,7 @@ const NavbarVertical = (props) => {
       <section>
         <h1>Portal</h1>
         <NavLink exact activeClassName="selected" to="/">
-          <NavListItem icon={DashboardIcon} link="/" text="Dashboard" />
+          <NavListItem icon={DashboardIcon} text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" to="/leaderboard">
           <NavListItem icon={LBIcon} text="Leaderboard" />
@@ -49,10 +53,6 @@ const NavbarVertical = (props) => {
       </section>
     </nav>
   );
-};
-
-NavbarVertical.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
 };
 
 export default NavbarVertical;

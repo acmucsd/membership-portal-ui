@@ -1,12 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Avatar, Dropdown, Progress } from 'antd';
 import Icon from '@ant-design/icons';
 
 import './style.less';
 import { ReactComponent as Caret } from '../../assets/icons/caret-icon.svg';
 
-const NavProfile = (props) => {
+interface NavProfileProps {
+  exp: number,
+  profilePicture: string,
+  menu: React.ComponentClass | React.FC,
+  name: string,
+};
+
+const NavProfile: React.FC<NavProfileProps> = (props) => {
   const { exp, profilePicture, menu, name } = props;
 
   return (
@@ -14,7 +20,7 @@ const NavProfile = (props) => {
       <Dropdown
         overlay={menu}
         trigger={['click']}
-        getPopupContainer={(trigger) => trigger.parentNode}
+        getPopupContainer={(trigger) => trigger.parentNode as HTMLElement}
       >
         <div className="nav-profile">
           <Progress
@@ -37,13 +43,6 @@ const NavProfile = (props) => {
       </Dropdown>
     </div>
   );
-};
-
-NavProfile.propTypes = {
-  exp: PropTypes.number.isRequired,
-  profilePicture: PropTypes.string.isRequired,
-  menu: PropTypes.node.isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export default NavProfile;

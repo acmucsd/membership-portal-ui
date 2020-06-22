@@ -1,19 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { MouseEventHandler } from 'react';
 import { Divider } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
 import NavListItem from '../NavListItem';
 
-const NavDropdown = (props) => {
+interface NavDropdownProps {
+  logout: MouseEventHandler,
+};
+
+const NavDropdown: React.FC<NavDropdownProps> = (props) => {
   const { logout } = props;
 
   return (
     <nav className="nav-dropdown">
       <section>
         <NavLink activeClassName="selected" className="nav-item" to="/">
-          <NavListItem link="/dashboard" text="Dashboard" />
+          <NavListItem text="Dashboard" />
         </NavLink>
         <NavLink
           activeClassName="selected"
@@ -47,10 +50,6 @@ const NavDropdown = (props) => {
       </div>
     </nav>
   );
-};
-
-NavDropdown.propTypes = {
-  logout: PropTypes.func.isRequired,
 };
 
 export default NavDropdown;

@@ -4,7 +4,12 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 
-const NavListItem = (props) => {
+interface NavListItemProps {
+  icon?: React.ComponentClass | React.FC,
+  text: string,
+};
+
+const NavListItem: React.FC<NavListItemProps> = (props) => {
   const { icon, text } = props;
   return (
     <div className="nav-list-item">
@@ -12,11 +17,6 @@ const NavListItem = (props) => {
       <span>{text}</span>
     </div>
   );
-};
-
-NavListItem.propTypes = {
-  icon: PropTypes.node.isRequired,
-  text: PropTypes.string.isRequired,
 };
 
 export default NavListItem;

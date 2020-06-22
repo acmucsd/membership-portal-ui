@@ -14,7 +14,7 @@ export default () => {
     <>
       <nav className="navbar-horizontal">
         <NavLink exact activeClassName="selected" to="/">
-          <NavTileItem icon={DashboardIcon} link="/" text="Dashboard" />
+          <NavTileItem icon={DashboardIcon} text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" to="/leaderboard">
           <NavTileItem icon={LBIcon} text="Leaderboard" />
