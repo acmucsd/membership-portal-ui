@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Tag, Tooltip, Icon } from 'antd';
 
@@ -6,7 +6,21 @@ import './style.less';
 
 const { TextArea } = Input;
 
-const AwardPointsForm = (props) => {
+interface AwardPointsFormProps {
+  handleBlur: FocusEventHandler
+  handleChange: ChangeEventHandler
+  handleSubmit: FormEventHandler
+  isSubmitting: boolean
+  isValidating: boolean
+  setFieldValue: Function
+  values: {
+    uuid: string,
+    points: string,
+    description: string
+  }
+}
+
+const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
   const {
     handleBlur,
     handleChange,
@@ -17,7 +31,7 @@ const AwardPointsForm = (props) => {
     values,
   } = props;
 
-  const [awardees, _setAwardees] = useState([]);
+  const [awardees, _setAwardees] = useState([] as any[]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -25,20 +39,20 @@ const AwardPointsForm = (props) => {
     setInputVisible(true);
   };
 
-  const updateAwardees = (newAwardees) => {
+  const updateAwardees = (newAwardees: any[]) => {
     _setAwardees(newAwardees);
     setFieldValue('awardees', newAwardees);
   };
 
-  const handleClose = (removedAwardee) => {
+  const handleClose = (removedAwardee: {[key: string]: any} | string) => {
     const newAwardees = awardees.filter(
       (awardee) => awardee !== removedAwardee
     );
     updateAwardees(newAwardees);
   };
 
-  const handleAwardeeInputChange = (e) => {
-    setInputValue(e.target.value);
+  const handleAwardeeInputChange = (e: ChangeEvent) => {
+    setInputValue((e.target as any).value);
   };
 
   const handleInputConfirm = () => {
@@ -96,7 +110,7 @@ const AwardPointsForm = (props) => {
                   value={inputValue}
                   onChange={handleAwardeeInputChange}
                   onBlur={(e) => {
-                    handleInputConfirm(e);
+                    handleInputConfirm();
                     handleBlur(e);
                   }}
                   onPressEnter={handleInputConfirm}
@@ -133,20 +147,6 @@ const AwardPointsForm = (props) => {
       </div>
     </div>
   );
-};
-
-AwardPointsForm.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-    points: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default AwardPointsForm;

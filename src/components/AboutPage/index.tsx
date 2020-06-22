@@ -9,7 +9,7 @@ import { ReactComponent as FbIcon } from '../../assets/icons/fb-icon.svg';
 import { ReactComponent as IgIcon } from '../../assets/icons/ig-icon.svg';
 import { ReactComponent as WebIcon } from '../../assets/icons/web-icon.svg';
 
-const AboutPage = () => {
+const AboutPage: React.FC = () => {
   return (
     <div className="about-page">
       <div className="title">

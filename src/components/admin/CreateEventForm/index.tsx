@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 
@@ -22,18 +22,42 @@ const months = [
   'December',
 ];
 
-const days = [];
+const days: number[] = [];
 for (let i = 1; i <= 31; i += 1) {
   days.push(i);
 }
 
-const hours = [];
+const hours: number[] = [];
 for (let i = 1; i <= 12; i += 1) {
   hours.push(i);
 }
 
+interface CreateEventFormProps {
+  handleBlur: FocusEventHandler
+  handleChange: ChangeEventHandler
+  handleSubmit: FormEventHandler
+  setFieldTouched: Function
+  setFieldValue: Function
+  values: {
+    title: string,
+    committee: string,
+    location: string,
+    pointValue: string,
+    year: string,
+    month: string,
+    day: string,
+    startTime: string,
+    startAm: string,
+    endTime: string,
+    endAm: string,
+    cover: string,
+    attendanceCode: string,
+    description: string
+  }
+}
+
 /* Future Note: Add a fun generate attendance code function :) based on title */
-const CreateEventForm = (props) => {
+const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
   const {
     handleBlur,
     handleChange,
@@ -99,7 +123,7 @@ const CreateEventForm = (props) => {
             <Form.Item className="month-wrapper" label="Month">
               <Select
                 className="months"
-                onChange={(value) => setFieldValue('month', value)}
+                onChange={(value: string) => setFieldValue('month', value)}
                 onBlur={() => setFieldTouched('month', true)}
                 value={values.month}
               >
@@ -113,7 +137,7 @@ const CreateEventForm = (props) => {
             <Form.Item className="day-wrapper" label="Day">
               <Select
                 className="days"
-                onChange={(value) => setFieldValue('day', value)}
+                onChange={(value: string) => setFieldValue('day', value)}
                 onBlur={() => setFieldTouched('day', true)}
                 value={values.day}
               >
@@ -129,7 +153,7 @@ const CreateEventForm = (props) => {
             <Form.Item className="start-time" label="Start Time">
               <Select
                 className="time"
-                onChange={(value) => setFieldValue('startTime', value)}
+                onChange={(value: string) => setFieldValue('startTime', value)}
                 onBlur={() => setFieldTouched('startTime', true)}
                 value={values.startTime}
               >
@@ -141,7 +165,7 @@ const CreateEventForm = (props) => {
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => setFieldValue('startAm', value)}
+                onChange={(value: string) => setFieldValue('startAm', value)}
                 onBlur={() => setFieldTouched('startAm', true)}
                 value={values.startAm}
               >
@@ -152,7 +176,7 @@ const CreateEventForm = (props) => {
             <Form.Item className="end-time" label="End Time">
               <Select
                 className="time"
-                onChange={(value) => setFieldValue('endTime', value)}
+                onChange={(value: string) => setFieldValue('endTime', value)}
                 onBlur={() => setFieldTouched('endTime', true)}
                 value={values.endTime}
               >
@@ -164,7 +188,7 @@ const CreateEventForm = (props) => {
               </Select>
               <Select
                 className="ampm"
-                onChange={(value) => setFieldValue('endAm', value)}
+                onChange={(value: string) => setFieldValue('endAm', value)}
                 onBlur={() => setFieldTouched('endAm', true)}
                 value={values.endAm}
               >
@@ -210,30 +234,6 @@ const CreateEventForm = (props) => {
       </div>
     </div>
   );
-};
-
-CreateEventForm.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  setFieldTouched: PropTypes.func.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    committee: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    pointValue: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    month: PropTypes.string.isRequired,
-    day: PropTypes.string.isRequired,
-    startTime: PropTypes.string.isRequired,
-    startAm: PropTypes.string.isRequired,
-    endTime: PropTypes.string.isRequired,
-    endAm: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    attendanceCode: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default CreateEventForm;
