@@ -1,5 +1,6 @@
 import { FETCH_USER } from '../actions/types';
 import { getDefaultProfile } from '../utils';
+import { AnyAction } from 'redux';
 
 const defaultProfile = getDefaultProfile();
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
   error: null,
 };
 
-const UserReducer = (state = initialState, action) => {
+const UserReducer = (state = initialState, action: AnyAction) => {
   const newAction = action;
   switch (newAction.type) {
     case FETCH_USER:

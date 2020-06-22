@@ -1,11 +1,12 @@
 import { PROFILE_SUCCESS, PROFILE_FAIL } from '../actions/types';
+import { AnyAction } from 'redux';
 
 const initialState = {
   updateSuccess: false,
   error: false,
 };
 
-const ProfileReducer = (state = initialState, action) => {
+const ProfileReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case PROFILE_SUCCESS:
       return {

@@ -8,6 +8,7 @@ import {
   FETCH_PAST_EVENTS,
   FETCH_EVENT,
 } from '../actions/types';
+import { AnyAction } from 'redux';
 
 const initialState = {
   currentEvent: {},
@@ -18,7 +19,7 @@ const initialState = {
   error: null,
 };
 
-const EventsReducer = (state = initialState, action) => {
+const EventsReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case EVENT_CHECKIN:
       return {

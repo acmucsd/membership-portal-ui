@@ -1,4 +1,5 @@
 import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from '../actions/types';
+import { AnyAction } from 'redux';
 
 const initialState = {
   admin: false,
@@ -6,7 +7,7 @@ const initialState = {
   error: false,
 };
 
-const AuthReducer = (state = initialState, action) => {
+const AuthReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case AUTH_ERROR:
       return {

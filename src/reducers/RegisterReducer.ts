@@ -1,11 +1,12 @@
 import { REGISTER_USER, REGISTER_FAIL } from '../actions/types';
+import { AnyAction } from 'redux';
 
 const initialState = {
   registerSuccess: false,
   error: null,
 };
 
-const RegisterReducer = (state = initialState, action) => {
+const RegisterReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case REGISTER_USER:
       return {
