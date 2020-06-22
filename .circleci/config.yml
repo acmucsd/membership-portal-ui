@@ -17,7 +17,7 @@ jobs:
             # https://circleci.com/docs/2.0/gh-bb-integration/#creating-a-github-deploy-key
             # 3. Add deploy key to GitHub. ALLOW WRITE ACCESS!
             # 4. Add fingerprint from CircleCI here
-            - ""
+            - "dc:07:0a:7c:87:e7:42:92:18:75:3a:2b:99:0b:c6:6e"
       - checkout
       - run:
           command: | # Multiline command input, easiest to read
