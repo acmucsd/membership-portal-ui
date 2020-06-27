@@ -8,19 +8,22 @@ import './style.less';
 
 interface ProfilePageProps {
   user: {
-    uuid: string,
-  },
-};
+    uuid: string;
+  };
+}
 
 const ProfilePage: React.FC<ProfilePageProps> = (props) => {
   const { user } = props;
 
-  const params: {[key: string]: any} = useParams();
-  const [stateUser, setUser] = useState<{[key: string]: any}>();
+  const params: { [key: string]: any } = useParams();
+  const [stateUser, setUser] = useState<{ [key: string]: any }>();
   useEffect(() => {
     if (params.uuid) {
       fetchUserByID(params.uuid).then((res) => {
-        setUser({ profile: { ...(res as {[key: string]: any}).user }, image: (res as {[key: string]: any}).user.profilePicture });
+        setUser({
+          profile: { ...(res as { [key: string]: any }).user },
+          image: (res as { [key: string]: any }).user.profilePicture,
+        });
       });
     } else {
       setUser(user);
@@ -55,10 +58,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
             />
             <p className="level-stats">
               <span> LVL {getLevel(stateUser.profile.points)}</span>
-              <span className="experience">
-                {' '}
-                {stateUser.profile.points % 100} / 100{' '}
-              </span>
+              <span className="experience"> {stateUser.profile.points % 100} / 100 </span>
             </p>
           </div>
           <div className="meta-data">

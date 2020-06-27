@@ -1,32 +1,24 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Card, Input, Button, Checkbox } from 'antd';
 
 import './style.less';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 interface EventCheckProps {
-  onAsStaffChange: ((e: CheckboxChangeEvent) => void)
-  onChange: ChangeEventHandler
-  onKeyPress: KeyboardEventHandler
-  onSubmit: FormEventHandler
+  onAsStaffChange: (e: CheckboxChangeEvent) => void;
+  onChange: ChangeEventHandler;
+  onKeyPress: KeyboardEventHandler;
+  onSubmit: FormEventHandler;
   user: {
     profile: {
-      accountType: string
-    }
-  }
-  value: string
+      accountType: string;
+    };
+  };
+  value: string;
 }
 
 const EventCheck: React.FC<EventCheckProps> = (props) => {
-  const {
-    onAsStaffChange,
-    onChange,
-    onKeyPress,
-    onSubmit,
-    user,
-    value,
-  } = props;
+  const { onAsStaffChange, onChange, onKeyPress, onSubmit, user, value } = props;
 
   return (
     <Card className="checkin-card">

@@ -1,4 +1,11 @@
-import React, { useEffect, useState, useRef, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  FocusEventHandler,
+  ChangeEventHandler,
+  FormEventHandler,
+} from 'react';
 import { Form, Input, Button, Select, Modal, Upload, Avatar } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { getDefaultProfile } from '../../utils';
@@ -12,51 +19,44 @@ const { TextArea } = Input;
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
 interface ProfileUpdateProps {
-  handleBlur: FocusEventHandler,
-  handleChange: ChangeEventHandler,
-  handleSubmit: FormEventHandler,
-  setFieldValue: Function,
+  handleBlur: FocusEventHandler;
+  handleChange: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
+  setFieldValue: Function;
   user: {
     profile: {
-      uuid: string,
-      firstName: string,
-      lastName: string,
-      major: string,
-      bio: string,
-      profilePicture: string,
-      graduationYear: string,
-      [key: string]: any
-    },
-  },
+      uuid: string;
+      firstName: string;
+      lastName: string;
+      major: string;
+      bio: string;
+      profilePicture: string;
+      graduationYear: string;
+      [key: string]: any;
+    };
+  };
   values: {
-    firstName: string,
-    lastName: string,
-    graduationYear: number,
-    major: string,
-    bio: string,
-  },
-};
+    firstName: string;
+    lastName: string;
+    graduationYear: number;
+    major: string;
+    bio: string;
+  };
+}
 
 const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    user,
-    values,
-  } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
 
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
   const [uploadState, setUploadState] = useState('none');
-  const dummyRequest = ({ onSuccess }: { onSuccess: Function}) => {
+  const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => {
       onSuccess('ok');
     }, 0);
   };
-  const onFileChange = (info: {[key: string]: any}) => {
+  const onFileChange = (info: { [key: string]: any }) => {
     const infoFileList = [...info.fileList];
     URL.revokeObjectURL(bg);
     if (infoFileList.length) {
@@ -96,7 +96,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     });
   }, [user]);
 
-  const InnerRefButton =  Button as React.ComponentClass<any>;
+  const InnerRefButton = Button as React.ComponentClass<any>;
   const CustomSelect = Select as React.ComponentClass<any>;
   const CustomUpload = Upload as React.ComponentClass<any>;
 
@@ -106,11 +106,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
         <h1 className="title">Profile</h1>
         <Avatar size={155} src={bg} className="avatar" />
         <br />
-        <Button
-          type="primary"
-          className="upload-modal-button"
-          onClick={showModal}
-        >
+        <Button type="primary" className="upload-modal-button" onClick={showModal}>
           Change Profile Picture
         </Button>
         <Modal
@@ -147,11 +143,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
               }}
             >
               <div className="new-profile-pic-wrapper">
-                <Avatar
-                  size={115}
-                  src={bg || getDefaultProfile()}
-                  className="avatar"
-                />
+                <Avatar size={115} src={bg || getDefaultProfile()} className="avatar" />
               </div>
               <InnerRefButton className="upload-button" innerRef={uploadImageButton}>
                 Change Picture

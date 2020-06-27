@@ -1,5 +1,4 @@
 import { Icon } from 'antd';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -8,27 +7,18 @@ import { isURL, getAbsoluteURL } from '../../utils';
 import './styles.less';
 
 interface EventCardProps {
-  auth: any,
-  cover: string,
-  date: string,
-  description: string,
-  location: string,
-  points: string,
-  title: string,
-  uuid: string
+  auth: any;
+  cover: string;
+  date: string;
+  description: string;
+  location: string;
+  points: string;
+  title: string;
+  uuid: string;
 }
 
 const EventCard: React.FC<EventCardProps> = (props) => {
-  const {
-    auth,
-    cover,
-    date,
-    description,
-    location,
-    points,
-    title,
-    uuid,
-  } = props;
+  const { auth, cover, date, description, location, points, title, uuid } = props;
   const history = useHistory();
 
   return (

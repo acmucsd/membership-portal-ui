@@ -6,13 +6,13 @@ import { updatePassword } from '../actions/authActions';
 import PasswordReset from '../components/PasswordReset';
 
 interface PasswordUpdateProps {
-  updatePassword: Function
+  updatePassword: Function;
 }
 
 const PasswordUpdate: React.FC<PasswordUpdateProps> = (props) => {
   const [conPass, setConPass] = useState('');
   const [newPass, setNewPass] = useState('');
-  const params: {[key: string]: any} = useParams();
+  const params: { [key: string]: any } = useParams();
 
   const handleConChange: ChangeEventHandler = (event) => {
     setConPass((event.target as any).value);

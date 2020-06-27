@@ -14,7 +14,7 @@ const FormikProfileUpdate = withFormik({
       bio: '',
     };
   },
-  handleSubmit(values, { props }: {[key: string]: any}) {
+  handleSubmit(values, { props }: { [key: string]: any }) {
     props
       .updateProfile(values)
       .then(() => {})
@@ -22,7 +22,7 @@ const FormikProfileUpdate = withFormik({
   },
 })(ProfileUpdate as React.FC);
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.user,
 });
 

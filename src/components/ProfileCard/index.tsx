@@ -5,12 +5,12 @@ import { Avatar, Card, Progress } from 'antd';
 import './style.less';
 
 interface ProfileCardProps {
-  profilePicture: string,
-  name: string,
-  rank: string,
-  level: number,
-  exp: number,
-};
+  profilePicture: string;
+  name: string;
+  rank: string;
+  level: number;
+  exp: number;
+}
 
 const ProfileCard: React.FC<ProfileCardProps> = (props) => {
   const { profilePicture, name, rank, level, exp } = props;
@@ -25,12 +25,7 @@ const ProfileCard: React.FC<ProfileCardProps> = (props) => {
       }}
     >
       <div className="avatar-flex">
-        <Avatar
-          size={115}
-          icon="user"
-          className="avatar"
-          src={profilePicture}
-        />
+        <Avatar size={115} icon="user" className="avatar" src={profilePicture} />
       </div>
       <div className="info">
         <div className="content">

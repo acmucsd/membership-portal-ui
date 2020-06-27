@@ -1,5 +1,5 @@
-import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from '../actions/types';
 import { AnyAction } from 'redux';
+import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from '../actions/types';
 
 const initialState = {
   admin: false,

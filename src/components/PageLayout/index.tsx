@@ -14,10 +14,10 @@ import logo from '../../assets/graphics/logo.svg';
 import './style.less';
 
 interface PageLayoutProps {
-  children: React.ComponentClass | React.FC,
-  isAdmin: boolean,
-  isMobile: boolean,
-};
+  children: React.ComponentClass | React.FC;
+  isAdmin: boolean;
+  isMobile: boolean;
+}
 
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
   const { children, isAdmin, isMobile } = props;
@@ -29,9 +29,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
         <NavLink className="title" to="/">
           <img alt="ACM" id="logo" src={logo} />
           <span className="heading">ACM@UCSD</span>
-          <span className={isMobile ? 'hidden' : 'subheading'}>
-            &nbsp;Membership Portal
-          </span>
+          <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
         </NavLink>
         <div className="profile">
           <NavProfile menu={<NavDropdown />} />
@@ -57,4 +55,4 @@ const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-export default withSizes(mapSizesToProps)(PageLayout as ComponentType<{isMobile: boolean;}>);
+export default withSizes(mapSizesToProps)(PageLayout as ComponentType<{ isMobile: boolean }>);

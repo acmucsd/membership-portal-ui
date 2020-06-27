@@ -27,9 +27,7 @@ const tokenGetClaims = (token?: string): object => {
   if (tokenArray.length !== 3) {
     return {};
   }
-  return JSON.parse(
-    window.atob(tokenArray[1].replace('-', '+').replace('_', '/'))
-  );
+  return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
 };
 
 export const loginUser: ThunkActionCreator = (values) => async (dispatch) => {
@@ -51,7 +49,7 @@ export const loginUser: ThunkActionCreator = (values) => async (dispatch) => {
     if (data.error) throw new Error(data.error.message);
 
     Storage.set('token', data.token);
-    const userData: {[key: string]: any} = tokenGetClaims(data.token);
+    const userData: { [key: string]: any } = tokenGetClaims(data.token);
     dispatch({
       type: AUTH_USER,
       isAdmin: userData.admin,
@@ -73,17 +71,14 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
     const token = Storage.get('token');
     if (token) {
       try {
-        const response = await fetch(
-          Config.API_URL + Config.routes.auth.verification,
-          {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(Config.API_URL + Config.routes.auth.verification, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const data = await response.json();
         if (!data) throw new Error('Empty response from server');
@@ -102,17 +97,14 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
           resolve(data);
           return;
         }
-        const userData: {[key: string]: any} = tokenGetClaims(token);
+        const userData: { [key: string]: any } = tokenGetClaims(token);
         dispatch({
           type: AUTH_USER,
           isAdmin: userData.admin,
         });
         resolve(data);
       } catch (error) {
-        notify(
-          'Unable to verify token!',
-          error.message || 'Try logging in again'
-        );
+        notify('Unable to verify token!', error.message || 'Try logging in again');
 
         dispatch({
           type: AUTH_ERROR,
@@ -149,23 +141,17 @@ export const logoutUser: ThunkActionCreator = () => (dispatch) => {
 
 export const passwordReset: ThunkActionCreator = (email: string) => async (dispatch) => {
   try {
-    const response = await fetch(
-      `${Config.API_URL + Config.routes.auth.resetPassword}/${email}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${email}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
     const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    notify(
-      'Success! Check your email shortly',
-      `Email has been sent to ${email}`
-    );
+    notify('Success! Check your email shortly', `Email has been sent to ${email}`);
     dispatch({
       type: PASSWORD_SUCCESS,
     });
@@ -189,7 +175,7 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ user }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -204,12 +190,10 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
 };
 
 // Verifies an email using a info object with email field and code field
-export const verifyEmail = async (info: {[key: string]: any}) => {
+export const verifyEmail = async (info: { [key: string]: any }) => {
   try {
     const response = await fetch(
-      `${`${Config.API_URL + Config.routes.auth.emailVerification}/${
-        info.code
-      }`}`,
+      `${`${Config.API_URL + Config.routes.auth.emailVerification}/${info.code}`}`,
       {
         method: 'POST',
         headers: {
@@ -217,7 +201,7 @@ export const verifyEmail = async (info: {[key: string]: any}) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ ...info }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -240,7 +224,7 @@ export const sendEmailVerification = async (email: string) => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
 
     const data = await response.json();

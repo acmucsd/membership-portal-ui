@@ -6,8 +6,8 @@ import './style.less';
 import NavListItem from '../NavListItem';
 
 interface NavDropdownProps {
-  logout: MouseEventHandler,
-};
+  logout: MouseEventHandler;
+}
 
 const NavDropdown: React.FC<NavDropdownProps> = (props) => {
   const { logout } = props;
@@ -18,11 +18,7 @@ const NavDropdown: React.FC<NavDropdownProps> = (props) => {
         <NavLink activeClassName="selected" className="nav-item" to="/">
           <NavListItem text="Dashboard" />
         </NavLink>
-        <NavLink
-          activeClassName="selected"
-          className="nav-item"
-          to="/leaderboard"
-        >
+        <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
           <NavListItem text="Leaderboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/profile">

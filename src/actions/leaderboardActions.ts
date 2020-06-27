@@ -15,7 +15,7 @@ const fetchLeaderboard: ThunkActionCreator = () => async (dispatch) => {
       },
     });
 
-    const status = response.status;
+    const { status } = response;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
     }

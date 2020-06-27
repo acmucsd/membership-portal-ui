@@ -1,6 +1,6 @@
+import { AnyAction } from 'redux';
 import { FETCH_USER } from '../actions/types';
 import { getDefaultProfile } from '../utils';
-import { AnyAction } from 'redux';
 
 const defaultProfile = getDefaultProfile();
 const initialState = {

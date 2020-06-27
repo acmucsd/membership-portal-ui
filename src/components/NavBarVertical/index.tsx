@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -13,8 +12,8 @@ import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.s
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
 interface NavbarVerticalProps {
-  isAdmin: boolean,
-};
+  isAdmin: boolean;
+}
 
 const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   const { isAdmin } = props;

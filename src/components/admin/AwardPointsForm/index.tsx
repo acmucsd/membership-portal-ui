@@ -1,4 +1,10 @@
-import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
+import React, {
+  useState,
+  ChangeEventHandler,
+  FocusEventHandler,
+  FormEventHandler,
+  ChangeEvent,
+} from 'react';
 import { Form, Input, Button, Tag, Tooltip, Icon } from 'antd';
 
 import './style.less';
@@ -6,17 +12,17 @@ import './style.less';
 const { TextArea } = Input;
 
 interface AwardPointsFormProps {
-  handleBlur: FocusEventHandler
-  handleChange: ChangeEventHandler
-  handleSubmit: FormEventHandler
-  isSubmitting: boolean
-  isValidating: boolean
-  setFieldValue: Function
+  handleBlur: FocusEventHandler;
+  handleChange: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
+  isSubmitting: boolean;
+  isValidating: boolean;
+  setFieldValue: Function;
   values: {
-    uuid: string,
-    points: string,
-    description: string
-  }
+    uuid: string;
+    points: string;
+    description: string;
+  };
 }
 
 const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
@@ -30,6 +36,7 @@ const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
     values,
   } = props;
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const [awardees, _setAwardees] = useState([] as any[]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -43,10 +50,8 @@ const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
     setFieldValue('awardees', newAwardees);
   };
 
-  const handleClose = (removedAwardee: {[key: string]: any} | string) => {
-    const newAwardees = awardees.filter(
-      (awardee) => awardee !== removedAwardee
-    );
+  const handleClose = (removedAwardee: { [key: string]: any } | string) => {
+    const newAwardees = awardees.filter((awardee) => awardee !== removedAwardee);
     updateAwardees(newAwardees);
   };
 
@@ -85,11 +90,7 @@ const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
               {awardees.map((awardee) => {
                 const isLongName = awardee.length > 20;
                 const tagElem = (
-                  <Tag
-                    key={awardee}
-                    onClose={() => handleClose(awardees)}
-                    className="awardee-tag"
-                  >
+                  <Tag key={awardee} onClose={() => handleClose(awardees)} className="awardee-tag">
                     {isLongName ? `${awardee.slice(0, 10)}...` : awardee}
                   </Tag>
                 );

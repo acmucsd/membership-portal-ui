@@ -1,5 +1,4 @@
 import React, { SyntheticEvent } from 'react';
-import PropTypes from 'prop-types';
 import withSizes from 'react-sizes';
 
 import './style.less';
@@ -7,7 +6,7 @@ import Config from '../../config';
 import DefaultBanner from '../../assets/graphics/default-banner.svg';
 
 interface BannerProps {
-  isMobile: boolean
+  isMobile: boolean;
 }
 
 const Banner: React.FC<BannerProps> = (props) => {
@@ -22,9 +21,7 @@ const Banner: React.FC<BannerProps> = (props) => {
       alt="banner"
       className="banner"
       src={
-        isMobile
-          ? `${Config.AWS_URL}/static/banner_s.png`
-          : `${Config.AWS_URL}/static/banner_l.png`
+        isMobile ? `${Config.AWS_URL}/static/banner_s.png` : `${Config.AWS_URL}/static/banner_l.png`
       }
       onError={onError}
     />

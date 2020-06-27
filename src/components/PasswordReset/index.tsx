@@ -5,23 +5,16 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 interface PasswordFormProps {
-  conPass: string,
-  newPass: string,
-  handleConChange: ChangeEventHandler,
-  handleNewChange: ChangeEventHandler,
-  onKeyPress: KeyboardEventHandler,
-  onSubmit: FormEventHandler,
-};
+  conPass: string;
+  newPass: string;
+  handleConChange: ChangeEventHandler;
+  handleNewChange: ChangeEventHandler;
+  onKeyPress: KeyboardEventHandler;
+  onSubmit: FormEventHandler;
+}
 
 const PasswordForm: React.FC<PasswordFormProps> = (props) => {
-  const {
-    conPass,
-    newPass,
-    handleConChange,
-    handleNewChange,
-    onKeyPress,
-    onSubmit,
-  } = props;
+  const { conPass, newPass, handleConChange, handleNewChange, onKeyPress, onSubmit } = props;
 
   return (
     <div className="resetcard">
@@ -49,12 +42,7 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button
-            onClick={onSubmit}
-            type="primary"
-            htmlType="submit"
-            className="login-button"
-          >
+          <Button onClick={onSubmit} type="primary" htmlType="submit" className="login-button">
             Submit
           </Button>
         </Form.Item>

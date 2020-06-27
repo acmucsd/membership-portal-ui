@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ProfileCard from '../components/ProfileCard';
@@ -7,11 +6,11 @@ import { getLevel, getRank } from '../utils';
 import { fetchUser } from '../actions/userActions';
 
 interface NavProfileContainerProps {
-  profilePicture: string,
-  name: string,
-  exp: number,
-  fetchUser: Function,
-};
+  profilePicture: string;
+  name: string;
+  exp: number;
+  fetchUser: Function;
+}
 
 const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
   const { profilePicture, name, exp } = props;
@@ -31,7 +30,7 @@ const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   profilePicture: state.user.profile.profilePicture,
   exp: state.user.profile.points,
   name: state.user.profile.firstName,

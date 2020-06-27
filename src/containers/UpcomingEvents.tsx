@@ -8,21 +8,21 @@ import { fetchFutureEvents } from '../actions/eventsActions';
 import { formatDate, formatTime } from '../utils';
 
 interface UpcomingEventsContainerProps {
-  auth: boolean,
+  auth: boolean;
   events: [
     {
-      uuid: string,
-      cover: string,
-      description: string,
-      location: string,
-      pointValue: string,
-      title: string,
-      start: string,
-      end: string,
-    }
-  ],
-  fetchFutureEvents: Function
-};
+      uuid: string;
+      cover: string;
+      description: string;
+      location: string;
+      pointValue: string;
+      title: string;
+      start: string;
+      end: string;
+    },
+  ];
+  fetchFutureEvents: Function;
+}
 
 const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
   const { auth, events } = props;
@@ -55,11 +55,9 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.events.futureEvents,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchFutureEvents })(
-  UpcomingEventsContainer
-);
+export default connect(mapStateToProps, { fetchFutureEvents })(UpcomingEventsContainer);

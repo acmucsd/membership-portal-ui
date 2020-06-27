@@ -6,8 +6,8 @@ import { logoutUser } from '../actions/authActions';
 import { ThunkActionCreator } from '../actions/types';
 
 interface NavDropdownContainerProps {
-  logout: MouseEventHandler,
-};
+  logout: MouseEventHandler;
+}
 
 const NavDropdownContainer: React.FC<NavDropdownContainerProps> = (props) => {
   const { logout } = props;

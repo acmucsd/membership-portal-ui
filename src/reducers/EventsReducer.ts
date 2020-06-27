@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import { AnyAction } from 'redux';
 import {
   EVENT_CHECKIN,
   EVENT_CHECKOUT,
@@ -8,7 +9,6 @@ import {
   FETCH_PAST_EVENTS,
   FETCH_EVENT,
 } from '../actions/types';
-import { AnyAction } from 'redux';
 
 const initialState = {
   currentEvent: {},

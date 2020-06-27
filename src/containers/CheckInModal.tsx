@@ -6,12 +6,12 @@ import { checkOut } from '../actions/eventsActions';
 
 interface CheckInModalContainerProps {
   currentEvent: {
-    cover: string,
-    title: string,
-  },
-  visible: boolean,
-  checkOut: Function
-};
+    cover: string;
+    title: string;
+  };
+  visible: boolean;
+  checkOut: Function;
+}
 
 const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
   const { currentEvent, visible } = props;
@@ -36,7 +36,7 @@ const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   currentEvent: state.events.currentEvent,
   visible: state.events.checkin,
 });

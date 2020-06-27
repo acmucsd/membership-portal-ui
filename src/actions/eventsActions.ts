@@ -17,19 +17,16 @@ import { notify } from '../utils';
 
 export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
   try {
-    const eventsRes = await fetch(
-      Config.API_URL + Config.routes.events.future,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      }
-    );
+    const eventsRes = await fetch(Config.API_URL + Config.routes.events.future, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
-    const status = eventsRes.status;
+    const { status } = eventsRes;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -64,7 +61,7 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
       },
     });
 
-    const status = eventsRes.status;
+    const { status } = eventsRes;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -94,23 +91,20 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
 
 export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
   try {
-    const response = await fetch(
-      Config.API_URL + Config.routes.attendance.attend,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-        body: JSON.stringify({
-          attendanceCode: info.attendanceCode,
-          asStaff: info.asStaff,
-        }),
-      }
-    );
+    const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+      body: JSON.stringify({
+        attendanceCode: info.attendanceCode,
+        asStaff: info.asStaff,
+      }),
+    });
 
-    const status = response.status;
+    const { status } = response;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -144,19 +138,16 @@ export const checkOut: ThunkActionCreator = () => (dispatch) => {
 
 export const fetchEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   try {
-    const eventRes = await fetch(
-      `${Config.API_URL + Config.routes.events.event}/${uuid}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      }
-    );
+    const eventRes = await fetch(`${Config.API_URL + Config.routes.events.event}/${uuid}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
-    const status = eventRes.status;
+    const { status } = eventRes;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;

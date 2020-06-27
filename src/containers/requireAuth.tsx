@@ -5,7 +5,7 @@ import { replace } from 'connected-react-router';
 
 import { verifyToken } from '../actions/authActions';
 
-const withAuth = (Component: React.FC) => (props: {[key: string]: any}) => {
+const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
@@ -17,7 +17,7 @@ const withAuth = (Component: React.FC) => (props: {[key: string]: any}) => {
   return <Component />;
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   authenticated: state.auth.authenticated,
 });
 
@@ -29,9 +29,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     return verifyToken(dispatch);
   },
 });
-const requireAuth = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withAuth
-);
+const requireAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAuth);
 
 export default requireAuth;

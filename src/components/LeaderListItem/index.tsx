@@ -6,12 +6,12 @@ import './style.less';
 import { getRank } from '../../utils';
 
 interface LeaderListItemProps {
-  exp: number
-  image: string
-  name: string
-  placement: number
-  uuid: string
-  rank: number
+  exp: number;
+  image: string;
+  name: string;
+  placement: number;
+  uuid: string;
+  rank: number;
 }
 
 const LeaderListItem: React.FC<LeaderListItemProps> = (props) => {

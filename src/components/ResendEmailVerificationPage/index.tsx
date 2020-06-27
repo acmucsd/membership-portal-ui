@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { sendEmailVerification } from '../../actions/authActions';
 import './style.less';
 
 interface ResendEmailVerficationPageProps {
-  email: string,
-};
+  email: string;
+}
 
 const ResendEmailVerficationPage: React.FC<ResendEmailVerficationPageProps> = (props) => {
   const { email } = props;

@@ -23,7 +23,7 @@ const CookieStore = {
 
   get(key: string) {
     if (!document.cookie || document.cookie.length === 0) return undefined;
-    const cookies: {[key: string]: string} = {};
+    const cookies: { [key: string]: string } = {};
     document.cookie.split(';').forEach((cookie) => {
       cookies[cookie.split('=')[0].trim()] = cookie.split('=')[1].trim();
     });

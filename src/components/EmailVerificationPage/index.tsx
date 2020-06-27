@@ -5,7 +5,7 @@ import { verifyEmail } from '../../actions/authActions';
 import './style.less';
 
 const EmailVerficationPage: React.FC = () => {
-  const params: {[key: string]: any} = useParams();
+  const params: { [key: string]: any } = useParams();
   const history = useHistory();
   const [, setAction] = useState();
   const [btnText, setText] = useState('Verifying Email');

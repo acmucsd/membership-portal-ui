@@ -26,7 +26,7 @@ const FormikCreateEventForm = withFormik({
       committee: '',
     };
   },
-  handleSubmit(values, { resetForm, props }: {[key: string]: any}) {
+  handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
     let { startTime } = values;
     let { endTime } = values;
 
@@ -51,14 +51,9 @@ const FormikCreateEventForm = withFormik({
         values.year,
         getMonthIndex(values.month),
         values.day,
-        startTime
+        startTime,
       ).toUTCString(),
-      end: new Date(
-        values.year,
-        getMonthIndex(values.month),
-        values.day,
-        endTime
-      ).toUTCString(),
+      end: new Date(values.year, getMonthIndex(values.month), values.day, endTime).toUTCString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,

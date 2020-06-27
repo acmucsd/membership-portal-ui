@@ -5,17 +5,14 @@ import Storage from '../storage';
 
 export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
   try {
-    const response = await fetch(
-      `${Config.API_URL + Config.routes.user.user}/${uuid || ''}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      }
-    );
+    const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid || ''}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
 
     const status = await response.status;
     if (status === 401 || status === 403) {
@@ -39,17 +36,14 @@ export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
 export const fetchUserByID = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(
-        `${Config.API_URL + Config.routes.user.user}/${uuid}`,
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-        }
-      );
+      const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {

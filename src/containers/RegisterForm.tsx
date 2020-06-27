@@ -17,7 +17,7 @@ const FormikRegisterForm = withFormik({
       graduationYear: 0,
     };
   },
-  handleSubmit(values, { props }: {[key: string]: any}) {
+  handleSubmit(values, { props }: { [key: string]: any }) {
     props.registerAccount(values);
   },
 })(RegisterForm as React.FC);

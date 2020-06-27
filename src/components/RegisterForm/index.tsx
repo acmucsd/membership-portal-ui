@@ -1,5 +1,4 @@
 import React, { ChangeEventHandler, FormEventHandler, FocusEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { NavLink } from 'react-router-dom';
 
@@ -11,29 +10,23 @@ const { Option } = Select;
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
 
 interface RegisterFormProps {
-  handleBlur: FocusEventHandler,
-  handleChange: ChangeEventHandler,
-  handleSubmit: FormEventHandler,
-  setFieldValue: Function,
+  handleBlur: FocusEventHandler;
+  handleChange: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
+  setFieldValue: Function;
   values: {
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    confirmpassword: string,
-    major: string,
-    graduationYear: number,
-  },
-};
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmpassword: string;
+    major: string;
+    graduationYear: number;
+  };
+}
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    values,
-  } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, values } = props;
 
   return (
     <div className="registercard">
@@ -117,11 +110,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
             </Form.Item>
           </div>
           <Form.Item className="register">
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="register-button"
-            >
+            <Button type="primary" htmlType="submit" className="register-button">
               Register
             </Button>
           </Form.Item>

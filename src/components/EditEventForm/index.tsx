@@ -1,5 +1,4 @@
 import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
 import { notify } from '../../utils';
@@ -35,20 +34,20 @@ for (let i = 1; i <= 12; i += 1) {
 }
 
 interface EventProp {
-  start: string,
-  end: string,
-  [key: string]: any
+  start: string;
+  end: string;
+  [key: string]: any;
 }
 
 interface EditEventFormProps {
-  event: EventProp
-  deleteEvent: Function
-  setFieldValue: Function
-  setFieldTouched: Function
-  handleBlur: FocusEventHandler
-  handleChange: ChangeEventHandler
-  handleSubmit: FormEventHandler
-  values: {[key: string]: any}
+  event: EventProp;
+  deleteEvent: Function;
+  setFieldValue: Function;
+  setFieldTouched: Function;
+  handleBlur: FocusEventHandler;
+  handleChange: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
+  values: { [key: string]: any };
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = (props) => {
@@ -62,7 +61,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
     values,
   } = props;
 
-  const params: {[key: string]: any} = useParams();
+  const params: { [key: string]: any } = useParams();
   const history = useHistory();
 
   const handleDelete = () => {
@@ -295,11 +294,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
           >
             Discard
           </Button>
-          <Button
-            type="danger"
-            onClick={handleDelete}
-            className="delete-button"
-          >
+          <Button type="danger" onClick={handleDelete} className="delete-button">
             Delete
           </Button>
         </form>

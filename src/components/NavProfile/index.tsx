@@ -6,11 +6,11 @@ import './style.less';
 import { ReactComponent as Caret } from '../../assets/icons/caret-icon.svg';
 
 interface NavProfileProps {
-  exp: number,
-  profilePicture: string,
-  menu: React.ComponentClass | React.FC,
-  name: string,
-};
+  exp: number;
+  profilePicture: string;
+  menu: React.ComponentClass | React.FC;
+  name: string;
+}
 
 const NavProfile: React.FC<NavProfileProps> = (props) => {
   const { exp, profilePicture, menu, name } = props;
@@ -31,12 +31,7 @@ const NavProfile: React.FC<NavProfileProps> = (props) => {
             type="circle"
             width={55}
           />
-          <Avatar
-            size={55}
-            icon="user"
-            className="avatar"
-            src={profilePicture}
-          />
+          <Avatar size={55} icon="user" className="avatar" src={profilePicture} />
           <span className="name">{name}</span>
           <Icon component={Caret} className="arrow" />
         </div>

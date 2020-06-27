@@ -1,16 +1,15 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 interface PasswordFormProps {
-  handleClick: MouseEventHandler,
-  onKeyPress: KeyboardEventHandler,
-  onChange: ChangeEventHandler,
-  value: string,
-};
+  handleClick: MouseEventHandler;
+  onKeyPress: KeyboardEventHandler;
+  onChange: ChangeEventHandler;
+  value: string;
+}
 
 const PasswordForm: React.FC<PasswordFormProps> = (props) => {
   const { handleClick, onKeyPress, onChange, value } = props;
@@ -29,11 +28,7 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
             onKeyPress={onKeyPress}
             value={value}
           />
-          <Button
-            type="primary"
-            onClick={handleClick}
-            className="password-reset"
-          >
+          <Button type="primary" onClick={handleClick} className="password-reset">
             Submit
           </Button>
         </Form.Item>

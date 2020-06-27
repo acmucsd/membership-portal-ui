@@ -1,16 +1,15 @@
 import React, { MouseEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
 import './style.less';
 
 interface ModalComponentProps {
-  title: string,
-  image: string,
-  visible: boolean,
-  handleOk: MouseEventHandler,
-  handleCancel: MouseEventHandler,
-  content: string,
+  title: string;
+  image: string;
+  visible: boolean;
+  handleOk: MouseEventHandler;
+  handleCancel: MouseEventHandler;
+  content: string;
 }
 
 const ModalComponent: React.FC<ModalComponentProps> = (props) => {
@@ -31,6 +30,5 @@ const ModalComponent: React.FC<ModalComponentProps> = (props) => {
   );
 };
 
-ModalComponent.propTypes = {
-};
+ModalComponent.propTypes = {};
 export default ModalComponent;

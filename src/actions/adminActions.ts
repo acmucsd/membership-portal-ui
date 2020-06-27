@@ -8,20 +8,17 @@ import { logoutUser } from './authActions';
 export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(
-        Config.API_URL + Config.routes.events.event,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-          body: JSON.stringify({ event }),
-        }
-      );
+      const response = await fetch(Config.API_URL + Config.routes.events.event, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: JSON.stringify({ event }),
+      });
 
-      const status = response.status;
+      const { status } = response;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
@@ -42,20 +39,17 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
 export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(
-        `${Config.API_URL + Config.routes.events.event}/${event.uuid}`,
-        {
-          method: 'PATCH',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-          body: JSON.stringify({ event }),
-        }
-      );
+      const response = await fetch(`${Config.API_URL + Config.routes.events.event}/${event.uuid}`, {
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: JSON.stringify({ event }),
+      });
 
-      const status = response.status;
+      const { status } = response;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
@@ -76,19 +70,16 @@ export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
 export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(
-        `${Config.API_URL + Config.routes.events.event}/${uuid}`,
-        {
-          method: 'delete',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-        }
-      );
+      const response = await fetch(`${Config.API_URL + Config.routes.events.event}/${uuid}`, {
+        method: 'delete',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      });
 
-      const status = response.status;
+      const { status } = response;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }
@@ -104,10 +95,7 @@ export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
         notify('Success!', 'You successfully deleted the event!');
         resolve('Deleted');
       } else {
-        notify(
-          'Unable to delete event!',
-          "Couldn't find the event in the database"
-        );
+        notify('Unable to delete event!', "Couldn't find the event in the database");
         reject(new Error('Delete failed'));
       }
     } catch (error) {
@@ -145,7 +133,7 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
         body: JSON.stringify({ bonus: pointDetails }),
       });
 
-      const status = response.status;
+      const { status } = response;
       if (status === 401 || status === 403) {
         dispatch(logoutUser());
       }

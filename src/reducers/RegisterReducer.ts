@@ -1,5 +1,5 @@
-import { REGISTER_USER, REGISTER_FAIL } from '../actions/types';
 import { AnyAction } from 'redux';
+import { REGISTER_USER, REGISTER_FAIL } from '../actions/types';
 
 const initialState = {
   registerSuccess: false,

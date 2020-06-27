@@ -1,18 +1,18 @@
 import React, { useState, ChangeEventHandler, FormEventHandler, KeyboardEventHandler } from 'react';
 import { connect } from 'react-redux';
 
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import EventCheckIn from '../components/EventCheckIn';
 import { checkIn } from '../actions/eventsActions';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 interface EventCheckInContainerProps {
   user: {
     profile: {
-      accountType: string,
-    },
-  },
-  checkIn: Function
-};
+      accountType: string;
+    };
+  };
+  checkIn: Function;
+}
 
 const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
   const { user } = props;
@@ -48,7 +48,7 @@ const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.user,
 });
 

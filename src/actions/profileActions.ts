@@ -16,7 +16,7 @@ export const updateProfile: ThunkActionCreator = (values) => async (dispatch) =>
       body: JSON.stringify({ user: values }),
     });
 
-    const status = response.status;
+    const { status } = response;
     if (status === 401 || status === 403) {
       dispatch(logoutUser());
       return;
@@ -49,7 +49,7 @@ export const uploadUserImage = async (file: string | Blob, uuid: string) => {
             Authorization: `Bearer ${Storage.get('token')}`,
           },
           body: formdata,
-        }
+        },
       );
 
       const status = await response.status;

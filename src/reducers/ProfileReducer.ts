@@ -1,5 +1,5 @@
-import { PROFILE_SUCCESS, PROFILE_FAIL } from '../actions/types';
 import { AnyAction } from 'redux';
+import { PROFILE_SUCCESS, PROFILE_FAIL } from '../actions/types';
 
 const initialState = {
   updateSuccess: false,

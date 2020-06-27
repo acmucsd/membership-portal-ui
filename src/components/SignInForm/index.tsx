@@ -6,14 +6,14 @@ import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
 interface SignInFormProps {
-  handleBlur: FocusEventHandler,
-  handleChange: ChangeEventHandler,
-  handleSubmit: FormEventHandler,
+  handleBlur: FocusEventHandler;
+  handleChange: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
   values: {
-    email: string,
-    password: string,
-  },
-};
+    email: string;
+    password: string;
+  };
+}
 
 const SignInForm: React.FC<SignInFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, values } = props;

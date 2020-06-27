@@ -54,11 +54,7 @@ const App = () => {
         <>
           <Switch>
             <Route exact path="/about" component={requireAuth(AboutPage) as React.FC} />
-            <Route
-              exact
-              path="/admin"
-              component={requireAdminAuth(AdminPage) as React.FC}
-            />
+            <Route exact path="/admin" component={requireAdminAuth(AdminPage) as React.FC} />
             <Route
               exact
               path="/admin/editEvent/:uuid"
@@ -77,18 +73,10 @@ const App = () => {
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
             <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route
-              exact
-              path="/leaderboard"
-              component={requireAuth(LeaderPage) as React.FC}
-            />
+            <Route exact path="/leaderboard" component={requireAuth(LeaderPage) as React.FC} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={requireAuth(ProfilePage) as React.FC} />
-            <Route
-              exact
-              path="/profile/:uuid"
-              component={requireAuth(ProfilePage) as React.FC}
-            />
+            <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage) as React.FC} />
             <Route
               exact
               path="/editProfile"
@@ -101,11 +89,7 @@ const App = () => {
               path="/store"
               component={requireStandardAccess(requireAuth(StorePage)) as React.FC}
             />
-            <Route
-              exact
-              path="/verifyEmail/:code"
-              component={EmailVerficationPage}
-            />
+            <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route
               exact
               path="/resendEmailVerification"

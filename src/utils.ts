@@ -12,37 +12,9 @@ export const notify = (title: string, description: string) => {
  * @return {string} A link to a default profile picture.
  */
 export const generateDefaultProfile = (): string => {
-  const eyes = [
-    'eyes1',
-    'eyes10',
-    'eyes2',
-    'eyes3',
-    'eyes4',
-    'eyes5',
-    'eyes6',
-    'eyes7',
-    'eyes9',
-  ];
-  const nose = [
-    'nose2',
-    'nose3',
-    'nose4',
-    'nose5',
-    'nose6',
-    'nose7',
-    'nose8',
-    'nose9',
-  ];
-  const mouth = [
-    'mouth1',
-    'mouth10',
-    'mouth11',
-    'mouth3',
-    'mouth5',
-    'mouth6',
-    'mouth7',
-    'mouth9',
-  ];
+  const eyes = ['eyes1', 'eyes10', 'eyes2', 'eyes3', 'eyes4', 'eyes5', 'eyes6', 'eyes7', 'eyes9'];
+  const nose = ['nose2', 'nose3', 'nose4', 'nose5', 'nose6', 'nose7', 'nose8', 'nose9'];
+  const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6', 'mouth7', 'mouth9'];
   const colors = ['22ACEA', '0659BC', 'BED9E6'];
 
   const getRandom = (list: string[]) => {
@@ -94,13 +66,10 @@ export const getRank = (points: number): string => {
 export const formatDate = (time: string): string => {
   const parsedTime = Date.parse(time);
   const parsedDate = new Date(parsedTime);
-  return parsedDate.toLocaleDateString(
-    'en-US',
-    {
-      month: 'long',
-      day: 'numeric',
-    }
-  );
+  return parsedDate.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+  });
 };
 /**
  * Extracts the time from a UTC-formatted timestamp.
@@ -112,14 +81,11 @@ export const formatDate = (time: string): string => {
  */
 export const formatTime = (time: string | number | Date): string => {
   const parsedTime = new Date(time);
-  return parsedTime.toLocaleTimeString(
-    'en-US',
-    {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true,
-    }
-  );
+  return parsedTime.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
 };
 
 /**
@@ -185,7 +151,7 @@ export const isURL = (str: string): boolean => {
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-z\\d_]*)?$', // fragment locator
-    'i'
+    'i',
   );
 
   return !!pattern.test(str);

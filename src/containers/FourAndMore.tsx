@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import LeaderListItem from '../components/LeaderListItem';
@@ -8,19 +7,19 @@ import fetchLeaderboard from '../actions/leaderboardActions';
 interface FourAndMoreContainerProps {
   users: [
     {
-      points: string,
-      profilePicture: string,
-      firstName: string,
-      lastName: string,
-      rank: string,
-      uuid: string,
-    }
-  ],
-  fetchLeaderboard: Function
-};
+      points: string;
+      profilePicture: string;
+      firstName: string;
+      lastName: string;
+      rank: string;
+      uuid: string;
+    },
+  ];
+  fetchLeaderboard: Function;
+}
 
-const getFourAndMore = (users: {[key: string]: any}) => {
-  const fourAndMore = [];
+const getFourAndMore = (users: { [key: string]: any }) => {
+  const fourAndMore: any[] = [];
 
   for (let i = 3; i < users.length; i += 1) {
     const user = users[i];
@@ -33,7 +32,7 @@ const getFourAndMore = (users: {[key: string]: any}) => {
         placement={i + 1}
         rank={user.rank}
         uuid={user.uuid}
-      />
+      />,
     );
   }
 
@@ -50,10 +49,8 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   return <>{getFourAndMore(users)}</>;
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   users: state.leaderboard.users,
 });
 
-export default connect(mapStateToProps, { fetchLeaderboard })(
-  FourAndMoreContainer
-);
+export default connect(mapStateToProps, { fetchLeaderboard })(FourAndMoreContainer);

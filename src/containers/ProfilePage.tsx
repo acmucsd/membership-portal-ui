@@ -6,9 +6,9 @@ import { fetchUser } from '../actions/userActions';
 
 interface ProfilePageContainerProps {
   user: {
-    uuid: string,
-  },
-};
+    uuid: string;
+  };
+}
 
 const ProfilePageContainer: React.FC<ProfilePageContainerProps> = (props) => {
   const { user } = props;
@@ -20,7 +20,7 @@ const ProfilePageContainer: React.FC<ProfilePageContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.user,
 });
 

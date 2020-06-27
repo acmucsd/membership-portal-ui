@@ -9,21 +9,21 @@ import { formatDate } from '../utils';
 
 interface PastEventsContainerProps {
   auth: {
-    admin: boolean,
-  },
+    admin: boolean;
+  };
   events: [
     {
-      uuid: string,
-      cover: string,
-      description: string,
-      location: string,
-      pointValue: string,
-      title: string,
-      start: string,
-    }
-  ],
-  fetchPastEvents: Function
-};
+      uuid: string;
+      cover: string;
+      description: string;
+      location: string;
+      pointValue: string;
+      title: string;
+      start: string;
+    },
+  ];
+  fetchPastEvents: Function;
+}
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   const { auth, events } = props;
@@ -54,11 +54,9 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.events.pastEvents,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchPastEvents })(
-  PastEventsContainer
-);
+export default connect(mapStateToProps, { fetchPastEvents })(PastEventsContainer);

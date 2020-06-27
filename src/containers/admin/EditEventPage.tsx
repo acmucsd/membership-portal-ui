@@ -9,20 +9,20 @@ import { fetchEvent } from '../../actions/eventsActions';
 
 interface EditEventPageContainerProps {
   event: {
-    uuid: string,
-    cover: string,
-    description: string,
-    location: string,
-    pointValue: string,
-    title: string,
-  },
-  fetchEvent: Function
-};
+    uuid: string;
+    cover: string;
+    description: string;
+    location: string;
+    pointValue: string;
+    title: string;
+  };
+  fetchEvent: Function;
+}
 
 const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) => {
   const { event } = props;
 
-  const params: {[key: string]: any} = useParams();
+  const params: { [key: string]: any } = useParams();
 
   useEffect(() => {
     props.fetchEvent(params.uuid);
@@ -35,7 +35,7 @@ const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) =>
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   event: state.events.event,
 });
 

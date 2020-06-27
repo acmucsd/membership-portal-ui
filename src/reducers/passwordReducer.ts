@@ -1,5 +1,5 @@
-import { PASSWORD_FAIL, PASSWORD_SUCCESS } from '../actions/types';
 import { AnyAction } from 'redux';
+import { PASSWORD_FAIL, PASSWORD_SUCCESS } from '../actions/types';
 
 const initialState = {
   emailSuccess: false,

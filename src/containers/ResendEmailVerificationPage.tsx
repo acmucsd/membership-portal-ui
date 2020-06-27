@@ -7,12 +7,14 @@ import ResendEmailVerificationPage from '../components/ResendEmailVerificationPa
 interface ResendEmailVerificationContainerProps {
   user: {
     profile: {
-      email: string,
-    },
-  },
-};
+      email: string;
+    };
+  };
+}
 
-const ResendEmailVerificationContainer: React.FC<ResendEmailVerificationContainerProps> = (props) => {
+const ResendEmailVerificationContainer: React.FC<ResendEmailVerificationContainerProps> = (
+  props,
+) => {
   const { user } = props;
 
   return (
@@ -22,7 +24,7 @@ const ResendEmailVerificationContainer: React.FC<ResendEmailVerificationContaine
   );
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.user,
 });
 

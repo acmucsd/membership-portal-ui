@@ -1,5 +1,5 @@
-import { ThunkAction } from "redux-thunk";
-import { ActionCreator, AnyAction } from "redux";
+import { ThunkAction } from 'redux-thunk';
+import { ActionCreator, AnyAction } from 'redux';
 
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';

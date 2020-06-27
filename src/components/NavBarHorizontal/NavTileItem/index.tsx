@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Divider } from 'antd';
 import Icon from '@ant-design/icons';
 
 import './style.less';
 
 interface NavTileItemProps {
-  icon: React.ComponentClass | React.FC
-  text: string
+  icon: React.ComponentClass | React.FC;
+  text: string;
 }
 
 const NavTileItem: React.FC<NavTileItemProps> = (props) => {

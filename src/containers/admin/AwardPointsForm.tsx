@@ -12,7 +12,7 @@ const FormikAwardPointsForm = withFormik({
       description: '',
     };
   },
-  handleSubmit(values, { resetForm, props }: {[key: string]: any}) {
+  handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
     const pointDetails = {
       points: values.points,
       users: values.awardees,

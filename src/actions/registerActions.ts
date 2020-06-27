@@ -34,7 +34,7 @@ export const registerAccount: ThunkActionCreator = (user) => async (dispatch) =>
       loginUser({
         email: user.email,
         password: user.password,
-      })
+      }),
     );
   } catch (error) {
     notify('Unable to register account!', error.message);

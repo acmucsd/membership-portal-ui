@@ -11,7 +11,7 @@ const FormikSignInForm = withFormik({
       password: '',
     };
   },
-  handleSubmit(values, { resetForm, props }: {[key: string]: any}) {
+  handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
     props.loginUser(values);
     resetForm();
   },

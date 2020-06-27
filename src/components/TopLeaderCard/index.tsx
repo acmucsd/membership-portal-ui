@@ -1,18 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import './style.less';
 import { getRank } from '../../utils';
 
 interface TopLeaderCardProps {
-  exp: number,
-  name: string,
-  image: string,
-  placement: number,
-  uuid: string,
-  rank: number,
-};
+  exp: number;
+  name: string;
+  image: string;
+  placement: number;
+  uuid: string;
+  rank: number;
+}
 
 const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
   const { exp, name, image, placement, uuid } = props;

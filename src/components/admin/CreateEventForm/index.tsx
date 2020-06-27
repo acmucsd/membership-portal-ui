@@ -1,5 +1,4 @@
 import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button, Select } from 'antd';
 
 import './style.less';
@@ -33,39 +32,32 @@ for (let i = 1; i <= 12; i += 1) {
 }
 
 interface CreateEventFormProps {
-  handleBlur: FocusEventHandler
-  handleChange: ChangeEventHandler
-  handleSubmit: FormEventHandler
-  setFieldTouched: Function
-  setFieldValue: Function
+  handleBlur: FocusEventHandler;
+  handleChange: ChangeEventHandler;
+  handleSubmit: FormEventHandler;
+  setFieldTouched: Function;
+  setFieldValue: Function;
   values: {
-    title: string,
-    committee: string,
-    location: string,
-    pointValue: string,
-    year: string,
-    month: string,
-    day: string,
-    startTime: string,
-    startAm: string,
-    endTime: string,
-    endAm: string,
-    cover: string,
-    attendanceCode: string,
-    description: string
-  }
+    title: string;
+    committee: string;
+    location: string;
+    pointValue: string;
+    year: string;
+    month: string;
+    day: string;
+    startTime: string;
+    startAm: string;
+    endTime: string;
+    endAm: string;
+    cover: string;
+    attendanceCode: string;
+    description: string;
+  };
 }
 
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldTouched,
-    setFieldValue,
-    values,
-  } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values } = props;
 
   return (
     <div className="create-event-form">

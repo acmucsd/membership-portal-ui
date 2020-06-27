@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, notification } from 'antd';
 import { useHistory } from 'react-router-dom';
@@ -8,14 +7,14 @@ import PageLayout from '../components/PageLayout';
 let notifiedAboutEmail = false;
 
 interface PageLayoutContainerProps {
-  isAdmin: boolean,
-  children: React.ReactChildren | React.ReactChild[] | React.ReactElement,
+  isAdmin: boolean;
+  children: React.ReactChildren | React.ReactChild[] | React.ReactElement;
   user: {
     profile: {
-      state: string,
-    },
-  },
-};
+      state: string;
+    };
+  };
+}
 
 const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
   const { isAdmin, children, user } = props;
@@ -49,7 +48,7 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
   return <CustomPageLayout isAdmin={isAdmin}>{children}</CustomPageLayout>;
 };
 
-const mapStateToProps = (state: {[key: string]: any}) => ({
+const mapStateToProps = (state: { [key: string]: any }) => ({
   isAdmin: state.auth.admin,
   user: state.user,
 });

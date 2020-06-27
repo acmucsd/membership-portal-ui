@@ -6,7 +6,7 @@ import PasswordForm from '../components/PasswordForm';
 import { passwordReset } from '../actions/authActions';
 
 interface PasswordPageProps {
-  passwordReset: Function
+  passwordReset: Function;
 }
 
 const PasswordPage: React.FC<PasswordPageProps> = (props) => {

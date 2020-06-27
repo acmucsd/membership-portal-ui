@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Icon from '@ant-design/icons';
 
 import './style.less';
 
 interface NavListItemProps {
-  icon?: React.ComponentClass | React.FC,
-  text: string,
-};
+  icon?: React.ComponentClass | React.FC;
+  text: string;
+}
 
 const NavListItem: React.FC<NavListItemProps> = (props) => {
   const { icon, text } = props;
