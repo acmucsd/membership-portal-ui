@@ -1,0 +1,71 @@
+@import '../../../styles/vars.less';
+.Checkout-Cart {
+  .title {
+    margin-bottom: 2rem;
+  }
+  .total {
+    text-align: right;
+    width: 100%;
+    font-size: @card-heading-1;
+  }
+  .price {
+    font-size: @general-body;
+  }
+  .quant-input {
+    font-size: @general-body;
+    height: @general-body * 2;
+    max-width: 100px;
+  }
+  .checkout-button-wrapper {
+    text-align: right;
+    margin-top: 1rem;
+    
+    .ant-btn {
+      background-color: @blue-1;
+      padding-top: 0.2rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      font-size: @card-heading-1;
+      color: @white;
+      height: @card-heading-1 * 2;
+      border: 2px solid @blue-1;
+    }
+  }
+  
+  .table {
+    .ant-table-content {
+      border-top: 1px solid @gray-3;
+    }
+    .ant-table-tbody {
+      > tr:first-child {
+        margin-top: 25px;
+      }
+      > tr {
+        > td:first-child {
+          
+        }
+        > td {
+          border-right: 1px solid @gray-3;
+        }
+        > td:last-child {
+          border-right: none;
+        }
+      }
+      .ant-table-row:hover {
+        td {
+          background-color: inherit;
+        }
+      }
+    }
+    .ant-table-thead {
+      > tr > th {
+        background-color: @white;
+      }
+    }
+    .ant-table-tbody {
+    }
+    .ant-table-column-title {
+      font-size: @card-heading-1;
+    }
+  }
+}

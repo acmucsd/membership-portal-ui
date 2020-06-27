@@ -1,0 +1,43 @@
+@import '../../../../styles/vars.less';
+.Item-Mini-Display {
+  .item-meta-wrapper {
+    margin-top: 1rem;
+    font-size: @card-heading-3;
+    display: inline-block;
+    .item-name {
+      font-size: @card-heading-1;
+      font-weight: 600;
+    }
+    .edit-action {
+      margin-right: 1rem;
+    }
+    .action {
+      text-decoration: underline;
+    }
+    .item-meta-2 {
+      margin-bottom: 1rem;
+    }
+  }
+  .image-display-wrapper {
+    background-color: rgba(0,0,0,0.05);
+    display: inline-block;
+    height: 240px;
+    width: auto;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    .image-display {
+      height: 100%;
+    }
+    
+  }
+  @media screen and (max-width: 900px){
+    .image-display-wrapper {
+      height: 140px;
+    }
+    .item-meta-wrapper {
+      font-size: @card-heading-3;
+    }
+  }
+}
