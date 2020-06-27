@@ -40,6 +40,9 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
