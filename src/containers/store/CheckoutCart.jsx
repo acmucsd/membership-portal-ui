@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import CheckoutCart from '../../components/StorePage/CheckoutCart';
 
-const CheckoutCartContainer = (props) => {
-  useEffect(() => {}, [props.store]);
-  return <CheckoutCart store={props.store} />;
+const CheckoutCartContainer = ({ store }) => {
+  useEffect(() => {}, [store]);
+  return <CheckoutCart store={store} />;
 };
 
 const mapStateToProps = (state) => ({

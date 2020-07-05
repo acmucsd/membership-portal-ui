@@ -19,8 +19,8 @@ module.exports = {
     {
       files: ['src/containers/**/*.jsx'],
       rules: {
-        'react/prop-types': 0
-      }
-    }
-  ]
+        'react/prop-types': 0,
+      },
+    },
+  ],
 };

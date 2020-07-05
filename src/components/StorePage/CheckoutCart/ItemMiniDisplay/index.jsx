@@ -12,20 +12,10 @@ const ItemMiniDisplay = (props) => {
         <div className="item-name">{props.name}</div>
         <div className="item-meta-1">Type: Whole Wheat</div>
         <div className="item-meta-2">Size: LARGE</div>
-        <a
-          className="edit-action action"
-          onClick={() => {
-            props.edit();
-          }}
-        >
+        <a className="edit-action action" onClick={props.edit()}>
           Edit
         </a>
-        <a
-          className="delete-action action"
-          onClick={() => {
-            props.delete();
-          }}
-        >
+        <a className="delete-action action" onClick={props.delete}>
           Remove
         </a>
       </div>
