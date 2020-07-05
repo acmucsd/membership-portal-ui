@@ -1,34 +1,39 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './style.less';
 
 export interface ItemMiniDisplayPropTypes {
-  name: string,
-  image: string,
-  edit: Function,
-  delete: Function
+  name: string;
+  image: string;
+  edit: Function;
+  remove: Function;
 }
 
-const ItemMiniDisplay = (props: ItemMiniDisplayPropTypes) => {
+const ItemMiniDisplay = ({ name, image, edit, remove }: ItemMiniDisplayPropTypes) => {
   return (
     <div className="Item-Mini-Display">
       <div className="image-display-wrapper">
-        <img className="image-display" src={props.image} />
+        <img className="image-display" src={image} alt={name} />
       </div>
       <div className="item-meta-wrapper">
-        <div className="item-name">{props.name}</div>
+        <div className="item-name">{name}</div>
         <div className="item-meta-1">Type: Whole Wheat</div>
         <div className="item-meta-2">Size: LARGE</div>
-        <a className="edit-action action" onClick={() => {
-          props.edit();
-        }}>
+        <div
+          className="edit-action action"
+          onClick={() => {
+            edit();
+          }}
+        >
           Edit
-        </a>
-        <a className="delete-action action" onClick={() => {
-          props.delete();
-        }}>
+        </div>
+        <div
+          className="delete-action action"
+          onClick={() => {
+            remove();
+          }}
+        >
           Remove
-        </a>
+        </div>
       </div>
     </div>
   );
