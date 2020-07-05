@@ -1,40 +1,48 @@
-import { Table, Button, Input } from 'antd';
+  import { Table, Button, Input } from 'antd';
 import React, { useEffect, useState } from 'react';
-import ItemMiniDisplay from './ItemMiniDisplay';
+import ItemMiniDisplay, { ItemMiniDisplayPropTypes } from './ItemMiniDisplay';
 import './style.less';
 
 // move these actions elsewhere later
-const editItem = (itemData) => () => {
+const editItem = (itemData: Item) => () => {
   // itemData.id is some id of the item
   console.log(itemData);
 };
 
-const deleteItem = (itemData) => () => {
+const deleteItem = (itemData: Item) => () => {
   // itemData.id is some id of the item
   console.log(itemData);
 };
 
-const CheckoutCart = (props) => {
-  const [data, setData] = useState([
-    {
-      name: 'Sticker',
-      quantity: 3,
-      id: 'abcdef',
-      price: 250,
-    },
-    {
-      name: 'T-Shirt',
-      quantity: 1,
-      id: 'defasd',
-      price: 4000,
-    },
-  ]);
+// should be moved somewhere else
+export interface Item {
+  name: string,
+  quantity: number,
+  id: string,
+  price: number,
+  image: string
+}
+
+export interface CheckoutCartItem {
+  quantity: number,
+  key: string,
+  price: number,
+  tp: number,
+  item: Item
+}
+
+export interface CheckoutCartPropTypes {
+  store: any // should be defined elsewhere and inserted here
+}
+
+const CheckoutCart = (props: CheckoutCartPropTypes) => {
+  const [data, setData] = useState<Array<CheckoutCartItem>>([]);
   const columns = [
     {
       title: 'Item',
       dataIndex: 'item',
       key: 'item',
-      render: (itemData) => {
+      render: (itemData: Item) => {
         return (
           <ItemMiniDisplay
             {...itemData}
@@ -48,7 +56,7 @@ const CheckoutCart = (props) => {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      render: (price) => {
+      render: (price: number) => {
         return <div className="price">{price}</div>;
       },
     },
@@ -56,7 +64,7 @@ const CheckoutCart = (props) => {
       title: 'Quantity',
       dataIndex: 'quantity',
       key: 'quantity',
-      render: (quantity) => {
+      render: (quantity: number) => {
         return (
           <Input
             className="quant-input"
@@ -71,17 +79,17 @@ const CheckoutCart = (props) => {
       title: 'Total Price',
       dataIndex: 'tp',
       key: 'tp',
-      render: (price) => {
+      render: (price: number) => {
         return <div className="price">{price}</div>;
       },
     },
   ];
-  const quantityChange = (e) => {
+  const quantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const quantity = e.target.value;
     console.log(quantity);
     // do something with cart state here.
   };
-  const calcTotalPrice = (items) => {
+  const calcTotalPrice = (items: Array<Item>) => {
     let p = 0;
     items.forEach((item) => {
       p += item.quantity * item.price;
@@ -89,17 +97,13 @@ const CheckoutCart = (props) => {
     return p;
   };
   useEffect(() => {
-    const d = props.store.cart.items.map((item) => {
+    const d: Array<CheckoutCartItem> = props.store.cart.items.map((item: Item) => {
       return {
         key: item.id,
         price: item.price,
         quantity: item.quantity,
         tp: item.price * item.quantity,
-        item: {
-          name: item.name,
-          image: item.image,
-          id: item.id,
-        },
+        item: item
       };
     });
     setData(d);
