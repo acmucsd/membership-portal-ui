@@ -9,10 +9,8 @@ import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 const StorePage: React.FC = () => {
   return (
     <div className="store-page">
-      <h1>ACM Store</h1>
-      <div className="collection-container">
-        <StoreCollectionsContainer/>
-      </div>
+      <h1>Diamond Outfitters</h1>
+      <StoreCollectionsContainer/>
     </div>
   );
 };

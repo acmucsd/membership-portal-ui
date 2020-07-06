@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 import ItemCard from '../StoreItemCard';
 
 import './style.less';
@@ -30,11 +29,13 @@ const StoreCollection: React.FC<StoreCollectionProps> = (props) => {
 
     return (
         <div className="collection">
-        <h2>{title}</h2>
-        <p>{description}</p>
-        {
-            merchandise.map((item) => (<ItemCard/>))
-        }
+            <div className="collection-info">
+                <h2>{title}</h2>
+                <p>{description}</p>
+            </div>
+            {
+                merchandise.map((item) => (<ItemCard/>))
+            }
         </div>
     );
 };
