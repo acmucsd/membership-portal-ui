@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import EventCard from '../components/EventCard';
 import StoreCollection from '../components/StoreCollection';
-// import background from '../assets/graphics/background.svg';
 import { fetchCollections } from '../actions/storeActions';
-import { formatDate } from '../utils';
 
 interface StoreCollectionsContainerProps {
   auth: {
@@ -46,7 +43,6 @@ const StoreCollectionsContainer: React.FC<StoreCollectionsContainerProps> = (pro
     <div>
       {
       collections.map((collection) => {
-        // const startTime = formatDate(event.start);
         return (
           <StoreCollection
             key={collection.uuid}

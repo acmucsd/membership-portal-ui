@@ -1,15 +1,9 @@
 import {
-    // EVENT_CHECKIN,
-    // EVENT_CHECKOUT,
-    // EVENT_ERROR,
     COLLECTION_ERROR,
     FETCH_COLLECTIONS,
-    // FETCH_PAST_EVENTS,
-    // FETCH_EVENT,
     ThunkActionCreator,
 } from './types';
 
-// import { fetchUser } from './userActions';
 import { logoutUser } from './authActions';
 
 import Config from '../config';
