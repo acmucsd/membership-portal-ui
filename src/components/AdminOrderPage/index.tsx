@@ -1,10 +1,48 @@
 import React from 'react';
 import { Button, Input } from 'antd';
 import { history } from '../../store';
+import AdminOrderList from '../AdminOrderList';
 
 import './style.less';
 
 const { Search } = Input;
+
+const testProps = {
+  orders: [
+    {
+      items: [
+        {
+          itemName: 'Example different item',
+          price: 19500,
+          quantity: 2,
+          description: 'Self-explanatory.',
+        },
+        {
+          itemName: 'ACM Mug',
+          price: 2500,
+          quantity: 1,
+          description: 'mug',
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          itemName: 'Unisex Raccoon Print Shell Jacket - M',
+          price: 21300,
+          quantity: 1,
+          description: 'Self-explanatory.',
+        },
+        {
+          itemName: 'ACM Mug 2?!',
+          quantity: 30,
+          price: 30000,
+          description: 'mug',
+        },
+      ],
+    },
+  ],
+};
 
 const AdminOrderPage: React.FC = () => {
   return (
@@ -44,6 +82,7 @@ const AdminOrderPage: React.FC = () => {
           </Button>
         </div>
       </div>
+      <AdminOrderList orders={testProps.orders} />
     </div>
   );
 };
