@@ -1,7 +1,6 @@
 import React from 'react';
-import { Avatar, List, Row, Col } from 'antd';
-import Icon from '@ant-design/icons';
-import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBoxEmpty.svg';
+import { Avatar, List } from 'antd';
+import AdminOrderItem from '../AdminOrderItem';
 
 import './style.less';
 
@@ -40,36 +39,8 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
                 bordered
                 dataSource={order.items}
                 renderItem={(item) => (
-                  // TODO: HTML for order which should contain:
-                  // "checkbox" for fullfilling items from order
-                  // picture of item
-                  // name of item in bold
-                  // quantity of item
-                  // comment icon with modal to opening notes
                   <List.Item>
-                    <Row align="middle" justify="center" className="order-item">
-                      <Col span={2} />
-                      <Col span={3}>
-                        <div className="item-icon">
-                          <Avatar shape="square">{item.itemName}</Avatar>
-                        </div>
-                      </Col>
-                      <Col span={14}>
-                        <div>
-                          <h4 className="item-name">{item.itemName}</h4>
-                        </div>
-                      </Col>
-                      <Col span={3}>
-                        <div className="item-quantity">
-                          <p>x{item.quantity}</p>
-                        </div>
-                      </Col>
-                      <Col span={2}>
-                        <div className="item-notes">
-                          <Icon component={CommentBoxEmpty} />
-                        </div>
-                      </Col>
-                    </Row>
+                    <AdminOrderItem orderItem={item} />
                   </List.Item>
                 )}
               />
