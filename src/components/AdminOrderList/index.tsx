@@ -7,11 +7,14 @@ import './style.less';
 
 interface AdminOrderListProps {
   orders: {
+    uuid: string;
     items: {
+      uuid: string;
       itemName: string;
       quantity: number;
       price: number;
       description: string;
+      notes: string;
     }[];
   }[];
 }
@@ -22,7 +25,7 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
     <div className="order-list">
       {orders.map((order) => {
         return (
-          <div className="order">
+          <div key={order.uuid} className="order">
             <div className="order-list-header">
               <div className="orderer-info">
                 <Avatar size={64} src={bongoSnu}>

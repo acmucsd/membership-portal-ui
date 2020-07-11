@@ -7,6 +7,7 @@ import './style.less';
 
 interface AdminOrderItemProps {
   orderItem: {
+    uuid: string;
     itemName: string;
     quantity: number;
     price: number;
