@@ -12,6 +12,7 @@ interface AdminOrderListProps {
       uuid: string;
       itemName: string;
       quantity: number;
+      fulfilled: boolean;
       price: number;
       description: string;
       notes: string;
