@@ -20,12 +20,6 @@ try {
             Authorization: `Bearer ${Storage.get('token')}`,
         },  
     });
-
-    const { status } = collectionsRes;
-    if (status === 401 || status === 403) {
-        dispatch(logoutUser());
-    return;
-    }
     
     const data = await collectionsRes.json();
 
@@ -36,7 +30,7 @@ try {
         payload: data.collections,
     });
 } catch (error) {
-    notify('Unable to fetch future events!', error.message);
+    notify('Unable to fetch store collections!', error.message);
     dispatch({
         type: COLLECTION_ERROR,
         payload: error.message,
