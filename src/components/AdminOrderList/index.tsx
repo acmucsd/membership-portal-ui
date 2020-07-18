@@ -8,6 +8,7 @@ import './style.less';
 interface AdminOrderListProps {
   orders: {
     uuid: string;
+    orderedAt: Date;
     items: {
       uuid: string;
       itemName: string;
@@ -22,6 +23,7 @@ interface AdminOrderListProps {
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
   const { orders } = props;
+  const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
   return (
     <div className="order-list">
       {orders.map((order) => {
@@ -34,7 +36,9 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
                 </Avatar>
                 <h3 className="name">Test Cat</h3>
               </div>
-              <h4 className="order-date">Ordered 02/27/2001</h4>
+              <h4 className="order-date">
+                Ordered {order.orderedAt.toLocaleDateString('en-US', orderDateStringOptions)}
+              </h4>
             </div>
             <div className="order-items">
               <List

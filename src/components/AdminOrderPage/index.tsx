@@ -11,6 +11,7 @@ const testProps = {
   orders: [
     {
       uuid: '1784089c-94e1-433f-ac67-e114dd124b9e',
+      orderedAt: new Date('February 27, 2001 12:00:00'),
       items: [
         {
           uuid: 'f5ac9abe-8062-487c-9156-52adbe381591',
@@ -34,6 +35,7 @@ const testProps = {
     },
     {
       uuid: '72a08e11-0942-440c-a2dd-91abe2ad09ac',
+      orderedAt: new Date('May 30, 2020 12:00:00'),
       items: [
         {
           uuid: 'eeb77041-4566-4e0c-9e89-a58e0b7b2afd',
