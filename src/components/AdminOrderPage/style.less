@@ -1,39 +1,41 @@
 @import '../../styles/vars.less';
 
-.store-header {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  margin-right: 5%;
-}
+.admin-orders {
+  .store-header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-right: 5%;
 
-.search-section {
-  max-width: 500px;
-  min-width: 50px;
-}
+    .title {
+      font-size: @general-heading-1;
+      font-weight: 700;
+    }
 
-.button-array {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-top: 26px;
-}
+    .admin-redirect-button {
+      font-size: @card-heading-1 * 1.25;
+      height: @card-heading-1 * 1.5;
+      min-width: @button-width * 0.65;
+    }
+  }
 
-.tag-button {
-  margin-left: 10px;
-  margin-right: 10px;
-}
+  .search-section {
+    max-width: 500px;
+    min-width: 50px;
 
-.first-button {
-  margin-left: 0 !important;
-}
+    .button-array {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-top: 26px;
 
-.title {
-  font-size: @general-heading-1;
-  font-weight: 700;
-}
+      .tag-button {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
 
-.admin-redirect-button {
-  font-size: @card-heading-1 * 1.25;
-  height: @card-heading-1 * 1.5;
-  min-width: @button-width * 0.65;
+      .first-button {
+        margin-left: 0 !important;
+      }
+    }
+  }
 }

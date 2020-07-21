@@ -3,30 +3,32 @@
 .order-item {
   max-width: 100%;
   min-width: 100%;
-}
 
-.item-checkbox {
-  font-size: @general-heading-2 * 0.6;
-}
+  .item-checkbox {
+    font-size: @general-heading-2 * 0.6;
+  }
 
-.item-quantity {
-  text-align: right;
-}
-
-@media screen and (max-width: 768px) {
   .item-name {
-    padding-left: 4%;
-    padding-right: 4%;
-    text-align: center;
+    font-size: @general-heading-2 * 0.6;
+    font-weight: 500;
+  }
+
+  .item-quantity {
+    text-align: right;
+  }
+
+  .item-notes {
+    font-size: @general-heading-2 * 0.6;
+    text-align: right;
   }
 }
 
-.item-name {
-  font-size: @general-heading-2 * 0.6;
-  font-weight: 500;
-}
-
-.item-notes {
-  font-size: @general-heading-2 * 0.6;
-  text-align: right;
+@media screen and (max-width: 768px) {
+  .order-item {
+    .item-name {
+      padding-left: 4%;
+      padding-right: 4%;
+      text-align: center;
+    }
+  }
 }

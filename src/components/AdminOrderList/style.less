@@ -3,39 +3,39 @@
 .order-list {
   margin-right: 5%;
   margin-top: 5%;
-}
 
-.order {
-  margin-top: 5%;
-}
+  .order {
+    margin-top: 5%;
 
-.orderer-info {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  min-width: 15%;
-  white-space: nowrap;
-}
+    .order-list-header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1%;
 
-.order-items {
-  margin-left: 5%;
-}
+      .orderer-info {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        min-width: 15%;
+        white-space: nowrap;
 
-.order-list-header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1%;
-}
+        .name {
+          font-size: @general-heading-2;
+          font-weight: 600;
+          margin-left: 2%;
+        }
+      }
 
-.order-date {
-  font-size: @general-heading-2 * 0.75;
-  font-weight: 400;
-  text-align: right;
-}
+      .order-date {
+        font-size: @general-heading-2 * 0.75;
+        font-weight: 400;
+        text-align: right;
+      }
+    }
 
-.name {
-  font-size: @general-heading-2;
-  font-weight: 600;
-  margin-left: 2%;
+    .order-items {
+      margin-left: 5%;
+    }
+  }
 }
