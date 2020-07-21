@@ -19,10 +19,12 @@ interface AdminOrderListProps {
       notes: string;
     }[];
   }[];
+  triggerModal: Function;
+  setFulfill: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { orders } = props;
+  const { orders, triggerModal, setFulfill } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
   return (
     <div className="order-list">
@@ -46,7 +48,11 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
                 dataSource={order.items}
                 renderItem={(item) => (
                   <List.Item>
-                    <AdminOrderItem orderItem={item} />
+                    <AdminOrderItem
+                      orderItem={item}
+                      triggerModal={triggerModal}
+                      setFulfill={setFulfill}
+                    />
                   </List.Item>
                 )}
               />

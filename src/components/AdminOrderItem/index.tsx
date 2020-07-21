@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Avatar, Checkbox, Form, Input, Modal, Row, Col } from 'antd';
+import React from 'react';
+import { Avatar, Checkbox, Row, Col } from 'antd';
 import Icon from '@ant-design/icons';
 import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBoxEmpty.svg';
 
@@ -15,50 +15,20 @@ interface AdminOrderItemProps {
     description: string;
     notes: string;
   };
+  triggerModal: Function;
+  setFulfill: Function;
 }
 
 const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
-  const [visible, setVisible] = useState(false);
-  const [note, setNote] = useState('');
-  const [fulfilled, setFulfilled] = useState(false);
-  const showNote = () => {
-    setVisible(true);
-  };
-
-  const closeNote = () => {
-    setVisible(false);
-  };
-
-  const handleOk = () => {
-    // For now, console statements. These will be removed
-    // when the API is implemented in actions.
-    // eslint-disable-next-line no-console
-    console.log(`Update note is called here! Contents: ${note}`);
-    setVisible(false);
-  };
-
-  const { orderItem } = props;
+  const { orderItem, triggerModal, setFulfill } = props;
   return (
     <Row align="middle" justify="center" className="order-item">
-      <Modal title="Notes" visible={visible} onOk={handleOk} okText="Submit" onCancel={closeNote}>
-        <form>
-          <Form.Item className="note">
-            <Input.TextArea
-              name="note"
-              onChange={(event) => setNote(event.target.value)}
-              rows={4}
-              value={note}
-            />
-          </Form.Item>
-        </form>
-      </Modal>
       <Col span={2}>
         <div className="item-checkbox">
           <Checkbox
             onChange={(event) => {
-              setFulfilled(event.target.checked);
               // eslint-disable-next-line no-console
-              console.log(`Fulfill change called! Current value: ${fulfilled}`);
+              setFulfill(event.target.checked);
             }}
           />
         </div>
@@ -80,7 +50,7 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       </Col>
       <Col span={2}>
         <div className="item-notes">
-          <Icon onClick={showNote} component={CommentBoxEmpty} />
+          <Icon onClick={() => triggerModal(true)} component={CommentBoxEmpty} />
         </div>
       </Col>
     </Row>

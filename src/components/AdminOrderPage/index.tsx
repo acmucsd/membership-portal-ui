@@ -1,68 +1,69 @@
 import React from 'react';
-import { Button, Input } from 'antd';
+import { Button, Form, Input, Modal } from 'antd';
 import { history } from '../../store';
 import AdminOrderList from '../AdminOrderList';
 
 import './style.less';
 
+interface AdminOrderPageProps {
+  orders: {
+    uuid: string;
+    orderedAt: Date;
+    items: {
+      uuid: string;
+      itemName: string;
+      quantity: number;
+      fulfilled: boolean;
+      price: number;
+      description: string;
+      notes: string;
+    }[];
+  }[];
+  setNote: Function;
+  setFulfill: Function;
+  noteVisible: boolean;
+  setNoteVisible: Function;
+  scratchNote: string;
+  setScratchNote: Function;
+}
+
 const { Search } = Input;
 
-const testProps = {
-  orders: [
-    {
-      uuid: '1784089c-94e1-433f-ac67-e114dd124b9e',
-      orderedAt: new Date('February 27, 2001 12:00:00'),
-      items: [
-        {
-          uuid: 'f5ac9abe-8062-487c-9156-52adbe381591',
-          itemName: 'Example different item',
-          price: 19500,
-          quantity: 2,
-          fulfilled: false,
-          description: 'Self-explanatory.',
-          notes: '',
-        },
-        {
-          uuid: '5b80b81c-6947-4445-baa1-2c1d9f373856',
-          itemName: 'ACM Mug',
-          price: 2500,
-          quantity: 1,
-          fulfilled: false,
-          description: 'mug',
-          notes: '',
-        },
-      ],
-    },
-    {
-      uuid: '72a08e11-0942-440c-a2dd-91abe2ad09ac',
-      orderedAt: new Date('May 30, 2020 12:00:00'),
-      items: [
-        {
-          uuid: 'eeb77041-4566-4e0c-9e89-a58e0b7b2afd',
-          itemName: 'Unisex Raccoon Print Shell Jacket - M',
-          price: 21300,
-          quantity: 1,
-          fulfilled: false,
-          description: 'Self-explanatory.',
-          notes: '',
-        },
-        {
-          uuid: 'df08d112-7e8d-4103-9012-cb26cb3012ab',
-          itemName: 'ACM Mug 2?!',
-          quantity: 30,
-          fulfilled: false,
-          price: 30000,
-          description: 'mug',
-          notes: '',
-        },
-      ],
-    },
-  ],
-};
+const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
+  const {
+    orders,
+    setNote,
+    setFulfill,
+    noteVisible,
+    setNoteVisible,
+    scratchNote,
+    setScratchNote,
+  } = props;
 
-const AdminOrderPage: React.FC = () => {
   return (
     <div className="admin-orders">
+      <Modal
+        title="Notes"
+        visible={noteVisible}
+        okText="Submit"
+        onOk={() => {
+          setNote(scratchNote);
+          setNoteVisible(false);
+          setScratchNote('');
+        }}
+        onCancel={() => setNoteVisible(false)}
+      >
+        <form>
+          <Form.Item className="note">
+            <Input.TextArea
+              name="note"
+              value={scratchNote}
+              onChange={(event) => setScratchNote(event.target.value)}
+              rows={4}
+            />
+          </Form.Item>
+        </form>
+      </Modal>
       <div className="store-header">
         <h2 className="title">Orders</h2>
         <Button
@@ -98,7 +99,7 @@ const AdminOrderPage: React.FC = () => {
           </Button>
         </div>
       </div>
-      <AdminOrderList orders={testProps.orders} />
+      <AdminOrderList orders={orders} triggerModal={setNoteVisible} setFulfill={setFulfill} />
     </div>
   );
 };
