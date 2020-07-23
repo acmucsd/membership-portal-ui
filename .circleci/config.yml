@@ -4,6 +4,26 @@
 #
 version: 2
 jobs:
+  rebase:
+    docker:
+      - image: buildpack-deps:stable-scm # needed for Git
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            # This needs to be configured manually, sadly.
+            # 1. Generate key locally, using `ssh-keygen`:
+            # `$ ssh-keygen -m PEM -t rsa (no password)`
+            # 2. Add key to CircleCI. Follow this guide
+            # https://circleci.com/docs/2.0/gh-bb-integration/#creating-a-github-deploy-key
+            # 3. Add deploy key to GitHub. ALLOW WRITE ACCESS!
+            # 4. Add fingerprint from CircleCI here
+            - "dc:07:0a:7c:87:e7:42:92:18:75:3a:2b:99:0b:c6:6e"
+      - checkout
+      - run:
+          command: | # Multiline command input, easiest to read
+            git checkout master
+            git rebase nightly
+            git push origin master
   lint:
     docker:
       - image: circleci/node:10.16.2
@@ -54,6 +74,45 @@ jobs:
 
 workflows:
   version: 2
+  weekly_rebase:
+    jobs:
+      - lint:
+          filters:
+            tags:
+              only: /^(v\d*\.\d*\.\d*)(?:-(\w*\d*))?/
+            branches:
+              ignore: /.*/
+      - test:
+          filters:
+            tags:
+              only: /^(v\d*\.\d*\.\d*)(?:-(\w*\d*))?/
+            branches:
+              ignore: /.*/
+      - rebase:
+          requires:
+            - lint
+            - test
+          filters:
+            tags:
+              # Regex for SemVer tags of commits
+              # Works on tags of format "vXX.XX.XX" (where XX is digit)
+              # Optionally, you can add a keyword at the end.
+              # Examples of valid tags for rebase job to run:
+              # - v1.0.0
+              # - v1.2.3
+              # - v99.99.99
+              # - v4.5.6-bugfix30
+              only: /^(v\d*\.\d*\.\d*)(?:-(\w*\d*))?/
+            branches:
+              # This ignore is necessary, and it needs to be left for
+              # ALL branches. This is because jobs are triggered, by default
+              # on all commit pushes, on all branches. This ignore ensures that trigger
+              # is disabled. Since we added the "tag" filter, this will only run
+              # on tags.
+              #
+              # If we didn't have this, CircleCI would run rebase on tags AND on
+              # commits to branches, and we don't want that.
+              ignore: /.*/
   test_and_deploy:
     jobs:
       - lint
