@@ -13,18 +13,18 @@ interface StoreCollectionsContainerProps {
       uuid: string;
       archived: boolean;
       merchandise: [
-          {
-              collection: string;
-              description: string;
-              discountPercentage: number;
-              itemName: string;
-              lifetimeLimit: number;
-              monthlyLimit: number;
-              picture: string;
-              price: number;
-              uuid: string;
-          }
-      ]
+        {
+          collection: string;
+          description: string;
+          discountPercentage: number;
+          itemName: string;
+          lifetimeLimit: number;
+          monthlyLimit: number;
+          picture: string;
+          price: number;
+          uuid: string;
+        },
+      ];
       description: string;
       title: string;
     },
@@ -41,8 +41,7 @@ const StoreCollectionsContainer: React.FC<StoreCollectionsContainerProps> = (pro
 
   return (
     <div>
-      {
-      collections.map((collection) => {
+      {collections.map((collection) => {
         return (
           <StoreCollection
             key={collection.uuid}
@@ -53,8 +52,7 @@ const StoreCollectionsContainer: React.FC<StoreCollectionsContainerProps> = (pro
             auth={auth}
           />
         );
-      })
-      }
+      })}
     </div>
   );
 };

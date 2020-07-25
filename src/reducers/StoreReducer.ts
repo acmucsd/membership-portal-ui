@@ -1,10 +1,7 @@
 import _ from 'lodash';
 
 import { AnyAction } from 'redux';
-import {
-  FETCH_COLLECTIONS,
-  COLLECTION_ERROR
-} from '../actions/types';
+import { FETCH_COLLECTIONS, COLLECTION_ERROR } from '../actions/types';
 
 const initialState = {
   collections: [],
