@@ -18,6 +18,7 @@ import AdminPage from './containers/AdminPage';
 import AwardPointsPage from './containers/admin/AwardPointsPage';
 import EditEventPage from './containers/admin/EditEventPage';
 import CreateEventPage from './containers/admin/CreateEventPage';
+import EditStoreCollection from './containers/admin/EditStoreCollection';
 
 /* Store Pages */
 import AdminOrderPage from './containers/AdminOrderPage';
@@ -77,6 +78,11 @@ const App = () => {
               exact
               path="/admin/store/orders"
               component={requireAdminAuth(AdminOrderPage) as React.FC}
+            />
+            <Route
+              exact
+              path="/admin/editStore"
+              component={requireAdminAuth(EditStoreCollection) as React.FC}
             />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
