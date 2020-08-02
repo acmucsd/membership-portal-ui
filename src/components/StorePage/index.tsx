@@ -3,7 +3,7 @@ import React from 'react';
 import StoreCollectionsContainer from '../../containers/StoreCollections';
 
 import './style.less';
-import CheckoutCart from './CheckoutCart';
+import CheckoutCart from '../../containers/store/CheckoutCart';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
 
 const initialStateCheckoutCartState = {
