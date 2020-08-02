@@ -27,8 +27,7 @@ const initialStateCheckoutCartState = {
 
 const CheckoutCartContainer = ({ store }) => {
   useEffect(() => {}, [store]);
-  store = initialStateCheckoutCartState;
-  return <CheckoutCart store={store} />;
+  return <CheckoutCart store={initialStateCheckoutCartState} />;
 };
 
 const mapStateToProps = (state) => ({
