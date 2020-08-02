@@ -1,5 +1,6 @@
 import React from 'react';
-import Icon from '@ant-design/icons';
+
+import StoreCollectionsContainer from '../../containers/StoreCollections';
 
 import './style.less';
 import CheckoutCart from './CheckoutCart';
@@ -37,6 +38,8 @@ const StorePage: React.FC = () => {
         <Icon className="temp-icon" component={SwagIcon} />
         <p>Coming Soon!</p>
       </div>
+      <h1>Diamond Outfitters</h1>
+      <StoreCollectionsContainer />
     </div>
   );
 };
