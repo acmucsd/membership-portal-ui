@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { connect, ConnectedComponent } from 'react-redux';
 import { replace } from 'connected-react-router';
 
 import { verifyToken } from '../actions/authActions';
@@ -13,6 +13,7 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
       props
         .verify()()
         .then((data: { [key: string]: any }) => {
+          console.log(data);
           if (!data.admin) {
             // if not an admin, redirect
             props.redirectHome();
@@ -38,6 +39,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     return verifyToken(dispatch);
   },
 });
-const requireAdminAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 
+const requireAdminAuth: (c: JSX.Element | ConnectedComponent<any, any> | React.FC) => React.FC = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 export default requireAdminAuth;
