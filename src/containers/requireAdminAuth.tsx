@@ -13,7 +13,6 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
       props
         .verify()()
         .then((data: { [key: string]: any }) => {
-          console.log(data);
           if (!data.admin) {
             // if not an admin, redirect
             props.redirectHome();
@@ -40,5 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   },
 });
 
-const requireAdminAuth: (c: JSX.Element | ConnectedComponent<any, any> | React.FC) => React.FC = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
+const requireAdminAuth: (
+  c: JSX.Element | ConnectedComponent<any, any> | React.FC,
+) => React.FC = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 export default requireAdminAuth;

@@ -64,26 +64,10 @@ const App = () => {
               path="/admin/editEvent/:uuid"
               component={requireAdminAuth(EditEventPage)}
             />
-            <Route
-              exact
-              path="/admin/awardPoints"
-              component={requireAdminAuth(AwardPointsPage)}
-            />
-            <Route
-              exact
-              path="/admin/createEvent"
-              component={requireAdminAuth(CreateEventPage)}
-            />
-            <Route
-              exact
-              path="/admin/store/orders"
-              component={requireAdminAuth(AdminOrderPage)}
-            />
-            <Route
-              exact
-              path="/admin/store/checkout"
-              component={requireAdminAuth(CheckoutPage)}
-            />
+            <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage)} />
+            <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage)} />
+            <Route exact path="/admin/store/orders" component={requireAdminAuth(AdminOrderPage)} />
+            <Route exact path="/admin/store/checkout" component={requireAdminAuth(CheckoutPage)} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
             <Route exact path="/forgot-password" component={PasswordPage} />
