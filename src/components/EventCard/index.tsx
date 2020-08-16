@@ -24,33 +24,35 @@ const EventCard: React.FC<EventCardProps> = (props) => {
 
   return (
     <div className="event-card">
-      <img className="image" src={cover} alt={title} />
-      <div className="info">
-        <h2 className="title">{title}</h2>
-        <p className="date">{date}</p>
-        {isURL(location) ? (
-          <a className="link" href={getAbsoluteURL(location)}>
+      <div className="front-facing">
+        <img className="image" src={cover} alt={title} />
+        <div className="info">
+          <h2 className="title">{title}</h2>
+          <p className="date">{date}</p>
+          {isURL(location) ? (
+            <a className="link" href={getAbsoluteURL(location)}>
+              <p className="location">{location}</p>
+            </a>
+          ) : (
             <p className="location">{location}</p>
-          </a>
-        ) : (
-          <p className="location">{location}</p>
+          )}
+        </div>
+        <div className={`circle ${attended ? 'green' : 'blue'}`}>
+          <div className="inner" />
+          <h2 className="points">{points}</h2>
+        </div>
+        {auth.admin && (
+          <div className="edit-icon-wrapper">
+            <Icon
+              type="edit"
+              className="edit-icon"
+              onClick={() => {
+                history.push(`/admin/editEvent/${uuid}`);
+              }}
+            />
+          </div>
         )}
       </div>
-      <div className={`circle ${attended ? 'green' : 'blue'}`}>
-        <div className="inner" />
-        <h2 className="points">{points}</h2>
-      </div>
-      {auth.admin && (
-        <div className="edit-icon-wrapper">
-          <Icon
-            type="edit"
-            className="edit-icon"
-            onClick={() => {
-              history.push(`/admin/editEvent/${uuid}`);
-            }}
-          />
-        </div>
-      )}
       <hr className="divider" />
       <p className="description">{description}</p>
     </div>

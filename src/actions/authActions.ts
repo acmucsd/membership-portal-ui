@@ -141,6 +141,9 @@ export const logoutUser: ThunkActionCreator = () => (dispatch) => {
 
 export const passwordReset: ThunkActionCreator = (email: string) => async (dispatch) => {
   try {
+    if (!email) {
+      throw new Error('Email field cannot be empty.');
+    }
     const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${email}`, {
       method: 'GET',
       headers: {

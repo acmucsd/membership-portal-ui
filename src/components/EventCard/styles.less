@@ -13,87 +13,91 @@
   scrollbar-width: none;
   width: @event-width;
 
-  .edit-icon-wrapper {
-    font-size: 24px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
+  .front-facing {
+    min-height: 100%;
 
-    .edit-icon {
-      color: @black;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .edit-icon:hover {
-      color: @gray-4;
-    }
-  }
-
-  img {
-    height: 150px;
-    margin: 0;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .info {
-    padding: 5% 10% 0 10%;
-    width: 100%;
-
-    > * {
-      margin: 0;
-    }
-
-    .date {
-      opacity: 0.8;
-      white-space: nowrap;
-    }
-
-    .location {
-      opacity: 0.8;
-      white-space: nowrap;
-    }
-
-    .link {
-      color: @blue-2;
-    }
-
-    .title {
-      font-size: @card-heading-2;
-      font-weight: bold;
-    }
-  }
-
-  .circle {
-    align-items: center;
-    border-radius: 50%;
-    display: flex;
-    height: 50px;
-    justify-content: center;
-    position: absolute;
-    right: 5%;
-    top: 5%;
-    width: 50px;
-
-    &.blue {
-      background-color: @blue-1;
-    }
-
-    &.green {
-      background-color: @green-1;
-    }
-
-    .inner {
-      background-color: @white;
-      border-radius: 50%;
-      height: 37.5px;
-      width: 37.5px;
-    }
-
-    .points {
-      font-weight: 600;
+    .edit-icon-wrapper {
+      font-size: 24px;
       position: absolute;
+      right: 10px;
+      top: 10px;
+
+      .edit-icon {
+        color: @black;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .edit-icon:hover {
+        color: @gray-4;
+      }
+    }
+
+    img {
+      height: 150px;
+      margin: 0;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .info {
+      padding: 5% 10% 0 10%;
+      width: 100%;
+
+      > * {
+        margin: 0;
+      }
+
+      .date {
+        opacity: 0.8;
+        white-space: nowrap;
+      }
+
+      .location {
+        opacity: 0.8;
+        white-space: nowrap;
+      }
+
+      .link {
+        color: @blue-2;
+      }
+
+      .title {
+        font-size: @card-heading-2;
+        font-weight: bold;
+      }
+    }
+
+    .circle {
+      align-items: center;
+      border-radius: 50%;
+      display: flex;
+      height: 50px;
+      justify-content: center;
+      position: absolute;
+      right: 5%;
+      top: 5%;
+      width: 50px;
+
+      &.blue {
+        background-color: @blue-1;
+      }
+
+      &.green {
+        background-color: @green-1;
+      }
+
+      .inner {
+        background-color: @white;
+        border-radius: 50%;
+        height: 37.5px;
+        width: 37.5px;
+      }
+
+      .points {
+        font-weight: 600;
+        position: absolute;
+      }
     }
   }
 
