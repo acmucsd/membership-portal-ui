@@ -1,9 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import StoreHeader from '../components/StoreHeader';
+import StoreHeader from '../components/StoreHeader/index';
 
-const StoreHeaderContainer = (props) => {
+interface StoreHeaderContainerProps {
+  titleType?: string;
+  titleText: string;
+  hideCart?: boolean;
+}
+
+const StoreHeaderContainer: React.FC<StoreHeaderContainerProps> = (props) => {
   const history = useHistory();
   function handleGoBack() {
     history.goBack();
@@ -37,11 +43,7 @@ const NavTitle = (props) => {
   const history = useHistory();
   const { titleText } = props;
   return (
-    <button
-      type="button"
-      className="nav-title"
-      onClick={() => history.goBack()}
-    >
+    <button type="button" className="nav-title" onClick={() => history.goBack()}>
       {titleText}
     </button>
   );

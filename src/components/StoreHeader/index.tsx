@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import './style.less';
 
@@ -8,7 +7,15 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-const StoreHeader = (props) => {
+interface StoreHeaderProps {
+  title: object;
+  points: number;
+  cartItems: number;
+  hideCart?: boolean;
+  handleGoBack: object;
+}
+
+const StoreHeader: React.FC<StoreHeaderProps> = (props) => {
   const { title, points, cartItems, hideCart } = props;
   return (
     <div className="store-header">
@@ -21,36 +28,20 @@ const StoreHeader = (props) => {
   );
 };
 
-const CartLink = (props) => {
+interface CartLinkProps {
+  cartItems: number;
+}
+
+const CartLink: React.FC<CartLinkProps> = (props) => {
   const { cartItems } = props;
   return (
     <Link to="/cart" className="cart-link">
       Checkout
       <span className="cart-icon">
-        {cartItems > 0 ? (
-          <span className="cart-quantity">{cartItems}</span>
-        ) : (
-          ''
-        )}
+        {cartItems > 0 ? <span className="cart-quantity">{cartItems}</span> : ''}
       </span>
     </Link>
   );
 };
 
-StoreHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-  points: PropTypes.string.isRequired,
-  cartItems: PropTypes.number.isRequired,
-  hideCart: PropTypes.bool,
-};
-
-StoreHeader.defaultProps = {
-  hideCart: true,
-};
-
-CartLink.propTypes = {
-  cartItems: PropTypes.number.isRequired,
-};
-
 export default StoreHeader;
-// TODO add proptypes
