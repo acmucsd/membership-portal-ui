@@ -14,5 +14,5 @@ module.exports = override(
       '@text-selection-bg': '#22ACEA',
       '@link-color': '#22ACEA',
     },
-  })
+  }),
 );
