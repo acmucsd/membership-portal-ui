@@ -150,3 +150,36 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
     }
   });
 };
+
+export const editCollection: ThunkActionCreator = (newData) => async (dispatch) => {
+  console.log('attempting server request...'); // TODO remove debug statement once function works
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${Config.API_URL + Config.routes.store.collection}/${newData.uuid}`, {
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: JSON.stringify(newData),
+      });
+
+      const { status } = response;
+      if (status === 401 || status === 403) {
+        dispatch(logoutUser());
+      }
+
+      const data = await response.json();
+      console.log('data received: ' + JSON.stringify(data));  // TODO remove debug statement once function works
+      if (!data) throw new Error('Empty response from server');
+      if (data.error) throw new Error(data.error.message);
+
+      notify('Collection changes successfully saved!', data.collection.title);
+      resolve(data.collection);
+    } catch (error) {
+      notify('Some or all collection changes could not be saved!', error.message);
+      reject(error);
+    }
+  });
+};

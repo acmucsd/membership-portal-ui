@@ -1,13 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PageLayout from './PageLayout';
 import StorePage from '../components/StorePage';
 
-const StorePageContainer: React.FC = () => {
+import { editCollection } from '../actions/adminActions';
+
+interface StorePageContainerProps {
+  isAdmin: boolean;
+  handleClick: (any) => any;
+}
+
+const StorePageContainer: React.FC<StorePageContainerProps> = (props) => {
+  const { isAdmin } = props;
+  let submitChanges = (newChange) => {
+    editCollection(newChange);
+  }
   return (
     <PageLayout>
-      <StorePage />
+      <StorePage isAdmin={isAdmin} handleClick={submitChanges}/>
     </PageLayout>
   );
 };
 
-export default StorePageContainer;
+
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  isAdmin: state.auth.admin,
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(StorePageContainer);

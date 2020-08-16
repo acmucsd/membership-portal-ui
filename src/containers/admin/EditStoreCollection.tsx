@@ -30,14 +30,11 @@ interface EditStoreCollectionsContainerProps {
     },
   ];
   fetchCollections: Function;
+  handleChange: (data : string) => void;
 }
 
 const EditStoreCollectionsContainer: React.FC<EditStoreCollectionsContainerProps> = (props) => {
-  const { auth, collections } = props;
-
-  useEffect(() => {
-    props.fetchCollections();
-  }, []);
+  const { auth, collections, handleChange } = props;
 
   return (
     <div>
@@ -51,6 +48,7 @@ const EditStoreCollectionsContainer: React.FC<EditStoreCollectionsContainerProps
             title={collection.title}
             merchandise={collection.merchandise}
             auth={auth}
+            handleChange={handleChange}
           />
         );
       })
