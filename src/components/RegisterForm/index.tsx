@@ -23,10 +23,11 @@ interface RegisterFormProps {
     major: string;
     graduationYear: number;
   };
+  search: string;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, values } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, values, search } = props;
 
   return (
     <div className="registercard">
@@ -114,7 +115,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
               Register
             </Button>
           </Form.Item>
-          <NavLink to="/login">
+          <NavLink to={`/login${search}`}>
             <p>
               Already have an account? <b>Sign in.</b>
             </p>

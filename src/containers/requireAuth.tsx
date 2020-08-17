@@ -9,7 +9,7 @@ const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!props.authenticated) {
-      props.verify()();
+      props.verify()(props.search);
     }
   }, []);
 
@@ -19,6 +19,7 @@ const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   authenticated: state.auth.authenticated,
+  search: state.router.location.search,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

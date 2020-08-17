@@ -30,7 +30,7 @@ const tokenGetClaims = (token?: string): object => {
   return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
 };
 
-export const loginUser: ThunkActionCreator = (values) => async (dispatch) => {
+export const loginUser: ThunkActionCreator = (values, search) => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
@@ -56,7 +56,11 @@ export const loginUser: ThunkActionCreator = (values) => async (dispatch) => {
     });
 
     // Redirect to home on login.
-    dispatch(replace('/'));
+    if (search !== '') {
+      dispatch(replace(`/checkin${search}`));
+    } else {
+      dispatch(replace('/'));
+    }
   } catch (error) {
     notify('Unable to login!', error.message);
     dispatch({
@@ -66,7 +70,7 @@ export const loginUser: ThunkActionCreator = (values) => async (dispatch) => {
   }
 };
 
-export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
+export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
@@ -93,7 +97,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
           });
           notify('Login expired', 'Please sign in again');
           // redirect to /login
-          dispatch(replace('/login'));
+          dispatch(replace('/login' + search));
           resolve(data);
           return;
         }
@@ -116,7 +120,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
           type: UNAUTH_USER,
         });
         // redirerct to /login
-        dispatch(replace('/login'));
+        dispatch(replace('/login' + search));
         reject(error);
       }
     } else {
@@ -125,7 +129,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
         type: UNAUTH_USER,
       });
       // redirerct to /login
-      dispatch(replace('/login'));
+      dispatch(replace('/login' + search));
       resolve();
     }
   });

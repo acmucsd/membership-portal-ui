@@ -12,9 +12,13 @@ const FormikSignInForm = withFormik({
     };
   },
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
-    props.loginUser(values);
+    props.loginUser(values, props.search);
     resetForm();
   },
 })(SignInForm as React.FC);
 
-export default connect(null, { loginUser })(FormikSignInForm);
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  search: state.router.location.search,
+});
+
+export default connect(mapStateToProps, { loginUser })(FormikSignInForm);
