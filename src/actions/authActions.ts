@@ -97,7 +97,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
           });
           notify('Login expired', 'Please sign in again');
           // redirect to /login
-          dispatch(replace('/login' + search));
+          dispatch(replace(`/login${search}`));
           resolve(data);
           return;
         }
@@ -120,7 +120,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
           type: UNAUTH_USER,
         });
         // redirerct to /login
-        dispatch(replace('/login' + search));
+        dispatch(replace(`/login${search}`));
         reject(error);
       }
     } else {
@@ -129,7 +129,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
         type: UNAUTH_USER,
       });
       // redirerct to /login
-      dispatch(replace('/login' + search));
+      dispatch(replace(`/login${search}`));
       resolve();
     }
   });
