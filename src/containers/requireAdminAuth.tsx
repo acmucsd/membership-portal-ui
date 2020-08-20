@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { connect, ConnectedComponent } from 'react-redux';
 import { replace } from 'connected-react-router';
 
 import { verifyToken } from '../actions/authActions';
@@ -38,6 +38,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     return verifyToken(dispatch);
   },
 });
-const requireAdminAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 
+const requireAdminAuth: (
+  c: JSX.Element | ConnectedComponent<any, any> | React.FC,
+) => React.FC = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 export default requireAdminAuth;

@@ -1,0 +1,77 @@
+@import '../../../styles/vars.less';
+
+.Checkout-Cart {
+  .title {
+    margin-bottom: 2rem;
+  }
+
+  .total {
+    font-size: @card-heading-1;
+    text-align: right;
+    width: 100%;
+  }
+
+  .price {
+    font-size: @general-body;
+  }
+
+  .quant-input {
+    font-size: @general-body;
+    height: @general-body * 2;
+    max-width: 100px;
+  }
+
+  .checkout-button-wrapper {
+    margin-top: 1rem;
+    text-align: right;
+
+    .ant-btn {
+      background-color: @blue-1;
+      border: 2px solid @blue-1;
+      color: @white;
+      font-size: @card-heading-1;
+      height: @card-heading-1 * 2;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      padding-top: 0.2rem;
+    }
+  }
+
+  .table {
+    .ant-table-content {
+      border-top: 1px solid @gray-3;
+    }
+
+    .ant-table-tbody {
+      > tr {
+        > td {
+          border-right: 1px solid @gray-3;
+        }
+
+        > td:last-child {
+          border-right: none;
+        }
+      }
+
+      > tr:first-child {
+        margin-top: 25px;
+      }
+
+      .ant-table-row:hover {
+        td {
+          background-color: inherit;
+        }
+      }
+    }
+
+    .ant-table-thead {
+      > tr > th {
+        background-color: @white;
+      }
+    }
+
+    .ant-table-column-title {
+      font-size: @card-heading-1;
+    }
+  }
+}
