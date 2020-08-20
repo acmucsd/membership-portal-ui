@@ -13,8 +13,12 @@ const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
     }
   }, []);
 
+  if (props.authenticated) {
+    return <Component />;
+  }
+
   // TODO: Make redirecting screen and return that if not authenticated.
-  return <Component />;
+  return null;
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
