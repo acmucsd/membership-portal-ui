@@ -6,14 +6,16 @@ import { replace } from 'connected-react-router';
 import { verifyToken } from '../actions/authActions';
 
 const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
+  const { authenticated, search } = props;
+
   useEffect(() => {
     // check if authenticated, if not, then verify the token
-    if (!props.authenticated) {
-      props.verify()(props.search);
+    if (!authenticated) {
+      props.verify()(search);
     }
   }, []);
 
-  if (props.authenticated) {
+  if (authenticated) {
     return <Component />;
   }
 
