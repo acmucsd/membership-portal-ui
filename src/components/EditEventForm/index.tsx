@@ -48,6 +48,7 @@ interface EditEventFormProps {
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
   values: { [key: string]: any };
+  copyLink: Function;
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = (props) => {
@@ -59,6 +60,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
     handleChange,
     handleSubmit,
     values,
+    copyLink,
   } = props;
 
   const params: { [key: string]: any } = useParams();
@@ -293,6 +295,15 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
             className="discard-button"
           >
             Discard
+          </Button>
+          <Button
+            type="primary"
+            className="link-button"
+            onClick={() => {
+              copyLink(values.attendanceCode);
+            }}
+          >
+            Copy Checkin Link
           </Button>
           <Button type="danger" onClick={handleDelete} className="delete-button">
             Delete
