@@ -1,7 +1,7 @@
 import Config from '../config';
 import Storage from '../storage';
 
-import { EVENT_DELETE, FETCH_COLLECTIONS, ThunkActionCreator } from './types';
+import { EVENT_DELETE, ThunkActionCreator } from './types';
 import { notify } from '../utils';
 import { logoutUser } from './authActions';
 

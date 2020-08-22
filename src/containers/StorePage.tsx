@@ -14,10 +14,10 @@ interface StorePageContainerProps {
 
 const StorePageContainer: React.FC<StorePageContainerProps> = (props) => {
   const { isAdmin, handleClick } = props;
-  
+
   return (
     <PageLayout>
-      <StorePage isAdmin={isAdmin} handleClick={handleClick}/>
+      <StorePage isAdmin={isAdmin} handleClick={handleClick} />
     </PageLayout>
   );
 };

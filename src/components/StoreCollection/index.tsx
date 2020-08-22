@@ -6,7 +6,7 @@ import './style.less';
 
 interface StoreCollectionProps {
   auth: {
-      admin: boolean;
+    admin: boolean;
   };
   uuid: string;
   description: string;
@@ -28,15 +28,15 @@ interface StoreCollectionProps {
 
 const StoreCollection: React.FC<StoreCollectionProps> = (props) => {
   const { description, title, merchandise } = props;
-  return ( 
+  return (
     <div className="collection">
       <div className="collection-info">
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      { merchandise.map((item, i) => (
-        <ItemCard key={i}/>
-      )) }
+      {merchandise.map((item, i) => (
+        <ItemCard key={item.itemName} />
+      ))}
     </div>
   );
 };

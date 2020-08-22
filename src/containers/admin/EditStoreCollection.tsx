@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import EditStoreCollection from '../../components/EditStoreCollection';
@@ -13,24 +13,24 @@ interface EditStoreCollectionsContainerProps {
       uuid: string;
       archived: boolean;
       merchandise: [
-          {
-              collection: string;
-              description: string;
-              discountPercentage: number;
-              itemName: string;
-              lifetimeLimit: number;
-              monthlyLimit: number;
-              picture: string;
-              price: number;
-              uuid: string;
-          }
-      ]
+        {
+          collection: string;
+          description: string;
+          discountPercentage: number;
+          itemName: string;
+          lifetimeLimit: number;
+          monthlyLimit: number;
+          picture: string;
+          price: number;
+          uuid: string;
+        },
+      ];
       description: string;
       title: string;
     },
   ];
   fetchCollections: Function;
-  handleChange: (data : string) => void;
+  handleChange: (data: string) => void;
 }
 
 const EditStoreCollectionsContainer: React.FC<EditStoreCollectionsContainerProps> = (props) => {
@@ -38,8 +38,7 @@ const EditStoreCollectionsContainer: React.FC<EditStoreCollectionsContainerProps
 
   return (
     <div>
-      {
-      collections.map((collection) => {
+      {collections.map((collection) => {
         return (
           <EditStoreCollection
             key={collection.uuid}
@@ -51,8 +50,7 @@ const EditStoreCollectionsContainer: React.FC<EditStoreCollectionsContainerProps
             handleChange={handleChange}
           />
         );
-      })
-      }
+      })}
     </div>
   );
 };
