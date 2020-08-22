@@ -4,10 +4,17 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../assets/graphics/background.svg';
-import { fetchPastEvents } from '../actions/eventsActions';
+import { fetchAttendance, fetchPastEvents } from '../actions/eventsActions';
 import { formatDate } from '../utils';
 
 interface PastEventsContainerProps {
+  attendance: [
+    {
+      uuid: string;
+      user: string;
+      event: string;
+    },
+  ];
   auth: {
     admin: boolean;
   };
@@ -22,20 +29,23 @@ interface PastEventsContainerProps {
       start: string;
     },
   ];
+  fetchAttendance: Function;
   fetchPastEvents: Function;
 }
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
-  const { auth, events } = props;
+  const { auth, events, attendance } = props;
 
   useEffect(() => {
     props.fetchPastEvents();
+    props.fetchAttendance();
   }, []);
 
   return (
     <EventsList>
       {events.map((event) => {
         const startTime = formatDate(event.start);
+        const attended = attendance.some((attend) => attend.event === event.uuid);
         return (
           <EventCard
             key={`past-${event.uuid}`}
@@ -47,6 +57,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
             points={event.pointValue}
             title={event.title}
             auth={auth}
+            attended={attended}
           />
         );
       })}
@@ -57,6 +68,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
 const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.events.pastEvents,
   auth: state.auth,
+  attendance: state.events.attendance,
 });
 
-export default connect(mapStateToProps, { fetchPastEvents })(PastEventsContainer);
+export default connect(mapStateToProps, { fetchAttendance, fetchPastEvents })(PastEventsContainer);

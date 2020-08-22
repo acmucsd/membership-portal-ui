@@ -67,7 +67,6 @@
 
   .circle {
     align-items: center;
-    background-color: @blue-1;
     border-radius: 50%;
     display: flex;
     height: 50px;
@@ -76,6 +75,14 @@
     right: 5%;
     top: 5%;
     width: 50px;
+
+    &.blue {
+      background-color: @blue-1;
+    }
+
+    &.green {
+      background-color: @green-1;
+    }
 
     .inner {
       background-color: @white;
