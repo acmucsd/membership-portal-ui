@@ -73,8 +73,6 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
     if (!pastEvents) throw new Error('Empty response from server');
     else if (pastEvents.error) throw new Error(pastEvents.error.message);
 
-    // TODO: Mark the events as checked in if the user has attended them.
-
     pastEvents.events.reverse();
 
     dispatch({
