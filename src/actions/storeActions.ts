@@ -4,12 +4,6 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-// Commonly, action files in this project have multiple
-// expressions each, so default export isn't useful.
-// Since store actions will also have additional functions
-// later on, this ESLint disable is temporary to pass CI linting.
-//
-// eslint-disable-next-line import/prefer-default-export
 export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   try {
     const collectionsRes = await fetch(Config.API_URL + Config.routes.store.collection, {

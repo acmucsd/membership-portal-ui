@@ -1,7 +1,7 @@
 import Config from '../config';
 import Storage from '../storage';
 
-import { EVENT_DELETE, ThunkActionCreator } from './types';
+import { EVENT_DELETE, FETCH_COLLECTIONS, ThunkActionCreator } from './types';
 import { notify } from '../utils';
 import { logoutUser } from './authActions';
 
@@ -152,7 +152,6 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
 };
 
 export const editCollection: ThunkActionCreator = (newData) => async (dispatch) => {
-  console.log('attempting server request...'); // TODO remove debug statement once function works
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(`${Config.API_URL + Config.routes.store.collection}/${newData.uuid}`, {
@@ -162,7 +161,7 @@ export const editCollection: ThunkActionCreator = (newData) => async (dispatch) 
           'Content-Type': 'application/json',
           Authorization: `Bearer ${Storage.get('token')}`,
         },
-        body: JSON.stringify(newData),
+        body: JSON.stringify({'collection': newData.data}),
       });
 
       const { status } = response;
@@ -171,12 +170,12 @@ export const editCollection: ThunkActionCreator = (newData) => async (dispatch) 
       }
 
       const data = await response.json();
-      console.log('data received: ' + JSON.stringify(data));  // TODO remove debug statement once function works
+
       if (!data) throw new Error('Empty response from server');
       if (data.error) throw new Error(data.error.message);
 
       notify('Collection changes successfully saved!', data.collection.title);
-      resolve(data.collection);
+      resolve(data);
     } catch (error) {
       notify('Some or all collection changes could not be saved!', error.message);
       reject(error);
