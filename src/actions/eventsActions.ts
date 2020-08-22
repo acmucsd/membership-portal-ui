@@ -2,6 +2,7 @@ import {
   EVENT_CHECKIN,
   EVENT_CHECKOUT,
   EVENT_ERROR,
+  FETCH_ATTENDANCE,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
   FETCH_EVENT,
@@ -89,6 +90,40 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
   }
 };
 
+export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
+  try {
+    const response = await fetch(Config.API_URL + Config.routes.attendance.fetch, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
+
+    const { status } = response;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    dispatch({
+      type: FETCH_ATTENDANCE,
+      payload: data.attendance,
+    });
+  } catch (error) {
+    notify('Unable to fetch attendance!', error.message);
+    dispatch({
+      type: EVENT_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
 export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
   try {
     const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
@@ -115,6 +150,7 @@ export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
     if (data.error) throw new Error(data.error.message);
 
     dispatch(fetchUser());
+    dispatch(fetchAttendance());
     dispatch(fetchPastEvents());
     dispatch(fetchFutureEvents());
     dispatch({
