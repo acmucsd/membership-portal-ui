@@ -4,7 +4,7 @@ import PageLayout from './PageLayout';
 import StorePage from '../components/StorePage';
 
 import { editCollection } from '../actions/adminActions';
-import { fetchCollections } from '../actions/storeActions';
+import fetchCollections from '../actions/storeActions';
 import { ThunkActionCreator } from '../actions/types';
 
 interface StorePageContainerProps {

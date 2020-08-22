@@ -34,7 +34,7 @@ const StoreCollection: React.FC<StoreCollectionProps> = (props) => {
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      {merchandise.map((item, i) => (
+      {merchandise.map((item) => (
         <ItemCard key={item.itemName} />
       ))}
     </div>

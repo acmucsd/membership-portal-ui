@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import EditStoreCollection from '../../components/EditStoreCollection';
-import { fetchCollections } from '../../actions/storeActions';
+import fetchCollections from '../../actions/storeActions';
 
 interface EditStoreCollectionsContainerProps {
   auth: {

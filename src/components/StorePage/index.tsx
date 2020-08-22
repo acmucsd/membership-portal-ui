@@ -14,14 +14,14 @@ interface StorePageProps {
 
 const StorePage: React.FC<StorePageProps> = (props) => {
   const { isAdmin } = props;
-  const [inEditMode, toggleEdit ] = useState(false);
-  const [changesMade, setChangesMade ] = useState<any[]>([]); // editing headers for now
+  const [inEditMode, toggleEdit] = useState(false);
+  const [changesMade, setChangesMade] = useState<any[]>([]); // editing headers for now
 
   const manageEdit = () => {
     // If in edit mode, send api call to save changes
     if (inEditMode) {
       changesMade.forEach((elem) => {
-        props.handleClick(elem)
+        props.handleClick(elem);
       });
     }
     setChangesMade([]);
@@ -30,35 +30,35 @@ const StorePage: React.FC<StorePageProps> = (props) => {
     toggleEdit(!inEditMode);
   };
 
-  const handleChangeFunc = (newData) => {  
-    let newDataObj = JSON.parse(newData);
+  const handleChangeFunc = (newData) => {
+    const newDataObj = JSON.parse(newData);
     let isUpdate = false;
-    const oldData:any[] = changesMade;
+    const oldData: any[] = changesMade;
 
     oldData.forEach((item) => {
       if (item.uuid === newDataObj.uuid) {
-        item.data = {...item.data, ...newDataObj.data}
+        item.data = { ...item.data, ...newDataObj.data }
         isUpdate = true;
       }
     });
-    if(!isUpdate) {
+    if (!isUpdate) {
       oldData.push(JSON.parse(newData));
     }
 
     setChangesMade(oldData);
-  }
+  };
 
   return (
     <div className="store-page">
       <h1>Diamond Outfitters</h1>
-      { isAdmin ? (
-        <Button onClick={ manageEdit }> { inEditMode ? 'Save Changes' : 'Edit Store' } </Button>
-      ) : null }
-      {(isAdmin && inEditMode) ? (
+      {isAdmin ? (
+        <Button onClick={manageEdit}> {inEditMode ? 'Save Changes' : 'Edit Store'} </Button>
+      ) : null}
+      {isAdmin && inEditMode ? (
         <EditStoreCollection handleChange={handleChangeFunc} />
-       ) : (
+      ) : (
         <StoreCollectionsContainer />
-       )}
+      )}
     </div>
   );
 };

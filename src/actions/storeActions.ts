@@ -4,7 +4,7 @@ import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
 
-export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
+const fetchCollections:ThunkActionCreator = () => async (dispatch) => {
   try {
     const collectionsRes = await fetch(Config.API_URL + Config.routes.store.collection, {
       method: 'GET',
@@ -31,3 +31,5 @@ export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
     });
   }
 };
+
+export default fetchCollections; // avoid the default exporrt lint rule

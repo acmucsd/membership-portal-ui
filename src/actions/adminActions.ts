@@ -154,15 +154,18 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
 export const editCollection: ThunkActionCreator = (newData) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(`${Config.API_URL + Config.routes.store.collection}/${newData.uuid}`, {
-        method: 'PATCH',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-        body: JSON.stringify({'collection': newData.data}),
-      });
+      const response = await fetch(
+        `${Config.API_URL + Config.routes.store.collection}/${newData.uuid}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${Storage.get('token')}`,
+          },
+          body: JSON.stringify({ 'collection': newData.data }),
+        }
+      );
 
       const { status } = response;
       if (status === 401 || status === 403) {
