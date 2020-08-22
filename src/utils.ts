@@ -89,19 +89,6 @@ export const formatTime = (time: string | number | Date): string => {
 };
 
 /**
- * TODO: Actually read the time
- * Retrieves the hour froma  time.
- * @param {string} time The time in unformatted form.
- * @return {string} The hour.
- */
-export const getHour = (time: string): string => {
-  const subTime = time.split('T')[1];
-  const hour = subTime.split(':')[0];
-
-  return hour;
-};
-
-/**
  * Converts the month to an index
  * @param {string} month The month in string form.
  * @return {number} The month in number form.
