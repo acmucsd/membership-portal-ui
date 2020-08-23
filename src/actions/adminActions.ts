@@ -163,8 +163,8 @@ export const editCollection: ThunkActionCreator = (newData) => async (dispatch) 
             'Content-Type': 'application/json',
             Authorization: `Bearer ${Storage.get('token')}`,
           },
-          body: JSON.stringify({ 'collection': newData.data }),
-        }
+          body: JSON.stringify({ collection: newData.data }),
+        },
       );
 
       const { status } = response;

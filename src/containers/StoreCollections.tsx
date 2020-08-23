@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import StoreCollection from '../components/StoreCollection';
-import { fetchCollections } from '../actions/storeActions';
+import fetchCollections from '../actions/storeActions';
 
 interface StoreCollectionsContainerProps {
   auth: {

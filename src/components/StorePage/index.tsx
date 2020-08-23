@@ -6,6 +6,7 @@ import StoreCollectionsContainer from '../../containers/StoreCollections';
 import EditStoreCollection from '../../containers/admin/EditStoreCollection';
 
 import './style.less';
+import { Console } from 'console';
 
 interface StorePageProps {
   isAdmin: boolean;
@@ -30,22 +31,33 @@ const StorePage: React.FC<StorePageProps> = (props) => {
     toggleEdit(!inEditMode);
   };
 
-  const handleChangeFunc = (newData) => {
-    const newDataObj = JSON.parse(newData);
-    let isUpdate = false;
+  const handleChangeFunc = (incomingData) => {
+    const incomingDataObj = JSON.parse(incomingData);
     const oldData: any[] = changesMade;
+    let newData: any[] = [];
+    let isUpdate = false;
 
     oldData.forEach((item) => {
-      if (item.uuid === newDataObj.uuid) {
-        item.data = { ...item.data, ...newDataObj.data }
+      let newItem = {
+        uuid: item.uuid,
+        data: {},
+      };
+      // make sure there is one change per uuid
+      if (item.uuid === incomingDataObj.uuid) {
+        // update an existing pending change
+        newItem.data = { ...item.data, ...incomingDataObj.data };
         isUpdate = true;
+      } else {
+        // add a change for a new uuid
+        newItem.data = incomingDataObj.data;
       }
+      newData.push(newItem);
     });
+    
     if (!isUpdate) {
-      oldData.push(JSON.parse(newData));
+      newData.push(JSON.parse(incomingData));
     }
-
-    setChangesMade(oldData);
+    setChangesMade(newData);
   };
 
   return (

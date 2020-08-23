@@ -51,7 +51,8 @@ const EditStoreCollection: React.FC<EditStoreCollectionProps> = (props) => {
                     data: {
                       title: e.target.value,
                     },
-                  }));
+                  })
+                );
               }
             }}
           />
@@ -60,24 +61,25 @@ const EditStoreCollection: React.FC<EditStoreCollectionProps> = (props) => {
           </div>
         </div>
         <textarea
-          rows={4}  
+          rows={4}
           value={descriptionValue}
           onChange={(e) => {
             setDescriptionValue(e.target.value);
-            if(e.target.value !== '') {
+            if (e.target.value !== '') {
               handleChange(
                 JSON.stringify({
                   uuid: props.uuid,
                   data: {
                     description: e.target.value,
                   },
-                })
+                }),
               );
             }
-          }}/>
+          }}
+        />
       </div>
       <div className="collection-items">
-        {merchandise.map((item, i) => (
+        {merchandise.map((item) => (
           <ItemCard key={item.itemName} />
         ))}
         <NewItemCard />
