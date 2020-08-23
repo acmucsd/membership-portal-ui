@@ -6,7 +6,6 @@ import StoreCollectionsContainer from '../../containers/StoreCollections';
 import EditStoreCollection from '../../containers/admin/EditStoreCollection';
 
 import './style.less';
-import { Console } from 'console';
 
 interface StorePageProps {
   isAdmin: boolean;
@@ -34,11 +33,11 @@ const StorePage: React.FC<StorePageProps> = (props) => {
   const handleChangeFunc = (incomingData) => {
     const incomingDataObj = JSON.parse(incomingData);
     const oldData: any[] = changesMade;
-    let newData: any[] = [];
+    const newData: any[] = [];
     let isUpdate = false;
 
     oldData.forEach((item) => {
-      let newItem = {
+      const newItem = {
         uuid: item.uuid,
         data: {},
       };
@@ -53,7 +52,7 @@ const StorePage: React.FC<StorePageProps> = (props) => {
       }
       newData.push(newItem);
     });
-    
+
     if (!isUpdate) {
       newData.push(JSON.parse(incomingData));
     }

@@ -51,7 +51,7 @@ const EditStoreCollection: React.FC<EditStoreCollectionProps> = (props) => {
                     data: {
                       title: e.target.value,
                     },
-                  })
+                  }),
                 );
               }
             }}
