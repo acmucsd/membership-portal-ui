@@ -7,6 +7,7 @@ import { isURL, getAbsoluteURL } from '../../utils';
 import './styles.less';
 
 interface EventCardProps {
+  attended: boolean;
   auth: any;
   cover: string;
   date: string;
@@ -18,7 +19,7 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = (props) => {
-  const { auth, cover, date, description, location, points, title, uuid } = props;
+  const { attended, auth, cover, date, description, location, points, title, uuid } = props;
   const history = useHistory();
 
   return (
@@ -35,7 +36,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
           <p className="location">{location}</p>
         )}
       </div>
-      <div className="circle">
+      <div className={`circle ${attended ? 'green' : 'blue'}`}>
         <div className="inner" />
         <h2 className="points">{points}</h2>
       </div>

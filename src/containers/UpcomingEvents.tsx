@@ -4,10 +4,17 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../assets/graphics/background.svg';
-import { fetchFutureEvents } from '../actions/eventsActions';
+import { fetchAttendance, fetchFutureEvents } from '../actions/eventsActions';
 import { formatDate, formatTime } from '../utils';
 
 interface UpcomingEventsContainerProps {
+  attendance: [
+    {
+      uuid: string;
+      user: string;
+      event: string;
+    },
+  ];
   auth: boolean;
   events: [
     {
@@ -21,14 +28,16 @@ interface UpcomingEventsContainerProps {
       end: string;
     },
   ];
+  fetchAttendance: Function;
   fetchFutureEvents: Function;
 }
 
 const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
-  const { auth, events } = props;
+  const { auth, events, attendance } = props;
 
   useEffect(() => {
     props.fetchFutureEvents();
+    props.fetchAttendance();
   }, []);
 
   return (
@@ -37,6 +46,7 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
         const startTime = formatTime(event.start);
         const endTime = formatTime(event.end);
         const date = `${formatDate(event.start)}, ${startTime} - ${endTime}`;
+        const attended = attendance.some((attend) => attend.event === event.uuid);
         return (
           <EventCard
             key={`upcoming-${event.uuid}`}
@@ -48,6 +58,7 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
             points={event.pointValue}
             title={event.title}
             auth={auth}
+            attended={attended}
           />
         );
       })}
@@ -58,6 +69,9 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.events.futureEvents,
   auth: state.auth,
+  attendance: state.events.attendance,
 });
 
-export default connect(mapStateToProps, { fetchFutureEvents })(UpcomingEventsContainer);
+export default connect(mapStateToProps, { fetchAttendance, fetchFutureEvents })(
+  UpcomingEventsContainer,
+);
