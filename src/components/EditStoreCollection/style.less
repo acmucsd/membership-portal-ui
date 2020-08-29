@@ -1,6 +1,31 @@
 @import '../../styles/vars.less';
 
 .collection {
+  .ant-input-group-wrapper {
+    margin-right: 20px;
+    width: fit-content;
+
+    input {
+      border-color: black;
+      border-right: none;
+      color: black;
+      font-size: @general-heading-2;
+      font-weight: 600;
+      padding: 20px 8px;
+    }
+
+    svg {
+      color: black;
+      height: 25px;
+      width: 25px;
+    }
+
+    .ant-input-group-addon {
+      background-color: @white;
+      border: 1px solid black;
+      border-left: none;
+    }
+  }
 
   .edit-header {
     display: flex;
@@ -8,41 +33,23 @@
     .archive-icon {
       border: 2px solid black;
       border-radius: 8px;
-      width: 50px;
-      height: 50px;
+      height: 42px;
+      width: 42px;
 
       svg {
-        display: flex;
-        margin: 10px;
         align-self: center;
+        display: flex;
         height: 100%;
-        width: 25px;
+        margin: 8px;
+        width: 22px;
       }
     }
   }
 
   textarea {
-    margin: 20px 0px;
+    margin-top: 20px;
+    padding: 5px;
     width: 100%;
-  }
-
-  .ant-input-affix-wrapper {
-    width: fit-content;
-    margin-right: 20px;
-
-    input {
-      font-size: @general-heading-2;
-      font-weight: 600;
-      color: black;
-      border-color: black;
-      padding: 20px 8px;
-    }
-
-    svg {
-      height: 25px;
-      width: 25px;
-      color: black;
-    }
   }
 
   .collection-items {

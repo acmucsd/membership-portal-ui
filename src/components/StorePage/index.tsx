@@ -6,6 +6,7 @@ import StoreCollectionsContainer from '../../containers/StoreCollections';
 import EditStoreCollection from '../../containers/admin/EditStoreCollection';
 
 import './style.less';
+import StoreNewCollection from '../StoreNewCollection';
 
 interface StorePageProps {
   isAdmin: boolean;
@@ -61,12 +62,30 @@ const StorePage: React.FC<StorePageProps> = (props) => {
 
   return (
     <div className="store-page">
-      <h1>Diamond Outfitters</h1>
-      {isAdmin ? (
-        <Button onClick={manageEdit}> {inEditMode ? 'Save Changes' : 'Edit Store'} </Button>
-      ) : null}
+      <div className="store-header">
+        <h1>Diamond Outfitters</h1>
+        {isAdmin ? (
+          <div className="admin-btn">
+            <Button onClick={manageEdit}> {inEditMode ? 'Save Changes' : 'Edit Store'} </Button>
+            {inEditMode ? (
+              <Button
+                onClick={() => {
+                  setChangesMade([]);
+                  toggleEdit(!inEditMode);
+                }}
+                type="danger"
+              >
+                Cancel
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
       {isAdmin && inEditMode ? (
-        <EditStoreCollection handleChange={handleChangeFunc} />
+        <div>
+          <EditStoreCollection handleChange={handleChangeFunc} />
+          <StoreNewCollection />
+        </div>
       ) : (
         <StoreCollectionsContainer />
       )}

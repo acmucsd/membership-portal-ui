@@ -1,19 +1,17 @@
 @import '../../styles/vars.less';
 
 .collection {
-
   .new-item-card {
-
     border: 1px solid @gray-5;
     border-radius: 13px;
-    box-shadow: 0px 4px 4px @gray-5;
+    box-shadow: 0 4px 4px @gray-5;
     font-family: Roboto;
 
     p {
-      text-align: center;
-      margin-top: 67px;
       color: #c4c4c4;
       font-size: @general-heading-1;
+      margin-top: 67px;
+      text-align: center;
     }
 
     span {
@@ -25,7 +23,17 @@
         width: 50px;
       }
     }
-
   }
+}
 
+@media only screen and (max-width: 480px) {
+  .collection {
+    .new-item-card {
+      p {
+        font-size: @item-card-font-size-mobile;
+        font-weight: 600;
+        margin-top: 25px;
+      }
+    }
+  }
 }

@@ -3,16 +3,48 @@
 .store-page {
   color: @black;
 
+  .store-header {
+    display: flex;
+  }
+
+  .admin-btn {
+    align-self: center;
+  }
+
   h1 {
+    display: inline-block;
     font-size: @general-heading-1;
     font-weight: 700;
-    display: inline-block;
+    margin-right: 20px;
   }
 
   button {
-    display: inline-block;
-    vertical-align: text-bottom;
     border: 1px solid black;
-    margin: 0px 20px;
+    margin-right: 40px;
+    vertical-align: text-bottom;
+  }
+
+  .ant-btn-danger {
+    border: initial;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .store-page {
+    .store-header {
+      flex-direction: column;
+
+      h1 {
+        margin: 20px 0;
+      }
+
+      .admin-btn {
+        align-self: start;
+      }
+    }
+
+    button {
+      margin-left: 0;
+    }
   }
 }

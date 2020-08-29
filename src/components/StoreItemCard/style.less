@@ -6,12 +6,19 @@
   font-family: Roboto;
   height: @item-rectangle-height;
   margin: 15px;
+  margin-left: 0;
   margin-right: 30px;
-  margin-left: 0px;
   padding: 0 30px;
   width: @item-card-width;
 }
 
 .item-card:first-of-type {
   margin-left: 0;
+}
+
+@media only screen and (max-width: 480px) {
+  .item-card {
+    height: @item-card-width-mobile;
+    width: @item-card-width-mobile;
+  }
 }

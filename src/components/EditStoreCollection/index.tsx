@@ -35,29 +35,40 @@ interface EditStoreCollectionProps {
 const EditStoreCollection: React.FC<EditStoreCollectionProps> = (props) => {
   const { description, title, merchandise, handleChange } = props;
   const [descriptionValue, setDescriptionValue] = useState<string>(description);
+  const [toArchive, setToArchive] = useState<boolean>(false);
 
   return (
     <div className="collection">
       <div className="collection-info">
         <div className="edit-header">
-          <Input
-            suffix={<EditFilled />}
-            defaultValue={title}
-            onBlur={(e) => {
-              if (e.target.value !== '') {
-                handleChange(
-                  JSON.stringify({
-                    uuid: props.uuid,
-                    data: {
-                      title: e.target.value,
-                    },
-                  }),
-                );
-              }
-            }}
-          />
-          <div className="archive-icon">
-            <Icon component={ArchiveIcon} />
+          <div style={{ marginBottom: 16 }}>
+            <Input
+              addonAfter={<EditFilled />}
+              defaultValue={title}
+              onBlur={(e) => {
+                if (e.target.value !== '') {
+                  handleChange(
+                    JSON.stringify({
+                      uuid: props.uuid,
+                      data: {
+                        title: e.target.value,
+                      },
+                    }),
+                  );
+                }
+              }}
+            />
+          </div>
+          <div
+            className="archive-icon"
+            style={toArchive ? { borderColor: '#EF626C' } : { borderColor: '#000' }}
+          >
+            <Icon
+              component={ArchiveIcon}
+              onClick={() => {
+                setToArchive(!toArchive);
+              }}
+            />
           </div>
         </div>
         <textarea
