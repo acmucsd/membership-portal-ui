@@ -6,8 +6,6 @@ import { ReactComponent as ArchiveIcon } from '../../assets/icons/archive.svg';
 
 import NewItemCard from '../StoreNewItemCard';
 
-import './style.less';
-
 /* Once we do admin item page implementation, NewCollection will be functional */
 
 const StoreNewCollection: React.FC = () => {
