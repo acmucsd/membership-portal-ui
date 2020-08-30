@@ -1,11 +1,7 @@
 ## Setup
-Install the dependencies
-```bash
-# Install Yarn:
-$ curl -o- -L https://yarnpkg.com/install.sh | bash
-# Install the package dependencies
-$ yarn
-```
+
+Install Node and npm: [https://nodejs.org/en/](https://nodejs.org/en/).
+
 ## Available Scripts
 
 In the project directory, you can run:

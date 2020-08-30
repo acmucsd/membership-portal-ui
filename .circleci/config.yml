@@ -32,13 +32,13 @@ jobs:
       - restore_cache:
           key: package-cache-{{checksum "package.json"}}
       - run:
-          command: yarn install
+          command: npm install
       - save_cache:
           key: package-cache-{{checksum "package.json"}}
           paths:
             - node_modules
       - run:
-          command: yarn run lint
+          command: npm run lint
 
   test:
     docker:
@@ -48,13 +48,13 @@ jobs:
       - restore_cache:
           key: package-cache-{{checksum "package.json"}}
       - run:
-          command: yarn install
+          command: npm install
       - save_cache:
           key: package-cache-{{checksum "package.json"}}
           paths:
             - node_modules
       - run:
-          command: yarn test
+          command: npm test
 
   coveralls:
     docker:
@@ -64,13 +64,13 @@ jobs:
       - restore_cache:
           key: package-cache-{{checksum "package.json"}}
       - run:
-          command: yarn install
+          command: npm install
       - save_cache:
           key: package-cache-{{checksum "package.json"}}
           paths:
             - node_modules
       - run:
-          command: yarn run coveralls
+          command: npm run coveralls
 
 workflows:
   version: 2
