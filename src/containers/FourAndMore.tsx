@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import InfiniteScroll from 'react-infinite-scroller';
 import LeaderListItem from '../components/LeaderListItem';
 import fetchLeaderboard from '../actions/leaderboardActions';
 
@@ -39,14 +40,28 @@ const getFourAndMore = (users: { [key: string]: any }) => {
   return fourAndMore;
 };
 
+const LIMIT = 20;
 const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const { users } = props;
-
+  const [page, setPage] = useState(0);
+  const [prevUserLength, setPrevUserLength] = useState(0);
+  const hasMore = () => {
+    return prevUserLength !== users.length;
+  };
   useEffect(() => {
-    props.fetchLeaderboard();
-  }, []);
-
-  return <>{getFourAndMore(users)}</>;
+    setPrevUserLength(users.length);
+  }, [users]);
+  const loadFunc = () => {
+    setPage(page + 1);
+    props.fetchLeaderboard(page * LIMIT + 3, LIMIT);
+  };
+  return (
+    <>
+      <InfiniteScroll pageStart={0} loadMore={loadFunc} hasMore={hasMore()}>
+        {getFourAndMore(users)}
+      </InfiniteScroll>
+    </>
+  );
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({

@@ -42,7 +42,7 @@ const TopThreeContainer: React.FC<TopThreeContainerProps> = (props) => {
   const { users } = props;
 
   useEffect(() => {
-    props.fetchLeaderboard();
+    props.fetchLeaderboard(0, 3);
   }, []);
 
   return <>{getTopThree(users)}</>;

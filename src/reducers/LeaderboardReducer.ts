@@ -4,11 +4,13 @@ import { getDefaultProfile } from '../utils';
 
 const initialState = {
   users: [],
+  /** Maps offset value used to the users fetched */
+  offsetToUsers: new Map(),
 };
 
 const LeaderboardReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case FETCH_LEADERBOARD:
+    case FETCH_LEADERBOARD: {
       // TODO: Look into Immutables.
       action.payload.map((user: { [key: string]: any }) => {
         const newUser = user;
@@ -17,10 +19,23 @@ const LeaderboardReducer = (state = initialState, action: AnyAction) => {
         }
         return newUser;
       });
+      state.offsetToUsers.set(action.offset, action.payload);
+      const keysarr: number[] = [];
+      // @ts-ignore
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key of state.offsetToUsers.keys()) {
+        keysarr.push(key);
+      }
+      keysarr.sort((a, b) => a - b);
+      const users: any[] = [];
+      for (let i = 0; i < keysarr.length; i += 1) {
+        users.push(...state.offsetToUsers.get(keysarr[i]));
+      }
       return {
         ...state,
-        users: action.payload,
+        users,
       };
+    }
     case LEADERBOARD_ERROR:
       return {
         ...state,
