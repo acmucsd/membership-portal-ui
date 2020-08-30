@@ -14,7 +14,8 @@
   width: @event-width;
 
   .front-facing {
-    min-height: 100%;
+    height: 100%;
+    position: relative;
 
     .edit-icon-wrapper {
       font-size: 24px;
@@ -99,12 +100,14 @@
         position: absolute;
       }
     }
-  }
 
-  .divider {
-    border: 1px solid rgba(51, 51, 51, 0.2);
-    margin: 35px 10% 15px 10%;
-    width: 80%;
+    .divider {
+      border: 1px solid rgba(51, 51, 51, 0.2);
+      margin: auto 10% 15px 10%;
+      width: 80%;
+      position: absolute;
+      bottom: 0;
+    }
   }
 
   .description {

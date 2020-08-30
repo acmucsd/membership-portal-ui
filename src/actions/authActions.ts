@@ -83,7 +83,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async () => {
         const data = await response.json();
         if (!data) throw new Error('Empty response from server');
         if (data.error) {
-          throw new Error(data.error.message);
+          throw new Error(data.error);
         }
 
         if (!data.authenticated) {

@@ -52,8 +52,8 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             />
           </div>
         )}
+        <hr className="divider" />
       </div>
-      <hr className="divider" />
       <p className="description">{description}</p>
     </div>
   );
