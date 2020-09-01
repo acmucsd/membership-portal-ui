@@ -20,7 +20,7 @@ import EditEventPage from './containers/admin/EditEventPage';
 import CreateEventPage from './containers/admin/CreateEventPage';
 
 import AuthPage from './containers/AuthPage';
-import CheckInPage from './containers/CheckInPage';
+import CheckInHandler from './containers/CheckInHandler';
 import DiscordPage from './containers/DiscordPage';
 import HomePage from './containers/HomePage';
 import LeaderPage from './containers/LeaderPage';
@@ -72,7 +72,7 @@ const App = () => {
               component={requireAdminAuth(CreateEventPage) as React.FC}
             />
             <Route exact path="/authenticate-email" component={AuthPage} />
-            <Route exact path="/checkin" component={requireAuth(CheckInPage) as React.FC} />
+            <Route exact path="/checkin" component={requireAuth(CheckInHandler) as React.FC} />
             <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
             <Route exact path="/forgot-password" component={PasswordPage} />
             <Route exact path="/leaderboard" component={requireAuth(LeaderPage) as React.FC} />
