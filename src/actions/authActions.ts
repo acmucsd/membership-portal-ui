@@ -128,6 +128,9 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
       dispatch({
         type: UNAUTH_USER,
       });
+
+      notify('Not Authenticated', 'Please sign in or register for an account before continuing.');
+
       // redirerct to /login
       dispatch(replace(`/login${search}`));
       resolve();
