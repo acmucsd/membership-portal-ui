@@ -1,5 +1,5 @@
-import React from 'react';
-import { Avatar, Checkbox, Row, Col } from 'antd';
+import React, { useState } from 'react';
+import { Avatar, Checkbox, Form, Input, Row, Col, Modal } from 'antd';
 import Icon from '@ant-design/icons';
 import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBoxEmpty.svg';
 
@@ -17,18 +17,42 @@ interface AdminOrderItemProps {
   };
   triggerModal: Function;
   setFulfill: Function;
+  setNote: Function;
 }
 
 const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
-  const { orderItem, triggerModal, setFulfill } = props;
+  const { orderItem, triggerModal, setFulfill, setNote } = props;
+  const [noteVisible, setNoteVisible] = useState(false);
+  const [scratchNote, setScratchNote] = useState('');
   return (
     <Row align="middle" justify="center" className="order-item">
+      <Modal
+        title="Notes"
+        visible={noteVisible}
+        okText="Submit"
+        onOk={() => {
+          setNote(orderItem, scratchNote);
+          setNoteVisible(false);
+        }}
+        onCancel={() => setNoteVisible(false)}
+      >
+        <form>
+          <Form.Item className="note">
+            <Input.TextArea
+              name="note"
+              value={scratchNote}
+              onChange={(event) => setScratchNote(event.target.value)}
+              rows={4}
+            />
+          </Form.Item>
+        </form>
+      </Modal>
       <Col span={2}>
         <div className="item-checkbox">
           <Checkbox
             onChange={(event) => {
               // eslint-disable-next-line no-console
-              setFulfill(event.target.checked);
+              setFulfill(orderItem, event.target.checked);
             }}
           />
         </div>

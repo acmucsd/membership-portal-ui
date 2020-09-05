@@ -1,11 +1,24 @@
 import React from 'react';
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Input } from 'antd';
 import { history } from '../../store';
 import AdminOrderList from '../AdminOrderList';
 
 import './style.less';
 
 interface AdminOrderPageProps {
+  apiOrders: {
+    uuid: string;
+    orderedAt: Date;
+    items: {
+      uuid: string;
+      item: string;
+      itemName: string;
+      fulfilled: boolean;
+      price: number;
+      description: string;
+      notes: string;
+    }[];
+  }[];
   orders: {
     uuid: string;
     orderedAt: Date;
@@ -30,40 +43,10 @@ interface AdminOrderPageProps {
 const { Search } = Input;
 
 const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
-  const {
-    orders,
-    setNote,
-    setFulfill,
-    noteVisible,
-    setNoteVisible,
-    scratchNote,
-    setScratchNote,
-  } = props;
+  const { orders, apiOrders, setNote, setFulfill, setNoteVisible } = props;
 
   return (
     <div className="admin-orders">
-      <Modal
-        title="Notes"
-        visible={noteVisible}
-        okText="Submit"
-        onOk={() => {
-          setNote(scratchNote);
-          setNoteVisible(false);
-          setScratchNote('');
-        }}
-        onCancel={() => setNoteVisible(false)}
-      >
-        <form>
-          <Form.Item className="note">
-            <Input.TextArea
-              name="note"
-              value={scratchNote}
-              onChange={(event) => setScratchNote(event.target.value)}
-              rows={4}
-            />
-          </Form.Item>
-        </form>
-      </Modal>
       <div className="store-header">
         <h2 className="title">Orders</h2>
         <Button
@@ -99,7 +82,13 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
           </Button>
         </div>
       </div>
-      <AdminOrderList orders={orders} triggerModal={setNoteVisible} setFulfill={setFulfill} />
+      <AdminOrderList
+        orders={orders}
+        apiOrders={apiOrders}
+        triggerModal={setNoteVisible}
+        setFulfill={setFulfill}
+        setNote={setNote}
+      />
     </div>
   );
 };

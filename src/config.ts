@@ -41,6 +41,7 @@ export default {
     leaderboard: '/api/v1/leaderboard',
     store: {
       collection: '/api/v1/store/collection',
+      order: '/api/v1/store/order',
     },
   },
 };
