@@ -1,4 +1,5 @@
 import React from 'react';
+import { Order, OrderItem } from '../../types/merch';
 import { Avatar, List } from 'antd';
 import AdminOrderItem from '../AdminOrderItem';
 import bongoSnu from '../../assets/graphics/bongosnu.svg';
@@ -6,46 +7,21 @@ import bongoSnu from '../../assets/graphics/bongosnu.svg';
 import './style.less';
 
 interface AdminOrderListProps {
-  apiOrders: {
-    uuid: string;
-    orderedAt: Date;
-    items: {
-      uuid: string;
-      item: string;
-      itemName: string;
-      fulfilled: boolean;
-      price: number;
-      description: string;
-      notes: string;
-    }[];
-  }[];
-  orders: {
-    uuid: string;
-    orderedAt: Date;
-    items: {
-      uuid: string;
-      itemName: string;
-      quantity: number;
-      fulfilled: boolean;
-      price: number;
-      description: string;
-      notes: string;
-    }[];
-  }[];
+  apiOrders: Order[];
   triggerModal: Function;
   setFulfill: Function;
   setNote: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { orders, apiOrders, triggerModal, setFulfill, setNote } = props;
+  const { apiOrders, triggerModal, setFulfill, setNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
-  apiOrders.forEach((element) => {
+  const refinedApiOrders: Order[] = apiOrders.map((element) => {
     if (element.items.length == 1) {
-      return;
+      return element;
     }
-    const firstOrderItem = [
+    const firstOrderItem: OrderItem[] = [
       {
         ...element.items[0],
         quantity: 1,
@@ -54,26 +30,30 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
 
     const orderItemsWithoutFirst = element.items.slice(1);
     const groupedOrderItems = orderItemsWithoutFirst.reduce((acc, curr) => {
-      console.log('Current item: ', curr);
-      console.log('Current acc: ', acc);
-      const existingItemIndex = acc.findIndex((itemElement) => itemElement.item === curr.item);
+      const existingItemIndex = acc.findIndex(
+        (itemElement) => itemElement.item.uuid === curr.item.uuid,
+      );
       if (existingItemIndex !== -1) {
-        acc[existingItemIndex].quantity += 1;
+        acc[existingItemIndex].quantity! += 1;
+        acc[existingItemIndex].extras!.push(curr.uuid);
       } else {
         acc = [
           ...acc,
           {
             ...curr,
+            extras: [],
             quantity: 1,
           },
         ];
       }
       return acc;
     }, firstOrderItem);
+    element.items = groupedOrderItems;
+    return element;
   });
   return (
     <div className="order-list">
-      {orders.map((order) => {
+      {refinedApiOrders.map((order: Order) => {
         return (
           <div key={order.uuid} className="order">
             <div className="order-list-header">

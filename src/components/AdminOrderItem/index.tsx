@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { OrderItem } from '../../types/merch';
 import { Avatar, Checkbox, Form, Input, Row, Col, Modal } from 'antd';
 import Icon from '@ant-design/icons';
 import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBoxEmpty.svg';
@@ -6,15 +7,7 @@ import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBox
 import './style.less';
 
 interface AdminOrderItemProps {
-  orderItem: {
-    uuid: string;
-    itemName: string;
-    quantity: number;
-    fulfilled: boolean;
-    price: number;
-    description: string;
-    notes: string;
-  };
+  orderItem: OrderItem;
   triggerModal: Function;
   setFulfill: Function;
   setNote: Function;
@@ -50,6 +43,7 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       <Col span={2}>
         <div className="item-checkbox">
           <Checkbox
+            checked={orderItem.fulfilled}
             onChange={(event) => {
               // eslint-disable-next-line no-console
               setFulfill(orderItem, event.target.checked);
@@ -59,12 +53,12 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       </Col>
       <Col span={3}>
         <div className="item-icon">
-          <Avatar shape="square">{orderItem.itemName}</Avatar>
+          <Avatar shape="square">{orderItem.item.picture}</Avatar>
         </div>
       </Col>
       <Col span={14}>
         <div>
-          <h4 className="item-name">{orderItem.itemName}</h4>
+          <h4 className="item-name">{orderItem.item.itemName}</h4>
         </div>
       </Col>
       <Col span={3}>

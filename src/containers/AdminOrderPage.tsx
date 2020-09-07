@@ -2,37 +2,21 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { connect } from 'react-redux';
 
 import Config from '../config';
+import { Order, OrderItem, MerchItem, MerchCollection } from '../types/merch';
 import Storage from '../storage';
 import { notify } from '../utils';
 import AdminOrderPage from '../components/AdminOrderPage';
 import PageLayout from './PageLayout';
 
-// Dummy functions to log into console effects from
-// actions from the container.
-//
-// Ideally, we will replace these functions with ones
-// that directly update the order item on the API.
-//
-// The console calls are placeholders as of now and will
-// be removed when middleware is attached to the container.
-interface OrderItem {
-  uuid: string;
-  item: string;
-  order: string;
-  itemName: string;
-  fulfilled: boolean;
-  price: number;
-  description: string;
-  notes: string;
-}
+const dateTimeReviver = (key, value) => {
+  if (key === 'orderedAt') {
+    return new Date(value);
+  } else {
+    return value;
+  }
+};
 
-interface Order {
-  uuid: string;
-  orderedAt: Date;
-  items: OrderItem[];
-}
-
-const adminOrderPageReducer = (state, action) => {
+const adminOrderPageReducer = (state: Order[], action) => {
   const newState = state.slice();
   switch (action.type) {
     case 'FETCH_ORDERS':
@@ -45,7 +29,7 @@ const adminOrderPageReducer = (state, action) => {
   }
 };
 
-const patchOrder = async (dispatch, order) => {
+const patchOrder = async (dispatch, order: Order) => {
   try {
     const orderPatchRoute = await fetch(Config.API_URL + Config.routes.store.order, {
       method: 'PATCH',
@@ -81,7 +65,8 @@ const getAllOrders = async (dispatch) => {
       },
     });
 
-    const data = await orderGetRoute.json();
+    const response = await orderGetRoute.text();
+    const data = JSON.parse(response, dateTimeReviver);
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
@@ -156,16 +141,18 @@ const AdminOrderPageContainer: React.FC = () => {
   const [scratchNote, setScratchNote] = useState('');
   const [orderList, dispatch] = useReducer(adminOrderPageReducer, []);
 
-  const setNote = (item: OrderItem, note: string) => {
-    const newOrder = orderList.find((element) => element.uuid === item.order);
-    const newOrderItems = newOrder.items.map((element) => {
-      if (element.item === item.item) {
+  const setNote = (newItem: OrderItem, note: string) => {
+    const newOrder = orderList.find((element: Order) => {
+      return element.items.some((item: OrderItem) => item.uuid === newItem.uuid);
+    });
+    const newOrderItems = newOrder.items.map((item: OrderItem) => {
+      if (item.item.uuid === newItem.item.uuid) {
         return {
           ...item,
           note: note,
         };
       }
-      return element;
+      return item;
     });
     patchOrder(dispatch, {
       ...newOrder,
@@ -173,16 +160,18 @@ const AdminOrderPageContainer: React.FC = () => {
     });
   };
 
-  const setFulfill = (item: OrderItem, fulfilled: boolean) => {
-    const newOrder = orderList.find((element) => element.uuid === item.order);
-    const newOrderItems = newOrder.items.map((element) => {
-      if (element.item === item.item) {
+  const setFulfill = (newItem: OrderItem, fulfilled: boolean) => {
+    const newOrder = orderList.find((element: Order) => {
+      return element.items.some((item: OrderItem) => item.uuid === newItem.uuid);
+    });
+    const newOrderItems = newOrder.items.map((item: OrderItem) => {
+      if (item.item.uuid === newItem.item.uuid) {
         return {
           ...item,
           fulfilled: fulfilled,
         };
       }
-      return element;
+      return item;
     });
     patchOrder(dispatch, {
       ...newOrder,
@@ -197,7 +186,6 @@ const AdminOrderPageContainer: React.FC = () => {
   return (
     <PageLayout>
       <AdminOrderPage
-        orders={testProps.orders}
         apiOrders={orderList}
         setNote={setNote}
         setFulfill={setFulfill}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Order } from '../../types/merch';
 import { Button, Input } from 'antd';
 import { history } from '../../store';
 import AdminOrderList from '../AdminOrderList';
@@ -6,32 +7,7 @@ import AdminOrderList from '../AdminOrderList';
 import './style.less';
 
 interface AdminOrderPageProps {
-  apiOrders: {
-    uuid: string;
-    orderedAt: Date;
-    items: {
-      uuid: string;
-      item: string;
-      itemName: string;
-      fulfilled: boolean;
-      price: number;
-      description: string;
-      notes: string;
-    }[];
-  }[];
-  orders: {
-    uuid: string;
-    orderedAt: Date;
-    items: {
-      uuid: string;
-      itemName: string;
-      quantity: number;
-      fulfilled: boolean;
-      price: number;
-      description: string;
-      notes: string;
-    }[];
-  }[];
+  apiOrders: Order[];
   setNote: Function;
   setFulfill: Function;
   noteVisible: boolean;
@@ -43,7 +19,7 @@ interface AdminOrderPageProps {
 const { Search } = Input;
 
 const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
-  const { orders, apiOrders, setNote, setFulfill, setNoteVisible } = props;
+  const { apiOrders, setNote, setFulfill, setNoteVisible } = props;
 
   return (
     <div className="admin-orders">
@@ -83,7 +59,6 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
         </div>
       </div>
       <AdminOrderList
-        orders={orders}
         apiOrders={apiOrders}
         triggerModal={setNoteVisible}
         setFulfill={setFulfill}
