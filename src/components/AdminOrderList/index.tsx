@@ -20,6 +20,11 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
     if (element.items.length === 1) {
       return element;
     }
+
+    if (element.items[0].quantity !== undefined) {
+      return element;
+    }
+
     const firstOrderItem: OrderItem[] = [
       {
         ...element.items[0],

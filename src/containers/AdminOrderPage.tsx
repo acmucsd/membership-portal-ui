@@ -36,6 +36,23 @@ const adminOrdersReducer = (state: Order[], action) => {
       }
       return newState;
     }
+    case 'PATCH_ORDER': {
+      const newState = state.slice();
+      const patchedOrderIndex = newState.findIndex((element) => element.uuid === action.order);
+      const patchedOrderItems = newState[patchedOrderIndex].items.map((item) => {
+        const patchedItemIndex = action.newItems.findIndex((element) => element.uuid === item.uuid);
+        if (patchedItemIndex !== -1) {
+          return {
+            ...action.newItems[patchedItemIndex],
+            ...item,
+          };
+        } else {
+          return item;
+        }
+      });
+      newState[patchedOrderIndex].items = patchedOrderItems;
+      return newState;
+    }
     default:
       return state;
   }
@@ -106,7 +123,11 @@ const patchOrder = async (dispatch, order: Order, newItems: PatchOrderItemPayloa
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    getOrder(dispatch, order.uuid);
+    dispatch({
+      type: 'PATCH_ORDER',
+      order: order.uuid,
+      newItems: newItems,
+    });
   } catch (error) {
     notify('Unable to update order', error.message);
   }
