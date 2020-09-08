@@ -13,6 +13,7 @@ import Storage from '../storage';
 import { notify } from '../utils';
 import AdminOrderPage from '../components/AdminOrderPage';
 import PageLayout from './PageLayout';
+import { User } from '../types/user';
 
 const dateTimeReviver = (key, value) => {
   if (key === 'orderedAt') {
@@ -22,7 +23,7 @@ const dateTimeReviver = (key, value) => {
   }
 };
 
-const adminOrderPageReducer = (state: Order[], action) => {
+const adminOrdersReducer = (state: Order[], action) => {
   switch (action.type) {
     case 'FETCH_ORDERS':
       return action.orders;
@@ -37,6 +38,51 @@ const adminOrderPageReducer = (state: Order[], action) => {
     }
     default:
       return state;
+  }
+};
+
+const adminOrderUsersReducer = (state: User[], action) => {
+  switch (action.type) {
+    case 'FETCH_ORDER_USERS':
+      return action.orderers;
+    case 'FETCH_SPECIFIC_USER':
+      state.push(action.user);
+      return state;
+    default:
+      return state;
+  }
+};
+
+const fetchUserByID = async (dispatch, uuid: string) => {
+  try {
+    const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
+
+    const status = await response.status;
+    if (status === 401 || status === 403) {
+      // TODO: Logout user.
+      return;
+    }
+
+    const data = await response.json();
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+
+    dispatch({
+      type: 'FETCH_SPECIFIC_USER',
+      user: {
+        ...data.user,
+        uuid: uuid,
+      },
+    });
+  } catch (error) {
+    notify('Unable to fetch order user', error.message);
   }
 };
 
@@ -114,6 +160,13 @@ const getAllOrders = async (dispatch) => {
   }
 };
 
+const getAllOrderUsers = (dispatch, orders: Order[]) => {
+  const orderUsers: User[] = [];
+  orders.forEach((order) => {
+    fetchUserByID(dispatch, order.user);
+  });
+};
+
 const testProps = {
   orders: [
     {
@@ -172,7 +225,8 @@ const testProps = {
 };
 
 const AdminOrderPageContainer: React.FC = () => {
-  const [orderList, dispatch] = useReducer(adminOrderPageReducer, []);
+  const [orderList, orderDispatch] = useReducer(adminOrdersReducer, []);
+  const [orderUsersList, orderUsersDispatch] = useReducer(adminOrderUsersReducer, []);
 
   const setNote = (newItem: OrderItem, note: string) => {
     const newOrder = orderList.find((element: Order) => {
@@ -193,7 +247,7 @@ const AdminOrderPageContainer: React.FC = () => {
         });
       });
     }
-    patchOrder(dispatch, newOrder, newOrderItems);
+    patchOrder(orderDispatch, newOrder, newOrderItems);
   };
 
   const setFulfill = (newItem: OrderItem) => {
@@ -215,16 +269,25 @@ const AdminOrderPageContainer: React.FC = () => {
         });
       });
     }
-    patchOrder(dispatch, newOrder, newOrderItems);
+    patchOrder(orderDispatch, newOrder, newOrderItems);
   };
 
   useEffect(() => {
-    getAllOrders(dispatch);
+    getAllOrders(orderDispatch);
   }, []);
+
+  useEffect(() => {
+    getAllOrderUsers(orderUsersDispatch, orderList);
+  }, [orderList]);
 
   return (
     <PageLayout>
-      <AdminOrderPage apiOrders={orderList} setNote={setNote} setFulfill={setFulfill} />
+      <AdminOrderPage
+        apiOrders={orderList}
+        apiOrderUsers={orderUsersList}
+        setNote={setNote}
+        setFulfill={setFulfill}
+      />
     </PageLayout>
   );
 };

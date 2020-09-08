@@ -5,15 +5,17 @@ import AdminOrderItem from '../AdminOrderItem';
 import bongoSnu from '../../assets/graphics/bongosnu.svg';
 
 import './style.less';
+import { User } from '../../types/user';
 
 interface AdminOrderListProps {
   apiOrders: Order[];
+  apiOrderUsers: User[];
   setFulfill: Function;
   setNote: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { apiOrders, setFulfill, setNote } = props;
+  const { apiOrders, apiOrderUsers, setFulfill, setNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
   const refinedApiOrders: Order[] = apiOrders.map((element) => {
@@ -59,14 +61,23 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
   return (
     <div className="order-list">
       {refinedApiOrders.map((order: Order) => {
+        let orderUser = {
+          firstName: 'No',
+          graduationYear: 2024,
+          major: 'CS',
+          bio: '',
+          points: 0,
+          lastName: 'User',
+          profilePicture: bongoSnu,
+        };
         return (
           <div key={order.uuid} className="order">
             <div className="order-list-header">
               <div className="orderer-info">
-                <Avatar size={64} src={bongoSnu}>
+                <Avatar size={64} src={orderUser.profilePicture || bongoSnu}>
                   Avatar
                 </Avatar>
-                <h3 className="name">Test Cat</h3>
+                <h3 className="name">{`${orderUser.firstName} ${orderUser.lastName}`}</h3>
               </div>
               <h4 className="order-date">
                 Ordered {order.orderedAt.toLocaleDateString('en-US', orderDateStringOptions)}

@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export interface MerchCollection {
   uuid: string;
   title: string;
@@ -32,6 +34,7 @@ export interface OrderItem {
 export interface Order {
   uuid: string;
   user: string;
+  userInfo?: User;
   totalCost: number;
   orderedAt: Date;
   items: OrderItem[];
