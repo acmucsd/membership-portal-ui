@@ -61,6 +61,8 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
   return (
     <div className="order-list">
       {refinedApiOrders.map((order: Order) => {
+        console.log('order: ', JSON.stringify(order));
+        console.log('order user: ', JSON.stringify(order.userInfo));
         let orderUser = {
           firstName: 'No',
           graduationYear: 2024,
@@ -70,6 +72,9 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
           lastName: 'User',
           profilePicture: bongoSnu,
         };
+        if (order.userInfo !== undefined) {
+          orderUser = order.userInfo;
+        }
         return (
           <div key={order.uuid} className="order">
             <div className="order-list-header">

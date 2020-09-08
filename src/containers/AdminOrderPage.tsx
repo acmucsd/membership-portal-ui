@@ -27,6 +27,12 @@ const adminOrdersReducer = (state: Order[], action) => {
   switch (action.type) {
     case 'FETCH_ORDERS':
       return action.orders;
+    case 'FETCH_SPECIFIC_ORDER_USER': {
+      const orderIndex = state.findIndex((element) => element.user === action.user.uuid);
+      const newState = state.slice();
+      newState[orderIndex].userInfo = action.user;
+      return newState;
+    }
     case 'GET_SPECIFIC_ORDER': {
       const orderIndex = state.findIndex((element) => element.uuid === action.order.uuid);
       if (orderIndex !== -1) {
@@ -75,7 +81,7 @@ const fetchUserByID = async (dispatch, uuid: string) => {
     if (data.error) throw new Error(data.error.message);
 
     dispatch({
-      type: 'FETCH_SPECIFIC_USER',
+      type: 'FETCH_SPECIFIC_ORDER_USER',
       user: {
         ...data.user,
         uuid: uuid,
@@ -148,6 +154,23 @@ const getAllOrders = async (dispatch) => {
 
     const response = await orderGetRoute.text();
     const data = JSON.parse(response, dateTimeReviver);
+
+    for (let i = 0; i < data.orders.length; i++) {
+      const getUserRoute = await fetch(
+        `${Config.API_URL + Config.routes.user.user}/${data.orders[i].user}`,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${Storage.get('token')}`,
+          },
+        },
+      );
+
+      const orderUserData = await getUserRoute.json();
+      data.orders[i].userInfo = orderUserData.user;
+    }
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
@@ -275,10 +298,6 @@ const AdminOrderPageContainer: React.FC = () => {
   useEffect(() => {
     getAllOrders(orderDispatch);
   }, []);
-
-  useEffect(() => {
-    getAllOrderUsers(orderUsersDispatch, orderList);
-  }, [orderList]);
 
   return (
     <PageLayout>
