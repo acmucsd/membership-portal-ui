@@ -3,6 +3,7 @@ import { Avatar, Checkbox, Form, Input, Row, Col, Modal } from 'antd';
 import Icon from '@ant-design/icons';
 import { OrderItem } from '../../types/merch';
 import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBoxEmpty.svg';
+import { ReactComponent as CommentBox } from '../../assets/icons/CommentBox.svg';
 
 import './style.less';
 
@@ -70,7 +71,10 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       </Col>
       <Col span={2}>
         <div className="item-notes">
-          <Icon onClick={() => setNoteVisible(true)} component={CommentBoxEmpty} />
+          <Icon
+            onClick={() => setNoteVisible(true)}
+            component={scratchNote ? CommentBox : CommentBoxEmpty}
+          />
         </div>
       </Col>
     </Row>
