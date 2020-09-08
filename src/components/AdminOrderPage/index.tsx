@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Order } from '../../types/merch';
+import React, { useState } from 'react';
 import { Button, Input } from 'antd';
+import { Order } from '../../types/merch';
 import { history } from '../../store';
 import AdminOrderList from '../AdminOrderList';
 
 import './style.less';
-import { User } from '../../types/user';
 
 interface AdminOrderPageProps {
   apiOrders: Order[];
-  apiOrderUsers: User[];
   setNote: Function;
   setFulfill: Function;
 }
@@ -17,7 +15,7 @@ interface AdminOrderPageProps {
 const { Search } = Input;
 
 const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
-  const { apiOrders, apiOrderUsers, setNote, setFulfill } = props;
+  const { apiOrders, setNote, setFulfill } = props;
   const [searched, setSearched] = useState(false);
   const [searchedOrders, setSearchedOrders] = useState(apiOrders.slice());
 
@@ -41,7 +39,6 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
           // We'll include this console statement for now.
           // We need a placeholder for the search functionality.
           onSearch={(value) => {
-            console.log('Search? ', value);
             if (value === '') {
               setSearched(false);
             } else {
@@ -74,7 +71,6 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
       </div>
       <AdminOrderList
         apiOrders={searched ? searchedOrders : apiOrders}
-        apiOrderUsers={apiOrderUsers}
         setFulfill={setFulfill}
         setNote={setNote}
       />

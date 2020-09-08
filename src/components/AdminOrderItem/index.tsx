@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { OrderItem } from '../../types/merch';
 import { Avatar, Checkbox, Form, Input, Row, Col, Modal } from 'antd';
 import Icon from '@ant-design/icons';
+import { OrderItem } from '../../types/merch';
 import { ReactComponent as CommentBoxEmpty } from '../../assets/icons/CommentBoxEmpty.svg';
 
 import './style.less';

@@ -1,25 +1,23 @@
 import React from 'react';
-import { Order, OrderItem } from '../../types/merch';
 import { Avatar, List } from 'antd';
+import { Order, OrderItem } from '../../types/merch';
 import AdminOrderItem from '../AdminOrderItem';
 import bongoSnu from '../../assets/graphics/bongosnu.svg';
 
 import './style.less';
-import { User } from '../../types/user';
 
 interface AdminOrderListProps {
   apiOrders: Order[];
-  apiOrderUsers: User[];
   setFulfill: Function;
   setNote: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { apiOrders, apiOrderUsers, setFulfill, setNote } = props;
+  const { apiOrders, setFulfill, setNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
   const refinedApiOrders: Order[] = apiOrders.map((element) => {
-    if (element.items.length == 1) {
+    if (element.items.length === 1) {
       return element;
     }
     const firstOrderItem: OrderItem[] = [
@@ -29,22 +27,25 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
       },
     ];
 
+    const newElement = element;
+
     const orderItemsWithoutFirst = element.items.slice(1);
     const groupedOrderItems = orderItemsWithoutFirst.reduce((acc, curr) => {
-      const existingItemIndex = acc.findIndex(
+      let newAcc = acc.slice();
+      const existingItemIndex = newAcc.findIndex(
         (itemElement) => itemElement.item.uuid === curr.item.uuid,
       );
       if (existingItemIndex !== -1) {
-        if (acc[existingItemIndex].quantity === undefined) {
-          acc[existingItemIndex].quantity = 1;
+        if (newAcc[existingItemIndex].quantity === undefined) {
+          newAcc[existingItemIndex].quantity = 1;
         }
-        acc[existingItemIndex].quantity! += 1;
-        if (acc[existingItemIndex].extras === undefined) {
-          acc[existingItemIndex].extras = [];
+        newAcc[existingItemIndex].quantity! += 1;
+        if (newAcc[existingItemIndex].extras === undefined) {
+          newAcc[existingItemIndex].extras = [];
         }
-        acc[existingItemIndex].extras!.push(curr.uuid);
+        newAcc[existingItemIndex].extras!.push(curr.uuid);
       } else {
-        acc = [
+        newAcc = [
           ...acc,
           {
             ...curr,
@@ -53,16 +54,14 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
           },
         ];
       }
-      return acc;
+      return newAcc;
     }, firstOrderItem);
-    element.items = groupedOrderItems;
-    return element;
+    newElement.items = groupedOrderItems;
+    return newElement;
   });
   return (
     <div className="order-list">
       {refinedApiOrders.map((order: Order) => {
-        console.log('order: ', JSON.stringify(order));
-        console.log('order user: ', JSON.stringify(order.userInfo));
         let orderUser = {
           firstName: 'No',
           graduationYear: 2024,
