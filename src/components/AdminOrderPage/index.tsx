@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Order } from '../../types/merch';
 import { Button, Input } from 'antd';
 import { history } from '../../store';
@@ -18,6 +18,8 @@ const { Search } = Input;
 
 const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
   const { apiOrders, apiOrderUsers, setNote, setFulfill } = props;
+  const [searched, setSearched] = useState(false);
+  const [searchedOrders, setSearchedOrders] = useState(apiOrders.slice());
 
   return (
     <div className="admin-orders">
@@ -38,8 +40,22 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
           size="large"
           // We'll include this console statement for now.
           // We need a placeholder for the search functionality.
-          // eslint-disable-next-line no-console
-          onSearch={(value) => console.log(`Search not implemented! Here's value anyway: ${value}`)}
+          onSearch={(value) => {
+            console.log('Search? ', value);
+            if (value === '') {
+              setSearched(false);
+            } else {
+              setSearched(true);
+              setSearchedOrders(
+                apiOrders.filter((element) => {
+                  const nameOfOrderUser = `${element.userInfo!.firstName} ${
+                    element.userInfo!.lastName
+                  }`.toLowerCase();
+                  return nameOfOrderUser.includes(value.toLowerCase());
+                }),
+              );
+            }
+          }}
         />
         <div className="button-array">
           <Button
@@ -57,7 +73,7 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
         </div>
       </div>
       <AdminOrderList
-        apiOrders={apiOrders}
+        apiOrders={searched ? searchedOrders : apiOrders}
         apiOrderUsers={apiOrderUsers}
         setFulfill={setFulfill}
         setNote={setNote}
