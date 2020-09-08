@@ -37,6 +37,12 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
           placeholder="Search..."
           size="large"
           onSearch={(value) => {
+            // Search function, simply looks for substring (case-insensitive)
+            // within order user name and filters any order that don't have
+            // that name.
+            //
+            // If search bar is empty, just pass the original set of orders
+            // received from the API.
             if (value === '') {
               setSearched(false);
             } else {

@@ -1,6 +1,19 @@
 import { Order } from '../types/merch';
 
-export const adminOrdersReducer = (state: Order[], action) => {
+/**
+ * Reducer to keep track of AdminOrderPage's required state.
+ * This is simply a reducer keeping track of all the current orders
+ * from the API.
+ * Three actions are supported:
+ * - 'FETCH_ORDERS': get all the orders, initializes order array
+ * - 'GET_SPECIFIC_ORDER': gets order by UUID; adds it to list or
+ *   replaces existing order with same UUID in state. Requires Order object
+ *   assigned as 'order' property in action.
+ * - 'PATCH_ORDER': Takes new versions of OrderItems and stores them in their
+ *   corresponding order. Requires order UUID to patch as 'order' property,
+ *   new OrderItems as 'newItems' property in action.
+ */
+export default (state: Order[], action) => {
   switch (action.type) {
     case 'FETCH_ORDERS':
       return action.orders;
@@ -16,7 +29,10 @@ export const adminOrdersReducer = (state: Order[], action) => {
     }
     case 'PATCH_ORDER': {
       const newState = state.slice();
+      // get patched order from state
       const patchedOrderIndex = newState.findIndex((element) => element.uuid === action.order);
+      // finds all the OrderItems received and patches any new changes
+      // in the Order they can be found in
       const patchedOrderItems = newState[patchedOrderIndex].items.map((item) => {
         const patchedItemIndex = action.newItems.findIndex((element) => element.uuid === item.uuid);
         if (patchedItemIndex !== -1) {
@@ -24,9 +40,8 @@ export const adminOrdersReducer = (state: Order[], action) => {
             ...action.newItems[patchedItemIndex],
             ...item,
           };
-        } else {
-          return item;
         }
+        return item;
       });
       newState[patchedOrderIndex].items = patchedOrderItems;
       return newState;

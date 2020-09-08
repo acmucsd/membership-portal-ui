@@ -47,7 +47,6 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
             checked={checkboxDisabled}
             disabled={checkboxDisabled}
             onChange={() => {
-              // eslint-disable-next-line no-console
               setFulfill(orderItem);
               setCheckboxDisable(true);
             }}

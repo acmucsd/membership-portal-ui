@@ -3,22 +3,21 @@ import { COLLECTION_ERROR, FETCH_COLLECTIONS, ThunkActionCreator } from './types
 import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
-import { Order, OrderItem, PatchOrderItemPayload } from '../types/merch';
+import { Order, PatchOrderItemPayload } from '../types/merch';
 import { User } from '../types/user';
 
-const dateTimeReviver = (key, value) => {
-  if (key === 'orderedAt') {
-    return new Date(value);
-  }
-  return value;
+/**
+ * Reviver function for JSON parser on Order to convert ISO 8601 timestamp
+ * to Date object.
+ *
+ * @param {string} key Current key in JSON object.
+ * @param {string} value Value of key in JSON object.
+ * @return {Date | string} Date object if key is "orderedAt", same value if not.
+ */
+const dateTimeReviver = (key: string, value: string) => {
+  return key === 'orderedAt' ? new Date(value) : value;
 };
 
-// Commonly, action files in this project have multiple
-// expressions each, so default export isn't useful.
-// Since store actions will also have additional functions
-// later on, this ESLint disable is temporary to pass CI linting.
-//
-// eslint-disable-next-line import/prefer-default-export
 export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   try {
     const collectionsRes = await fetch(Config.API_URL + Config.routes.store.collection, {
@@ -47,6 +46,12 @@ export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   }
 };
 
+/**
+ * Fetches user by UUID from the API.
+ *
+ * @param {string} uuid UUID of user from API.
+ * @return {Promise<User>} Promise of an User object.
+ */
 const fetchUserByID = async (uuid: string) => {
   try {
     const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid}`, {
@@ -69,6 +74,15 @@ const fetchUserByID = async (uuid: string) => {
   return {};
 };
 
+/**
+ * Patches order in the API by receiving a set of supported properties
+ * to patch OrderItems with. Check the type of PatchOrderItemPayload
+ * for supported properties to patch.
+ *
+ * @param {ThunkDispatch} dispatch Dispatch function for adminOrderReducer.
+ * @param {Order} order Order to patch. Only UUID is really required.
+ * @param {PatchOrderItemPayload[]} newItems Array of changes to OrderItems in Order.
+ */
 export const patchOrder = async (dispatch, order: Order, newItems: PatchOrderItemPayload[]) => {
   try {
     const orderPatchRoute = await fetch(Config.API_URL + Config.routes.store.order, {
@@ -88,13 +102,22 @@ export const patchOrder = async (dispatch, order: Order, newItems: PatchOrderIte
     dispatch({
       type: 'PATCH_ORDER',
       order: order.uuid,
-      newItems: newItems,
+      newItems,
     });
   } catch (error) {
     notify('Unable to update order', error.message);
   }
 };
 
+/**
+ * Gets all orders currently present in the API. The administrator accounts
+ * will have access to all orders.
+ *
+ * This function also queries for the public user information of the users
+ * who submitted each order.
+ *
+ * @param {ThunkDispatch} dispatch Dispatch function for adminOrderReducer.
+ */
 export const getAllOrders = async (dispatch) => {
   try {
     const orderGetRoute = await fetch(Config.API_URL + Config.routes.store.order, {

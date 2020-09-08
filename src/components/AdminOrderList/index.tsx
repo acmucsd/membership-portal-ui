@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, List } from 'antd';
-import { Order, OrderItem } from '../../types/merch';
+import { Order } from '../../types/merch';
 import AdminOrderItem from '../AdminOrderItem';
 import bongoSnu from '../../assets/graphics/bongosnu.svg';
 
@@ -16,57 +16,12 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
   const { apiOrders, setFulfill, setNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
-  const refinedApiOrders: Order[] = apiOrders.map((element) => {
-    if (element.items.length === 1) {
-      return element;
-    }
-
-    if (element.items[0].quantity !== undefined) {
-      return element;
-    }
-
-    const firstOrderItem: OrderItem[] = [
-      {
-        ...element.items[0],
-        quantity: 1,
-      },
-    ];
-
-    const newElement = element;
-
-    const orderItemsWithoutFirst = element.items.slice(1);
-    const groupedOrderItems = orderItemsWithoutFirst.reduce((acc, curr) => {
-      let newAcc = acc.slice();
-      const existingItemIndex = newAcc.findIndex(
-        (itemElement) => itemElement.item.uuid === curr.item.uuid,
-      );
-      if (existingItemIndex !== -1) {
-        if (newAcc[existingItemIndex].quantity === undefined) {
-          newAcc[existingItemIndex].quantity = 1;
-        }
-        newAcc[existingItemIndex].quantity! += 1;
-        if (newAcc[existingItemIndex].extras === undefined) {
-          newAcc[existingItemIndex].extras = [];
-        }
-        newAcc[existingItemIndex].extras!.push(curr.uuid);
-      } else {
-        newAcc = [
-          ...acc,
-          {
-            ...curr,
-            extras: [],
-            quantity: 1,
-          },
-        ];
-      }
-      return newAcc;
-    }, firstOrderItem);
-    newElement.items = groupedOrderItems;
-    return newElement;
-  });
   return (
     <div className="order-list">
-      {refinedApiOrders.map((order: Order) => {
+      {apiOrders.map((order: Order) => {
+        // Placeholder user if no user can be found. Primarily used
+        // to satisfy potentially undefined types.
+        // If profile picture is empty, we'll use bongoSnu, since it's cute.
         let orderUser = {
           firstName: 'No',
           graduationYear: 2024,
