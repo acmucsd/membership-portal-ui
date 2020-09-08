@@ -36,3 +36,9 @@ export interface Order {
   orderedAt: Date;
   items: OrderItem[];
 }
+
+export interface PatchOrderItemPayload {
+  uuid: string;
+  fulfilled?: boolean;
+  notes?: string;
+}

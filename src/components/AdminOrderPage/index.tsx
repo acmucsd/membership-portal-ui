@@ -10,16 +10,12 @@ interface AdminOrderPageProps {
   apiOrders: Order[];
   setNote: Function;
   setFulfill: Function;
-  noteVisible: boolean;
-  setNoteVisible: Function;
-  scratchNote: string;
-  setScratchNote: Function;
 }
 
 const { Search } = Input;
 
 const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
-  const { apiOrders, setNote, setFulfill, setNoteVisible } = props;
+  const { apiOrders, setNote, setFulfill } = props;
 
   return (
     <div className="admin-orders">
@@ -58,12 +54,7 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
           </Button>
         </div>
       </div>
-      <AdminOrderList
-        apiOrders={apiOrders}
-        triggerModal={setNoteVisible}
-        setFulfill={setFulfill}
-        setNote={setNote}
-      />
+      <AdminOrderList apiOrders={apiOrders} setFulfill={setFulfill} setNote={setNote} />
     </div>
   );
 };

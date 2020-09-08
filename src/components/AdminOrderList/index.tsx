@@ -8,13 +8,12 @@ import './style.less';
 
 interface AdminOrderListProps {
   apiOrders: Order[];
-  triggerModal: Function;
   setFulfill: Function;
   setNote: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { apiOrders, triggerModal, setFulfill, setNote } = props;
+  const { apiOrders, setFulfill, setNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
   const refinedApiOrders: Order[] = apiOrders.map((element) => {
@@ -34,7 +33,13 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
         (itemElement) => itemElement.item.uuid === curr.item.uuid,
       );
       if (existingItemIndex !== -1) {
+        if (acc[existingItemIndex].quantity === undefined) {
+          acc[existingItemIndex].quantity = 1;
+        }
         acc[existingItemIndex].quantity! += 1;
+        if (acc[existingItemIndex].extras === undefined) {
+          acc[existingItemIndex].extras = [];
+        }
         acc[existingItemIndex].extras!.push(curr.uuid);
       } else {
         acc = [
@@ -73,12 +78,7 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
                 dataSource={order.items}
                 renderItem={(item) => (
                   <List.Item>
-                    <AdminOrderItem
-                      orderItem={item}
-                      triggerModal={triggerModal}
-                      setFulfill={setFulfill}
-                      setNote={setNote}
-                    />
+                    <AdminOrderItem orderItem={item} setFulfill={setFulfill} setNote={setNote} />
                   </List.Item>
                 )}
               />

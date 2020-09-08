@@ -2,7 +2,13 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { connect } from 'react-redux';
 
 import Config from '../config';
-import { Order, OrderItem, MerchItem, MerchCollection } from '../types/merch';
+import {
+  Order,
+  OrderItem,
+  MerchItem,
+  MerchCollection,
+  PatchOrderItemPayload,
+} from '../types/merch';
 import Storage from '../storage';
 import { notify } from '../utils';
 import AdminOrderPage from '../components/AdminOrderPage';
@@ -17,19 +23,24 @@ const dateTimeReviver = (key, value) => {
 };
 
 const adminOrderPageReducer = (state: Order[], action) => {
-  const newState = state.slice();
   switch (action.type) {
     case 'FETCH_ORDERS':
       return action.orders;
-    case 'UPDATE_ORDER':
-      newState[state.findIndex((order) => action.order.uuid === order.uuid)] = action.order;
-      return newState;
+    case 'GET_SPECIFIC_ORDER': {
+      const orderIndex = state.findIndex((element) => element.uuid === action.order.uuid);
+      if (orderIndex !== -1) {
+        state[orderIndex] = action.order;
+      } else {
+        state.push(action.order);
+      }
+      return state;
+    }
     default:
       return state;
   }
 };
 
-const patchOrder = async (dispatch, order: Order) => {
+const patchOrder = async (dispatch, order: Order, newItems: PatchOrderItemPayload[]) => {
   try {
     const orderPatchRoute = await fetch(Config.API_URL + Config.routes.store.order, {
       method: 'PATCH',
@@ -38,19 +49,43 @@ const patchOrder = async (dispatch, order: Order) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Storage.get('token')}`,
       },
-      body: JSON.stringify({ items: order.items }),
+      body: JSON.stringify({ items: newItems }),
     });
 
     const data = await orderPatchRoute.json();
 
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
-    dispatch({
-      type: 'UPDATE_ORDER',
-      order,
-    });
+    getOrder(dispatch, order.uuid);
   } catch (error) {
     notify('Unable to update order', error.message);
+  }
+};
+
+const getOrder = async (dispatch, orderId: string) => {
+  try {
+    const specificOrderGetRoute = await fetch(
+      Config.API_URL + Config.routes.store.order + `/${orderId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+      },
+    );
+
+    const data = JSON.parse(await specificOrderGetRoute.text(), dateTimeReviver);
+
+    if (!data) throw new Error('Empty response from server');
+    if (data.error) throw new Error(data.error.message);
+    dispatch({
+      type: 'GET_SPECIFIC_ORDER',
+      order: data,
+    });
+  } catch (error) {
+    notify('Unable to get all orders', error.message);
   }
 };
 
@@ -137,46 +172,50 @@ const testProps = {
 };
 
 const AdminOrderPageContainer: React.FC = () => {
-  const [noteVisible, setNoteVisible] = useState(false);
-  const [scratchNote, setScratchNote] = useState('');
   const [orderList, dispatch] = useReducer(adminOrderPageReducer, []);
 
   const setNote = (newItem: OrderItem, note: string) => {
     const newOrder = orderList.find((element: Order) => {
       return element.items.some((item: OrderItem) => item.uuid === newItem.uuid);
     });
-    const newOrderItems = newOrder.items.map((item: OrderItem) => {
-      if (item.item.uuid === newItem.item.uuid) {
-        return {
-          ...item,
-          note: note,
-        };
-      }
-      return item;
+
+    const newOrderItems: PatchOrderItemPayload[] = [];
+    newOrderItems.push({
+      uuid: newItem.uuid,
+      notes: note,
     });
-    patchOrder(dispatch, {
-      ...newOrder,
-      items: newOrderItems,
-    });
+
+    if (newItem.extras !== undefined) {
+      newItem.extras.forEach((extraUuid) => {
+        newOrderItems.push({
+          uuid: extraUuid,
+          notes: note,
+        });
+      });
+    }
+    patchOrder(dispatch, newOrder, newOrderItems);
   };
 
-  const setFulfill = (newItem: OrderItem, fulfilled: boolean) => {
+  const setFulfill = (newItem: OrderItem) => {
     const newOrder = orderList.find((element: Order) => {
       return element.items.some((item: OrderItem) => item.uuid === newItem.uuid);
     });
-    const newOrderItems = newOrder.items.map((item: OrderItem) => {
-      if (item.item.uuid === newItem.item.uuid) {
-        return {
-          ...item,
-          fulfilled: fulfilled,
-        };
-      }
-      return item;
+
+    const newOrderItems: PatchOrderItemPayload[] = [];
+    newOrderItems.push({
+      uuid: newItem.uuid,
+      fulfilled: true,
     });
-    patchOrder(dispatch, {
-      ...newOrder,
-      items: newOrderItems,
-    });
+
+    if (newItem.extras !== undefined) {
+      newItem.extras.forEach((extraUuid) => {
+        newOrderItems.push({
+          uuid: extraUuid,
+          fulfilled: true,
+        });
+      });
+    }
+    patchOrder(dispatch, newOrder, newOrderItems);
   };
 
   useEffect(() => {
@@ -185,15 +224,7 @@ const AdminOrderPageContainer: React.FC = () => {
 
   return (
     <PageLayout>
-      <AdminOrderPage
-        apiOrders={orderList}
-        setNote={setNote}
-        setFulfill={setFulfill}
-        noteVisible={noteVisible}
-        setNoteVisible={setNoteVisible}
-        scratchNote={scratchNote}
-        setScratchNote={setScratchNote}
-      />
+      <AdminOrderPage apiOrders={orderList} setNote={setNote} setFulfill={setFulfill} />
     </PageLayout>
   );
 };

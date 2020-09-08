@@ -8,15 +8,15 @@ import './style.less';
 
 interface AdminOrderItemProps {
   orderItem: OrderItem;
-  triggerModal: Function;
   setFulfill: Function;
   setNote: Function;
 }
 
 const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
-  const { orderItem, triggerModal, setFulfill, setNote } = props;
+  const { orderItem, setFulfill, setNote } = props;
   const [noteVisible, setNoteVisible] = useState(false);
-  const [scratchNote, setScratchNote] = useState('');
+  const [scratchNote, setScratchNote] = useState(orderItem.notes || '');
+  const [checkboxDisabled, setCheckboxDisable] = useState(orderItem.fulfilled);
   return (
     <Row align="middle" justify="center" className="order-item">
       <Modal
@@ -43,10 +43,12 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       <Col span={2}>
         <div className="item-checkbox">
           <Checkbox
-            checked={orderItem.fulfilled}
-            onChange={(event) => {
+            checked={checkboxDisabled}
+            disabled={checkboxDisabled}
+            onChange={() => {
               // eslint-disable-next-line no-console
-              setFulfill(orderItem, event.target.checked);
+              setFulfill(orderItem);
+              setCheckboxDisable(true);
             }}
           />
         </div>
@@ -68,7 +70,7 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       </Col>
       <Col span={2}>
         <div className="item-notes">
-          <Icon onClick={() => triggerModal(true)} component={CommentBoxEmpty} />
+          <Icon onClick={() => setNoteVisible(true)} component={CommentBoxEmpty} />
         </div>
       </Col>
     </Row>
