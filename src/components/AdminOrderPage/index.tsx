@@ -36,8 +36,6 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
         <Search
           placeholder="Search..."
           size="large"
-          // We'll include this console statement for now.
-          // We need a placeholder for the search functionality.
           onSearch={(value) => {
             if (value === '') {
               setSearched(false);
