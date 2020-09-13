@@ -3,7 +3,7 @@ import { withFormik } from 'formik';
 
 import CreateEventForm from '../../components/admin/CreateEventForm';
 import { getMonthIndex } from '../../utils';
-import { postEvent } from '../../actions/adminActions';
+import { postEvent, copyLink } from '../../actions/adminActions';
 
 const curYear = new Date().getFullYear();
 
@@ -68,4 +68,4 @@ const FormikCreateEventForm = withFormik({
   },
 })(CreateEventForm as React.FC);
 
-export default connect(null, { postEvent })(FormikCreateEventForm);
+export default connect(null, { postEvent, copyLink })(FormikCreateEventForm);

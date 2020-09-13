@@ -6,19 +6,26 @@ import { replace } from 'connected-react-router';
 import { verifyToken } from '../actions/authActions';
 
 const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
+  const { authenticated, search } = props;
+
   useEffect(() => {
     // check if authenticated, if not, then verify the token
-    if (!props.authenticated) {
-      props.verify()();
+    if (!authenticated) {
+      props.verify()(search);
     }
   }, []);
 
+  if (authenticated) {
+    return <Component />;
+  }
+
   // TODO: Make redirecting screen and return that if not authenticated.
-  return <Component />;
+  return null;
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   authenticated: state.auth.authenticated,
+  search: state.router.location.search,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

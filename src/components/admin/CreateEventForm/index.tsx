@@ -53,11 +53,20 @@ interface CreateEventFormProps {
     attendanceCode: string;
     description: string;
   };
+  copyLink: Function;
 }
 
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values } = props;
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldTouched,
+    setFieldValue,
+    values,
+    copyLink,
+  } = props;
 
   return (
     <div className="create-event-form">
@@ -221,6 +230,15 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           </Button>
           <Button type="danger" className="discard-button">
             Discard
+          </Button>
+          <Button
+            type="primary"
+            className="link-button"
+            onClick={() => {
+              copyLink(values.attendanceCode);
+            }}
+          >
+            Copy Checkin Link
           </Button>
         </form>
       </div>

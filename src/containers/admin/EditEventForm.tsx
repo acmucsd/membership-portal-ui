@@ -3,7 +3,7 @@ import { withFormik } from 'formik';
 
 import EditEventform from '../../components/EditEventForm';
 import { getMonthIndex } from '../../utils';
-import { editEvent, deleteEvent } from '../../actions/adminActions';
+import { editEvent, deleteEvent, copyLink } from '../../actions/adminActions';
 
 const FormikEditEventForm = withFormik({
   mapPropsToValues() {
@@ -65,4 +65,4 @@ const FormikEditEventForm = withFormik({
   },
 })(EditEventform as React.FC);
 
-export default connect(null, { editEvent, deleteEvent })(FormikEditEventForm);
+export default connect(null, { editEvent, deleteEvent, copyLink })(FormikEditEventForm);

@@ -13,10 +13,11 @@ interface SignInFormProps {
     email: string;
     password: string;
   };
+  search: string;
 }
 
 const SignInForm: React.FC<SignInFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, values } = props;
+  const { handleBlur, handleChange, handleSubmit, values, search } = props;
 
   return (
     <div className="card">
@@ -54,7 +55,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
               Sign In
             </Button>
           </Form.Item>
-          <NavLink to="/register">
+          <NavLink to={`/register${search}`}>
             <Button type="primary" className="register-button">
               Register for an account
             </Button>

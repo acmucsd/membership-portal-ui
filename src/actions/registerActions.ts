@@ -5,7 +5,7 @@ import Config from '../config';
 import { loginUser } from './authActions';
 import { notify } from '../utils';
 
-export const registerAccount: ThunkActionCreator = (user) => async (dispatch) => {
+export const registerAccount: ThunkActionCreator = (user, search) => async (dispatch) => {
   try {
     if (user.password !== user.confirmpassword) {
       throw new Error('Passwords do not match!');
@@ -31,10 +31,13 @@ export const registerAccount: ThunkActionCreator = (user) => async (dispatch) =>
     // TODO: Redirect to auth, then log user in on register.
     // For now just login.
     dispatch(
-      loginUser({
-        email: user.email,
-        password: user.password,
-      }),
+      loginUser(
+        {
+          email: user.email,
+          password: user.password,
+        },
+        search,
+      ),
     );
   } catch (error) {
     notify('Unable to register account!', error.message);

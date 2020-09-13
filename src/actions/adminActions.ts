@@ -1,3 +1,5 @@
+import copy from 'copy-to-clipboard';
+
 import Config from '../config';
 import Storage from '../storage';
 
@@ -149,4 +151,13 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
       reject(error);
     }
   });
+};
+
+export const copyLink: Function = (attendanceCode: string) => () => {
+  if (!attendanceCode || attendanceCode === '') {
+    notify('Unable to generate link!', 'An attendance code is required.');
+  } else {
+    copy(`${window.location.host}/checkin?code=${attendanceCode}`);
+    notify('Generated checkin link!', 'Link copied to the clipboard.');
+  }
 };

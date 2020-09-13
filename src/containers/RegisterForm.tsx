@@ -18,8 +18,12 @@ const FormikRegisterForm = withFormik({
     };
   },
   handleSubmit(values, { props }: { [key: string]: any }) {
-    props.registerAccount(values);
+    props.registerAccount(values, props.search);
   },
 })(RegisterForm as React.FC);
 
-export default connect(null, { registerAccount })(FormikRegisterForm);
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  search: state.router.location.search,
+});
+
+export default connect(mapStateToProps, { registerAccount })(FormikRegisterForm);
