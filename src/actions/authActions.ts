@@ -70,7 +70,7 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
   }
 };
 
-export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
+export const verifyToken: ThunkActionCreator = (dispatch) => async (search, pathname) => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
@@ -129,7 +129,9 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search) => {
         type: UNAUTH_USER,
       });
 
-      notify('Not Authenticated', 'Please sign in or register for an account before continuing.');
+      if (pathname.toString() !== '/') {
+        notify('Not Authenticated', 'Please sign in or register for an account before continuing.');
+      }
 
       // redirerct to /login
       dispatch(replace(`/login${search}`));
