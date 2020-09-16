@@ -1,3 +1,14 @@
+[build]
+# Configure it so that deploy previews and `nightly` run on the testing instance, not
+# on the default instance
+[context.deploy-preview]
+  publish = "build/"
+  command = "CI=false npm run build:dev"
+[context.branch-deploy]
+  command = "CI=false npm run build:dev"
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
 [[redirects]]
