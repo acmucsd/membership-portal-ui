@@ -31,6 +31,8 @@ for (let i = 1; i <= 12; i += 1) {
   hours.push(i);
 }
 
+const suborgs = ['General', 'AI', 'Cyber', 'Design', 'Hack', 'Innovate'];
+
 interface CreateEventFormProps {
   handleBlur: FocusEventHandler;
   handleChange: ChangeEventHandler;
@@ -82,14 +84,23 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
               onBlur={handleBlur}
             />
           </Form.Item>
-          <Form.Item label="Committee">
-            <Input
-              name="committee"
-              className="input-box"
-              value={values.committee}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+          <Form.Item className="committee-wrapper" label="Community">
+            <Select
+              showSearch
+              className="committee-box"
+              size="large"
+              optionFilterProp="children"
+              onChange={(value: string) => setFieldValue('committee', value)}
+              onBlur={() => setFieldTouched('committee', true)}
+              filterOption={(input, option) => {
+                const suborg: string = option.props.children as string;
+                return suborg.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+              }}
+            >
+              {suborgs.map((suborg) => (
+                <Option value={`${suborg}`}>{suborg}</Option>
+              ))}
+            </Select>
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
