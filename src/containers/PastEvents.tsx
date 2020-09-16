@@ -12,7 +12,15 @@ interface PastEventsContainerProps {
     {
       uuid: string;
       user: string;
-      event: string;
+      event: {
+        uuid: string;
+        cover: string;
+        description: string;
+        location: string;
+        pointValue: string;
+        title: string;
+        start: string;
+      };
     },
   ];
   auth: {
@@ -45,7 +53,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
     <EventsList>
       {events.map((event) => {
         const startTime = formatDate(event.start);
-        const attended = attendance.some((attend) => attend.event === event.uuid);
+        const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
         return (
           <EventCard
             key={`past-${event.uuid}`}

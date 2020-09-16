@@ -111,7 +111,7 @@ export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
 
     dispatch({
       type: FETCH_ATTENDANCE,
-      payload: data.attendance,
+      payload: data.attendances,
     });
   } catch (error) {
     notify('Unable to fetch attendance!', error.message);
