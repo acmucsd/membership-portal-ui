@@ -1,42 +1,50 @@
 import React from 'react';
 import { Avatar, List } from 'antd';
+import { Order } from '../../types/merch';
 import AdminOrderItem from '../AdminOrderItem';
 import bongoSnu from '../../assets/graphics/bongosnu.svg';
 
 import './style.less';
 
 interface AdminOrderListProps {
-  orders: {
-    uuid: string;
-    orderedAt: Date;
-    items: {
-      uuid: string;
-      itemName: string;
-      quantity: number;
-      fulfilled: boolean;
-      price: number;
-      description: string;
-      notes: string;
-    }[];
-  }[];
-  triggerModal: Function;
+  apiOrders: Order[];
   setFulfill: Function;
+  setNote: Function;
+  noteVisible: boolean;
+  setNoteVisible: Function;
+  setScratchNote: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { orders, triggerModal, setFulfill } = props;
+  const { apiOrders, setFulfill, setNote, noteVisible, setNoteVisible, setScratchNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
+
   return (
     <div className="order-list">
-      {orders.map((order) => {
+      {apiOrders.map((order: Order) => {
+        // Placeholder user if no user can be found. Primarily used
+        // to satisfy potentially undefined types.
+        // If profile picture is empty, we'll use bongoSnu, since it's cute.
+        const orderUser =
+          order.userInfo !== undefined
+            ? order.userInfo
+            : {
+                firstName: 'No',
+                graduationYear: 2024,
+                major: 'CS',
+                bio: '',
+                points: 0,
+                lastName: 'User',
+                profilePicture: bongoSnu,
+              };
         return (
           <div key={order.uuid} className="order">
             <div className="order-list-header">
               <div className="orderer-info">
-                <Avatar size={64} src={bongoSnu}>
+                <Avatar size={64} src={orderUser.profilePicture || bongoSnu}>
                   Avatar
                 </Avatar>
-                <h3 className="name">Test Cat</h3>
+                <h3 className="name">{`${orderUser.firstName} ${orderUser.lastName}`}</h3>
               </div>
               <h4 className="order-date">
                 Ordered {order.orderedAt.toLocaleDateString('en-US', orderDateStringOptions)}
@@ -50,8 +58,11 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
                   <List.Item>
                     <AdminOrderItem
                       orderItem={item}
-                      triggerModal={triggerModal}
                       setFulfill={setFulfill}
+                      setNote={setNote}
+                      noteVisible={noteVisible}
+                      setNoteVisible={setNoteVisible}
+                      setScratchNote={setScratchNote}
                     />
                   </List.Item>
                 )}
