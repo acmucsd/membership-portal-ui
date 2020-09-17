@@ -3,6 +3,7 @@ import { COLLECTION_ERROR, FETCH_COLLECTIONS, ThunkActionCreator } from './types
 import Config from '../config';
 import Storage from '../storage';
 import { notify } from '../utils';
+import { fetchUserByIDDirectly } from './userActions';
 import { Order, PatchOrderItemPayload } from '../types/merch';
 import { User } from '../types/user';
 
@@ -44,34 +45,6 @@ export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
       payload: error.message,
     });
   }
-};
-
-/**
- * Fetches user by UUID from the API.
- *
- * @param {string} uuid UUID of user from API.
- * @return {Promise<User>} Promise of an User object.
- */
-const fetchUserByID = async (uuid: string) => {
-  try {
-    const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
-    });
-
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
-
-    return data.user;
-  } catch (error) {
-    notify('Unable to fetch order user', error.message);
-  }
-  return {};
 };
 
 /**
@@ -134,7 +107,7 @@ export const getAllOrders = async (dispatch) => {
 
     const orderUsersRequests: Promise<User>[] = [];
     for (let i = 0; i < data.orders.length; i += 1) {
-      orderUsersRequests.push(fetchUserByID(data.orders[i].user));
+      orderUsersRequests.push(fetchUserByIDDirectly(data.orders[i].user));
     }
 
     const orderUsers = await Promise.all(orderUsersRequests);
