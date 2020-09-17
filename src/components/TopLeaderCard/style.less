@@ -4,6 +4,7 @@
 .leaderboard-card {
   background-color: @blue-3;
   border-radius: 10px;
+  font-family: 'DM Sans';
   height: @leaderboard-card-height;
   overflow: hidden;
   position: relative;
@@ -60,8 +61,13 @@
       margin-bottom: 0;
     }
 
+    .ant-avatar {
+      border: 1px solid@black;
+    }
+
     h1 {
-      font-size: @card-heading-1;
+      font-size: @card-heading-2;
+      font-weight: bold;
     }
 
     .name:hover {
@@ -70,10 +76,11 @@
 
     h2 {
       font-size: @card-heading-2;
+      font-weight: bold;
     }
 
     h3 {
-      font-size: @card-heading-3;
+      font-size: @card-heading-2;
     }
   }
 
