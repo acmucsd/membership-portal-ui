@@ -70,7 +70,7 @@ const AdminOrderPageContainer: React.FC = () => {
     orderDispatch({
       type: 'UPDATE_SCRATCH_NOTE',
       order: orderForItem.uuid,
-      scratchNote: scratchNote,
+      scratchNote,
       item: newItem,
     });
   };
@@ -192,8 +192,6 @@ const AdminOrderPageContainer: React.FC = () => {
     return newElement;
   });
 
-  // Scratch note to keep track of the content of the "edit note"
-  // modal for each order item
   const [noteVisible, setNoteVisible] = useState(false);
   const [searchedOrders, setSearchedOrders] = useState(refinedApiOrders.slice());
   const [searched, setSearched] = useState(false);

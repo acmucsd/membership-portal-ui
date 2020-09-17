@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, Checkbox, Form, Input, Row, Col, Modal } from 'antd';
 import Icon from '@ant-design/icons';
 import { OrderItem } from '../../types/merch';

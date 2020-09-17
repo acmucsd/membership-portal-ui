@@ -18,8 +18,10 @@ import { Order } from '../types/merch';
 export default (state: Order[], action) => {
   switch (action.type) {
     case 'FETCH_ORDERS':
-      return action.orders.map((order) => {
-        order.items = order.items.map((item) => {
+      return action.orders.map((ordersElement) => {
+        const order = ordersElement;
+        order.items = order.items.map((itemsElement) => {
+          const item = itemsElement;
           item.scratchNote = item.notes !== undefined ? item.notes : '';
           return item;
         });
