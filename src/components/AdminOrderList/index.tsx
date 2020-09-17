@@ -25,18 +25,18 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
         // Placeholder user if no user can be found. Primarily used
         // to satisfy potentially undefined types.
         // If profile picture is empty, we'll use bongoSnu, since it's cute.
-        let orderUser = {
-          firstName: 'No',
-          graduationYear: 2024,
-          major: 'CS',
-          bio: '',
-          points: 0,
-          lastName: 'User',
-          profilePicture: bongoSnu,
-        };
-        if (order.userInfo !== undefined) {
-          orderUser = order.userInfo;
-        }
+        const orderUser =
+          order.userInfo !== undefined
+            ? order.userInfo
+            : {
+                firstName: 'No',
+                graduationYear: 2024,
+                major: 'CS',
+                bio: '',
+                points: 0,
+                lastName: 'User',
+                profilePicture: bongoSnu,
+              };
         return (
           <div key={order.uuid} className="order">
             <div className="order-list-header">
