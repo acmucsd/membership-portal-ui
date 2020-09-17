@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Input } from 'antd';
 import { Order } from '../../types/merch';
 import { history } from '../../store';
@@ -10,14 +10,30 @@ interface AdminOrderPageProps {
   apiOrders: Order[];
   setNote: Function;
   setFulfill: Function;
+  searched: boolean;
+  setSearched: Function;
+  searchedOrders: Order[];
+  setSearchedOrders: Function;
+  searchFunc: (value: string) => void;
+  noteVisible: boolean;
+  setNoteVisible: Function;
+  setScratchNote: Function;
 }
 
 const { Search } = Input;
 
 const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
-  const { apiOrders, setNote, setFulfill } = props;
-  const [searched, setSearched] = useState(false);
-  const [searchedOrders, setSearchedOrders] = useState(apiOrders.slice());
+  const {
+    apiOrders,
+    setNote,
+    setFulfill,
+    searched,
+    searchedOrders,
+    searchFunc,
+    noteVisible,
+    setNoteVisible,
+    setScratchNote,
+  } = props;
 
   return (
     <div className="admin-orders">
@@ -33,31 +49,7 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
         </Button>
       </div>
       <div className="search-section">
-        <Search
-          placeholder="Search..."
-          size="large"
-          onSearch={(value) => {
-            // Search function, simply looks for substring (case-insensitive)
-            // within order user name and filters any order that don't have
-            // that name.
-            //
-            // If search bar is empty, just pass the original set of orders
-            // received from the API.
-            if (value === '') {
-              setSearched(false);
-            } else {
-              setSearched(true);
-              setSearchedOrders(
-                apiOrders.filter((element) => {
-                  const nameOfOrderUser = `${element.userInfo!.firstName} ${
-                    element.userInfo!.lastName
-                  }`.toLowerCase();
-                  return nameOfOrderUser.includes(value.toLowerCase());
-                }),
-              );
-            }
-          }}
-        />
+        <Search placeholder="Search..." size="large" onSearch={searchFunc} />
         <div className="button-array">
           <Button
             // For this button, we need to remove margin on the left, hence the wonky "first-button class"
@@ -77,6 +69,9 @@ const AdminOrderPage: React.FC<AdminOrderPageProps> = (props) => {
         apiOrders={searched ? searchedOrders : apiOrders}
         setFulfill={setFulfill}
         setNote={setNote}
+        noteVisible={noteVisible}
+        setNoteVisible={setNoteVisible}
+        setScratchNote={setScratchNote}
       />
     </div>
   );

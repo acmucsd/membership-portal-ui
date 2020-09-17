@@ -11,13 +11,13 @@ interface AdminOrderItemProps {
   orderItem: OrderItem;
   setFulfill: Function;
   setNote: Function;
+  noteVisible: boolean;
+  setNoteVisible: Function;
+  setScratchNote: Function;
 }
 
 const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
-  const { orderItem, setFulfill, setNote } = props;
-  const [noteVisible, setNoteVisible] = useState(false);
-  const [scratchNote, setScratchNote] = useState(orderItem.notes || '');
-  const [checkboxDisabled, setCheckboxDisable] = useState(orderItem.fulfilled);
+  const { orderItem, setFulfill, setNote, noteVisible, setNoteVisible, setScratchNote } = props;
   return (
     <Row align="middle" justify="center" className="order-item">
       <Modal
@@ -25,7 +25,7 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
         visible={noteVisible}
         okText="Submit"
         onOk={() => {
-          setNote(orderItem, scratchNote);
+          setNote(orderItem, orderItem.scratchNote);
           setNoteVisible(false);
         }}
         onCancel={() => setNoteVisible(false)}
@@ -34,8 +34,8 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
           <Form.Item className="note">
             <Input.TextArea
               name="note"
-              value={scratchNote}
-              onChange={(event) => setScratchNote(event.target.value)}
+              value={orderItem.scratchNote}
+              onChange={(event) => setScratchNote(orderItem, event.target.value)}
               rows={4}
             />
           </Form.Item>
@@ -44,11 +44,10 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
       <Col span={2}>
         <div className="item-checkbox">
           <Checkbox
-            checked={checkboxDisabled}
-            disabled={checkboxDisabled}
+            checked={orderItem.fulfilled}
+            disabled={orderItem.fulfilled}
             onChange={() => {
               setFulfill(orderItem);
-              setCheckboxDisable(true);
             }}
           />
         </div>
@@ -72,7 +71,7 @@ const AdminOrderItem: React.FC<AdminOrderItemProps> = (props) => {
         <div className="item-notes">
           <Icon
             onClick={() => setNoteVisible(true)}
-            component={scratchNote ? CommentBox : CommentBoxEmpty}
+            component={orderItem.scratchNote ? CommentBox : CommentBoxEmpty}
           />
         </div>
       </Col>

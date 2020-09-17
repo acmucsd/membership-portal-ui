@@ -29,6 +29,7 @@ export interface OrderItem {
   quantity?: number;
   fulfilledAt?: Date;
   notes?: string;
+  scratchNote?: string;
 }
 
 export interface Order {

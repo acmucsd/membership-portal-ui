@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { connect } from 'react-redux';
 
 import { Order, OrderItem, PatchOrderItemPayload } from '../types/merch';
@@ -45,6 +45,34 @@ const AdminOrderPageContainer: React.FC = () => {
       });
     }
     patchOrder(orderDispatch, newOrder, newOrderItems);
+  };
+
+  /**
+   * Sets a note for an orderItem.
+   *
+   * The function takes the original order list, finds the order in which
+   * the item is in, extracts the UUID and then calls the dispatch to update
+   * local state's scratch note for the OrderItem.
+   *
+   * This requires the original order list, primarily to be able to
+   * fit the order item back in the original order once we're
+   * done adding the scratch note.
+   *
+   * Note the 'UPDATE_SCRATCH_NOTE' action DOES NOT hit the API.
+
+   * @param {OrderItem} newItem orderItem to add scratch note to.
+   * @param {string} scratchNote Scratch note to add to newItem.
+   */
+  const setScratchNote = (newItem: OrderItem, scratchNote: string) => {
+    const orderForItem: Order = orderList.find((element: Order) => {
+      return element.items.some((item: OrderItem) => item.uuid === newItem.uuid);
+    });
+    orderDispatch({
+      type: 'UPDATE_SCRATCH_NOTE',
+      order: orderForItem.uuid,
+      scratchNote: scratchNote,
+      item: newItem,
+    });
   };
 
   /**
@@ -163,9 +191,49 @@ const AdminOrderPageContainer: React.FC = () => {
     newElement.items = groupedOrderItems;
     return newElement;
   });
+
+  // Scratch note to keep track of the content of the "edit note"
+  // modal for each order item
+  const [noteVisible, setNoteVisible] = useState(false);
+  const [searchedOrders, setSearchedOrders] = useState(refinedApiOrders.slice());
+  const [searched, setSearched] = useState(false);
+  const orderSearchedFilter = (value: string) => {
+    // Search function, simply looks for substring (case-insensitive)
+    // within order user name and filters any order that don't have
+    // that name.
+    //
+    // If search bar is empty, just pass the original set of orders
+    // received from the API.
+    if (value === '') {
+      setSearched(false);
+    } else {
+      setSearched(true);
+      setSearchedOrders(
+        refinedApiOrders.filter((element) => {
+          const nameOfOrderUser = `${element.userInfo!.firstName} ${
+            element.userInfo!.lastName
+          }`.toLowerCase();
+          return nameOfOrderUser.includes(value.toLowerCase());
+        }),
+      );
+    }
+  };
+
   return (
     <PageLayout>
-      <AdminOrderPage apiOrders={refinedApiOrders} setNote={setNote} setFulfill={setFulfill} />
+      <AdminOrderPage
+        apiOrders={refinedApiOrders}
+        setNote={setNote}
+        setFulfill={setFulfill}
+        searched={searched}
+        setSearched={setSearched}
+        searchedOrders={searchedOrders}
+        setSearchedOrders={setSearchedOrders}
+        searchFunc={orderSearchedFilter}
+        noteVisible={noteVisible}
+        setNoteVisible={setNoteVisible}
+        setScratchNote={setScratchNote}
+      />
     </PageLayout>
   );
 };

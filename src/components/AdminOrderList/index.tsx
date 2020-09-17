@@ -10,10 +10,13 @@ interface AdminOrderListProps {
   apiOrders: Order[];
   setFulfill: Function;
   setNote: Function;
+  noteVisible: boolean;
+  setNoteVisible: Function;
+  setScratchNote: Function;
 }
 
 const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
-  const { apiOrders, setFulfill, setNote } = props;
+  const { apiOrders, setFulfill, setNote, noteVisible, setNoteVisible, setScratchNote } = props;
   const orderDateStringOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
   return (
@@ -53,7 +56,14 @@ const AdminOrderList: React.FC<AdminOrderListProps> = (props) => {
                 dataSource={order.items}
                 renderItem={(item) => (
                   <List.Item>
-                    <AdminOrderItem orderItem={item} setFulfill={setFulfill} setNote={setNote} />
+                    <AdminOrderItem
+                      orderItem={item}
+                      setFulfill={setFulfill}
+                      setNote={setNote}
+                      noteVisible={noteVisible}
+                      setNoteVisible={setNoteVisible}
+                      setScratchNote={setScratchNote}
+                    />
                   </List.Item>
                 )}
               />
