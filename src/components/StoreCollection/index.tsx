@@ -33,8 +33,8 @@ const StoreCollection: React.FC<StoreCollectionProps> = (props) => {
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      {merchandise.map(() => (
-        <ItemCard />
+      {merchandise.map((merchandise) => (
+        <ItemCard merchandise={merchandise} />
       ))}
     </div>
   );
