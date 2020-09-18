@@ -12,7 +12,7 @@ interface StoreCollectionsContainerProps {
     {
       uuid: string;
       archived: boolean;
-      merchandise: [
+      items: [
         {
           collection: string;
           description: string;
@@ -48,7 +48,7 @@ const StoreCollectionsContainer: React.FC<StoreCollectionsContainerProps> = (pro
             uuid={collection.uuid}
             description={collection.description}
             title={collection.title}
-            merchandise={collection.merchandise}
+            items={collection.items}
             auth={auth}
           />
         );

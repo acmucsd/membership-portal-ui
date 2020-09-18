@@ -1,11 +1,11 @@
 import React from 'react';
 import { ReactComponent as Diamond } from '../../assets/icons/Diamond.svg';
-import CatBread from '../../assets/icons/cat_bread.jpg';
+import CatBread from '../../assets/icons/cat-bread.jpg';
 
 import './style.less';
 
 interface StoreItemCardProps {
-  merchandise: {
+  item: {
     collection: string;
     description: string;
     discountPercentage: number;
@@ -19,7 +19,7 @@ interface StoreItemCardProps {
 }
 
 const ItemCard: React.FC<StoreItemCardProps> = (props) => {
-  const { merchandise } = props;
+  const { item } = props;
   return (
     <div className="item-card">
       <div className="inside-rectangle">
@@ -28,16 +28,16 @@ const ItemCard: React.FC<StoreItemCardProps> = (props) => {
         <div className="image-container">
           <img
             className="image"
-            src={merchandise.picture !== undefined ? merchandise.picture : CatBread}
-            alt="Image of {merchandise.itemName}"
+            src={item.picture !== undefined ? item.picture : CatBread}
+            alt="Image of {item.itemName}"
           />
         </div>
       </div>
       <div className="info">
-        <p className="title">{merchandise.itemName}</p>
+        <p className="title">{item.itemName}</p>
         <div className="price">
           <Diamond />
-          <p className="amount">{merchandise.price}</p>
+          <p className="amount">{item.price}</p>
         </div>
       </div>
     </div>

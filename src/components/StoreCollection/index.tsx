@@ -9,7 +9,7 @@ interface StoreCollectionProps {
   uuid: string;
   description: string;
   title: string;
-  merchandise: [
+  items: [
     {
       collection: string;
       description: string;
@@ -25,7 +25,7 @@ interface StoreCollectionProps {
 }
 
 const StoreCollection: React.FC<StoreCollectionProps> = (props) => {
-  const { description, title, merchandise } = props;
+  const { description, title, items } = props;
 
   return (
     <div className="collection">
@@ -33,8 +33,8 @@ const StoreCollection: React.FC<StoreCollectionProps> = (props) => {
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      {merchandise.map((merchandise) => (
-        <ItemCard merchandise={merchandise} />
+      {items.map((item) => (
+        <ItemCard item={item} />
       ))}
     </div>
   );
