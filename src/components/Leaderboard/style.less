@@ -1,13 +1,14 @@
 .leaderboard {
   > * {
     width: 90%;
+    max-width: 1700px;
   }
 
   .top-three {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 20px 0;
 
     > * {
@@ -25,6 +26,10 @@
   .leaderboard {
     > * {
       width: 100%;
+    }
+
+    .top-three {
+      justify-content: center;
     }
   }
 }
