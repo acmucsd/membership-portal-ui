@@ -17,7 +17,6 @@
     position: absolute;
   }
 
-
   &.first {
     background-color: @gold;
   }
@@ -39,16 +38,16 @@
   }
 
   .leaderboard-card-right {
-    color: black;
-    padding: 0 5px;
-    border-radius: inherit;
     background-color: white;
+    border-radius: inherit;
+    color: black;
     flex-wrap: wrap;
+    height: calc(100% - 10px);
+    margin: 5px;
     -ms-overflow-style: none;
     overflow-x: hidden;
     overflow-y: scroll;
-    margin: 5px;
-    height: calc(100% - 10px);
+    padding: 0 5px;
     right: 0;
     scrollbar-width: none;
     text-align: center;
