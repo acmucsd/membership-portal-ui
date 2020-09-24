@@ -16,7 +16,7 @@ interface TopLeaderCardProps {
 const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
   const { exp, name, image, placement, uuid } = props;
 
-  let leaderboardClass = 'leaderboard-card-left ';
+  let leaderboardClass = 'leaderboard-card ';
 
   switch (placement) {
     case 1:
@@ -31,8 +31,8 @@ const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
 
   return (
     <div>
-      <div className="leaderboard-card">
-        <div className={leaderboardClass}>
+      <div className={leaderboardClass}>
+        <div className="leaderboard-card-left">
           <span className="placement">{placement}</span>
         </div>
         <div className="leaderboard-card-right">
