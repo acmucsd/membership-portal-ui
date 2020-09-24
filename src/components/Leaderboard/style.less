@@ -1,5 +1,6 @@
 .leaderboard {
   > * {
+    max-width: 1700px;
     width: 90%;
   }
 
@@ -7,7 +8,7 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 20px 0;
 
     > * {
@@ -21,10 +22,22 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1305px) {
+  .leaderboard {
+    .top-three {
+      justify-content: space-evenly;
+    }
+  }
+}
+
+@media screen and (max-width: 958px) {
   .leaderboard {
     > * {
       width: 100%;
+    }
+
+    .top-three {
+      justify-content: center;
     }
   }
 }
