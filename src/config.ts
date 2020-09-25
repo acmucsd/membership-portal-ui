@@ -1,4 +1,4 @@
-let apiurl = 'https://acmucsd-membership-portal-api.herokuapp.com';
+let apiurl = 'https://acmucsd-portal-testing.herokuapp.com';
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   apiurl = 'https://acmucsd-portal-testing.herokuapp.com';
 }
@@ -17,7 +17,6 @@ export default {
   routes: {
     user: {
       user: '/api/v1/user',
-      bonus: '/api/v1/user/bonus',
       activity: '/api/v1/user/activity',
       profilepicture: '/api/v1/user/picture',
     },
@@ -26,18 +25,18 @@ export default {
       register: '/api/v1/auth/register',
       login: '/api/v1/auth/login',
       verification: '/api/v1/auth/verification',
-      resetPassword: '/api/v1/auth/resetPassword',
+      resetPassword: '/api/v1/auth/passwordReset',
       emailVerification: '/api/v1/auth/emailVerification',
+    },
+    admin: {
+      bonus: '/api/v1/admin/bonus',
     },
     events: {
       event: '/api/v1/event',
       past: '/api/v1/event/past',
       future: '/api/v1/event/future',
     },
-    attendance: {
-      fetch: '/api/v1/attendance',
-      attend: '/api/v1/attendance/attend',
-    },
+    attendance: '/api/v1/attendance',
     leaderboard: '/api/v1/leaderboard',
   },
 };
