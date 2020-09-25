@@ -1,4 +1,4 @@
-let apiurl = 'https://acmucsd-portal-testing.herokuapp.com';
+let apiurl = 'https://acmucsd-membership-portal-api.herokuapp.com';
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   apiurl = 'https://acmucsd-portal-testing.herokuapp.com';
 }
