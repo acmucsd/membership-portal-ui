@@ -13,7 +13,7 @@ const NavListItem: React.FC<NavListItemProps> = (props) => {
   return (
     <div className="nav-list-item">
       {icon ? <Icon component={icon} /> : null}
-      <span>{text}</span>
+      <span className="text">{text}</span>
     </div>
   );
 };

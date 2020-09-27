@@ -21,7 +21,7 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   return (
     <nav className="navbar-vertical">
       <section>
-        <h1>Portal</h1>
+        <h1 className="title">Portal</h1>
         <NavLink exact activeClassName="selected" to="/">
           <NavListItem icon={DashboardIcon} text="Dashboard" />
         </NavLink>
@@ -31,24 +31,20 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
         <NavLink activeClassName="selected" to="/profile">
           <NavListItem icon={ProfileIcon} text="Profile" />
         </NavLink>
+        <NavLink activeClassName="selected" to="/about">
+          <NavListItem icon={ACMIcon} text="Explore ACM" />
+        </NavLink>
+        <NavLink activeClassName="selected" to="/discord">
+          <NavListItem icon={DiscordIcon} text="Discord" />
+        </NavLink>
+        <NavLink activeClassName="selected" to="/store">
+          <NavListItem icon={SwagIcon} text="ACM Store" />
+        </NavLink>
         {isAdmin && (
           <NavLink activeClassName="selected" to="/admin">
             <NavListItem icon={AdminIcon} text="Admin" />
           </NavLink>
         )}
-      </section>
-
-      <section>
-        <h1>ACM</h1>
-        <NavLink activeClassName="selected" to="/about">
-          <NavListItem icon={ACMIcon} text="About ACM" />
-        </NavLink>
-        <NavLink activeClassName="selected" to="/store">
-          <NavListItem icon={SwagIcon} text="ACM Store" />
-        </NavLink>
-        <NavLink activeClassName="selected" to="/discord">
-          <NavListItem icon={DiscordIcon} text="Discord" />
-        </NavLink>
       </section>
     </nav>
   );
