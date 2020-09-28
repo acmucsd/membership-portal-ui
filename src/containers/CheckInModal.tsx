@@ -18,7 +18,7 @@ const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
 
   const checkInMessage = `Checked in to ${currentEvent.title}!`;
   // TODO: Add event name and points to this message.
-  const fullMessage = 'Please show this to a board member to enter the room!';
+  const fullMessage = 'Thanks for checking in!';
 
   const hideMessage = () => {
     props.checkOut();
