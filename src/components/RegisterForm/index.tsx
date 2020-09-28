@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 import './style.less';
 import logo from '../../assets/graphics/logo.svg';
 
+import majorsData from './majors.json';
+
 const { Option } = Select;
 
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
@@ -87,14 +89,22 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           </Form.Item>
           <div className="horizontalitems">
             <Form.Item label="Major" className="formitems">
-              <Input
-                name="major"
+              <Select
+                showSearch
                 className="major"
                 value={values.major}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+                onChange={(value: string) => setFieldValue('major', value)}
+                onBlur={(value: string) => setFieldValue('major', value)}
+              >
+                {majorsData.majors.map((major) => (
+                  <Option key={major} value={major}>
+                    {major}
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
+          </div>
+          <div className="horizontalitems">
             <Form.Item label="Year" className="formitems">
               <Select
                 className="year"
