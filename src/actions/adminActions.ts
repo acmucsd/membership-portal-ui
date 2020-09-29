@@ -125,7 +125,7 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
       return;
     }
     try {
-      const response = await fetch(Config.API_URL + Config.routes.user.bonus, {
+      const response = await fetch(Config.API_URL + Config.routes.admin.bonus, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

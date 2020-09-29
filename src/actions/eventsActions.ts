@@ -90,7 +90,7 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
 
 export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.attendance.fetch, {
+    const response = await fetch(Config.API_URL + Config.routes.attendance, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -124,7 +124,7 @@ export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
 
 export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.attendance.attend, {
+    const response = await fetch(Config.API_URL + Config.routes.attendance, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
