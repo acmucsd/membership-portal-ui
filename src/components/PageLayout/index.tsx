@@ -16,11 +16,10 @@ interface PageLayoutProps {
   children: React.ComponentClass | React.FC;
   isAdmin: boolean;
   isMobile: boolean;
-  authenticated: boolean;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
-  const { children, isAdmin, isMobile, authenticated } = props;
+  const { children, isAdmin, isMobile } = props;
 
   return (
     <>
@@ -30,11 +29,9 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
           <img alt="ACM" id="logo" src={logo} />
           <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
         </NavLink>
-        {authenticated && (
-          <div className="profile">
-            <NavProfile menu={<NavDropdown />} />
-          </div>
-        )}
+        <div className="profile">
+          <NavProfile menu={<NavDropdown />} />
+        </div>
       </div>
       <div className="wainbow" />
       {isMobile ? (
