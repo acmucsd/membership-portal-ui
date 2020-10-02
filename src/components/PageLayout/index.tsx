@@ -27,13 +27,13 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
       <div className="header">
         <NavLink className="title" to="/">
           <img alt="ACM" id="logo" src={logo} />
-          <span className="heading">ACM@UCSD</span>
           <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
         </NavLink>
         <div className="profile">
           <NavProfile menu={<NavDropdown />} />
         </div>
       </div>
+      <div className="wainbow" />
       {isMobile ? (
         <>
           <NavBarHorizontal />
