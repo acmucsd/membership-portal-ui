@@ -15,6 +15,7 @@
   position: fixed;
   width: 100%;
   z-index: 1000;
+
   #logo {
     height: 55px;
     width: 55px;
@@ -34,36 +35,39 @@
   }
 
   .title {
-    color: #333333;
+    color: #333;
   }
 }
+
 .wainbow {
-  width: 100vw;
-  height: 0.4em;
+  background:
+    -webkit-gradient(
+      linear,
+      right top,
+      left top,
+      from(#e981a0),
+      color-stop(18.75%, #f9a857),
+      color-stop(36.98%, #80ce1c),
+      color-stop(55.73%, #51c0c0),
+      color-stop(75%, #62b0ff),
+      to(#816dff)
+    );
+  background:
+    linear-gradient(
+      270deg,
+      #e981a0,
+      #f9a857 18.75%,
+      #80ce1c 36.98%,
+      #51c0c0 55.73%,
+      #62b0ff 75%,
+      #816dff
+    );
   display: table;
+  height: 0.4em;
   position: fixed;
-  z-index: 1000;
   top: 90px;
-  background: -webkit-gradient(
-    linear,
-    right top,
-    left top,
-    from(#e981a0),
-    color-stop(18.75%, #f9a857),
-    color-stop(36.98%, #80ce1c),
-    color-stop(55.73%, #51c0c0),
-    color-stop(75%, #62b0ff),
-    to(#816dff)
-  );
-  background: linear-gradient(
-    270deg,
-    #e981a0,
-    #f9a857 18.75%,
-    #80ce1c 36.98%,
-    #51c0c0 55.73%,
-    #62b0ff 75%,
-    #816dff
-  );
+  width: 100vw;
+  z-index: 999;
 }
 
 .banner {
