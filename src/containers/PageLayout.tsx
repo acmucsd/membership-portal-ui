@@ -8,6 +8,7 @@ let notifiedAboutEmail = false;
 
 interface PageLayoutContainerProps {
   isAdmin: boolean;
+  authenticated: boolean;
   children: React.ReactChildren | React.ReactChild[] | React.ReactElement;
   user: {
     profile: {
@@ -17,7 +18,7 @@ interface PageLayoutContainerProps {
 }
 
 const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
-  const { isAdmin, children, user } = props;
+  const { isAdmin, authenticated, children, user } = props;
 
   const key = `open${Date.now()}`;
   const history = useHistory();
@@ -45,11 +46,16 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
     }
   }, [user]);
   const CustomPageLayout = PageLayout as React.ComponentClass<any>;
-  return <CustomPageLayout isAdmin={isAdmin}>{children}</CustomPageLayout>;
+  return (
+    <CustomPageLayout isAdmin={isAdmin} authenticated={authenticated}>
+      {children}
+    </CustomPageLayout>
+  );
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   isAdmin: state.auth.admin,
+  authenticated: state.auth.authenticated,
   user: state.user,
 });
 
