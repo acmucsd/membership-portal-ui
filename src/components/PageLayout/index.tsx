@@ -2,7 +2,6 @@ import React, { ComponentType } from 'react';
 import withSizes from 'react-sizes';
 import { NavLink } from 'react-router-dom';
 
-import Banner from '../Banner';
 import CheckInModal from '../../containers/CheckInModal';
 import NavDropdown from '../../containers/NavDropdown';
 import NavProfile from '../../containers/NavProfile';
@@ -35,7 +34,6 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
           <NavProfile menu={<NavDropdown />} />
         </div>
       </div>
-      <Banner isMobile={isMobile} />
       {isMobile ? (
         <>
           <NavBarHorizontal />
