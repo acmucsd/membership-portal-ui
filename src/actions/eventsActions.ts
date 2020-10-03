@@ -132,7 +132,7 @@ export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
         Authorization: `Bearer ${Storage.get('token')}`,
       },
       body: JSON.stringify({
-        attendanceCode: info.attendanceCode,
+        attendanceCode: decodeURI(info.attendanceCode),
         asStaff: info.asStaff,
       }),
     });
