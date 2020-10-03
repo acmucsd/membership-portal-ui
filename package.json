@@ -10,7 +10,6 @@
     "connected-react-router": "^6.5.2",
     "copy-to-clipboard": "^3.3.1",
     "customize-cra": "^0.8.0",
-    "firebase": "^7.14.2",
     "formik": "^2.0.3",
     "history": "^4.10.1",
     "jest": "24.9.0",
