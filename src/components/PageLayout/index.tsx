@@ -2,9 +2,9 @@ import React, { ComponentType } from 'react';
 import withSizes from 'react-sizes';
 
 import CheckInModal from '../../containers/CheckInModal';
+import Header from '../Header';
 import NavBarHorizontal from '../NavBarHorizontal';
 import NavBarVertical from '../NavBarVertical';
-import TopBar from '../TopBar';
 
 import './style.less';
 
@@ -20,7 +20,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
   return (
     <>
       <CheckInModal />
-      <TopBar />
+      <Header />
       {isMobile ? (
         <>
           <NavBarHorizontal />
