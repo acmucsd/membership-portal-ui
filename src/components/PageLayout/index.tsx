@@ -1,14 +1,10 @@
 import React, { ComponentType } from 'react';
 import withSizes from 'react-sizes';
-import { NavLink } from 'react-router-dom';
 
 import CheckInModal from '../../containers/CheckInModal';
-import NavDropdown from '../../containers/NavDropdown';
-import NavProfile from '../../containers/NavProfile';
 import NavBarHorizontal from '../NavBarHorizontal';
 import NavBarVertical from '../NavBarVertical';
-
-import logo from '../../assets/graphics/logo.svg';
+import TopBar from '../TopBar';
 
 import './style.less';
 
@@ -21,19 +17,12 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
   const { children, isAdmin, isMobile } = props;
 
+  const ProfileTopBar = TopBar as React.ComponentClass<any>;
+
   return (
     <>
       <CheckInModal />
-      <div className="header">
-        <NavLink className="title" to="/">
-          <img alt="ACM" id="logo" src={logo} />
-          <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
-        </NavLink>
-        <div className="profile">
-          <NavProfile menu={<NavDropdown />} />
-        </div>
-      </div>
-      <div className="wainbow" />
+      <ProfileTopBar />
       {isMobile ? (
         <>
           <NavBarHorizontal />

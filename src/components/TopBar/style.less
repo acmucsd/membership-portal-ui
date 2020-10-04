@@ -1,0 +1,71 @@
+@import '../../styles/fonts.less';
+@import '../../styles/vars.less';
+@import '../../styles/mixins.less';
+
+.header {
+  .noselect;
+
+  align-items: center;
+  background: white;
+  color: white;
+  display: flex;
+  font-size: @nav-body;
+  height: @nav-header-height;
+  padding: 0 10vw;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+
+  #logo {
+    height: 55px;
+    width: 55px;
+  }
+
+  .heading {
+    margin-left: 10px;
+  }
+
+  .subheading {
+    font-weight: 700;
+  }
+
+  .profile {
+    position: absolute;
+    right: 10%;
+  }
+
+  .title {
+    color: #333;
+  }
+}
+
+.wainbow {
+  background:
+    -webkit-gradient(
+      linear,
+      right top,
+      left top,
+      from(#e981a0),
+      color-stop(18.75%, #f9a857),
+      color-stop(36.98%, #80ce1c),
+      color-stop(55.73%, #51c0c0),
+      color-stop(75%, #62b0ff),
+      to(#816dff)
+    );
+  background:
+    linear-gradient(
+      270deg,
+      #e981a0,
+      #f9a857 18.75%,
+      #80ce1c 36.98%,
+      #51c0c0 55.73%,
+      #62b0ff 75%,
+      #816dff
+    );
+  display: table;
+  height: 5px;
+  position: fixed;
+  top: 90px;
+  width: 100vw;
+  z-index: 999;
+}
