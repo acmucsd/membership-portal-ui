@@ -35,4 +35,4 @@ const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-export default withSizes(mapSizesToProps)(TopBar);
+export default withSizes(mapSizesToProps)(TopBar) as React.FC;

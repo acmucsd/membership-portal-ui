@@ -44,8 +44,7 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
       notifiedAboutEmail = true;
     }
   }, [user]);
-  const CustomPageLayout = PageLayout as React.ComponentClass<any>;
-  return <CustomPageLayout isAdmin={isAdmin}>{children}</CustomPageLayout>;
+  return <PageLayout isAdmin={isAdmin}>{children}</PageLayout>;
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
