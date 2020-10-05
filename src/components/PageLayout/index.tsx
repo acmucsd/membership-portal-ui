@@ -1,14 +1,10 @@
 import React, { ComponentType } from 'react';
 import withSizes from 'react-sizes';
-import { NavLink } from 'react-router-dom';
 
 import CheckInModal from '../../containers/CheckInModal';
-import NavDropdown from '../../containers/NavDropdown';
-import NavProfile from '../../containers/NavProfile';
+import Header from '../Header';
 import NavBarHorizontal from '../NavBarHorizontal';
 import NavBarVertical from '../NavBarVertical';
-
-import logo from '../../assets/graphics/logo.svg';
 
 import './style.less';
 
@@ -24,16 +20,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
   return (
     <>
       <CheckInModal />
-      <div className="header">
-        <NavLink className="title" to="/">
-          <img alt="ACM" id="logo" src={logo} />
-          <span className="heading">ACM@UCSD</span>
-          <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
-        </NavLink>
-        <div className="profile">
-          <NavProfile menu={<NavDropdown />} />
-        </div>
-      </div>
+      <Header />
       {isMobile ? (
         <>
           <NavBarHorizontal />
@@ -53,4 +40,6 @@ const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-export default withSizes(mapSizesToProps)(PageLayout as ComponentType<{ isMobile: boolean }>);
+export default withSizes(mapSizesToProps)(
+  PageLayout as ComponentType<{ isMobile: boolean }>,
+) as React.FC<any & { isAdmin: boolean; children: React.ComponentClass | React.FC }>;

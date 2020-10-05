@@ -1,48 +1,154 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
-.registercard {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  display: flex;
-  font-family: 'Roboto';
-  height: @register-height;
-  justify-content: center;
-  text-align: center;
-  width: @db-card-width;
+.signup-card {
+  padding-top: 64px;
 
-  label {
-    color: @white;
-    font-family: 'Nunito';
+  .title {
+    color: @black;
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0;
+    text-align: center;
   }
 
-  h1 {
-    color: @white;
-    font-family: 'Nunito';
-    font-size: @sign-in-heading;
-    margin: 24px 0 12px 0;
+  .form {
+    display: flex;
+    flex-direction: column;
   }
 
-  p {
-    color: @white;
-    font-size: @sign-in-paragraph;
-    margin-bottom: 24px;
-    text-align: left;
+  .sign-up {
+    .button-hover();
+
+    background-color: #62b0ff;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    margin-bottom: 20px;
+    width: 300px;
+  }
+
+  .login {
+    color: @black;
+    font-size: 16px;
+    margin-bottom: 25px;
+    margin-top: -5px;
+    text-align: center;
 
     &:hover {
-      opacity: 0.9;
+      opacity: 0.7;
     }
   }
 
-  .ant-form-item-label {
-    line-height: 30px;
+  .name-container {
+    position: relative;
+
+    .icon {
+      left: 8px;
+      position: absolute;
+      top: 6.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      padding-left: 34px;
+      width: 300px;
+    }
   }
 
-  .formitems {
-    margin-bottom: 0;
-    margin-top: 10px;
-    text-align: left;
+  .email-container {
+    position: relative;
+
+    .icon {
+      left: 8px;
+      position: absolute;
+      top: 6.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      padding-left: 34px;
+      width: 300px;
+    }
+  }
+
+  .password-container {
+    position: relative;
+
+    .icon {
+      left: 9px;
+      position: absolute;
+      top: 2.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      padding-left: 34px;
+      width: 300px;
+    }
+  }
+
+  .major-container {
+    position: relative;
+
+    .icon {
+      left: 6.5px;
+      position: absolute;
+      top: 4.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      padding-left: 34px;
+      width: 170px;
+    }
+  }
+
+  .year-container {
+    position: relative;
+
+    .icon {
+      left: 8px;
+      position: absolute;
+      top: 6.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      padding-left: 34px;
+      width: 110px;
+
+      .ant-select-selection {
+        border: none;
+        height: 27px;
+      }
+    }
   }
 
   .horizontalitems {
@@ -65,23 +171,6 @@
 
     .year {
       width: 80px;
-    }
-  }
-
-  .input-box {
-    height: @button-height-2;
-    width: @button-width;
-  }
-
-  .register {
-    margin: 19px 0;
-
-    .register-button {
-      background-color: @blue-1;
-      border: none;
-      font-family: 'Nunito';
-      height: @button-height;
-      width: @button-width;
     }
   }
 }

@@ -1,40 +1,49 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
-.resetcard {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  color: @white;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Roboto';
-  height: @reset-height;
-  justify-content: center;
-  width: @sign-in-width;
+.reset-card {
+  padding-top: 64px;
 
-  label {
-    color: @white;
-    font-family: 'Nunito';
-    font-size: @general-body;
+  .title {
+    color: @black;
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0;
+    text-align: center;
   }
 
-  .input-box {
-    height: @button-height-2;
-    width: @button-width;
+  .password-container {
+    position: relative;
+
+    .icon {
+      left: 9px;
+      position: absolute;
+      top: 2.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      padding-left: 34px;
+      width: 300px;
+    }
   }
 
-  .logo {
-    height: 115px;
-    margin-bottom: 36px;
-    width: 115px;
-  }
+  .submit {
+    .button-hover();
 
-  .login-button {
-    background-color: @blue-1;
+    background-color: #62b0ff;
     border: none;
-    font-family: 'Nunito';
-    height: @button-height;
-    width: @button-width;
+    border-radius: 100px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    margin-bottom: 20px;
+    width: 300px;
   }
 }

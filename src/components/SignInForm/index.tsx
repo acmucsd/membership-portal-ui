@@ -1,9 +1,10 @@
 import React, { FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
-import { Form, Input, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
+import email from '../../assets/icons/email-icon.svg';
+import password from '../../assets/icons/password-icon.svg';
+
 import './style.less';
-import logo from '../../assets/graphics/logo.svg';
 
 interface SignInFormProps {
   handleBlur: FocusEventHandler;
@@ -20,48 +21,51 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, values, search } = props;
 
   return (
-    <div className="card">
-      <div className="formcontent">
-        <img src={logo} alt="logo" height="115" width="115" />
-        <h1>Sign in to ACM@UCSD</h1>
-        <form onSubmit={handleSubmit}>
-          <Form.Item className="email">
-            <Input
-              name="email"
-              type="email"
-              placeholder="Email (user@ucsd.edu)"
-              className="input-box"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
-          <Form.Item className="password">
-            <Input
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="input-box"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
+    <div className="signin-card">
+      <h2 className="title">
+        Welcome
+        <br />
+        to ACM!
+      </h2>
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="email-container">
+          <img className="icon" alt="" src={email} />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email (user@ucsd.edu)"
+            className="input-box"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="password-container">
+          <img className="icon" alt="" src={password} />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="input-box"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="forgot-container">
           <NavLink to="/forgot-password">
-            <p>Forgot your password?</p>
+            <p className="forgot">Forgot your password?</p>
           </NavLink>
-          <Form.Item className="sign-in">
-            <Button type="primary" htmlType="submit" className="login-button">
-              Sign In
-            </Button>
-          </Form.Item>
-          <NavLink to={`/register${search}`}>
-            <Button type="primary" className="register-button">
-              Register for an account
-            </Button>
-          </NavLink>
-        </form>
-      </div>
+        </div>
+        <button type="submit" className="sign-in">
+          Sign In
+        </button>
+        <NavLink to={`/register${search}`}>
+          <button type="button" className="sign-up">
+            Sign Up
+          </button>
+        </NavLink>
+      </form>
     </div>
   );
 };

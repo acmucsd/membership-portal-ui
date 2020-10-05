@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { logoutUser } from '../../actions/authActions';
+import { ThunkActionCreator } from '../../actions/types';
 
 import './style.less';
+
 import NavListItem from '../NavListItem';
 import { ReactComponent as ACMIcon } from '../../assets/icons/acm-icon.svg';
 import { ReactComponent as AdminIcon } from '../../assets/icons/admin-icon.svg';
@@ -10,48 +15,64 @@ import { ReactComponent as DiscordIcon } from '../../assets/icons/discord-icon.s
 import { ReactComponent as LBIcon } from '../../assets/icons/lb-icon.svg';
 import { ReactComponent as ProfileIcon } from '../../assets/icons/profile-icon.svg';
 import { ReactComponent as SwagIcon } from '../../assets/icons/swag-icon.svg';
+import { ReactComponent as FeedbackIcon } from '../../assets/icons/feedback-icon.svg';
+import { ReactComponent as LogoutIcon } from '../../assets/icons/logout-icon.svg';
 
 interface NavbarVerticalProps {
   isAdmin: boolean;
+  logout: MouseEventHandler;
 }
 
 const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
-  const { isAdmin } = props;
+  const { isAdmin, logout } = props;
 
   return (
-    <nav className="navbar-vertical">
-      <section>
-        <h1>Portal</h1>
-        <NavLink exact activeClassName="selected" to="/">
-          <NavListItem icon={DashboardIcon} text="Dashboard" />
-        </NavLink>
-        <NavLink activeClassName="selected" to="/leaderboard">
-          <NavListItem icon={LBIcon} text="Leaderboard" />
-        </NavLink>
-        <NavLink activeClassName="selected" to="/profile">
-          <NavListItem icon={ProfileIcon} text="Profile" />
-        </NavLink>
-        {isAdmin && (
-          <NavLink activeClassName="selected" to="/admin">
-            <NavListItem icon={AdminIcon} text="Admin" />
+    <div className="navbar-vertical-container">
+      <div className="padding" />
+      <nav className="content">
+        <div>
+          <h1 className="title">Portal</h1>
+          <NavLink exact activeClassName="selected" to="/">
+            <NavListItem icon={DashboardIcon} text="Dashboard" />
           </NavLink>
-        )}
-      </section>
-
-      <section>
-        <h1>ACM</h1>
-        <NavLink activeClassName="selected" to="/about">
-          <NavListItem icon={ACMIcon} text="About ACM" />
-        </NavLink>
-        <NavLink activeClassName="selected" to="/store">
-          <NavListItem icon={SwagIcon} text="ACM Store" />
-        </NavLink>
-        <NavLink activeClassName="selected" to="/discord">
-          <NavListItem icon={DiscordIcon} text="Discord" />
-        </NavLink>
-      </section>
-    </nav>
+          <NavLink activeClassName="selected" to="/leaderboard">
+            <NavListItem icon={LBIcon} text="Leaderboard" />
+          </NavLink>
+          <NavLink activeClassName="selected" to="/profile">
+            <NavListItem icon={ProfileIcon} text="Profile" />
+          </NavLink>
+          <NavLink activeClassName="selected" to="/about">
+            <NavListItem icon={ACMIcon} text="Explore ACM" />
+          </NavLink>
+          <NavLink activeClassName="selected" to="/discord">
+            <NavListItem icon={DiscordIcon} text="Discord" />
+          </NavLink>
+          <NavLink activeClassName="selected" to="/store">
+            <NavListItem icon={SwagIcon} text="ACM Store" />
+          </NavLink>
+          {isAdmin && (
+            <NavLink activeClassName="selected" to="/admin">
+              <NavListItem icon={AdminIcon} text="Admin" />
+            </NavLink>
+          )}
+        </div>
+        <div>
+          <a href="https://www.acmurl.com/portal-feedback">
+            <NavListItem icon={FeedbackIcon} text="Feedback" />
+          </a>
+          <div className="logout" onClick={logout}>
+            <NavListItem icon={LogoutIcon} text="Sign Out" />
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 };
 
-export default NavbarVertical;
+const mapDispatchToProps = (dispatch: ThunkActionCreator) => ({
+  logout: () => {
+    dispatch(logoutUser());
+  },
+});
+
+export default connect(null, mapDispatchToProps)(NavbarVertical);
