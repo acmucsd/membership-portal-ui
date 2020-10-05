@@ -1,6 +1,7 @@
 import { Icon } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { isURL, getAbsoluteURL } from '../../utils';
 
@@ -25,7 +26,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
   return (
     <div className="event-card">
       <div className="front-facing">
-        <img className="image" src={cover} alt={title} />
+        <LazyLoadImage className="image" src={cover} alt={title} />
         <div className="info">
           <h2 className="title">{title}</h2>
           <p className="date">{date}</p>
