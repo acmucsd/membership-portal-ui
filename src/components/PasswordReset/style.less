@@ -1,37 +1,45 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
 
-.resetcard {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  color: @white;
-  display: flex;
-  flex-direction: column;
-  height: @reset-height;
-  justify-content: center;
-  width: @sign-in-width;
+.reset-card {
+  padding-top: 64px;
 
-  label {
-    color: @white;
-    font-size: @general-body;
+  .title {
+    color: @black;
+    font-size: 48px;
+    margin: 24px 0;
+    font-weight: 600;
+    text-align: center;
   }
 
-  .input-box {
-    height: @button-height-2;
-    width: @button-width;
+  .password-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 2.5px;
+      left: 9px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
+    }
   }
 
-  .logo {
-    height: 115px;
-    margin-bottom: 36px;
-    width: 115px;
-  }
-
-  .login-button {
-    background-color: @blue-1;
+  .submit {
+    background-color: #62b0ff;
     border: none;
-    height: @button-height;
-    width: @button-width;
+    border-radius: 100px;
+    height: 40px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
   }
 }
