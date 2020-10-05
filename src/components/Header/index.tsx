@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import NavDropdown from '../../containers/NavDropdown';
 import NavProfile from '../../containers/NavProfile';
 
-import logo from '../../assets/graphics/logo.svg';
+import logo from '../../assets/graphics/logo.png';
 
 import './style.less';
 
