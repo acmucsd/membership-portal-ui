@@ -1,45 +1,144 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
 
-.registercard {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  display: flex;
-  height: @register-height;
-  justify-content: center;
-  text-align: center;
-  width: @db-card-width;
-
-  label {
-    color: @white;
+.signup-card {
+  .title {
+    color: @black;
+    font-size: 48px;
+    margin: 24px 0;
+    font-weight: 600;
+    text-align: center;
   }
 
-  h1 {
-    color: @white;
-    font-size: @sign-in-heading;
-    margin: 24px 0 12px 0;
+  .form {
+    display: flex;
+    flex-direction: column;
   }
 
-  p {
-    color: @white;
-    font-size: @sign-in-paragraph;
-    margin-bottom: 24px;
-    text-align: left;
+  .sign-up {
+    background-color: #62b0ff;
+    border: none;
+    border-radius: 100px;
+    height: 40px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .login {
+    text-align: center;
+    color: @black;
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 25px;
 
     &:hover {
-      opacity: 0.9;
+      opacity: 0.7;
     }
   }
 
-  .ant-form-item-label {
-    line-height: 30px;
+  .name-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 6.5px;
+      left: 8px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
+    }
   }
 
-  .formitems {
-    margin-bottom: 0;
-    margin-top: 10px;
-    text-align: left;
+  .email-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 6.5px;
+      left: 8px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
+    }
+  }
+
+  .password-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 2.5px;
+      left: 9px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
+    }
+  }
+
+  .major-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 4.5px;
+      left: 6.5px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 170px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
+      margin-right: 20px;
+    }
+  }
+
+  .year-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 6.5px;
+      left: 8px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 110px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      padding-left: 34px;
+
+      .ant-select-selection {
+        height: 27px;
+        border: none;
+      }
+    }
   }
 
   .horizontalitems {

@@ -1,9 +1,14 @@
 import React, { ChangeEventHandler, FormEventHandler, FocusEventHandler } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Select } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
-import logo from '../../assets/graphics/logo.svg';
+
+import NameIcon from '../../assets/icons/name-icon.svg';
+import EmailIcon from '../../assets/icons/email-icon.svg';
+import PasswordIcon from '../../assets/icons/password-icon.svg';
+import MajorIcon from '../../assets/icons/major-icon.svg';
+import YearIcon from '../../assets/icons/year-icon.svg';
 
 const { Option } = Select;
 
@@ -30,98 +35,108 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, setFieldValue, values, search } = props;
 
   return (
-    <div className="registercard">
-      <div className="formcontent">
-        <img src={logo} alt="logo" height="115" width="115" />
-        <h1>Register for ACM@UCSD</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="horizontalitems">
-            <Form.Item label="First Name" className="formitems">
-              <Input
-                name="firstName"
-                className="firstname"
-                value={values.firstName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
-            <Form.Item label="Last Name" className="formitems">
-              <Input
-                name="lastName"
-                className="lastname"
-                value={values.lastName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
+    <div className="signup-card">
+      <h2 className="title">
+        Become a
+        <br />
+        Member
+      </h2>
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="name-container">
+          <img className="icon" src={NameIcon} alt="Name Icon" />
+          <input
+            name="firstName"
+            className="input-box"
+            placeholder="First name"
+            value={values.firstName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="name-container">
+          <img className="icon" src={NameIcon} alt="Name Icon" />
+          <input
+            name="lastName"
+            className="input-box"
+            placeholder="Last name"
+            value={values.lastName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="email-container">
+          <img className="icon" src={EmailIcon} alt="Email Icon" />
+          <input
+            name="email"
+            type="email"
+            className="input-box"
+            placeholder="UCSD Email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="password-container">
+          <img className="icon" src={PasswordIcon} alt="Password Icon" />
+          <input
+            name="password"
+            type="password"
+            className="input-box"
+            placeholder="Password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="password-container">
+          <img className="icon" src={PasswordIcon} alt="Password Icon" />
+          <input
+            name="confirmpassword"
+            type="password"
+            className="input-box"
+            placeholder="Confirm password"
+            value={values.confirmpassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="horizontalitems">
+          <div className="major-container">
+            <img className="icon" src={MajorIcon} alt="Major Icon" />
+            <input
+              name="major"
+              className="input-box"
+              placeholder="Major"
+              value={values.major}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
           </div>
-          <Form.Item label="Email (user@ucsd.edu)" className="formitems">
-            <Input
-              name="email"
-              type="email"
+          <div className="year-container">
+            <img className="icon" src={YearIcon} alt="Year Icon" />
+            <Select
               className="input-box"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
-          <Form.Item label="Password" className="formitems">
-            <Input
-              name="password"
-              type="password"
-              className="input-box"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
-          <Form.Item label="Confirm password" className="formitems">
-            <Input
-              name="confirmpassword"
-              type="password"
-              className="input-box"
-              value={values.confirmpassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
-          <div className="horizontalitems">
-            <Form.Item label="Major" className="formitems">
-              <Input
-                name="major"
-                className="major"
-                value={values.major}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
-            <Form.Item label="Year" className="formitems">
-              <Select
-                className="year"
-                onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
-                onChange={(value: string | number) => setFieldValue('graduationYear', value)}
-                value={values.graduationYear}
-              >
-                {years.map((num) => (
-                  <Option key={num} value={num}>
-                    {num}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
+              onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
+              onChange={(value: string | number) => setFieldValue('graduationYear', value)}
+              value={values.graduationYear}
+            >
+              {years.map((num) => (
+                <Option key={num} value={num}>
+                  {num}
+                </Option>
+              ))}
+            </Select>
           </div>
-          <Form.Item className="register">
-            <Button type="primary" htmlType="submit" className="register-button">
-              Register
-            </Button>
-          </Form.Item>
-          <NavLink to={`/login${search}`}>
-            <p>
-              Already have an account? <b>Sign in.</b>
-            </p>
-          </NavLink>
-        </form>
-      </div>
+        </div>
+        <button className="sign-up" type="submit">
+          Sign Up
+        </button>
+        <NavLink to={`/login${search}`}>
+          <p className="login">
+            Already have an account? <b>Sign in.</b>
+          </p>
+        </NavLink>
+      </form>
     </div>
   );
 };

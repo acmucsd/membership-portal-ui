@@ -21,7 +21,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, values, search } = props;
 
   return (
-    <div className="card">
+    <div className="signin-card">
       <h2 className="title">
         Welcome
         <br />
