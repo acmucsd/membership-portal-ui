@@ -3,7 +3,7 @@ import Icon from '@ant-design/icons';
 
 import './style.less';
 import config from '../../config';
-import logo from '../../assets/graphics/logo.svg';
+import logo from '../../assets/graphics/logo.png';
 import { ReactComponent as DiscordIcon } from '../../assets/icons/discord-icon.svg';
 import { ReactComponent as FbIcon } from '../../assets/icons/fb-icon.svg';
 import { ReactComponent as IgIcon } from '../../assets/icons/ig-icon.svg';
