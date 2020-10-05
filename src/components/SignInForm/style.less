@@ -2,63 +2,88 @@
 @import '../../styles/vars.less';
 
 .card {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  display: flex;
-  height: @sign-in-height;
-  justify-content: center;
-  text-align: center;
-  width: @db-card-width;
-
-  h1 {
-    color: @white;
-    font-size: @sign-in-heading;
-    margin: 24px 0 35px 0;
+  .title {
+    color: @black;
+    font-size: 48px;
+    margin: 24px 0;
+    font-weight: 600;
+    text-align: center;
   }
 
-  p {
-    color: @white;
-    font-size: @sign-in-paragraph;
-    font-weight: bold;
-    margin-bottom: 24px;
-    opacity: 0.7;
-    text-align: left;
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
 
-    &:hover {
-      opacity: 0.6;
+  .email-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 6.5px;
+      left: 8px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
     }
   }
 
-  .email {
-    margin-bottom: 17px;
+  .password-container {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 2.5px;
+      left: 9px;
+    }
+
+    .input-box {
+      height: 28px;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid @black;
+      margin-bottom: 20px;
+      padding-left: 34px;
+    }
   }
 
-  .input-box {
-    height: @button-height-2;
-    width: @button-width;
-  }
+  .forgot {
+    color: @black;
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 25px;
 
-  .login-button {
-    background-color: @blue-1;
-    border: none;
-    height: @button-height;
-    width: @button-width;
-  }
-
-  .password {
-    margin-bottom: 11px;
-  }
-
-  .register-button {
-    background-color: @blue-2;
-    border-color: @blue-1;
-    height: @button-height;
-    margin-bottom: 40px;
-    width: @button-width;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   .sign-in {
-    margin-bottom: 18px;
+    background-color: #62b0ff;
+    border: none;
+    border-radius: 100px;
+    height: 40px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .sign-up {
+    background-color: @black;
+    border-radius: 100px;
+    border: none;
+    height: 40px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
   }
 }

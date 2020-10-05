@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Header from '../Header';
+
 import './style.less';
 
 interface LoginLayoutProps {
@@ -8,7 +10,14 @@ interface LoginLayoutProps {
 
 const LoginLayout: React.FC<LoginLayoutProps> = (props) => {
   const { children } = props;
-  return <div className="contents">{children}</div>;
+  return (
+    <div className="login-layout">
+      <div className="header-holder">
+        <Header />
+      </div>
+      <div className="contents">{children}</div>
+    </div>
+  );
 };
 
 export default LoginLayout;
