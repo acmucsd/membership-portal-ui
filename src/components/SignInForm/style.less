@@ -1,5 +1,6 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
 .signin-card {
   padding-top: 64px;
@@ -67,6 +68,8 @@
   }
 
   .sign-in {
+    .button-hover();
+
     background-color: #62b0ff;
     border: none;
     border-radius: 100px;
@@ -79,6 +82,8 @@
   }
 
   .sign-up {
+    .button-hover();
+
     background-color: @black;
     border: none;
     border-radius: 100px;

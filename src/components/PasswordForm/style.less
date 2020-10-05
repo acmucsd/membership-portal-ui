@@ -1,5 +1,6 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
 .password-card {
   padding-top: 64px;
@@ -37,6 +38,8 @@
   }
 
   .submit {
+    .button-hover();
+
     background-color: #62b0ff;
     border: none;
     border-radius: 100px;

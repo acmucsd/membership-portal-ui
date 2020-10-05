@@ -1,5 +1,6 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
 .signup-card {
   padding-top: 64px;
@@ -18,6 +19,8 @@
   }
 
   .sign-up {
+    .button-hover();
+
     background-color: #62b0ff;
     border: none;
     border-radius: 100px;
@@ -163,17 +166,6 @@
 
     .year {
       width: 80px;
-    }
-  }
-
-  .register {
-    margin: 19px 0;
-
-    .register-button {
-      background-color: @blue-1;
-      border: none;
-      height: @button-height;
-      width: @button-width;
     }
   }
 }
