@@ -105,7 +105,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     <div className="update-card">
       <div className="updatecontent">
         <h1 className="title">Profile</h1>
-        <Avatar size={155} src={bg} className="avatar" />
+        <Avatar size={145} src={bg} className="avatar" />
         <br />
         <Button type="primary" className="upload-modal-button" onClick={showModal}>
           Change Profile Picture
@@ -201,7 +201,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
               />
             </Form.Item>
           </div>
-          <Form.Item label="Bio">
+          <Form.Item label="About">
             <TextArea
               name="bio"
               className="area-box"

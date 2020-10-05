@@ -5,11 +5,12 @@
   display: flex;
   max-width: 100%;
   width: @db-card-width;
+  font-family: 'DM Sans';
 
   label {
-    color: @blue-3;
+    color: @black;
     font-size: @card-heading-2;
-    font-weight: 600;
+    font-weight: 700;
 
     &::after {
       content: '';
@@ -27,14 +28,15 @@
   .title {
     font-size: @general-heading-1;
     font-weight: 700;
+    color: @black;
   }
 
   .save-button,
   .upload-modal-button {
-    background-color: @green-1;
-    border-color: @green-2;
+    background-color: @blue-5;
+    border-color: @blue-5;
     font-size: @general-body;
-    font-weight: 500;
+    font-weight: 700;
     height: @button-height;
     margin-bottom: 12px;
     margin-right: 19px;
@@ -46,7 +48,7 @@
     border-color: @red;
     color: @red;
     font-size: @general-body;
-    font-weight: 500;
+    font-weight: 700;
     height: @button-height;
     width: @discard-button-width;
   }
@@ -109,6 +111,7 @@
 
   .avatar {
     margin-bottom: 24px;
+    border: solid 3px @gray-5;
   }
 }
 
