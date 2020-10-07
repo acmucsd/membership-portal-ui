@@ -29,10 +29,18 @@ interface RegisterFormProps {
     graduationYear: number;
   };
   search: string;
+  errors: {
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    password: string | null;
+    confirmpassword: string | null;
+    major: string | null;
+  };
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, values, search } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, values, search, errors } = props;
 
   return (
     <div className="signup-card">
@@ -42,90 +50,124 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         Member
       </h2>
       <form className="form" onSubmit={handleSubmit}>
-        <div className="name-container">
-          <img className="icon" src={NameIcon} alt="Name Icon" />
-          <input
-            name="firstName"
-            className="input-box"
-            placeholder="First name"
-            value={values.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div className="name-container">
-          <img className="icon" src={NameIcon} alt="Name Icon" />
-          <input
-            name="lastName"
-            className="input-box"
-            placeholder="Last name"
-            value={values.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div className="email-container">
-          <img className="icon" src={EmailIcon} alt="Email Icon" />
-          <input
-            name="email"
-            type="email"
-            className="input-box"
-            placeholder="UCSD Email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div className="password-container">
-          <img className="icon" src={PasswordIcon} alt="Password Icon" />
-          <input
-            name="password"
-            type="password"
-            className="input-box"
-            placeholder="Password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div className="password-container">
-          <img className="icon" src={PasswordIcon} alt="Password Icon" />
-          <input
-            name="confirmpassword"
-            type="password"
-            className="input-box"
-            placeholder="Confirm password"
-            value={values.confirmpassword}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-        <div className="horizontalitems">
-          <div className="major-container">
-            <img className="icon" src={MajorIcon} alt="Major Icon" />
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={NameIcon} alt="Name Icon" />
+            </div>
             <input
-              name="major"
+              name="firstName"
               className="input-box"
-              placeholder="Major"
-              value={values.major}
+              placeholder="First name"
+              value={values.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </div>
-          <div className="year-container">
-            <img className="icon" src={YearIcon} alt="Year Icon" />
-            <Select
+          <p className="form-error">{errors.firstName ? errors.firstName : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={NameIcon} alt="Name Icon" />
+            </div>
+            <input
+              name="lastName"
               className="input-box"
-              onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
-              onChange={(value: string | number) => setFieldValue('graduationYear', value)}
-              value={values.graduationYear}
-            >
-              {years.map((num) => (
-                <Option key={num} value={num}>
-                  {num}
-                </Option>
-              ))}
-            </Select>
+              placeholder="Last name"
+              value={values.lastName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <p className="form-error">{errors.lastName ? errors.lastName : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={EmailIcon} alt="Email Icon" />
+            </div>
+            <input
+              name="email"
+              type="email"
+              className="input-box"
+              placeholder="UCSD Email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <p className="form-error">{errors.email ? errors.email : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={PasswordIcon} alt="Password Icon" />
+            </div>
+            <input
+              name="password"
+              type="password"
+              className="input-box"
+              placeholder="Password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <p className="form-error">{errors.password ? errors.password : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={PasswordIcon} alt="Password Icon" />
+            </div>
+            <input
+              name="confirmpassword"
+              type="password"
+              className="input-box"
+              placeholder="Confirm password"
+              value={values.confirmpassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <p className="form-error">{errors.confirmpassword ? errors.confirmpassword : null}</p>
+        </div>
+        <div className="horizontalitems">
+          <div className="form-item">
+            <div className="form-input major">
+              <div className="icon-container">
+                <img className="icon" src={MajorIcon} alt="Major Icon" />
+              </div>
+              <input
+                name="major"
+                className="input-box"
+                placeholder="Major"
+                value={values.major}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </div>
+            <p className="form-error">{errors.major ? errors.major : null}</p>
+          </div>
+          <div className="form-item">
+            <div className="form-input year">
+              <div className="icon-container">
+                <img className="icon" src={YearIcon} alt="Year Icon" />
+              </div>
+              <Select
+                className="input-box"
+                onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
+                onChange={(value: string | number) => setFieldValue('graduationYear', value)}
+                value={values.graduationYear}
+              >
+                {years.map((num) => (
+                  <Option key={num} value={num}>
+                    {num}
+                  </Option>
+                ))}
+              </Select>
+            </div>
           </div>
         </div>
         <button className="sign-up" type="submit">

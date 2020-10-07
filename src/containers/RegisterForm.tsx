@@ -1,8 +1,20 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
+import * as Yup from 'yup';
 
 import RegisterForm from '../components/RegisterForm';
 import { registerAccount } from '../actions/registerActions';
+
+const RegisterSchema = Yup.object().shape({
+  firstName: Yup.string().max(20, 'Too Long').required('Required'),
+  lastName: Yup.string().max(20, 'Too Long').required('Required'),
+  email: Yup.string().email('Invalid Email').required('Required'),
+  password: Yup.string().min(8, 'Too Short').required('Required'),
+  confirmpassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords Must Match')
+    .required('Required'),
+  major: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
+});
 
 const FormikRegisterForm = withFormik({
   mapPropsToValues() {
@@ -17,6 +29,9 @@ const FormikRegisterForm = withFormik({
       graduationYear: new Date().getFullYear(),
     };
   },
+  validationSchema: RegisterSchema,
+  validateOnChange: false,
+  validateOnBlur: false,
   handleSubmit(values, { props }: { [key: string]: any }) {
     props.registerAccount(values, props.search);
   },
