@@ -20,7 +20,7 @@ const AboutPage: React.FC = () => {
       </div>
       <p className="description">{config.about}</p>
       <div className="socials">
-        <a href="https://acmucsd.github.io">
+        <a href="https://acmucsd.com">
           <Icon component={WebIcon} className="icon" />
           Website
         </a>
