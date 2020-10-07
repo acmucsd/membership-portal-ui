@@ -7,10 +7,6 @@ import { notify } from '../utils';
 
 export const registerAccount: ThunkActionCreator = (user, search) => async (dispatch) => {
   try {
-    if (user.password !== user.confirmpassword) {
-      throw new Error('Passwords do not match!');
-    }
-
     const response = await fetch(Config.API_URL + Config.routes.auth.register, {
       method: 'POST',
       headers: {
