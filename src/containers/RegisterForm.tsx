@@ -9,7 +9,10 @@ const RegisterSchema = Yup.object().shape({
   firstName: Yup.string().max(20, 'Too Long').required('Required'),
   lastName: Yup.string().max(20, 'Too Long').required('Required'),
   email: Yup.string().email('Invalid Email').required('Required'),
-  password: Yup.string().min(9, 'Too Short').required('Required'),
+  password: Yup.string()
+    .min(9, 'Password must be at least 9 characters')
+    .max(20, 'Password must be at most 20 characters')
+    .required('Required'),
   confirmpassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords Must Match')
     .required('Required'),
