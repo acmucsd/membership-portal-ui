@@ -32,12 +32,6 @@ const tokenGetClaims = (token?: string): object => {
 
 export const loginUser: ThunkActionCreator = (values, search) => async (dispatch) => {
   try {
-    if (!values.email || values.email === '') {
-      throw new Error('An email is required!');
-    } else if (!values.password || values.password === '') {
-      throw new Error('A password is required!');
-    }
-
     const response = await fetch(Config.API_URL + Config.routes.auth.login, {
       method: 'POST',
       headers: {
