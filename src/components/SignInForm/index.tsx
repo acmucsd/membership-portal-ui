@@ -47,7 +47,6 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <p className="form-error">{errors.email ? errors.email : null}</p>
         </div>
         <div className="form-item">
           <div className="form-input">
@@ -64,7 +63,6 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <p className="form-error">{errors.password ? errors.password : null}</p>
         </div>
         <div className="forgot-container">
           <NavLink to="/forgot-password">
