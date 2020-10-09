@@ -15,14 +15,10 @@ interface SignInFormProps {
     password: string;
   };
   search: string;
-  errors: {
-    email: string | null;
-    password: string | null;
-  };
 }
 
 const SignInForm: React.FC<SignInFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, values, search, errors } = props;
+  const { handleBlur, handleChange, handleSubmit, values, search } = props;
 
   return (
     <div className="signin-card">
