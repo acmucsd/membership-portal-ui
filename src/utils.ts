@@ -53,6 +53,10 @@ export const getRank = (points: number): string => {
     'Binary Baguette',
     'Blessed Boba',
     'Super Snu',
+    'Soon(TM)',
+    'Later(TM)',
+    'Sometime(TM)',
+    'We Ran Out Of Ranks',
   ];
   const index = Math.min(ranks.length, Math.floor(points / 100));
   return ranks[index];
