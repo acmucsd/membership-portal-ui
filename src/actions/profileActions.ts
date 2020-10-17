@@ -35,22 +35,19 @@ export const updateProfile: ThunkActionCreator = (values) => async (dispatch) =>
   }
 };
 
-export const uploadUserImage = async (file: string | Blob, uuid: string) => {
+export const uploadUserImage = async (file: string | Blob) => {
   return new Promise(async (resolve, reject) => {
     try {
       const formdata = new FormData();
       formdata.append('image', file);
-      const response = await fetch(
-        `${Config.API_URL + Config.routes.user.profilepicture}/${uuid}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${Storage.get('token')}`,
-          },
-          body: formdata,
+      const response = await fetch(`${Config.API_URL + Config.routes.user.profilepicture}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
         },
-      );
+        body: formdata,
+      });
 
       const status = await response.status;
       if (status === 401 || status === 403) {

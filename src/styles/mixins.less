@@ -11,3 +11,12 @@
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.button-hover() {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.85;
+    transform: translateY(-1px);
+    transition: 200ms;
+  }
+}

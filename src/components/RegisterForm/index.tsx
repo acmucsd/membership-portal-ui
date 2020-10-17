@@ -1,9 +1,14 @@
 import React, { ChangeEventHandler, FormEventHandler, FocusEventHandler } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Select } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
-import logo from '../../assets/graphics/logo.svg';
+
+import NameIcon from '../../assets/icons/name-icon.svg';
+import EmailIcon from '../../assets/icons/email-icon.svg';
+import PasswordIcon from '../../assets/icons/password-icon.svg';
+import MajorIcon from '../../assets/icons/major-icon.svg';
+import YearIcon from '../../assets/icons/year-icon.svg';
 
 import majorsData from './majors.json';
 
@@ -26,72 +31,119 @@ interface RegisterFormProps {
     graduationYear: number;
   };
   search: string;
+  errors: {
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    password: string | null;
+    confirmpassword: string | null;
+    major: string | null;
+  };
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, values, search } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, values, search, errors } = props;
 
   return (
-    <div className="registercard">
-      <div className="formcontent">
-        <img src={logo} alt="logo" height="115" width="115" />
-        <h1>Register for ACM@UCSD</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="horizontalitems">
-            <Form.Item label="First Name" className="formitems">
-              <Input
-                name="firstName"
-                className="firstname"
-                value={values.firstName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
-            <Form.Item label="Last Name" className="formitems">
-              <Input
-                name="lastName"
-                className="lastname"
-                value={values.lastName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
+    <div className="signup-card">
+      <h2 className="title">
+        Become a
+        <br />
+        Member
+      </h2>
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={NameIcon} alt="Name Icon" />
+            </div>
+            <input
+              name="firstName"
+              className="input-box"
+              placeholder="First name"
+              value={values.firstName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
           </div>
-          <Form.Item label="Email (user@ucsd.edu)" className="formitems">
-            <Input
+          <p className="form-error">{errors.firstName ? errors.firstName : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={NameIcon} alt="Name Icon" />
+            </div>
+            <input
+              name="lastName"
+              className="input-box"
+              placeholder="Last name"
+              value={values.lastName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <p className="form-error">{errors.lastName ? errors.lastName : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={EmailIcon} alt="Email Icon" />
+            </div>
+            <input
               name="email"
               type="email"
               className="input-box"
+              placeholder="UCSD Email"
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-          </Form.Item>
-          <Form.Item label="Password" className="formitems">
-            <Input
+          </div>
+          <p className="form-error">{errors.email ? errors.email : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={PasswordIcon} alt="Password Icon" />
+            </div>
+            <input
               name="password"
               type="password"
               className="input-box"
+              placeholder="Password"
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-          </Form.Item>
-          <Form.Item label="Confirm password" className="formitems">
-            <Input
+          </div>
+          <p className="form-error">{errors.password ? errors.password : null}</p>
+        </div>
+        <div className="form-item">
+          <div className="form-input">
+            <div className="icon-container">
+              <img className="icon" src={PasswordIcon} alt="Password Icon" />
+            </div>
+            <input
               name="confirmpassword"
               type="password"
               className="input-box"
+              placeholder="Confirm password"
               value={values.confirmpassword}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-          </Form.Item>
-          <div className="horizontalitems">
-            <Form.Item label="Major" className="formitems">
+          </div>
+          <p className="form-error">{errors.confirmpassword ? errors.confirmpassword : null}</p>
+        </div>
+        <div className="horizontalitems">
+          <div className="form-item">
+            <div className="form-input major">
+              <div className="icon-container">
+                <img className="icon" src={MajorIcon} alt="Major Icon" />
+              </div>
               <Select
+                className="input-box"
                 showSearch
-                className="major"
                 value={values.major}
                 onChange={(value: string) => setFieldValue('major', value)}
                 onBlur={(value: string) => setFieldValue('major', value)}
@@ -102,12 +154,16 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                   </Option>
                 ))}
               </Select>
-            </Form.Item>
+            </div>
+            <p className="form-error">{errors.major ? errors.major : null}</p>
           </div>
-          <div className="horizontalitems">
-            <Form.Item label="Year" className="formitems">
+          <div className="form-item">
+            <div className="form-input year">
+              <div className="icon-container">
+                <img className="icon" src={YearIcon} alt="Year Icon" />
+              </div>
               <Select
-                className="year"
+                className="input-box"
                 onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
                 onChange={(value: string | number) => setFieldValue('graduationYear', value)}
                 value={values.graduationYear}
@@ -118,20 +174,18 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                   </Option>
                 ))}
               </Select>
-            </Form.Item>
+            </div>
           </div>
-          <Form.Item className="register">
-            <Button type="primary" htmlType="submit" className="register-button">
-              Register
-            </Button>
-          </Form.Item>
-          <NavLink to={`/login${search}`}>
-            <p>
-              Already have an account? <b>Sign in.</b>
-            </p>
-          </NavLink>
-        </form>
-      </div>
+        </div>
+        <button className="sign-up" type="submit">
+          Sign Up
+        </button>
+        <NavLink to={`/login${search}`}>
+          <p className="login">
+            Already have an account? <b>Sign in.</b>
+          </p>
+        </NavLink>
+      </form>
     </div>
   );
 };

@@ -1,87 +1,111 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
-.registercard {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  display: flex;
-  font-family: 'Roboto';
-  height: @register-height;
-  justify-content: center;
-  text-align: center;
-  width: @db-card-width;
+.signup-card {
+  padding-top: 64px;
 
-  label {
-    color: @white;
-    font-family: 'Nunito';
+  .title {
+    color: @black;
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0;
+    text-align: center;
   }
 
-  h1 {
-    color: @white;
-    font-family: 'Nunito';
-    font-size: @sign-in-heading;
-    margin: 24px 0 12px 0;
-  }
-
-  p {
-    color: @white;
-    font-size: @sign-in-paragraph;
-    margin-bottom: 24px;
-    text-align: left;
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
-
-  .ant-form-item-label {
-    line-height: 30px;
-  }
-
-  .formitems {
-    margin-bottom: 0;
-    margin-top: 10px;
-    text-align: left;
-  }
-
-  .horizontalitems {
+  .form {
     display: flex;
-    justify-content: space-between;
-    text-align: left;
-    width: @button-width;
+    flex-direction: column;
 
-    .firstname {
-      width: 140px;
+    .horizontalitems {
+      display: flex;
+      justify-content: space-between;
     }
 
-    .lastname {
-      width: 110px;
+    .form-item {
+      .form-input {
+        border-bottom: 1px solid @black;
+        display: flex;
+        height: 28px;
+        width: 300px;
+
+        .icon-container {
+          align-items: center;
+          display: flex;
+          flex-shrink: 0;
+          justify-content: center;
+          width: 40px;
+        }
+
+        .input-box {
+          border: none;
+          flex-grow: 1;
+          font-size: 16px;
+        }
+
+        &.major {
+          width: 170px;
+
+          .input-box {
+            width: 110px;
+          }
+        }
+
+        &.major {
+          width: 192px;
+          .input-box {
+            width: 80px;
+          }
+
+          .ant-select-selection {
+            border: none;
+            height: 27px;
+          }
+        }
+        &.year {
+          width: 108px;
+
+          .input-box {
+            width: 80px;
+          }
+
+          .ant-select-selection {
+            border: none;
+            height: 27px;
+          }
+        }
+      }
+
+      .form-error {
+        color: #f66;
+        height: 20px;
+      }
     }
 
-    .major {
-      width: @button-width;
-    }
+    .sign-up {
+      .button-hover();
 
-    .year {
-      width: 80px;
-    }
-  }
-
-  .input-box {
-    height: @button-height-2;
-    width: @button-width;
-  }
-
-  .register {
-    margin: 19px 0;
-
-    .register-button {
-      background-color: @blue-1;
+      background-color: #62b0ff;
       border: none;
-      font-family: 'Nunito';
-      height: @button-height;
-      width: @button-width;
+      border-radius: 100px;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      height: 40px;
+      margin-bottom: 20px;
+      width: 300px;
+    }
+
+    .login {
+      color: @black;
+      font-size: 16px;
+      margin-bottom: 25px;
+      margin-top: -5px;
+      text-align: center;
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
   }
 }

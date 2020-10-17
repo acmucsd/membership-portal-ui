@@ -1,49 +1,54 @@
 @import '../../styles/fonts.less';
 @import '../../styles/vars.less';
+@import '../../styles/mixins.less';
 
-.passwordcard {
-  align-items: center;
-  background: @blue-2;
-  border-radius: 10px;
-  color: @white;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Nunito', sans-serif;
-  height: @password-height;
-  justify-content: center;
-  width: @sign-in-width;
+.password-card {
+  padding-top: 64px;
 
-  h1 {
-    color: @white;
-    font-size: @card-heading-2;
-    margin-top: 24px;
+  .title {
+    color: @black;
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0;
+    text-align: center;
   }
 
-  label {
-    color: @white;
-    font-family: 'Nunito';
-    font-size: @general-body;
+  .form {
+    display: flex;
+    flex-direction: column;
   }
 
-  .logo {
-    height: 115px;
-    margin-bottom: 10px;
-    width: 115px;
+  .email-container {
+    position: relative;
+
+    .icon {
+      left: 8px;
+      position: absolute;
+      top: 6.5px;
+    }
+
+    .input-box {
+      border: none;
+      border-bottom: 1px solid @black;
+      font-size: 16px;
+      height: 28px;
+      margin-bottom: 20px;
+      padding-left: 34px;
+      width: 300px;
+    }
   }
 
-  .input-box {
-    height: @button-height-2;
-    margin-right: 10px;
-    width: 200px;
-  }
+  .submit {
+    .button-hover();
 
-  .password-reset {
-    background-color: @blue-1;
-    border: 2px solid @blue-2;
-    color: @white;
+    background-color: #62b0ff;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
     height: 40px;
-    min-width: 100px;
-    padding: 6px 11px;
-    width: calc(100% - 220px);
+    margin-bottom: 20px;
+    width: 300px;
   }
 }

@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
-import { Button, Form, Input } from 'antd';
+
+import password from '../../assets/icons/password-icon.svg';
 
 import './style.less';
-import logo from '../../assets/graphics/logo.svg';
 
 interface PasswordFormProps {
   conPass: string;
@@ -17,11 +17,16 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
   const { conPass, newPass, handleConChange, handleNewChange, onKeyPress, onSubmit } = props;
 
   return (
-    <div className="resetcard">
-      <img src={logo} className="logo" alt="logo" />
+    <div className="reset-card">
+      <h2 className="title">
+        Reset
+        <br />
+        Password
+      </h2>
       <form>
-        <Form.Item className="password" label="Reset your password">
-          <Input
+        <div className="password-container">
+          <img className="icon" alt="" src={password} />
+          <input
             name="newPassword"
             type="password"
             placeholder="Password"
@@ -29,9 +34,10 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
             value={newPass}
             onChange={handleNewChange}
           />
-        </Form.Item>
-        <Form.Item className="password">
-          <Input
+        </div>
+        <div className="password-container">
+          <img className="icon" alt="" src={password} />
+          <input
             name="confirmPassword"
             type="password"
             placeholder="Confirm Password"
@@ -40,12 +46,10 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
             onChange={handleConChange}
             onKeyPress={onKeyPress}
           />
-        </Form.Item>
-        <Form.Item>
-          <Button onClick={onSubmit} type="primary" htmlType="submit" className="login-button">
-            Submit
-          </Button>
-        </Form.Item>
+        </div>
+        <button onClick={onSubmit} type="submit" className="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

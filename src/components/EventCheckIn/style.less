@@ -2,10 +2,9 @@
 @import '../../styles/vars.less';
 
 .checkin-card {
-  background-color: @blue-3;
+  border: 2px solid @blue-5;
   border-radius: 10px;
   display: flex;
-  font-family: 'Nunito', sans-serif;
   height: @db-card-height;
   justify-content: center;
   margin: 0;
@@ -22,7 +21,7 @@
   }
 
   h1 {
-    color: @white;
+    color: #555;
     font-size: @card-heading-1;
     font-weight: 700;
     margin: 20px 0;
@@ -36,7 +35,7 @@
     }
 
     .input {
-      border: none;
+      border: 1px solid #555;
       color: @blue-3;
       margin-right: 20px;
       max-width: 200px;
@@ -44,8 +43,8 @@
     }
 
     .submit {
-      background-color: @blue-1;
-      border: 2px solid @blue-2;
+      background-color: @blue-5;
+      border: 2px solid #518bd0;
       color: @white;
       height: 40px;
       min-width: 100px;

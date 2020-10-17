@@ -4,9 +4,11 @@ import SignInForm from './SignInForm';
 
 const LoginPage: React.FC = () => {
   return (
-    <LoginLayout>
-      <SignInForm />
-    </LoginLayout>
+    <>
+      <LoginLayout>
+        <SignInForm />
+      </LoginLayout>
+    </>
   );
 };
 

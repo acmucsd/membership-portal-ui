@@ -6,7 +6,8 @@ import React, {
   ChangeEventHandler,
   FormEventHandler,
 } from 'react';
-import { Form, Input, Button, Select, Modal, Upload, Avatar } from 'antd';
+import { Form, Input, Button, Select, Modal, Avatar } from 'antd';
+import * as ANTD from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { getDefaultProfile } from '../../utils';
 import { uploadUserImage } from '../../actions/profileActions';
@@ -80,7 +81,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
     setUploadState('uploading');
-    uploadUserImage(fileList[0].originFileObj, user.profile.uuid)
+    uploadUserImage(fileList[0].originFileObj)
       .then(() => {
         setUploadState('none');
         setVisible(false);
@@ -96,15 +97,15 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     });
   }, [user]);
 
-  const InnerRefButton = Button as React.ComponentClass<any>;
-  const CustomSelect = Select as React.ComponentClass<any>;
-  const CustomUpload = Upload as React.ComponentClass<any>;
+  const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
+  const CustomSelect = ANTD.Select as React.ComponentClass<any>;
+  const CustomUpload = ANTD.Upload as React.ComponentClass<any>;
 
   return (
     <div className="update-card">
       <div className="updatecontent">
         <h1 className="title">Profile</h1>
-        <Avatar size={155} src={bg} className="avatar" />
+        <Avatar size={145} src={bg} className="avatar" />
         <br />
         <Button type="primary" className="upload-modal-button" onClick={showModal}>
           Change Profile Picture
@@ -200,7 +201,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
               />
             </Form.Item>
           </div>
-          <Form.Item label="Bio">
+          <Form.Item label="About">
             <TextArea
               name="bio"
               className="area-box"

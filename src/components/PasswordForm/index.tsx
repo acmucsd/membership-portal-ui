@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
-import { Form, Input, Button } from 'antd';
+
+import EmailIcon from '../../assets/icons/email-icon.svg';
 
 import './style.less';
-import logo from '../../assets/graphics/logo.svg';
 
 interface PasswordFormProps {
   handleClick: MouseEventHandler;
@@ -15,11 +15,16 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
   const { handleClick, onKeyPress, onChange, value } = props;
 
   return (
-    <div className="passwordcard">
-      <img src={logo} className="logo" alt="logo" />
-      <form>
-        <Form.Item className="email" label="Enter Email Here">
-          <Input
+    <div className="password-card">
+      <h2 className="title">
+        Reset
+        <br />
+        Password
+      </h2>
+      <form className="form">
+        <div className="email-container">
+          <img className="icon" alt="" src={EmailIcon} />
+          <input
             name="email"
             type="email"
             placeholder="Email (user@ucsd.edu)"
@@ -28,10 +33,10 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
             onKeyPress={onKeyPress}
             value={value}
           />
-          <Button type="primary" onClick={handleClick} className="password-reset">
-            Submit
-          </Button>
-        </Form.Item>
+        </div>
+        <button className="submit" type="submit" onClick={handleClick}>
+          Submit
+        </button>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
-import logo from '../../assets/graphics/logo.svg';
+import logo from '../../assets/graphics/logo.png';
 
 const AuthenticateCard: React.FC = () => {
   return (
