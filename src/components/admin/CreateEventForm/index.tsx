@@ -63,6 +63,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
               className="committee-box"
               size="large"
               optionFilterProp="children"
+              value={values.committee}
               onChange={(value: string) => setFieldValue('committee', value)}
               onBlur={() => setFieldTouched('committee', true)}
               filterOption={(input, option) => {
