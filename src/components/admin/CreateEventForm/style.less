@@ -74,17 +74,15 @@
   }
 
   .horizontal-input {
+    display: flex;
+    justify-content: space-between;
+
     .ant-select-selection--single {
       .input-style;
 
       align-items: center;
       display: flex;
       justify-content: center;
-    }
-
-    > * {
-      display: inline-block;
-      margin-right: 20px;
     }
 
     .location-wrapper {
@@ -99,67 +97,35 @@
     }
 
     .points-wrapper {
-      width: 20%;
+      width: 30%;
 
       .points {
         .input-style;
       }
     }
 
-    .year-wrapper {
-      min-width: 84px;
-      width: 10%;
+    .date-wrapper {
+      width: 45%;
 
-      .year {
-        .input-style;
+      .date {
+        width: 100%;
+
+        .ant-calendar-picker-input {
+          .input-style;
+        }
       }
     }
 
-    .month-wrapper {
-      min-width: px;
-      width: 30%;
+    .time-wrapper {
+      width: 45%;
 
-      .month {
-        .input-style;
+      .time {
+          width: 100%;
 
-        height: @profile-input-height;
-        vertical-align: top;
+          .ant-time-picker-input {
+            .input-style;
+          }
       }
-    }
-
-    .day-wrapper {
-      width: @form-dropdown-width;
-
-      .day {
-        .input-style;
-      }
-    }
-  }
-
-  .time-input {
-    display: flex;
-    justify-content: space-between;
-
-    .ant-select-selection--single {
-      .input-style;
-
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
-
-    > * {
-      width: 50%;
-    }
-
-    .time {
-      margin-right: 20px;
-      width: @form-dropdown-width;
-    }
-
-    .ampm {
-      margin-right: 20px;
-      width: @form-dropdown-width;
     }
   }
 

@@ -98,12 +98,14 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
               <DatePicker
+                className="date"
                 value={values.startDate}
                 onChange={(date) => setFieldValue('startDate', date)}
               />
             </Form.Item>
             <Form.Item className="time-wrapper" label="Start Time">
               <TimePicker
+                className="time"
                 use12Hours
                 format="h:mm a"
                 minuteStep={15}
@@ -115,12 +117,14 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="End Date">
               <DatePicker
+                className="date"
                 value={values.endDate}
                 onChange={(date) => setFieldValue('endDate', date)}
               />
             </Form.Item>
             <Form.Item className="time-wrapper" label="End Time">
               <TimePicker
+                className="time"
                 use12Hours
                 format="h:mm a"
                 minuteStep={15}
