@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
-import EditEventform from '../../components/EditEventForm';
+import EditEventform from '../../components/admin/EditEventForm';
 import { editEvent, deleteEvent, copyLink } from '../../actions/adminActions';
 
 const FormikEditEventForm = withFormik({

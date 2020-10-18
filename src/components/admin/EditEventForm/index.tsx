@@ -2,7 +2,7 @@ import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandl
 import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
 import * as moment from 'moment';
-import { notify } from '../../utils';
+import { notify } from '../../../utils';
 
 import './style.less';
 
