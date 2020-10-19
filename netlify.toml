@@ -4,6 +4,8 @@
 [context.deploy-preview]
   publish = "build/"
   command = "CI=false npm run build:dev"
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
 [context.branch-deploy]
   command = "CI=false npm run build:dev"
 [context.branch-deploy.environment]
