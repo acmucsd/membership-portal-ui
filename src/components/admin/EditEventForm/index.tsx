@@ -1,37 +1,15 @@
 import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
-import { notify } from '../../utils';
+import * as moment from 'moment';
+import { notify } from '../../../utils';
 
 import './style.less';
 
 const { Option } = Select;
 const { TextArea } = Input;
 
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-const days: number[] = [];
-for (let i = 1; i <= 31; i += 1) {
-  days.push(i);
-}
-
-const hours: number[] = [];
-for (let i = 1; i <= 12; i += 1) {
-  hours.push(i);
-}
+const suborgs = ['General', 'AI', 'Cyber', 'Design', 'Hack', 'Innovate'];
 
 interface EventProp {
   start: string;
@@ -87,42 +65,28 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
         'title',
         'location',
         'pointValue',
-        ' startTime',
-        ' startAm',
-        'endTime',
-        'month',
-        'day',
+        'start',
+        'end',
         'cover',
         'description',
         'attendanceCode',
-        'year',
         'committee',
       ];
       keys.forEach((key) => {
-        setFieldValue(key, event[key]);
+        switch (key) {
+          case 'start':
+            setFieldValue('startDate', moment.default(event.start));
+            setFieldValue('startTime', moment.default(event.start));
+            break;
+          case 'end':
+            setFieldValue('endDate', moment.default(event.end));
+            setFieldValue('endTime', moment.default(event.end));
+            break;
+          default:
+            setFieldValue(key, event[key]);
+            break;
+        }
       });
-      if (event.start) {
-        const start = new Date(event.start);
-        setFieldValue('year', start.getFullYear());
-        setFieldValue('month', months[start.getMonth()]);
-
-        let half = 'AM';
-        if (start.getHours() >= 12) {
-          half = 'PM';
-        }
-        setFieldValue('startTime', start.getHours() % 12);
-        setFieldValue('startAm', half);
-        setFieldValue('day', start.getDate());
-      }
-      if (event.end) {
-        const end = new Date(event.end);
-        let half = 'AM';
-        if (end.getHours() >= 12) {
-          half = 'PM';
-        }
-        setFieldValue('endTime', end.getHours() % 12);
-        setFieldValue('endAm', half);
-      }
     }
   }, [event]);
 
@@ -141,14 +105,24 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
               onBlur={handleBlur}
             />
           </Form.Item>
-          <Form.Item label="Committee">
-            <Input
-              name="committee"
-              className="input-box"
+          <Form.Item className="committee-wrapper" label="Community">
+            <Select
+              showSearch
+              className="committee-box"
+              size="large"
+              optionFilterProp="children"
               value={values.committee}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+              onChange={(value: string) => setFieldValue('committee', value)}
+              onBlur={() => setFieldTouched('committee', true)}
+              filterOption={(input, option) => {
+                const suborg: string = option.props.children as string;
+                return suborg.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+              }}
+            >
+              {suborgs.map((suborg) => (
+                <Option value={`${suborg}`}>{suborg}</Option>
+              ))}
+            </Select>
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
@@ -171,90 +145,41 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
             </Form.Item>
           </div>
           <div className="horizontal-input">
-            <Form.Item className="year-wrapper" label="Year">
-              <Input
-                name="year"
-                className="year"
-                value={values.year}
-                onChange={handleChange}
-                onBlur={handleBlur}
+            <Form.Item className="date-wrapper" label="Start Date">
+              <DatePicker
+                className="date"
+                value={values.startDate}
+                onChange={(date) => setFieldValue('startDate', date)}
               />
             </Form.Item>
-            <Form.Item className="month-wrapper" label="Month">
-              <Select
-                className="months"
-                onChange={(value: string) => setFieldValue('month', value)}
-                onBlur={() => setFieldTouched('month', true)}
-                value={values.month}
-              >
-                {months.map((month) => (
-                  <Option key={`month-${month}`} value={month}>
-                    {month}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-            <Form.Item className="day-wrapper" label="Day">
-              <Select
-                className="days"
-                onChange={(value: string) => setFieldValue('day', value)}
-                onBlur={() => setFieldTouched('day', true)}
-                value={values.day}
-              >
-                {days.map((day) => (
-                  <Option key={`day-${day}`} value={day}>
-                    {day}
-                  </Option>
-                ))}
-              </Select>
+            <Form.Item className="time-wrapper" label="Start Time">
+              <TimePicker
+                className="time"
+                use12Hours
+                format="h:mm a"
+                minuteStep={15}
+                value={values.startTime}
+                onChange={(time) => setFieldValue('startTime', time)}
+              />
             </Form.Item>
           </div>
-          <div className="time-input">
-            <Form.Item className="start-time" label="Start Time">
-              <Select
-                className="time"
-                onChange={(value: string) => setFieldValue('startTime', value)}
-                onBlur={() => setFieldTouched('startTime', true)}
-                value={values.startTime}
-              >
-                {hours.map((hour) => (
-                  <Option key={`start-${hour}`} value={hour}>
-                    {hour}
-                  </Option>
-                ))}
-              </Select>
-              <Select
-                className="ampm"
-                onChange={(value: string) => setFieldValue('startAm', value)}
-                onBlur={() => setFieldTouched('startAm', true)}
-                value={values.startAm}
-              >
-                <Option value="AM">AM</Option>
-                <Option value="PM">PM</Option>
-              </Select>
+          <div className="horizontal-input">
+            <Form.Item className="date-wrapper" label="End Date">
+              <DatePicker
+                className="date"
+                value={values.endDate}
+                onChange={(date) => setFieldValue('endDate', date)}
+              />
             </Form.Item>
-            <Form.Item className="end-time" label="End Time">
-              <Select
+            <Form.Item className="time-wrapper" label="End Time">
+              <TimePicker
                 className="time"
-                onChange={(value: string) => setFieldValue('endTime', value)}
-                onBlur={() => setFieldTouched('endTime', true)}
+                use12Hours
+                format="h:mm a"
+                minuteStep={15}
                 value={values.endTime}
-              >
-                {hours.map((hour) => (
-                  <Option key={`end-${hour}`} value={hour}>
-                    {hour}
-                  </Option>
-                ))}
-              </Select>
-              <Select
-                className="ampm"
-                onChange={(value: string) => setFieldValue('endAm', value)}
-                onBlur={() => setFieldTouched('endAm', true)}
-                value={values.endAm}
-              >
-                <Option value="AM">AM</Option>
-                <Option value="PM">PM</Option>
-              </Select>
+                onChange={(time) => setFieldValue('endTime', time)}
+              />
             </Form.Item>
           </div>
           <Form.Item label="Cover Link">

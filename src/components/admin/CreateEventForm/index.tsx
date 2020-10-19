@@ -1,35 +1,11 @@
 import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
+import * as moment from 'moment';
 
 import './style.less';
 
 const { Option } = Select;
 const { TextArea } = Input;
-
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-const days: number[] = [];
-for (let i = 1; i <= 31; i += 1) {
-  days.push(i);
-}
-
-const hours: number[] = [];
-for (let i = 1; i <= 12; i += 1) {
-  hours.push(i);
-}
 
 const suborgs = ['General', 'AI', 'Cyber', 'Design', 'Hack', 'Innovate'];
 
@@ -44,13 +20,10 @@ interface CreateEventFormProps {
     committee: string;
     location: string;
     pointValue: string;
-    year: string;
-    month: string;
-    day: string;
-    startTime: string;
-    startAm: string;
-    endTime: string;
-    endAm: string;
+    startDate: moment.Moment;
+    startTime: moment.Moment;
+    endDate: moment.Moment;
+    endTime: moment.Moment;
     cover: string;
     attendanceCode: string;
     description: string;
@@ -90,6 +63,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
               className="committee-box"
               size="large"
               optionFilterProp="children"
+              value={values.committee}
               onChange={(value: string) => setFieldValue('committee', value)}
               onBlur={() => setFieldTouched('committee', true)}
               filterOption={(input, option) => {
@@ -123,90 +97,41 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
             </Form.Item>
           </div>
           <div className="horizontal-input">
-            <Form.Item className="year-wrapper" label="Year">
-              <Input
-                name="year"
-                className="year"
-                value={values.year}
-                onChange={handleChange}
-                onBlur={handleBlur}
+            <Form.Item className="date-wrapper" label="Start Date">
+              <DatePicker
+                className="date"
+                value={values.startDate}
+                onChange={(date) => setFieldValue('startDate', date)}
               />
             </Form.Item>
-            <Form.Item className="month-wrapper" label="Month">
-              <Select
-                className="months"
-                onChange={(value: string) => setFieldValue('month', value)}
-                onBlur={() => setFieldTouched('month', true)}
-                value={values.month}
-              >
-                {months.map((month) => (
-                  <Option key={`month-${month}`} value={month}>
-                    {month}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-            <Form.Item className="day-wrapper" label="Day">
-              <Select
-                className="days"
-                onChange={(value: string) => setFieldValue('day', value)}
-                onBlur={() => setFieldTouched('day', true)}
-                value={values.day}
-              >
-                {days.map((day) => (
-                  <Option key={`day-${day}`} value={day}>
-                    {day}
-                  </Option>
-                ))}
-              </Select>
+            <Form.Item className="time-wrapper" label="Start Time">
+              <TimePicker
+                className="time"
+                use12Hours
+                format="h:mm a"
+                minuteStep={15}
+                value={values.startTime}
+                onChange={(time) => setFieldValue('startTime', time)}
+              />
             </Form.Item>
           </div>
-          <div className="time-input">
-            <Form.Item className="start-time" label="Start Time">
-              <Select
-                className="time"
-                onChange={(value: string) => setFieldValue('startTime', value)}
-                onBlur={() => setFieldTouched('startTime', true)}
-                value={values.startTime}
-              >
-                {hours.map((hour) => (
-                  <Option key={`start-${hour}`} value={hour}>
-                    {hour}
-                  </Option>
-                ))}
-              </Select>
-              <Select
-                className="ampm"
-                onChange={(value: string) => setFieldValue('startAm', value)}
-                onBlur={() => setFieldTouched('startAm', true)}
-                value={values.startAm}
-              >
-                <Option value="AM">AM</Option>
-                <Option value="PM">PM</Option>
-              </Select>
+          <div className="horizontal-input">
+            <Form.Item className="date-wrapper" label="End Date">
+              <DatePicker
+                className="date"
+                value={values.endDate}
+                onChange={(date) => setFieldValue('endDate', date)}
+              />
             </Form.Item>
-            <Form.Item className="end-time" label="End Time">
-              <Select
+            <Form.Item className="time-wrapper" label="End Time">
+              <TimePicker
                 className="time"
-                onChange={(value: string) => setFieldValue('endTime', value)}
-                onBlur={() => setFieldTouched('endTime', true)}
+                use12Hours
+                format="h:mm a"
+                minuteStep={15}
                 value={values.endTime}
-              >
-                {hours.map((hour) => (
-                  <Option key={`end-${hour}`} value={hour}>
-                    {hour}
-                  </Option>
-                ))}
-              </Select>
-              <Select
-                className="ampm"
-                onChange={(value: string) => setFieldValue('endAm', value)}
-                onBlur={() => setFieldTouched('endAm', true)}
-                value={values.endAm}
-              >
-                <Option value="AM">AM</Option>
-                <Option value="PM">PM</Option>
-              </Select>
+                onChange={(time) => setFieldValue('endTime', time)}
+              />
             </Form.Item>
           </div>
           <Form.Item label="Cover Link">
