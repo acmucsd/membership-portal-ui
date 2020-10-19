@@ -32,7 +32,7 @@ const AboutPage: React.FC = () => {
           <Icon component={IgIcon} className="icon" />
           instagram.com/acm.ucsd
         </a>
-        <a href="https://discordapp.com/invite/mK9Zrf4d">
+        <a href="https://acmurl.com/discord">
           <Icon component={DiscordIcon} className="icon" />
           Discord
         </a>
