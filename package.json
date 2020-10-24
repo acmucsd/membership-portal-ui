@@ -1,6 +1,6 @@
 {
   "name": "membership-portal-ui",
-  "version": "1.4.0",
+  "version": "1.0.0",
   "private": true,
   "proxy": "https://acmucsd-membership-portal-api.herokuapp.com",
   "dependencies": {
@@ -49,8 +49,16 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
