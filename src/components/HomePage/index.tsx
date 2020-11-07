@@ -14,10 +14,8 @@ const HomePage: React.FC = () => {
         <ProfileCard />
         <EventCheckIn />
       </div>
-      <hr className="border" />
       <h1 className="subtitle">Upcoming Events</h1>
       <UpcomingEvents />
-      <hr className="border spaced" />
       <h1 className="subtitle">Past Events</h1>
       <PastEvents />
     </div>

@@ -27,8 +27,10 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
       <CheckInModal />
       <div className="header">
         <NavLink className="title" to="/">
-          <img alt="ACM" id="logo" src={logo} />
-          <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
+          <div className="subheading-container">
+            <img alt="ACM" id="logo" src={logo} />
+            <span className={isMobile ? 'hidden' : 'subheading'}>&nbsp;Membership Portal</span>
+          </div>
         </NavLink>
         <div className="profile">
           <NavProfile menu={<NavDropdown />} />
