@@ -1,9 +1,11 @@
 import { notification } from 'antd';
+import { ReactNode } from 'react';
 
-export const notify = (title: string, description: string) => {
+export const notify = (title: string, description: string | ReactNode, duration: number = 4.5) => {
   notification.open({
     message: title,
     description,
+    duration,
   });
 };
 
