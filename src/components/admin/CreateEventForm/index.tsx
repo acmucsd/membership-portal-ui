@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
-import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
 import * as moment from 'moment';
 
 import './style.less';
@@ -134,14 +134,18 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
               />
             </Form.Item>
           </div>
-          <Form.Item label="Cover Link">
-            <Input
+          <Form.Item className="cover-wrapper" label="Cover Link">
+            <Upload
               name="cover"
-              className="input-box"
-              value={values.cover}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+              className="cover"
+              accept="image/*"
+              listType="picture"
+              customRequest={(options) => {
+                setFieldValue('cover', options.file);
+              }}
+            >
+              <Button>Click to upload</Button>
+            </Upload>
           </Form.Item>
           <Form.Item label="Attendance Code">
             <Input

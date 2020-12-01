@@ -29,6 +29,30 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
       if (!data) throw new Error('Empty response from server');
       if (data.error) throw new Error(data.error.message);
 
+      const formdata = new FormData();
+      formdata.append('image', event.cover);
+
+      const response2 = await fetch(
+        `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${Storage.get('token')}`,
+          },
+          body: formdata,
+        },
+      );
+
+      const { status: status2 } = response2;
+      if (status2 === 401 || status2 === 403) {
+        dispatch(logoutUser());
+      }
+
+      const data2 = await response2.json();
+      if (!data2) throw new Error('Empty response from server');
+      if (data2.error) throw new Error(data2.error.message);
+
       notify('Added an event!', event.title);
       resolve(event);
     } catch (error) {
