@@ -1,5 +1,5 @@
 import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
-import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
 import * as moment from 'moment';
 import { notify } from '../../../utils';
@@ -182,14 +182,18 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
               />
             </Form.Item>
           </div>
-          <Form.Item label="Cover Link">
-            <Input
+          <Form.Item className="cover-wrapper" label="Cover Link">
+            <Upload
               name="cover"
-              className="input-box"
-              value={values.cover}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+              className="cover"
+              accept="image/*"
+              listType="picture"
+              customRequest={(options) => {
+                setFieldValue('cover', options.file);
+              }}
+            >
+              <Button>Click to upload</Button>
+            </Upload>
           </Form.Item>
           <Form.Item label="Attendance Code">
             <Input
