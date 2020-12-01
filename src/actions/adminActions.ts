@@ -45,6 +45,7 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
       );
 
       const { status: status2 } = response2;
+
       if (status2 === 401 || status2 === 403) {
         dispatch(logoutUser());
       }
@@ -101,6 +102,7 @@ export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
         );
 
         const { status: status2 } = response2;
+
         if (status2 === 401 || status2 === 403) {
           dispatch(logoutUser());
         }
