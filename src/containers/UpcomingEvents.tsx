@@ -12,7 +12,15 @@ interface UpcomingEventsContainerProps {
     {
       uuid: string;
       user: string;
-      event: string;
+      event: {
+        uuid: string;
+        cover: string;
+        description: string;
+        location: string;
+        pointValue: string;
+        title: string;
+        start: string;
+      };
     },
   ];
   auth: boolean;
@@ -46,7 +54,7 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
         const startTime = formatTime(event.start);
         const endTime = formatTime(event.end);
         const date = `${formatDate(event.start)}, ${startTime} - ${endTime}`;
-        const attended = attendance.some((attend) => attend.event === event.uuid);
+        const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
         return (
           <EventCard
             key={`upcoming-${event.uuid}`}
