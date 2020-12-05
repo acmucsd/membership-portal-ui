@@ -4,12 +4,17 @@ import { logoutUser } from './authActions';
 import Config from '../config';
 import Storage from '../storage';
 
-const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number) => async (
-  dispatch,
-) => {
+const fetchLeaderboard: ThunkActionCreator = (
+  offset: number = 0,
+  limit: number,
+  from?: number,
+  to?: number,
+) => async (dispatch) => {
   try {
     const response = await fetch(
-      `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`,
+      `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${
+        from ? `&from=${from}` : ''
+      }${to ? `&to=${to}` : ''}`,
       {
         method: 'GET',
         headers: {
