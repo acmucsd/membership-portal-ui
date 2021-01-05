@@ -1,4 +1,3 @@
-import React from 'react';
 import { replace } from 'connected-react-router';
 import {
   AUTH_ERROR,
@@ -55,21 +54,6 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
       type: AUTH_USER,
       isAdmin: userData.admin,
     });
-
-    notify(
-      'Get Counted at the ACM Census 2020',
-      React.createElement('div', null, [
-        'Please fill it out so we can get numbers to represent our demographics!',
-        React.createElement('br', null, null),
-        React.createElement('br', null, null),
-        React.createElement(
-          'a',
-          { href: 'https://acmurl.com/census', style: { color: '#0659bc' } },
-          'https://acmurl.com/census',
-        ),
-      ]),
-      0,
-    );
 
     // Redirect to home on login.
     if (search !== '') {
