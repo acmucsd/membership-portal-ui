@@ -51,6 +51,9 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const [timeframe, setTimeframe] = useState('All Time');
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
+  const earliestDate = 1560582000; // June 15, 2019 in epoch seconds
+  const yearInSeconds = 31536000;
+
   const hasMore = () => {
     return prevUserLength !== users.length;
   };
@@ -76,13 +79,13 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
     },
     {
       text: '2020-2021',
-      start: 1592204400, // June 15, 2020 in epoch seconds
-      end: 1623740400, // June 15, 2021 in epoch seconds
+      start: earliestDate + yearInSeconds,
+      end: earliestDate + yearInSeconds * 2,
     },
     {
       text: '2019-2020',
-      start: 1560582000, // June 15, 2019 in epoch seconds
-      end: 1592204400, // June 15, 2020 in epoch seconds
+      start: earliestDate,
+      end: earliestDate + yearInSeconds,
     },
   ];
 
