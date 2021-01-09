@@ -8,6 +8,7 @@ interface CheckInModalContainerProps {
   currentEvent: {
     cover: string;
     title: string;
+    pointValue: number;
   };
   visible: boolean;
   checkOut: Function;
@@ -17,8 +18,8 @@ const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
   const { currentEvent, visible } = props;
 
   const checkInMessage = `Checked in to ${currentEvent.title}!`;
-  // TODO: Add event name and points to this message.
-  const fullMessage = 'Thanks for checking in!';
+
+  const fullMessage = `Thanks for checking in! You earned ${currentEvent.pointValue} points.`;
 
   const hideMessage = () => {
     props.checkOut();
@@ -26,7 +27,7 @@ const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
 
   return (
     <ModalComponent
-      title={checkInMessage}
+      title={<div style={{ marginRight: 32 }}>{checkInMessage}</div>} // Prevents title and close button from overlapping
       image={currentEvent.cover}
       visible={visible}
       handleOk={hideMessage}
