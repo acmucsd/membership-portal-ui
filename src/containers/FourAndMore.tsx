@@ -103,7 +103,7 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
                 setStartTime(d.start);
                 setEndTime(d.end);
                 setPage(0);
-                props.fetchLeaderboard(3, LIMIT, d.start, d.end);
+                props.fetchLeaderboard(0, LIMIT + 3, d.start, d.end); // updates users for TopThree and FourAndMore
               }}
             >
               {d.text}
