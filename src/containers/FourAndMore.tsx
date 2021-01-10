@@ -51,7 +51,7 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const [timeframe, setTimeframe] = useState('All Time');
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const earliestDate = 1560582000; // June 15, 2019 in epoch seconds
+  const earliestDate = new Date('Jun 15, 2019').valueOf();
   const yearInSeconds = 31536000;
 
   const hasMore = () => {
