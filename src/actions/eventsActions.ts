@@ -73,8 +73,6 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
     if (!pastEvents) throw new Error('Empty response from server');
     else if (pastEvents.error) throw new Error(pastEvents.error.message);
 
-    pastEvents.events.reverse();
-
     dispatch({
       type: FETCH_PAST_EVENTS,
       payload: pastEvents.events,
