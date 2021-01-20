@@ -28,7 +28,7 @@ const FormikRegisterForm = withFormik({
       email: '',
       password: '',
       confirmpassword: '',
-      major: '',
+      major: undefined, // to trigger the select placeholder
       graduationYear: new Date().getFullYear(),
     };
   },
