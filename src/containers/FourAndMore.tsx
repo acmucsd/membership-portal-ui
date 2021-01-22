@@ -63,7 +63,9 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   }, [users]);
 
   const loadFunc = () => {
-    setPage(page + 1);
+    if (users.length > (page + 1) * LIMIT + 3) {
+      setPage(page + 1);
+    }
     if (startTime === 0 || endTime === 0) {
       props.fetchLeaderboard(page * LIMIT + 3, LIMIT);
     } else {
