@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { useParams } from 'react-router-dom';
-import EditEventPage from '../../components/EditEventPage';
+import EditEventPage from '../../components/admin/EditEventPage';
 import PageLayout from '../PageLayout';
 
 import { fetchEvent } from '../../actions/eventsActions';

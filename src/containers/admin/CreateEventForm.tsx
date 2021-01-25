@@ -2,10 +2,8 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import CreateEventForm from '../../components/admin/CreateEventForm';
-import { getMonthIndex } from '../../utils';
 import { postEvent, copyLink } from '../../actions/adminActions';
-
-const curYear = new Date().getFullYear();
+import { notify } from '../../utils';
 
 const FormikCreateEventForm = withFormik({
   mapPropsToValues() {
@@ -13,13 +11,10 @@ const FormikCreateEventForm = withFormik({
       title: '',
       location: '',
       pointValue: 0,
-      startTime: '',
-      startAm: '',
-      endTime: '',
-      endAm: '',
-      month: '',
-      day: 0,
-      year: curYear,
+      startDate: null,
+      startTime: null,
+      endDate: null,
+      endTime: null,
       cover: '',
       description: '',
       attendanceCode: '',
@@ -27,38 +22,75 @@ const FormikCreateEventForm = withFormik({
     };
   },
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
-    let { startTime } = values;
-    let { endTime } = values;
+    const { startDate, startTime, endDate, endTime } = values;
 
-    if (values.startTime === 12) {
-      startTime = 0;
+    if (values.title === '') {
+      notify('Event Creation Error', 'Title is required.');
+      return;
     }
-    if (values.startAm === 'PM') {
-      startTime += 12;
+
+    if (values.location === '') {
+      notify('Event Creation Error', 'Location is required.');
+      return;
     }
-    if (values.endTime === 12) {
-      endTime = 0;
+
+    if (values.pointValue === 0) {
+      notify('Event Creation Error', 'Points is required.');
+      return;
     }
-    if (values.endAm === 'PM') {
-      endTime += 12;
+
+    if (!startDate) {
+      notify('Event Creation Error', 'Start Date is required.');
+      return;
+    }
+
+    if (!startTime) {
+      notify('Event Creation Error', 'Start Time is required.');
+      return;
+    }
+
+    if (!endDate) {
+      notify('Event Creation Error', 'End Date is required.');
+      return;
+    }
+
+    if (!endTime) {
+      notify('Event Creation Error', 'End Time is required.');
+      return;
+    }
+
+    if (values.cover === '') {
+      notify('Event Creation Error', 'Cover is required.');
+      return;
+    }
+
+    if (values.description === '') {
+      notify('Event Creation Error', 'Description is required.');
+      return;
+    }
+
+    if (values.attendanceCode === '') {
+      notify('Event Creation Error', 'Attendance Code is required.');
+      return;
+    }
+
+    if (values.committee === '') {
+      notify('Event Creation Error', 'Community is required.');
+      return;
     }
 
     const event = {
       title: values.title,
       location: values.location,
       pointValue: values.pointValue,
-      start: new Date(
-        values.year,
-        getMonthIndex(values.month),
-        values.day,
-        startTime,
-      ).toISOString(),
-      end: new Date(values.year, getMonthIndex(values.month), values.day, endTime).toISOString(),
+      start: new Date(`${startDate.format('LL')} ${startTime.format('LT')}`).toISOString(),
+      end: new Date(`${endDate.format('LL')} ${endTime.format('LT')}`).toISOString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
       committee: values.committee,
     };
+
     props
       .postEvent(event)
       .then(() => {

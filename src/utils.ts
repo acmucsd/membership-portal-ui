@@ -53,8 +53,12 @@ export const getRank = (points: number): string => {
     'Binary Baguette',
     'Blessed Boba',
     'Super Snu',
+    'Soon(TM)',
+    'Later(TM)',
+    'Sometime(TM)',
+    'We Ran Out Of Ranks',
   ];
-  const index = Math.min(ranks.length, Math.floor(points / 100));
+  const index = Math.min(ranks.length - 1, Math.floor(points / 100));
   return ranks[index];
 };
 
@@ -133,10 +137,10 @@ export const getLevel = (points: number): number => {
 export const isURL = (str: string): boolean => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-z\\d_]*)?$', // fragment locator
     'i',
   );
