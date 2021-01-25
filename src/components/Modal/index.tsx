@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import './style.less';
 
 interface ModalComponentProps {
-  title: string;
+  title: React.ReactNode;
   image: string;
   visible: boolean;
   handleOk: MouseEventHandler;
