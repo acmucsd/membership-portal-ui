@@ -54,6 +54,7 @@ const App = () => {
             <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage) as React.FC} />
             <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage) as React.FC} />
             <Route exact path="/authenticate-email" component={AuthPage} />
+            <Route exact path="/bread" component={BreadPage} />
             <Route exact path="/checkin" component={requireAuth(CheckInHandler) as React.FC} />
             <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
             <Route exact path="/forgot-password" component={PasswordPage} />
@@ -67,9 +68,8 @@ const App = () => {
             <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
-            <Route exact path="/bread" component={BreadPage} />
-            <Route path="/" component={requireAuth(HomePage) as React.FC} />
-            <Route path="/" component={ErrorPage} />
+            <Route exact path="/" component={requireAuth(HomePage) as React.FC} />
+            <Route path="/" component={requireAuth(ErrorPage) as React.FC} />
           </Switch>
         </>
       </ConnectedRouter>
