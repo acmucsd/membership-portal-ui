@@ -47,7 +47,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   useEffect(() => {
     props.fetchPastEvents();
     props.fetchAttendance();
-  }, []);
+  }, [props]);
 
   return (
     <EventsList>

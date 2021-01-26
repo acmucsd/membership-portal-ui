@@ -95,7 +95,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     keys.forEach((key) => {
       setFieldValue(key, user.profile[key]);
     });
-  }, [user]);
+  }, [user, setFieldValue]);
 
   const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
   const CustomSelect = ANTD.Select as React.ComponentClass<any>;

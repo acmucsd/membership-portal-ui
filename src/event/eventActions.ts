@@ -3,9 +3,9 @@ import {
   EVENT_CHECKOUT,
   EVENT_ERROR,
   FETCH_ATTENDANCE,
+  FETCH_EVENT,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
-  FETCH_EVENT,
   ThunkActionCreator,
 } from './eventTypes';
 

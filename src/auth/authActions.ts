@@ -5,9 +5,9 @@ import {
   FETCH_USER,
   PASSWORD_FAIL,
   PASSWORD_SUCCESS,
-  UNAUTH_USER,
   REGISTER_FAIL,
   REGISTER_USER,
+  UNAUTH_USER,
   ThunkActionCreator,
 } from './authTypes';
 

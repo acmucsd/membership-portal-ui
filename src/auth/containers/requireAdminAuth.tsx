@@ -20,7 +20,7 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
         })
         .catch(() => {});
     }
-  }, []);
+  }, [props]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;

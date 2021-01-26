@@ -57,7 +57,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
 
   useEffect(() => {
     setFieldValue('uuid', params.uuid);
-  }, []);
+  }, [setFieldValue, params.uuid]);
 
   useEffect(() => {
     if (event) {
@@ -88,7 +88,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
         }
       });
     }
-  }, [event]);
+  }, [event, setFieldValue]);
 
   return (
     <div className="edit-event-form">

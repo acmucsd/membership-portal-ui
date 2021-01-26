@@ -8,24 +8,6 @@ export const notify = (title: string, description: string) => {
 };
 
 /**
- * Returns a randomly generated default profile picture.
- * @return {string} A link to a default profile picture.
- */
-export const generateDefaultProfile = (): string => {
-  const eyes = ['eyes1', 'eyes10', 'eyes2', 'eyes3', 'eyes4', 'eyes5', 'eyes6', 'eyes7', 'eyes9'];
-  const nose = ['nose2', 'nose3', 'nose4', 'nose5', 'nose6', 'nose7', 'nose8', 'nose9'];
-  const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6', 'mouth7', 'mouth9'];
-  const colors = ['22ACEA', '0659BC', 'BED9E6'];
-
-  const getRandom = (list: string[]) => {
-    return list[Math.floor(Math.random() * list.length)];
-  };
-
-  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}
-  /${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
-};
-
-/**
  * Returns a random default profile picture out of a select few generated from getDefaultProfile
  * @return {string} A link to the profile picture
  */
@@ -75,6 +57,7 @@ export const formatDate = (time: string): string => {
     day: 'numeric',
   });
 };
+
 /**
  * Extracts the time from a UTC-formatted timestamp.
  *

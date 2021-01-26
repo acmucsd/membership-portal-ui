@@ -19,19 +19,22 @@ interface PageLayoutContainerProps {
 const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
   const { isAdmin, children, user } = props;
 
-  const key = `open${Date.now()}`;
   const history = useHistory();
-  const btn = (
-    <Button
-      onClick={() => {
-        history.push('/resendEmailVerification');
-        notification.close(key);
-      }}
-    >
-      Resend Verification Email
-    </Button>
-  );
+
   React.useEffect(() => {
+    const key = `open${Date.now()}`;
+
+    const btn = (
+      <Button
+        onClick={() => {
+          history.push('/resendEmailVerification');
+          notification.close(key);
+        }}
+      >
+        Resend Verification Email
+      </Button>
+    );
+
     if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
       notification.warning({
         message:
@@ -43,7 +46,7 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
       });
       notifiedAboutEmail = true;
     }
-  }, [user]);
+  }, [user, history]);
   return <PageLayout isAdmin={isAdmin}>{children}</PageLayout>;
 };
 

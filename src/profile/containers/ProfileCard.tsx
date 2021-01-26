@@ -17,7 +17,7 @@ const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
 
   useEffect(() => {
     props.fetchUser();
-  }, []);
+  }, [props]);
 
   return (
     <ProfileCard

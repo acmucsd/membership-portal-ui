@@ -13,7 +13,7 @@ const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
     if (!authenticated) {
       props.verify()(search, pathname);
     }
-  }, []);
+  }, [authenticated, props, search, pathname]);
 
   if (authenticated) {
     return <Component />;

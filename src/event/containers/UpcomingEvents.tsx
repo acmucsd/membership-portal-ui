@@ -46,7 +46,7 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
   useEffect(() => {
     props.fetchFutureEvents();
     props.fetchAttendance();
-  }, []);
+  }, [props]);
 
   return (
     <EventsList>

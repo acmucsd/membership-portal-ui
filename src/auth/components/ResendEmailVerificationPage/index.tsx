@@ -12,27 +12,27 @@ const ResendEmailVerficationPage: React.FC<ResendEmailVerficationPageProps> = (p
   const { email } = props;
 
   const history = useHistory();
-  const [, setAction] = useState();
+  const [, setAction] = useState(() => {});
   const [btnText, setText] = useState('Verifying Email');
   const [verifying, setVerifying] = useState(true);
-  const verifiedEmail = () => {
-    return () => {
-      history.push('/');
-    };
-  };
+
   useEffect(() => {
     if (email) {
       sendEmailVerification(email)
         .then(() => {
           setText('Go to Home Page');
-          setAction(verifiedEmail);
+          setAction(() => {
+            return () => {
+              history.push('/');
+            };
+          });
         })
         .catch(() => {})
         .finally(() => {
           setVerifying(false);
         });
     }
-  }, [email]);
+  }, [email, history]);
 
   return (
     <div className="Resend-Email-verification-page">

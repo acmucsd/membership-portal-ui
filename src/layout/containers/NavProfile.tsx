@@ -18,7 +18,7 @@ const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
 
   useEffect(() => {
     props.fetchUser();
-  }, []);
+  }, [props]);
 
   if (authenticated) {
     return <NavProfile exp={exp} profilePicture={profilePicture} name={name} menu={menu} />;

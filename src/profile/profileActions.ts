@@ -1,4 +1,4 @@
-import { PROFILE_SUCCESS, PROFILE_FAIL, ThunkActionCreator } from './profileTypes';
+import { PROFILE_FAIL, PROFILE_SUCCESS, ThunkActionCreator } from './profileTypes';
 import Config from '../config';
 import Storage from '../storage';
 import { logoutUser } from '../auth/authActions';

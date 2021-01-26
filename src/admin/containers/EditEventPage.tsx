@@ -26,7 +26,7 @@ const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) =>
 
   useEffect(() => {
     props.fetchEvent(params.uuid);
-  }, []);
+  }, [props, params.uuid]);
 
   return (
     <PageLayout>

@@ -9,7 +9,7 @@ const withStandardAccess = (Component: React.FC) => (props: { [key: string]: any
     if (props.state === 'PENDING') {
       props.redirectHome();
     }
-  }, []);
+  }, [props]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;
