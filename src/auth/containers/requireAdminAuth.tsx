@@ -6,21 +6,22 @@ import { replace } from 'connected-react-router';
 import { verifyToken } from '../authActions';
 
 const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
+  const { authenticated, verify, redirectHome } = props;
+
   useEffect(() => {
     // check if authenticated, if not, then verify the token
-    if (!props.authenticated) {
+    if (!authenticated) {
       // using then here because state doesn't update in right order
-      props
-        .verify()()
+      verify()()
         .then((data: { [key: string]: any }) => {
           if (!data.admin) {
             // if not an admin, redirect
-            props.redirectHome();
+            redirectHome();
           }
         })
         .catch(() => {});
     }
-  }, [props]);
+  }, [authenticated, verify, redirectHome]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;

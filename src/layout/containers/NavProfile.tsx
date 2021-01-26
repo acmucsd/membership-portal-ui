@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import NavProfile from '../components/NavProfile';
-import { fetchUser } from '../../auth/authActions';
+import { fetchUser as fetchUserConnect } from '../../auth/authActions';
 
 interface NavProfileContainerProps {
   exp: number;
@@ -14,11 +14,11 @@ interface NavProfileContainerProps {
 }
 
 const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
-  const { exp, profilePicture, name, menu, authenticated } = props;
+  const { exp, profilePicture, name, menu, authenticated, fetchUser } = props;
 
   useEffect(() => {
-    props.fetchUser();
-  }, [props]);
+    fetchUser();
+  }, [fetchUser]);
 
   if (authenticated) {
     return <NavProfile exp={exp} profilePicture={profilePicture} name={name} menu={menu} />;
@@ -33,4 +33,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   authenticated: state.auth.authenticated,
 });
 
-export default connect(mapStateToProps, { fetchUser })(NavProfileContainer);
+export default connect(mapStateToProps, { fetchUser: fetchUserConnect })(NavProfileContainer);

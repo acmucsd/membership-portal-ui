@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
-import { fetchAttendance, fetchPastEvents } from '../eventActions';
+import {
+  fetchAttendance as fetchAttendanceConnect,
+  fetchPastEvents as fetchPastEventsConnect,
+} from '../eventActions';
 import { formatDate } from '../../utils';
 
 interface PastEventsContainerProps {
@@ -42,12 +45,12 @@ interface PastEventsContainerProps {
 }
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
-  const { auth, events, attendance } = props;
+  const { auth, events, attendance, fetchAttendance, fetchPastEvents } = props;
 
   useEffect(() => {
-    props.fetchPastEvents();
-    props.fetchAttendance();
-  }, [props]);
+    fetchPastEvents();
+    fetchAttendance();
+  }, [fetchAttendance, fetchPastEvents]);
 
   return (
     <EventsList>
@@ -79,4 +82,7 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   attendance: state.event.attendance,
 });
 
-export default connect(mapStateToProps, { fetchAttendance, fetchPastEvents })(PastEventsContainer);
+export default connect(mapStateToProps, {
+  fetchAttendance: fetchAttendanceConnect,
+  fetchPastEvents: fetchPastEventsConnect,
+})(PastEventsContainer);

@@ -5,11 +5,13 @@ import { replace } from 'connected-react-router';
 import { notify } from '../../utils';
 
 const withStandardAccess = (Component: React.FC) => (props: { [key: string]: any }) => {
+  const { state, redirectHome } = props;
+
   useEffect(() => {
-    if (props.state === 'PENDING') {
-      props.redirectHome();
+    if (state === 'PENDING') {
+      redirectHome();
     }
-  }, [props]);
+  }, [state, redirectHome]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;

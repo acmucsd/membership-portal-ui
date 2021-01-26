@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
-import { fetchAttendance, fetchFutureEvents } from '../eventActions';
+import {
+  fetchAttendance as fetchAttendanceConnect,
+  fetchFutureEvents as fetchFutureEventsConnect,
+} from '../eventActions';
 import { formatDate, formatTime } from '../../utils';
 
 interface UpcomingEventsContainerProps {
@@ -41,12 +44,12 @@ interface UpcomingEventsContainerProps {
 }
 
 const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
-  const { auth, events, attendance } = props;
+  const { auth, events, attendance, fetchAttendance, fetchFutureEvents } = props;
 
   useEffect(() => {
-    props.fetchFutureEvents();
-    props.fetchAttendance();
-  }, [props]);
+    fetchFutureEvents();
+    fetchAttendance();
+  }, [fetchAttendance, fetchFutureEvents]);
 
   return (
     <EventsList>
@@ -80,6 +83,7 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   attendance: state.event.attendance,
 });
 
-export default connect(mapStateToProps, { fetchAttendance, fetchFutureEvents })(
-  UpcomingEventsContainer,
-);
+export default connect(mapStateToProps, {
+  fetchAttendance: fetchAttendanceConnect,
+  fetchFutureEvents: fetchFutureEventsConnect,
+})(UpcomingEventsContainer);

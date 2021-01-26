@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TopLeaderCard from '../components/TopLeaderCard';
-import fetchLeaderboard from '../leaderboardActions';
+import fetchLeaderboardConnect from '../leaderboardActions';
 
 const getTopThree = (users: { [key: string]: any }) => {
   const topThree: any[] = [];
@@ -39,11 +39,11 @@ interface TopThreeContainerProps {
 }
 
 const TopThreeContainer: React.FC<TopThreeContainerProps> = (props) => {
-  const { users } = props;
+  const { users, fetchLeaderboard } = props;
 
   useEffect(() => {
-    props.fetchLeaderboard(0, 3);
-  }, [props]);
+    fetchLeaderboard(0, 3);
+  }, [fetchLeaderboard]);
 
   return <>{getTopThree(users)}</>;
 };
@@ -52,4 +52,6 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   users: state.leaderboard.users,
 });
 
-export default connect(mapStateToProps, { fetchLeaderboard })(TopThreeContainer);
+export default connect(mapStateToProps, { fetchLeaderboard: fetchLeaderboardConnect })(
+  TopThreeContainer,
+);
