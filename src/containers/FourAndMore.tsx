@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import InfiniteScroll from 'react-infinite-scroller';
+import { Menu, Dropdown } from 'antd';
 import LeaderListItem from '../components/LeaderListItem';
 import fetchLeaderboard from '../actions/leaderboardActions';
+
+import { ReactComponent as ArrowsIcon } from '../assets/icons/caret-icon-double.svg';
 
 interface FourAndMoreContainerProps {
   users: [
@@ -40,23 +43,86 @@ const getFourAndMore = (users: { [key: string]: any }) => {
   return fourAndMore;
 };
 
-const LIMIT = 20;
+const LIMIT = 100;
 const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const { users } = props;
   const [page, setPage] = useState(0);
   const [prevUserLength, setPrevUserLength] = useState(0);
+  const [timeframe, setTimeframe] = useState('All Time');
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const earliestDate = new Date('Jun 15, 2019').valueOf() / 1000;
+  const yearInSeconds = 31536000;
+
   const hasMore = () => {
     return prevUserLength !== users.length;
   };
+
   useEffect(() => {
     setPrevUserLength(users.length);
   }, [users]);
+
   const loadFunc = () => {
-    setPage(page + 1);
-    props.fetchLeaderboard(page * LIMIT + 3, LIMIT);
+    if (users.length > (page + 1) * LIMIT + 3) {
+      setPage(page + 1);
+    }
+    if (startTime === 0 || endTime === 0) {
+      props.fetchLeaderboard(page * LIMIT + 3, LIMIT);
+    } else {
+      props.fetchLeaderboard(page * LIMIT + 3, LIMIT, startTime, endTime);
+    }
   };
+
+  const timeframeData = [
+    {
+      text: 'All Time',
+      start: 0,
+      end: 0,
+    },
+    {
+      text: '2020-2021',
+      start: earliestDate + yearInSeconds,
+      end: earliestDate + yearInSeconds * 2,
+    },
+    {
+      text: '2019-2020',
+      start: earliestDate,
+      end: earliestDate + yearInSeconds,
+    },
+  ];
+
+  const menu = (
+    <Menu>
+      {timeframeData.map((d) => {
+        return (
+          <Menu.Item key={d.text}>
+            <div
+              role="menuitem"
+              className="leader-timeframe"
+              tabIndex={0}
+              onClick={() => {
+                setTimeframe(d.text);
+                setStartTime(d.start);
+                setEndTime(d.end);
+                setPage(0);
+                props.fetchLeaderboard(0, LIMIT + 3, d.start, d.end); // updates users for TopThree and FourAndMore
+              }}
+            >
+              {d.text}
+            </div>
+          </Menu.Item>
+        );
+      })}
+    </Menu>
+  );
+
   return (
     <>
+      <Dropdown overlay={menu}>
+        <p className="ant-dropdown-link">
+          {timeframe} <ArrowsIcon />
+        </p>
+      </Dropdown>
       <InfiniteScroll pageStart={0} loadMore={loadFunc} hasMore={hasMore()}>
         {getFourAndMore(users)}
       </InfiniteScroll>

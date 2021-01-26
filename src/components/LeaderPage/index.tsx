@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Leaderboard from '../Leaderboard';
-
 import './style.less';
 
 const LeaderPage: React.FC = () => {
