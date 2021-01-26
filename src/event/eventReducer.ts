@@ -1,15 +1,7 @@
 import _ from 'lodash';
 
 import { AnyAction } from 'redux';
-import {
-  EVENT_CHECKIN,
-  EVENT_CHECKOUT,
-  EVENT_ERROR,
-  FETCH_ATTENDANCE,
-  FETCH_FUTURE_EVENTS,
-  FETCH_PAST_EVENTS,
-  FETCH_EVENT,
-} from './eventTypes';
+import { EVENT_CHECKIN, EVENT_CHECKOUT, EVENT_ERROR, FETCH_ATTENDANCE, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS, FETCH_EVENT } from './eventTypes';
 
 const initialState = {
   attendance: [],

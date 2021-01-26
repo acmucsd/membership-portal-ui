@@ -12,9 +12,7 @@ interface ResendEmailVerificationContainerProps {
   };
 }
 
-const ResendEmailVerificationContainer: React.FC<ResendEmailVerificationContainerProps> = (
-  props,
-) => {
+const ResendEmailVerificationContainer: React.FC<ResendEmailVerificationContainerProps> = (props) => {
   const { user } = props;
 
   return (

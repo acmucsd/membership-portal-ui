@@ -26,14 +26,7 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
       <form>
         <div className="password-container">
           <img className="icon" alt="" src={password} />
-          <input
-            name="newPassword"
-            type="password"
-            placeholder="Password"
-            className="input-box"
-            value={newPass}
-            onChange={handleNewChange}
-          />
+          <input name="newPassword" type="password" placeholder="Password" className="input-box" value={newPass} onChange={handleNewChange} />
         </div>
         <div className="password-container">
           <img className="icon" alt="" src={password} />

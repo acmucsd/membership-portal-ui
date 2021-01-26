@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  ChangeEventHandler,
-  FocusEventHandler,
-  FormEventHandler,
-  ChangeEvent,
-} from 'react';
+import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
 import { Form, Input, Button, Tag, Tooltip, Icon } from 'antd';
 
 import './style.less';
@@ -26,15 +20,7 @@ interface AwardPointsFormProps {
 }
 
 const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    isSubmitting,
-    isValidating,
-    setFieldValue,
-    values,
-  } = props;
+  const { handleBlur, handleChange, handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [awardees, _setAwardees] = useState([] as any[]);
@@ -77,13 +63,7 @@ const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
           <Input type="hidden" value={values.uuid} name="uuid" />
           <Input type="hidden" value={awardees} name="awardees" />
           <Form.Item className="points-wrapper" label="Points">
-            <Input
-              name="points"
-              className="points"
-              value={values.points}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="points" className="points" value={values.points} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Awardees" className="awardees-list-wrapper">
             <div>
@@ -124,20 +104,9 @@ const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
             </div>
           </Form.Item>
           <Form.Item label="Description">
-            <TextArea
-              name="description"
-              className="area-box"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <TextArea name="description" className="area-box" value={values.description} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="save-button"
-            loading={isSubmitting && isValidating}
-          >
+          <Button type="primary" htmlType="submit" className="save-button" loading={isSubmitting && isValidating}>
             Submit Edits
           </Button>
           <Button type="danger" className="discard-button">

@@ -30,16 +30,7 @@ interface EditEventFormProps {
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = (props) => {
-  const {
-    event,
-    setFieldValue,
-    setFieldTouched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    values,
-    copyLink,
-  } = props;
+  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values, copyLink } = props;
 
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
@@ -61,17 +52,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
 
   useEffect(() => {
     if (event) {
-      const keys = [
-        'title',
-        'location',
-        'pointValue',
-        'start',
-        'end',
-        'cover',
-        'description',
-        'attendanceCode',
-        'committee',
-      ];
+      const keys = ['title', 'location', 'pointValue', 'start', 'end', 'cover', 'description', 'attendanceCode', 'committee'];
       keys.forEach((key) => {
         switch (key) {
           case 'start':
@@ -97,13 +78,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
         <form onSubmit={handleSubmit}>
           <Input type="hidden" value={values.uuid} name="uuid" />
           <Form.Item label="Event Title">
-            <Input
-              name="title"
-              className="input-box"
-              value={values.title}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="title" className="input-box" value={values.title} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item className="committee-wrapper" label="Community">
             <Select
@@ -126,31 +101,15 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
-              <Input
-                name="location"
-                className="location"
-                value={values.location}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              <Input name="location" className="location" value={values.location} onChange={handleChange} onBlur={handleBlur} />
             </Form.Item>
             <Form.Item className="points-wrapper" label="Points">
-              <Input
-                name="pointValue"
-                className="points"
-                value={values.pointValue}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              <Input name="pointValue" className="points" value={values.pointValue} onChange={handleChange} onBlur={handleBlur} />
             </Form.Item>
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
-              <DatePicker
-                className="date"
-                value={values.startDate}
-                onChange={(date) => setFieldValue('startDate', date)}
-              />
+              <DatePicker className="date" value={values.startDate} onChange={(date) => setFieldValue('startDate', date)} />
             </Form.Item>
             <Form.Item className="time-wrapper" label="Start Time">
               <TimePicker
@@ -165,11 +124,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="End Date">
-              <DatePicker
-                className="date"
-                value={values.endDate}
-                onChange={(date) => setFieldValue('endDate', date)}
-              />
+              <DatePicker className="date" value={values.endDate} onChange={(date) => setFieldValue('endDate', date)} />
             </Form.Item>
             <Form.Item className="time-wrapper" label="End Time">
               <TimePicker
@@ -183,31 +138,13 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
             </Form.Item>
           </div>
           <Form.Item label="Cover Link">
-            <Input
-              name="cover"
-              className="input-box"
-              value={values.cover}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="cover" className="input-box" value={values.cover} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Attendance Code">
-            <Input
-              name="attendanceCode"
-              className="input-box"
-              value={values.attendanceCode}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="attendanceCode" className="input-box" value={values.attendanceCode} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Description">
-            <TextArea
-              name="description"
-              className="area-box"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <TextArea name="description" className="area-box" value={values.description} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
             Submit Edits

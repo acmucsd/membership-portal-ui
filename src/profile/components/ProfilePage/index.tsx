@@ -40,22 +40,11 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
             <h2 className="name">
               {stateUser.profile.firstName} {stateUser.profile.lastName}
             </h2>
-            <Avatar
-              size={115}
-              icon="user"
-              className="avatar"
-              src={stateUser.profile.profilePicture || getDefaultProfile()}
-            />
+            <Avatar size={115} icon="user" className="avatar" src={stateUser.profile.profilePicture || getDefaultProfile()} />
           </div>
           <div className="level-info">
             <p className="rank">{getRank(stateUser.profile.points)}</p>
-            <Progress
-              successPercent={stateUser.profile.points % 100}
-              percent={100}
-              showInfo={false}
-              strokeWidth={12}
-              strokeColor="#587291"
-            />
+            <Progress successPercent={stateUser.profile.points % 100} percent={100} showInfo={false} strokeWidth={12} strokeColor="#587291" />
             <p className="level-stats">
               <span> LVL {getLevel(stateUser.profile.points)}</span>
               <span className="experience"> {stateUser.profile.points % 100} / 100 </span>

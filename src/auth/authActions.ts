@@ -181,17 +181,14 @@ export const passwordReset: ThunkActionCreator = (email: string) => async (dispa
 
 export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => {
   try {
-    const response = await fetch(
-      `${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user }),
+    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-    );
+      body: JSON.stringify({ user }),
+    });
 
     const data = await response.json();
 
@@ -207,17 +204,14 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
 // Verifies an email using a info object with email field and code field
 export const verifyEmail = async (info: { [key: string]: any }) => {
   try {
-    const response = await fetch(
-      `${`${Config.API_URL + Config.routes.auth.emailVerification}/${info.code}`}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...info }),
+    const response = await fetch(`${`${Config.API_URL + Config.routes.auth.emailVerification}/${info.code}`}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-    );
+      body: JSON.stringify({ ...info }),
+    });
 
     const data = await response.json();
 
@@ -231,16 +225,13 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
 
 export const sendEmailVerification = async (email: string) => {
   try {
-    const response = await fetch(
-      `${`${Config.API_URL + Config.routes.auth.emailVerification}/${email}`}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`${`${Config.API_URL + Config.routes.auth.emailVerification}/${email}`}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     const data = await response.json();
 

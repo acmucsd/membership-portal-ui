@@ -30,12 +30,7 @@ const PasswordPage: React.FC<PasswordPageProps> = (props) => {
 
   return (
     <LoginLayout>
-      <PasswordForm
-        onChange={handleChange}
-        onKeyPress={handleEnter}
-        handleClick={handleClick}
-        value={value}
-      />
+      <PasswordForm onChange={handleChange} onKeyPress={handleEnter} handleClick={handleClick} value={value} />
     </LoginLayout>
   );
 };

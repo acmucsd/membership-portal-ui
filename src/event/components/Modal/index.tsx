@@ -16,14 +16,7 @@ const ModalComponent: React.FC<ModalComponentProps> = (props) => {
   const { title, image, visible, handleOk, handleCancel, content } = props;
 
   return (
-    <Modal
-      className="modal"
-      footer={null}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      title={title}
-      visible={visible}
-    >
+    <Modal className="modal" footer={null} onOk={handleOk} onCancel={handleCancel} title={title} visible={visible}>
       <img className="cover" alt="cover" src={image} />
       <p>{content}</p>
     </Modal>

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import KonamiCode from 'konami-code';
 import ReactGA from 'react-ga';
 import BreadPage from './layout/components/BreadPage';
 
@@ -41,14 +40,9 @@ import requireStandardAccess from './auth/containers/requireStandardAccess';
 const store = configureStore();
 
 const App = () => {
-  const konami = new KonamiCode();
-  const [easterEggState, setEasterEggState] = useState('');
-  konami.listen(() => {
-    setEasterEggState('secret bread');
-    history.push('/secret-bread');
-  });
   ReactGA.initialize('UA-165975388-1');
   ReactGA.pageview('/');
+
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -56,21 +50,9 @@ const App = () => {
           <Switch>
             <Route exact path="/about" component={requireAuth(AboutPage) as React.FC} />
             <Route exact path="/admin" component={requireAdminAuth(AdminPage) as React.FC} />
-            <Route
-              exact
-              path="/admin/editEvent/:uuid"
-              component={requireAdminAuth(EditEventPage) as React.FC}
-            />
-            <Route
-              exact
-              path="/admin/awardPoints"
-              component={requireAdminAuth(AwardPointsPage) as React.FC}
-            />
-            <Route
-              exact
-              path="/admin/createEvent"
-              component={requireAdminAuth(CreateEventPage) as React.FC}
-            />
+            <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage) as React.FC} />
+            <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage) as React.FC} />
+            <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage) as React.FC} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/checkin" component={requireAuth(CheckInHandler) as React.FC} />
             <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
@@ -79,34 +61,13 @@ const App = () => {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/profile" component={requireAuth(ProfilePage) as React.FC} />
             <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage) as React.FC} />
-            <Route
-              exact
-              path="/editProfile"
-              component={requireAuth(ProfileUpdatePage) as React.FC}
-            />
+            <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage) as React.FC} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route
-              exact
-              path="/store"
-              component={requireStandardAccess(requireAuth(StorePage)) as React.FC}
-            />
+            <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
-            <Route
-              exact
-              path="/resendEmailVerification"
-              component={requireAuth(ResendEmailVerificationPage) as React.FC}
-            />
-            <Route
-              exact
-              path="/secret-bread"
-              component={() => {
-                if (easterEggState === 'secret bread') {
-                  return <BreadPage />;
-                }
-                return <Redirect to="/login" />;
-              }}
-            />
+            <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
+            <Route exact path="/bread" component={BreadPage} />
             <Route path="/" component={requireAuth(HomePage) as React.FC} />
             <Route path="/" component={ErrorPage} />
           </Switch>

@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
-import {
-  fetchAttendance as fetchAttendanceConnect,
-  fetchFutureEvents as fetchFutureEventsConnect,
-} from '../eventActions';
+import { fetchAttendance as fetchAttendanceConnect, fetchFutureEvents as fetchFutureEventsConnect } from '../eventActions';
 import { formatDate, formatTime } from '../../utils';
 
 interface UpcomingEventsContainerProps {

@@ -81,20 +81,7 @@ export const formatTime = (time: string | number | Date): string => {
  * @return {number} The month in number form.
  */
 export const getMonthIndex = (month: string): number => {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   function checkMonth(currMonth: string) {
     return month === currMonth;

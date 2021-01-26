@@ -1,19 +1,14 @@
 import React from 'react';
+
+import Header from '../Header';
+
 import './style.less';
 
 const BreadPageContainer = () => {
-  // jank iframes
   return (
     <div className="BreadPage">
-      <h1>ACM Bread</h1>
-      <br />
-      <div className="iframe-container">
-        <iframe
-          title="Cut Bread"
-          className="BreadPageFrame"
-          src="https://stonet2000.github.io/Cut-Bread/"
-        />
-      </div>
+      <Header />
+      <iframe title="Cut Bread" className="BreadPageFrame" src="https://stonet2000.github.io/Cut-Bread/" />
     </div>
   );
 };

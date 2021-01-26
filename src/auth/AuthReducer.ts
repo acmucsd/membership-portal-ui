@@ -1,14 +1,5 @@
 import { AnyAction } from 'redux';
-import {
-  AUTH_ERROR,
-  AUTH_USER,
-  FETCH_USER,
-  UNAUTH_USER,
-  PASSWORD_FAIL,
-  PASSWORD_SUCCESS,
-  REGISTER_USER,
-  REGISTER_FAIL,
-} from './authTypes';
+import { AUTH_ERROR, AUTH_USER, FETCH_USER, UNAUTH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, REGISTER_USER, REGISTER_FAIL } from './authTypes';
 
 import { getDefaultProfile } from '../utils';
 

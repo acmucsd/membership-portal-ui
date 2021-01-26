@@ -40,6 +40,6 @@ const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-export default withSizes(mapSizesToProps)(
-  PageLayout as ComponentType<{ isMobile: boolean }>,
-) as React.FC<any & { isAdmin: boolean; children: React.ComponentClass | React.FC }>;
+export default withSizes(mapSizesToProps)(PageLayout as ComponentType<{ isMobile: boolean }>) as React.FC<
+  any & { isAdmin: boolean; children: React.ComponentClass | React.FC }
+>;

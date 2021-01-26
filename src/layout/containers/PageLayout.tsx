@@ -37,8 +37,7 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
 
     if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
       notification.warning({
-        message:
-          'Make sure to check your email and click the verification link in order to get full access to all features!',
+        message: 'Make sure to check your email and click the verification link in order to get full access to all features!',
         description: "If you didn't receive the email, click the button below",
         btn,
         key,

@@ -33,15 +33,7 @@ interface CreateEventFormProps {
 
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldTouched,
-    setFieldValue,
-    values,
-    copyLink,
-  } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, copyLink } = props;
 
   return (
     <div className="create-event-form">
@@ -49,13 +41,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
         <h1 className="subtitle">Create an Event</h1>
         <form onSubmit={handleSubmit}>
           <Form.Item label="Event Title">
-            <Input
-              name="title"
-              className="input-box"
-              value={values.title}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="title" className="input-box" value={values.title} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item className="committee-wrapper" label="Community">
             <Select
@@ -78,31 +64,15 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
-              <Input
-                name="location"
-                className="location"
-                value={values.location}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              <Input name="location" className="location" value={values.location} onChange={handleChange} onBlur={handleBlur} />
             </Form.Item>
             <Form.Item className="points-wrapper" label="Points">
-              <Input
-                name="pointValue"
-                className="points"
-                value={values.pointValue}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              <Input name="pointValue" className="points" value={values.pointValue} onChange={handleChange} onBlur={handleBlur} />
             </Form.Item>
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
-              <DatePicker
-                className="date"
-                value={values.startDate}
-                onChange={(date) => setFieldValue('startDate', date)}
-              />
+              <DatePicker className="date" value={values.startDate} onChange={(date) => setFieldValue('startDate', date)} />
             </Form.Item>
             <Form.Item className="time-wrapper" label="Start Time">
               <TimePicker
@@ -117,11 +87,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="End Date">
-              <DatePicker
-                className="date"
-                value={values.endDate}
-                onChange={(date) => setFieldValue('endDate', date)}
-              />
+              <DatePicker className="date" value={values.endDate} onChange={(date) => setFieldValue('endDate', date)} />
             </Form.Item>
             <Form.Item className="time-wrapper" label="End Time">
               <TimePicker
@@ -135,31 +101,13 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
             </Form.Item>
           </div>
           <Form.Item label="Cover Link">
-            <Input
-              name="cover"
-              className="input-box"
-              value={values.cover}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="cover" className="input-box" value={values.cover} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Attendance Code">
-            <Input
-              name="attendanceCode"
-              className="input-box"
-              value={values.attendanceCode}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="attendanceCode" className="input-box" value={values.attendanceCode} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Description">
-            <TextArea
-              name="description"
-              className="area-box"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <TextArea name="description" className="area-box" value={values.description} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
             Add Event

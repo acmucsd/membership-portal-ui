@@ -19,15 +19,7 @@ const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
     fetchUser();
   }, [fetchUser]);
 
-  return (
-    <ProfileCard
-      exp={exp}
-      profilePicture={profilePicture}
-      level={getLevel(exp)}
-      name={name}
-      rank={getRank(exp)}
-    />
-  );
+  return <ProfileCard exp={exp} profilePicture={profilePicture} level={getLevel(exp)} name={name} rank={getRank(exp)} />;
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({

@@ -1,11 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  FocusEventHandler,
-  ChangeEventHandler,
-  FormEventHandler,
-} from 'react';
+import React, { useEffect, useState, useRef, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button, Select, Modal, Avatar } from 'antd';
 import * as ANTD from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
@@ -120,13 +113,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
             <Button key="back" onClick={handleCancel}>
               Return
             </Button>,
-            <Button
-              key="submit"
-              type="primary"
-              loading={uploadState === 'uploading'}
-              onClick={uploadPhoto}
-              disabled={fileList.length === 0}
-            >
+            <Button key="submit" type="primary" loading={uploadState === 'uploading'} onClick={uploadPhoto} disabled={fileList.length === 0}>
               {uploadState !== 'uploading' && <UploadOutlined />} Upload
             </Button>,
           ]}
@@ -154,22 +141,10 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
         </Modal>
         <form onSubmit={handleSubmit} className="update-profile-form">
           <Form.Item label="First name">
-            <Input
-              name="firstName"
-              className="input-box"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="firstName" className="input-box" value={values.firstName} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Last name">
-            <Input
-              name="lastName"
-              className="input-box"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <Input name="lastName" className="input-box" value={values.lastName} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <div className="horizontal-input">
             <Form.Item label="Year">
@@ -192,23 +167,11 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
               </CustomSelect>
             </Form.Item>
             <Form.Item label="Major">
-              <Input
-                name="major"
-                className="major"
-                value={values.major}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              <Input name="major" className="major" value={values.major} onChange={handleChange} onBlur={handleBlur} />
             </Form.Item>
           </div>
           <Form.Item label="About">
-            <TextArea
-              name="bio"
-              className="area-box"
-              value={values.bio}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <TextArea name="bio" className="area-box" value={values.bio} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
             Save Profile Changes

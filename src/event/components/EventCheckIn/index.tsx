@@ -24,14 +24,7 @@ const EventCheck: React.FC<EventCheckProps> = (props) => {
     <Card className="checkin-card">
       <h1>Event Check-in</h1>
       <div className="inputbox">
-        <Input
-          onChange={onChange}
-          onKeyPress={onKeyPress}
-          value={value}
-          className="input"
-          size="large"
-          placeholder="Attendance code..."
-        />
+        <Input onChange={onChange} onKeyPress={onKeyPress} value={value} className="input" size="large" placeholder="Attendance code..." />
         <Button onClick={onSubmit} className="submit">
           Submit
         </Button>
