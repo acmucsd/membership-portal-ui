@@ -44,15 +44,22 @@
         }
 
         &.major {
-          width: 170px;
-
           .input-box {
-            width: 110px;
+            width: 80px;
+          }
+
+          .ant-select-selection {
+            border: none;
+            height: 27px;
+
+            .ant-select-selection__rendered {
+              margin-left: 0;
+            }
           }
         }
 
         &.year {
-          width: 120px;
+          margin-bottom: 1rem;
 
           .input-box {
             width: 80px;
@@ -61,6 +68,10 @@
           .ant-select-selection {
             border: none;
             height: 27px;
+
+            .ant-select-selection__rendered {
+              margin-left: 0;
+            }
           }
         }
       }

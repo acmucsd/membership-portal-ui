@@ -10,6 +10,8 @@ import PasswordIcon from '../../assets/icons/password-icon.svg';
 import MajorIcon from '../../assets/icons/major-icon.svg';
 import YearIcon from '../../assets/icons/year-icon.svg';
 
+import majorsData from './majors.json';
+
 const { Option } = Select;
 
 const years = [...Array(6)].map((_, i) => i + new Date().getFullYear());
@@ -25,7 +27,7 @@ interface RegisterFormProps {
     email: string;
     password: string;
     confirmpassword: string;
-    major: string;
+    major: string | undefined;
     graduationYear: number;
   };
   search: string;
@@ -133,41 +135,45 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           </div>
           <p className="form-error">{errors.confirmpassword ? errors.confirmpassword : null}</p>
         </div>
-        <div className="horizontalitems">
-          <div className="form-item">
-            <div className="form-input major">
-              <div className="icon-container">
-                <img className="icon" src={MajorIcon} alt="Major Icon" />
-              </div>
-              <input
-                name="major"
-                className="input-box"
-                placeholder="Major"
-                value={values.major}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+        <div className="form-item">
+          <div className="form-input major">
+            <div className="icon-container">
+              <img className="icon" src={MajorIcon} alt="Major Icon" />
             </div>
-            <p className="form-error">{errors.major ? errors.major : null}</p>
+            <Select
+              className="input-box"
+              showSearch
+              placeholder="Major"
+              value={values.major}
+              onChange={(value: string) => setFieldValue('major', value)}
+              onBlur={(value: string) => setFieldValue('major', value)}
+            >
+              {majorsData.majors.map((major) => (
+                <Option key={major} value={major}>
+                  {major}
+                </Option>
+              ))}
+            </Select>
           </div>
-          <div className="form-item">
-            <div className="form-input year">
-              <div className="icon-container">
-                <img className="icon" src={YearIcon} alt="Year Icon" />
-              </div>
-              <Select
-                className="input-box"
-                onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
-                onChange={(value: string | number) => setFieldValue('graduationYear', value)}
-                value={values.graduationYear}
-              >
-                {years.map((num) => (
-                  <Option key={num} value={num}>
-                    {num}
-                  </Option>
-                ))}
-              </Select>
+          <p className="form-error">{errors.major ? errors.major : null}</p>
+        </div>
+        <div className="form-item year">
+          <div className="form-input year">
+            <div className="icon-container">
+              <img className="icon" src={YearIcon} alt="Year Icon" />
             </div>
+            <Select
+              className="input-box"
+              onBlur={(value: string | number) => setFieldValue('graduationYear', value)}
+              onChange={(value: string | number) => setFieldValue('graduationYear', value)}
+              value={values.graduationYear}
+            >
+              {years.map((num) => (
+                <Option key={num} value={num}>
+                  {num}
+                </Option>
+              ))}
+            </Select>
           </div>
         </div>
         <button className="sign-up" type="submit">
