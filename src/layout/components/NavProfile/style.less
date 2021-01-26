@@ -1,0 +1,67 @@
+@import '../../../styles/fonts.less';
+@import '../../../styles/mixins.less';
+@import '../../../styles/vars.less';
+
+.nav-width {
+  width: @nav-drop-width;
+}
+
+.nav-profile {
+  align-items: center;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  font-size: @nav-body;
+  height: @nav-header-height;
+  justify-content: flex-start;
+  position: relative;
+  white-space: nowrap;
+  width: @nav-drop-width;
+
+  .arrow {
+    color: @blue-1;
+    font-size: @nav-heading;
+    position: absolute;
+    right: 10px;
+  }
+
+  &:hover {
+    .arrow {
+      color: darkblue;
+    }
+  }
+
+  .avatar {
+    position: absolute;
+  }
+
+  .name {
+    margin: 0 64px 0 10px;
+    -ms-overflow-style: none;
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
+
+  .name::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+
+  .progress {
+    z-index: 2;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav-width {
+    width: 100px;
+  }
+
+  .nav-profile {
+    width: 100px;
+
+    .name {
+      .hidden;
+    }
+  }
+}

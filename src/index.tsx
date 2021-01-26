@@ -6,37 +6,37 @@ import { Provider } from 'react-redux';
 
 import KonamiCode from 'konami-code';
 import ReactGA from 'react-ga';
-import BreadPage from './containers/egg/BreadPage/index';
+import BreadPage from './layout/components/BreadPage';
 
-import configureStore, { history } from './store';
+import configureStore, { history } from './redux_store';
 
 import './styles/reset.less';
-import AboutPage from './containers/AboutPage';
+import AboutPage from './layout/containers/AboutPage';
 
 /* Admin Container Pages */
-import AdminPage from './containers/AdminPage';
-import AwardPointsPage from './containers/admin/AwardPointsPage';
-import EditEventPage from './containers/admin/EditEventPage';
-import CreateEventPage from './containers/admin/CreateEventPage';
+import AdminPage from './admin/containers/AdminPage';
+import AwardPointsPage from './admin/containers/AwardPointsPage';
+import EditEventPage from './admin/containers/EditEventPage';
+import CreateEventPage from './admin/containers/CreateEventPage';
 
-import AuthPage from './containers/AuthPage';
-import CheckInHandler from './containers/CheckInHandler';
-import DiscordPage from './containers/DiscordPage';
-import HomePage from './containers/HomePage';
-import LeaderPage from './containers/LeaderPage';
-import LoginPage from './containers/LoginPage';
-import PasswordPage from './containers/PasswordPage';
-import ResetPage from './containers/ResetPage';
-import ProfilePage from './containers/ProfilePage';
-import ProfileUpdatePage from './containers/ProfileUpdatePage';
-import RegisterPage from './containers/RegisterPage';
-import StorePage from './containers/StorePage';
-import ErrorPage from './containers/ErrorPage';
-import EmailVerficationPage from './containers/EmailVerificationPage';
-import ResendEmailVerificationPage from './containers/ResendEmailVerificationPage';
-import requireAuth from './containers/requireAuth';
-import requireAdminAuth from './containers/requireAdminAuth';
-import requireStandardAccess from './containers/requireStandardAccess';
+import AuthPage from './auth/containers/AuthPage';
+import CheckInHandler from './event/containers/CheckInHandler';
+import DiscordPage from './layout/containers/DiscordPage';
+import HomePage from './layout/containers/HomePage';
+import LeaderPage from './leaderboard/containers/LeaderPage';
+import LoginPage from './auth/containers/LoginPage';
+import PasswordPage from './auth/containers/PasswordPage';
+import ResetPage from './auth/containers/ResetPage';
+import ProfilePage from './profile/containers/ProfilePage';
+import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
+import RegisterPage from './auth/containers/RegisterPage';
+import StorePage from './store/containers/StorePage';
+import ErrorPage from './layout/containers/ErrorPage';
+import EmailVerficationPage from './auth/containers/EmailVerificationPage';
+import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
+import requireAuth from './auth/containers/requireAuth';
+import requireAdminAuth from './auth/containers/requireAdminAuth';
+import requireStandardAccess from './auth/containers/requireStandardAccess';
 
 const store = configureStore();
 

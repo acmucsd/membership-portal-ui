@@ -1,0 +1,78 @@
+@import '../../../styles/vars.less';
+
+.leaderboard-list-item {
+  align-items: center;
+  display: flex;
+  font-size: @list-heading;
+  font-weight: 600;
+  height: @leaderboard-item-height;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 100%;
+
+  &.even {
+    background: #f4f4f4;
+  }
+
+  .placement {
+    font-size: @list-number;
+    width: 10%;
+  }
+
+  .column {
+    margin-left: 5%;
+    width: 25%;
+
+    &.right {
+      align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .name:hover {
+    color: @green-2;
+  }
+
+  .rank {
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    text-align: center;
+    width: 25%;
+  }
+
+  .exp {
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .badge {
+    filter: grayscale(100%);
+  }
+
+  .badge:hover {
+    filter: none;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .left {
+      width: 45%;
+    }
+
+    .rank {
+      font-size: 12px;
+    }
+
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: initial;
+    }
+  }
+}
