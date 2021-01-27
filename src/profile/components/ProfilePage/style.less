@@ -1,0 +1,52 @@
+@import '../../../styles/vars.less';
+
+.Profile-Page {
+  .title {
+    font-size: @general-heading-1;
+    font-weight: 700;
+  }
+
+  .name {
+    font-size: @general-heading-2;
+    line-height: 115px;
+    margin-right: 24px;
+  }
+
+  .avatar-flex {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    width: 100%;
+  }
+
+  .edit-profile-btn {
+    font-size: @general-body;
+    height: @general-body * 2;
+    margin-top: 24px;
+  }
+
+  .level-info {
+    margin-top: 18px;
+    max-width: 256px;
+    width: auto;
+
+    .rank {
+      font-size: @general-body;
+    }
+
+    .level-stats {
+      span {
+        font-size: @general-body;
+      }
+    }
+
+    .experience {
+      float: right;
+    }
+  }
+
+  .meta-data {
+    font-size: @general-body;
+    margin-top: 24px;
+  }
+}

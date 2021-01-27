@@ -1,0 +1,128 @@
+@import '../../../styles/fonts.less';
+@import '../../../styles/vars.less';
+
+.update-card {
+  display: flex;
+  max-width: 100%;
+  width: @db-card-width;
+
+  label {
+    color: @black;
+    font-size: @card-heading-2;
+    font-weight: 700;
+
+    &::after {
+      content: '';
+    }
+  }
+
+  .updatecontent {
+    width: 100%;
+
+    .update-profile-form {
+      width: 100%;
+    }
+  }
+
+  .title {
+    color: @black;
+    font-size: @general-heading-1;
+    font-weight: 700;
+  }
+
+  .save-button,
+  .upload-modal-button {
+    background-color: @blue-5;
+    border-color: @blue-5;
+    font-size: @general-body;
+    font-weight: 700;
+    height: @button-height;
+    margin-bottom: 12px;
+    margin-right: 19px;
+    width: @save-button-width;
+  }
+
+  .discard-button {
+    background-color: @white;
+    border-color: @red;
+    color: @red;
+    font-size: @general-body;
+    font-weight: 700;
+    height: @button-height;
+    width: @discard-button-width;
+  }
+
+  .horizontal-input {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    width: @db-card-width;
+
+    .year {
+      height: @profile-input-height;
+      max-width: 100%;
+      vertical-align: top;
+      width: @year-width;
+
+      .ant-select-selection--single {
+        .input-style;
+
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .major {
+      .input-style;
+
+      max-width: 100%;
+      width: @major-width;
+    }
+  }
+
+  .ant-form-item-label {
+    line-height: 30px;
+  }
+
+  .input-style() {
+    background-color: @gray-1;
+    border-color: @gray-4;
+    color: @black;
+    font-size: @general-body;
+    height: @profile-input-height;
+  }
+
+  .area-box {
+    .input-style;
+
+    font-size: @card-heading-2;
+    height: @text-input-height;
+    width: 100%;
+  }
+
+  .input-box {
+    .input-style;
+
+    max-width: 100%;
+  }
+
+  .avatar {
+    border: solid 3px @gray-5;
+    margin-bottom: 24px;
+  }
+}
+
+.EditProfilePage-Modal {
+  .upload-wrapper {
+    text-align: center;
+    width: 100%;
+  }
+
+  .new-profile-pic-wrapper {
+    margin-bottom: 24px;
+    text-align: center;
+    width: 100%;
+  }
+}

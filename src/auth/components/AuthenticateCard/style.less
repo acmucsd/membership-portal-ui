@@ -1,0 +1,30 @@
+@import '../../../styles/fonts.less';
+@import '../../../styles/vars.less';
+
+.auth-card {
+  align-items: center;
+  background: @blue-2;
+  border-radius: 10px;
+  color: @white;
+  display: flex;
+  flex-direction: column;
+  height: @password-height;
+  justify-content: center;
+  text-align: center;
+  width: @sign-in-width;
+
+  h1 {
+    color: @white;
+    font-size: @card-heading-2;
+    margin-top: 24px;
+  }
+
+  h3 {
+    color: @gray-2;
+    margin-bottom: 24px;
+  }
+
+  .link:hover {
+    opacity: 0.8;
+  }
+}
