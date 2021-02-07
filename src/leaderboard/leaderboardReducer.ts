@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
+import { /*CLEAR_LEADERBOARD,*/ FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
 import { getDefaultProfile } from '../utils';
 
 const initialState = {
