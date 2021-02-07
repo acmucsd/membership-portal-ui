@@ -63,7 +63,7 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   }, [users]);
 
   const loadFunc = () => {
-    if (users.length >= (page) * LIMIT + 3) {
+    if (users.length >= page * LIMIT + 3) {
       setPage(page + 1);
     }
     if (startTime === 0 || endTime === 0) {
