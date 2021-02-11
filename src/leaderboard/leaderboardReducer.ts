@@ -11,8 +11,6 @@ const initialState = {
 const LeaderboardReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case CLEAR_LEADERBOARD: {
-      state.users = [];
-      state.offsetToUsers = new Map();
       return initialState;
     }
     case FETCH_LEADERBOARD: {
