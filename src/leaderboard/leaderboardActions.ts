@@ -1,11 +1,16 @@
-import { FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';
+import {  CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';
 import { logoutUser } from '../auth/authActions';
 
 import Config from '../config';
 import Storage from '../storage';
 
-const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number) => async (dispatch) => {
+export const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number, resetUsers?: boolean) => async (dispatch) => {
   try {
+    if (resetUsers) {
+      dispatch({
+        type: CLEAR_LEADERBOARD,
+      });
+    }
     const response = await fetch(
       `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`,
       {
@@ -39,5 +44,3 @@ const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number,
     });
   }
 };
-
-export default fetchLeaderboard;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Menu, Dropdown } from 'antd';
 import LeaderListItem from '../components/LeaderListItem';
-import fetchLeaderboard from '../leaderboardActions';
+import { fetchLeaderboard } from '../leaderboardActions';
 
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
 
@@ -63,8 +63,9 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   }, [users]);
 
   const loadFunc = () => {
-    if (users.length >= page * LIMIT + 3) {
+    if (users.length >= page * LIMIT) {
       setPage(page + 1);
+      props.fetchLeaderboard((page+1) * LIMIT + 3, LIMIT, startTime, endTime);
     }
     if (startTime === 0 || endTime === 0) {
       props.fetchLeaderboard(page * LIMIT + 3, LIMIT);
@@ -105,8 +106,8 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
                 setStartTime(d.start);
                 setEndTime(d.end);
                 setPage(0);
-                props.fetchLeaderboard(0, 3, d.start, d.end); // updates users for TopThree
-                props.fetchLeaderboard(3, LIMIT + 3, d.start, d.end); // updates users for FourAndMore
+                props.fetchLeaderboard(0, 3, d.start, d.end, true); // updates users for TopThree
+                props.fetchLeaderboard(3, LIMIT, d.start, d.end); // updates users for FourAndMore
               }}
             >
               {d.text}
