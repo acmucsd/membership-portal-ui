@@ -13,7 +13,7 @@ import {
 
 import Config from '../config';
 import Storage from '../storage';
-import { notify } from '../utils';
+import { notify, fetchService } from '../utils';
 
 /**
  * Helper function to get token claims.
@@ -35,21 +35,14 @@ const tokenGetClaims = (token?: string): object => {
 
 export const loginUser: ThunkActionCreator = (values, search) => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.auth.login, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    const url = `${Config.API_URL}${Config.routes.auth.login}`;
+    const data = await fetchService(url, 'POST', 'json', {
+      requiresAuthorization: false,
+      payload: JSON.stringify({
         email: values.email,
         password: values.password,
       }),
     });
-
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
 
     Storage.set('token', data.token);
     const userData: { [key: string]: any } = tokenGetClaims(data.token);
@@ -78,20 +71,10 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
     const token = Storage.get('token');
     if (token) {
       try {
-        const response = await fetch(Config.API_URL + Config.routes.auth.verification, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
+        const url = `${Config.API_URL}${Config.routes.auth.verification}`;
+        const data = await fetchService(url, 'POST', 'json', {
+          requiresAuthorization: true,
         });
-
-        const data = await response.json();
-        if (!data) throw new Error('Empty response from server');
-        if (data.error) {
-          throw new Error(data.error);
-        }
 
         if (!data.authenticated) {
           // not authenticated? log out user
@@ -156,16 +139,12 @@ export const passwordReset: ThunkActionCreator = (email: string) => async (dispa
     if (!email) {
       throw new Error('Email field cannot be empty.');
     }
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${email}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+
+    const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${email}`;
+    await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: false,
     });
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
+
     notify('Success! Check your email shortly', `Email has been sent to ${email}`);
     dispatch({
       type: PASSWORD_SUCCESS,
@@ -181,19 +160,11 @@ export const passwordReset: ThunkActionCreator = (email: string) => async (dispa
 
 export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.auth.resetPassword}/${user.code}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user }),
+    const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
+    await fetchService(url, 'POST', 'json', {
+      requiresAuthorization: false,
+      payload: JSON.stringify({ user }),
     });
-
-    const data = await response.json();
-
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
 
     dispatch(replace('/'));
   } catch (error) {
@@ -204,19 +175,12 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
 // Verifies an email using a info object with email field and code field
 export const verifyEmail = async (info: { [key: string]: any }) => {
   try {
-    const response = await fetch(`${`${Config.API_URL + Config.routes.auth.emailVerification}/${info.code}`}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...info }),
+    const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${info.code}`;
+    await fetchService(url, 'POST', 'json', {
+      requiresAuthorization: false,
+      payload: JSON.stringify({ ...info }),
     });
 
-    const data = await response.json();
-
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
     notify('Verified email!', '');
   } catch (error) {
     notify('Unable to verify email!', error.message);
@@ -225,18 +189,11 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
 
 export const sendEmailVerification = async (email: string) => {
   try {
-    const response = await fetch(`${`${Config.API_URL + Config.routes.auth.emailVerification}/${email}`}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+    const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${email}`;
+    await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: false,
     });
 
-    const data = await response.json();
-
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
     notify('Sent verification email!', '');
   } catch (error) {
     notify('Unable to send verification email!', error.message);
@@ -245,19 +202,12 @@ export const sendEmailVerification = async (email: string) => {
 
 export const registerAccount: ThunkActionCreator = (user, search) => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.auth.register, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user }),
+    const url = `${Config.API_URL}${Config.routes.auth.register}`;
+    await fetchService(url, 'POST', 'json', {
+      requiresAuthorization: false,
+      payload: JSON.stringify({ user }),
     });
 
-    const data = await response.json();
-
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
     dispatch({
       type: REGISTER_USER,
       payload: user,
@@ -288,24 +238,11 @@ export const redirectAuth: ThunkActionCreator = () => (dispatch) => {
 
 export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
   try {
-    const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid || ''}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
+    const url = `${Config.API_URL}${Config.routes.user.user}/${uuid || ''}`;
+    const data = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
     });
-
-    const status = await response.status;
-    if (status === 401 || status === 403) {
-      // TODO: Logout user.
-      return;
-    }
-
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
 
     dispatch({
       type: FETCH_USER,
@@ -319,24 +256,11 @@ export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
 export const fetchUserByID = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(`${Config.API_URL + Config.routes.user.user}/${uuid}`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
+      const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => logoutUser(),
       });
-
-      const status = await response.status;
-      if (status === 401 || status === 403) {
-        // TODO: Logout user.
-        return;
-      }
-
-      const data = await response.json();
-      if (!data) throw new Error('Empty response from server');
-      if (data.error) throw new Error(data.error.message);
 
       resolve(data);
     } catch (error) {

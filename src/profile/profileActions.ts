@@ -1,26 +1,17 @@
 import { PROFILE_FAIL, PROFILE_SUCCESS, ThunkActionCreator } from './profileTypes';
 import Config from '../config';
-import Storage from '../storage';
 import { logoutUser } from '../auth/authActions';
-import { notify } from '../utils';
+import { notify, fetchService } from '../utils';
 
 export const updateProfile: ThunkActionCreator = (values) => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.user.user, {
-      method: 'PATCH',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
-      body: JSON.stringify({ user: values }),
+    const url = `${Config.API_URL}${Config.routes.user.user}`;
+    await fetchService(url, 'PATCH', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify({ user: values }),
+      onFailCallback: () => dispatch(logoutUser()),
     });
 
-    const { status } = response;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
     notify('Updated profile!', 'Just now');
     dispatch({
       type: PROFILE_SUCCESS,
@@ -40,24 +31,13 @@ export const uploadUserImage = async (file: string | Blob) => {
     try {
       const formdata = new FormData();
       formdata.append('image', file);
-      const response = await fetch(`${Config.API_URL + Config.routes.user.profilepicture}`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-        body: formdata,
+
+      const url = `${Config.API_URL}${Config.routes.user.profilepicture}`;
+      const data = await fetchService(url, 'POST', 'image', {
+        requiresAuthorization: true,
+        payload: formdata,
+        onFailCallback: () => logoutUser(),
       });
-
-      const status = await response.status;
-      if (status === 401 || status === 403) {
-        logoutUser();
-        return;
-      }
-
-      const data = await response.json();
-      if (!data) throw new Error('Empty response from server');
-      if (data.error) throw new Error(data.error.message);
 
       notify('Updated profile picture!', '');
 

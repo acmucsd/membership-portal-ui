@@ -12,30 +12,15 @@ import {
 import { fetchUser, logoutUser } from '../auth/authActions';
 
 import Config from '../config';
-import Storage from '../storage';
-import { notify } from '../utils';
+import { notify, fetchService } from '../utils';
 
 export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
   try {
-    const eventsRes = await fetch(Config.API_URL + Config.routes.events.future, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
+    const url = `${Config.API_URL}${Config.routes.events.future}`;
+    const futureEvents = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
     });
-
-    const { status } = eventsRes;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const futureEvents = await eventsRes.json();
-
-    if (!futureEvents) throw new Error('Empty response from server');
-    else if (futureEvents.error) throw new Error(futureEvents.error.message);
 
     dispatch({
       type: FETCH_FUTURE_EVENTS,
@@ -52,25 +37,11 @@ export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
 
 export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
   try {
-    const eventsRes = await fetch(Config.API_URL + Config.routes.events.past, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
+    const url = `${Config.API_URL}${Config.routes.events.past}`;
+    const pastEvents = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
     });
-
-    const { status } = eventsRes;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const pastEvents = await eventsRes.json();
-
-    if (!pastEvents) throw new Error('Empty response from server');
-    else if (pastEvents.error) throw new Error(pastEvents.error.message);
 
     dispatch({
       type: FETCH_PAST_EVENTS,
@@ -87,24 +58,11 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
 
 export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.attendance, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
+    const url = `${Config.API_URL}${Config.routes.attendance}`;
+    const data = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
     });
-
-    const { status } = response;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
 
     dispatch({
       type: FETCH_ATTENDANCE,
@@ -121,28 +79,15 @@ export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
 
 export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
   try {
-    const response = await fetch(Config.API_URL + Config.routes.attendance, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
-      body: JSON.stringify({
+    const url = `${Config.API_URL}${Config.routes.attendance}`;
+    const data = await fetchService(url, 'POST', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify({
         attendanceCode: decodeURI(info.attendanceCode),
         asStaff: info.asStaff,
       }),
+      onFailCallback: () => dispatch(logoutUser()),
     });
-
-    const { status } = response;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
 
     dispatch(fetchUser());
     dispatch(fetchAttendance());
@@ -169,22 +114,11 @@ export const checkOut: ThunkActionCreator = () => (dispatch) => {
 
 export const fetchEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   try {
-    const eventRes = await fetch(`${Config.API_URL + Config.routes.events.event}/${uuid}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Storage.get('token')}`,
-      },
+    const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
+    const thisEvent = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
     });
-
-    const { status } = eventRes;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
-      return;
-    }
-
-    const thisEvent = await eventRes.json();
 
     if (!thisEvent) throw new Error('Empty response from server');
     else if (thisEvent.error) throw new Error(thisEvent.error.message);
