@@ -2,7 +2,7 @@ import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCre
 import { logoutUser } from '../auth/authActions';
 
 import Config from '../config';
-import Storage from '../storage';
+import { fetchService } from '../utils';
 
 const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number, resetUsers?: boolean) => async (
   dispatch,
@@ -30,9 +30,6 @@ const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number,
       dispatch(logoutUser());
     }
 
-    const data = await response.json();
-    if (!data) throw new Error('Empty response from server');
-    if (data.error) throw new Error(data.error.message);
     dispatch({
       type: FETCH_LEADERBOARD,
       payload: data.leaderboard,
