@@ -113,7 +113,7 @@ export const copyLink: Function = (attendanceCode: string) => () => {
   if (!attendanceCode || attendanceCode === '') {
     notify('Unable to generate link!', 'An attendance code is required.');
   } else {
-    copy(`${window.location.host}/checkin?code=${attendanceCode}`);
+    copy(`${window.location.origin}/checkin?code=${encodeURIComponent(attendanceCode)}`);
     notify('Generated checkin link!', 'Link copied to the clipboard.');
   }
 };
