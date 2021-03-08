@@ -12,7 +12,7 @@ interface CheckInHandlerProps {
 const CheckInHandler: React.FC<CheckInHandlerProps> = (props) => {
   const { query, checkIn: reduxCheckIn } = props;
 
-  reduxCheckIn({ attendanceCode: query.code, asStaff: false });
+  reduxCheckIn({ attendanceCode: decodeURIComponent(query.code || ''), asStaff: false });
 
   return <Redirect to="/" />;
 };
