@@ -18,7 +18,7 @@ interface SignInFormProps {
   errors: {
     email: string | null;
     password: string | null;
-  }
+  };
 }
 
 const SignInForm: React.FC<SignInFormProps> = (props) => {

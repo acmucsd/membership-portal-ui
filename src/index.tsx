@@ -29,13 +29,15 @@ import ResetPage from './auth/containers/ResetPage';
 import ProfilePage from './profile/containers/ProfilePage';
 import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
 import RegisterPage from './auth/containers/RegisterPage';
-import StorePage from './store/containers/StorePage';
+// Comment import until Store Page is released and added back to router
+// import StorePage from './store/containers/StorePage';
 import ErrorPage from './layout/containers/ErrorPage';
 import EmailVerficationPage from './auth/containers/EmailVerificationPage';
 import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
 import requireAuth from './auth/containers/requireAuth';
 import requireAdminAuth from './auth/containers/requireAdminAuth';
-import requireStandardAccess from './auth/containers/requireStandardAccess';
+// Comment import until Store Page is released and added back to router
+// import requireStandardAccess from './auth/containers/requireStandardAccess';
 
 const store = configureStore();
 
