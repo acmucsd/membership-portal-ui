@@ -15,10 +15,14 @@ interface SignInFormProps {
     password: string;
   };
   search: string;
+  errors: {
+    email: string | null;
+    password: string | null;
+  }
 }
 
 const SignInForm: React.FC<SignInFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, values, search } = props;
+  const { handleBlur, handleChange, handleSubmit, values, search, errors } = props;
 
   return (
     <div className="signin-card">
@@ -43,6 +47,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
               onBlur={handleBlur}
             />
           </div>
+          <p className="form-error">{errors.email ? errors.email : null}</p>
         </div>
         <div className="form-item">
           <div className="form-input">
@@ -59,6 +64,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
               onBlur={handleBlur}
             />
           </div>
+          <p className="form-error">{errors.password ? errors.password : null}</p>
         </div>
         <div className="forgot-container">
           <NavLink to="/forgot-password">
