@@ -10,12 +10,21 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}`;
-      await fetchService(url, 'POST', 'json', {
+      const data = await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
         payload: JSON.stringify({
           event,
         }),
         onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      const formdata = new FormData();
+      formdata.append('image', event.cover);
+
+      const url2 = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
+      await fetchService(url2, 'POST', 'image', {
+        requiresAuthorization: true,
+        payload: formdata,
       });
 
       notify('Added an event!', event.title);
@@ -31,13 +40,24 @@ export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
-      await fetchService(url, 'PATCH', 'json', {
+      const data = await fetchService(url, 'PATCH', 'json', {
         requiresAuthorization: true,
         payload: JSON.stringify({
           event,
         }),
         onFailCallback: () => dispatch(logoutUser()),
       });
+
+      if (typeof event.cover === 'object') {
+        const formdata = new FormData();
+        formdata.append('image', event.cover);
+
+        const url2 = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
+        await fetchService(url2, 'POST', 'image', {
+          requiresAuthorization: true,
+          payload: formdata,
+        });
+      }
 
       notify('Edited an event!', event.title);
       resolve(event);

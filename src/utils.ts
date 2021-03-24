@@ -139,11 +139,23 @@ export const getAbsoluteURL = (str: string): string => {
 export const fetchService = async (url: string, requestMethod: HttpRequestMethod, mimeType: MimeType, options: FetchServiceOptions) => {
   const { payload, requiresAuthorization, onFailCallback } = options;
 
+  let Accept;
+  if (mimeType === 'json') {
+    Accept = 'application/json';
+  } else if (mimeType === 'image') {
+    Accept = 'multipart/form-data';
+  }
+
+  let ContentType;
+  if (mimeType === 'json') {
+    ContentType = 'application/json';
+  }
+
   const response = await fetch(url, {
     method: requestMethod,
     headers: {
-      Accept: 'application/json',
-      ...(mimeType === 'json' && { 'Content-Type': 'application/json' }), // set content-type if json
+      Accept,
+      ...(ContentType && { 'Content-Type': ContentType }), // set content-type if json or image
       ...(requiresAuthorization && { Authorization: `Bearer ${Storage.get('token')}` }), // set bearer token if needed
     },
     ...(payload && { body: payload }), // set payload if provided
