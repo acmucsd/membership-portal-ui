@@ -9,8 +9,8 @@ import { logoutUser } from '../auth/authActions';
 export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const url = `${Config.API_URL}${Config.routes.events.event}`;
-      const data = await fetchService(url, 'POST', 'json', {
+      const eventUrl = `${Config.API_URL}${Config.routes.events.event}`;
+      const data = await fetchService(eventUrl, 'POST', 'json', {
         requiresAuthorization: true,
         payload: JSON.stringify({
           event,
@@ -21,8 +21,8 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
       const formdata = new FormData();
       formdata.append('image', event.cover);
 
-      const url2 = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
-      await fetchService(url2, 'POST', 'image', {
+      const imageUrl = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
+      await fetchService(imageUrl, 'POST', 'image', {
         requiresAuthorization: true,
         payload: formdata,
       });
@@ -39,8 +39,8 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
 export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const url = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
-      const data = await fetchService(url, 'PATCH', 'json', {
+      const eventUrl = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
+      const data = await fetchService(eventUrl, 'PATCH', 'json', {
         requiresAuthorization: true,
         payload: JSON.stringify({
           event,
@@ -52,8 +52,8 @@ export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
         const formdata = new FormData();
         formdata.append('image', event.cover);
 
-        const url2 = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
-        await fetchService(url2, 'POST', 'image', {
+        const imageUrl = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
+        await fetchService(imageUrl, 'POST', 'image', {
           requiresAuthorization: true,
           payload: formdata,
         });

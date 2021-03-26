@@ -140,15 +140,18 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   const { payload, requiresAuthorization, onFailCallback } = options;
 
   let Accept;
-  if (mimeType === 'json') {
-    Accept = 'application/json';
-  } else if (mimeType === 'image') {
-    Accept = 'multipart/form-data';
-  }
-
   let ContentType;
-  if (mimeType === 'json') {
-    ContentType = 'application/json';
+
+  switch (mimeType) {
+    case 'json':
+      Accept = 'application/json';
+      ContentType = 'application/json';
+      break;
+    case 'image':
+      Accept = 'multipart/form-data';
+      break;
+    default:
+      break;
   }
 
   const response = await fetch(url, {
