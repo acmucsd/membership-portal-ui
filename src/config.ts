@@ -26,7 +26,9 @@ export default {
       emailVerification: '/api/v2/auth/emailVerification',
     },
     admin: {
+      attendance: '/api/v2/admin/attendance',
       bonus: '/api/v2/admin/bonus',
+      emails: '/api/v2/admin/email',
     },
     events: {
       event: '/api/v2/event',

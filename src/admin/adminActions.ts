@@ -3,7 +3,7 @@ import copy from 'copy-to-clipboard';
 import Config from '../config';
 import Storage from '../storage';
 
-import { EVENT_DELETE, ThunkActionCreator } from './adminTypes';
+import { EVENT_DELETE, FETCH_EMAILS, ThunkActionCreator } from './adminTypes';
 import { notify } from '../utils';
 import { logoutUser } from '../auth/authActions';
 
@@ -151,6 +151,83 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
       reject(error);
     }
   });
+};
+
+export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    if (!attendanceDetails.event) {
+      notify('Validation Error!', 'No event specified');
+      reject();
+      return;
+    }
+    if (!attendanceDetails.attendees || attendanceDetails.attendees.length === 0) {
+      notify('Validation Error!', 'No attendees added');
+      reject();
+      return;
+    }
+    try {
+      const response = await fetch(Config.API_URL + Config.routes.admin.attendance, {
+        /* TODO: support multiple attendees */
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Storage.get('token')}`,
+        },
+        body: JSON.stringify({
+          user: attendanceDetails.attendees[0],
+          event: attendanceDetails.event,
+          asStaff: true,
+        }),
+      });
+
+      const { status } = response;
+      if (status === 401 || status === 403) {
+        dispatch(logoutUser());
+      }
+
+      const data = await response.json();
+      if (!data) throw new Error('Empty response from server');
+      if (data.error) throw new Error(data.error.message);
+
+      notify('Added attendees!', `to ${attendanceDetails.attendees.length} users`);
+      resolve(attendanceDetails);
+    } catch (error) {
+      notify('Unable to add attendees!', error.message);
+      reject(error);
+    }
+  });
+};
+
+export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
+  try {
+    const response = await fetch(Config.API_URL + Config.routes.admin.emails, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Storage.get('token')}`,
+      },
+    });
+
+    const { status } = response;
+    if (status === 401 || status === 403) {
+      dispatch(logoutUser());
+      return;
+    }
+
+    const emails = await response.json();
+
+    if (!emails) throw new Error('Empty response from server');
+    else if (emails.error) throw new Error(emails.error.message);
+
+    dispatch({
+      type: FETCH_EMAILS,
+      payload: emails.emails,
+    });
+  } catch (error) {
+    notify('Unable to fetch emails!', error.message);
+  }
 };
 
 export const copyLink: Function = (attendanceCode: string) => () => {
