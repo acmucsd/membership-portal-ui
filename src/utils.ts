@@ -1,28 +1,12 @@
 import { notification } from 'antd';
+import Storage from './storage';
+import { HttpRequestMethod, MimeType, FetchServiceOptions } from './types';
 
 export const notify = (title: string, description: string) => {
   notification.open({
     message: title,
     description,
   });
-};
-
-/**
- * Returns a randomly generated default profile picture.
- * @return {string} A link to a default profile picture.
- */
-export const generateDefaultProfile = (): string => {
-  const eyes = ['eyes1', 'eyes10', 'eyes2', 'eyes3', 'eyes4', 'eyes5', 'eyes6', 'eyes7', 'eyes9'];
-  const nose = ['nose2', 'nose3', 'nose4', 'nose5', 'nose6', 'nose7', 'nose8', 'nose9'];
-  const mouth = ['mouth1', 'mouth10', 'mouth11', 'mouth3', 'mouth5', 'mouth6', 'mouth7', 'mouth9'];
-  const colors = ['22ACEA', '0659BC', 'BED9E6'];
-
-  const getRandom = (list: string[]) => {
-    return list[Math.floor(Math.random() * list.length)];
-  };
-
-  return `https://api.adorable.io/avatars/face/${getRandom(eyes)}
-  /${getRandom(nose)}/${getRandom(mouth)}/${getRandom(colors)}`;
 };
 
 /**
@@ -75,6 +59,7 @@ export const formatDate = (time: string): string => {
     day: 'numeric',
   });
 };
+
 /**
  * Extracts the time from a UTC-formatted timestamp.
  *
@@ -98,20 +83,7 @@ export const formatTime = (time: string | number | Date): string => {
  * @return {number} The month in number form.
  */
 export const getMonthIndex = (month: string): number => {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   function checkMonth(currMonth: string) {
     return month === currMonth;
@@ -159,4 +131,45 @@ export const getAbsoluteURL = (str: string): string => {
   }
 
   return str;
+};
+
+/**
+ * Fetches data from server with simple error handling
+ */
+export const fetchService = async (url: string, requestMethod: HttpRequestMethod, mimeType: MimeType, options: FetchServiceOptions) => {
+  const { payload, requiresAuthorization, onFailCallback } = options;
+
+  let Accept;
+  let ContentType;
+
+  switch (mimeType) {
+    case 'json':
+      Accept = 'application/json';
+      ContentType = 'application/json';
+      break;
+    case 'image':
+      Accept = 'multipart/form-data';
+      break;
+    default:
+      break;
+  }
+
+  const response = await fetch(url, {
+    method: requestMethod,
+    headers: {
+      Accept,
+      ...(ContentType && { 'Content-Type': ContentType }), // set content-type if json or image
+      ...(requiresAuthorization && { Authorization: `Bearer ${Storage.get('token')}` }), // set bearer token if needed
+    },
+    ...(payload && { body: payload }), // set payload if provided
+  });
+
+  const { status } = response;
+  if (status === 401 || status === 403) onFailCallback?.();
+
+  const data = await response.json();
+  if (!data) throw new Error('Empty response from server');
+  if (data.error) throw new Error(data.error.message);
+
+  return data;
 };

@@ -1,70 +1,48 @@
+# ACM at UCSD: Membership Portal UI
+
+This is the frontend repository for the ACM at UCSD membership portal. The live portal is viewable at: [http://members.acmucsd.com](http://members.acmucsd.com).
+
+See [https://github.com/acmucsd/membership-portal](https://github.com/acmucsd/membership-portal) for the portal backend.
+
 ## Setup
 
-Install Node and npm: [https://nodejs.org/en/](https://nodejs.org/en/).
+**Install Node and npm**: [https://nodejs.org/en/](https://nodejs.org/en/). Builds are currently run on version `10.23.1`, but the LTS and Current versions should also work.
 
-## Available Scripts
+**Install yarn**: `npm install -g yarn`. Builds are currently run on `1.17.0`, but any version should also work.
 
-In the project directory, you can run:
+## Running
 
-### `npm start`
+**Clone the repo**: Run `git clone https://github.com/acmucsd/membership-portal-ui.git` in a terminal.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Install packages**: Run `yarn` or `yarn install` to install the node modules.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+**Run the portal**: Run `yarn start` to run the portal with the development environment variables. The page will be available at `localhost:8080`.
 
-### `npm test`
+## Issues
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Add on Github/Zenhub, including a title, description, screenshots if applicable
 
-### `npm run build`
+- Label the applicable issue type.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- If you’d like to work on that specific issue, assign yourself.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- If not, it will get assigned during development meetings.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## PRs
 
-### `npm run eject`
+- Every PR should have a corresponding issue it’s tied to. You can link by using the phrase “Resolves #XX.” in the PR description, or in the GitHub sidebar. Assign yourself to the PR.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Tag the PR as “PR: Needs Review” and request a review from the portal PM.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- If the PR is approved, go ahead and merge the PR into the repo.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- If the PR isn’t approved, check the comments for feedback / suggested changes.
+When you merge, the branch will be deleted automatically.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Coding
 
-## Learn More
+- When working on the portal, start by creating a new branch based on master. Add all commits to this branch, and then you can create a PR from there.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- There should be one feature/bugfix per branch.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- If you’re working on the portal in parallel with someone else and end up with PR conflicts / merge issues, contact the portal PM via the Discord server.
