@@ -83,7 +83,7 @@ const FormikEditEventForm = withFormik({
     const event = {
       uuid: values.uuid,
       title: values.title,
-      location: values.location,
+      location: values.location.trim(),
       pointValue: values.pointValue,
       start: new Date(`${startDate.format('LL')} ${startTime.format('LT')}`).toISOString(),
       end: new Date(`${endDate.format('LL')} ${endTime.format('LT')}`).toISOString(),
