@@ -65,7 +65,15 @@ const App = () => {
             <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage) as React.FC} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} />
+            <Route
+              exact
+              path="/store"
+              component={() => {
+                window.location.href = 'https://www.youtube.com/watch?v=iik25wqIuFo';
+                return null;
+              }}
+            />
+            {/* <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} /> */}
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
             <Route exact path="/" component={requireAuth(HomePage) as React.FC} />
