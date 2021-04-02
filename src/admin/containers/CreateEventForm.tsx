@@ -1,9 +1,24 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
+import * as Yup from 'yup';
 
+import Moment from 'moment';
 import CreateEventForm from '../components/CreateEventForm';
 import { postEvent, copyLink } from '../adminActions';
-import { notify } from '../../utils';
+
+const CreateEventSchema = Yup.object().shape({
+  title: Yup.string().required('Required'),
+  location: Yup.string().required('Required'),
+  pointValue: Yup.number().required('Required').positive('Must be positive').moreThan(0, 'Must be greater than 0').integer('Must be an integer'),
+  startDate: Yup.date().typeError('Not a date').required('Required'),
+  startTime: Yup.date().typeError('Not a time').required('Required'),
+  endDate: Yup.date().typeError('Not a date').required('Required'),
+  endTime: Yup.date().typeError('Not a time').required('Required'),
+  cover: Yup.string().required('Required'),
+  description: Yup.string().required('Required'),
+  attendanceCode: Yup.string().required('Required'),
+  committee: Yup.string().required('Required'),
+});
 
 const FormikCreateEventForm = withFormik({
   mapPropsToValues() {
@@ -21,70 +36,18 @@ const FormikCreateEventForm = withFormik({
       committee: '',
     };
   },
+  validationSchema: CreateEventSchema,
+  validateOnChange: false,
+  validateOnBlur: false,
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
     const { startDate, startTime, endDate, endTime } = values;
-
-    if (values.title === '') {
-      notify('Event Creation Error', 'Title is required.');
-      return;
-    }
-
-    if (values.location === '') {
-      notify('Event Creation Error', 'Location is required.');
-      return;
-    }
-
-    if (values.pointValue === 0) {
-      notify('Event Creation Error', 'Points is required.');
-      return;
-    }
-
-    if (!startDate) {
-      notify('Event Creation Error', 'Start Date is required.');
-      return;
-    }
-
-    if (!startTime) {
-      notify('Event Creation Error', 'Start Time is required.');
-      return;
-    }
-
-    if (!endDate) {
-      notify('Event Creation Error', 'End Date is required.');
-      return;
-    }
-
-    if (!endTime) {
-      notify('Event Creation Error', 'End Time is required.');
-      return;
-    }
-
-    if (values.cover === '') {
-      notify('Event Creation Error', 'Cover is required.');
-      return;
-    }
-
-    if (values.description === '') {
-      notify('Event Creation Error', 'Description is required.');
-      return;
-    }
-
-    if (values.attendanceCode === '') {
-      notify('Event Creation Error', 'Attendance Code is required.');
-      return;
-    }
-
-    if (values.committee === '') {
-      notify('Event Creation Error', 'Community is required.');
-      return;
-    }
 
     const event = {
       title: values.title,
       location: values.location.trim(),
       pointValue: values.pointValue,
-      start: new Date(`${startDate.format('LL')} ${startTime.format('LT')}`).toISOString(),
-      end: new Date(`${endDate.format('LL')} ${endTime.format('LT')}`).toISOString(),
+      start: new Date(`${Moment(startDate).format(`LL`)} ${Moment(startTime).format(`LT`)}`).toISOString(),
+      end: new Date(`${Moment(endDate).format(`LL`)} ${Moment(endTime).format(`LT`)}`).toISOString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
