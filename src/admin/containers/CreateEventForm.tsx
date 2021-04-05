@@ -9,7 +9,7 @@ import { postEvent, copyLink } from '../adminActions';
 const CreateEventSchema = Yup.object().shape({
   title: Yup.string().required('Required'),
   location: Yup.string().required('Required'),
-  pointValue: Yup.number().required('Required').positive('Must be positive').moreThan(0, 'Must be greater than 0').integer('Must be an integer'),
+  pointValue: Yup.number().required('Required').moreThan(0, 'Must be greater than 0').integer('Must be an integer'),
   startDate: Yup.date().typeError('Not a date').required('Required'),
   startTime: Yup.date().typeError('Not a time').required('Required'),
   endDate: Yup.date().typeError('Not a date').required('Required'),
