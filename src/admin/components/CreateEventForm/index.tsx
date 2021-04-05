@@ -117,7 +117,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
                 minuteStep={15}
                 value={values.endTime}
                 onChange={(time) => setFieldValue('endTime', time)}
-              />{' '}
+              />
               <p className="form-error">{errors.endTime ? errors.endTime : null}</p>
             </Form.Item>
           </div>
