@@ -1,9 +1,24 @@
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
+import * as Yup from 'yup';
+import Moment from 'moment';
 
-import EditEventform from '../components/EditEventForm';
+import EditEventForm from '../components/EditEventForm';
 import { editEvent, deleteEvent, copyLink } from '../adminActions';
-import { notify } from '../../utils';
+
+const EditEventSchema = Yup.object().shape({
+  title: Yup.string().required('Required'),
+  location: Yup.string().required('Required'),
+  pointValue: Yup.number().required('Required').moreThan(0, 'Must be greater than 0').integer('Must be an integer'),
+  startDate: Yup.date().typeError('Not a date').required('Required'),
+  startTime: Yup.date().typeError('Not a time').required('Required'),
+  endDate: Yup.date().typeError('Not a date').required('Required'),
+  endTime: Yup.date().typeError('Not a time').required('Required'),
+  cover: Yup.string(),
+  description: Yup.string().required('Required'),
+  attendanceCode: Yup.string().required('Required'),
+  committee: Yup.string().required('Required'),
+});
 
 const FormikEditEventForm = withFormik({
   mapPropsToValues() {
@@ -22,71 +37,19 @@ const FormikEditEventForm = withFormik({
       committee: '',
     };
   },
+  validationSchema: EditEventSchema,
+  validateOnChange: false,
+  validateOnBlur: false,
   handleSubmit(values, { props }: { [key: string]: any }) {
     const { startDate, startTime, endDate, endTime } = values;
-
-    if (values.title === '') {
-      notify('Event Edit Error', 'Title is required.');
-      return;
-    }
-
-    if (values.location === '') {
-      notify('Event Edit Error', 'Location is required.');
-      return;
-    }
-
-    if (values.pointValue === 0) {
-      notify('Event Edit Error', 'Points is required.');
-      return;
-    }
-
-    if (!startDate) {
-      notify('Event Edit Error', 'Start Date is required.');
-      return;
-    }
-
-    if (!startTime) {
-      notify('Event Edit Error', 'Start Time is required.');
-      return;
-    }
-
-    if (!endDate) {
-      notify('Event Edit Error', 'End Date is required.');
-      return;
-    }
-
-    if (!endTime) {
-      notify('Event Edit Error', 'End Time is required.');
-      return;
-    }
-
-    if (values.cover === '') {
-      notify('Event Edit Error', 'Cover is required.');
-      return;
-    }
-
-    if (values.description === '') {
-      notify('Event Edit Error', 'Description is required.');
-      return;
-    }
-
-    if (values.attendanceCode === '') {
-      notify('Event Edit Error', 'Attendance Code is required.');
-      return;
-    }
-
-    if (values.committee === '') {
-      notify('Event Edit Error', 'Community is required.');
-      return;
-    }
 
     const event = {
       uuid: values.uuid,
       title: values.title,
       location: values.location.trim(),
       pointValue: values.pointValue,
-      start: new Date(`${startDate.format('LL')} ${startTime.format('LT')}`).toISOString(),
-      end: new Date(`${endDate.format('LL')} ${endTime.format('LT')}`).toISOString(),
+      start: new Date(`${Moment(startDate).format(`LL`)} ${Moment(startTime).format(`LT`)}`).toISOString(),
+      end: new Date(`${Moment(endDate).format(`LL`)} ${Moment(endTime).format(`LT`)}`).toISOString(),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
@@ -98,6 +61,6 @@ const FormikEditEventForm = withFormik({
       .then(() => {})
       .catch(() => {});
   },
-})(EditEventform as React.FC);
+})(EditEventForm as React.FC);
 
 export default connect(null, { editEvent, deleteEvent, copyLink })(FormikEditEventForm);
