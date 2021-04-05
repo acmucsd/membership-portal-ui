@@ -5,6 +5,7 @@ import Moment from 'moment';
 
 import EditEventForm from '../components/EditEventForm';
 import { editEvent, deleteEvent, copyLink } from '../adminActions';
+import { isURL } from '../../utils';
 
 const EditEventSchema = Yup.object().shape({
   title: Yup.string().required('Required'),
@@ -46,7 +47,7 @@ const FormikEditEventForm = withFormik({
     const event = {
       uuid: values.uuid,
       title: values.title,
-      location: values.location.trim(),
+      location: isURL(values.location.trim()) ? values.location.trim().toLowerCase() : values.location.trim(),
       pointValue: values.pointValue,
       start: new Date(`${Moment(startDate).format(`LL`)} ${Moment(startTime).format(`LT`)}`).toISOString(),
       end: new Date(`${Moment(endDate).format(`LL`)} ${Moment(endTime).format(`LT`)}`).toISOString(),
