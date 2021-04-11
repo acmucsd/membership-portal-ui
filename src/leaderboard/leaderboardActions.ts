@@ -4,7 +4,9 @@ import { logoutUser } from '../auth/authActions';
 import Config from '../config';
 import { fetchService } from '../utils';
 
-export const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number, resetUsers?: boolean) => async (dispatch) => {
+const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number, resetUsers?: boolean) => async (
+  dispatch,
+) => {
   try {
     if (resetUsers) {
       dispatch({
@@ -32,3 +34,5 @@ export const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: 
     });
   }
 };
+
+export default fetchLeaderboard;

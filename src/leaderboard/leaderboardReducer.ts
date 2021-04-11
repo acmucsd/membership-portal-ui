@@ -11,11 +11,12 @@ const initialState = {
 const LeaderboardReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case CLEAR_LEADERBOARD: {
-      state.users = [];
-      state.users.length = 0;
-      state.offsetToUsers = new Map();
+      const newState = {
+        users: [],
+        offsetToUsers: new Map(),
+      };
       return {
-        ...state,
+        ...newState,
         error: action.payload,
       };
     }
