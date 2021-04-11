@@ -12,8 +12,12 @@ const LeaderboardReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case CLEAR_LEADERBOARD: {
       state.users = [];
+      state.users.length = 0;
       state.offsetToUsers = new Map();
-      return initialState;
+      return {
+        ...state,
+        error: action.payload,
+      };
     }
     case FETCH_LEADERBOARD: {
       // TODO: Look into Immutables.

@@ -1,4 +1,5 @@
-import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';import { logoutUser } from '../auth/authActions';
+import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';
+import { logoutUser } from '../auth/authActions';
 
 import Config from '../config';
 import { fetchService } from '../utils';
