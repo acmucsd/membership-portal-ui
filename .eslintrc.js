@@ -24,5 +24,6 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': ['off'],
     'jsx-a11y/no-static-element-interactions': ['off'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.ts', '.tsx'] }],
+    'react/no-array-index-key': 'off'
   },
 };
