@@ -15,10 +15,8 @@ const FormikProfileUpdate = withFormik({
     };
   },
   handleSubmit(values, { props }: { [key: string]: any }) {
-    props
-      .updateProfile(values)
-      .then(() => {})
-      .catch(() => {});
+    // Run updateProfile action. Bio must be null if blank, because empty strings aren't accepted by the backend.
+    props.updateProfile({ ...values, bio: values.bio === '' ? null : values.bio });
   },
 })(ProfileUpdate as React.FC);
 
