@@ -1,4 +1,4 @@
-import React, { useState, ChangeEventHandler, KeyboardEventHandler } from 'react';
+import React, { useState, ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
 import { connect } from 'react-redux';
 
 import LoginLayout from '../components/LoginLayout';
@@ -24,7 +24,9 @@ const PasswordPage: React.FC<PasswordPageProps> = (props) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick: FormEventHandler = (event) => {
+    event.preventDefault();
+    setValue('');
     props.passwordReset(value);
   };
 
