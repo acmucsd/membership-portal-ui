@@ -175,7 +175,7 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
           Authorization: `Bearer ${Storage.get('token')}`,
         },
         body: JSON.stringify({
-          user: attendanceDetails.attendees[0],
+          users: attendanceDetails.attendees,
           event: attendanceDetails.event,
           asStaff: true,
         }),
