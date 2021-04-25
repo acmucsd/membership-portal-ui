@@ -167,7 +167,6 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
     }
     try {
       const response = await fetch(Config.API_URL + Config.routes.admin.attendance, {
-        /* TODO: support multiple attendees */
         method: 'POST',
         headers: {
           Accept: 'application/json',

@@ -62,7 +62,7 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
         <h1 className="subtitle">Add Attendance</h1>
         <form onSubmit={handleSubmit}>
           <Input type="hidden" value={attendees} name="attendees" />
-          <Form.Item className="event-wrapper" label="Events">
+          <Form.Item className="event-wrapper" label="Event UUID">
             <Input name="event" className="events" value={values.event} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <Form.Item label="Attendees" className="attendees-list-wrapper">
