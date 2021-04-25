@@ -5,6 +5,8 @@ import { UploadOutlined } from '@ant-design/icons';
 import { getDefaultProfile } from '../../../utils';
 import { uploadUserImage } from '../../profileActions';
 
+import majorsData from '../../../constants/majors.json';
+
 import './style.less';
 
 const { Option } = Select;
@@ -167,7 +169,20 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
               </CustomSelect>
             </Form.Item>
             <Form.Item label="Major">
-              <Input name="major" className="major" value={values.major} onChange={handleChange} onBlur={handleBlur} />
+              <CustomSelect
+                showSearch
+                placeholder="Major"
+                className="major"
+                value={values.major}
+                onChange={(value: string) => setFieldValue('major', value)}
+                onBlur={(value: string) => setFieldValue('major', value)}
+              >
+                {majorsData.majors.map((major) => (
+                  <Option key={major} value={major}>
+                    {major}
+                  </Option>
+                ))}
+              </CustomSelect>
             </Form.Item>
           </div>
           <Form.Item label="About">
