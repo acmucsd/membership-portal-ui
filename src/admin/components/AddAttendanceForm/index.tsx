@@ -1,5 +1,6 @@
 import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
 import { Form, Input, Button, Tooltip, Tag, Icon } from 'antd';
+import { useHistory } from 'react-router-dom';
 
 import './style.less';
 
@@ -18,6 +19,7 @@ interface AddAttendanceFormProps {
 
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
+  const history = useHistory();
   const { handleBlur, handleChange, handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [attendees, _setAttendees] = useState([] as any[]);
@@ -106,7 +108,13 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
           <Button type="primary" htmlType="submit" className="save-button" loading={isSubmitting && isValidating}>
             Submit Edits
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button
+            type="danger"
+            className="discard-button"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
             Discard
           </Button>
         </form>

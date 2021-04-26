@@ -1,6 +1,6 @@
 import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
 import { Form, Input, Button, Tag, Tooltip, Icon } from 'antd';
-
+import { useHistory } from 'react-router-dom';
 import './style.less';
 
 const { TextArea } = Input;
@@ -21,6 +21,7 @@ interface AwardPointsFormProps {
 
 const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
+  const history = useHistory();
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [awardees, _setAwardees] = useState([] as any[]);
@@ -109,7 +110,13 @@ const AwardPointsForm: React.FC<AwardPointsFormProps> = (props) => {
           <Button type="primary" htmlType="submit" className="save-button" loading={isSubmitting && isValidating}>
             Submit Edits
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button
+            type="danger"
+            className="discard-button"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
             Discard
           </Button>
         </form>

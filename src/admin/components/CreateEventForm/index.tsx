@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import * as moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 import './style.less';
 
@@ -34,6 +35,7 @@ interface CreateEventFormProps {
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, copyLink } = props;
+  const history = useHistory();
 
   return (
     <div className="create-event-form">
@@ -112,7 +114,13 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           <Button type="primary" htmlType="submit" className="save-button">
             Add Event
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button
+            type="danger"
+            className="discard-button"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
             Discard
           </Button>
           <Button
