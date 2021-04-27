@@ -57,9 +57,13 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
           <div className="meta-data bio">
             <h2>Bio</h2>
 
-            {((stateUser.profile.bio as string) || "This user hasn't added a bio yet!").split('\n').map((item, key) => {
-              return <p key={key}>{item}</p>;
-            })}
+            {(!/^[\r\n\s]*$/.test(stateUser.profile.bio as string)
+              && (stateUser.profile.bio as string)?.split('\n').map((item, key) => (
+                item
+                  ? <p key={key}>{item}</p>
+                  : <br />
+              ))) || <p>This user hasn't added a bio yet!</p>
+            }
           </div>
           {!params.uuid && (
             <Link to="/editProfile">
