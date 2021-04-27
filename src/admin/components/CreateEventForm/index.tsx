@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
-import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
 import * as moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
@@ -29,12 +29,25 @@ interface CreateEventFormProps {
     attendanceCode: string;
     description: string;
   };
+  errors: {
+    title: string | null;
+    committee: string | null;
+    location: string | null;
+    pointValue: string | null;
+    startDate: string | null;
+    startTime: string | null;
+    endDate: string | null;
+    endTime: string | null;
+    cover: string | null;
+    attendanceCode: string | null;
+    description: string | null;
+  };
   copyLink: Function;
 }
 
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, copyLink } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, errors, copyLink } = props;
   const history = useHistory();
 
   return (
@@ -45,6 +58,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
           <Form.Item label="Event Title">
             <Input name="title" className="input-box" value={values.title} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
+          <p className="form-error">{errors.title ? errors.title : null}</p>
           <Form.Item className="committee-wrapper" label="Community">
             <Select
               showSearch
@@ -64,17 +78,21 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
               ))}
             </Select>
           </Form.Item>
+          <p className="form-error">{errors.committee ? errors.committee : null}</p>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
               <Input name="location" className="location" value={values.location} onChange={handleChange} onBlur={handleBlur} />
+              <p className="form-error">{errors.location ? errors.location : null}</p>
             </Form.Item>
             <Form.Item className="points-wrapper" label="Points">
               <Input name="pointValue" className="points" value={values.pointValue} onChange={handleChange} onBlur={handleBlur} />
+              <p className="form-error">{errors.pointValue ? errors.pointValue : null}</p>
             </Form.Item>
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
               <DatePicker className="date" value={values.startDate} onChange={(date) => setFieldValue('startDate', date)} />
+              <p className="form-error">{errors.startDate ? errors.startDate : null}</p>
             </Form.Item>
             <Form.Item className="time-wrapper" label="Start Time">
               <TimePicker
@@ -85,11 +103,13 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
                 value={values.startTime}
                 onChange={(time) => setFieldValue('startTime', time)}
               />
+              <p className="form-error">{errors.startTime ? errors.startTime : null}</p>
             </Form.Item>
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="End Date">
               <DatePicker className="date" value={values.endDate} onChange={(date) => setFieldValue('endDate', date)} />
+              <p className="form-error">{errors.endDate ? errors.endDate : null}</p>
             </Form.Item>
             <Form.Item className="time-wrapper" label="End Time">
               <TimePicker
@@ -100,16 +120,30 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
                 value={values.endTime}
                 onChange={(time) => setFieldValue('endTime', time)}
               />
+              <p className="form-error">{errors.endTime ? errors.endTime : null}</p>
             </Form.Item>
           </div>
-          <Form.Item label="Cover Link">
-            <Input name="cover" className="input-box" value={values.cover} onChange={handleChange} onBlur={handleBlur} />
+          <Form.Item className="cover-wrapper" label="Cover Link">
+            <Upload
+              name="cover"
+              className="cover"
+              accept="image/*"
+              listType="picture"
+              customRequest={(options) => {
+                setFieldValue('cover', options.file);
+              }}
+            >
+              <Button>Click to upload</Button>
+            </Upload>
           </Form.Item>
+          <p className="form-error">{errors.cover ? errors.cover : null}</p>
           <Form.Item label="Attendance Code">
             <Input name="attendanceCode" className="input-box" value={values.attendanceCode} onChange={handleChange} onBlur={handleBlur} />
+            <p className="form-error">{errors.attendanceCode ? errors.attendanceCode : null}</p>
           </Form.Item>
           <Form.Item label="Description">
             <TextArea name="description" className="area-box" value={values.description} onChange={handleChange} onBlur={handleBlur} />
+            <p className="form-error">{errors.description ? errors.description : null}</p>
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
             Add Event

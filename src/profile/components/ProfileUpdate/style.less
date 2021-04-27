@@ -75,10 +75,20 @@
     }
 
     .major {
-      .input-style;
-
+      height: @profile-input-height;
       max-width: 100%;
       width: @major-width;
+
+      .ant-select-selection--single {
+        .input-style;
+
+        align-items: center;
+        display: flex;
+
+        .ant-select-selection__rendered {
+          width: calc(100% - 11px - 24px); // fit input inside select component, account for ant's select left/right margins
+        }
+      }
     }
   }
 

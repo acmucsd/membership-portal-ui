@@ -1,29 +1,24 @@
-import { FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';
+import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';
 import { logoutUser } from '../auth/authActions';
 
 import Config from '../config';
-import Storage from '../storage';
+import { fetchService } from '../utils';
 
-const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number) => async (dispatch) => {
+const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number, resetUsers?: boolean) => async (
+  dispatch,
+) => {
   try {
-    const response = await fetch(
-      `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Storage.get('token')}`,
-        },
-      },
-    );
-
-    const { status } = response;
-    if (status === 401 || status === 403) {
-      dispatch(logoutUser());
+    if (resetUsers) {
+      dispatch({
+        type: CLEAR_LEADERBOARD,
+      });
     }
+    const url = `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`;
+    const data = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
+    });
 
-    const data = await response.json();
     if (!data) throw new Error('Empty response from server');
     if (data.error) throw new Error(data.error.message);
     dispatch({

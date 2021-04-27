@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
+import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
 import { getDefaultProfile } from '../utils';
 
 const initialState = {
@@ -10,6 +10,16 @@ const initialState = {
 
 const LeaderboardReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case CLEAR_LEADERBOARD: {
+      const newState = {
+        users: [],
+        offsetToUsers: new Map(),
+      };
+      return {
+        ...newState,
+        error: action.payload,
+      };
+    }
     case FETCH_LEADERBOARD: {
       // TODO: Look into Immutables.
       action.payload.map((user: { [key: string]: any }) => {

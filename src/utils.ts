@@ -1,4 +1,6 @@
 import { notification } from 'antd';
+import Storage from './storage';
+import { HttpRequestMethod, MimeType, FetchServiceOptions } from './types';
 
 export const notify = (title: string, description: string) => {
   notification.open({
@@ -129,4 +131,45 @@ export const getAbsoluteURL = (str: string): string => {
   }
 
   return str;
+};
+
+/**
+ * Fetches data from server with simple error handling
+ */
+export const fetchService = async (url: string, requestMethod: HttpRequestMethod, mimeType: MimeType, options: FetchServiceOptions) => {
+  const { payload, requiresAuthorization, onFailCallback } = options;
+
+  let Accept;
+  let ContentType;
+
+  switch (mimeType) {
+    case 'json':
+      Accept = 'application/json';
+      ContentType = 'application/json';
+      break;
+    case 'image':
+      Accept = 'multipart/form-data';
+      break;
+    default:
+      break;
+  }
+
+  const response = await fetch(url, {
+    method: requestMethod,
+    headers: {
+      Accept,
+      ...(ContentType && { 'Content-Type': ContentType }), // set content-type if json or image
+      ...(requiresAuthorization && { Authorization: `Bearer ${Storage.get('token')}` }), // set bearer token if needed
+    },
+    ...(payload && { body: payload }), // set payload if provided
+  });
+
+  const { status } = response;
+  if (status === 401 || status === 403) onFailCallback?.();
+
+  const data = await response.json();
+  if (!data) throw new Error('Empty response from server');
+  if (data.error) throw new Error(data.error.message);
+
+  return data;
 };

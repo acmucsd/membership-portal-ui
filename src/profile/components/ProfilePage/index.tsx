@@ -54,6 +54,13 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
             <p>Graduation Year: {stateUser.profile.graduationYear}</p>
             <p>Major: {stateUser.profile.major}</p>
           </div>
+          <div className="meta-data">
+            <h2>Bio</h2>
+
+            {((stateUser.profile.bio as string) || "This user hasn't added a bio yet!").split('\n').map((item, key) => {
+              return <p key={key}>{item}</p>;
+            })}
+          </div>
           {!params.uuid && (
             <Link to="/editProfile">
               <Button className="edit-profile-btn">Edit Profile</Button>

@@ -34,6 +34,7 @@ export default {
       event: '/api/v2/event',
       past: '/api/v2/event/past',
       future: '/api/v2/event/future',
+      picture: '/api/v2/event/picture',
     },
     attendance: '/api/v2/attendance',
     leaderboard: '/api/v2/leaderboard',

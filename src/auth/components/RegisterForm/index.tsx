@@ -10,7 +10,7 @@ import PasswordIcon from '../../../assets/icons/password-icon.svg';
 import MajorIcon from '../../../assets/icons/major-icon.svg';
 import YearIcon from '../../../assets/icons/year-icon.svg';
 
-import majorsData from './majors.json';
+import majorsData from '../../../constants/majors.json';
 
 const { Option } = Select;
 
