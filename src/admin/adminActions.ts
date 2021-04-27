@@ -151,7 +151,7 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
           asStaff: true,
         }),
         onFailCallback: () => dispatch(logoutUser()),
-      })
+      });
 
       notify('Added attendees!', `to ${attendanceDetails.attendees.length} users`);
       resolve(attendanceDetails);
