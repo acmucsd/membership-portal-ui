@@ -41,6 +41,15 @@ export const getRank = (points: number): string => {
     'Later(TM)',
     'Sometime(TM)',
     'We Ran Out Of Ranks',
+    'Ok, This Is Ridiculous',
+    'How Did We Get Here?!',
+    "I Still Can't Believe This",
+    'Going Even Higher',
+    'Ascending',
+    'Ascended',
+    'Approaching Snu',
+    'Snu',
+    'BEYOND SNU?!',
   ];
   const index = Math.min(ranks.length - 1, Math.floor(points / 100));
   return ranks[index];
