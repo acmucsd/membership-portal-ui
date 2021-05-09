@@ -54,7 +54,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
             <p>Graduation Year: {stateUser.profile.graduationYear}</p>
             <p>Major: {stateUser.profile.major}</p>
           </div>
-          <div className="meta-data">
+          <div className="meta-data bio">
             <h2>Bio</h2>
 
             {((stateUser.profile.bio as string) || "This user hasn't added a bio yet!").split('\n').map((item, key) => {
