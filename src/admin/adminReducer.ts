@@ -3,14 +3,16 @@ import { AnyAction } from 'redux';
 import { FETCH_EMAILS } from './adminTypes';
 
 const initialState = {
-  emailsList: [],
+  emailList: [],
   error: false,
 };
 
 const AdminReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case FETCH_EMAILS:
-      if (_.isEqual(state.emailsList, action.payload)) {
+      console.log('got all emails');
+      console.log(action.payload);
+      if (_.isEqual(state.emailList, action.payload)) {
         return {
           ...state,
         };

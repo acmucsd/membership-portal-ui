@@ -163,17 +163,18 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
 };
 
 export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
+  console.log('getting all emails...');
   try {
     const url = `${Config.API_URL}${Config.routes.admin.emails}`;
     const emails = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
       onFailCallback: () => dispatch(logoutUser()),
     });
-
-    dispatch({
+    /*dispatch({
       type: FETCH_EMAILS,
       payload: emails.emails,
-    });
+    });*/
+    return emails;
   } catch (error) {
     notify('Unable to fetch emails!', error.message);
   }
