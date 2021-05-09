@@ -132,7 +132,7 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
                 toggleStaff(!isStaff);
               }}
             >
-              All these attendees are staff
+              All of these attendees are staff
             </Checkbox>
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button" loading={isSubmitting && isValidating}>
