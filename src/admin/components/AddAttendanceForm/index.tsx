@@ -1,10 +1,10 @@
-import React, { useState, useEffect, ChangeEventHandler, FocusEventHandler, FormEventHandler, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import { AutoComplete, Form, Input, Button, Tooltip, Tag, Icon } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 import './style.less';
 
-const {Option} = AutoComplete;
+const { Option } = AutoComplete;
 
 interface AddAttendanceFormProps {
   getAllEmails: Function;
@@ -31,12 +31,11 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-
   useEffect(() => {
     getAllEmails().then((value) => {
       loadEmails(value.emails);
-    })
-  }, []);
+    });
+  }, [getAllEmails]);
 
   const showInput = () => {
     setInputVisible(true);
@@ -52,21 +51,15 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
     updateAttendees(newAttendees);
   };
 
-  /*const handleAttendeeInputChange = (value: SelectValue) => {
-    setInputValue(value);
-  }*/
-
   const handleInputConfirm = (optionValue?: string) => {
     let newAttendees = attendees;
     // cross check with email list
 
     if (optionValue) {
       newAttendees = [...newAttendees, optionValue];
-    } else {
-      if (inputValue && attendees.indexOf(inputValue) === -1) {
+    } else if (inputValue && attendees.indexOf(inputValue) === -1) {
       // add to list if input user does not exist
       newAttendees = [...newAttendees, inputValue];
-      }
     }
     updateAttendees(newAttendees);
     setInputVisible(false);
@@ -103,17 +96,18 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
                 <AutoComplete
                   className="attendee-input"
                   style={{ width: 200 }}
-                  filterOption={(inputValue, email) => {
-                    return email.props.children?.toString().toLowerCase().indexOf(inputValue.toLowerCase()) !== -1;
-                  }
-                  }
-                  onChange={(value) => {setInputValue(value.toString());}}
-                  onBlur={(value) => {
+                  filterOption={(input, email) => {
+                    return email.props.children?.toString().toLowerCase().indexOf(input.toLowerCase()) !== -1;
+                  }}
+                  onChange={(value) => {
+                    setInputValue(value.toString());
+                  }}
+                  onBlur={() => {
                     handleInputConfirm();
                   }}
-                  onSelect={(value, option) => {
-                    setInputValue(option['key']);
-                    handleInputConfirm(option['key']);
+                  onSelect={(value, option: { key?: string }) => {
+                    setInputValue(option.key ? option.key : '');
+                    handleInputConfirm(option.key ? option.key : '');
                   }}
                 >
                   {emails.map((email: string) => (
@@ -124,9 +118,7 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
                 </AutoComplete>
               )}
               {!inputVisible && (
-                <Tag 
-                  onClick={showInput} 
-                  className="add-new-attendee">
+                <Tag onClick={showInput} className="add-new-attendee">
                   <Icon type="plus" /> Enter Attendee Email
                 </Tag>
               )}

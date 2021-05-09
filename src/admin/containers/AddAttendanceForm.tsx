@@ -5,16 +5,14 @@ import AddAttendanceForm from '../components/AddAttendanceForm';
 import { addAttendance, getAllEmails } from '../adminActions';
 
 const FormikAddAttendanceForm = withFormik({
-  mapPropsToValues(props: { [key:string]: any}) {
+  mapPropsToValues() {
     return {
       event: '',
       attendees: [],
-      emails: []
+      emails: [],
     };
   },
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
-    //console.log(props);
-    // props.getAllEmails();
     const attendanceDetails = {
       event: values.event,
       attendees: values.attendees,
@@ -29,8 +27,4 @@ const FormikAddAttendanceForm = withFormik({
   },
 })(AddAttendanceForm as any);
 
-/*const mapStateToProps = (state: { [key: string]: any }) => ({
-  emails: state.emailList,
-});*/
-
-export default connect(/*mapStateToProps*/null, { addAttendance, getAllEmails })(FormikAddAttendanceForm);
+export default connect(null, { addAttendance, getAllEmails })(FormikAddAttendanceForm);

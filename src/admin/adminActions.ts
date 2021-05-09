@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard';
 
 import Config from '../config';
 
-import { EVENT_DELETE, FETCH_EMAILS, ThunkActionCreator } from './adminTypes';
+import { EVENT_DELETE, ThunkActionCreator } from './adminTypes';
 import { notify, fetchService } from '../utils';
 import { logoutUser } from '../auth/authActions';
 
@@ -163,20 +163,16 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
 };
 
 export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
-  console.log('getting all emails...');
   try {
     const url = `${Config.API_URL}${Config.routes.admin.emails}`;
     const emails = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
       onFailCallback: () => dispatch(logoutUser()),
     });
-    /*dispatch({
-      type: FETCH_EMAILS,
-      payload: emails.emails,
-    });*/
     return emails;
   } catch (error) {
     notify('Unable to fetch emails!', error.message);
+    return [];
   }
 };
 
