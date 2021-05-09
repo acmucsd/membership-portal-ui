@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
-import { AutoComplete, Form, Input, Button, Tooltip, Tag, Icon } from 'antd';
+import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 import './style.less';
@@ -16,8 +16,8 @@ interface AddAttendanceFormProps {
   setFieldValue: Function;
   values: {
     uuid: string;
+    staff: boolean;
     event: string;
-    emails: string[];
   };
 }
 
@@ -26,9 +26,10 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
   const history = useHistory();
   const { getAllEmails, handleBlur, handleChange, handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const [attendees, _setAttendees] = useState([] as any[]);
-  const [emails, loadEmails] = useState([] as any[]);
-  const [inputVisible, setInputVisible] = useState(false);
+  const [attendees, _setAttendees] = useState<string[]>([]);
+  const [emails, loadEmails] = useState<string[]>([]);
+  const [isStaff, toggleStaff] = useState<boolean>(false);
+  const [inputVisible, setInputVisible] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -123,6 +124,16 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
                 </Tag>
               )}
             </div>
+            <Checkbox
+              name="staff"
+              value={isStaff}
+              onChange={() => {
+                setFieldValue('staff', !isStaff);
+                toggleStaff(!isStaff);
+              }}
+            >
+              All these attendees are staff
+            </Checkbox>
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button" loading={isSubmitting && isValidating}>
             Submit Edits

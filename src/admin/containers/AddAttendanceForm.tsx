@@ -7,17 +7,17 @@ import { addAttendance, getAllEmails } from '../adminActions';
 const FormikAddAttendanceForm = withFormik({
   mapPropsToValues() {
     return {
-      event: '',
       attendees: [],
-      emails: [],
+      event: '',
+      staff: false,
     };
   },
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
     const attendanceDetails = {
-      event: values.event,
       attendees: values.attendees,
+      event: values.event,
+      asStaff: values.staff,
     };
-
     props
       .addAttendance(attendanceDetails)
       .then(() => {

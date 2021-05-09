@@ -148,7 +148,7 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
         payload: JSON.stringify({
           users: attendanceDetails.attendees,
           event: attendanceDetails.event,
-          asStaff: true,
+          asStaff: attendanceDetails.asStaff,
         }),
         onFailCallback: () => dispatch(logoutUser()),
       });
