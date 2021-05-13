@@ -11,3 +11,4 @@ jobs:
       - uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: "PR: Needs Review"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
