@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
+import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon } from 'antd';
 import { useHistory } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import './style.less';
 const { Option } = AutoComplete;
 
 interface AddAttendanceFormProps {
-  getAllEmails: Function;
   handleBlur: FocusEventHandler;
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
@@ -15,6 +14,11 @@ interface AddAttendanceFormProps {
   isValidating: boolean;
   setFieldValue: Function;
   values: {
+    emails: string[];
+    pastEvents: {
+      title: string;
+      uuid: string;
+    }[];
     uuid: string;
     staff: boolean;
     event: string;
@@ -24,19 +28,12 @@ interface AddAttendanceFormProps {
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
   const history = useHistory();
-  const { getAllEmails, handleBlur, handleChange, handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
+  const { handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [attendees, _setAttendees] = useState<string[]>([]);
-  const [emails, loadEmails] = useState<string[]>([]);
   const [isStaff, toggleStaff] = useState<boolean>(false);
   const [inputVisible, setInputVisible] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState('');
-
-  useEffect(() => {
-    getAllEmails().then((value) => {
-      loadEmails(value.emails);
-    });
-  }, [getAllEmails]);
 
   const showInput = () => {
     setInputVisible(true);
@@ -74,7 +71,27 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
         <form onSubmit={handleSubmit}>
           <Input type="hidden" value={attendees} name="attendees" />
           <Form.Item className="event-wrapper" label="Event UUID">
-            <Input name="event" className="events" value={values.event} onChange={handleChange} onBlur={handleBlur} />
+            <AutoComplete
+              className="events"
+              filterOption={(input, event) => {
+                return event.props.children?.toString().toLowerCase().indexOf(input.toLowerCase()) !== -1;
+              }}
+              onChange={(value) => {
+                setFieldValue('event', value);
+              }}
+              onBlur={(value) => {
+                setFieldValue('event', value);
+              }}
+              onSelect={(value, option: { key?: string }) => {
+                setFieldValue('event', option.key ? option.key : '');
+              }}
+            >
+              {values.pastEvents.map((pastEvent: { title: string }) => (
+                <Option key={pastEvent.title} value={pastEvent.title}>
+                  {pastEvent.title}
+                </Option>
+              ))}
+            </AutoComplete>
           </Form.Item>
           <Form.Item label="Attendees" className="attendees-list-wrapper">
             <div>
@@ -111,7 +128,7 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
                     handleInputConfirm(option.key ? option.key : '');
                   }}
                 >
-                  {emails.map((email: string) => (
+                  {values.emails.map((email: string) => (
                     <Option key={email} value={email}>
                       {email}
                     </Option>
@@ -126,7 +143,7 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
             </div>
             <Checkbox
               name="staff"
-              value={isStaff}
+              checked={isStaff}
               onChange={() => {
                 setFieldValue('staff', !isStaff);
                 toggleStaff(!isStaff);

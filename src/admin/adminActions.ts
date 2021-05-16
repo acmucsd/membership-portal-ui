@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard';
 
 import Config from '../config';
 
-import { EVENT_DELETE, ThunkActionCreator } from './adminTypes';
+import { EVENT_DELETE, GET_EMAILS, ThunkActionCreator } from './adminTypes';
 import { notify, fetchService } from '../utils';
 import { logoutUser } from '../auth/authActions';
 
@@ -153,7 +153,7 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
         onFailCallback: () => dispatch(logoutUser()),
       });
 
-      notify('Added attendees!', `to ${attendanceDetails.attendees.length} users`);
+      notify('Success!', `Added ${attendanceDetails.attendees.length} user(s)!`);
       resolve(attendanceDetails);
     } catch (error) {
       notify('Unable to add attendees!', error.message);
@@ -169,10 +169,12 @@ export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
       requiresAuthorization: true,
       onFailCallback: () => dispatch(logoutUser()),
     });
-    return emails;
+    dispatch({
+      type: GET_EMAILS,
+      payload: emails,
+    });
   } catch (error) {
     notify('Unable to fetch emails!', error.message);
-    return [];
   }
 };
 
