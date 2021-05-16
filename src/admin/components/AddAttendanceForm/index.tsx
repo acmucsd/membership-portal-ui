@@ -1,5 +1,5 @@
 import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
-import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon } from 'antd';
+import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 import './style.less';
@@ -70,28 +70,22 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
         <h1 className="subtitle">Add Attendance</h1>
         <form onSubmit={handleSubmit}>
           <Input type="hidden" value={attendees} name="attendees" />
-          <Form.Item className="event-wrapper" label="Event UUID">
-            <AutoComplete
+          <Form.Item className="event-wrapper" label="Event">
+            <Select
               className="events"
-              filterOption={(input, event) => {
-                return event.props.children?.toString().toLowerCase().indexOf(input.toLowerCase()) !== -1;
-              }}
               onChange={(value) => {
                 setFieldValue('event', value);
               }}
               onBlur={(value) => {
                 setFieldValue('event', value);
               }}
-              onSelect={(value, option: { key?: string }) => {
-                setFieldValue('event', option.key ? option.key : '');
-              }}
             >
-              {values.pastEvents.map((pastEvent: { title: string }) => (
-                <Option key={pastEvent.title} value={pastEvent.title}>
+              {values.pastEvents.map((pastEvent: { uuid: string; title: string }) => (
+                <Option key={pastEvent.uuid} value={pastEvent.uuid}>
                   {pastEvent.title}
                 </Option>
               ))}
-            </AutoComplete>
+            </Select>
           </Form.Item>
           <Form.Item label="Attendees" className="attendees-list-wrapper">
             <div>

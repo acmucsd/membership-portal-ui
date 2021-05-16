@@ -25,11 +25,9 @@ const AddAttendanceFormContainer = (props) => {
       };
     },
     handleSubmit(values, { resetForm }: { [key: string]: any }) {
-      // turn event name to event uuid
-      const eventUuid = props.pastEvents.filter((event) => event.title === values.event)[0].uuid;
       const attendanceDetails = {
         attendees: values.attendees,
-        event: eventUuid,
+        event: values.event,
         asStaff: values.staff,
       };
       props

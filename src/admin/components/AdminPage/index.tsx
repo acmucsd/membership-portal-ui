@@ -32,7 +32,7 @@ const AdminPage: React.FC = () => {
           history.push('/admin/addAttendance');
         }}
       >
-        Add Attendance
+        Retroactive Attendance
       </Button>
     </div>
   );
