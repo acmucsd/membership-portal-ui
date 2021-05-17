@@ -17,6 +17,7 @@ import AdminPage from './admin/containers/AdminPage';
 import AwardPointsPage from './admin/containers/AwardPointsPage';
 import EditEventPage from './admin/containers/EditEventPage';
 import CreateEventPage from './admin/containers/CreateEventPage';
+import AddAttendancePage from './admin/containers/AddAttendancePage';
 
 import AuthPage from './auth/containers/AuthPage';
 import CheckInHandler from './event/containers/CheckInHandler';
@@ -55,6 +56,7 @@ const App = () => {
             <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage) as React.FC} />
             <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage) as React.FC} />
             <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage) as React.FC} />
+            <Route exact path="/admin/addAttendance" component={requireAdminAuth(AddAttendancePage) as React.FC} />
             <Route exact path="/authenticate-email" component={AuthPage} />
             <Route exact path="/bread" component={BreadPage} />
             <Route exact path="/checkin" component={requireAuth(CheckInHandler) as React.FC} />

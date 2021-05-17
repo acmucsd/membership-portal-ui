@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard';
 
 import Config from '../config';
 
-import { EVENT_DELETE, ThunkActionCreator } from './adminTypes';
+import { EVENT_DELETE, GET_EMAILS, ThunkActionCreator } from './adminTypes';
 import { notify, fetchService } from '../utils';
 import { logoutUser } from '../auth/authActions';
 
@@ -127,6 +127,55 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
       reject(error);
     }
   });
+};
+
+export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    if (!attendanceDetails.event) {
+      notify('Validation Error!', 'No event specified');
+      reject();
+      return;
+    }
+    if (!attendanceDetails.attendees || attendanceDetails.attendees.length === 0) {
+      notify('Validation Error!', 'No attendees added');
+      reject();
+      return;
+    }
+    try {
+      const url = `${Config.API_URL}${Config.routes.admin.attendance}`;
+      await fetchService(url, 'POST', 'json', {
+        requiresAuthorization: true,
+        payload: JSON.stringify({
+          users: attendanceDetails.attendees,
+          event: attendanceDetails.event,
+          asStaff: attendanceDetails.asStaff,
+        }),
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      notify('Success!', `Added ${attendanceDetails.attendees.length} user(s)!`);
+      resolve(attendanceDetails);
+    } catch (error) {
+      notify('Unable to add attendees!', error.message);
+      reject(error);
+    }
+  });
+};
+
+export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
+  try {
+    const url = `${Config.API_URL}${Config.routes.admin.emails}`;
+    const emails = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
+    });
+    dispatch({
+      type: GET_EMAILS,
+      payload: emails,
+    });
+  } catch (error) {
+    notify('Unable to fetch emails!', error.message);
+  }
 };
 
 export const copyLink: Function = (attendanceCode: string) => () => {
