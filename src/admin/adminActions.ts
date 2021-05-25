@@ -72,25 +72,20 @@ export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
-      const data = await fetchService(url, 'DELETE', 'json', {
+      await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
         onFailCallback: () => dispatch(logoutUser()),
       });
 
-      if (data.numDeleted === 1) {
-        dispatch({
-          type: EVENT_DELETE,
-          uuid,
-        });
-        notify('Success!', 'You successfully deleted the event!');
-        resolve('Deleted');
-      } else {
-        notify('Unable to delete event!', "Couldn't find the event in the database");
-        reject(new Error('Delete failed'));
-      }
+      dispatch({
+        type: EVENT_DELETE,
+        uuid,
+      });
+      notify('Success!', 'You successfully deleted the event!');
+      resolve();
     } catch (error) {
       notify('Unable to delete event!', error.message);
-      reject(error);
+      reject();
     }
   });
 };

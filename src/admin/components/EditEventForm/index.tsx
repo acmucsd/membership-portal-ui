@@ -2,7 +2,6 @@ import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandl
 import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
 import * as moment from 'moment';
-import { notify } from '../../../utils';
 
 import './style.less';
 
@@ -55,9 +54,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
       .then(() => {
         history.push('/');
       })
-      .catch((error: string) => {
-        notify('Failed to delete the event', error);
-      });
+      .catch(() => {});
   };
 
   useEffect(() => {
