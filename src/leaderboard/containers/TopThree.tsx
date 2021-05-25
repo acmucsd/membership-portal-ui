@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TopLeaderCard from '../components/TopLeaderCard';
 import fetchLeaderboardConnect from '../leaderboardActions';
 
-const getTopThree = (users: { [key: string]: any }) => {
+const getTopThree = (users: { [key: string]: any }, selfUUID) => {
   const topThree: any[] = [];
   for (let i = 0; i < Math.min(users.length, 3); i += 1) {
     const user = users[i];
@@ -17,6 +17,7 @@ const getTopThree = (users: { [key: string]: any }) => {
         placement={i + 1}
         rank={user.rank}
         uuid={user.uuid}
+        selfUUID={selfUUID}
       />,
     );
   }
@@ -36,20 +37,22 @@ interface TopThreeContainerProps {
     },
   ];
   fetchLeaderboard: Function;
+  selfUUID: string;
 }
 
 const TopThreeContainer: React.FC<TopThreeContainerProps> = (props) => {
-  const { users, fetchLeaderboard } = props;
+  const { users, fetchLeaderboard, selfUUID } = props;
 
   useEffect(() => {
     fetchLeaderboard(0, 3);
   }, [fetchLeaderboard]);
 
-  return <>{getTopThree(users)}</>;
+  return <>{getTopThree(users, selfUUID)}</>;
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   users: state.leaderboard.users,
+  selfUUID: state.auth.profile.uuid,
 });
 
 export default connect(mapStateToProps, { fetchLeaderboard: fetchLeaderboardConnect })(TopThreeContainer);

@@ -12,10 +12,11 @@ interface LeaderListItemProps {
   placement: number;
   uuid: string;
   rank: number;
+  selfUUID: string;
 }
 
 const LeaderListItem: React.FC<LeaderListItemProps> = (props) => {
-  const { exp, image, name, placement, uuid } = props;
+  const { exp, image, name, placement, uuid, selfUUID } = props;
 
   return (
     <div
@@ -26,7 +27,7 @@ const LeaderListItem: React.FC<LeaderListItemProps> = (props) => {
       <Avatar size={40} src={image} />
       <span className="column left">
         <div className="name">
-          <Link to={`/profile/${uuid}`}>{name}</Link>
+          <Link to={uuid === selfUUID ? '/profile' : `/profile/${uuid}`}>{name}</Link>
         </div>
         <div className="rank mobile">{getRank(exp)}</div>
       </span>
