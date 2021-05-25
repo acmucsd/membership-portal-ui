@@ -19,7 +19,7 @@ export default () => {
         <NavLink activeClassName="selected" to="/leaderboard">
           <NavTileItem icon={LBIcon} text="Leaderboard" />
         </NavLink>
-        <NavLink activeClassName="selected" to="/profile">
+        <NavLink exact activeClassName="selected" to="/profile">
           <NavTileItem icon={ProfileIcon} text="Profile" />
         </NavLink>
         <NavLink activeClassName="selected" to="/discord">
