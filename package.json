@@ -6,6 +6,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
     "antd": "3.24.3",
+    "antd-img-crop": "^3.14.1",
     "babel-plugin-import": "^1.12.0",
     "connected-react-router": "^6.5.2",
     "copy-to-clipboard": "^3.3.1",
