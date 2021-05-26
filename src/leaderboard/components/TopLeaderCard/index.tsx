@@ -11,10 +11,11 @@ interface TopLeaderCardProps {
   placement: number;
   uuid: string;
   rank: number;
+  selfUUID: string;
 }
 
 const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
-  const { exp, name, image, placement, uuid } = props;
+  const { exp, name, image, placement, uuid, selfUUID } = props;
 
   let leaderboardClass = 'leaderboard-card ';
 
@@ -40,7 +41,7 @@ const TopLeaderCard: React.FC<TopLeaderCardProps> = (props) => {
             <Avatar size={80} src={image} />
           </div>
           <h1 className="name">
-            <Link to={`/profile/${uuid}`}>{name}</Link>
+            <Link to={uuid === selfUUID ? '/profile' : `/profile/${uuid}`}>{name}</Link>
           </h1>
           <h3>{getRank(exp)}</h3>
           <h2>{exp} points</h2>

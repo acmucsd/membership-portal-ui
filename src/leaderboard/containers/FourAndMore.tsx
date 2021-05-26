@@ -20,9 +20,10 @@ interface FourAndMoreContainerProps {
     },
   ];
   fetchLeaderboard: Function;
+  selfUUID: string;
 }
 
-const getFourAndMore = (users: { [key: string]: any }) => {
+const getFourAndMore = (users: { [key: string]: any }, selfUUID) => {
   const fourAndMore: any[] = [];
 
   for (let i = 3; i < users.length; i += 1) {
@@ -36,6 +37,7 @@ const getFourAndMore = (users: { [key: string]: any }) => {
         placement={i + 1}
         rank={user.rank}
         uuid={user.uuid}
+        selfUUID={selfUUID}
       />,
     );
   }
@@ -45,7 +47,7 @@ const getFourAndMore = (users: { [key: string]: any }) => {
 
 const LIMIT = 100;
 const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
-  const { users } = props;
+  const { users, selfUUID } = props;
   const [page, setPage] = useState(0);
   const [prevUserLength, setPrevUserLength] = useState(0);
   const [timeframe, setTimeframe] = useState('All Time');
@@ -126,7 +128,7 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
         </p>
       </Dropdown>
       <InfiniteScroll pageStart={0} loadMore={loadFunc} hasMore={hasMore()}>
-        {getFourAndMore(users)}
+        {getFourAndMore(users, selfUUID)}
       </InfiniteScroll>
     </>
   );
@@ -134,6 +136,7 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   users: state.leaderboard.users,
+  selfUUID: state.auth.profile.uuid,
 });
 
 export default connect(mapStateToProps, { fetchLeaderboard })(FourAndMoreContainer);

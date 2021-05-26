@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, FocusEventHandler, ChangeEventHandl
 import { Form, Input, Button, Select, Modal, Avatar } from 'antd';
 import * as ANTD from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import { getDefaultProfile } from '../../../utils';
 import { uploadUserImage } from '../../profileActions';
 
@@ -42,6 +43,8 @@ interface ProfileUpdateProps {
 
 const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
+
+  const history = useHistory();
 
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([] as any[]);
@@ -191,7 +194,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
           <Button type="primary" htmlType="submit" className="save-button">
             Save Profile Changes
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button type="danger" className="discard-button" onClick={() => history.push('/profile')}>
             Discard
           </Button>
         </form>

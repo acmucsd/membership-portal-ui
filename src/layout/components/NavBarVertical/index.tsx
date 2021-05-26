@@ -38,7 +38,7 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
           <NavLink activeClassName="selected" to="/leaderboard">
             <NavListItem icon={LBIcon} text="Leaderboard" />
           </NavLink>
-          <NavLink activeClassName="selected" to="/profile">
+          <NavLink exact activeClassName="selected" to="/profile">
             <NavListItem icon={ProfileIcon} text="Profile" />
           </NavLink>
           <NavLink activeClassName="selected" to="/about">
