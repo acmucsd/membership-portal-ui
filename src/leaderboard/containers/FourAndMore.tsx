@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Menu, Dropdown } from 'antd';
 import LeaderListItem from '../components/LeaderListItem';
 import fetchLeaderboard from '../leaderboardActions';
+import { timeframeData } from '../../utils';
 
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
 
@@ -53,8 +54,6 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const [timeframe, setTimeframe] = useState('All Time');
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const earliestDate = new Date('Jun 15, 2019').valueOf() / 1000;
-  const yearInSeconds = 31536000;
 
   const hasMore = () => {
     return prevUserLength !== users.length;
@@ -75,24 +74,6 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
       props.fetchLeaderboard(page * LIMIT + 3, LIMIT, startTime, endTime);
     }
   };
-
-  const timeframeData = [
-    {
-      text: 'All Time',
-      start: 0,
-      end: 0,
-    },
-    {
-      text: '2020-2021',
-      start: earliestDate + yearInSeconds,
-      end: earliestDate + yearInSeconds * 2,
-    },
-    {
-      text: '2019-2020',
-      start: earliestDate,
-      end: earliestDate + yearInSeconds,
-    },
-  ];
 
   const menu = (
     <Menu>
