@@ -93,6 +93,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     keys.forEach((key) => {
       setFieldValue(key, user.profile[key]);
     });
+    setBG(user.profile.profilePicture);
   }, [user, setFieldValue]);
 
   const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
