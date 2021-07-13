@@ -19,8 +19,8 @@ const FormikProfileUpdate = withFormik({
     props
       .updateProfile(values)
       .then(() => {
-          props.fetchUser();
-        })
+        props.fetchUser();
+      })
       .catch(() => {});
   },
 })(ProfileUpdate as React.FC);
