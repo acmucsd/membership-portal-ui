@@ -1,16 +1,18 @@
 import React from 'react';
 import Icon from '@ant-design/icons';
 
+import ItemCard from '../ItemCard';
+
 import './style.less';
-import { ReactComponent as SwagIcon } from '../../../assets/icons/swag-icon.svg';
 
 const StorePage: React.FC = () => {
   return (
     <div className="store-page">
       <h1>ACM Store</h1>
-      <div className="coming-soon">
-        <Icon className="temp-icon" component={SwagIcon} />
-        <p>Coming Fall 2021!</p>
+      <div className="item-card-holder">
+        <ItemCard onSale={false} outOfStock={false} />
+        <ItemCard onSale outOfStock={false} />
+        <ItemCard onSale={false} outOfStock />
       </div>
     </div>
   );
