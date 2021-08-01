@@ -14,22 +14,15 @@ interface MerchandiseCollectionModel {
 }
 
 interface MerchandiseItemModel {
-  uuid: Uuid;
   itemName: string;
-  collection: MerchandiseCollectionModel;
   picture: string;
   description: string;
-  monthlyLimit: number;
-  lifetimeLimit: number;
   hidden: boolean;
-  hasVariantsEnabled: boolean; // if an item has variants (i.e. a shirt with S,M,L sizes),
   // then is set to true, otherwise false
-  options: MerchandiseItemOptionModel[];
+  options: MerchandiseItemOptionModelProps[];
 }
 
-interface MerchandiseItemOptionModel {
-  uuid: Uuid;
-  item: MerchandiseItemModel;
+interface MerchandiseItemOptionModelProps {
   quantity: number;
   price: number;
   discountPercentage: number;
@@ -39,17 +32,44 @@ interface MerchandiseItemOptionModel {
 }
 
 const ItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
-  const { description, options, picture } = props;
+  const { itemName, description, hidden, options, picture } = props;
+  if (hidden) {
+    return null;
+  }
+
   const outOfStock = options.every((option) => option.quantity === 0);
   const onSale = options.some((option) => option.discountPercentage !== 0);
-  const cheapestNormalPrice = options.reduce((acc, option) => {
-    return acc > option.price ? option.price : acc;
-  }, Infinity);
+  const priceRange = options.reduce(
+    (acc, option) => {
+      const newAcc = acc;
+      if (acc.low > option.price) {
+        newAcc.low = option.price;
+      } else if (acc.high < option.price) {
+        newAcc.high = option.price;
+      }
+      return newAcc;
+    },
+    {
+      low: Number.POSITIVE_INFINITY,
+      high: Number.NEGATIVE_INFINITY,
+    },
+  );
 
-  const cheapestSalePrice = options.reduce((acc, option) => {
-    const currentOptionDiscountPrice = ((100 - option.discountPercentage) * option.price) / 100;
-    return acc > currentOptionDiscountPrice ? currentOptionDiscountPrice : acc;
-  }, Infinity);
+  const cheapestSalePriceTuple = options.reduce(
+    (acc, option) => {
+      const currentOptionDiscountPrice = ((100 - option.discountPercentage) * option.price) / 100;
+      return acc.salePrice > currentOptionDiscountPrice
+        ? {
+            normalPrice: option.price,
+            salePrice: currentOptionDiscountPrice,
+          }
+        : acc;
+    },
+    {
+      normalPrice: Infinity,
+      salePrice: Infinity,
+    },
+  );
 
   const itemPrice = () => {
     if (outOfStock) {
@@ -58,20 +78,24 @@ const ItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) =
     if (onSale) {
       return (
         <>
-          <p className="old-price">{cheapestNormalPrice}</p>
-          <p className="new-price">{cheapestSalePrice}</p>
+          <p className="old-price">{cheapestSalePriceTuple.normalPrice}</p>
+          <p className="new-price">{cheapestSalePriceTuple.salePrice}</p>
         </>
       );
     }
-    return <p>{cheapestNormalPrice}</p>;
+    return (
+      <p>
+        {priceRange.low} - {priceRange.high}
+      </p>
+    );
   };
 
   return (
     <div className="item-card">
       <div className={outOfStock ? 'out-of-stock item-icon' : 'item-icon'}>
-        <img src={picture} alt={description} />
+        <img src={picture} alt={description} className={outOfStock ? 'out-of-stock item-image' : 'item-image'} />
       </div>
-      <h2>{description}</h2>
+      <h2>{itemName}</h2>
       <div className="item-information">
         <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="12.8328" height="12.8328" rx="2" transform="matrix(0.73475 -0.678337 0.73475 0.678337 0 8.83374)" fill="#62B0FF" />
