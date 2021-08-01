@@ -76,6 +76,9 @@ const ItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) =
       return <h2 className="out-of-stock-text">Out of stock</h2>;
     }
     if (onSale) {
+      if (cheapestSalePriceTuple.normalPrice === cheapestSalePriceTuple.salePrice) {
+        return <p className="new-price">{cheapestSalePriceTuple.normalPrice}</p>;
+      }
       return (
         <>
           <p className="old-price">{cheapestSalePriceTuple.normalPrice}</p>
