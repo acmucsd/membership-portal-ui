@@ -104,7 +104,7 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
   return (
     <div className="item-card" onClick={() => history.push(`/store/item/${uuid}`)}>
       <div className={outOfStock ? 'out-of-stock item-icon' : 'item-icon'}>
-        <img src={picture} alt={description} className={outOfStock ? 'out-of-stock item-image' : 'item-image'} />
+        <img src={picture} alt={description} className={outOfStock ? 'transparent item-image' : 'item-image'} />
       </div>
       <h2>{itemName}</h2>
       <div className="item-information">
