@@ -6,6 +6,7 @@ import './style.less';
 
 const items = [
   {
+    uuid: 'ce16ccf0-3631-4924-9617-a4932d58efbb',
     itemName: 'Spring Teeny Tee',
     hidden: false,
     picture:
@@ -39,6 +40,7 @@ const items = [
     ],
   },
   {
+    uuid: 'bf7e63a0-72c9-43be-ab6c-a0b90b26ff88',
     itemName: 'Cat Mug',
     hidden: false,
     picture:
@@ -64,6 +66,7 @@ const items = [
     ],
   },
   {
+    uuid: 'd82229f9-65d6-4a94-8c1d-4c15418b69d5',
     itemName: '@everyone Pass',
     hidden: false,
     picture: 'https://i.redd.it/ndozdv59jsx21.png',
@@ -80,6 +83,7 @@ const items = [
     ],
   },
   {
+    uuid: 'e346a815-0e8d-48ab-99ed-c8ad9b7921c2',
     itemName: 'Non-Existent Not Done Item',
     hidden: true,
     picture: '',

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './style.less';
+import { useHistory } from 'react-router';
 
 type Uuid = string;
 
@@ -14,6 +15,7 @@ interface MerchandiseCollectionModel {
 }
 
 interface MerchandiseItemModel {
+  uuid: Uuid;
   itemName: string;
   picture: string;
   description: string;
@@ -32,7 +34,10 @@ interface MerchandiseItemOptionModelProps {
 }
 
 const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
-  const { itemName, description, hidden, options, picture } = props;
+  const { uuid, itemName, description, hidden, options, picture } = props;
+
+  const history = useHistory();
+
   if (hidden) {
     return null;
   }
@@ -86,6 +91,9 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
         </>
       );
     }
+    if (priceRange.low === priceRange.high) {
+      return <p>{priceRange.low}</p>;
+    }
     return (
       <p>
         {priceRange.low} - {priceRange.high}
@@ -94,7 +102,7 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
   };
 
   return (
-    <div className="item-card">
+    <div className="item-card" onClick={() => history.push(`/store/item/${uuid}`)}>
       <div className={outOfStock ? 'out-of-stock item-icon' : 'item-icon'}>
         <img src={picture} alt={description} className={outOfStock ? 'out-of-stock item-image' : 'item-image'} />
       </div>
