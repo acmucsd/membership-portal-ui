@@ -108,6 +108,7 @@ const StorePage: React.FC = () => {
       <div className="item-card-holder">
         {items.map((item) => (
           <CollectionItemCard
+            uuid={item.uuid}
             itemName={item.itemName}
             hidden={item.hidden}
             picture={item.picture}
