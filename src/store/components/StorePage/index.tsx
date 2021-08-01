@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ItemCard from '../ItemCard';
+import CollectionItemCard from '../CollectionItemCard';
 
 import './style.less';
 
@@ -103,7 +103,13 @@ const StorePage: React.FC = () => {
       <h1>ACM Store</h1>
       <div className="item-card-holder">
         {items.map((item) => (
-          <ItemCard itemName={item.itemName} hidden={item.hidden} picture={item.picture} description={item.description} options={item.options} />
+          <CollectionItemCard
+            itemName={item.itemName}
+            hidden={item.hidden}
+            picture={item.picture}
+            description={item.description}
+            options={item.options}
+          />
         ))}
       </div>
     </div>

@@ -31,7 +31,7 @@ interface MerchandiseItemOptionModelProps {
   position: number; // e.g. 0, 1, 2 (for sort order, i.e. XS < S < M < L < XL etc)
 }
 
-const ItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
+const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
   const { itemName, description, hidden, options, picture } = props;
   if (hidden) {
     return null;
@@ -109,4 +109,4 @@ const ItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) =
   );
 };
 
-export default ItemCard;
+export default CollectionItemCard;
