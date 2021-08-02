@@ -3,8 +3,10 @@ import { Form, Input, Button, Select, Modal, Avatar } from 'antd';
 import * as ANTD from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getDefaultProfile } from '../../../utils';
 import { uploadUserImage } from '../../profileActions';
+import { fetchUser } from '../../../auth/authActions';
 
 import majorsData from '../../../constants/majors.json';
 
@@ -45,6 +47,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([] as any[]);
@@ -83,6 +86,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
       .then(() => {
         setUploadState('none');
         setVisible(false);
+        dispatch(fetchUser());
       })
       .catch(() => {
         setUploadState('none');
@@ -93,6 +97,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     keys.forEach((key) => {
       setFieldValue(key, user.profile[key]);
     });
+    setBG(user.profile.profilePicture);
   }, [user, setFieldValue]);
 
   const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
