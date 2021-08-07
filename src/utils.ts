@@ -173,3 +173,23 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
 
   return data;
 };
+
+const earliestDate = new Date('Jun 15, 2019').valueOf() / 1000;
+const yearInSeconds = 31536000;
+export const timeframeData = [
+  {
+    text: 'All Time',
+    start: 0,
+    end: 0,
+  },
+  {
+    text: '2020-2021',
+    start: earliestDate + yearInSeconds,
+    end: earliestDate + yearInSeconds * 2,
+  },
+  {
+    text: '2019-2020',
+    start: earliestDate,
+    end: earliestDate + yearInSeconds,
+  },
+];
