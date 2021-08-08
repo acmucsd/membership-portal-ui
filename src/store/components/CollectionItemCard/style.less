@@ -1,0 +1,67 @@
+@import '../../../styles/vars.less';
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+
+  .item-icon {
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    background-clip: padding-box;
+    background-color: white;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    box-shadow: var(--ring-offset-shadow, 0 0 #0000), var(--ring-shadow, 0 0 #0000), var(--shadow);
+    display: flex;
+    height: 280px;
+    margin: 1rem 0;
+    padding: 1rem;
+    width: 280px;
+
+    .transparent {
+      opacity: 0.4;
+    }
+
+    .item-image {
+      height: 100%;
+      object-fit: scale-down;
+      width: 100%;
+    }
+  }
+
+  .out-of-stock {
+    background-color: @gray-4;
+  }
+
+  .out-of-stock-text {
+    color: red;
+    font-size: @general-body;
+    padding-left: 0.5rem;
+  }
+
+  h2 {
+    font-size: @general-heading-2;
+  }
+
+  .item-information {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+
+    p {
+      font-size: @general-body;
+      padding: 0 0.25rem;
+    }
+
+    .old-price {
+      color: @gray-5;
+      text-decoration: line-through;
+    }
+
+    .new-price {
+      color: red;
+    }
+  }
+}
