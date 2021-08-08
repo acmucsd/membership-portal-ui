@@ -22,7 +22,8 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
       const newAcc = acc;
       if (acc.low > option.price) {
         newAcc.low = option.price;
-      } else if (acc.high < option.price) {
+      }
+      if (acc.high < option.price) {
         newAcc.high = option.price;
       }
       return newAcc;
