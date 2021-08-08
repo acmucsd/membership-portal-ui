@@ -38,5 +38,9 @@ export default {
     },
     attendance: '/api/v2/attendance',
     leaderboard: '/api/v2/leaderboard',
+    store: {
+      collection: '/api/v2/merch/collection',
+      item: '/api/v2/merch/item',
+    },
   },
 };
