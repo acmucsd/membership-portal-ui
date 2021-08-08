@@ -40,7 +40,6 @@ export const uploadUserImage = async (file: string | Blob) => {
       });
 
       notify('Updated profile picture!', '');
-
       resolve(data);
     } catch (error) {
       notify('Unable to update profile picture!', error.message);
