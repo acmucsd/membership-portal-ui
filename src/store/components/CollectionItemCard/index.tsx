@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 import { MerchandiseItemModel } from '../../../types';
-import {ReactComponent as DiamondIcon} from '../../../assets/icons/diamond-icon.svg';
+import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
 
 import './style.less';
 
