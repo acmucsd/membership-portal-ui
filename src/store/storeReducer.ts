@@ -3,6 +3,7 @@ import {} from './storeTypes';
 
 const initialState = {
   error: false,
+  cart: [{}, {}],
 };
 
 const StoreReducer = (state = initialState, action: AnyAction) => {

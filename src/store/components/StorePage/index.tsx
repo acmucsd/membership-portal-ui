@@ -30,7 +30,7 @@ const StorePage: React.FC<StorePageProps> = (props) => {
 
   return (
     <div className="store-page">
-      <NavigationBar />
+      <NavigationBar home balance={10000} cartSize={2} />
       <div className="collections">
         {collections.map((collection) => {
           return (
