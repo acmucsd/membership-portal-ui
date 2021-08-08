@@ -3,35 +3,9 @@ import React from 'react';
 import './style.less';
 import { useHistory } from 'react-router';
 
-type Uuid = string;
+import { MerchandiseItemModel } from '../../../types';
+import {ReactComponent as DiamondIcon} from '../../../assets/icons/diamond-icon.svg';
 
-interface MerchandiseCollectionModel {
-  uuid: Uuid;
-  title: string;
-  color: string; // hex color used for the title (each collection title has its own text color)
-  description: string;
-  archived: boolean;
-  items: MerchandiseItemModel[];
-}
-
-interface MerchandiseItemModel {
-  uuid: Uuid;
-  itemName: string;
-  picture: string;
-  description: string;
-  hidden: boolean;
-  // then is set to true, otherwise false
-  options: MerchandiseItemOptionModelProps[];
-}
-
-interface MerchandiseItemOptionModelProps {
-  quantity: number;
-  price: number;
-  discountPercentage: number;
-  type: string; // e.g. 'size', 'shape'
-  value: string; // e.g. 'S', 'M', 'L' if this.type === 'size'
-  position: number; // e.g. 0, 1, 2 (for sort order, i.e. XS < S < M < L < XL etc)
-}
 
 const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
   const { uuid, itemName, description, hidden, options, picture } = props;
@@ -108,9 +82,7 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
       </div>
       <h2>{itemName}</h2>
       <div className="item-information">
-        <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="12.8328" height="12.8328" rx="2" transform="matrix(0.73475 -0.678337 0.73475 0.678337 0 8.83374)" fill="#62B0FF" />
-        </svg>
+        <DiamondIcon />
         {itemPrice()}
       </div>
     </div>
