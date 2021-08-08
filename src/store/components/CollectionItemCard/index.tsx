@@ -56,21 +56,21 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
     }
     if (onSale) {
       if (cheapestSalePriceTuple.normalPrice === cheapestSalePriceTuple.salePrice) {
-        return <p className="new-price">{cheapestSalePriceTuple.normalPrice}</p>;
+        return <p className="new-price">{cheapestSalePriceTuple.normalPrice.toLocaleString('en-US')}</p>;
       }
       return (
         <>
-          <p className="old-price">{cheapestSalePriceTuple.normalPrice}</p>
-          <p className="new-price">{cheapestSalePriceTuple.salePrice}</p>
+          <p className="old-price">{cheapestSalePriceTuple.normalPrice.toLocaleString('en-US')}</p>
+          <p className="new-price">{cheapestSalePriceTuple.salePrice.toLocaleString('en-US')}</p>
         </>
       );
     }
     if (priceRange.low === priceRange.high) {
-      return <p>{priceRange.low}</p>;
+      return <p>{priceRange.low.toLocaleString('en-US')}</p>;
     }
     return (
       <p>
-        {priceRange.low} - {priceRange.high}
+        {priceRange.low.toLocaleString('en-US')} - {priceRange.high.toLocaleString('en-US')}
       </p>
     );
   };
