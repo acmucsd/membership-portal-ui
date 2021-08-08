@@ -1,11 +1,10 @@
 import React from 'react';
-
-import './style.less';
 import { useHistory } from 'react-router';
 
 import { MerchandiseItemModel } from '../../../types';
 import {ReactComponent as DiamondIcon} from '../../../assets/icons/diamond-icon.svg';
 
+import './style.less';
 
 const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
   const { uuid, itemName, description, hidden, options, picture } = props;
