@@ -3,35 +3,7 @@ import React from 'react';
 import './style.less';
 import { useHistory } from 'react-router';
 
-type Uuid = string;
-
-interface MerchandiseCollectionModel {
-  uuid: Uuid;
-  title: string;
-  color: string; // hex color used for the title (each collection title has its own text color)
-  description: string;
-  archived: boolean;
-  items: MerchandiseItemModel[];
-}
-
-interface MerchandiseItemModel {
-  uuid: Uuid;
-  itemName: string;
-  picture: string;
-  description: string;
-  hidden: boolean;
-  // then is set to true, otherwise false
-  options: MerchandiseItemOptionModelProps[];
-}
-
-interface MerchandiseItemOptionModelProps {
-  quantity: number;
-  price: number;
-  discountPercentage: number;
-  type: string; // e.g. 'size', 'shape'
-  value: string; // e.g. 'S', 'M', 'L' if this.type === 'size'
-  position: number; // e.g. 0, 1, 2 (for sort order, i.e. XS < S < M < L < XL etc)
-}
+import { MerchandiseItemModel } from '../../../types';
 
 const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
   const { uuid, itemName, description, hidden, options, picture } = props;
@@ -49,7 +21,8 @@ const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseIt
       const newAcc = acc;
       if (acc.low > option.price) {
         newAcc.low = option.price;
-      } else if (acc.high < option.price) {
+      }
+      if (acc.high < option.price) {
         newAcc.high = option.price;
       }
       return newAcc;

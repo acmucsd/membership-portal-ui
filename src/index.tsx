@@ -30,15 +30,15 @@ import ResetPage from './auth/containers/ResetPage';
 import ProfilePage from './profile/containers/ProfilePage';
 import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
 import RegisterPage from './auth/containers/RegisterPage';
-// Comment import until Store Page is released and added back to router
-// import StorePage from './store/containers/StorePage';
+import StorePage from './store/containers/StorePage';
+import ItemPage from './store/containers/ItemPage';
+import CartPage from './store/containers/CartPage';
 import ErrorPage from './layout/containers/ErrorPage';
 import EmailVerficationPage from './auth/containers/EmailVerificationPage';
 import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
 import requireAuth from './auth/containers/requireAuth';
 import requireAdminAuth from './auth/containers/requireAdminAuth';
-// Comment import until Store Page is released and added back to router
-// import requireStandardAccess from './auth/containers/requireStandardAccess';
+import requireStandardAccess from './auth/containers/requireStandardAccess';
 
 const store = configureStore();
 
@@ -69,15 +69,9 @@ const App = () => {
             <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage) as React.FC} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route
-              exact
-              path="/store"
-              component={() => {
-                window.location.href = 'https://www.youtube.com/watch?v=iik25wqIuFo';
-                return null;
-              }}
-            />
-            {/* <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} /> */}
+            <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} />
+            <Route exact path="/store/item/:uuid" component={requireStandardAccess(requireAuth(ItemPage)) as React.FC} />
+            <Route exact path="/store/cart" component={requireStandardAccess(requireAuth(CartPage)) as React.FC} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
             <Route exact path="/" component={requireAuth(HomePage) as React.FC} />
