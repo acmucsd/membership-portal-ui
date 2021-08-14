@@ -21,7 +21,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
   const history = useHistory();
 
-  const [itemPrice, setItemPrice] = useState<number>();
+  const [itemPrice /* , setItemPrice */] = useState<number>();
 
   if (!item) {
     return null;
@@ -51,8 +51,8 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
                   { key: 'M', value: 'Medium' },
                   { key: 'L', value: 'Large' },
                 ]}
-                optionSelected={(option) => {
-                  console.log('You selected:', option);
+                optionSelected={() => {
+                  // console.log('You selected:', option);
                 }}
               />
             </div>
