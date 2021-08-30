@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Select } from 'antd';
 
 import { MerchandiseItemModel } from '../../../types';
+import { addToCart } from '../../storeActions';
 
 import NavigationBar from '../NavigationBar';
 import OptionSelector from '../OptionSelector';
@@ -15,11 +17,15 @@ const { Option } = Select;
 
 interface ItemPageProps {
   item: MerchandiseItemModel | undefined;
+  addToCart: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
   const history = useHistory();
+
+  const [currentOption, setCurrentOption] = useState<string>();
+  const [currentQuantity, setCurrentQuantity] = useState<number>(1);
 
   const [itemPrice /* , setItemPrice */] = useState<number>();
 
@@ -35,7 +41,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
 
   return (
     <>
-      <NavigationBar home={false} balance={10000} cartSize={2} />
+      <NavigationBar />
       <div className="item-page">
         <img className="item-image" src={picture} alt={description} />
         <div className="item-contents">
@@ -51,8 +57,8 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
                   { key: 'M', value: 'Medium' },
                   { key: 'L', value: 'Large' },
                 ]}
-                optionSelected={() => {
-                  // console.log('You selected:', option);
+                optionSelected={(option) => {
+                  setCurrentOption(option.key);
                 }}
               />
             </div>
@@ -60,7 +66,13 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
           <div className="item-bottom">
             <div className="item-quantity">
               <p className="item-quantity-header">Quantity:</p>
-              <Select defaultValue={1} className="item-quantity-selector">
+              <Select
+                defaultValue={1}
+                className="item-quantity-selector"
+                onSelect={(option) => {
+                  setCurrentQuantity(Number.parseInt(option, 10));
+                }}
+              >
                 <Option key="1">1</Option>
                 <Option key="2">2</Option>
                 <Option key="3">3</Option>
@@ -68,7 +80,12 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
                 <Option key="5">5</Option>
               </Select>
             </div>
-            <StoreButton text="Add to Cart" onClick={() => {}} />
+            <StoreButton
+              text="Add to Cart"
+              onClick={() => {
+                props.addToCart(currentOption, currentQuantity);
+              }}
+            />
           </div>
         </div>
       </div>
@@ -76,4 +93,4 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   );
 };
 
-export default ItemPage;
+export default connect(null, { addToCart })(ItemPage);

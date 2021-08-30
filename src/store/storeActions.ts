@@ -1,4 +1,4 @@
-import { ThunkActionCreator } from './storeTypes';
+import { CART_ADDITION, ThunkActionCreator } from './storeTypes';
 import { fetchService } from '../utils';
 import Config from '../config';
 import { logoutUser } from '../auth/authActions';
@@ -36,5 +36,12 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
     } catch (error) {
       reject(error);
     }
+  });
+};
+
+export const addToCart: ThunkActionCreator = (uuid: string, quantity: number) => (dispatch) => {
+  dispatch({
+    type: CART_ADDITION,
+    payload: { uuid, quantity },
   });
 };

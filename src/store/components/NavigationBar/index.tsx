@@ -11,7 +11,7 @@ import CartIcon from '../../../assets/icons/cart-icon.svg';
 import './style.less';
 
 interface NavigationBarProps {
-  home: boolean;
+  home?: boolean;
   balance: number;
   cartSize: number;
 }
@@ -33,7 +33,7 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
       <div className="right-group">
         <CreditsDisplay value={balance} />
         <Button className="checkout-button" onClick={() => history.push('/store/cart')}>
-          Check Out
+          Cart
           <div className="cart-pics">
             <img className="cart-icon" src={CartIcon} alt="Cart Icon" />
             {cartSize !== 0 && <div className="cart-badge">{cartSize}</div>}
@@ -44,8 +44,19 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
   );
 };
 
+const getCartSize = (cart: Map<string, number>) => {
+  const array = Array.from(cart, ([uuid, quantity]) => ({ uuid, quantity }));
+
+  if (array.length === 0) {
+    return 0;
+  }
+
+  return array.reduce((previousValue, currentValue) => ({ uuid: '', quantity: previousValue.quantity + currentValue.quantity })).quantity;
+};
+
 const mapStateToProps = (state: { [key: string]: any }) => ({
-  cart: state.store.cart,
+  balance: state.auth.profile.credits || 0, // TODO: Figure out why profile is empty upon load.
+  cartSize: getCartSize(state.store.cart),
 });
 
 export default connect(mapStateToProps, {})(NavigationBar);
