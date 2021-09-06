@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Menu, Dropdown } from 'antd';
+import { getYearBounds, years } from 'ucsd-quarters-years';
 
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
 import { fetchAttendance as fetchAttendanceConnect, fetchPastEvents as fetchPastEventsConnect } from '../eventActions';
-import { formatDate, timeframeData } from '../../utils';
+import { formatDate } from '../../utils';
 
 interface PastEventsContainerProps {
   attendance: [
@@ -60,26 +61,34 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
     }
   }, [events, timeframe]);
 
+  // All representations of timeframes displayed in dropdown.
+  // 'All Time' is concatenated, since the `ucsd-quarters-years` package
+  // does not include it.
+  const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
     <Menu>
-      {timeframeData.map((d) => {
+      {yearCodes.map((yearCode) => {
         return (
-          <Menu.Item key={d.text}>
+          <Menu.Item key={yearCode}>
             <div
               role="menuitem"
               className="leader-timeframe"
               onClick={() => {
-                setTimeframe(d.text);
+                setTimeframe(yearCode);
                 setShownEvents(
                   events.filter((event) => {
-                    const eventStart = new Date(event.start).getTime() / 1000;
-                    return eventStart >= d.start && (d.end === 0 ? true : eventStart < d.end);
+                    if (yearCode === 'All Time') {
+                      return event;
+                    }
+                    const eventStart = new Date(event.start);
+                    const yearTimeframe = getYearBounds(yearCode as any);
+                    return eventStart >= yearTimeframe.start && eventStart < yearTimeframe.end;
                   }),
                 );
               }}
               tabIndex={0}
             >
-              {d.text}
+              {yearCode}
             </div>
           </Menu.Item>
         );

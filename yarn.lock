@@ -12570,6 +12570,11 @@ ua-parser-js@^0.7.18:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.22.tgz#960df60a5f911ea8f1c818f3747b99c6e177eae3"
   integrity sha512-YUxzMjJ5T71w6a8WWVcMGM6YWOTX27rCoIQgLXiWaxqXSx9D7DNjiGWn1aJIRSQ5qr0xuhra77bSIh6voR/46Q==
 
+ucsd-quarters-years@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ucsd-quarters-years/-/ucsd-quarters-years-1.0.1.tgz#f4c562def6b6da940d24eb1e1c7b524cdf54a599"
+  integrity sha512-na1AEb9n0LipaRJBeMjRBTVRxmIyevd0L4Y8AFT0/P9jYr7ILgLZgb1al0N5YveHLR6kLc1+k9NVaut6IVtBJg==
+
 uglify-js@3.4.x:
   version "3.4.10"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.4.10.tgz#9ad9563d8eb3acdfb8d38597d2af1d815f6a755f"
