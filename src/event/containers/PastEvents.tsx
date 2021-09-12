@@ -68,6 +68,21 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   const menu = (
     <Menu>
       {yearCodes.map((yearCode, index) => {
+        const yearFilteredEvents = events.filter((event) => {
+          if (yearCode === 'All Time') {
+            return event;
+          }
+          const eventStart = new Date(event.start);
+          const timeframeStart = getYearBounds(yearCode as any).start;
+          // If the next year does exist, use its start date as the timeframe bound
+          // (to include summertime in previous year), otherwise just use the current yearly bound.
+          const timeframeEnd = yearCodes[index + 1] !== null ? getYearBounds(yearCodes[index + 1] as any).start : getYearBounds(yearCode as any).end;
+          return eventStart >= timeframeStart && eventStart < timeframeEnd;
+        });
+
+        if (yearFilteredEvents.length === 0) {
+          return null;
+        }
         return (
           <Menu.Item key={yearCode}>
             <div
@@ -75,20 +90,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
               className="leader-timeframe"
               onClick={() => {
                 setTimeframe(yearCode);
-                setShownEvents(
-                  events.filter((event) => {
-                    if (yearCode === 'All Time') {
-                      return event;
-                    }
-                    const eventStart = new Date(event.start);
-                    const timeframeStart = getYearBounds(yearCode as any).start;
-                    // If the next year does exist, use its start date as the timeframe bound
-                    // (to include summertime in previous year), otherwise just use the current yearly bound.
-                    const timeframeEnd =
-                      yearCodes[index + 1] !== null ? getYearBounds(yearCodes[index + 1] as any).start : getYearBounds(yearCode as any).end;
-                    return eventStart >= timeframeStart && eventStart < timeframeEnd;
-                  }),
-                );
+                setShownEvents(yearFilteredEvents);
               }}
               tabIndex={0}
             >
