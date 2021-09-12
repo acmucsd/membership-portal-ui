@@ -67,7 +67,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
     <Menu>
-      {yearCodes.map((yearCode) => {
+      {yearCodes.map((yearCode, index) => {
         return (
           <Menu.Item key={yearCode}>
             <div
@@ -81,8 +81,12 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
                       return event;
                     }
                     const eventStart = new Date(event.start);
-                    const yearTimeframe = getYearBounds(yearCode as any);
-                    return eventStart >= yearTimeframe.start && eventStart < yearTimeframe.end;
+                    const timeframeStart = getYearBounds(yearCode as any).start;
+                    // If the next year does exist, use its start date as the timeframe bound
+                    // (to include summertime in previous year), otherwise just use the current yearly bound.
+                    const timeframeEnd =
+                      yearCodes[index + 1] !== null ? getYearBounds(yearCodes[index + 1] as any).start : getYearBounds(yearCode as any).end;
+                    return eventStart >= timeframeStart && eventStart < timeframeEnd;
                   }),
                 );
               }}

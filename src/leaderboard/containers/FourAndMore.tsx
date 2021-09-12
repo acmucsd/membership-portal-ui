@@ -77,7 +77,7 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
 
   const menu = (
     <Menu>
-      {Object.keys(years).map((year) => {
+      {Object.keys(years).map((year, index) => {
         return (
           <Menu.Item key={year}>
             <div
@@ -85,9 +85,12 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
               className="leader-timeframe"
               tabIndex={0}
               onClick={() => {
-                const yearTimeframes = getYearBounds(year as any);
-                const yearUnixStart = yearTimeframes.start.getTime() / 1000;
-                const yearUnixEnd = yearTimeframes.end.getTime() / 1000;
+                const timeframeStart = getYearBounds(year as any).start;
+                // If the next year does exist, use its start date as the timeframe bound
+                // (to include summertime in previous year), otherwise just use the current yearly bound.
+                const timeframeEnd = years[index + 1] !== null ? getYearBounds(years[index + 1] as any).start : getYearBounds(year as any).end;
+                const yearUnixStart = timeframeStart.getTime() / 1000;
+                const yearUnixEnd = timeframeEnd.getTime() / 1000;
                 setTimeframe(year);
                 setStartTime(yearUnixStart);
                 setEndTime(yearUnixEnd);
