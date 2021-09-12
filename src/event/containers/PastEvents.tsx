@@ -76,7 +76,8 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
           const timeframeStart = getYearBounds(yearCode as any).start;
           // If the next year does exist, use its start date as the timeframe bound
           // (to include summertime in previous year), otherwise just use the current yearly bound.
-          const timeframeEnd = yearCodes[index + 1] !== null ? getYearBounds(yearCodes[index + 1] as any).start : getYearBounds(yearCode as any).end;
+          const timeframeEnd =
+            yearCodes[index + 1] !== undefined ? getYearBounds(yearCodes[index + 1] as any).start : getYearBounds(yearCode as any).end;
           return eventStart >= timeframeStart && eventStart < timeframeEnd;
         });
 
