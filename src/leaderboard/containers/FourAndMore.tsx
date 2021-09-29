@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { getYearBounds, years } from 'ucsd-quarters-years';
 
 import InfiniteScroll from 'react-infinite-scroller';
 import { Menu, Dropdown } from 'antd';
@@ -53,8 +54,6 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const [timeframe, setTimeframe] = useState('All Time');
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const earliestDate = new Date('Jun 15, 2019').valueOf() / 1000;
-  const yearInSeconds = 31536000;
 
   const hasMore = () => {
     return prevUserLength !== users.length;
@@ -76,43 +75,31 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
     }
   };
 
-  const timeframeData = [
-    {
-      text: 'All Time',
-      start: 0,
-      end: 0,
-    },
-    {
-      text: '2020-2021',
-      start: earliestDate + yearInSeconds,
-      end: earliestDate + yearInSeconds * 2,
-    },
-    {
-      text: '2019-2020',
-      start: earliestDate,
-      end: earliestDate + yearInSeconds,
-    },
-  ];
-
   const menu = (
     <Menu>
-      {timeframeData.map((d) => {
+      {Object.keys(years).map((year, index) => {
         return (
-          <Menu.Item key={d.text}>
+          <Menu.Item key={year}>
             <div
               role="menuitem"
               className="leader-timeframe"
               tabIndex={0}
               onClick={() => {
-                setTimeframe(d.text);
-                setStartTime(d.start);
-                setEndTime(d.end);
+                const timeframeStart = getYearBounds(year as any).start;
+                // If the next year does exist, use its start date as the timeframe bound
+                // (to include summertime in previous year), otherwise just use the current yearly bound.
+                const timeframeEnd = years[index + 1] !== null ? getYearBounds(years[index + 1] as any).start : getYearBounds(year as any).end;
+                const yearUnixStart = timeframeStart.getTime() / 1000;
+                const yearUnixEnd = timeframeEnd.getTime() / 1000;
+                setTimeframe(year);
+                setStartTime(yearUnixStart);
+                setEndTime(yearUnixEnd);
                 setPage(0);
-                props.fetchLeaderboard(0, 3, d.start, d.end, true); // updates users for TopThree
-                props.fetchLeaderboard(3, LIMIT, d.start, d.end); // updates users for FourAndMore
+                props.fetchLeaderboard(0, 3, yearUnixStart, yearUnixEnd, true); // updates users for TopThree
+                props.fetchLeaderboard(3, LIMIT, yearUnixStart, yearUnixEnd); // updates users for FourAndMore
               }}
             >
-              {d.text}
+              {year}
             </div>
           </Menu.Item>
         );
