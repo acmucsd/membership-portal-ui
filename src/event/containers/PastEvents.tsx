@@ -7,7 +7,11 @@ import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
-import { fetchAttendance as fetchAttendanceConnect, fetchPastEvents as fetchPastEventsConnect } from '../eventActions';
+import {
+  fetchAttendance as fetchAttendanceConnect,
+  fetchPastEvents as fetchPastEventsConnect,
+  updateTimeframe as updateTimeframeConnect,
+} from '../eventActions';
 import { formatDate } from '../../utils';
 
 interface PastEventsContainerProps {
@@ -42,12 +46,12 @@ interface PastEventsContainerProps {
   ];
   fetchAttendance: Function;
   fetchPastEvents: Function;
+  updateTimeframe: Function;
+  timeframe: string;
 }
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
-  const { auth, events, attendance, fetchAttendance, fetchPastEvents } = props;
-
-  const [timeframe, setTimeframe] = useState('All Time');
+  const { auth, events, attendance, fetchAttendance, fetchPastEvents, timeframe, updateTimeframe } = props;
   const [shownEvents, setShownEvents] = useState<any[]>(events);
 
   useEffect(() => {
@@ -90,7 +94,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
               role="menuitem"
               className="leader-timeframe"
               onClick={() => {
-                setTimeframe(yearCode);
+                updateTimeframe(yearCode);
                 setShownEvents(yearFilteredEvents);
               }}
               tabIndex={0}
@@ -138,9 +142,11 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.event.pastEvents,
   auth: state.auth,
   attendance: state.event.attendance,
+  timeframe: state.event.timeframe,
 });
 
 export default connect(mapStateToProps, {
   fetchAttendance: fetchAttendanceConnect,
   fetchPastEvents: fetchPastEventsConnect,
+  updateTimeframe: updateTimeframeConnect,
 })(PastEventsContainer);
