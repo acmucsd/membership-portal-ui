@@ -80,6 +80,11 @@ const FourAndMoreContainer: React.FC<FourAndMoreContainerProps> = (props) => {
   const menu = (
     <Menu>
       {yearCodes.map((yearCode, index) => {
+        // if this academic quarter start hasn't at least started...
+        if (yearCode !== 'All Time' && !(getYearBounds(yearCode as any).start < new Date())) {
+          // do not output a menu option at all.ls
+          return null;
+        }
         return (
           <Menu.Item key={yearCode}>
             <div
