@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TopLeaderCard from '../components/TopLeaderCard';
-import fetchLeaderboardConnect from '../leaderboardActions';
+import { fetchLeaderboard as fetchLeaderboardConnect } from '../leaderboardActions';
 
 const getTopThree = (users: { [key: string]: any }, selfUUID) => {
   const topThree: any[] = [];

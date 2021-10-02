@@ -1,11 +1,12 @@
 import { AnyAction } from 'redux';
-import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
+import { CLEAR_LEADERBOARD, FETCH_LEADERBOARD, LEADERBOARD_ERROR, UPDATE_TIMEFRAME } from './leaderboardTypes';
 import { getDefaultProfile } from '../utils';
 
 const initialState = {
   users: [],
   /** Maps offset value used to the users fetched */
   offsetToUsers: new Map(),
+  timeframe: 'All Time',
 };
 
 const LeaderboardReducer = (state = initialState, action: AnyAction) => {
@@ -51,6 +52,13 @@ const LeaderboardReducer = (state = initialState, action: AnyAction) => {
         ...state,
         error: action.payload,
       };
+
+    case UPDATE_TIMEFRAME:
+      return {
+        ...state,
+        timeframe: action.payload,
+      };
+
     default:
       return state;
   }
