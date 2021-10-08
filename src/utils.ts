@@ -135,18 +135,18 @@ export const getAbsoluteURL = (str: string): string => {
 
 /**
  * Recursive function to print all errors from back-end.
- * 
+ *
  * @param error the current error.
  * @returns the error message.
  */
 const getServiceErrorMessage = (error) => {
-  let messages = "";
+  let messages = '';
   if (error.constraints) {
-    for (const key in error.constraints) {
-      messages += error.constraints[key];
-    }
+    Object.values(error.constraints).forEach((message) => {
+      messages += message;
+    });
   }
-  let children = error.children;
+  const { children } = error;
   for (let i = 0; i < children.length; i += 1) {
     messages += getServiceErrorMessage(children[i]);
   }
@@ -189,10 +189,10 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   const data = await response.json();
   if (!data) throw new Error('Empty response from server');
   if (data.error) {
-    let message = data.error.message;
+    let { message } = data.error;
     if (status === 400) {
-      let messages = "";
-      const errors = data.error.errors;
+      let messages = '';
+      const { errors } = data.error;
       for (let i = 0; i < errors.length; i += 1) {
         messages += getServiceErrorMessage(errors[i]);
       }
