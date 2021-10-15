@@ -148,7 +148,7 @@ const getServiceErrorMessage = (error) => {
   }
   const { children } = error;
   for (let i = 0; i < children.length; i += 1) {
-    messages += getServiceErrorMessage(children[i]);
+    messages += `${getServiceErrorMessage(children[i])} `;
   }
   return messages;
 };
@@ -194,7 +194,7 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
       let messages = '';
       const { errors } = data.error;
       for (let i = 0; i < errors.length; i += 1) {
-        messages += getServiceErrorMessage(errors[i]);
+        messages += `${getServiceErrorMessage(errors[i])} `;
       }
       message = messages;
     }
