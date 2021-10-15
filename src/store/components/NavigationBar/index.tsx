@@ -2,7 +2,6 @@ import { Button } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MerchandiseItemOptionModelProps } from '../../../types';
 
 import CreditsDisplay from '../CreditsDisplay';
 

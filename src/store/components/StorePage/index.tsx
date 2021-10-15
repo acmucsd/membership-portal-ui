@@ -37,16 +37,8 @@ const StorePage: React.FC<StorePageProps> = (props) => {
             <div className="collection" key={collection.uuid} id={collection.uuid}>
               <h2 className="collection-header">{collection.title}</h2>
               <div className="collection-items">
-                {collection.items.map((item) => (
-                  <CollectionItemCard
-                    uuid={item.uuid}
-                    itemName={item.itemName}
-                    hidden={item.hidden}
-                    picture={item.picture}
-                    description={item.description}
-                    options={item.options}
-                    key={item.uuid}
-                  />
+                {collection.items.map((item, index) => (
+                  <CollectionItemCard item={item} key={index} />
                 ))}
               </div>
             </div>

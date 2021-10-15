@@ -9,7 +9,7 @@ const CartPage = () => {
   return (
     <div className="cart-page">
       <NavigationBar />
-      <CartDisplay items={[{ uuid: 'hi' }]} />
+      <CartDisplay items={[]} />
     </div>
   );
 };

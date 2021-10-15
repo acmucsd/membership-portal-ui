@@ -6,8 +6,14 @@ import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-ico
 
 import './style.less';
 
-const CollectionItemCard: React.FC<MerchandiseItemModel> = (props: MerchandiseItemModel) => {
-  const { uuid, itemName, description, hidden, options, picture } = props;
+interface CollectionItemCardProps {
+  item: MerchandiseItemModel;
+}
+
+const CollectionItemCard: React.FC<CollectionItemCardProps> = (props: CollectionItemCardProps) => {
+  const {
+    item: { uuid, itemName, description, hidden, options, picture },
+  } = props;
 
   const history = useHistory();
 

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Select } from 'antd';
 
-import { MerchandiseItemModel, MerchandiseItemOptionModelProps } from '../../../types';
+import { MerchandiseItemModel, MerchandiseItemOptionModel } from '../../../types';
 import { addToCart } from '../../storeActions';
 
 import NavigationBar from '../NavigationBar';
@@ -24,7 +24,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
   const history = useHistory();
 
-  const [currentOption, setCurrentOption] = useState<MerchandiseItemOptionModelProps>();
+  const [currentOption, setCurrentOption] = useState<MerchandiseItemOptionModel>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
 
   if (!item) {
