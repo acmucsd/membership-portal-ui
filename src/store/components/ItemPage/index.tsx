@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Select } from 'antd';
 
-import { MerchandiseItemModel } from '../../../types';
+import { MerchandiseItemModel, MerchandiseItemOptionModelProps } from '../../../types';
 import { addToCart } from '../../storeActions';
 
 import NavigationBar from '../NavigationBar';
@@ -24,10 +24,8 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
   const history = useHistory();
 
-  const [currentOption, setCurrentOption] = useState<string>();
+  const [currentOption, setCurrentOption] = useState<MerchandiseItemOptionModelProps>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
-
-  const [itemPrice /* , setItemPrice */] = useState<number>();
 
   if (!item) {
     return null;
@@ -37,6 +35,12 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
 
   if (hidden) {
     history.push('/store');
+  }
+
+  let itemPrice;
+
+  if (options.length === 1) {
+    itemPrice = options[0].price;
   }
 
   return (
@@ -50,13 +54,11 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
           <p className="item-description">{description}</p>
           {options.length > 1 && (
             <div className="item-option">
-              <p className="item-option-header">Option:</p>
+              <p className="item-option-header">{options[0].metadata ? options[0].metadata.type : ''}:</p>
               <OptionSelector
-                options={[
-                  { key: 'S', value: 'Small' },
-                  { key: 'M', value: 'Medium' },
-                  { key: 'L', value: 'Large' },
-                ]}
+                options={options.map((option) => {
+                  return { key: option.uuid, value: option.metadata ? option.metadata.value : '' };
+                })}
                 optionSelected={(option) => {
                   setCurrentOption(option.key);
                 }}

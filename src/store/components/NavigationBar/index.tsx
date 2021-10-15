@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { MerchandiseItemOptionModelProps } from '../../../types';
 
 import CreditsDisplay from '../CreditsDisplay';
 
@@ -44,14 +45,20 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
   );
 };
 
-const getCartSize = (cart: Map<string, number>) => {
-  const array = Array.from(cart, ([uuid, quantity]) => ({ uuid, quantity }));
+const getCartSize = (cart: any) => {
+  let size = 0;
 
-  if (array.length === 0) {
+  const entries: [string, number][] = Object.entries(cart);
+
+  if (entries.length === 0) {
     return 0;
   }
 
-  return array.reduce((previousValue, currentValue) => ({ uuid: '', quantity: previousValue.quantity + currentValue.quantity })).quantity;
+  for (let i = 0; i < entries.length; i += 1) {
+    size += entries[i][1];
+  }
+
+  return size;
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({

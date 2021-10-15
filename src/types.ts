@@ -28,15 +28,17 @@ export interface MerchandiseItemModel {
   picture: string;
   description: string;
   hidden: boolean;
-  // then is set to true, otherwise false
   options: MerchandiseItemOptionModelProps[];
 }
 
 export interface MerchandiseItemOptionModelProps {
+  uuid: Uuid;
   quantity: number;
   price: number;
   discountPercentage: number;
-  type: string; // e.g. 'size', 'shape'
-  value: string; // e.g. 'S', 'M', 'L' if this.type === 'size'
-  position: number; // e.g. 0, 1, 2 (for sort order, i.e. XS < S < M < L < XL etc)
+  metadata?: {
+    type: string;
+    value: string;
+    position: number;
+  };
 }
