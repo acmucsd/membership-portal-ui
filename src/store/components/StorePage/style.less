@@ -8,29 +8,20 @@
     font-weight: 700;
   }
 
-  .item-card-holder {
-    display: flex;
-    flex-direction: row;
-  }
+  .collections {
+    .collection {
+      .collection-header {
+        color: #62b0ff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+      }
 
-  // TODO: Remove coming soon section.
-  .coming-soon {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: @general-heading-2;
-    height: 50vh;
-    justify-content: center;
-    margin-top: 20vh;
-    width: 100%;
-
-    .temp-icon {
-      flex: 0 0 100%;
-      font-size: 200px;
-      opacity: 0.2;
-    }
-
-    p {
-      opacity: 0.8;
+      .collection-items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
     }
   }
 }
