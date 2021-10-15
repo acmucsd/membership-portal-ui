@@ -30,6 +30,8 @@ import ResetPage from './auth/containers/ResetPage';
 import ProfilePage from './profile/containers/ProfilePage';
 import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
 import RegisterPage from './auth/containers/RegisterPage';
+import CartPage from './store/containers/CartPage';
+import ItemPage from './store/containers/ItemPage';
 import StorePage from './store/containers/StorePage';
 import ErrorPage from './layout/containers/ErrorPage';
 import EmailVerficationPage from './auth/containers/EmailVerificationPage';
@@ -67,6 +69,8 @@ const App = () => {
             <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage) as React.FC} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/resetPassword/:code" component={ResetPage} />
+            <Route exact path="/store/cart" component={requireStandardAccess(requireAuth(CartPage)) as React.FC} />
+            <Route exact path="/store/item/:uuid" component={requireStandardAccess(requireAuth(ItemPage)) as React.FC} />
             <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
