@@ -9,9 +9,13 @@ const initialState = {
 const StoreReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case CART_ADD: {
-      const newCart = { ...state.cart };
-
       const { uuid, quantity } = action.payload;
+
+      if (!uuid || quantity < 1) {
+        return state;
+      }
+
+      const newCart = { ...state.cart };
 
       if (newCart[uuid]) {
         newCart[uuid] += quantity;
@@ -24,20 +28,32 @@ const StoreReducer = (state = initialState, action: AnyAction) => {
       return newState;
     }
     case CART_EDIT: {
-      const newCart = { ...state.cart };
-
       const { uuid, quantity } = action.payload;
 
-      newCart[uuid] = quantity;
+      if (!uuid) {
+        return state;
+      }
+
+      const newCart = { ...state.cart };
+
+      if (quantity > 0) {
+        newCart[uuid] = quantity;
+      } else {
+        delete newCart[uuid];
+      }
 
       const newState = { ...initialState, cart: newCart };
 
       return newState;
     }
     case CART_REMOVE: {
-      const newCart = { ...state.cart };
-
       const { uuid } = action.payload;
+
+      if (!uuid) {
+        return state;
+      }
+
+      const newCart = { ...state.cart };
 
       delete newCart[uuid];
 
