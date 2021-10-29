@@ -13,69 +13,63 @@ export type FetchServiceOptions = {
 
 export type Uuid = string;
 
-export interface MerchandiseCollectionModel {
+export interface PublicMerchCollection {
   uuid: Uuid;
   title: string;
-  color: string;
+  themeColorHex?: string;
   description: string;
-  archived: boolean;
-  items: MerchandiseItemModel[];
+  items: PublicMerchItem[];
 }
 
-export interface MerchandiseItemModel {
+export interface PublicMerchItem {
   uuid: Uuid;
   itemName: string;
-  collection: MerchandiseCollectionModel;
   picture: string;
   description: string;
   monthlyLimit: number;
   lifetimeLimit: number;
-  hidden: boolean;
   hasVariantsEnabled: boolean;
-  options: MerchandiseItemOptionModel[];
+  options: PublicMerchItemOption[];
 }
 
-export interface MerchandiseItemOptionModel {
+export interface PublicMerchItemOption {
   uuid: Uuid;
-  item: MerchandiseItemModel;
-  quantity: number;
   price: number;
+  quantity?: number;
   discountPercentage: number;
-  orders: OrderItemModel[];
-  metadata: MerchItemOptionMetadata | null;
+  metadata: MerchItemOptionMetadata;
 }
 
 export interface MerchItemOptionMetadata {
-  type: string; // e.g. 'size', 'shape'
-  value: string; // e.g. 'S', 'M', 'L' if this.type === 'size'
-  position: number; // e.g. 0, 1, 2 (for sort order, i.e. XS < S < M < L < XL etc)
+  type: string;
+  value: string;
+  position: number;
 }
 
-export interface OrderModel {
+export interface PublicOrderItem {
   uuid: Uuid;
-  user: any; // TODO: Include user model
-  totalCost: number;
-  orderedAt: Date;
-  pickupEvent: OrderPickupEvent;
-  status: 'PLACED' | 'PICKUP_MISSED' | 'PICKUP_CANCELLED' | 'CANCELLED' | 'FULFILLED';
-  items: OrderItemModel[];
-}
-
-export interface OrderItemModel {
-  uuid: Uuid;
-  order: OrderModel;
-  option: MerchandiseItemOptionModel;
+  option: PublicMerchItemOption;
   salePriceAtPurchase: number;
   discountPercentageAtPurchase: number;
   fulfilled: boolean;
-  fulfilledAt: Date;
-  notes: string;
+  fulfilledAt?: Date;
+  notes?: string;
 }
 
-export interface OrderPickupEvent {
+export interface PublicOrder {
   uuid: Uuid;
-  orders: OrderModel[];
+  user: Uuid;
+  totalCost: number;
+  orderedAt: Date;
+  pickupEvent: PublicOrderPickupEvent;
+  items: PublicOrderItem[];
+}
+
+export interface PublicOrderPickupEvent {
+  uuid: Uuid;
+  title: string;
   start: Date;
   end: Date;
-  details: string;
+  description: string;
+  orders?: PublicOrder[];
 }

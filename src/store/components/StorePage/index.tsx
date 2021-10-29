@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchCollections } from '../../storeActions';
 import { notify } from '../../../utils';
-import { MerchandiseCollectionModel } from '../../../types';
+import { PublicMerchCollection } from '../../../types';
 
 import NavigationBar from '../NavigationBar';
 import CollectionItemCard from '../CollectionItemCard';
@@ -15,7 +15,7 @@ interface StorePageProps {
 }
 
 const StorePage: React.FC<StorePageProps> = (props) => {
-  const [collections, setCollections] = useState<MerchandiseCollectionModel[]>([]);
+  const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
   useEffect(() => {
     props

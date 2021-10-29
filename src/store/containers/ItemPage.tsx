@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { fetchItem } from '../storeActions';
-import { MerchandiseItemModel } from '../../types';
+import { PublicMerchItem } from '../../types';
 import { notify } from '../../utils';
 
 import PageLayout from '../../layout/containers/PageLayout';
@@ -22,7 +22,7 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
     history.push('/store');
   }
 
-  const [item, setItem] = useState<MerchandiseItemModel>();
+  const [item, setItem] = useState<PublicMerchItem>();
 
   useEffect(() => {
     props

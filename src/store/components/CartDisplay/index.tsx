@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { MerchandiseItemOptionModel } from '../../../types';
+import { PublicMerchItemOption } from '../../../types';
 
 interface CartDisplayProps {
   writable?: boolean;
   items: {
-    item: MerchandiseItemOptionModel;
+    item: PublicMerchItemOption;
     quantity: number;
   }[];
 }

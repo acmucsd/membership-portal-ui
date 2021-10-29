@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Select } from 'antd';
 
-import { MerchandiseItemModel, MerchandiseItemOptionModel } from '../../../types';
+import { PublicMerchItem, PublicMerchItemOption } from '../../../types';
 import { addToCart } from '../../storeActions';
 
 import NavigationBar from '../NavigationBar';
@@ -16,26 +15,21 @@ import CreditsDisplay from '../CreditsDisplay';
 const { Option } = Select;
 
 interface ItemPageProps {
-  item: MerchandiseItemModel | undefined;
+  item: PublicMerchItem | undefined;
   addToCart: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
-  const history = useHistory();
 
-  const [currentOption, setCurrentOption] = useState<MerchandiseItemOptionModel>();
+  const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
 
   if (!item) {
     return null;
   }
 
-  const { itemName, description, hidden, options, picture } = item;
-
-  if (hidden) {
-    history.push('/store');
-  }
+  const { itemName, description, options, picture } = item;
 
   let itemPrice;
 

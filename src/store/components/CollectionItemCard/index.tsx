@@ -1,25 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import { MerchandiseItemModel } from '../../../types';
+import { PublicMerchItem } from '../../../types';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
 
 import './style.less';
 
 interface CollectionItemCardProps {
-  item: MerchandiseItemModel;
+  item: PublicMerchItem;
 }
 
 const CollectionItemCard: React.FC<CollectionItemCardProps> = (props: CollectionItemCardProps) => {
   const {
-    item: { uuid, itemName, description, hidden, options, picture },
+    item: { uuid, itemName, description, options, picture },
   } = props;
 
   const history = useHistory();
-
-  if (hidden) {
-    return null;
-  }
 
   const outOfStock = options.every((option) => option.quantity === 0);
   const onSale = options.some((option) => option.discountPercentage !== 0);
