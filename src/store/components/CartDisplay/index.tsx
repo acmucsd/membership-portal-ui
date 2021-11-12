@@ -35,26 +35,29 @@ const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
     </div>
   );
 
-  const renderSize = () => {
-    if (item.metadata) {
-      if (editable) {
-        return (
-          <div className="item-size-container">
-            <Typography.Text className="item-size-label">Size: </Typography.Text>
-            <Select defaultValue={item.metadata?.value}>
+  const toProperCase = (s: string) => {
+    return s
+      .split(' ')
+      .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+  };
+
+  const renderVariant = () => {
+    if (item.item.hasVariantsEnabled && item.metadata) {
+      return (
+        <div className="item-size-container">
+          <Typography.Text className="item-size-label">{toProperCase(item.metadata.type)}: </Typography.Text>
+          {editable ? (
+            <Select defaultValue={item.metadata.value}>
               {item.item.options.map((opt) => (
                 <Option key={opt.metadata?.value} value={opt.metadata?.value}>
                   {opt.metadata?.value}
                 </Option>
               ))}
             </Select>
-          </div>
-        );
-      }
-      return (
-        <div className="item-size-container">
-          <Typography.Text className="item-size-label">Size: </Typography.Text>
-          <Typography.Text className="item-size">{item.metadata?.value}</Typography.Text>
+          ) : (
+            <Typography.Text className="item-size">{item.metadata.value}</Typography.Text>
+          )}
         </div>
       );
     }
@@ -83,7 +86,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
     <div className="cart-item">
       {renderTitle()}
       {renderColor()}
-      {renderSize()}
+      {renderVariant()}
       {renderButtons()}
     </div>
   );
