@@ -9,6 +9,7 @@ import BackArrow from '../../../assets/icons/back-arrow.svg';
 import CartIcon from '../../../assets/icons/cart-icon.svg';
 
 import './style.less';
+import { CartItem } from '../../../types';
 
 interface NavigationBarProps {
   home?: boolean;
@@ -47,14 +48,14 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
 const getCartSize = (cart: any) => {
   let size = 0;
 
-  const entries: [string, number][] = Object.entries(cart);
+  const entries: [string, CartItem][] = Object.entries(cart);
 
   if (entries.length === 0) {
     return 0;
   }
 
   for (let i = 0; i < entries.length; i += 1) {
-    size += entries[i][1];
+    size += entries[i][1].quantity;
   }
 
   return size;

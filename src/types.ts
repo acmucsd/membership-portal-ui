@@ -46,6 +46,12 @@ export interface MerchItemOptionMetadata {
   position: number;
 }
 
+export interface CartItem {
+  item: PublicMerchItem;
+  optionUUID: string;
+  quantity: number;
+}
+
 export interface PublicOrderItem {
   uuid: Uuid;
   option: PublicMerchItemOption;

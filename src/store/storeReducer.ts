@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import { CART_ADD, CART_EDIT, CART_REMOVE } from './storeTypes';
+import { CartItem } from '../types';
 
 const initialState = {
   error: false,
@@ -9,53 +10,61 @@ const initialState = {
 const StoreReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case CART_ADD: {
-      const { uuid, quantity } = action.payload;
+      const { optionUUID, quantity }: CartItem = action.payload;
 
-      if (!uuid || quantity < 1) {
+      if (!optionUUID || quantity < 1) {
         return state;
       }
 
       const newCart = { ...state.cart };
 
-      if (newCart[uuid]) {
-        newCart[uuid] += quantity;
+      if (newCart[optionUUID]) {
+        // Item exists, no need to save item data
+        newCart[optionUUID].quantity += quantity;
       } else {
-        newCart[uuid] = quantity;
+        // Item doesn't exist, need to save item data
+        newCart[optionUUID] = action.payload;
       }
+
+      localStorage.setItem('cart', JSON.stringify(newCart));
 
       const newState = { ...initialState, cart: newCart };
 
       return newState;
     }
     case CART_EDIT: {
-      const { uuid, quantity } = action.payload;
+      const { optionUUID, quantity }: CartItem = action.payload;
 
-      if (!uuid) {
+      if (!optionUUID) {
         return state;
       }
 
       const newCart = { ...state.cart };
 
       if (quantity > 0) {
-        newCart[uuid] = quantity;
+        newCart[optionUUID].quantity = quantity;
       } else {
-        delete newCart[uuid];
+        delete newCart[optionUUID];
       }
+
+      localStorage.setItem('cart', JSON.stringify(newCart));
 
       const newState = { ...initialState, cart: newCart };
 
       return newState;
     }
     case CART_REMOVE: {
-      const { uuid } = action.payload;
+      const { optionUUID }: CartItem = action.payload;
 
-      if (!uuid) {
+      if (!optionUUID) {
         return state;
       }
 
       const newCart = { ...state.cart };
 
-      delete newCart[uuid];
+      delete newCart[optionUUID];
+
+      localStorage.setItem('cart', JSON.stringify(newCart));
 
       const newState = { ...initialState, cart: newCart };
 

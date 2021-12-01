@@ -79,7 +79,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
             <StoreButton
               text="Add to Cart"
               onClick={() => {
-                props.addToCart(currentOption, currentQuantity);
+                props.addToCart({ item, optionUUID: currentOption, quantity: currentQuantity });
               }}
             />
           </div>

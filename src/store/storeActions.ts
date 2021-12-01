@@ -2,6 +2,7 @@ import { CART_ADD, CART_EDIT, CART_REMOVE, ThunkActionCreator } from './storeTyp
 import { fetchService } from '../utils';
 import Config from '../config';
 import { logoutUser } from '../auth/authActions';
+import { CartItem } from '../types';
 
 export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
@@ -39,23 +40,23 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
   });
 };
 
-export const addToCart: ThunkActionCreator = (uuid: string, quantity: number) => (dispatch) => {
+export const addToCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_ADD,
-    payload: { uuid, quantity },
+    payload: cartItem,
   });
 };
 
-export const editInCart: ThunkActionCreator = (uuid: string, quantity: number) => (dispatch) => {
+export const editInCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_EDIT,
-    payload: { uuid, quantity },
+    payload: cartItem,
   });
 };
 
-export const removeFromCart: ThunkActionCreator = (uuid: string) => (dispatch) => {
+export const removeFromCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_REMOVE,
-    payload: { uuid },
+    payload: cartItem,
   });
 };
