@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { Button, Typography } from 'antd';
-
-import NavigationBar from '../NavigationBar';
-import CartDisplay from '../CartDisplay';
-import { MerchandiseItemOptionModel } from '../../../types';
+import React, { useEffect, useState } from 'react';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
+import { MerchandiseItemOptionModel } from '../../../types';
+import CartDisplay from '../CartDisplay';
+import NavigationBar from '../NavigationBar';
 import './style.less';
 
 type Cart = {
