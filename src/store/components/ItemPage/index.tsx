@@ -51,10 +51,11 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               <p className="item-option-header">{options[0].metadata ? options[0].metadata.type : ''}:</p>
               <OptionSelector
                 options={options.map((option) => {
-                  return { key: option.uuid, value: option.metadata ? option.metadata.value : '' };
+                  const { uuid: key, metadata } = option;
+                  return { key, label: metadata ? metadata.value : '', value: option };
                 })}
-                optionSelected={(option) => {
-                  setCurrentOption(option.key);
+                onChange={({ value }: { value: PublicMerchItemOption }) => {
+                  setCurrentOption(value);
                 }}
               />
             </div>
@@ -79,7 +80,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
             <StoreButton
               text="Add to Cart"
               onClick={() => {
-                props.addToCart({ item, optionUUID: currentOption, quantity: currentQuantity });
+                props.addToCart({ item, option: currentOption, quantity: currentQuantity });
               }}
             />
           </div>
