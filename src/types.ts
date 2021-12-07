@@ -24,6 +24,7 @@ export interface PublicMerchCollection {
 export interface PublicMerchItem {
   uuid: Uuid;
   itemName: string;
+  collection: PublicMerchCollection;
   picture: string;
   description: string;
   monthlyLimit: number;
