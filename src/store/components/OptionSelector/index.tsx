@@ -2,33 +2,34 @@ import React, { useState } from 'react';
 
 import './style.less';
 
+type Option = { key: string; label: string; value: any };
 interface OptionSelectorProps {
-  options: { key: string; value: string }[];
-  optionSelected: Function;
-  enabled?: boolean;
+  options: Option[];
+  onChange: (option: Option) => void;
+  disabled?: boolean;
   initialOption?: string;
 }
 
 const OptionSelector: React.FC<OptionSelectorProps> = (props) => {
-  const { options, optionSelected, enabled = true, initialOption } = props;
+  const { options, onChange, disabled = false, initialOption = '' } = props;
 
-  const [current, setCurrent] = useState<string | undefined>(initialOption);
+  const [current, setCurrent] = useState<string>(initialOption);
 
   return (
     <div className="option-selector">
       {options.map((option) => {
         return (
           <button
-            className={`option${option.key === current ? ' selected' : ''}`}
+            className={option.key === current ? 'option selected' : 'option'}
             type="button"
             key={option.key}
-            disabled={!enabled ? true : undefined}
+            disabled={disabled}
             onClick={() => {
               setCurrent(option.key);
-              optionSelected(option);
+              onChange(option);
             }}
           >
-            {option.value}
+            {option.label}
           </button>
         );
       })}
