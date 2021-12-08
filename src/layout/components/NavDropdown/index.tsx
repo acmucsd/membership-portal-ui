@@ -3,7 +3,7 @@ import { Divider } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import './style.less';
-import NavListItem from '../NavListItem';
+import NavBarItem from '../NavBarItem';
 
 interface NavDropdownProps {
   logout: MouseEventHandler;
@@ -16,13 +16,13 @@ const NavDropdown: React.FC<NavDropdownProps> = (props) => {
     <nav className="nav-dropdown">
       <section>
         <NavLink activeClassName="selected" className="nav-item" to="/">
-          <NavListItem text="Dashboard" />
+          <NavBarItem text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
-          <NavListItem text="Leaderboard" />
+          <NavBarItem text="Leaderboard" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/profile">
-          <NavListItem text="Profile" />
+          <NavBarItem text="Profile" />
         </NavLink>
       </section>
 
@@ -30,13 +30,13 @@ const NavDropdown: React.FC<NavDropdownProps> = (props) => {
 
       <section>
         <NavLink activeClassName="selected" className="nav-item" to="/about">
-          <NavListItem text="About ACM" />
+          <NavBarItem text="About ACM" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/store">
-          <NavListItem text="ACM Store" />
+          <NavBarItem text="ACM Store" />
         </NavLink>
         <NavLink activeClassName="selected" className="nav-item" to="/discord">
-          <NavListItem text="Discord" />
+          <NavBarItem text="Discord" />
         </NavLink>
       </section>
 

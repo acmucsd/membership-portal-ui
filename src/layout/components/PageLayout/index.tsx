@@ -1,10 +1,14 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import withSizes from 'react-sizes';
+import { ThunkActionCreator } from '../../../auth/authTypes';
 
 import CheckInModal from '../../../event/containers/CheckInModal';
 import Header from '../Header';
 import NavBarHorizontal from '../NavBarHorizontal';
 import NavBarVertical from '../NavBarVertical';
+
+import { logoutUser } from '../../../auth/authActions';
 
 import './style.less';
 
@@ -12,10 +16,11 @@ interface PageLayoutProps {
   children: React.ComponentClass | React.FC;
   isAdmin: boolean;
   isMobile: boolean;
+  logout: Function;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
-  const { children, isAdmin, isMobile } = props;
+  const { children, isAdmin, isMobile, logout } = props;
 
   return (
     <>
@@ -28,7 +33,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
         </>
       ) : (
         <div className="content-table">
-          <NavBarVertical isAdmin={isAdmin} />
+          <NavBarVertical isAdmin={isAdmin} logout={logout} />
           <div className="content">{children}</div>
         </div>
       )}
@@ -40,6 +45,10 @@ const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-export default withSizes(mapSizesToProps)(PageLayout as ComponentType<{ isMobile: boolean }>) as React.FC<
-  any & { isAdmin: boolean; children: React.ComponentClass | React.FC }
->;
+const mapDispatchToProps = (dispatch: ThunkActionCreator) => ({
+  logout: () => {
+    dispatch(logoutUser());
+  },
+});
+
+export default withSizes(mapSizesToProps)(connect(null, mapDispatchToProps)(PageLayout) as any) as any; // TODO

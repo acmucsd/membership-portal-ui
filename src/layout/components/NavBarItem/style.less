@@ -1,0 +1,39 @@
+@import '../../../styles/fonts.less';
+@import '../../../styles/vars.less';
+
+.nav-bar-item {
+  align-items: center;
+  display: flex;
+  margin-bottom: 1.5rem;
+
+  &.last {
+    margin-bottom: 0;
+  }
+
+  &-icon {
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    width: 1.5rem;
+
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+
+    .selected & {
+      color: #62b0ff;
+    }
+  }
+
+  &-text {
+    color: #333;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 23px;
+    vertical-align: middle;
+
+    .selected & {
+      color: #62b0ff;
+    }
+  }
+}
