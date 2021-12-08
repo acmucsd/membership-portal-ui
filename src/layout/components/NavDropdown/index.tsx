@@ -1,6 +1,5 @@
 import React, { MouseEventHandler } from 'react';
 import { Divider } from 'antd';
-import { NavLink } from 'react-router-dom';
 
 import NavBarItem from '../NavBarItem';
 
