@@ -1,38 +1,31 @@
 @import '../../../styles/fonts.less';
 @import '../../../styles/vars.less';
 
-.navbar-vertical-container {
-  .padding {
-    width: 268px;
+.navbar-vertical {
+  &-padding {
+    width: 15.5rem;
   }
 
-  .content {
-    border-right: 1px solid rgba(51, 51, 51, 0.2);
-    color: #333;
+  &-content {
+    background-color: #f8f8f8;
+    border-right: 1px solid #c4c4c4;
     display: flex;
     flex-direction: column;
-    font-size: @nav-body;
-    height: calc(100vh - @nav-header-height - 5px);
+    height: calc(100vh - 5rem - 0.25rem); // TODO: Make navbar scrollable.
     justify-content: space-between;
-    line-height: 50px;
-    min-height: 164px;
-    padding: 64px;
+    padding: 0 1.5rem 1.5rem;
     position: fixed;
-    width: 268px;
+    width: 15.5rem;
+  }
 
-    .title {
-      color: rgba(51, 51, 51, 0.3);
-      font-size: @nav-heading;
-      font-weight: bold;
-      margin: 0;
-    }
+  &-title {
+    color: #c4c4c4;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 1.5rem 0 1rem;
+  }
 
-    .selected {
-      color: @blue-1;
-    }
-
-    .logout {
-      cursor: pointer;
-    }
+  &-items {
+    padding-left: 1rem;
   }
 }

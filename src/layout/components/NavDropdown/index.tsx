@@ -2,8 +2,9 @@ import React, { MouseEventHandler } from 'react';
 import { Divider } from 'antd';
 import { NavLink } from 'react-router-dom';
 
+import NavBarItem from '../NavBarItem';
+
 import './style.less';
-import NavListItem from '../NavListItem';
 
 interface NavDropdownProps {
   logout: MouseEventHandler;
@@ -15,35 +16,21 @@ const NavDropdown: React.FC<NavDropdownProps> = (props) => {
   return (
     <nav className="nav-dropdown">
       <section>
-        <NavLink activeClassName="selected" className="nav-item" to="/">
-          <NavListItem text="Dashboard" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
-          <NavListItem text="Leaderboard" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/profile">
-          <NavListItem text="Profile" />
-        </NavLink>
+        <NavBarItem text="Dashboard" innerDest="/" mobile />
+        <NavBarItem text="Leaderboard" innerDest="/leaderboard" mobile />
+        <NavBarItem text="Profile" innerDest="/profile" mobile />
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
 
       <section>
-        <NavLink activeClassName="selected" className="nav-item" to="/about">
-          <NavListItem text="About ACM" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/store">
-          <NavListItem text="ACM Store" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/discord">
-          <NavListItem text="Discord" />
-        </NavLink>
+        <NavBarItem text="About ACM" innerDest="/about" mobile />
+        <NavBarItem text="ACM Store" innerDest="/store" mobile />
+        <NavBarItem text="Discord" innerDest="/discord" mobile />
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <div onClick={logout} className="logout">
-        Sign Out
-      </div>
+      <NavBarItem text="Sign Out" func={logout} mobile />
     </nav>
   );
 };
