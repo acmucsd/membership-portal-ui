@@ -1,0 +1,57 @@
+.item-card {
+  &-placeholder {
+    align-items: center;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.625rem;
+    box-sizing: border-box;
+    display: flex;
+    height: 11.25rem;
+    justify-content: center;
+    width: 11.25rem;
+  }
+
+  &-contents {
+    position: relative;
+    width: 11.25rem;
+  }
+
+  &-editable-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+  }
+
+  &-image-container {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.625rem;
+    box-sizing: border-box;
+    height: 11.25rem;
+    overflow: hidden;
+    width: 11.25rem;
+
+    .out-of-stock & {
+      background-color: #f2f2f2;
+    }
+  }
+
+  &-image {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+
+    .out-of-stock & {
+      opacity: 0.5;
+    }
+  }
+
+  .out-of-stock {
+    background-color: #000;
+  }
+
+  &-name {
+    color: #000;
+    font-size: 1.25rem;
+  }
+}
