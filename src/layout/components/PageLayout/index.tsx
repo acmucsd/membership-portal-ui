@@ -28,7 +28,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
       <Header />
       {isMobile ? (
         <>
-          <NavBarHorizontal />
+          <NavBarHorizontal isAdmin={isAdmin} />
           <div className="content">{children}</div>
         </>
       ) : (

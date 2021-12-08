@@ -11,10 +11,11 @@ interface NavBarItemProps {
   outerDest?: string;
   func?: Function;
   last?: boolean;
+  mobile?: boolean;
 }
 
 const NavBarItem: React.FC<NavBarItemProps> = (props) => {
-  const { icon, text, innerDest, outerDest, func, last } = props;
+  const { icon, text, innerDest, outerDest, func, last, mobile } = props;
 
   const getContents = () => {
     return (
@@ -28,7 +29,7 @@ const NavBarItem: React.FC<NavBarItemProps> = (props) => {
   if (innerDest) {
     return (
       <NavLink exact activeClassName="selected" to={innerDest}>
-        <div className={`nav-bar-item${last ? ' last' : ''}`}>{getContents()}</div>
+        <div className={`nav-bar-item${last ? ' last' : ''}${mobile ? ' mobile' : ''}`}>{getContents()}</div>
       </NavLink>
     );
   }
@@ -36,14 +37,14 @@ const NavBarItem: React.FC<NavBarItemProps> = (props) => {
   if (outerDest) {
     return (
       <a target="_blank" rel="noopener noreferrer" href={outerDest}>
-        <div className={`nav-bar-item${last ? ' last' : ''}`}>{getContents()}</div>
+        <div className={`nav-bar-item${last ? ' last' : ''}${mobile ? ' mobile' : ''}`}>{getContents()}</div>
       </a>
     );
   }
 
   if (func) {
     return (
-      <div className={`nav-bar-item${last ? ' last' : ''}`} onClick={() => func()}>
+      <div className={`nav-bar-item${last ? ' last' : ''}${mobile ? ' mobile' : ''}`} onClick={() => func()}>
         {getContents()}
       </div>
     );

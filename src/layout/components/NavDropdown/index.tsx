@@ -2,8 +2,9 @@ import React, { MouseEventHandler } from 'react';
 import { Divider } from 'antd';
 import { NavLink } from 'react-router-dom';
 
-import './style.less';
 import NavBarItem from '../NavBarItem';
+
+import './style.less';
 
 interface NavDropdownProps {
   logout: MouseEventHandler;
@@ -15,35 +16,21 @@ const NavDropdown: React.FC<NavDropdownProps> = (props) => {
   return (
     <nav className="nav-dropdown">
       <section>
-        <NavLink activeClassName="selected" className="nav-item" to="/">
-          <NavBarItem text="Dashboard" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/leaderboard">
-          <NavBarItem text="Leaderboard" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/profile">
-          <NavBarItem text="Profile" />
-        </NavLink>
+        <NavBarItem text="Dashboard" innerDest="/" mobile />
+        <NavBarItem text="Leaderboard" innerDest="/leaderboard" mobile />
+        <NavBarItem text="Profile" innerDest="/profile" mobile />
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
 
       <section>
-        <NavLink activeClassName="selected" className="nav-item" to="/about">
-          <NavBarItem text="About ACM" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/store">
-          <NavBarItem text="ACM Store" />
-        </NavLink>
-        <NavLink activeClassName="selected" className="nav-item" to="/discord">
-          <NavBarItem text="Discord" />
-        </NavLink>
+        <NavBarItem text="About ACM" innerDest="/about" mobile />
+        <NavBarItem text="ACM Store" innerDest="/store" mobile />
+        <NavBarItem text="Discord" innerDest="/discord" mobile />
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <div onClick={logout} className="logout">
-        Sign Out
-      </div>
+      <NavBarItem text="Sign Out" func={logout} mobile />
     </nav>
   );
 };
