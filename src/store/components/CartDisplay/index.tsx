@@ -2,8 +2,8 @@ import { Button, InputNumber, Select, Table, Typography } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
-import { editInCart } from '../../storeActions';
 import { CartItem, PublicMerchItem } from '../../../types';
+import { editInCart, removeFromCart } from '../../storeActions';
 import './style.less';
 
 const cartColumns = [
@@ -18,9 +18,9 @@ type CartItemProps = {
   item: CartItem;
   writable: boolean;
 };
-const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
+  const dispatch = useDispatch();
   const { Option } = Select;
 
   const renderTitle = () => (
@@ -66,6 +66,10 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   };
 
   const renderButtons = () => {
+    const removeItem = () => {
+      dispatch(removeFromCart(item));
+    };
+
     if (writable) {
       return (
         <>
@@ -74,7 +78,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
               {editable ? 'Done' : 'Edit'}
             </Button>
           )}
-          <Button className="item-button remove-button" type="link" disabled={!writable}>
+          <Button className="item-button remove-button" type="link" onClick={removeItem} disabled={!writable}>
             Remove
           </Button>
         </>
