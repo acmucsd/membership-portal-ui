@@ -29,13 +29,6 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
     </Typography.Title>
   );
 
-  const renderColor = () => (
-    <div className="item-color-container">
-      <Typography.Text className="item-color-label">Color: </Typography.Text>
-      <Typography.Text className="item-color">{item.item.collection.themeColorHex}</Typography.Text>
-    </div>
-  );
-
   const toProperCase = (s: string) => {
     return s
       .split(' ')
@@ -90,7 +83,6 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   return (
     <div className="cart-item">
       {renderTitle()}
-      {renderColor()}
       {renderVariant()}
       {renderButtons()}
     </div>
