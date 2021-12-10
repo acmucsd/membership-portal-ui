@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
 import { CartItem, PublicMerchItem } from '../../../types';
-import { editInCart, removeFromCart } from '../../storeActions';
+import { editInCart, removeFromCart, addToCart } from '../../storeActions';
 import './style.less';
+
+const { Option } = Select;
 
 const cartColumns = [
   ['', 'itemImage'],
@@ -20,8 +22,8 @@ type CartItemProps = {
 };
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
+  const [currentOptionValue, setVariant] = useState(item.option.metadata.value);
   const dispatch = useDispatch();
-  const { Option } = Select;
 
   const renderTitle = () => (
     <Typography.Title className="item-name" level={4}>
@@ -36,13 +38,13 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
       .join(' ');
   };
 
-  const renderVariant = () => {
+  const renderOption = () => {
     if (item.item.hasVariantsEnabled && item.option.metadata) {
       return (
         <div className="item-size-container">
           <Typography.Text className="item-size-label">{toProperCase(item.option.metadata.type)}: </Typography.Text>
           {editable ? (
-            <Select defaultValue={item.option.metadata.value}>
+            <Select defaultValue={item.option.metadata.value} onChange={setVariant}>
               {item.item.options.map((opt) => (
                 <Option key={opt.metadata?.value} value={opt.metadata?.value}>
                   {opt.metadata?.value}
@@ -58,6 +60,21 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
     return null;
   };
 
+  const changeOption = () => {
+    if (editable) {
+      if (currentOptionValue !== item.option.metadata.value) {
+        const { quantity } = item;
+        const newOption = item.item.options.find((opt) => opt.metadata.value === currentOptionValue);
+
+        dispatch(editInCart({ ...item, quantity: 0 }));
+        dispatch(addToCart({ ...item, option: newOption, quantity }));
+      }
+      setEditable(false);
+    } else {
+      setEditable(true);
+    }
+  };
+
   const renderButtons = () => {
     const removeItem = () => {
       dispatch(removeFromCart(item));
@@ -67,7 +84,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
       return (
         <>
           {item.item.options.length > 1 && (
-            <Button className="item-button edit-button" type="link" onClick={() => setEditable((e) => !e)}>
+            <Button className="item-button edit-button" type="link" onClick={changeOption}>
               {editable ? 'Done' : 'Edit'}
             </Button>
           )}
@@ -83,7 +100,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   return (
     <div className="cart-item">
       {renderTitle()}
-      {renderVariant()}
+      {renderOption()}
       {renderButtons()}
     </div>
   );
@@ -131,7 +148,7 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
     } = cartItem;
     const setQuantity = (q: number) => dispatch(editInCart({ ...cartItem, quantity: q }));
     return {
-      key: uuid,
+      key: `${uuid}${quantity}`,
       itemImage: renderItemImage(item),
       item: <CartItemComponent item={cartItem} writable={writable} />,
       price: renderPrice(price),
