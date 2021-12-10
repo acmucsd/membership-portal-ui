@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import Config from '../../config';
 import PageLayout from '../../layout/containers/PageLayout';
 import { history } from '../../redux_store';
-import { MerchandiseItemOptionModel } from '../../types';
+import { CartItem } from '../../types';
 import { fetchService, notify } from '../../utils';
 import CartPage from '../components/CartPage';
 
 type CartPageContainerProps = {
-  cart: { item: MerchandiseItemOptionModel; quantity: number }[];
+  cart: CartItem[];
 };
 
 const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
@@ -18,7 +18,6 @@ const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
       const payload = Object.entries(cart).map(([option, quantity]) => ({ option, quantity }));
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        // payload: JSON.stringify({ order: payload }),
         payload: JSON.stringify(payload),
       });
       history.push('/store/checkout');
@@ -35,6 +34,6 @@ const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({ cart: state.store.cart });
+const mapStateToProps = (state: { [key: string]: any }) => ({ cart: Object.values(state.store.cart) as CartItem[] });
 
 export default connect(mapStateToProps)(CartPageContainer);

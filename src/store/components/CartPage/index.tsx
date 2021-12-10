@@ -1,18 +1,13 @@
 import { Button, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
-import { MerchandiseItemOptionModel } from '../../../types';
+import { CartItem } from '../../../types';
 import CartDisplay from '../CartDisplay';
 import NavigationBar from '../NavigationBar';
 import './style.less';
 
-type Cart = {
-  item: MerchandiseItemOptionModel;
-  quantity: number;
-}[];
-
 type CartPageProps = {
-  cart: Cart;
+  cart: CartItem[];
   verifyCart: (onFail: () => void) => void;
 };
 const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
@@ -23,7 +18,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
     setIsCheckoutLocked(false);
   }, [cart]);
 
-  const getTotal = (items: Cart) => items.reduce((sum, { item: { price }, quantity }) => sum + price * quantity, 0);
+  const getTotal = (items: CartItem[]) => items.reduce((sum, { option: { price }, quantity }) => sum + price * quantity, 0);
 
   const renderTotalPrice = (total: number) => {
     return (

@@ -2,8 +2,8 @@ import { Button, InputNumber, Select, Table, Typography } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
-import { CartItem } from '../../../types';
 import { editInCart } from '../../storeActions';
+import { CartItem, PublicMerchItem } from '../../../types';
 import './style.less';
 
 const cartColumns = [
@@ -15,10 +15,11 @@ const cartColumns = [
 ].map(([title, dataIndex]) => ({ title, dataIndex }));
 
 type CartItemProps = {
-  item: MerchandiseItemOptionModel;
+  item: CartItem;
   writable: boolean;
 };
 const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
+const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
   const { Option } = Select;
 
@@ -31,7 +32,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
   const renderColor = () => (
     <div className="item-color-container">
       <Typography.Text className="item-color-label">Color: </Typography.Text>
-      <Typography.Text className="item-color">{item.item.collection.color}</Typography.Text>
+      <Typography.Text className="item-color">{item.item.collection.themeColorHex}</Typography.Text>
     </div>
   );
 
@@ -43,12 +44,12 @@ const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
   };
 
   const renderVariant = () => {
-    if (item.item.hasVariantsEnabled && item.metadata) {
+    if (item.item.hasVariantsEnabled && item.option.metadata) {
       return (
         <div className="item-size-container">
-          <Typography.Text className="item-size-label">{toProperCase(item.metadata.type)}: </Typography.Text>
+          <Typography.Text className="item-size-label">{toProperCase(item.option.metadata.type)}: </Typography.Text>
           {editable ? (
-            <Select defaultValue={item.metadata.value}>
+            <Select defaultValue={item.option.metadata.value}>
               {item.item.options.map((opt) => (
                 <Option key={opt.metadata?.value} value={opt.metadata?.value}>
                   {opt.metadata?.value}
@@ -56,7 +57,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, writable }) => {
               ))}
             </Select>
           ) : (
-            <Typography.Text className="item-size">{item.metadata.value}</Typography.Text>
+            <Typography.Text className="item-size">{item.option.metadata.value}</Typography.Text>
           )}
         </div>
       );
@@ -100,9 +101,9 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
   const { writable = true, items } = props;
   const dispatch = useDispatch();
 
-  const renderItemImage = (item: MerchandiseItemOptionModel) => (
+  const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">
-      <img className="image" src={item.item.picture} alt={item.item.itemName} />
+      <img className="image" src={item.picture} alt={item.itemName} />
     </div>
   );
 
@@ -126,15 +127,20 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
     );
   };
 
-  const cartData = items.map(({ item, quantity }) => {
-    const setQuantity = (q: number) => dispatch(editInCart(item.uuid, q));
+  const cartData = items.map((cartItem) => {
+    const {
+      item,
+      option: { price, uuid },
+      quantity,
+    } = cartItem;
+    const setQuantity = (q: number) => dispatch(editInCart({ ...cartItem, quantity: q }));
     return {
-      key: item.uuid,
+      key: uuid,
       itemImage: renderItemImage(item),
-      item: <CartItem item={item} writable={writable} />,
-      price: renderPrice(item.price),
+      item: <CartItemComponent item={cartItem} writable={writable} />,
+      price: renderPrice(price),
       quantity: renderQuantity(quantity, setQuantity),
-      totalPrice: renderPrice(item.price * quantity),
+      totalPrice: renderPrice(price * quantity),
     };
   });
 
