@@ -15,10 +15,10 @@ const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
   const verifyCart = async (onFailCallback: () => void) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.verification}`;
-      const payload = Object.entries(cart).map(([option, quantity]) => ({ option, quantity }));
+      const payload = cart.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        payload: JSON.stringify(payload),
+        payload: JSON.stringify({ order: payload }),
       });
       history.push('/store/checkout');
     } catch (error) {
