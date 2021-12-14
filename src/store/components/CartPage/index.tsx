@@ -19,8 +19,8 @@ const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
   }, [cart]);
 
   const getTotal = (items: CartItem[]) => items.reduce((sum, { option: { price }, quantity }) => sum + price * quantity, 0);
-
-  const renderTotalPrice = (total: number) => {
+  const renderTotalPrice = () => {
+    const total = getTotal(cart);
     return (
       <div className="total-price-container">
         <Typography className="total-price-label">Total:</Typography>
@@ -39,7 +39,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
       <NavigationBar />
       <div className="cart-page">
         <CartDisplay items={cart} />
-        {renderTotalPrice(getTotal(cart))}
+        {renderTotalPrice()}
         <Button className="checkout-button" disabled={isCheckoutLocked} onClick={onCheckoutButtonClick}>
           Checkout
         </Button>
