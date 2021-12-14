@@ -39,7 +39,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   );
 
   const renderOption = () => {
-    if (item.option.metadata === null) return null;
+    if (!item.option.metadata) return null;
 
     return (
       <div className="item-size-container">
@@ -60,7 +60,9 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   };
 
   const changeOption = () => {
-    if (item.option.metadata !== null && editable) {
+    if (!item.option.metadata) return;
+
+    if (editable) {
       if (currentOptionValue !== item.option.metadata.value) {
         const { quantity } = item;
         const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
@@ -80,7 +82,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
     };
 
     const renderEditButton = () => {
-      if (item.option.metadata === null) return null;
+      if (!item.option.metadata) return null;
 
       return (
         <Button className="item-button edit-button" type="link" onClick={changeOption}>
