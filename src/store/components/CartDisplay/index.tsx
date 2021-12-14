@@ -16,13 +16,20 @@ const cartColumns = [
   ['Total Price', 'totalPrice'],
 ].map(([title, dataIndex]) => ({ title, dataIndex }));
 
+const toProperCase = (s: string) => {
+  return s
+    .split(' ')
+    .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+};
+
 type CartItemProps = {
   item: CartItem;
   writable: boolean;
 };
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
-  const [currentOptionValue, setVariant] = useState(item.option.metadata.value);
+  const [currentOptionValue, setVariant] = useState(item.option?.metadata?.value);
   const dispatch = useDispatch();
 
   const renderTitle = () => (
@@ -31,40 +38,32 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
     </Typography.Title>
   );
 
-  const toProperCase = (s: string) => {
-    return s
-      .split(' ')
-      .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
-      .join(' ');
-  };
-
   const renderOption = () => {
-    if (item.item.hasVariantsEnabled && item.option.metadata) {
-      return (
-        <div className="item-size-container">
-          <Typography.Text className="item-size-label">{toProperCase(item.option.metadata.type)}: </Typography.Text>
-          {editable ? (
-            <Select defaultValue={item.option.metadata.value} onChange={setVariant}>
-              {item.item.options.map((opt) => (
-                <Option key={opt.metadata?.value} value={opt.metadata?.value}>
-                  {opt.metadata?.value}
-                </Option>
-              ))}
-            </Select>
-          ) : (
-            <Typography.Text className="item-size">{item.option.metadata.value}</Typography.Text>
-          )}
-        </div>
-      );
-    }
-    return null;
+    if (item.option.metadata === null) return null;
+
+    return (
+      <div className="item-size-container">
+        <Typography.Text className="item-size-label">{toProperCase(item.option.metadata.type)}: </Typography.Text>
+        {editable ? (
+          <Select defaultValue={item.option.metadata.value} onChange={setVariant}>
+            {item.item.options.map((opt) => (
+              <Option key={opt.metadata?.value} value={opt.metadata?.value}>
+                {opt.metadata?.value}
+              </Option>
+            ))}
+          </Select>
+        ) : (
+          <Typography.Text className="item-size">{item.option.metadata.value}</Typography.Text>
+        )}
+      </div>
+    );
   };
 
   const changeOption = () => {
-    if (editable) {
+    if (item.option.metadata !== null && editable) {
       if (currentOptionValue !== item.option.metadata.value) {
         const { quantity } = item;
-        const newOption = item.item.options.find((opt) => opt.metadata.value === currentOptionValue);
+        const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
 
         dispatch(editInCart({ ...item, quantity: 0 }));
         dispatch(addToCart({ ...item, option: newOption, quantity }));
@@ -80,21 +79,26 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
       dispatch(removeFromCart(item));
     };
 
-    if (writable) {
+    const renderEditButton = () => {
+      if (item.option.metadata === null) return null;
+
       return (
-        <>
-          {item.item.options.length > 1 && (
-            <Button className="item-button edit-button" type="link" onClick={changeOption}>
-              {editable ? 'Done' : 'Edit'}
-            </Button>
-          )}
-          <Button className="item-button remove-button" type="link" onClick={removeItem} disabled={!writable}>
-            Remove
-          </Button>
-        </>
+        <Button className="item-button edit-button" type="link" onClick={changeOption}>
+          {editable ? 'Done' : 'Edit'}
+        </Button>
       );
-    }
-    return null;
+    };
+
+    if (!writable) return null;
+
+    return (
+      <>
+        {renderEditButton()}
+        <Button className="item-button remove-button" type="link" onClick={removeItem} disabled={!writable}>
+          Remove
+        </Button>
+      </>
+    );
   };
 
   return (
