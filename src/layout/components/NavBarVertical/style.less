@@ -1,9 +1,8 @@
-@import '../../../styles/fonts.less';
 @import '../../../styles/vars.less';
 
 .navbar-vertical {
   &-padding {
-    width: 15.5rem;
+    width: 14rem;
   }
 
   &-content {
@@ -11,21 +10,28 @@
     border-right: 1px solid #c4c4c4;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 5rem - 0.25rem); // TODO: Make navbar scrollable.
+    height: calc(100vh - 4rem - 0.25rem); // TODO: Make navbar scrollable.
     justify-content: space-between;
-    padding: 0 1.5rem 1.5rem;
+    padding: 1rem;
     position: fixed;
-    width: 15.5rem;
+    width: 14rem;
   }
 
   &-title {
     color: #c4c4c4;
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    margin: 1.5rem 0 1rem;
+  }
+
+  &-group {
+    margin-top: 1.5rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   &-items {
-    padding-left: 1rem;
+    padding-left: 0.5rem;
   }
 }

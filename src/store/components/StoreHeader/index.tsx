@@ -14,38 +14,34 @@ interface StoreHeaderProps {
   breadcrumbLocation?: string;
   showBalance?: boolean;
   showCart?: boolean;
+  title?: string;
 }
 
 const StoreHeader: React.FC<StoreHeaderProps> = (props) => {
-  const { breadcrumb, breadcrumbTitle, breadcrumbLocation, showBalance, showCart } = props;
+  const { breadcrumb, breadcrumbTitle, breadcrumbLocation, showBalance, showCart, title = 'Diamond Outfitters' } = props;
 
   return (
     <div className="store-header">
       {breadcrumb ? (
-        <div className="store-heder-breadcrumb">
-          <img className="store-header-breadcrumb-arrow" src={BreadcrumbArrow} alt="Breadcrumb Arrow" />
-          <span className="store-header-breadcrumb-text">
-            <Link to={breadcrumbLocation || ''}>{`Back${breadcrumbTitle ? ` to ${breadcrumbTitle}` : ''}`}</Link>
-          </span>
-        </div>
+        <Link to={breadcrumbLocation || ''}>
+          <div className="store-heder-breadcrumb">
+            <img className="store-header-breadcrumb-arrow" src={BreadcrumbArrow} alt="Breadcrumb Arrow" />
+            <span className="store-header-breadcrumb-text">{`Back${breadcrumbTitle ? ` to ${breadcrumbTitle}` : ''}`}</span>
+          </div>
+        </Link>
       ) : (
-        <span className="store-header-title">Diamond Outfitters</span>
+        <span className="store-header-title">{title}</span>
       )}
       {showBalance || showCart ? (
         <div className="store-header-right">
           {showBalance && <DiamondDisplay prefix="Balance: " value={5000} />}
-          {showCart ? (
+          {showCart && (
             <Link to="/store/cart">
               <div className="store-header-cart">
-                <span className="store-header-cart-text"> Cart</span>
-                <div className="store-header-cart-pics">
-                  <img className="store-headercart-icon" src={CartIcon} alt="Cart Icon" />
-                  {2 - 1 !== 0 && <div className="store-header-cart-badge">1{/* {cartSize} */}</div>}
-                </div>
+                <img className="store-header-cart-icon" src={CartIcon} alt="Cart Icon" />
+                <span className="store-header-cart-text">Cart</span>
               </div>
             </Link>
-          ) : (
-            <span className="store-header-cart-placeholder" />
           )}
         </div>
       ) : null}

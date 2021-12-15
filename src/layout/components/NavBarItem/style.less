@@ -1,13 +1,12 @@
-@import '../../../styles/fonts.less';
 @import '../../../styles/vars.less';
 
 .nav-bar-item {
   align-items: center;
   display: flex;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
 
-  &.last {
-    margin-bottom: 0;
+  &.first {
+    margin-top: 0.75rem;
   }
 
   &-icon {
@@ -28,7 +27,7 @@
   &-text {
     color: #333;
     font-size: 1.125rem;
-    font-weight: 700;
+    font-weight: 500;
     vertical-align: middle;
 
     .selected & {
@@ -37,7 +36,7 @@
   }
 
   &.mobile {
-    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
 
     .nav-bar-item-text {
       font-size: 1rem;
