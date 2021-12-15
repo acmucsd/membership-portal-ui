@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Select } from 'antd';
 
 import { PublicMerchItem, PublicMerchItemOption } from '../../../types';
 import { addToCart } from '../../storeActions';
 
+import StoreHeader from '../StoreHeader';
+import DiamondDisplay from '../DiamondDisplay';
 import OptionSelector from '../OptionSelector';
+import StoreDropdown from '../StoreDropdown';
 import StoreButton from '../StoreButton';
 
 import './style.less';
-import StoreHeader from '../StoreHeader';
-import StoreDropdown from '../StoreDropdown';
-
-const { Option } = Select;
 
 interface ItemPageProps {
   item: PublicMerchItem | undefined;
@@ -31,13 +29,26 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
 
   const { itemName, description, options, picture } = item;
 
+  let limitMessage;
+
+  if (!item.monthlyLimit && !item.lifetimeLimit) {
+    limitMessage = '';
+  } else if ((item.monthlyLimit && item.monthlyLimit < item.lifetimeLimit) || (item.monthlyLimit && !item.lifetimeLimit)) {
+    limitMessage = `You can buy up to ${item.monthlyLimit} of this item this month.`;
+  } else {
+    limitMessage = `You can buy up to ${item.monthlyLimit} of this item.`;
+  }
+
   return (
     <>
       <StoreHeader breadcrumb breadcrumbTitle="Shopping" breadcrumbLocation="/store" showBalance showCart />
       <div className="item-page">
-        <img className="item-image" src={picture} alt={description} />
+        <div className="item-image-container">
+          <img className="item-image" src={picture} alt={description} />
+        </div>
         <div className="item-contents">
           <h2 className="item-name">{itemName}</h2>
+          <DiamondDisplay value={1000} />
           <p className="item-description">{description}</p>
           {options.length > 1 && (
             <div className="item-option">
@@ -70,6 +81,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               }}
             />
           </div>
+          <p className="item-limit">{limitMessage}</p>
         </div>
       </div>
     </>

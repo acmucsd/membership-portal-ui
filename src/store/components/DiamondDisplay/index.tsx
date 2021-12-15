@@ -13,7 +13,7 @@ interface DiamondDisplayProps {
 }
 
 const DiamondDisplay: React.FC<DiamondDisplayProps> = (props) => {
-  const { prefix, value = 0, error, saleValue, outOfStock } = props;
+  const { prefix = '', value = 0, error, saleValue, outOfStock } = props;
 
   if (outOfStock) {
     return <div className="diamond-display red">Out of Stock</div>;
