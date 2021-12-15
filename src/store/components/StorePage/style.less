@@ -1,26 +1,28 @@
 @import '../../../styles/vars.less';
 
 .store-page {
+  margin-top: 1rem;
+
   .collections {
-    padding: 1.5rem 3rem;
-
     .collection {
-      margin-right: -5rem;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
+      margin-bottom: 1.5rem;
 
       .collection-header {
         font-size: 1.75rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
       }
 
       .collection-items {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        margin-bottom: -2rem;
+        margin-right: -2rem;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
