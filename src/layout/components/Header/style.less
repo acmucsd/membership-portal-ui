@@ -1,10 +1,9 @@
-@import '../../../styles/fonts.less';
 @import '../../../styles/vars.less';
 @import '../../../styles/mixins.less';
 
 .header-container {
   .header-padding {
-    height: calc(@nav-header-height + 5px);
+    height: calc(5rem + 0.25rem);
   }
 
   .header-content {
@@ -15,23 +14,21 @@
       .noselect;
 
       align-items: center;
-      background: white;
-      color: white;
+      background-color: white;
       display: flex;
-      font-size: @nav-heading;
-      height: @nav-header-height;
-      padding: 0 40px;
+      height: 5rem;
+      padding: 0 1.5rem;
 
       .title {
-        color: #333;
-
         .logo {
-          height: 55px;
-          margin-right: 16px;
-          width: 55px;
+          height: 4rem;
+          margin-right: 1rem;
+          width: 4rem;
         }
 
         .subheading {
+          color: #333;
+          font-size: 1.75rem;
           font-weight: 700;
           vertical-align: middle;
         }
@@ -68,7 +65,7 @@
           #816dff
         );
       display: table;
-      height: 5px;
+      height: 4px;
       width: 100vw;
     }
   }

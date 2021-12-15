@@ -1,0 +1,25 @@
+.diamond-display {
+  align-items: center;
+  color: #000;
+  display: flex;
+  font-size: 1.125rem;
+
+  * > {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &.red,
+  .red {
+    color: #e12b38;
+  }
+
+  &.strikethrough,
+  .strikethrough {
+    text-decoration: line-through;
+  }
+}

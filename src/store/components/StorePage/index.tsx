@@ -6,7 +6,7 @@ import { notify } from '../../../utils';
 import { PublicMerchCollection } from '../../../types';
 
 import NavigationBar from '../NavigationBar';
-import CollectionItemCard from '../CollectionItemCard';
+import ItemCard from '../ItemCard';
 
 import './style.less';
 
@@ -38,7 +38,7 @@ const StorePage: React.FC<StorePageProps> = (props) => {
               <h2 className="collection-header">{collection.title}</h2>
               <div className="collection-items">
                 {collection.items.map((item, index) => (
-                  <CollectionItemCard item={item} key={index} />
+                  <ItemCard item={item} key={index} />
                 ))}
               </div>
             </div>

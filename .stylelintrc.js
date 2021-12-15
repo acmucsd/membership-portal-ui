@@ -4,11 +4,6 @@ module.exports = {
   rules: {
     'order/order': ['custom-properties', 'declarations'],
     'order/properties-alphabetical-order': true,
-    'font-family-no-missing-generic-family-keyword': [
-      true,
-      {
-        ignoreFontFamilies: ['Nunito', 'Roboto'],
-      },
-    ],
+    'font-weight-notation': 'numeric'
   },
 };
