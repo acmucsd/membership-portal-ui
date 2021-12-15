@@ -28,7 +28,7 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
       <div className="navbar-vertical-padding" />
       <nav className="navbar-vertical-content">
         <div>
-          <div>
+          <div className="navbar-vertical-group">
             <h1 className="navbar-vertical-title">Portal</h1>
             <div className="navbar-vertical-items">
               <NavBarItem icon={DashboardIcon} text="Dashboard" innerDest="/" />
@@ -39,7 +39,7 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
               {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/admin" last />}
             </div>
           </div>
-          <div>
+          <div className="navbar-vertical-group">
             <h1 className="navbar-vertical-title">Store</h1>
             <div className="navbar-vertical-items">
               <NavBarItem icon={SwagIcon} text="Shop" innerDest="/store" />
@@ -48,9 +48,11 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
             </div>
           </div>
         </div>
-        <div className="navbar-vertical-items">
-          <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
-          <NavBarItem icon={LogoutIcon} text="Sign Out" func={logout} last />
+        <div className="navbar-vertical-group">
+          <div className="navbar-vertical-items">
+            <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
+            <NavBarItem icon={LogoutIcon} text="Sign Out" func={logout} last />
+          </div>
         </div>
       </nav>
     </div>
