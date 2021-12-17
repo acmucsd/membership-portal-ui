@@ -43,6 +43,7 @@ export default {
       item: '/api/v2/merch/item',
       order: '/api/v2/merch/order',
       orders: '/api/v2/merch/orders',
+      pickupEvent: '/api/v2/merch/pickupEvent',
     },
   },
 };
