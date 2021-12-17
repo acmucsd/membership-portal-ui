@@ -42,13 +42,13 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
 
   return (
     <div className="item-card">
+      {editable && (
+        <Link to={editableLink}>
+          <img className="item-card-editable-icon" src={EditableIcon} alt="Editable" />
+        </Link>
+      )}
       <Link to={`/store/item/${uuid}`}>
         <div className={`item-card-contents${outOfStock ? ' out-of-stock' : ''}`}>
-          {editable && (
-            <Link to={editableLink}>
-              <img className="item-card-editable-icon" src={EditableIcon} alt="Editable" />
-            </Link>
-          )}
           <div className="item-card-image-container">
             <img className="item-card-image" src={picture} alt={description} />
           </div>
