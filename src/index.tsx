@@ -45,6 +45,7 @@ import StoreAdminPage from './store/containers/StoreAdminPage';
 import AdminCollectionPage from './store/containers/AdminCollectionPage';
 import AdminItemPage from './store/containers/AdminItemPage';
 import AdminPreparePage from './store/containers/AdminPreparePage';
+import AdminFulfillPage from './store/containers/AdminFulfillPage';
 
 const store = configureStore();
 
@@ -87,6 +88,8 @@ const App = () => {
             <Route exact path="/store/admin/item/:uuid" component={requireAdminAuth(AdminItemPage) as React.FC} />
             <Route exact path="/store/admin/prepare" component={requireAdminAuth(AdminPreparePage) as React.FC} />
             <Route exact path="/store/admin/prepare/:uuid" component={requireAdminAuth(AdminPreparePage) as React.FC} />
+            <Route exact path="/store/admin/fulfill" component={requireAdminAuth(AdminFulfillPage) as React.FC} />
+            <Route exact path="/store/admin/fulfill/:uuid" component={requireAdminAuth(AdminFulfillPage) as React.FC} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
             <Route exact path="/" component={requireAuth(HomePage) as React.FC} />
