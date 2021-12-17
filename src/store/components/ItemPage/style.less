@@ -1,5 +1,6 @@
 .item-page {
   display: flex;
+  margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 1rem;
 
   .item-image-container {
@@ -70,5 +71,62 @@
     color: #777;
     font-size: 1.125rem;
     margin-top: 2rem;
+  }
+
+  &-modal {
+    color: #333;
+
+    &-title {
+      font-size: 1.5rem;
+    }
+
+    &-content {
+      display: flex;
+      margin-top: 1rem;
+    }
+
+    &-item {
+      &-image {
+        height: 6.25rem;
+        object-fit: contain;
+        width: 6.25rem;
+      }
+
+      &-details {
+        margin-left: 1.5rem;
+      }
+
+      &-title {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+      }
+
+      &-option {
+        color: #777;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      &-quantity {
+        color: #777;
+        font-size: 1rem;
+      }
+    }
+
+    .ant-modal-content {
+      padding: 1rem;
+
+      .ant-modal-body {
+        padding: 0;
+      }
+
+      .ant-modal-footer {
+        border-top: 1px solid #c4c4c4;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding: 1rem 0 0 0;
+      }
+    }
   }
 }

@@ -40,6 +40,11 @@ export interface PublicMerchItemOption {
   metadata: MerchItemOptionMetadata;
 }
 
+export interface PublicMerchItemWithPurchaseLimits extends PublicMerchItem {
+  monthlyRemaining: number;
+  lifetimeRemaining: number;
+}
+
 export interface MerchItemOptionMetadata {
   type: string;
   value: string;

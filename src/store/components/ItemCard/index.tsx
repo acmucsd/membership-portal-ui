@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { PublicMerchItem } from '../../../types';
-
-import DiamondDisplay from '../DiamondDisplay';
+import { processItem, processItemPrice } from '../../../utils';
 
 import StorePlus from '../../../assets/icons/store-plus-icon.svg';
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
@@ -37,58 +36,12 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
     return null;
   }
 
-  const { uuid, itemName, description, options, picture } = item;
+  item.picture =
+    'https://m.media-amazon.com/images/I/A13usaonutL._CLa%7C2140%2C2000%7CA1SnyDGm7%2BL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_UX679_.png';
 
-  const outOfStock = options.every((option) => option.quantity === 0);
-  const onSale = options.some((option) => option.discountPercentage !== 0);
-  const priceRange = options.reduce(
-    (acc, option) => {
-      const newAcc = acc;
-      if (acc.low > option.price) {
-        newAcc.low = option.price;
-      }
-      if (acc.high < option.price) {
-        newAcc.high = option.price;
-      }
-      return newAcc;
-    },
-    {
-      low: Number.POSITIVE_INFINITY,
-      high: Number.NEGATIVE_INFINITY,
-    },
-  );
+  const { uuid, itemName, description, picture } = item;
 
-  const cheapestSalePriceTuple = options.reduce(
-    (acc, option) => {
-      const currentOptionDiscountPrice = ((100 - option.discountPercentage) * option.price) / 100;
-      return acc.salePrice > currentOptionDiscountPrice
-        ? {
-            normalPrice: option.price,
-            salePrice: currentOptionDiscountPrice,
-          }
-        : acc;
-    },
-    {
-      normalPrice: Infinity,
-      salePrice: Infinity,
-    },
-  );
-
-  const itemPrice = () => {
-    if (outOfStock) {
-      return <DiamondDisplay outOfStock />;
-    }
-    if (onSale) {
-      if (cheapestSalePriceTuple.normalPrice === cheapestSalePriceTuple.salePrice) {
-        return <DiamondDisplay value={cheapestSalePriceTuple.normalPrice} />;
-      }
-      return <DiamondDisplay value={cheapestSalePriceTuple.normalPrice} saleValue={cheapestSalePriceTuple.salePrice} />;
-    }
-    if (priceRange.low === priceRange.high) {
-      return <DiamondDisplay value={priceRange.low} />;
-    }
-    return <DiamondDisplay prefix={`${priceRange.low.toLocaleString('en-US')} - `} value={priceRange.high} />;
-  };
+  const { outOfStock } = processItem(item.options);
 
   return (
     <div className="item-card">
@@ -103,7 +56,7 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
             <img className="item-card-image" src={picture} alt={description} />
           </div>
           <div className="item-card-name">{itemName}</div>
-          {itemPrice()}
+          {processItemPrice(item.options)}
         </div>
       </Link>
     </div>

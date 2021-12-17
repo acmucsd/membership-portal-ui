@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Modal } from 'antd';
 
-import { PublicMerchItem, PublicMerchItemOption } from '../../../types';
+import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption } from '../../../types';
+import { processItem, processItemPrice } from '../../../utils';
 import { addToCart } from '../../storeActions';
 
 import StoreHeader from '../StoreHeader';
-import DiamondDisplay from '../DiamondDisplay';
 import OptionSelector from '../OptionSelector';
 import StoreDropdown from '../StoreDropdown';
 import StoreButton from '../StoreButton';
@@ -13,7 +15,7 @@ import StoreButton from '../StoreButton';
 import './style.less';
 
 interface ItemPageProps {
-  item: PublicMerchItem | undefined;
+  item: PublicMerchItemWithPurchaseLimits | undefined;
   addToCart: Function;
 }
 
@@ -22,21 +24,25 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
 
   const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
+  const [confirmation, setConfirmation] = useState<boolean>(false);
 
   if (!item) {
     return null;
   }
 
-  const { itemName, description, options, picture } = item;
+  const { outOfStock: itemOutOfStock } = processItem(item.options);
+  const itemPrice = processItemPrice(item.options);
+  const { outOfStock: optionOutOfStock } = currentOption ? processItem([currentOption]) : { outOfStock: false };
+  const itemOptionPrice = currentOption ? processItemPrice([currentOption]) : null;
+
+  const { itemName, description, hasVariantsEnabled, options, picture } = item;
 
   let limitMessage;
 
-  if (!item.monthlyLimit && !item.lifetimeLimit) {
-    limitMessage = '';
-  } else if ((item.monthlyLimit && item.monthlyLimit < item.lifetimeLimit) || (item.monthlyLimit && !item.lifetimeLimit)) {
+  if (item.monthlyRemaining < item.lifetimeRemaining) {
     limitMessage = `You can buy up to ${item.monthlyLimit} of this item this month.`;
   } else {
-    limitMessage = `You can buy up to ${item.monthlyLimit} of this item.`;
+    limitMessage = `You can buy up to ${item.lifetimeRemaining} of this item.`;
   }
 
   return (
@@ -48,9 +54,9 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
         </div>
         <div className="item-contents">
           <h2 className="item-name">{itemName}</h2>
-          <DiamondDisplay value={1000} />
+          {currentOption ? itemOptionPrice : itemPrice}
           <p className="item-description">{description}</p>
-          {options.length > 1 && (
+          {hasVariantsEnabled && (
             <div className="item-option">
               <p className="item-option-header">{`${options[0].metadata ? options[0].metadata.type : ''}:`.toLocaleLowerCase()}</p>
               <OptionSelector
@@ -70,20 +76,68 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               <StoreDropdown
                 options={Array.from(Array(Math.min(item.monthlyLimit, item.lifetimeLimit)).keys()).map((number) => (number + 1).toString())}
                 value={(1).toString()}
+                onChange={(option) => {
+                  setCurrentQuantity(Number.parseInt(option.value, 10));
+                }}
               />
             </div>
             <StoreButton
               type="primary"
               size="medium"
               text="Add to Cart"
+              disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock)}
               onClick={() => {
-                props.addToCart({ item, option: currentOption, quantity: currentQuantity });
+                if (hasVariantsEnabled) {
+                  props.addToCart({ item, option: currentOption, quantity: currentQuantity });
+                } else {
+                  props.addToCart({ item, option: item.options[0], quantity: currentQuantity });
+                }
+                setConfirmation(true);
               }}
             />
           </div>
           <p className="item-limit">{limitMessage}</p>
         </div>
       </div>
+      <Modal
+        className="item-page-modal"
+        width="23rem"
+        visible={confirmation}
+        centered
+        onCancel={() => {
+          setConfirmation(false);
+        }}
+        afterClose={() => {
+          setConfirmation(false);
+        }}
+        footer={(() => {
+          return (
+            <>
+              <Link to="/store">
+                <StoreButton type="primary" size="small" text="Continue Shopping" />
+              </Link>
+              <Link to="/store/cart">
+                <StoreButton type="primary" size="small" text="View Cart" />
+              </Link>
+            </>
+          );
+        })()}
+      >
+        <p className="item-page-modal-title">Added to cart</p>
+        <div className="item-page-modal-content">
+          <img className="item-page-modal-item-image" src={picture} alt={description} />
+          <div className="item-page-modal-item-details">
+            <p className="item-page-modal-item-title">{itemName}</p>
+            {hasVariantsEnabled && options[0].metadata && currentOption && (
+              <p className="item-page-modal-item-option">
+                {options[0].metadata.type.toLocaleUpperCase()[0]}
+                {options[0].metadata.type.toLocaleLowerCase().slice(1)}: {currentOption.metadata.value}
+              </p>
+            )}
+            <p className="item-page-modal-item-quantity">Quantity: {currentQuantity}</p>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
