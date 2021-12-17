@@ -61,6 +61,22 @@ export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch)
   });
 };
 
+export const fetchOrders: ThunkActionCreator = () => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const url = `${Config.API_URL}${Config.routes.store.orders}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.orders);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const addToCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_ADD,
