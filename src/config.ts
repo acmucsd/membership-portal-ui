@@ -44,6 +44,9 @@ export default {
       order: '/api/v2/merch/order',
       orders: '/api/v2/merch/orders',
       pickupEvent: '/api/v2/merch/pickupEvent',
+      pickup: {
+        future: '/api/v2/merch/order/pickup/future',
+      },
     },
   },
 };

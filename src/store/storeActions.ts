@@ -119,6 +119,22 @@ export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dis
   });
 };
 
+export const fetchFuturePickupEvents: ThunkActionCreator = () => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.pickupEvents);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const addToCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_ADD,
