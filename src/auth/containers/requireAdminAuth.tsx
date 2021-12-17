@@ -39,6 +39,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     return verifyToken(dispatch);
   },
 });
-const requireAdminAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
+const requireAdminAuth = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 
 export default requireAdminAuth;

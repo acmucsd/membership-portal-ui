@@ -37,6 +37,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     return verifyToken(dispatch);
   },
 });
-const requireAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAuth);
+const requireAuth = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withAuth);
 
 export default requireAuth;

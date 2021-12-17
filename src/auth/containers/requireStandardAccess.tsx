@@ -28,6 +28,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   },
 });
 
-const requireStandardAccess = compose(connect(mapStateToProps, mapDispatchToProps), withStandardAccess);
+const requireStandardAccess = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withStandardAccess);
 
 export default requireStandardAccess;
