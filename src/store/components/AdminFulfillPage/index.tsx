@@ -1,5 +1,6 @@
 import React from 'react';
 import { PublicOrderPickupEvent } from '../../../types';
+import StoreHeader from '../StoreHeader';
 
 import './style.less';
 
@@ -10,7 +11,12 @@ interface AdminFulfillPageProps {
 const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const { pickupEvent } = props;
 
-  return <div className="admin-fulfill-page">Admin Fulfill Page, pickupEvent={JSON.stringify(pickupEvent)}</div>;
+  return (
+    <>
+      <StoreHeader breadcrumb breadcrumbLocation="/store/admin" />
+      <div className="admin-fulfill-page">Admin Fulfill Page, pickupEvent={JSON.stringify(pickupEvent)}</div>
+    </>
+  );
 };
 
 export default AdminFulfillPage;
