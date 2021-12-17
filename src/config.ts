@@ -41,6 +41,7 @@ export default {
     store: {
       collection: '/api/v2/merch/collection',
       item: '/api/v2/merch/item',
+      order: '/api/v2/merch/order',
     },
   },
 };

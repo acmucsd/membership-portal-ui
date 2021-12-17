@@ -40,6 +40,27 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
   });
 };
 
+export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('fetchItem: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.order);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const addToCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_ADD,
