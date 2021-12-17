@@ -4,6 +4,27 @@ import Config from '../config';
 import { logoutUser } from '../auth/authActions';
 import { CartItem } from '../types';
 
+export const fetchCollection: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('fetchCollection: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.collection);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {

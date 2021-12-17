@@ -1,0 +1,16 @@
+import React from 'react';
+import { PublicMerchCollection } from '../../../types';
+
+import './style.less';
+
+interface AdminCollectionPageProps {
+  collection?: PublicMerchCollection | undefined;
+}
+
+const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
+  const { collection } = props;
+
+  return <div className="admin-collection-page">Admin Collection Page, collection={JSON.stringify(collection)}</div>;
+};
+
+export default AdminCollectionPage;

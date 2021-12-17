@@ -42,6 +42,7 @@ import requireStandardAccess from './auth/containers/requireStandardAccess';
 import OrderPage from './store/containers/OrderPage';
 import OrdersPage from './store/containers/OrdersPage';
 import StoreAdminPage from './store/containers/StoreAdminPage';
+import AdminCollectionPage from './store/containers/AdminCollectionPage';
 
 const store = configureStore();
 
@@ -78,6 +79,8 @@ const App = () => {
             <Route exact path="/store/order/:uuid" component={requireStandardAccess(requireAuth(OrderPage)) as React.FC} />
             <Route exact path="/store/orders" component={requireStandardAccess(requireAuth(OrdersPage)) as React.FC} />
             <Route exact path="/store/admin" component={requireAdminAuth(StoreAdminPage) as React.FC} />
+            <Route exact path="/store/admin/collection" component={requireAdminAuth(AdminCollectionPage) as React.FC} />
+            <Route exact path="/store/admin/collection/:uuid" component={requireAdminAuth(AdminCollectionPage) as React.FC} />
             <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
             <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
             <Route exact path="/" component={requireAuth(HomePage) as React.FC} />
