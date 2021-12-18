@@ -14,6 +14,9 @@ const StoreAdminPage: React.FC = () => {
     <>
       <StoreHeader title="Diamond Outfitters: Admin Page" />
       <div className="store-admin-page">
+        <Link to="/store/admin/pickup">
+          <StoreButton type="primary" size="large" text="Manage Pickup Events" />
+        </Link>
         <Link to="/store/admin/prepare">
           <StoreButton type="primary" size="large" text="Prepare Orders" />
         </Link>

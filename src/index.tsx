@@ -46,6 +46,7 @@ import AdminCollectionPage from './store/containers/AdminCollectionPage';
 import AdminItemPage from './store/containers/AdminItemPage';
 import AdminPreparePage from './store/containers/AdminPreparePage';
 import AdminFulfillPage from './store/containers/AdminFulfillPage';
+import AdminPickupPage from './store/containers/AdminPickupPage';
 
 const store = configureStore();
 
@@ -85,6 +86,8 @@ const App = () => {
           <Route exact path="/store/admin/collection/:uuid" component={requireAdminAuth(AdminCollectionPage)} />
           <Route exact path="/store/admin/item" component={requireAdminAuth(AdminItemPage)} />
           <Route exact path="/store/admin/item/:uuid" component={requireAdminAuth(AdminItemPage)} />
+          <Route exact path="/store/admin/pickup" component={requireAdminAuth(AdminPickupPage)} />
+          <Route exact path="/store/admin/pickup/:uuid" component={requireAdminAuth(AdminPickupPage)} />
           <Route exact path="/store/admin/prepare" component={requireAdminAuth(AdminPreparePage)} />
           <Route exact path="/store/admin/prepare/:uuid" component={requireAdminAuth(AdminPreparePage)} />
           <Route exact path="/store/admin/fulfill" component={requireAdminAuth(AdminFulfillPage)} />
