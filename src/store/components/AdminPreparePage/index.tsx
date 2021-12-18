@@ -27,7 +27,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           <p className="admin-prepare-page-title">Prepare Orders</p>
           <p className="admin-prepare-page-hint">Select a pickup event to begin preparation for:</p>
           <StoreDropdown
-            options={pickupEvents.map((event) => event.uuid)}
+            options={pickupEvents.map((event) => ({ label: event.title, value: event.uuid }))}
             onChange={(option) => {
               setUuid(option.value);
             }}

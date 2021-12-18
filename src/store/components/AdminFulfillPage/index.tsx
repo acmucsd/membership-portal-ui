@@ -27,7 +27,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
           <p className="admin-fulfill-page-title">Prepare Orders</p>
           <p className="admin-fulfill-page-hint">Select a pickup event to begin fulfillment for:</p>
           <StoreDropdown
-            options={pickupEvents.map((event) => event.uuid)}
+            options={pickupEvents.map((event) => ({ label: event.title, value: event.uuid }))}
             onChange={(option) => {
               setUuid(option.value);
             }}
