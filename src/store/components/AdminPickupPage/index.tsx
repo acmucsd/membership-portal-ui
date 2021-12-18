@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { PublicOrderPickupEvent } from '../../../types';
 
@@ -42,13 +41,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
               setUuid(option.value);
             }}
           />
-          {uuid ? (
-            <Link to={`/store/admin/pickup/${uuid}`}>
-              <StoreButton type="primary" size="large" text="Continue" />
-            </Link>
-          ) : (
-            <StoreButton type="primary" size="large" text="Continue" disabled />
-          )}
+          <StoreButton type="primary" size="large" text="Continue" link={`/store/admin/pickup/${uuid}`} disabled={!uuid} />
           <div className="admin-pickup-page-divider" />
           <StoreButton
             type="primary"

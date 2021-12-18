@@ -38,11 +38,7 @@ const StorePage: React.FC<StorePageProps> = (props) => {
     <>
       <StoreHeader showBalance showCart />
       <div className="store-page">
-        {isAdmin && (
-          <Link to="/store/admin/collection">
-            <StoreButton type="secondary" size="large" text="Create Collection" />
-          </Link>
-        )}
+        {isAdmin && <StoreButton type="secondary" size="large" text="Create Collection" link="/store/admin/collection" />}
         <div className="collections">
           {collections.map((collection) => {
             return (

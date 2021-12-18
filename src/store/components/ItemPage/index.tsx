@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal } from 'antd';
 
@@ -113,12 +112,8 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
         footer={(() => {
           return (
             <>
-              <Link to="/store">
-                <StoreButton type="primary" size="small" text="Continue Shopping" />
-              </Link>
-              <Link to="/store/cart">
-                <StoreButton type="primary" size="small" text="View Cart" />
-              </Link>
+              <StoreButton type="primary" size="small" text="Continue Shopping" link="/store" />
+              <StoreButton type="primary" size="small" text="View Cart" link="/store/cart" />
             </>
           );
         })()}

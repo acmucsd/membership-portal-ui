@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
-import { Link } from 'react-router-dom';
 
 import StoreHeader from '../StoreHeader';
 import StoreButton from '../StoreButton';
@@ -14,15 +13,9 @@ const StoreAdminPage: React.FC = () => {
     <>
       <StoreHeader title="Diamond Outfitters: Admin Page" />
       <div className="store-admin-page">
-        <Link to="/store/admin/pickup">
-          <StoreButton type="primary" size="large" text="Manage Pickup Events" />
-        </Link>
-        <Link to="/store/admin/prepare">
-          <StoreButton type="primary" size="large" text="Prepare Orders" />
-        </Link>
-        <Link to="/store/admin/fulfill">
-          <StoreButton type="primary" size="large" text="Fulfill Orders" />
-        </Link>
+        <StoreButton type="primary" size="large" text="Manage Pickup Events" link="/store/admin/pickup" />
+        <StoreButton type="primary" size="large" text="Prepare Orders" link="/store/admin/prepare" />
+        <StoreButton type="primary" size="large" text="Fulfill Orders" link="/store/admin/fulfill" />
         <div className="store-admin-page-divider" />
         <StoreButton
           type="danger"
