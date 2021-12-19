@@ -10,7 +10,7 @@ const StorePage: React.FC = () => {
       <h1>ACM Store</h1>
       <div className="coming-soon">
         <Icon className="temp-icon" component={SwagIcon} />
-        <p>Coming Winter 2021!</p>
+        <p>Coming Winter 2022!</p>
       </div>
     </div>
   );
