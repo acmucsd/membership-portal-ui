@@ -1,7 +1,7 @@
 import { Button, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
-import { CartItem } from '../../../types';
+import { CartItem, PublicMerchItemOption } from '../../../types';
 import CartDisplay from '../CartDisplay';
 import NavigationBar from '../NavigationBar';
 import './style.less';
@@ -18,9 +18,9 @@ const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
     setIsCheckoutLocked(false);
   }, [cart]);
 
-  const getTotal = (items: CartItem[]) => items.reduce((sum, { option: { price }, quantity }) => sum + price * quantity, 0);
   const renderTotalPrice = () => {
-    const total = getTotal(cart);
+    const getDiscountedPrice = ({ price, discountPercentage }: PublicMerchItemOption) => price * (1 - discountPercentage / 100);
+    const total = cart.reduce((sum, { option, quantity }) => sum + getDiscountedPrice(option) * quantity, 0);
     return (
       <div className="total-price-container">
         <Typography className="total-price-label">Total:</Typography>

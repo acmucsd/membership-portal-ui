@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
 import { CartItem, PublicMerchItem } from '../../../types';
-import { editInCart, removeFromCart, addToCart } from '../../storeActions';
+import { addToCart, editInCart, removeFromCart } from '../../storeActions';
 import './style.less';
 
 const { Option } = Select;
@@ -149,17 +149,19 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
   const cartData = items.map((cartItem) => {
     const {
       item,
-      option: { price, uuid },
+      option: { price, uuid, discountPercentage },
       quantity,
     } = cartItem;
     const setQuantity = (q: number) => dispatch(editInCart({ ...cartItem, quantity: q }));
+    const discountedPrice = price * (1 - discountPercentage / 100);
+    const totalPrice = quantity * discountedPrice;
     return {
       key: `${uuid}${quantity}`,
       itemImage: renderItemImage(item),
       item: <CartItemComponent item={cartItem} writable={writable} />,
-      price: renderPrice(price),
+      price: renderPrice(discountedPrice),
       quantity: renderQuantity(quantity, setQuantity),
-      totalPrice: renderPrice(price * quantity),
+      totalPrice: renderPrice(totalPrice),
     };
   });
 
