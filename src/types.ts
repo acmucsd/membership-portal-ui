@@ -24,6 +24,7 @@ export interface PublicMerchCollection {
 export interface PublicMerchItem {
   uuid: Uuid;
   itemName: string;
+  collection: PublicMerchCollection;
   picture: string;
   description: string;
   monthlyLimit: number;
@@ -37,7 +38,7 @@ export interface PublicMerchItemOption {
   price: number;
   quantity?: number;
   discountPercentage: number;
-  metadata: MerchItemOptionMetadata;
+  metadata: MerchItemOptionMetadata | null;
 }
 
 export interface MerchItemOptionMetadata {

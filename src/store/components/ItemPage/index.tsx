@@ -15,21 +15,16 @@ import CreditsDisplay from '../CreditsDisplay';
 const { Option } = Select;
 
 interface ItemPageProps {
-  item: PublicMerchItem | undefined;
+  item: PublicMerchItem;
   addToCart: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
-
-  const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
-  const [currentQuantity, setCurrentQuantity] = useState<number>(1);
-
-  if (!item) {
-    return null;
-  }
-
   const { itemName, description, options, picture } = item;
+
+  const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>(item.options[0]);
+  const [currentQuantity, setCurrentQuantity] = useState<number>(1);
 
   let itemPrice;
 
@@ -50,6 +45,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
             <div className="item-option">
               <p className="item-option-header">{options[0].metadata ? options[0].metadata.type : ''}:</p>
               <OptionSelector
+                initialOption={currentOption.uuid}
                 options={options.map((option) => {
                   const { uuid: key, metadata } = option;
                   return { key, label: metadata ? metadata.value : '', value: option };

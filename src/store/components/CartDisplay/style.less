@@ -1,3 +1,131 @@
-.cart-display {
+@import '../../../styles/vars.less';
 
+.cart-display {
+  margin-bottom: 1rem;
+  width: 100%;
+
+  table {
+    border: 1px solid #c4c4c4;
+    border-radius: 12px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+
+    tr > th {
+      background: @white;
+
+      .ant-table-column-title {
+        color: #000;
+        font-size: 24px;
+      }
+    }
+
+    tr:first-child > th:first-child {
+      border-top-left-radius: 12px;
+    }
+
+    tr:first-child > th:last-child {
+      border-top-right-radius: 12px;
+    }
+
+    td {
+      vertical-align: top;
+    }
+
+    .image-container {
+      border-radius: 10px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+      height: 87.56px;
+      width: 100.29px;
+
+      .image {
+        border-radius: 10px;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .cart-item {
+      .item-name {
+        font-size: 30px;
+        margin-bottom: 0;
+      }
+
+      .item-color-container {
+        font-size: 24px;
+
+        .item-color-label {
+          color: #000;
+          font-weight: 500;
+        }
+
+        .item-color {
+          font-weight: 400;
+        }
+      }
+
+      .item-size-container {
+        font-size: 24px;
+        margin-bottom: 1rem;
+
+        .item-size-label {
+          color: #000;
+          font-weight: 500;
+        }
+
+        .item-size {
+          font-weight: 400;
+        }
+      }
+
+      .item-button {
+        color: #777;
+        font-size: 20px;
+        padding: 0;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      .edit-button {
+        margin-right: 1rem;
+      }
+    }
+
+    .ant-input-number {
+      height: 50px;
+      width: 70px;
+
+      .ant-input-number-input-wrap {
+        height: 50px;
+      }
+
+      .ant-input-number-input {
+        color: #000;
+        font-size: 25px;
+        font-weight: 700;
+        height: 50px;
+        vertical-align: bottom;
+      }
+    }
+
+    .item-quantity {
+      color: #000;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .item-price-container {
+      align-items: center;
+      display: flex;
+
+      .item-price-icon {
+        margin-right: 0.5rem;
+      }
+
+      .item-price {
+        color: #000;
+        font-size: 24px;
+      }
+    }
+  }
 }
