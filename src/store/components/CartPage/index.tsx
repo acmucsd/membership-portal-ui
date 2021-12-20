@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Typography } from 'antd';
+import { Typography } from 'antd';
 
 import CartDisplay from '../CartDisplay';
 import StoreHeader from '../StoreHeader';
