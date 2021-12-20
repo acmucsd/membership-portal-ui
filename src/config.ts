@@ -41,6 +41,7 @@ export default {
     store: {
       collection: '/api/v2/merch/collection',
       item: '/api/v2/merch/item',
+      verification: '/api/v2/merch/order/verification',
       order: '/api/v2/merch/order',
       orders: '/api/v2/merch/orders',
       pickupEvent: '/api/v2/merch/pickupEvent',
