@@ -35,8 +35,6 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
       });
   }, [props, uuid]);
 
-  if (!item) return null;
-
   return (
     <PageLayout>
       <ItemPage item={item} />

@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Config from '../../config';
+
 import PageLayout from '../../layout/containers/PageLayout';
+import CartPage from '../components/CartPage';
+
+import Config from '../../config';
 import { history } from '../../redux_store';
 import { CartItem } from '../../types';
 import { fetchService, notify } from '../../utils';
-import CartPage from '../components/CartPage';
 
 type CartPageContainerProps = {
   cart: CartItem[];
@@ -23,7 +25,7 @@ const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
       history.push('/store/checkout');
     } catch (error) {
       onFailCallback();
-      notify('Cart Error', error.error);
+      notify('Cart Error', error.message);
     }
   };
 

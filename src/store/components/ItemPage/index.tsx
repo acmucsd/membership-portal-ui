@@ -123,10 +123,10 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
           <img className="item-page-modal-item-image" src={picture} alt={description} />
           <div className="item-page-modal-item-details">
             <p className="item-page-modal-item-title">{itemName}</p>
-            {hasVariantsEnabled && options[0].metadata && currentOption && (
+            {hasVariantsEnabled && currentOption && currentOption.metadata && (
               <p className="item-page-modal-item-option">
-                {options[0].metadata.type.toLocaleUpperCase()[0]}
-                {options[0].metadata.type.toLocaleLowerCase().slice(1)}: {currentOption.metadata.value}
+                {currentOption.metadata.type.toLocaleUpperCase()[0]}
+                {currentOption.metadata.type.toLocaleLowerCase().slice(1)}: {currentOption.metadata.value}
               </p>
             )}
             <p className="item-page-modal-item-quantity">Quantity: {currentQuantity}</p>

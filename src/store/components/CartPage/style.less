@@ -1,9 +1,7 @@
 @import '../../../styles/vars.less';
 
 .cart-page-container {
-  .navigation-bar {
-    margin-bottom: 5rem;
-  }
+  margin-top: 1rem;
 
   .cart-page {
     align-items: flex-end;
@@ -18,10 +16,10 @@
       display: flex;
       justify-content: center;
       margin-bottom: 1rem;
-      width: 410px;
+      margin-right: 1rem;
 
       .total-price-label {
-        color: #000;
+        color: #333;
         font-size: 30px;
         font-weight: 500;
         margin-right: 2rem;
@@ -32,23 +30,10 @@
       }
 
       .total-price {
-        color: #000;
+        color: #333;
         font-size: 24px;
         font-weight: 400;
       }
-    }
-
-    .checkout-button {
-      font-size: 30px;
-      font-weight: 700;
-      height: 65px;
-      width: 410px;
-    }
-
-    .checkout-button:not([disabled]) {
-      background-color: @blue-5;
-      border-color: @blue-5;
-      color: @white;
     }
   }
 }

@@ -1,10 +1,14 @@
-import { Button, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Button, Typography } from 'antd';
+
+import CartDisplay from '../CartDisplay';
+import StoreHeader from '../StoreHeader';
+
 import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
 import { CartItem, PublicMerchItemOption } from '../../../types';
-import CartDisplay from '../CartDisplay';
-import NavigationBar from '../NavigationBar';
+
 import './style.less';
+import StoreButton from '../StoreButton';
 
 type CartPageProps = {
   cart: CartItem[];
@@ -35,16 +39,16 @@ const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
   };
 
   return (
-    <div className="cart-page-container">
-      <NavigationBar />
-      <div className="cart-page">
-        <CartDisplay items={cart} />
-        {renderTotalPrice()}
-        <Button className="checkout-button" disabled={isCheckoutLocked} onClick={onCheckoutButtonClick}>
-          Checkout
-        </Button>
+    <>
+      <StoreHeader breadcrumb breadcrumbTitle="Shopping" breadcrumbLocation="/store" showBalance />
+      <div className="cart-page-container">
+        <div className="cart-page">
+          <CartDisplay items={cart} />
+          {renderTotalPrice()}
+          <StoreButton type="primary" size="large" text="Checkout" disabled={isCheckoutLocked} onClick={onCheckoutButtonClick} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
