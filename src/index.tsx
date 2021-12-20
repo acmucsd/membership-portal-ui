@@ -82,8 +82,8 @@ const App = () => {
           <Route exact path="/store/order/:uuid" component={requireStandardAccess(requireAuth(OrderPage))} />
           <Route exact path="/store/orders" component={requireStandardAccess(requireAuth(OrdersPage))} />
           <Route exact path="/store/admin" component={requireAdminAuth(StoreAdminPage)} />
-          <Route exact path="/store/admin/collection" component={requireAdminAuth(AdminCollectionPage)} />
-          <Route exact path="/store/admin/collection/:uuid" component={requireAdminAuth(AdminCollectionPage)} />
+          <Route exact path="/store/admin/collection" component={AdminCollectionPage} /> {/* TODO: ADD ADMIN BACK */}
+          <Route exact path="/store/admin/collection/:uuid" component={AdminCollectionPage} />
           <Route exact path="/store/admin/item" component={requireAdminAuth(AdminItemPage)} />
           <Route exact path="/store/admin/item/:uuid" component={requireAdminAuth(AdminItemPage)} />
           <Route exact path="/store/admin/pickup" component={requireAdminAuth(AdminPickupPage)} />
