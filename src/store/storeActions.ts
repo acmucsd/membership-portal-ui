@@ -4,6 +4,27 @@ import Config from '../config';
 import { logoutUser } from '../auth/authActions';
 import { CartItem } from '../types';
 
+export const fetchCollection: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('fetchCollection: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.collection);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -34,6 +55,80 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
       });
 
       resolve(data.item);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('fetchItem: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.order);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const fetchOrders: ThunkActionCreator = () => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const url = `${Config.API_URL}${Config.routes.store.orders}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.orders);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('fetchPickupEvent: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.pickupEvent}/${uuid}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.pickupEvent);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const fetchFuturePickupEvents: ThunkActionCreator = () => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
+      const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.pickupEvents);
     } catch (error) {
       reject(error);
     }

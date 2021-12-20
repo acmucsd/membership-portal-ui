@@ -41,8 +41,13 @@ export default {
     store: {
       collection: '/api/v2/merch/collection',
       item: '/api/v2/merch/item',
-      cart: '/api/v2/merch/store/cart',
       verification: '/api/v2/merch/order/verification',
+      order: '/api/v2/merch/order',
+      orders: '/api/v2/merch/orders',
+      pickupEvent: '/api/v2/merch/pickupEvent',
+      pickup: {
+        future: '/api/v2/merch/order/pickup/future',
+      },
     },
   },
 };

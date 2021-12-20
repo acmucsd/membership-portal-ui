@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { fetchItem } from '../storeActions';
-import { PublicMerchItemWithPurchaseLimits } from '../../types';
+import { fetchOrder } from '../storeActions';
+import { PublicOrder } from '../../types';
 import { notify } from '../../utils';
 
 import PageLayout from '../../layout/containers/PageLayout';
-import ItemPage from '../components/ItemPage';
+import OrderPage from '../components/OrderPage';
 
-interface ItemPageContainerProps {
-  fetchItem: Function;
+interface OrderPageContainerProps {
+  fetchOrder: Function;
 }
 
-const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
+const OrderPageContainer: React.FC<OrderPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
   const { uuid } = params;
@@ -22,13 +22,13 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
     history.push('/store');
   }
 
-  const [item, setItem] = useState<PublicMerchItemWithPurchaseLimits>();
+  const [order, setOrder] = useState<PublicOrder>();
 
   useEffect(() => {
     props
-      .fetchItem(uuid)
+      .fetchOrder(uuid)
       .then((value) => {
-        setItem(value);
+        setOrder(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
@@ -37,9 +37,9 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
 
   return (
     <PageLayout>
-      <ItemPage item={item} />
+      <OrderPage order={order} />
     </PageLayout>
   );
 };
 
-export default connect(() => ({}), { fetchItem })(ItemPageContainer);
+export default connect(() => ({}), { fetchOrder })(OrderPageContainer);

@@ -1,7 +1,10 @@
 .store-button {
+  align-items: center;
   border: 1px solid;
   cursor: pointer;
+  display: flex;
   font-weight: 700;
+  justify-content: center;
   padding: 0;
 
   &.disabled {
@@ -48,5 +51,22 @@
     font-size: 1.5rem;
     height: 3.5rem;
     width: 18.75rem;
+  }
+
+  &-link {
+    &.small {
+      height: 2rem;
+      width: 10rem;
+    }
+
+    &.medium {
+      height: 2.5rem;
+      width: 15.75rem;
+    }
+
+    &.large {
+      height: 3.5rem;
+      width: 18.75rem;
+    }
   }
 }
