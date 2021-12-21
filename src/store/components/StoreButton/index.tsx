@@ -10,10 +10,11 @@ interface StoreButtonProps {
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   link?: string;
+  submittable?: boolean;
 }
 
 const StoreButton: React.FC<StoreButtonProps> = (props) => {
-  const { type = 'primary', size = 'large', text, disabled, onClick, link } = props;
+  const { type = 'primary', size = 'large', text, disabled, onClick, link, submittable = false } = props;
 
   if (link) {
     if (disabled) {
@@ -28,7 +29,12 @@ const StoreButton: React.FC<StoreButtonProps> = (props) => {
   }
 
   return (
-    <button className={`store-button ${disabled ? 'disabled' : type} ${size}`} type="button" onClick={onClick} disabled={disabled}>
+    <button
+      className={`store-button ${disabled ? 'disabled' : type} ${size}`}
+      type={submittable ? 'submit' : 'button'}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {text}
     </button>
   );
