@@ -13,25 +13,10 @@ const StoreTextInput: React.FC<StoreTextInputProps> = (props) => {
   const { size, value, onChange, attributeName } = props;
 
   if (size === 'Field') {
-    return (
-      <textarea
-        name={attributeName}
-        className={`store-text-input ${size.toLowerCase()}`}
-        value={value}
-        onChange={(e) => onChange && onChange(e)}
-        // onChange={(e) => onChange && onChange(e.target.value)}
-      />
-    );
+    return <textarea name={attributeName} className={`store-text-input ${size.toLowerCase()}`} value={value} onChange={(e) => onChange?.(e)} />;
   }
   return (
-    <input
-      name={attributeName}
-      className={`store-text-input ${size.toLowerCase()}`}
-      type="text"
-      value={value}
-      onChange={(e) => onChange && onChange(e)}
-      // onChange={(e) => onChange && onChange(e.target.value)}
-    />
+    <input name={attributeName} className={`store-text-input ${size.toLowerCase()}`} type="text" value={value} onChange={(e) => onChange?.(e)} />
   );
 };
 
