@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { PublicMerchItem } from '../../../types';
+import { Table } from 'antd';
+import { PublicMerchCollection, PublicMerchItem } from '../../../types';
 import { fetchService } from '../../../utils';
 import StoreButton from '../StoreButton';
 import StoreHeader from '../StoreHeader';
@@ -14,6 +15,7 @@ import StoreCheckbox from '../StoreCheckbox';
 
 interface AdminItemPageProps {
   item?: PublicMerchItem;
+  collections: PublicMerchCollection[];
 }
 
 interface AdminItemPageForm {
@@ -24,11 +26,23 @@ interface AdminItemPageForm {
   picture?: string;
   monthlyLimit?: number;
   lifetimeLimit?: number;
-  hasVariants?: boolean;
+  hasVariantsEnabled?: boolean;
+
+  categoryName?: string;
+  options?: {
+    value: string;
+    price: string;
+    quantity: string;
+    discountPercentage: string;
+  };
+
+  quantity?: string;
+  price?: string;
+  discountPercentage?: string;
 }
 
 const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
-  const { item } = props;
+  const { item, collections } = props;
 
   const creatingItem = !item;
 
@@ -36,92 +50,173 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
     <>
       <StoreHeader breadcrumb breadcrumbLocation="/store" />
       <div className="admin-item-page">
-        <h2>{creatingItem ? 'Create Item' : 'Edit Item'}</h2>
+        <h2 className="admin-item-page-title">{creatingItem ? 'Create Item' : 'Edit Item'}</h2>
         <Formik
           enableReinitialize
           initialValues={{
-            collection: '',
+            collection: item?.collection.uuid,
             itemName: item?.itemName,
             description: item?.description,
-            hidden: false,
+            hidden: false, // TODO
             picture: item?.picture,
-            monthlyLimit: item?.monthlyLimit ?? 3,
-            lifetimeLimit: item?.lifetimeLimit ?? 3,
-            hasVariants: item?.hasVariantsEnabled,
+            monthlyLimit: item?.monthlyLimit.toString() ?? '',
+            lifetimeLimit: item?.lifetimeLimit.toString() ?? '',
+            hasVariantsEnabled: item?.hasVariantsEnabled,
+            // Variants Enabled
+            categoryName: item?.hasVariantsEnabled ? item?.options[0].metadata?.type : '',
+            options: item?.hasVariantsEnabled
+              ? item?.options.map((option) => ({
+                  value: option.metadata?.value,
+                  price: option.price.toString(),
+                  quantity: option.quantity.toString(),
+                  discountPercentage: option.discountPercentage.toString(),
+                }))
+              : [],
+            // Variants Disabled
+            quantity: !item?.hasVariantsEnabled ? item?.options[0].quantity?.toString() : '',
+            price: !item?.hasVariantsEnabled ? item?.options[0].price.toString() : '',
+            discountPercentage: !item?.hasVariantsEnabled ? item?.options[0].discountPercentage.toString() : '',
           }}
           validate={(values) => {
             const errors: AdminItemPageForm = {};
-            if (values.itemName) {
+            if (!values.itemName) {
               errors.itemName = 'Required';
             }
             return errors;
           }}
           onSubmit={async (values, { setSubmitting }) => {
-            const url = creatingItem
-              ? `${Config.API_URL}${Config.routes.store.collection}`
-              : `${Config.API_URL}${Config.routes.store.collection}/${item?.uuid}`;
+            const url = creatingItem ? `${Config.API_URL}${Config.routes.store.item}` : `${Config.API_URL}${Config.routes.store.item}/${item?.uuid}`;
+
+            const payload = values.hasVariantsEnabled
+              ? {
+                  itemName: values.itemName,
+                  description: values.description,
+                  collection: values.collection,
+                  monthlyLimit: parseInt(values.monthlyLimit, 10),
+                  lifetimeLimit: parseInt(values.lifetimeLimit, 10),
+                  hidden: values.hidden,
+                  hasVariantsEnabled: values.hasVariantsEnabled,
+                  options: values.options
+                    ? values.options.map((option, index) => ({
+                        quantity: parseInt(option.quantity, 10),
+                        price: parseInt(option.price, 10),
+                        discountPercentage: parseInt(option.discountPercentage, 10),
+                        metadata: {
+                          type: values.categoryName,
+                          value: option.value,
+                          position: index,
+                        },
+                      }))
+                    : [],
+                }
+              : {
+                  itemName: values.itemName,
+                  description: values.description,
+                  collection: values.collection,
+                  monthlyLimit: parseInt(values.monthlyLimit, 10),
+                  lifetimeLimit: parseInt(values.lifetimeLimit, 10),
+                  hidden: values.hidden,
+                  hasVariantsEnabled: values.hasVariantsEnabled,
+                  options: [
+                    {
+                      quantity: parseInt(values.quantity ?? '0', 10),
+                      price: parseInt(values.price ?? '0', 10),
+                      discountPercentage: parseInt(values.discountPercentage ?? '0', 10),
+                    },
+                  ],
+                };
 
             await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
               requiresAuthorization: true,
-              payload: JSON.stringify({ collection: values }),
+              payload: JSON.stringify({ merchandise: payload }),
             });
             setSubmitting(false);
             history.push('/store');
           }}
         >
-          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-            <form className="admin-collection-page-form" onSubmit={handleSubmit}>
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Collection:</h3>
-                <StoreDropdown options={[values.collection]} onChange={handleChange} value={values.collection} />
+          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (
+            <form className="admin-item-page-form" onSubmit={handleSubmit}>
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Collection:</h3>
+                <StoreDropdown
+                  options={collections.map((collection) => ({ label: collection.title, value: collection.uuid }))}
+                  onChange={(option) => {
+                    setFieldValue('collection', option.value);
+                  }}
+                  value={values.collection}
+                />
                 {errors.collection && touched.collection}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Item Name:</h3>
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Item Name:</h3>
                 <StoreTextInput size="Full" attributeName="itemName" value={values.itemName} onChange={handleChange} />
                 {errors.itemName && touched.itemName}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Description:</h3>
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Description:</h3>
                 <StoreTextInput size="Field" attributeName="description" value={values.description} onChange={handleChange} />
                 {errors.description && touched.description}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Photo:</h3>
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Photo:</h3>
                 <StoreButton type="secondary" size="medium" text="Upload Image" />
                 {errors.picture && touched.picture}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Hidden:</h3>
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Hidden:</h3>
                 <StoreCheckbox attributeName="hidden" checked={values.hidden} onChange={handleChange} />
                 {errors.hidden && touched.hidden}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Monthly Limit:</h3>
-                <StoreDropdown options={[1, 2, 3, 4].map((e) => `${e}`)} onChange={handleChange} value={`${values.monthlyLimit}`} />
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Monthly Limit:</h3>
+                <StoreTextInput size="Quarter" attributeName="monthlyLimit" value={values.monthlyLimit} onChange={handleChange} />
                 {errors.monthlyLimit && touched.monthlyLimit}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Lifetime Limit:</h3>
-                <StoreDropdown options={[1, 2, 3, 4].map((e) => `${e}`)} onChange={handleChange} value={`${values.lifetimeLimit}`} />
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Lifetime Limit:</h3>
+                <StoreTextInput size="Quarter" attributeName="lifetimeLimit" value={values.lifetimeLimit} onChange={handleChange} />
                 {errors.lifetimeLimit && touched.lifetimeLimit}
               </div>
-
-              <div className="admin-collection-page-form-field">
-                <h3 className="admin-collection-page-form-field-label">Has Variants:</h3>
-                <StoreCheckbox attributeName="hasVariants" checked={values.hasVariants} onChange={handleChange} />
-                {errors.hasVariants && touched.hasVariants}
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Has Variants:</h3>
+                <StoreCheckbox attributeName="hasVariantsEnabled" checked={values.hasVariantsEnabled} onChange={handleChange} />
+                {errors.hasVariantsEnabled && touched.hasVariantsEnabled}
               </div>
-
-              <div className="admin-collection-page-form-buttons">
-                <StoreButton text="Cancel" disabled={isSubmitting} type="secondary" />
-                <StoreButton text="Save" disabled={isSubmitting} onClick={() => handleSubmit()} />
+              {values.hasVariantsEnabled ? (
+                <>
+                  <div className="admin-item-page-form-field">
+                    <h3 className="admin-item-page-form-field-label">Category Name:</h3>
+                    <StoreTextInput size="Full" attributeName="categoryName" value={values.categoryName} onChange={handleChange} />
+                    {errors.categoryName && touched.categoryName}
+                  </div>
+                  <div className="admin-item-page-form-field">
+                    <h3 className="admin-item-page-form-field-label">Variants:</h3>
+                    <Table dataSource={cartData} columns={cartColumns} pagination={false} />
+                    {errors.variants && touched.variants}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="admin-item-page-form-field">
+                    <h3 className="admin-item-page-form-field-label">Quantity:</h3>
+                    <StoreTextInput size="Quarter" attributeName="quantity" value={values.quantity} onChange={handleChange} />
+                    {errors.quantity && touched.quantity}
+                  </div>
+                  <div className="admin-item-page-form-field">
+                    <h3 className="admin-item-page-form-field-label">Price:</h3>
+                    <StoreTextInput size="Quarter" attributeName="price" value={values.price} onChange={handleChange} />
+                    {errors.price && touched.price}
+                  </div>
+                  <div className="admin-item-page-form-field">
+                    <h3 className="admin-item-page-form-field-label">Discount Percentage:</h3>
+                    <StoreTextInput size="Quarter" attributeName="discountPercentage" value={values.discountPercentage} onChange={handleChange} />
+                    {errors.discountPercentage && touched.discountPercentage}
+                  </div>
+                </>
+              )}
+              <div className="admin-item-page-form-buttons">
+                <StoreButton type="secondary" size="medium" text="Cancel" disabled={isSubmitting} link="/store" />
+                <StoreButton text="Save" size="medium" disabled={isSubmitting} onClick={() => handleSubmit()} />
               </div>
             </form>
           )}

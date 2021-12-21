@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchItem } from '../storeActions';
-import { PublicMerchItem } from '../../types';
+import { fetchItem, fetchCollections } from '../storeActions';
+import { PublicMerchCollection, PublicMerchItem } from '../../types';
 import { notify } from '../../utils';
 
 import PageLayout from '../../layout/containers/PageLayout';
@@ -11,6 +11,7 @@ import AdminItemPage from '../components/AdminItemPage';
 
 interface AdminItemPageContainerProps {
   fetchItem: Function;
+  fetchCollections: Function;
 }
 
 const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) => {
@@ -18,6 +19,7 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
   const { uuid } = params;
 
   const [item, setItem] = useState<PublicMerchItem>();
+  const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
   useEffect(() => {
     if (uuid) {
@@ -30,13 +32,22 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
           notify('API Error', reason.message || reason);
         });
     }
+
+    props
+      .fetchCollections()
+      .then((value) => {
+        setCollections(value);
+      })
+      .catch((reason) => {
+        notify('API Error', reason.message || reason);
+      });
   }, [props, uuid]);
 
   return (
     <PageLayout>
-      <AdminItemPage item={item} />
+      <AdminItemPage item={item} collections={collections} />
     </PageLayout>
   );
 };
 
-export default connect(() => ({}), { fetchItem })(AdminItemPageContainer);
+export default connect(() => ({}), { fetchItem, fetchCollections })(AdminItemPageContainer);
