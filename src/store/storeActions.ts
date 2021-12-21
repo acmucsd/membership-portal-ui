@@ -135,6 +135,27 @@ export const fetchFuturePickupEvents: ThunkActionCreator = () => async (dispatch
   });
 };
 
+export const deleteItemOption: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('deleteItemOption: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
+      await fetchService(url, 'DELETE', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 export const addToCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_ADD,

@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import React from 'react';
 
-import { PublicMerchCollection, PublicMerchItem } from '../../../types';
+import { PublicMerchCollection, PublicMerchItem, Uuid } from '../../../types';
 import { fetchService } from '../../../utils';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
@@ -32,6 +32,7 @@ interface AdminItemPageForm {
 
   categoryName?: string;
   options?: {
+    uuid?: Uuid;
     value: string;
     price: string;
     quantity: string;
@@ -68,6 +69,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
             categoryName: item?.hasVariantsEnabled ? item?.options[0].metadata?.type : '',
             options: item?.hasVariantsEnabled
               ? item?.options.map((option) => ({
+                  uuid: option.uuid,
                   value: option.metadata?.value ?? '',
                   price: option.price.toString(),
                   quantity: option.quantity.toString(),
@@ -100,6 +102,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   hasVariantsEnabled: values.hasVariantsEnabled,
                   options: values.options
                     ? values.options.map((option, index) => ({
+                        uuid: option.uuid,
                         quantity: parseInt(option.quantity, 10),
                         price: parseInt(option.price, 10),
                         discountPercentage: parseInt(option.discountPercentage, 10),
@@ -195,6 +198,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                     <h3 className="admin-item-page-form-field-label">Options:</h3>
                     <OptionDisplay
                       options={values.options}
+                      creatingItem={creatingItem}
                       onChange={(options) => {
                         setFieldValue('options', options);
                       }}

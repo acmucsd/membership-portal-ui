@@ -1,10 +1,14 @@
 import React from 'react';
 import { Table } from 'antd';
+import { connect } from 'react-redux';
 
+import { deleteItemOption } from '../../storeActions';
+import { Uuid } from '../../../types';
+
+import StoreButton from '../StoreButton';
 import StoreTextInput from '../StoreTextInput';
 
 import './style.less';
-import StoreButton from '../StoreButton';
 
 const columns = [
   ['Category Values', 'value'],
@@ -14,6 +18,7 @@ const columns = [
 ].map(([title, dataIndex]) => ({ title, dataIndex }));
 
 interface Option {
+  uuid?: Uuid;
   value: string;
   price: string;
   quantity: string;
@@ -22,11 +27,13 @@ interface Option {
 
 interface OptionDisplayProps {
   options: Option[];
+  creatingItem: boolean;
   onChange: Function;
+  deleteItemOption: Function;
 }
 
 const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
-  const { options, onChange } = props;
+  const { options, creatingItem, onChange } = props;
 
   const newOptions = [...options];
 
@@ -40,7 +47,21 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
           onChange(newOptions);
         }}
       />
-      <button className="options-display-remove" type="button">
+      <button
+        className="options-display-remove"
+        type="button"
+        onClick={() => {
+          if (creatingItem) {
+            newOptions.splice(index, 1);
+            onChange(newOptions);
+          } else {
+            props.deleteItemOption(option.uuid).then(() => {
+              newOptions.splice(index, 1);
+              onChange(newOptions);
+            });
+          }
+        }}
+      >
         Remove
       </button>
     </>
@@ -104,4 +125,4 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
   );
 };
 
-export default OptionDisplay;
+export default connect(null, { deleteItemOption })(OptionDisplay);
