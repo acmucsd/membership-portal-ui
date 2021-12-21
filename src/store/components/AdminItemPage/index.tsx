@@ -1,17 +1,19 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { Table } from 'antd';
+
 import { PublicMerchCollection, PublicMerchItem } from '../../../types';
 import { fetchService } from '../../../utils';
+import Config from '../../../config';
+import { history } from '../../../redux_store';
+
+import OptionDisplay from '../OptionDisplay';
 import StoreButton from '../StoreButton';
+import StoreCheckbox from '../StoreCheckbox';
+import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
-import Config from '../../../config';
 
-import { history } from '../../../redux_store';
 import './style.less';
-import StoreDropdown from '../StoreDropdown';
-import StoreCheckbox from '../StoreCheckbox';
 
 interface AdminItemPageProps {
   item?: PublicMerchItem;
@@ -34,7 +36,7 @@ interface AdminItemPageForm {
     price: string;
     quantity: string;
     discountPercentage: string;
-  };
+  }[];
 
   quantity?: string;
   price?: string;
@@ -66,7 +68,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
             categoryName: item?.hasVariantsEnabled ? item?.options[0].metadata?.type : '',
             options: item?.hasVariantsEnabled
               ? item?.options.map((option) => ({
-                  value: option.metadata?.value,
+                  value: option.metadata?.value ?? '',
                   price: option.price.toString(),
                   quantity: option.quantity.toString(),
                   discountPercentage: option.discountPercentage.toString(),
@@ -190,9 +192,14 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                     {errors.categoryName && touched.categoryName}
                   </div>
                   <div className="admin-item-page-form-field">
-                    <h3 className="admin-item-page-form-field-label">Variants:</h3>
-                    <Table dataSource={cartData} columns={cartColumns} pagination={false} />
-                    {errors.variants && touched.variants}
+                    <h3 className="admin-item-page-form-field-label">Options:</h3>
+                    <OptionDisplay
+                      options={values.options}
+                      onChange={(options) => {
+                        setFieldValue('options', options);
+                      }}
+                    />
+                    {errors.options && touched.options}
                   </div>
                 </>
               ) : (
