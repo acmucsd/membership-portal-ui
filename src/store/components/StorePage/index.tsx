@@ -41,24 +41,28 @@ const StorePage: React.FC<StorePageProps> = (props) => {
         {isAdmin && <StoreButton type="secondary" size="large" text="Create Collection" link="/store/admin/collection" />}
         <div className="collections">
           {collections.map((collection) => {
-            return (
-              <div className="collection" key={collection.uuid} id={collection.uuid}>
-                <h2 className="collection-header" style={{ color: collection.themeColorHex }}>
-                  {collection.title}
-                  {isAdmin && (
-                    <Link to={`/store/admin/collection/${collection.uuid}`}>
-                      <img className="collection-header-editable-icon" src={EditableIcon} alt="Editable" />
-                    </Link>
-                  )}
-                </h2>
-                <div className="collection-items">
-                  {collection.items.map((item, index) => (
-                    <ItemCard item={item} key={index} editable={isAdmin} editableLink={`/store/admin/item/${item.uuid}`} />
-                  ))}
-                  {isAdmin && <ItemCard placeholder placeholderLink="/store/admin/item" />}
+            if (collection.items.length !== 0 || isAdmin) {
+              return (
+                <div className="collection" key={collection.uuid} id={collection.uuid}>
+                  <h2 className="collection-header" style={{ color: collection.themeColorHex }}>
+                    {collection.title}
+                    {isAdmin && (
+                      <Link to={`/store/admin/collection/${collection.uuid}`}>
+                        <img className="collection-header-editable-icon" src={EditableIcon} alt="Editable" />
+                      </Link>
+                    )}
+                  </h2>
+                  <div className="collection-items">
+                    {collection.items.map((item, index) => (
+                      <ItemCard item={item} key={index} editable={isAdmin} editableLink={`/store/admin/item/${item.uuid}`} />
+                    ))}
+                    {isAdmin && <ItemCard placeholder placeholderLink="/store/admin/item" />}
+                  </div>
                 </div>
-              </div>
-            );
+              );
+            }
+
+            return null;
           })}
         </div>
       </div>

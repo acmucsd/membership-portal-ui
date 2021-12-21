@@ -1,10 +1,14 @@
-import { Button, InputNumber, Select, Table, Typography } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ReactComponent as DiamondIcon } from '../../../assets/icons/diamond-icon.svg';
-import { CartItem, PublicMerchItem } from '../../../types';
+import { Button, Select, Table, Typography } from 'antd';
+
+import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
+import { toProperCase } from '../../../utils';
 import { addToCart, editInCart, removeFromCart } from '../../storeActions';
+
 import './style.less';
+import DiamondDisplay from '../DiamondDisplay';
+import StoreDropdown from '../StoreDropdown';
 
 const { Option } = Select;
 
@@ -14,14 +18,7 @@ const cartColumns = [
   ['Price', 'price'],
   ['Quantity', 'quantity'],
   ['Total Price', 'totalPrice'],
-].map(([title, dataIndex]) => ({ title, dataIndex }));
-
-const toProperCase = (s: string) => {
-  return s
-    .split(' ')
-    .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
-    .join(' ');
-};
+].map(([title, dataIndex]) => ({ title, dataIndex, className: dataIndex }));
 
 type CartItemProps = {
   item: CartItem;
@@ -42,8 +39,8 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
     if (!item.option.metadata) return null;
 
     return (
-      <div className="item-size-container">
-        <Typography.Text className="item-size-label">{toProperCase(item.option.metadata.type)}: </Typography.Text>
+      <div className="item-option-container">
+        <Typography.Text className="item-option-label">{toProperCase(item.option.metadata.type)}: </Typography.Text>
         {editable ? (
           <Select defaultValue={item.option.metadata.value} onChange={setVariant}>
             {item.item.options.map((opt) => (
@@ -53,7 +50,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
             ))}
           </Select>
         ) : (
-          <Typography.Text className="item-size">{item.option.metadata.value}</Typography.Text>
+          <Typography.Text className="item-option">{item.option.metadata.value}</Typography.Text>
         )}
       </div>
     );
@@ -126,24 +123,23 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
     </div>
   );
 
-  const renderQuantity = (quantity: number, setQuantity: (q: number) => void) => {
-    const onInputNumberChange = (e: any) => {
-      if (typeof e === 'number') setQuantity(e);
-    };
-
+  const renderQuantity = (item: PublicMerchItem, quantity: number, setQuantity: (q: number) => void) => {
     if (writable) {
-      return <InputNumber defaultValue={quantity} disabled={!writable} min={1} onChange={onInputNumberChange} />;
+      return (
+        <StoreDropdown
+          options={Array.from(Array(Math.min(item.monthlyLimit, item.lifetimeLimit)).keys()).map((number) => (number + 1).toString())}
+          value={quantity.toString()}
+          onChange={(option) => {
+            setQuantity(Number.parseInt(option.value, 10));
+          }}
+        />
+      );
     }
     return <Typography className="item-quantity">{quantity}</Typography>;
   };
 
-  const renderPrice = (price: number) => {
-    return (
-      <div className="item-price-container">
-        <DiamondIcon className="item-price-icon" />
-        <Typography className="item-price">{price.toLocaleString()}</Typography>
-      </div>
-    );
+  const renderPrice = (price: number, discountPercentage: number) => {
+    return <DiamondDisplay value={price} saleValue={price * (1 - discountPercentage / 100)} />;
   };
 
   const cartData = items.map((cartItem) => {
@@ -152,22 +148,31 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
       option: { price, uuid, discountPercentage },
       quantity,
     } = cartItem;
+
     const setQuantity = (q: number) => dispatch(editInCart({ ...cartItem, quantity: q }));
-    const discountedPrice = price * (1 - discountPercentage / 100);
-    const totalPrice = quantity * discountedPrice;
+
     return {
-      key: `${uuid}${quantity}`,
+      key: uuid,
       itemImage: renderItemImage(item),
       item: <CartItemComponent item={cartItem} writable={writable} />,
-      price: renderPrice(discountedPrice),
-      quantity: renderQuantity(quantity, setQuantity),
-      totalPrice: renderPrice(totalPrice),
+      price: renderPrice(price, discountPercentage),
+      quantity: renderQuantity(item, quantity, setQuantity),
+      totalPrice: renderPrice(quantity * price, discountPercentage),
     };
   });
+
+  const total = items.reduce((sum, { option, quantity }) => sum + option.price * quantity, 0);
+
+  const getDiscountedPrice = ({ price, discountPercentage }: PublicMerchItemOption) => price * (1 - discountPercentage / 100);
+  const discountedTotal = items.reduce((sum, { option, quantity }) => sum + getDiscountedPrice(option) * quantity, 0);
 
   return (
     <div className="cart-display">
       <Table dataSource={cartData} columns={cartColumns} pagination={false} />
+      <div className="cart-display-total">
+        <p className="cart-display-total-text">Total:</p>
+        {discountedTotal < total ? <DiamondDisplay value={total} saleValue={discountedTotal} /> : <DiamondDisplay value={total} />}
+      </div>
     </div>
   );
 };

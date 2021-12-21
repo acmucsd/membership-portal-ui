@@ -1,34 +1,38 @@
 .admin-collection-page {
   margin-top: 1rem;
 
-  h2 {
+  &-title {
     font-size: 1.75rem;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   &-form {
     display: flex;
     flex-direction: column;
-    max-width: fit-content;
 
     &-field {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
-      padding-bottom: 1.25rem;
+      padding-bottom: 1.5rem;
+
+      &-group {
+        display: flex;
+        justify-content: space-between;
+        width: 25rem;
+      }
 
       &-label {
         font-size: 1.25rem;
+        width: 12rem;
       }
     }
 
     &-buttons {
       display: flex;
       flex-direction: row;
-      gap: 1.25rem;
       justify-content: space-between;
-      padding-bottom: 1.25rem;
+      width: 37rem;
     }
   }
 }

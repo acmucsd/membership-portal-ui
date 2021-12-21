@@ -19,7 +19,7 @@ const OrdersPage: React.FC<OrdersPageProps> = (props) => {
       <StoreHeader />
       {orders?.map((order) => {
         return (
-          <div className="order-thing">
+          <div className="order-thing" key={order.uuid}>
             <Link to={`./order/${order.uuid}`}>
               <h1>Order (Status Unknown)</h1>
             </Link>
