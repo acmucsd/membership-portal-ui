@@ -19,7 +19,7 @@ const DiamondDisplay: React.FC<DiamondDisplayProps> = (props) => {
     return <div className="diamond-display red">Out of Stock</div>;
   }
 
-  if (saleValue) {
+  if (saleValue && saleValue < value) {
     return (
       <div className="diamond-display">
         <span className="diamond-display-value strikethrough">{value.toLocaleString()}</span>

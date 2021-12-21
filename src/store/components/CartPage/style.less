@@ -1,39 +1,13 @@
 @import '../../../styles/vars.less';
 
-.cart-page-container {
+.cart-page {
+  display: flex;
+  flex-direction: column;
   margin-top: 1rem;
+  width: fit-content;
 
-  .cart-page {
-    align-items: flex-end;
-    background: none;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 80%;
-
-    .total-price-container {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-      margin-right: 1rem;
-
-      .total-price-label {
-        color: #333;
-        font-size: 30px;
-        font-weight: 500;
-        margin-right: 2rem;
-      }
-
-      .total-price-icon {
-        margin-right: 0.5rem;
-      }
-
-      .total-price {
-        color: #333;
-        font-size: 24px;
-        font-weight: 400;
-      }
-    }
+  .store-button {
+    align-self: flex-end;
+    margin-top: 1.5rem;
   }
 }

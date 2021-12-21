@@ -1,55 +1,89 @@
 @import '../../../styles/vars.less';
 
 .cart-display {
+  border: 2px solid #c4c4c4;
+  border-radius: 0.75rem;
   margin-bottom: 1rem;
-  width: 100%;
+  width: fit-content;
 
   table {
-    border: 1px solid #c4c4c4;
-    border-radius: 12px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
+    width: 52rem;
 
     tr > th {
-      background: @white;
+      background: transparent;
 
       .ant-table-column-title {
-        color: #000;
-        font-size: 24px;
+        color: #333;
+        font-size: 1.125rem;
       }
     }
 
     td {
-      vertical-align: top;
+      vertical-align: center;
+
+      &.price,
+      &.totalPrice {
+        .diamond-display {
+          float: right;
+        }
+      }
+    }
+
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+      background: transparent;
     }
 
     .image-container {
-      border-radius: 10px;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-      height: 160px;
-      width: 160px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 0.625rem;
+      height: 10rem;
+      padding: 1rem;
+      width: 10rem;
 
       .image {
-        border-radius: 10px;
         height: 100%;
         width: 100%;
       }
     }
 
-    .ant-input-number {
-      height: 50px;
-      width: 70px;
-
-      .ant-input-number-input-wrap {
-        height: 50px;
+    .cart-item {
+      .item-name {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 0;
+        width: 16.25rem;
       }
 
-      .ant-input-number-input {
-        color: #000;
-        font-size: 25px;
-        font-weight: 700;
-        height: 50px;
-        vertical-align: bottom;
+      .item-option-container {
+        margin-bottom: 1rem;
+
+        .item-option-label {
+          color: #333;
+          font-size: 1.25rem;
+          font-weight: 500;
+        }
+
+        .item-option {
+          font-size: 1.25rem;
+          font-weight: 400;
+        }
+      }
+
+      .item-button {
+        color: #777;
+        font-size: 1rem;
+        padding: 0;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      .edit-button {
+        margin-right: 1rem;
       }
     }
 
@@ -58,19 +92,18 @@
       font-size: 25px;
       font-weight: 700;
     }
+  }
 
-    .item-price-container {
-      align-items: center;
-      display: flex;
+  &-total {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    width: 100%;
 
-      .item-price-icon {
-        margin-right: 0.5rem;
-      }
-
-      .item-price {
-        color: #000;
-        font-size: 24px;
-      }
+    &-text {
+      color: #333;
+      font-size: 1.5rem;
+      margin-right: 1.25rem;
     }
   }
 }

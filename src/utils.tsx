@@ -194,7 +194,7 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   if (!data) throw new Error('Empty response from server');
   if (data.error) {
     let { message } = data.error;
-    if (status === 400) {
+    if (status === 400 && data.error.errors) {
       let messages = '';
       const { errors } = data.error;
       for (let i = 0; i < errors.length; i += 1) {
@@ -276,4 +276,11 @@ export const processItemPrice = (options: PublicMerchItemOption[]): React.ReactN
     return <DiamondDisplay value={priceRange.low} />;
   }
   return <DiamondDisplay prefix={`${priceRange.low.toLocaleString('en-US')} - `} value={priceRange.high} />;
+};
+
+export const toProperCase = (s: string) => {
+  return s
+    .split(' ')
+    .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
 };
