@@ -6,7 +6,7 @@ import StoreColorInput from '../StoreColorInput';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
 import Config from '../../../config';
-import { fetchService } from '../../../utils';
+import { fetchService, notify } from '../../../utils';
 
 import './style.less';
 import { history } from '../../../redux_store';
@@ -29,20 +29,26 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
     <>
       <StoreHeader breadcrumb breadcrumbLocation="/store" />
       <div className="admin-collection-page">
-        <h2>{title}</h2>
-
+        <h2 className="admin-collection-page-title">{title}</h2>
         <Formik
           enableReinitialize
-          initialValues={{ title: collection?.title, themeColorHex: collection?.themeColorHex, description: collection?.description }}
+          initialValues={{
+            title: collection?.title ?? '',
+            themeColorHex: collection?.themeColorHex ?? '',
+            description: collection?.description ?? '',
+          }}
           validate={(values) => {
             const errors: AdminCollectionPageForm = {};
             if (!values.title) {
+              notify('Form Error', 'Title is required!');
               errors.title = 'Required';
             }
             if (!values.themeColorHex) {
+              notify('Form Error', 'Color is required!');
               errors.themeColorHex = 'Required';
             }
             if (!values.description) {
+              notify('Form Error', 'Description is required!');
               errors.description = 'Required';
             }
 
@@ -61,7 +67,7 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
             history.push('/store');
           }}
         >
-          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
+          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (
             <form className="admin-collection-page-form" onSubmit={handleSubmit}>
               <div className="admin-collection-page-form-field">
                 <h3 className="admin-collection-page-form-field-label">Title:</h3>
@@ -70,8 +76,23 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
               </div>
               <div className="admin-collection-page-form-field">
                 <h3 className="admin-collection-page-form-field-label">Theme Color:</h3>
-                <StoreTextInput attributeName="themeColorHex" size="Half" value={values.themeColorHex} onChange={handleChange} />
-                <StoreColorInput attributeName="themeColorHex" value={values.themeColorHex} onChange={handleChange} />
+                <div className="admin-collection-page-form-field-group">
+                  <StoreTextInput
+                    attributeName="themeColorHex"
+                    size="Half"
+                    value={values.themeColorHex}
+                    placeholder="#"
+                    onChange={(e) => {
+                      const value: string = e.target.value || '';
+                      if (value.length !== 0 && value[0] !== '#') {
+                        setFieldValue('themeColorHex', `#${e.target.value}`);
+                      } else {
+                        setFieldValue('themeColorHex', e.target.value);
+                      }
+                    }}
+                  />
+                  <StoreColorInput attributeName="themeColorHex" value={values.themeColorHex} onChange={handleChange} />
+                </div>
                 {errors.themeColorHex && touched.themeColorHex}
               </div>
               <div className="admin-collection-page-form-field">
@@ -81,8 +102,8 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
               </div>
 
               <div className="admin-collection-page-form-buttons">
-                <StoreButton text="Cancel" disabled={isSubmitting} type="secondary" />
-                <StoreButton text="Save" disabled={isSubmitting} onClick={() => handleSubmit()} />
+                <StoreButton type="secondary" size="medium" text="Cancel" disabled={isSubmitting} link="/store" />
+                <StoreButton text="Save" size="medium" disabled={isSubmitting} onClick={() => handleSubmit()} />
               </div>
             </form>
           )}
