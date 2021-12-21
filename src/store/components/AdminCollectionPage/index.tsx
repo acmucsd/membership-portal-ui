@@ -5,8 +5,11 @@ import StoreButton from '../StoreButton';
 import StoreColorInput from '../StoreColorInput';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
+import Config from '../../../config';
+import { fetchService } from '../../../utils';
 
 import './style.less';
+import { history } from '../../../redux_store';
 
 interface AdminCollectionPageProps {
   collection?: PublicMerchCollection | undefined;
@@ -14,7 +17,7 @@ interface AdminCollectionPageProps {
 
 interface AdminCollectionPageForm {
   title?: string;
-  themeColor?: string;
+  themeColorHex?: string;
   description?: string;
 }
 const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
@@ -25,15 +28,17 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
     <div className="admin-collection-page">
       <StoreHeader breadcrumb breadcrumbLocation="/store" />
       <h2>{title}</h2>
+
       <Formik
-        initialValues={{ title: collection?.title, themeColor: collection?.themeColorHex, description: collection?.description }}
+        enableReinitialize
+        initialValues={{ title: collection?.title, themeColorHex: collection?.themeColorHex, description: collection?.description }}
         validate={(values) => {
           const errors: AdminCollectionPageForm = {};
           if (!values.title) {
             errors.title = 'Required';
           }
-          if (!values.themeColor) {
-            errors.themeColor = 'Required';
+          if (!values.themeColorHex) {
+            errors.themeColorHex = 'Required';
           }
           if (!values.description) {
             errors.description = 'Required';
@@ -41,52 +46,42 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
 
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          alert('it worked');
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values, { setSubmitting }) => {
+          const url = `${Config.API_URL}${Config.routes.store.collection}/${collection?.uuid}`;
+          await fetchService(url, 'PATCH', 'json', {
+            requiresAuthorization: true,
+            payload: JSON.stringify({ collection: values }),
+          });
+          setSubmitting(false);
+          history.push('/store');
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
+        {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
           <form className="admin-collection-page-form" onSubmit={handleSubmit}>
             <div className="admin-collection-page-form-field">
               <h3 className="admin-collection-page-form-field-label">Title:</h3>
-              <StoreTextInput size="Full" value={values.title} onChange={handleChange} />
+              <StoreTextInput attributeName="title" size="Full" value={values.title} onChange={handleChange} />
+              {errors.title && touched.title}
             </div>
             <div className="admin-collection-page-form-field">
               <h3 className="admin-collection-page-form-field-label">Theme Color:</h3>
-              <StoreColorInput value={values.themeColor} onChange={handleChange} />
+              <StoreTextInput attributeName="themeColorHex" size="Half" value={values.themeColorHex} onChange={handleChange} />
+              <StoreColorInput attributeName="themeColorHex" value={values.themeColorHex} onChange={handleChange} />
+              {errors.themeColorHex && touched.themeColorHex}
             </div>
             <div className="admin-collection-page-form-field">
               <h3 className="admin-collection-page-form-field-label">Description:</h3>
-              <StoreTextInput size="Field" value={values.description} onChange={handleChange} />
+              <StoreTextInput attributeName="description" size="Field" value={values.description} onChange={handleChange} />
+              {errors.description && touched.description}
             </div>
-            {/* <input type="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} /> */}
-            {/* {errors.email && touched.email && errors.email} */}
-            {/* <input type="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
-            {errors.password && touched.password && errors.password} */}
+
             <div className="admin-collection-page-form-buttons">
               <StoreButton text="Cancel" disabled={isSubmitting} type="secondary" />
               <StoreButton text="Save" disabled={isSubmitting} onClick={() => handleSubmit()} />
             </div>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
           </form>
         )}
       </Formik>
-      <div>Admin Collection Page, collection={JSON.stringify(collection)}</div>
     </div>
   );
 };
