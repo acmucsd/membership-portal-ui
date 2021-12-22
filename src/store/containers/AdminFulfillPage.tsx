@@ -29,7 +29,23 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = (pro
           setPickupEvent(value);
         })
         .catch((reason) => {
-          notify('API Error', reason.message || reason);
+          // check to see if uuid exists in pickupEvents
+          props
+            .fetchFuturePickupEvents()
+            .then((value) => {
+              setPickupEvents(value);
+              console.log({ value, uuid })
+              const event = (value?.filter(elem => elem.uuid === uuid))
+              if (event && event?.length > 0) {
+                setPickupEvent(event[0]);
+                notify('API Error', "The API Route didn't work, but we had the data before anyways. BE should probably fix this")
+              } else {
+                notify('API Error', reason.message || reason);
+              }
+            })
+            .catch((reason) => {
+              notify('API Error', reason.message || reason);
+            });
         });
     } else {
       props

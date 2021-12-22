@@ -1,5 +1,6 @@
 .admin-fulfill-page {
   color: #333;
+  display: flex;
   margin-top: 1rem;
 
   &-title {
@@ -7,9 +8,42 @@
     font-weight: 700;
   }
 
-  &-hint {
-    font-size: 1rem;
-    margin-top: 1.5rem;
+  &-secondary {
+    font-size: 1.5rem;
+
+    &.description {
+      font-weight: 400;
+    }
+
+    &.title {
+      font-weight: 500;
+    }
+  }
+
+  &-left {
+    width: 28rem;
+
+    .selected-order {
+      background-color: #333;
+
+      h4 {
+        color: white;
+      }
+    }
+  }
+
+  &-right {
+    border-left: 1px solid #333;
+    margin-left: 1rem;
+    padding-left: 1rem;
+
+    .title {
+      font-size: 1.75rem;
+    }
+
+    .item-name {
+      padding-left: 1rem;
+    }
   }
 
   .store-dropdown {
