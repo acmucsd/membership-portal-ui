@@ -25,7 +25,7 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
       <div className="item-card">
         <Link to={placeholderLink}>
           <div className="item-card-placeholder">
-            <img src={StorePlus} alt="Plus" />
+            <img className="item-card-placeholder-plus-sign" src={StorePlus} alt="Plus" />
           </div>
         </Link>
       </div>
