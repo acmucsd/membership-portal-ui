@@ -129,8 +129,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
             type="danger"
             onClick={async () => {
               // TODO: Implement a proper modal. For now, this functions / ensures users don't accidentally complete the pickupEvent
-              // eslint-disable-next-line no-alert
-              // eslint-disable-next-line no-restricted-globals
+              // eslint-disable-next-line no-alert, no-restricted-globals
               const doIt = confirm('This will end the pickup event forever. Did you mean to do this?');
               if (doIt) {
                 const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${pickupEvent.uuid}/complete`;
