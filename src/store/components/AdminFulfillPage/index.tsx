@@ -70,7 +70,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                 setSelectedOrder({ ...selectedOrder, items: modifiedItems });
               }}
             />
-            <span className="item-name">{item.option.quantity} x Hot Garbage</span>
+            <span className="item-name">{item.option.quantity} x Missing Item Title</span>
           </>
         ))}
         <StoreButton
