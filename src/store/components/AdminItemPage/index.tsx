@@ -11,6 +11,7 @@ import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
+import StoreImageUpload from '../StoreImageUpload';
 import StoreTextInput from '../StoreTextInput';
 
 import './style.less';
@@ -24,8 +25,9 @@ interface AdminItemPageForm {
   collection?: string;
   itemName?: string;
   description?: string;
+  existingPicture?: string;
+  newPicture?: Blob;
   hidden?: boolean;
-  picture?: string;
   monthlyLimit?: number;
   lifetimeLimit?: number;
   hasVariantsEnabled?: boolean;
@@ -60,8 +62,9 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
             collection: item?.collection.uuid,
             itemName: item?.itemName,
             description: item?.description,
+            existingPicture: item?.picture,
+            newPicture: null,
             hidden: false, // TODO
-            picture: item?.picture,
             monthlyLimit: item?.monthlyLimit.toString() ?? '',
             lifetimeLimit: item?.lifetimeLimit.toString() ?? '',
             hasVariantsEnabled: item?.hasVariantsEnabled,
@@ -131,10 +134,27 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   ],
                 };
 
-            await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
+            if (!creatingItem && payload.options) {
+              delete (payload as any).options;
+            }
+
+            const data = await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
               requiresAuthorization: true,
               payload: JSON.stringify({ merchandise: payload }),
             });
+
+            if (values.newPicture) {
+              const formdata = new FormData();
+              formdata.append('image', (values.newPicture as unknown) as Blob);
+
+              const imageUrl = `${Config.API_URL}${Config.routes.store.itemPicture}/${data.item.uuid}`;
+
+              await fetchService(imageUrl, 'POST', 'image', {
+                requiresAuthorization: true,
+                payload: formdata,
+              });
+            }
+
             setSubmitting(false);
             history.push('/store');
           }}
@@ -164,8 +184,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Photo:</h3>
-                <StoreButton type="secondary" size="medium" text="Upload Image" />
-                {errors.picture && touched.picture}
+                <StoreImageUpload existingFile={values.existingPicture} setFieldValue={setFieldValue} />
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Hidden:</h3>

@@ -106,7 +106,7 @@ export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dis
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.pickupEvent}/${uuid}`;
+      const url = `${Config.API_URL}${Config.routes.store.pickup}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
         onFailCallback: () => dispatch(logoutUser()),
