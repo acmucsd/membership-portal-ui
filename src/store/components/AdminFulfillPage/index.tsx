@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { useState } from 'react';
 
+import { Modal } from 'antd';
 import { PublicOrder, PublicOrderPickupEvent } from '../../../types';
 
 import StoreButton from '../StoreButton';
@@ -22,6 +23,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
 
   const [uuid, setUuid] = useState<string>();
   const [selectedOrder, setSelectedOrder] = useState<PublicOrder>();
+  const [showModal, setShowModal] = useState(false);
 
   if (!pickupEvent) {
     return (
@@ -128,23 +130,28 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
             text="Finish Pickup Event"
             type="danger"
             onClick={async () => {
-              // TODO: Implement a proper modal. For now, this functions / ensures users don't accidentally complete the pickupEvent
-              // eslint-disable-next-line no-alert, no-restricted-globals
-              const doIt = confirm('This will end the pickup event forever. Did you mean to do this?');
-              if (doIt) {
-                const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${pickupEvent.uuid}/complete`;
-
-                try {
-                  await fetchService(url, 'POST', 'json', {
-                    requiresAuthorization: true,
-                  });
-                  notify('Success!', 'Pickup Event is Over');
-                } catch (e) {
-                  notify('API Error', (e as any).message);
-                }
-              }
+              setShowModal(true);
             }}
           />
+          <Modal
+            visible={showModal}
+            onCancel={() => setShowModal(false)}
+            onOk={async () => {
+              setShowModal(false);
+              const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${pickupEvent.uuid}/complete`;
+
+              try {
+                await fetchService(url, 'POST', 'json', {
+                  requiresAuthorization: true,
+                });
+                notify('Success!', 'Pickup Event is Over');
+              } catch (e) {
+                notify('API Error', (e as any).message);
+              }
+            }}
+          >
+            This will end the pickup event forever. Did you mean to do this?
+          </Modal>
         </div>
         {orderInfo}
       </div>
