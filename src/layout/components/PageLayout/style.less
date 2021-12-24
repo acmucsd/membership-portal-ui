@@ -1,19 +1,21 @@
 @import '../../../styles/vars.less';
 @import '../../../styles/mixins.less';
 
-.content {
-  overflow: hidden;
-  padding: 2rem 4rem;
-  position: relative;
-  vertical-align: top;
-  width: 100%;
-}
+.page-layout {
+  &-content {
+    overflow: hidden;
+    padding: 2rem 4rem;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+  }
 
-.content-table {
-  display: table;
-  width: 100%;
+  &-content-table {
+    display: table;
+    width: 100%;
 
-  > * {
-    display: table-cell;
+    > * {
+      display: table-cell;
+    }
   }
 }
