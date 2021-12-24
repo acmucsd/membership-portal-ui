@@ -1,10 +1,11 @@
-import { Formik } from 'formik';
 import React from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { PublicMerchCollection, PublicMerchItem, Uuid } from '../../../types';
-import { fetchService } from '../../../utils';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
+import { PublicMerchCollection, PublicMerchItem } from '../../../types';
+import { fetchService } from '../../../utils';
 
 import OptionDisplay from '../OptionDisplay';
 import StoreButton from '../StoreButton';
@@ -21,30 +22,43 @@ interface AdminItemPageProps {
   collections: PublicMerchCollection[];
 }
 
-interface AdminItemPageForm {
-  collection?: string;
-  itemName?: string;
-  description?: string;
-  existingPicture?: string;
-  newPicture?: Blob;
-  hidden?: boolean;
-  monthlyLimit?: number;
-  lifetimeLimit?: number;
-  hasVariantsEnabled?: boolean;
-
-  categoryName?: string;
-  options?: {
-    uuid?: Uuid;
-    value: string;
-    price: string;
-    quantity: string;
-    discountPercentage: string;
-  }[];
-
-  quantity?: string;
-  price?: string;
-  discountPercentage?: string;
-}
+const AdminItemPageFormSchema = Yup.object().shape({
+  collection: Yup.string().required('Required'),
+  itemName: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
+  description: Yup.string().min(2, 'Too Short').max(1000, 'Too Long').required('Required'),
+  // hidden: Yup.boolean().required('Required'),
+  monthlyLimit: Yup.number().min(1, 'Too Low').max(10, 'Too High').required('Required'),
+  lifetimeLimit: Yup.number().min(1, 'Too Low').max(10, 'Too High').required('Required'),
+  // hasVariantsEnabled: Yup.boolean().required('Required'),
+  categoryName: Yup.string().when('hasVariantsEnabled', {
+    is: (hasVariantsEnabled) => hasVariantsEnabled,
+    then: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
+  }),
+  options: Yup.array().when('hasVariantsEnabled', {
+    is: (hasVariantsEnabled) => hasVariantsEnabled,
+    then: Yup.array().of(
+      Yup.object().shape({
+        uuid: Yup.string(),
+        value: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
+        price: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+        quantity: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+        discountPercentage: Yup.number().min(0, 'Too Low').max(100, 'Too High').required('Required'),
+      }),
+    ),
+  }),
+  quantity: Yup.number().when('hasVariantsEnabled', {
+    is: (hasVariantsEnabled) => !hasVariantsEnabled,
+    then: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+  }),
+  price: Yup.number().when('hasVariantsEnabled', {
+    is: (hasVariantsEnabled) => !hasVariantsEnabled,
+    then: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+  }),
+  discountPercentage: Yup.number().when('hasVariantsEnabled', {
+    is: (hasVariantsEnabled) => !hasVariantsEnabled,
+    then: Yup.number().min(0, 'Too Low').max(100, 'Too High').required('Required'),
+  }),
+});
 
 const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
   const { item, collections } = props;
@@ -84,13 +98,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
             price: !item?.hasVariantsEnabled ? item?.options[0].price.toString() : '',
             discountPercentage: !item?.hasVariantsEnabled ? item?.options[0].discountPercentage.toString() : '',
           }}
-          validate={(values) => {
-            const errors: AdminItemPageForm = {};
-            if (!values.itemName) {
-              errors.itemName = 'Required';
-            }
-            return errors;
-          }}
+          validationSchema={AdminItemPageFormSchema}
           onSubmit={async (values, { setSubmitting }) => {
             const url = creatingItem ? `${Config.API_URL}${Config.routes.store.item}` : `${Config.API_URL}${Config.routes.store.item}/${item?.uuid}`;
 
@@ -169,18 +177,28 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                     setFieldValue('collection', option.value);
                   }}
                   value={values.collection}
+                  error={touched.collection && errors.collection}
                 />
-                {errors.collection && touched.collection}
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Item Name:</h3>
-                <StoreTextInput size="Full" attributeName="itemName" value={values.itemName} onChange={handleChange} />
-                {errors.itemName && touched.itemName}
+                <StoreTextInput
+                  size="Full"
+                  attributeName="itemName"
+                  value={values.itemName}
+                  onChange={handleChange}
+                  error={touched.itemName && errors.itemName}
+                />
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Description:</h3>
-                <StoreTextInput size="Field" attributeName="description" value={values.description} onChange={handleChange} />
-                {errors.description && touched.description}
+                <StoreTextInput
+                  size="Field"
+                  attributeName="description"
+                  value={values.description}
+                  onChange={handleChange}
+                  error={touched.description && errors.description}
+                />
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Photo:</h3>
@@ -189,29 +207,42 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Hidden:</h3>
                 <StoreCheckbox attributeName="hidden" checked={values.hidden} onChange={handleChange} />
-                {errors.hidden && touched.hidden}
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Monthly Limit:</h3>
-                <StoreTextInput size="Quarter" attributeName="monthlyLimit" value={values.monthlyLimit} onChange={handleChange} />
-                {errors.monthlyLimit && touched.monthlyLimit}
+                <StoreTextInput
+                  size="Quarter"
+                  attributeName="monthlyLimit"
+                  value={values.monthlyLimit}
+                  onChange={handleChange}
+                  error={touched.monthlyLimit && errors.monthlyLimit}
+                />
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Lifetime Limit:</h3>
-                <StoreTextInput size="Quarter" attributeName="lifetimeLimit" value={values.lifetimeLimit} onChange={handleChange} />
-                {errors.lifetimeLimit && touched.lifetimeLimit}
+                <StoreTextInput
+                  size="Quarter"
+                  attributeName="lifetimeLimit"
+                  value={values.lifetimeLimit}
+                  onChange={handleChange}
+                  error={touched.lifetimeLimit && errors.lifetimeLimit}
+                />
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Has Variants:</h3>
                 <StoreCheckbox attributeName="hasVariantsEnabled" checked={values.hasVariantsEnabled} onChange={handleChange} />
-                {errors.hasVariantsEnabled && touched.hasVariantsEnabled}
               </div>
               {values.hasVariantsEnabled ? (
                 <>
                   <div className="admin-item-page-form-field">
                     <h3 className="admin-item-page-form-field-label">Category Name:</h3>
-                    <StoreTextInput size="Full" attributeName="categoryName" value={values.categoryName} onChange={handleChange} />
-                    {errors.categoryName && touched.categoryName}
+                    <StoreTextInput
+                      size="Full"
+                      attributeName="categoryName"
+                      value={values.categoryName}
+                      onChange={handleChange}
+                      error={touched.categoryName && errors.categoryName}
+                    />
                   </div>
                   <div className="admin-item-page-form-field">
                     <h3 className="admin-item-page-form-field-label">Options:</h3>
@@ -221,26 +252,41 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                       onChange={(options) => {
                         setFieldValue('options', options);
                       }}
+                      error={touched.options && errors.options}
                     />
-                    {errors.options && touched.options}
                   </div>
                 </>
               ) : (
                 <>
                   <div className="admin-item-page-form-field">
                     <h3 className="admin-item-page-form-field-label">Quantity:</h3>
-                    <StoreTextInput size="Quarter" attributeName="quantity" value={values.quantity} onChange={handleChange} />
-                    {errors.quantity && touched.quantity}
+                    <StoreTextInput
+                      size="Quarter"
+                      attributeName="quantity"
+                      value={values.quantity}
+                      onChange={handleChange}
+                      error={touched.quantity && errors.quantity}
+                    />
                   </div>
                   <div className="admin-item-page-form-field">
                     <h3 className="admin-item-page-form-field-label">Price:</h3>
-                    <StoreTextInput size="Quarter" attributeName="price" value={values.price} onChange={handleChange} />
-                    {errors.price && touched.price}
+                    <StoreTextInput
+                      size="Quarter"
+                      attributeName="price"
+                      value={values.price}
+                      onChange={handleChange}
+                      error={touched.price && errors.price}
+                    />
                   </div>
                   <div className="admin-item-page-form-field">
                     <h3 className="admin-item-page-form-field-label">Discount Percentage:</h3>
-                    <StoreTextInput size="Quarter" attributeName="discountPercentage" value={values.discountPercentage} onChange={handleChange} />
-                    {errors.discountPercentage && touched.discountPercentage}
+                    <StoreTextInput
+                      size="Quarter"
+                      attributeName="discountPercentage"
+                      value={values.discountPercentage}
+                      onChange={handleChange}
+                      error={touched.discountPercentage && errors.discountPercentage}
+                    />
                   </div>
                 </>
               )}
