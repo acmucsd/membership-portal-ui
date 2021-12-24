@@ -5,15 +5,22 @@
     width: 14rem;
   }
 
+  &-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 4rem - 0.25rem);
+    overflow: scroll;
+    position: fixed;
+  }
+
   &-content {
     background-color: #f8f8f8;
     border-right: 1px solid #c4c4c4;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 4rem - 0.25rem); // TODO: Make navbar scrollable.
+    flex-grow: 1;
     justify-content: space-between;
-    padding: 1rem;
-    position: fixed;
+    padding: 2rem;
     width: 14rem;
   }
 
