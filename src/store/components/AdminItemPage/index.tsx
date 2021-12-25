@@ -22,14 +22,41 @@ interface AdminItemPageProps {
   collections: PublicMerchCollection[];
 }
 
+interface AdminItemPageForm {
+  collection: string;
+  itemName: string;
+  description: string;
+  existingPicture?: string;
+  newPicture?: Blob;
+  hidden: boolean;
+  monthlyLimit: string;
+  lifetimeLimit: string;
+  hasVariantsEnabled: boolean;
+
+  categoryName: string;
+  options: {
+    uuid: string | undefined;
+    value: string;
+    price: string;
+    quantity: string;
+    discountPercentage: string;
+  }[];
+
+  quantity: string;
+  price: string;
+  discountPercentage: string;
+}
+
 const AdminItemPageFormSchema = Yup.object().shape({
   collection: Yup.string().required('Required'),
   itemName: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
   description: Yup.string().min(2, 'Too Short').max(1000, 'Too Long').required('Required'),
-  // hidden: Yup.boolean().required('Required'),
+  newPicture: Yup.mixed().when('existingPicture', {
+    is: (existingPicture) => !existingPicture,
+    then: Yup.mixed().required('Required'),
+  }),
   monthlyLimit: Yup.number().min(1, 'Too Low').max(10, 'Too High').required('Required'),
   lifetimeLimit: Yup.number().min(1, 'Too Low').max(10, 'Too High').required('Required'),
-  // hasVariantsEnabled: Yup.boolean().required('Required'),
   categoryName: Yup.string().when('hasVariantsEnabled', {
     is: (hasVariantsEnabled) => hasVariantsEnabled,
     then: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
@@ -65,6 +92,33 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
 
   const creatingItem = !item;
 
+  const initialValues: AdminItemPageForm = {
+    collection: item?.collection.uuid ?? '',
+    itemName: item?.itemName ?? '',
+    description: item?.description ?? '',
+    existingPicture: item?.picture,
+    newPicture: undefined,
+    hidden: false, // TODO: Backend doesn't currently return this property, so we don't know its state.
+    monthlyLimit: item?.monthlyLimit.toString() ?? '',
+    lifetimeLimit: item?.lifetimeLimit.toString() ?? '',
+    hasVariantsEnabled: item?.hasVariantsEnabled ?? false,
+    // Variants Enabled
+    categoryName: (item?.hasVariantsEnabled && item?.options[0].metadata?.type) || '',
+    options: item?.hasVariantsEnabled
+      ? item?.options.map((option) => ({
+          uuid: option.uuid,
+          value: option.metadata?.value ?? '',
+          price: option.price.toString(),
+          quantity: option.quantity.toString(),
+          discountPercentage: option.discountPercentage.toString(),
+        }))
+      : [],
+    // Variants Disabled
+    quantity: (!item?.hasVariantsEnabled && item?.options[0].quantity?.toString()) || '',
+    price: (!item?.hasVariantsEnabled && item?.options[0].price.toString()) || '',
+    discountPercentage: (!item?.hasVariantsEnabled && item?.options[0].discountPercentage.toString()) || '',
+  };
+
   return (
     <>
       <StoreHeader breadcrumb breadcrumbLocation="/store" />
@@ -72,37 +126,12 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
         <h2 className="admin-item-page-title">{creatingItem ? 'Create Item' : 'Edit Item'}</h2>
         <Formik
           enableReinitialize
-          initialValues={{
-            collection: item?.collection.uuid,
-            itemName: item?.itemName,
-            description: item?.description,
-            existingPicture: item?.picture,
-            newPicture: null,
-            hidden: false, // TODO
-            monthlyLimit: item?.monthlyLimit.toString() ?? '',
-            lifetimeLimit: item?.lifetimeLimit.toString() ?? '',
-            hasVariantsEnabled: item?.hasVariantsEnabled,
-            // Variants Enabled
-            categoryName: item?.hasVariantsEnabled ? item?.options[0].metadata?.type : '',
-            options: item?.hasVariantsEnabled
-              ? item?.options.map((option) => ({
-                  uuid: option.uuid,
-                  value: option.metadata?.value ?? '',
-                  price: option.price.toString(),
-                  quantity: option.quantity.toString(),
-                  discountPercentage: option.discountPercentage.toString(),
-                }))
-              : [],
-            // Variants Disabled
-            quantity: !item?.hasVariantsEnabled ? item?.options[0].quantity?.toString() : '',
-            price: !item?.hasVariantsEnabled ? item?.options[0].price.toString() : '',
-            discountPercentage: !item?.hasVariantsEnabled ? item?.options[0].discountPercentage.toString() : '',
-          }}
+          initialValues={initialValues}
           validationSchema={AdminItemPageFormSchema}
           onSubmit={async (values, { setSubmitting }) => {
             const url = creatingItem ? `${Config.API_URL}${Config.routes.store.item}` : `${Config.API_URL}${Config.routes.store.item}/${item?.uuid}`;
 
-            const payload = values.hasVariantsEnabled
+            const payload: any = values.hasVariantsEnabled
               ? {
                   itemName: values.itemName,
                   description: values.description,
@@ -143,7 +172,8 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                 };
 
             if (!creatingItem && payload.options) {
-              delete (payload as any).options;
+              // TODO: modify the options component to behave differently for existing items
+              delete payload.options;
             }
 
             const data = await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
@@ -153,7 +183,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
 
             if (values.newPicture) {
               const formdata = new FormData();
-              formdata.append('image', (values.newPicture as unknown) as Blob);
+              formdata.append('image', values.newPicture);
 
               const imageUrl = `${Config.API_URL}${Config.routes.store.itemPicture}/${data.item.uuid}`;
 
@@ -202,7 +232,11 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Photo:</h3>
-                <StoreImageUpload existingFile={values.existingPicture} setFieldValue={setFieldValue} />
+                <StoreImageUpload
+                  existingFile={values.existingPicture}
+                  setFieldValue={setFieldValue}
+                  error={touched.newPicture && errors.newPicture}
+                />
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Hidden:</h3>

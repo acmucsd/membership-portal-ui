@@ -18,6 +18,12 @@ interface AdminCollectionPageProps {
   collection?: PublicMerchCollection | undefined;
 }
 
+interface AdminCollectionPageForm {
+  title: string;
+  themeColorHex: string;
+  description: string;
+}
+
 const AdminCollectionPageFormSchema = Yup.object().shape({
   title: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
   themeColorHex: Yup.string()
@@ -31,6 +37,12 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
   const creatingCollection = !collection;
   const title = creatingCollection ? 'Create Collection' : 'Edit Collection';
 
+  const initialValues: AdminCollectionPageForm = {
+    title: collection?.title ?? '',
+    themeColorHex: collection?.themeColorHex ?? '',
+    description: collection?.description ?? '',
+  };
+
   return (
     <>
       <StoreHeader breadcrumb breadcrumbLocation="/store" />
@@ -38,11 +50,7 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
         <h2 className="admin-collection-page-title">{title}</h2>
         <Formik
           enableReinitialize
-          initialValues={{
-            title: collection?.title ?? '',
-            themeColorHex: collection?.themeColorHex ?? '',
-            description: collection?.description ?? '',
-          }}
+          initialValues={initialValues}
           validationSchema={AdminCollectionPageFormSchema}
           onSubmit={async (values, { setSubmitting }) => {
             const url = creatingCollection
