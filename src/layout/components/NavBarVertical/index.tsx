@@ -26,35 +26,37 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   return (
     <div className="navbar-vertical">
       <div className="navbar-vertical-padding" />
-      <nav className="navbar-vertical-content">
-        <div>
-          <div className="navbar-vertical-group">
-            <h1 className="navbar-vertical-title">Portal</h1>
-            <div className="navbar-vertical-items">
-              <NavBarItem icon={DashboardIcon} text="Dashboard" innerDest="/" />
-              <NavBarItem icon={LBIcon} text="Leaderboard" innerDest="/leaderboard" />
-              <NavBarItem icon={ProfileIcon} text="Profile" innerDest="/profile" />
-              <NavBarItem icon={ACMIcon} text="Explore ACM" innerDest="/about" />
-              <NavBarItem icon={DiscordIcon} text="Discord" innerDest="/discord" last={!isAdmin} />
-              {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/admin" last />}
+      <div className="navbar-vertical-container">
+        <nav className="navbar-vertical-content">
+          <div>
+            <div className="navbar-vertical-group">
+              <h1 className="navbar-vertical-title">Portal</h1>
+              <div className="navbar-vertical-items">
+                <NavBarItem icon={DashboardIcon} text="Dashboard" innerDest="/" />
+                <NavBarItem icon={LBIcon} text="Leaderboard" innerDest="/leaderboard" />
+                <NavBarItem icon={ProfileIcon} text="Profile" innerDest="/profile" />
+                <NavBarItem icon={ACMIcon} text="Explore ACM" innerDest="/about" />
+                <NavBarItem icon={DiscordIcon} text="Discord" innerDest="/discord" last={!isAdmin} />
+                {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/admin" last />}
+              </div>
+            </div>
+            <div className="navbar-vertical-group">
+              <h1 className="navbar-vertical-title">Store</h1>
+              <div className="navbar-vertical-items">
+                <NavBarItem icon={SwagIcon} text="Shop" innerDest="/store" />
+                <NavBarItem icon={OrdersIcon} text="Orders" innerDest="/store/orders" last={!isAdmin} />
+                {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/store/admin" last />}
+              </div>
             </div>
           </div>
           <div className="navbar-vertical-group">
-            <h1 className="navbar-vertical-title">Store</h1>
             <div className="navbar-vertical-items">
-              <NavBarItem icon={SwagIcon} text="Shop" innerDest="/store" />
-              <NavBarItem icon={OrdersIcon} text="Orders" innerDest="/store/orders" last={!isAdmin} />
-              {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/store/admin" last />}
+              <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
+              <NavBarItem icon={LogoutIcon} text="Sign Out" func={logout} last />
             </div>
           </div>
-        </div>
-        <div className="navbar-vertical-group">
-          <div className="navbar-vertical-items">
-            <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
-            <NavBarItem icon={LogoutIcon} text="Sign Out" func={logout} last />
-          </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </div>
   );
 };
