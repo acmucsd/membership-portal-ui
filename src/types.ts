@@ -24,6 +24,7 @@ export interface PublicMerchCollection {
 export interface PublicMerchItem {
   uuid: Uuid;
   itemName: string;
+  collection: PublicMerchCollection;
   picture: string;
   description: string;
   monthlyLimit: number;
@@ -35,15 +36,26 @@ export interface PublicMerchItem {
 export interface PublicMerchItemOption {
   uuid: Uuid;
   price: number;
-  quantity?: number;
+  quantity: number;
   discountPercentage: number;
-  metadata: MerchItemOptionMetadata;
+  metadata: MerchItemOptionMetadata | null;
+}
+
+export interface PublicMerchItemWithPurchaseLimits extends PublicMerchItem {
+  monthlyRemaining: number;
+  lifetimeRemaining: number;
 }
 
 export interface MerchItemOptionMetadata {
   type: string;
   value: string;
   position: number;
+}
+
+export interface CartItem {
+  item: PublicMerchItem;
+  option: PublicMerchItemOption;
+  quantity: number;
 }
 
 export interface PublicOrderItem {

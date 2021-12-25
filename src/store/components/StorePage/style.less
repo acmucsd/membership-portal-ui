@@ -1,26 +1,37 @@
 @import '../../../styles/vars.less';
 
 .store-page {
-  color: @black;
+  margin-top: 2rem;
 
-  h1 {
-    font-size: @general-heading-1;
-    font-weight: 700;
+  .store-button,
+  .store-button-link {
+    margin-bottom: 1rem;
   }
 
   .collections {
     .collection {
+      margin-bottom: 1.5rem;
+
       .collection-header {
-        color: #62b0ff;
-        font-family: 'DM Sans', sans-serif;
-        font-size: 30px;
-        font-weight: bold;
+        font-size: 1.75rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+
+        &-editable-icon {
+          margin: 0 0 0.25rem 0.5rem;
+        }
       }
 
       .collection-items {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        margin-bottom: -2rem;
+        margin-right: -2rem;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }

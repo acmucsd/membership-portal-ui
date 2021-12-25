@@ -1,13 +1,7 @@
-import React, { MouseEventHandler } from 'react';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from 'react';
 
-import { logoutUser } from '../../../auth/authActions';
-import { ThunkActionCreator } from '../../../auth/authTypes';
+import NavBarItem from '../NavBarItem';
 
-import './style.less';
-
-import NavListItem from '../NavListItem';
 import { ReactComponent as ACMIcon } from '../../../assets/icons/acm-icon.svg';
 import { ReactComponent as AdminIcon } from '../../../assets/icons/admin-icon.svg';
 import { ReactComponent as DashboardIcon } from '../../../assets/icons/dashboard-icon.svg';
@@ -17,51 +11,47 @@ import { ReactComponent as ProfileIcon } from '../../../assets/icons/profile-ico
 import { ReactComponent as SwagIcon } from '../../../assets/icons/swag-icon.svg';
 import { ReactComponent as FeedbackIcon } from '../../../assets/icons/feedback-icon.svg';
 import { ReactComponent as LogoutIcon } from '../../../assets/icons/logout-icon.svg';
+import { ReactComponent as OrdersIcon } from '../../../assets/icons/orders-icon.svg';
+
+import './style.less';
 
 interface NavbarVerticalProps {
   isAdmin: boolean;
-  logout: MouseEventHandler;
+  logout: Function;
 }
 
 const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   const { isAdmin, logout } = props;
 
   return (
-    <div className="navbar-vertical-container">
-      <div className="padding" />
-      <nav className="content">
+    <div className="navbar-vertical">
+      <div className="navbar-vertical-padding" />
+      <nav className="navbar-vertical-content">
         <div>
-          <h1 className="title">Portal</h1>
-          <NavLink exact activeClassName="selected" to="/">
-            <NavListItem icon={DashboardIcon} text="Dashboard" />
-          </NavLink>
-          <NavLink activeClassName="selected" to="/leaderboard">
-            <NavListItem icon={LBIcon} text="Leaderboard" />
-          </NavLink>
-          <NavLink exact activeClassName="selected" to="/profile">
-            <NavListItem icon={ProfileIcon} text="Profile" />
-          </NavLink>
-          <NavLink activeClassName="selected" to="/about">
-            <NavListItem icon={ACMIcon} text="Explore ACM" />
-          </NavLink>
-          <NavLink activeClassName="selected" to="/discord">
-            <NavListItem icon={DiscordIcon} text="Discord" />
-          </NavLink>
-          <NavLink activeClassName="selected" to="/store">
-            <NavListItem icon={SwagIcon} text="ACM Store" />
-          </NavLink>
-          {isAdmin && (
-            <NavLink activeClassName="selected" to="/admin">
-              <NavListItem icon={AdminIcon} text="Admin" />
-            </NavLink>
-          )}
+          <div className="navbar-vertical-group">
+            <h1 className="navbar-vertical-title">Portal</h1>
+            <div className="navbar-vertical-items">
+              <NavBarItem icon={DashboardIcon} text="Dashboard" innerDest="/" />
+              <NavBarItem icon={LBIcon} text="Leaderboard" innerDest="/leaderboard" />
+              <NavBarItem icon={ProfileIcon} text="Profile" innerDest="/profile" />
+              <NavBarItem icon={ACMIcon} text="Explore ACM" innerDest="/about" />
+              <NavBarItem icon={DiscordIcon} text="Discord" innerDest="/discord" last={!isAdmin} />
+              {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/admin" last />}
+            </div>
+          </div>
+          <div className="navbar-vertical-group">
+            <h1 className="navbar-vertical-title">Store</h1>
+            <div className="navbar-vertical-items">
+              <NavBarItem icon={SwagIcon} text="Shop" innerDest="/store" />
+              <NavBarItem icon={OrdersIcon} text="Orders" innerDest="/store/orders" last={!isAdmin} />
+              {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/store/admin" last />}
+            </div>
+          </div>
         </div>
-        <div>
-          <a href="https://www.acmurl.com/portal-feedback">
-            <NavListItem icon={FeedbackIcon} text="Feedback" />
-          </a>
-          <div className="logout" onClick={logout}>
-            <NavListItem icon={LogoutIcon} text="Sign Out" />
+        <div className="navbar-vertical-group">
+          <div className="navbar-vertical-items">
+            <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
+            <NavBarItem icon={LogoutIcon} text="Sign Out" func={logout} last />
           </div>
         </div>
       </nav>
@@ -69,10 +59,4 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkActionCreator) => ({
-  logout: () => {
-    dispatch(logoutUser());
-  },
-});
-
-export default connect(null, mapDispatchToProps)(NavbarVertical);
+export default NavbarVertical;

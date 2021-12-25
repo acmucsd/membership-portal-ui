@@ -92,6 +92,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
           type: AUTH_USER,
           isAdmin: userData.admin,
         });
+        data.admin = userData.admin;
         resolve(data);
       } catch (error) {
         notify('Unable to verify token!', error.message || 'Try logging in again');

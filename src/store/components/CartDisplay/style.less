@@ -1,3 +1,109 @@
-.cart-display {
+@import '../../../styles/vars.less';
 
+.cart-display {
+  border: 2px solid #c4c4c4;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  width: fit-content;
+
+  table {
+    width: 52rem;
+
+    tr > th {
+      background: transparent;
+
+      .ant-table-column-title {
+        color: #333;
+        font-size: 1.125rem;
+      }
+    }
+
+    td {
+      vertical-align: center;
+
+      &.price,
+      &.totalPrice {
+        .diamond-display {
+          float: right;
+        }
+      }
+    }
+
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+      background: transparent;
+    }
+
+    .image-container {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 0.625rem;
+      height: 10rem;
+      padding: 1rem;
+      width: 10rem;
+
+      .image {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .cart-item {
+      .item-name {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 0;
+        width: 16.25rem;
+      }
+
+      .item-option-container {
+        margin-bottom: 1rem;
+
+        .item-option-label {
+          color: #333;
+          font-size: 1.25rem;
+          font-weight: 500;
+        }
+
+        .item-option {
+          font-size: 1.25rem;
+          font-weight: 400;
+        }
+      }
+
+      .item-button {
+        color: #777;
+        font-size: 1rem;
+        padding: 0;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      .edit-button {
+        margin-right: 1rem;
+      }
+    }
+
+    .item-quantity {
+      color: #000;
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+
+  &-total {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    width: 100%;
+
+    &-text {
+      color: #333;
+      font-size: 1.5rem;
+      margin-right: 1.25rem;
+    }
+  }
 }
