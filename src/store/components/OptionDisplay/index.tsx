@@ -30,10 +30,11 @@ interface OptionDisplayProps {
   creatingItem: boolean;
   onChange: Function;
   deleteItemOption: Function;
+  error: any;
 }
 
 const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
-  const { options, creatingItem, onChange } = props;
+  const { options, creatingItem, onChange, error } = props;
 
   const newOptions = [...options];
 
@@ -46,6 +47,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
           newOptions[index] = { ...option, value: e.target.value };
           onChange(newOptions);
         }}
+        error={error && error[index] && error[index].value}
       />
       <button
         className="options-display-remove"
@@ -74,6 +76,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         newOptions[index] = { ...option, price: e.target.value };
         onChange(newOptions);
       }}
+      error={error && error[index] && error[index].price}
     />
   );
   const renderQuantity = (quantity: string, option: Option, index: number) => (
@@ -84,6 +87,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         newOptions[index] = { ...option, quantity: e.target.value };
         onChange(newOptions);
       }}
+      error={error && error[index] && error[index].quantity}
     />
   );
   const renderDiscountPercentage = (discountPercentage: string, option: Option, index: number) => (
@@ -94,6 +98,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         newOptions[index] = { ...option, discountPercentage: e.target.value };
         onChange(newOptions);
       }}
+      error={error && error[index] && error[index].discountPercentage}
     />
   );
 

@@ -1,29 +1,47 @@
-import { Formik } from 'formik';
 import React from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+import Config from '../../../config';
+import { history } from '../../../redux_store';
 import { PublicMerchCollection } from '../../../types';
+import { fetchService } from '../../../utils';
+
 import StoreButton from '../StoreButton';
 import StoreColorInput from '../StoreColorInput';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
-import Config from '../../../config';
-import { fetchService, notify } from '../../../utils';
 
 import './style.less';
-import { history } from '../../../redux_store';
 
 interface AdminCollectionPageProps {
   collection?: PublicMerchCollection | undefined;
 }
 
 interface AdminCollectionPageForm {
-  title?: string;
-  themeColorHex?: string;
-  description?: string;
+  title: string;
+  themeColorHex: string;
+  description: string;
 }
+
+const AdminCollectionPageFormSchema = Yup.object().shape({
+  title: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
+  themeColorHex: Yup.string()
+    .matches(/^#[0-9a-fA-F]{6}$/, 'Must be a Hex Code')
+    .required('Required'),
+  description: Yup.string().min(2, 'Too Short').max(1000, 'Too Long').required('Required'),
+});
+
 const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
   const { collection } = props;
   const creatingCollection = !collection;
   const title = creatingCollection ? 'Create Collection' : 'Edit Collection';
+
+  const initialValues: AdminCollectionPageForm = {
+    title: collection?.title ?? '',
+    themeColorHex: collection?.themeColorHex ?? '',
+    description: collection?.description ?? '',
+  };
 
   return (
     <>
@@ -32,28 +50,8 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
         <h2 className="admin-collection-page-title">{title}</h2>
         <Formik
           enableReinitialize
-          initialValues={{
-            title: collection?.title ?? '',
-            themeColorHex: collection?.themeColorHex ?? '',
-            description: collection?.description ?? '',
-          }}
-          validate={(values) => {
-            const errors: AdminCollectionPageForm = {};
-            if (!values.title) {
-              notify('Form Error', 'Title is required!');
-              errors.title = 'Required';
-            }
-            if (!values.themeColorHex) {
-              notify('Form Error', 'Color is required!');
-              errors.themeColorHex = 'Required';
-            }
-            if (!values.description) {
-              notify('Form Error', 'Description is required!');
-              errors.description = 'Required';
-            }
-
-            return errors;
-          }}
+          initialValues={initialValues}
+          validationSchema={AdminCollectionPageFormSchema}
           onSubmit={async (values, { setSubmitting }) => {
             const url = creatingCollection
               ? `${Config.API_URL}${Config.routes.store.collection}`
@@ -67,12 +65,17 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
             history.push('/store');
           }}
         >
-          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (
+          {({ values, touched, errors, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (
             <form className="admin-collection-page-form" onSubmit={handleSubmit}>
               <div className="admin-collection-page-form-field">
                 <h3 className="admin-collection-page-form-field-label">Title:</h3>
-                <StoreTextInput attributeName="title" size="Full" value={values.title} onChange={handleChange} />
-                {errors.title && touched.title}
+                <StoreTextInput
+                  attributeName="title"
+                  size="Full"
+                  value={values.title}
+                  onChange={handleChange}
+                  error={touched.title && errors.title}
+                />
               </div>
               <div className="admin-collection-page-form-field">
                 <h3 className="admin-collection-page-form-field-label">Theme Color:</h3>
@@ -90,15 +93,20 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
                         setFieldValue('themeColorHex', e.target.value);
                       }
                     }}
+                    error={touched.themeColorHex && errors.themeColorHex}
                   />
                   <StoreColorInput attributeName="themeColorHex" value={values.themeColorHex} onChange={handleChange} />
                 </div>
-                {errors.themeColorHex && touched.themeColorHex}
               </div>
               <div className="admin-collection-page-form-field">
                 <h3 className="admin-collection-page-form-field-label">Description:</h3>
-                <StoreTextInput attributeName="description" size="Field" value={values.description} onChange={handleChange} />
-                {errors.description && touched.description}
+                <StoreTextInput
+                  attributeName="description"
+                  size="Field"
+                  value={values.description}
+                  onChange={handleChange}
+                  error={touched.description && errors.description}
+                />
               </div>
 
               <div className="admin-collection-page-form-buttons">
