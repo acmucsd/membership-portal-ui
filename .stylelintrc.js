@@ -1,4 +1,5 @@
 module.exports = {
+  customSyntax: 'postcss-less',
   extends: 'stylelint-config-standard',
   plugins: ['stylelint-order'],
   rules: {
