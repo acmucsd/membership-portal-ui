@@ -1,5 +1,5 @@
-@import '../../../styles/vars.less';
-@import '../../../styles/mixins.less';
+@import "../../../styles/vars.less";
+@import "../../../styles/mixins.less";
 
 .header-container {
   .header-padding {
@@ -11,8 +11,6 @@
     z-index: 1000;
 
     .header {
-      .noselect;
-
       align-items: center;
       background: white;
       color: white;
@@ -20,6 +18,7 @@
       font-size: @nav-heading;
       height: @nav-header-height;
       padding: 0 40px;
+      user-select: none;
 
       .title {
         color: #333;
