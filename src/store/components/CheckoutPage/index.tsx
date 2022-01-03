@@ -7,14 +7,17 @@ import StoreHeader from '../StoreHeader';
 
 type CheckoutPageProps = {
   cart: CartItem[];
-  getFuturePickup: (onFail: () => void) => void;
+  getFuturePickup: (onFail: () => void) => Promise<any>;
 };
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup }) => {
   const [pickupEvents, setPickupEvents] = useState([]);
   useEffect(() => {
-    getFuturePickup(() => {});
-    setPickupEvents([]);
+    const updateEvents = async () => {
+      const resultEvents = await getFuturePickup(() => {});
+      setPickupEvents(resultEvents);
+    };
+    updateEvents();
   }, [getFuturePickup]);
   return (
     <>

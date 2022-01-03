@@ -34,8 +34,14 @@ const parseDate = (date: Date) => {
   const month = Months[date.getMonth()];
   const day = date.getDate();
   const year = date.getFullYear();
-  const hour = date.getHours() % 12;
-  const minute = date.getMinutes();
+  let hour: any = date.getHours() % 12;
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minute: any = date.getMinutes();
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
   const timeOfDay = TimeOfDay[Math.floor(date.getHours() / 12)];
   return `${month} ${day}, ${year} @ ${hour}:${minute} ${timeOfDay}`;
 };
@@ -51,12 +57,13 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) =
         const startDate = parseDate(new Date(item.start));
         const endDate = parseDate(new Date(item.end));
         // eslint-disable-next-line no-param-reassign
-        arr[index] = `${item.title}: ${startDate} to ${endDate}`;
+        arr[index] = `${item.title}: from ${startDate} to ${endDate}`;
       });
-      console.log(result);
+      return result.pickupEvents;
     } catch (error) {
       onFailCallback();
       notify('Get Future Pickup Error', error.message);
+      return undefined;
     }
   };
   return (
