@@ -10,6 +10,36 @@ type CheckoutPageContainerProps = {
   cart: CartItem[];
 };
 
+enum Months {
+  Jan,
+  Feb,
+  Mar,
+  Apr,
+  May,
+  Jun,
+  Jul,
+  Aug,
+  Sep,
+  Oct,
+  Nov,
+  Dec,
+}
+
+enum TimeOfDay {
+  AM,
+  PM,
+}
+
+const parseDate = (date: Date) => {
+  const month = Months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const hour = date.getHours() % 12;
+  const minute = date.getMinutes();
+  const timeOfDay = TimeOfDay[Math.floor(date.getHours() / 12)];
+  return `${month} ${day}, ${year} @ ${hour}:${minute} ${timeOfDay}`;
+};
+
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) => {
   const getFuturePickup = async (onFailCallback: () => void) => {
     try {
@@ -18,9 +48,10 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) =
         requiresAuthorization: true,
       });
       result.pickupEvents.forEach((item, index, arr) => {
-        const startDate = new Date(item.start);
-        const endDate = new Date(item.end);
-        arr[index] = item.title + item.start + item.end;
+        const startDate = parseDate(new Date(item.start));
+        const endDate = parseDate(new Date(item.end));
+        // eslint-disable-next-line no-param-reassign
+        arr[index] = `${item.title}: ${startDate} to ${endDate}`;
       });
       console.log(result);
     } catch (error) {
