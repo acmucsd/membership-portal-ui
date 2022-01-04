@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
 
-import { PublicOrderPickupEvent } from '../../../types';
+import { PublicOrderPickupEvent, PublicOrderItemWithQuantity } from '../../../types';
 
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
@@ -42,15 +42,13 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
   const merchData: Record<string, { quantity: number; name: string; variantType: string; variantValue: string }> = {};
   pickupEvent.orders?.forEach((order) => {
     order.items.forEach((item) => {
-      merchData[`${item.uuid}${item.option.metadata?.type}${item.option.metadata?.value}`] = merchData[
-        `${item.uuid}${item.option.metadata?.type}${item.option.metadata?.value}`
-      ] ?? {
+      merchData[`${item.option.uuid}`] = merchData[`${item.option.uuid}`] ?? {
         quantity: 0,
-        name: item.uuid,
+        name: item.option.item.itemName,
         variantType: item.option.metadata?.type,
         variantValue: item.option.metadata?.value,
       };
-      merchData[`${item.uuid}${item.option.metadata?.type}${item.option.metadata?.value}`].quantity += item.option.quantity;
+      merchData[`${item.option.uuid}`].quantity += 1;
     });
   });
 
@@ -61,7 +59,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
         <h1 className="admin-prepare-page-title">Prepare Orders</h1>
         <h3 className="admin-prepare-page-subtitle">
           Pickup Event: {moment(pickupEvent.start).format('dddd, MMMM Do, YYYY [from] ha [to] ')}
-          {moment(pickupEvent.end).format('ha')} at Geisel
+          {moment(pickupEvent.end).format('ha')} at {pickupEvent.title}
         </h3>
         <h2 className="admin-prepare-page-secondary">Summary of Items</h2>
         <Table
@@ -72,9 +70,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
             itemDisplay: (
               <>
                 <h2>{data.name}</h2>
-                <h3>
-                  {data.variantType}: {data.variantValue}
-                </h3>
+                <h3>{data.variantType && data.variantValue && `${data.variantType}: ${data.variantValue}`}</h3>
               </>
             ),
             quantity: data.quantity,
@@ -97,18 +93,36 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           pagination={false}
           className="admin-prepare-page-table"
           size="small"
-          dataSource={pickupEvent.orders?.map((event) => ({
-            user: event.user,
-            items: (
-              <ul>
-                {event.items.map((curr) => (
-                  <li>
-                    Item Name Lost ({curr.option.metadata?.type}: {curr.option.metadata?.value}) x {curr.option.quantity}
-                  </li>
-                ))}
-              </ul>
-            ),
-          }))}
+          dataSource={pickupEvent.orders?.map((order) => {
+            const itemMap = new Map<string, PublicOrderItemWithQuantity>();
+
+            order.items.forEach((item) => {
+              const existingItem = itemMap.get(item.option.uuid);
+
+              if (existingItem) {
+                existingItem.quantity += 1;
+
+                itemMap.set(existingItem.option.uuid, existingItem);
+              } else {
+                itemMap.set(item.option.uuid, { ...item, quantity: 1 });
+              }
+            });
+
+            const updatedItems = Array.from(itemMap, ([, value]) => value);
+
+            return {
+              user: `${order.user.firstName} ${order.user.lastName}`,
+              items: (
+                <ul>
+                  {updatedItems.map((item) => (
+                    <li>
+                      {item.option.item.itemName} ({item.option.metadata?.type}: {item.option.metadata?.value}) x {item.quantity}
+                    </li>
+                  ))}
+                </ul>
+              ),
+            };
+          })}
           columns={[
             {
               title: 'User',

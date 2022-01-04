@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Modal } from 'antd';
+
+import { cancelAllOrders } from '../../storeActions';
+import { notify } from '../../../utils';
 
 import StoreHeader from '../StoreHeader';
 import StoreButton from '../StoreButton';
 
 import './style.less';
 
-const StoreAdminPage: React.FC = () => {
+interface StoreAdminPageProps {
+  cancelAllOrders: Function;
+}
+
+const StoreAdminPage: React.FC<StoreAdminPageProps> = (props) => {
   const [confirmation, setConfirmation] = useState<boolean>(false);
 
   return (
@@ -25,7 +33,16 @@ const StoreAdminPage: React.FC = () => {
             setConfirmation(true);
           }}
         />
-        <Modal visible={confirmation} onCancel={() => setConfirmation(false)} onOk={() => {}}>
+        <Modal
+          visible={confirmation}
+          onCancel={() => setConfirmation(false)}
+          onOk={() => {
+            props.cancelAllOrders().then(() => {
+              setConfirmation(false);
+              notify('Success!', 'You successfully cancelled all orders!');
+            });
+          }}
+        >
           Are you sure you want to cancel all orders?
         </Modal>
       </div>
@@ -33,4 +50,4 @@ const StoreAdminPage: React.FC = () => {
   );
 };
 
-export default StoreAdminPage;
+export default connect(() => ({}), { cancelAllOrders })(StoreAdminPage);

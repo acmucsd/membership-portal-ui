@@ -1,8 +1,4 @@
 .store-checkbox {
-  // &:hover {
-  //   border-radius: 0.625rem;
-  // }
-
   .ant-checkbox-inner {
     background: #fff;
     border: 1px solid rgba(85, 85, 85, 0.5);
@@ -18,6 +14,18 @@
     transform: rotate(45deg) scale(2) translate(-5%, -50%);
     -webkit-transition: none;
     transition: none;
+  }
+
+  &.disabled {
+    .ant-checkbox-inner {
+      background: #ccc;
+    }
+
+    .ant-checkbox-checked .ant-checkbox-inner::after {
+      border: 1.5px solid #666;
+      border-left: 0;
+      border-top: 0;
+    }
   }
 
   .ant-checkbox-checked::after {

@@ -1,56 +1,119 @@
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import moment from 'moment';
-import React from 'react';
 
-import { CartItem, PublicMerchCollection, PublicOrder } from '../../../types';
-import CartDisplay from '../CartDisplay';
+import { OrderStatus, PublicOrderWithItems, PublicOrderPickupEvent } from '../../../types';
+import { notify, toProperCase } from '../../../utils';
+
+import OrderDisplay from '../OrderDisplay';
+import StoreButton from '../StoreButton';
+import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 
 import './style.less';
 
 interface OrderPageProps {
-  order: PublicOrder | undefined;
+  order: PublicOrderWithItems | undefined;
+  pickupEvents: PublicOrderPickupEvent[] | undefined;
+  rescheduleOrder: Function;
+  cancelOrder: Function;
 }
 
 const OrderPage: React.FC<OrderPageProps> = (props) => {
-  const { order } = props;
+  const { order, pickupEvents = [], rescheduleOrder, cancelOrder } = props;
+
+  const [selecting, setSelecting] = useState<boolean>(false);
+  const [selectedPickup, setSelectedPickup] = useState<string>('');
+
+  if (!order) {
+    return null;
+  }
+
+  const { uuid, status, orderedAt, pickupEvent, items } = order;
+
+  const showPickup = !(status === OrderStatus.PARTIALLY_FULFILLED || status === OrderStatus.PICKUP_CANCELLED || status === OrderStatus.PICKUP_MISSED);
+
+  const actionable =
+    !(status === OrderStatus.CANCELLED || status === OrderStatus.FULFILLED) && new Date() < moment(pickupEvent.start).subtract(2, 'days').toDate();
 
   return (
     <>
       <StoreHeader breadcrumb breadcrumbLocation="../orders" />
       <div className="order-page">
-        <h1>Order</h1>
-        <h3>Purchase Date: {moment(order?.orderedAt).format('MMMM Do, YYYY')}</h3>
-        <h3 className="emphasized">
-          Pickup Event:{' '}
-          {moment(order?.pickupEvent.start).format('MMMM Do, YYYY [from] h:mm a [to] ') + moment(order?.pickupEvent.end).format('h:mm a ')}
-          at {order?.pickupEvent.title}
+        <h1>Order (Status: {toProperCase(status)})</h1>
+        <h3>
+          <span className="emphasized">Purchase Date:</span> {moment(orderedAt).format('MMMM Do, YYYY')}
         </h3>
-
-        <CartDisplay
-          writable={false}
-          items={
-            order?.items.map(
-              (publicItem): CartItem => {
-                const returnType: CartItem = {
-                  option: publicItem.option,
-                  quantity: publicItem.option.quantity || 1,
-                  item: {
-                    ...publicItem,
-                    itemName: 'missing',
-                    collection: {} as PublicMerchCollection,
-                    description: 'missing',
-                    picture: 'https://http.cat/404',
-                    monthlyLimit: -1,
-                    lifetimeLimit: -1,
-                    hasVariantsEnabled: false,
-                    options: [publicItem.option],
-                  },
-                };
-                return returnType;
-              },
-            ) ?? []
-          }
-        />
+        {selecting && (
+          <>
+            <StoreDropdown
+              options={pickupEvents.map((event) => ({ label: event.title, value: event.uuid }))}
+              onChange={(option) => {
+                setSelectedPickup(option.value);
+              }}
+            />
+            <div className="order-page-buttons">
+              <Button
+                className="order-page-button"
+                type="link"
+                onClick={() => {
+                  setSelecting(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="order-page-button"
+                type="link"
+                onClick={() => {
+                  rescheduleOrder(uuid, selectedPickup)
+                    .then(() => {
+                      setSelecting(false);
+                    })
+                    .catch((reason) => {
+                      notify('API Error', reason.message || reason);
+                      setSelecting(false);
+                    });
+                }}
+                disabled={!selectedPickup}
+              >
+                Select
+              </Button>
+            </div>
+          </>
+        )}
+        {showPickup && (
+          <h3>
+            <span className="emphasized">Pickup Event: </span>
+            {moment(pickupEvent.start).format('MMMM Do, YYYY [from] h:mm a [to] ') + moment(pickupEvent.end).format('h:mm a ')}
+            at {pickupEvent.title}
+          </h3>
+        )}
+        {actionable && !selecting && (
+          <div className="order-page-buttons">
+            <StoreButton
+              type="primary"
+              size="medium"
+              text="Reschedule Order"
+              onClick={() => {
+                setSelecting(true);
+              }}
+            />
+            <StoreButton
+              type="danger"
+              size="medium"
+              text="Cancel Order"
+              onClick={() => {
+                cancelOrder(uuid)
+                  .then(() => {})
+                  .catch((reason) => {
+                    notify('API Error', reason.message || reason);
+                  });
+              }}
+            />
+          </div>
+        )}
+        <OrderDisplay items={items} />
       </div>
     </>
   );

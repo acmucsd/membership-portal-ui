@@ -5,23 +5,34 @@
   &-title {
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 
   &-subtitle {
     font-size: 1.25rem;
     font-weight: 400;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 
   &-secondary {
     font-size: 1.5rem;
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
   }
 
   &-table {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
+
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+      background: transparent;
+    }
+
+    li {
+      list-style-position: inside;
+    }
   }
 
   @media screen and (min-width: 1200px) {

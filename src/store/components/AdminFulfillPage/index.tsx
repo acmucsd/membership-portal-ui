@@ -1,28 +1,31 @@
-import moment from 'moment';
 import React, { useState } from 'react';
-
+import { connect } from 'react-redux';
+import moment from 'moment';
 import { Modal } from 'antd';
-import { PublicOrder, PublicOrderPickupEvent } from '../../../types';
+
+import { fulfillOrder, completePickupEvent } from '../../storeActions';
+import { PublicOrderPickupEvent, PublicOrderWithItems } from '../../../types';
+import { notify } from '../../../utils';
 
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
-import Config from '../../../config';
-import { fetchService, notify } from '../../../utils';
 
 import './style.less';
 
 interface AdminFulfillPageProps {
   pickupEvent?: PublicOrderPickupEvent | undefined;
   pickupEvents?: PublicOrderPickupEvent[] | undefined;
+  fulfillOrder: Function;
+  completePickupEvent: Function;
 }
 
 const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const { pickupEvent, pickupEvents = [] } = props;
 
   const [uuid, setUuid] = useState<string>();
-  const [selectedOrder, setSelectedOrder] = useState<PublicOrder>();
+  const [selectedOrder, setSelectedOrder] = useState<PublicOrderWithItems>();
   const [showModal, setShowModal] = useState(false);
 
   if (!pickupEvent) {
@@ -53,16 +56,16 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   if (selectedOrder) {
     orderInfo = (
       <div className="admin-fulfill-page-right">
-        <h2 className="title">{selectedOrder?.user}&apos;s order</h2>
+        <h2 className="title">{selectedOrder?.user.firstName}&apos;s Order</h2>
         <p>
           <span role="img" aria-label="Warning">
             ⚠️
           </span>{' '}
-          Once you fulfill an order, you can never unfulfill it
+          Once you fulfill an order, you can never unfulfill it.
         </p>
         <br />
         {selectedOrder.items.map((item, idx) => (
-          <>
+          <div key={idx}>
             <StoreCheckbox
               checked={item.fulfilled}
               disabled={item.fulfilled}
@@ -72,25 +75,23 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                 setSelectedOrder({ ...selectedOrder, items: modifiedItems });
               }}
             />
-            <span className="item-name">{item.option.quantity} x Missing Item Title</span>
-          </>
+            <span className="item-name">
+              {item.option.item.itemName}
+              {item.option.metadata ? ` - ${item.option.metadata.type}: ${item.option.metadata.value}` : ''}
+            </span>
+          </div>
         ))}
         <StoreButton
           text="Save"
-          onClick={async () => {
-            const url = `${Config.API_URL}${Config.routes.store.order}/${selectedOrder.uuid}/fulfill`;
-
-            try {
-              await fetchService(url, 'POST', 'json', {
-                requiresAuthorization: true,
-                payload: JSON.stringify({
-                  items: selectedOrder.items.filter((item) => item.fulfilled).map((item) => ({ uuid: item.uuid, notes: item.notes })),
-                }),
+          onClick={() => {
+            props
+              .fulfillOrder(
+                selectedOrder.uuid,
+                selectedOrder.items.filter((item) => item.fulfilled).map((item) => ({ uuid: item.uuid, notes: item.notes })),
+              )
+              .then(() => {
+                notify('Success!', 'Order has been updated');
               });
-              notify('Success!', 'Order has been updated');
-            } catch (e) {
-              notify('API Error', (e as any).message);
-            }
           }}
         />
       </div>
@@ -121,8 +122,11 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                     setSelectedOrder(order);
                   }
                 }}
+                key={key}
               >
-                <h4 key={key}>{order.user}</h4>
+                <h4>
+                  {order.user.firstName} {order.user.lastName}
+                </h4>
               </button>
             ))}
           </div>
@@ -136,18 +140,11 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
           <Modal
             visible={showModal}
             onCancel={() => setShowModal(false)}
-            onOk={async () => {
-              setShowModal(false);
-              const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${pickupEvent.uuid}/complete`;
-
-              try {
-                await fetchService(url, 'POST', 'json', {
-                  requiresAuthorization: true,
-                });
+            onOk={() => {
+              props.completePickupEvent(pickupEvent.uuid).then(() => {
+                setShowModal(false);
                 notify('Success!', 'Pickup Event is Over');
-              } catch (e) {
-                notify('API Error', (e as any).message);
-              }
+              });
             }}
           >
             This will end the pickup event forever. Did you mean to do this?
@@ -159,4 +156,4 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   );
 };
 
-export default AdminFulfillPage;
+export default connect(() => ({}), { fulfillOrder, completePickupEvent })(AdminFulfillPage);
