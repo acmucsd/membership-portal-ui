@@ -11,7 +11,8 @@ type CheckoutPageProps = {
 };
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup }) => {
-  const [pickupEvents, setPickupEvents] = useState([]);
+  const [pickupEvents, setPickupEvents] = useState({});
+  const [eventUUID, setEventUUID] = useState(undefined);
   useEffect(() => {
     const updateEvents = async () => {
       const resultEvents = await getFuturePickup(() => {});
@@ -24,8 +25,13 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup }) =>
       <StoreHeader breadcrumb breadcrumbTitle="Cart" breadcrumbLocation="/store/cart" showBalance />
       <div className="cart-page">
         <CartDisplay items={cart} writable={false} />
-        <StoreDropdown options={pickupEvents} />
-        <StoreButton text="Place Order" />
+        <StoreDropdown
+          options={Object.keys(pickupEvents)}
+          onChange={(option) => {
+            setEventUUID(pickupEvents[option.value]);
+          }}
+        />
+        <StoreButton text="Place Order" disabled={eventUUID === undefined} />
       </div>
     </>
   );

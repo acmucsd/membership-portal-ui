@@ -53,13 +53,13 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) =
       const result = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
       });
+      const eventMap = {};
       result.pickupEvents.forEach((item, index, arr) => {
         const startDate = parseDate(new Date(item.start));
         const endDate = parseDate(new Date(item.end));
-        // eslint-disable-next-line no-param-reassign
-        arr[index] = `${item.title}: from ${startDate} to ${endDate}`;
+        eventMap[`${item.title}: from ${startDate} to ${endDate}`] = arr[index].uuid;
       });
-      return result.pickupEvents;
+      return eventMap;
     } catch (error) {
       onFailCallback();
       notify('Get Future Pickup Error', error.message);
