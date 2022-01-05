@@ -19,7 +19,7 @@ const AdminPickupPageContainer: React.FC<AdminPickupPageContainerProps> = (props
   const { uuid } = params;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
-  const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
+  const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
 
   useEffect(() => {
     if (uuid) {
