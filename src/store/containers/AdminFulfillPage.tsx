@@ -23,30 +23,13 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = (pro
 
   useEffect(() => {
     if (uuid) {
-      // TODO: Change this code to omit the `fetchFuturePickupEvents` call once `fetchPickupEvent` actually exists
       props
         .fetchPickupEvent(uuid)
         .then((value) => {
           setPickupEvent(value);
         })
         .catch((reason) => {
-          // check to see if uuid exists in pickupEvents
-          props
-            .fetchFuturePickupEvents()
-            .then((value) => {
-              setPickupEvents(value);
-
-              const event = value?.filter((elem) => elem.uuid === uuid);
-              if (event && event?.length > 0) {
-                setPickupEvent(event[0]);
-                notify('API Error', "The API Route didn't work, but we had the data before anyways. BE should probably fix this");
-              } else {
-                notify('API Error', reason.message || reason);
-              }
-            })
-            .catch((reasonTwo) => {
-              notify('API Error', reasonTwo.message || reasonTwo);
-            });
+          notify('API Error', reason.message || reason);
         });
     } else {
       props

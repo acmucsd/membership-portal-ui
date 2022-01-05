@@ -14,7 +14,15 @@ interface StoreCheckboxProps {
 const StoreCheckbox: React.FC<StoreCheckboxProps> = (props) => {
   const { checked, disabled, onChange, attributeName } = props;
 
-  return <Checkbox name={attributeName} className="store-checkbox" checked={checked} disabled={disabled} onChange={(e) => onChange?.(e)} />;
+  return (
+    <Checkbox
+      name={attributeName}
+      className={`store-checkbox${disabled ? ' disabled' : ''}`}
+      checked={checked}
+      disabled={disabled}
+      onChange={(e) => onChange?.(e)}
+    />
+  );
 };
 
 export default StoreCheckbox;

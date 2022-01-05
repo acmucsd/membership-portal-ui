@@ -16,4 +16,26 @@
   .emphasized {
     font-weight: 800;
   }
+
+  &-buttons {
+    display: flex;
+
+    &-button {
+      color: #777;
+      font-size: 1rem;
+      padding: 0;
+
+      span {
+        text-decoration: underline;
+      }
+    }
+
+    > * {
+      margin-left: 1rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }

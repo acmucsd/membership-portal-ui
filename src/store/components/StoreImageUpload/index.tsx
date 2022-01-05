@@ -10,10 +10,11 @@ import './style.less';
 interface StoreImageUploadProps {
   existingFile?: string;
   setFieldValue: Function;
+  error?: string | false | undefined;
 }
 
 const StoreImageUpload: React.FC<StoreImageUploadProps> = (props) => {
-  const { existingFile, setFieldValue } = props;
+  const { existingFile, setFieldValue, error } = props;
 
   const [fileList, setFileList] = useState<any[]>([]);
 
@@ -48,6 +49,7 @@ const StoreImageUpload: React.FC<StoreImageUploadProps> = (props) => {
           <StoreButton type="secondary" size="medium" text="Upload Image" />
         </Upload>
       </ImgCrop>
+      {error && <p className="store-image-upload-error">{error}</p>}
     </div>
   );
 };

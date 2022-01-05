@@ -12,7 +12,7 @@ interface StoreDropdownProps {
   onFocus?: (arg: boolean) => void;
   value?: Option | string;
   placeholder?: String;
-  error?: string;
+  error?: string | false | undefined;
 }
 
 const StoreDropdown: React.FC<StoreDropdownProps> = (props) => {
