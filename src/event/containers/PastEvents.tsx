@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Menu, Dropdown } from 'antd';
-import { getYearBounds, years } from 'ucsd-quarters-years';
+import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
 
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
-import {
-  fetchAttendance as fetchAttendanceConnect,
-  fetchPastEvents as fetchPastEventsConnect,
-  updateTimeframe as updateTimeframeConnect,
-} from '../eventActions';
+import { fetchAttendance as fetchAttendanceConnect, fetchPastEvents as fetchPastEventsConnect } from '../eventActions';
 import { formatDate } from '../../utils';
 
 interface PastEventsContainerProps {
@@ -46,12 +42,11 @@ interface PastEventsContainerProps {
   ];
   fetchAttendance: Function;
   fetchPastEvents: Function;
-  updateTimeframe: Function;
-  timeframe: string;
 }
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
-  const { auth, events, attendance, fetchAttendance, fetchPastEvents, timeframe, updateTimeframe } = props;
+  const { auth, events, attendance, fetchAttendance, fetchPastEvents } = props;
+  const [timeframe, setTimeframe] = useState(getCurrentYear()?.name ?? 'All Time');
   const [shownEvents, setShownEvents] = useState<any[]>(events);
 
   useEffect(() => {
@@ -62,6 +57,18 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   useEffect(() => {
     if (timeframe === 'All Time') {
       setShownEvents(events);
+    } else {
+      const yearFilteredEvents = events.filter((event) => {
+        if (timeframe === 'All Time') {
+          return event;
+        }
+        const eventStart = new Date(event.start);
+        const timeframeStart = getYearBounds(timeframe as any).start;
+        const timeframeEnd = getYearBounds(timeframe as any).end;
+        return eventStart >= timeframeStart && eventStart < timeframeEnd;
+      });
+
+      setShownEvents(yearFilteredEvents);
     }
   }, [events, timeframe]);
 
@@ -92,10 +99,9 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
           <Menu.Item key={yearCode}>
             <div
               role="menuitem"
-              className="leader-timeframe"
+              className="event-timeframe"
               onClick={() => {
-                updateTimeframe(yearCode);
-                setShownEvents(yearFilteredEvents);
+                setTimeframe(yearCode);
               }}
               tabIndex={0}
             >
@@ -109,11 +115,14 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
 
   return (
     <div>
-      <Dropdown overlay={menu}>
-        <p className="ant-dropdown-link">
-          {timeframe} <ArrowsIcon />
-        </p>
-      </Dropdown>
+      <div className="top">
+        <h1 className="subtitle">Past Events</h1>
+        <Dropdown overlay={menu}>
+          <p className="ant-dropdown-link">
+            {timeframe} <ArrowsIcon />
+          </p>
+        </Dropdown>
+      </div>
       <EventsList>
         {shownEvents.map((event) => {
           const startTime = formatDate(event.start);
@@ -148,5 +157,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
 export default connect(mapStateToProps, {
   fetchAttendance: fetchAttendanceConnect,
   fetchPastEvents: fetchPastEventsConnect,
-  updateTimeframe: updateTimeframeConnect,
 })(PastEventsContainer);
