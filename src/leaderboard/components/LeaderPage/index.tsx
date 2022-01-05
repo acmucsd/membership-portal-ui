@@ -93,6 +93,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
       </div>
 
       <div className="leader-page-leaderboard">
+        {users.slice(0, 3).length === 0 && <div className="empty-results">No users found for this timeframe!</div>}
         <div className="top-three">
           {users.slice(0, 3).map((user, index) => (
             <TopLeaderCard
