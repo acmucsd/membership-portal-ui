@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { isNaN } from 'lodash';
 import React, { useState } from 'react';
 
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { PublicOrderPickupEvent } from '../../../types';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
@@ -62,7 +62,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
               if (!values.title || values.title === '') {
                 errors.title = 'Required';
               }
-              if (!values.title || values.title === '') {
+              if (!values.description || values.description === '') {
                 errors.description = 'Required';
               }
               // check if order limit is not int
@@ -80,12 +80,9 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
             }}
             onSubmit={async (values) => {
               setSubmitting(true);
-              console.log('submitting');
 
-              console.log('creating payload');
               const url = `${Config.API_URL}${Config.routes.store.pickup.single}`;
 
-              console.log('values: ', values);
               const payload = {
                 title: values.title,
                 description: values.description,
@@ -94,11 +91,8 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                 orderLimit: values.orderLimit,
               };
 
-              console.log('payload: ', payload);
-
-              console.log('sending request');
               try {
-                const data = await fetchService(url, 'POST', 'json', {
+                await fetchService(url, 'POST', 'json', {
                   requiresAuthorization: true,
                   payload: JSON.stringify({ pickupEvent: payload }),
                 });
@@ -112,13 +106,11 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                 return;
               }
 
-              console.log('request sent!');
-
               setSubmitting(false);
               history.push('/store/admin');
             }}
           >
-            {({ values, errors, touched, handleChange, handleSubmit, setFieldValue }) => (
+            {({ values, errors, handleChange, handleSubmit, setFieldValue }) => (
               <form className="admin-pickup-page-form">
                 <h1 className="admin-pickup-page-title">Create Pickup Event</h1>
                 <div className="admin-pickup-page-form-field">
@@ -220,8 +212,139 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
 
   return (
     <>
-      <StoreHeader breadcrumb breadcrumbLocation="/store/admin/pickup" />
-      <div className="admin-pickup-page">Admin Pickup Page, pickupEvent={JSON.stringify(pickupEvent)}</div>
+      <StoreHeader breadcrumb breadcrumbLocation="/store/admin" />
+      <div className="admin-pickup-page">
+        <Formik
+          enableReinitialize
+          initialValues={{
+            title: pickupEvent.title,
+            description: pickupEvent.description,
+            start: moment(pickupEvent.start).format('YYYY-MM-DD'),
+            startTime: moment(pickupEvent.start).format('h:mm A'),
+            end: moment(pickupEvent.end).format('YYYY-MM-DD'),
+            endTime: moment(pickupEvent.end).format('h:mm A'),
+            orderLimit: 10,
+          }}
+          validate={(values) => {
+            const errors: AdminPickupPageErrors = {};
+            if (!values.title || values.title === '') {
+              errors.title = 'Required';
+            }
+            if (!values.description || values.description === '') {
+              errors.description = 'Required';
+            }
+            // check if order limit is not int
+            if (isNaN(values.orderLimit)) {
+              errors.orderLimit = 'Not a number';
+            }
+            // Apparently, Formik ignores TS entirely and says that
+            // orderLimit is actually a string instead of a number.
+            // Do this jank string conversion to shut TS up and actually
+            // pass the validation for the form.
+            if (`${values.orderLimit}` === '0') {
+              errors.orderLimit = 'Cannot be zero';
+            }
+            return errors;
+          }}
+          onSubmit={async (values) => {
+            setSubmitting(true);
+
+            const url = `${Config.API_URL}${Config.routes.store.pickup.single}`;
+
+            const payload = {
+              title: values.title,
+              description: values.description,
+              start: moment(`${values.start} ${values.startTime}`, 'YYYY-MM-DD h:mm A').toISOString(),
+              end: moment(`${values.end} ${values.endTime}`, 'YYYY-MM-DD h:mm A').toISOString(),
+              orderLimit: values.orderLimit,
+            };
+
+            try {
+              await fetchService(url, 'PATCH', 'json', {
+                requiresAuthorization: true,
+                payload: JSON.stringify({ pickupEvent: payload }),
+              });
+              setSubmitting(false);
+              notify('Success!', 'Pickup event modified.');
+            } catch (e) {
+              const error = e as any;
+              notify('Error modifying pickup event!', error.message);
+              setSubmitting(false);
+              return;
+            }
+
+            setSubmitting(false);
+            history.push('/store/admin');
+          }}
+        >
+          {({ values, errors, handleChange, handleSubmit, setFieldValue }) => (
+            <form className="admin-pickup-page-form">
+              <h1 className="admin-pickup-page-title">Create Pickup Event</h1>
+              <div className="admin-pickup-page-form-field">
+                <h2 className="admin-pickup-page-form-field-label">Title:</h2>
+                <div className="admin-pickup-page-form-entry">
+                  <StoreTextInput attributeName="title" size="Full" value={values.title} onChange={handleChange} />
+                  <p className="admin-pickup-page-error">{errors.title}</p>
+                </div>
+              </div>
+              <div className="admin-pickup-page-form-field">
+                <h2 className="admin-pickup-page-form-field-label">Start:</h2>
+                <DatePicker
+                  className="admin-pickup-page-form-field-date-input"
+                  placeholder="Date"
+                  onChange={(_, dateString) => setFieldValue('start', dateString)}
+                  value={values.start !== '' ? moment(values.start) : moment()}
+                />
+                <TimePicker
+                  className="admin-pickup-page-form-field-time-input"
+                  placeholder="Time"
+                  use12Hours
+                  format="h:mm a"
+                  minuteStep={15}
+                  onChange={(date) => setFieldValue('startTime', date)}
+                  value={values.startTime !== '' ? moment(values.startTime, 'h:mm A') : moment()}
+                />
+              </div>
+              <div className="admin-pickup-page-form-field">
+                <h2 className="admin-pickup-page-form-field-label">End:</h2>
+                <DatePicker
+                  className="admin-pickup-page-form-field-date-input"
+                  placeholder="Date"
+                  onChange={(_, dateString) => setFieldValue('end', dateString)}
+                  value={values.end !== '' ? moment(values.end) : moment()}
+                />
+                <TimePicker
+                  className="admin-pickup-page-form-field-time-input"
+                  placeholder="Time"
+                  use12Hours
+                  format="h:mm a"
+                  minuteStep={15}
+                  onChange={(date) => setFieldValue('endTime', date)}
+                  value={values.endTime !== '' ? moment(values.endTime, 'h:mm A') : moment()}
+                />
+              </div>
+              <div className="admin-pickup-page-form-field">
+                <h2 className="admin-pickup-page-form-field-label">Description:</h2>
+                <div className="admin-pickup-page-form-entry">
+                  <StoreTextInput size="Field" attributeName="description" value={values.description} onChange={handleChange} />
+                  <p className="admin-pickup-page-error">{errors.description}</p>
+                </div>
+              </div>
+              <div className="admin-pickup-page-form-field">
+                <h2 className="admin-pickup-page-form-field-label">Order Limit:</h2>
+                <div className="admin-pickup-page-form-entry">
+                  <StoreTextInput attributeName="orderLimit" size="Quarter" value={values.orderLimit} onChange={handleChange} />
+                  <p className="admin-pickup-page-error">{errors.orderLimit}</p>
+                </div>
+              </div>
+              <div className="admin-pickup-page-buttons">
+                <StoreButton type="secondary" size="medium" text="Cancel" disabled={submitting} onClick={() => setCreateMode(false)} />
+                <StoreButton text="Save" size="medium" disabled={submitting} onClick={() => handleSubmit()} />
+              </div>
+            </form>
+          )}
+        </Formik>
+      </div>
     </>
   );
 };
