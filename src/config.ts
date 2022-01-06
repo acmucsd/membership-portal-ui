@@ -49,7 +49,7 @@ export default {
       pickup: {
         future: '/api/v2/merch/order/pickup/future',
         past: '/api/v2/merch/order/pickup/past',
-        single: '/api/v2/merch/pickup',
+        single: '/api/v2/merch/order/pickup',
       },
     },
   },
