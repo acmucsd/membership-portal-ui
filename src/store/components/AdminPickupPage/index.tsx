@@ -134,7 +134,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                     use12Hours
                     format="h:mm a"
                     minuteStep={15}
-                    onChange={(date) => setFieldValue('startTime', date)}
+                    onChange={(date, dateString) => setFieldValue('startTime', dateString === '' ? moment() : date)}
                     value={values.startTime !== '' ? moment(values.startTime, 'h:mm A') : moment()}
                   />
                 </div>
@@ -152,7 +152,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                     use12Hours
                     format="h:mm a"
                     minuteStep={15}
-                    onChange={(date) => setFieldValue('endTime', date)}
+                    onChange={(date, dateString) => setFieldValue('endTime', dateString === '' ? moment() : date)}
                     value={values.endTime !== '' ? moment(values.endTime, 'h:mm A') : moment()}
                   />
                 </div>
@@ -249,7 +249,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
           onSubmit={async (values) => {
             setSubmitting(true);
 
-            const url = `${Config.API_URL}${Config.routes.store.pickup.single}`;
+            const url = `${Config.API_URL}${Config.routes.store.pickup.single}/${pickupEvent.uuid}`;
 
             const payload = {
               title: values.title,
@@ -301,7 +301,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                   use12Hours
                   format="h:mm a"
                   minuteStep={15}
-                  onChange={(date) => setFieldValue('startTime', date)}
+                  onChange={(date, dateString) => setFieldValue('startTime', dateString === '' ? moment() : date)}
                   value={values.startTime !== '' ? moment(values.startTime, 'h:mm A') : moment()}
                 />
               </div>
@@ -319,7 +319,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                   use12Hours
                   format="h:mm a"
                   minuteStep={15}
-                  onChange={(date) => setFieldValue('endTime', date)}
+                  onChange={(date, dateString) => setFieldValue('endTime', dateString === '' ? moment() : date)}
                   value={values.endTime !== '' ? moment(values.endTime, 'h:mm A') : moment()}
                 />
               </div>
