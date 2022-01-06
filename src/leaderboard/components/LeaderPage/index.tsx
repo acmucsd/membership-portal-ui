@@ -10,16 +10,14 @@ import { ReactComponent as ArrowsIcon } from '../../../assets/icons/caret-icon-d
 import './style.less';
 
 interface LeaderPageProps {
-  users: [
-    {
-      points: string;
-      profilePicture: string;
-      firstName: string;
-      lastName: string;
-      rank: string;
-      uuid: string;
-    },
-  ];
+  users: {
+    points: string;
+    profilePicture: string;
+    firstName: string;
+    lastName: string;
+    rank: string;
+    uuid: string;
+  }[];
   fetchLeaderboard: Function;
   selfUUID: string;
 }
@@ -93,7 +91,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
       </div>
 
       <div className="leader-page-leaderboard">
-        {users.slice(0, 3).length === 0 && <div className="empty-results">No users found for this timeframe!</div>}
+        {users.length === 0 && <div className="empty-results">No users found for this timeframe!</div>}
         <div className="top-three">
           {users.slice(0, 3).map((user, index) => (
             <TopLeaderCard
