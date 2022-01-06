@@ -34,14 +34,6 @@ const AdminPage: React.FC = () => {
       >
         Retroactive Attendance
       </Button>
-      <Button
-        className="admin-redirect-button"
-        onClick={() => {
-          history.push('/store/admin/pickup');
-        }}
-      >
-        Manage Pickup Events
-      </Button>
     </div>
   );
 };
