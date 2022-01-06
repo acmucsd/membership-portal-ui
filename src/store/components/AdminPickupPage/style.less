@@ -1,3 +1,5 @@
+@import '../../../styles/vars.less';
+
 .admin-pickup-page {
   color: #333;
   margin-top: 2rem;
@@ -5,11 +7,84 @@
   &-title {
     font-size: 2rem;
     font-weight: 700;
+    padding-bottom: 1.5rem;
+  }
+
+  &-error {
+    color: red;
+    font-style: italic;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+
+    &-entry {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-field {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1.5rem;
+
+      &-label {
+        font-size: 1.25rem;
+        width: 12rem;
+      }
+
+      &-date-input {
+        height: 2.5rem;
+        margin-right: 1.5rem;
+        width: 7.5rem;
+
+        .ant-calendar-picker-input {
+          background-color: @white;
+          border-color: rgba(85, 85, 85, 0.5);
+          border-radius: 0.625rem;
+          color: @black;
+          font-size: 1rem;
+          height: 2.5rem;
+        }
+
+        .ant-calendar-picker-icon {
+          display: none;
+        }
+      }
+
+      &-time-input {
+        height: 2.5rem;
+        margin-right: 1.5rem;
+        width: 6.25rem;
+
+        .ant-time-picker-input {
+          background-color: @white;
+          border-color: rgba(85, 85, 85, 0.5);
+          border-radius: 0.625rem;
+          color: @black;
+          font-size: 1rem;
+          height: 2.5rem;
+        }
+
+        .ant-time-picker-icon {
+          display: none;
+        }
+      }
+    }
   }
 
   &-hint {
     font-size: 1rem;
     margin-top: 1.5rem;
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    width: 37rem;
   }
 
   .store-dropdown {
