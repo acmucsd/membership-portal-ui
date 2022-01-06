@@ -39,9 +39,6 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   if (createMode) {
-    // TODO Finish Formik form and submit one event.
-    // IDEALLY should be enough until `/GET pickup` route is merged.
-    // Probably already is.
     return (
       <>
         <StoreHeader breadcrumb breadcrumbLocation="/store/admin" />
