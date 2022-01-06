@@ -6,13 +6,13 @@ import { replace } from 'connected-react-router';
 import { verifyToken } from '../authActions';
 
 const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
-  const { authenticated, verify, redirectHome } = props;
+  const { authenticated, pathname, search, verify, redirectHome, isAdmin } = props;
 
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!authenticated) {
       // using then here because state doesn't update in right order
-      verify()()
+      verify()(search, pathname)
         .then((data: { [key: string]: any }) => {
           if (!data.admin) {
             // if not an admin, redirect
@@ -20,8 +20,11 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
           }
         })
         .catch(() => {});
+    } else if (!isAdmin) {
+      // if not an admin, redirect
+      redirectHome();
     }
-  }, [authenticated, verify, redirectHome]);
+  }, [authenticated, verify, redirectHome, search, pathname]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;
@@ -29,6 +32,9 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   authenticated: state.auth.authenticated,
+  pathname: state.router.location.pathname,
+  search: state.router.location.search,
+  isAdmin: state.auth.admin,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -39,6 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     return verifyToken(dispatch);
   },
 });
+
 const requireAdminAuth = compose(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
 
 export default requireAdminAuth;
