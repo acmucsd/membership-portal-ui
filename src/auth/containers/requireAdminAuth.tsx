@@ -24,7 +24,7 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
       // if not an admin, redirect
       redirectHome();
     }
-  }, [authenticated, verify, redirectHome, search, pathname]);
+  }, [authenticated, isAdmin, verify, redirectHome, search, pathname]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;
