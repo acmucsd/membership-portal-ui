@@ -11,6 +11,8 @@ type CheckoutPageContainerProps = {
   cart: CartItem[];
 };
 
+const DATE_FORMAT = 'MMM D, YYYY [@] hh[:]mm a';
+
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) => {
   const getFuturePickup = async (onFailCallback: () => void) => {
     try {
@@ -20,8 +22,8 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) =
       });
       const eventMap = {};
       result.pickupEvents.forEach((item, index, arr) => {
-        const startDate = moment(item.start).format('MMM D, YYYY [@] hh[:]mm a');
-        const endDate = moment(item.end).format('MMM D, YYYY [@] hh[:]mm a');
+        const startDate = moment(item.start).format(DATE_FORMAT);
+        const endDate = moment(item.end).format(DATE_FORMAT);
         eventMap[`${item.title}: from ${startDate} to ${endDate}`] = arr[index].uuid;
       });
       return eventMap;
