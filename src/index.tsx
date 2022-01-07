@@ -31,6 +31,7 @@ import ProfilePage from './profile/containers/ProfilePage';
 import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
 import RegisterPage from './auth/containers/RegisterPage';
 import CartPage from './store/containers/CartPage';
+import CheckoutPage from './store/containers/CheckoutPage';
 import ItemPage from './store/containers/ItemPage';
 import StorePage from './store/containers/StorePage';
 import ErrorPage from './layout/containers/ErrorPage';
@@ -79,6 +80,7 @@ const App = () => {
           <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
           <Route exact path="/store/item/:uuid" component={requireStandardAccess(requireAuth(ItemPage))} />
           <Route exact path="/store/cart" component={requireStandardAccess(requireAuth(CartPage))} />
+          <Route exact path="/store/checkout" component={requireStandardAccess(requireAuth(CheckoutPage))} />
           <Route exact path="/store/order/:uuid" component={requireStandardAccess(requireAuth(OrderPage))} />
           <Route exact path="/store/orders" component={requireStandardAccess(requireAuth(OrdersPage))} />
           <Route exact path="/store/admin" component={requireAdminAuth(StoreAdminPage)} />
