@@ -36,12 +36,12 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
     return null;
   }
 
-  const { uuid, itemName, description, picture } = item;
+  const { uuid, itemName, description, picture, hidden } = item;
 
   const { outOfStock } = processItem(item.options);
 
   return (
-    <div className="item-card">
+    <div className={`item-card${hidden ? ' hidden' : ''}`}>
       {editable && (
         <Link to={editableLink}>
           <img className="item-card-editable-icon" src={EditableIcon} alt="Editable" />
@@ -52,7 +52,10 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
           <div className="item-card-image-container">
             <img className="item-card-image" src={picture} alt={description} />
           </div>
-          <div className="item-card-name">{itemName}</div>
+          <div className="item-card-name">
+            {itemName}
+            {hidden ? ' - Hidden' : ''}
+          </div>
           {processItemPrice(item.options)}
         </div>
       </Link>

@@ -1,45 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import PageLayout from '../../layout/containers/PageLayout';
+
+import { clearCart as clearCartConnect, fetchFuturePickupEvents as fetchFuturePickupEventsConnect } from '../storeActions';
 import { CartItem } from '../../types';
+
+import PageLayout from '../../layout/containers/PageLayout';
 import CheckoutPage from '../components/CheckoutPage';
-import Config from '../../config';
-import { fetchService, notify } from '../../utils';
 
 type CheckoutPageContainerProps = {
   cart: CartItem[];
+  clearCart: Function;
+  fetchFuturePickupEvents: Function;
 };
 
-const DATE_FORMAT = 'MMM D, YYYY [@] hh[:]mm a';
-
-const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart }) => {
-  const getFuturePickup = async (onFailCallback: () => void) => {
-    try {
-      const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
-      const result = await fetchService(url, 'GET', 'json', {
-        requiresAuthorization: true,
-      });
-      const eventMap = {};
-      result.pickupEvents.forEach((item, index, arr) => {
-        const startDate = moment(item.start).format(DATE_FORMAT);
-        const endDate = moment(item.end).format(DATE_FORMAT);
-        eventMap[`${item.title}: from ${startDate} to ${endDate}`] = arr[index].uuid;
-      });
-      return eventMap;
-    } catch (error) {
-      onFailCallback();
-      notify('Get Future Pickup Error', error.message);
-      return undefined;
-    }
-  };
+const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({ cart, clearCart, fetchFuturePickupEvents }) => {
   return (
     <PageLayout>
-      <CheckoutPage cart={cart} getFuturePickup={getFuturePickup} />
+      <CheckoutPage cart={cart} getFuturePickup={fetchFuturePickupEvents} clearCart={clearCart} />
     </PageLayout>
   );
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({ cart: Object.values(state.store.cart) as CartItem[] });
 
-export default connect(mapStateToProps)(CheckoutPageContainer);
+export default connect(mapStateToProps, { clearCart: clearCartConnect, fetchFuturePickupEvents: fetchFuturePickupEventsConnect })(
+  CheckoutPageContainer,
+);

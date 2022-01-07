@@ -1,5 +1,6 @@
 .admin-prepare-page {
   color: #333;
+  margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 2rem;
 
   &-title {
@@ -33,6 +34,32 @@
     li {
       list-style-position: inside;
     }
+
+    .ant-table-column-title {
+      font-size: 1rem;
+    }
+
+    td {
+      &.user {
+        color: #333;
+        font-size: 1.25rem;
+      }
+
+      &.items {
+        color: #333;
+        font-size: 1.125rem;
+        list-style-position: inside;
+      }
+    }
+  }
+
+  .store-dropdown {
+    margin-top: 0.75rem;
+  }
+
+  .store-button,
+  .store-button-link {
+    margin-top: 1.5rem;
   }
 
   @media screen and (min-width: 1200px) {

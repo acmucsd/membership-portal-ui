@@ -43,9 +43,9 @@ const StorePage: React.FC<StorePageProps> = (props) => {
           {collections.map((collection) => {
             if (collection.items.length !== 0 || isAdmin) {
               return (
-                <div className="collection" key={collection.uuid} id={collection.uuid}>
+                <div className={`collection${collection.archived ? ' archived' : ''}`} key={collection.uuid} id={collection.uuid}>
                   <h2 className="collection-header" style={{ color: collection.themeColorHex }}>
-                    {collection.title}
+                    {collection.title} {collection.archived ? ' - Archived' : ''}
                     {isAdmin && (
                       <Link to={`/store/admin/collection/${collection.uuid}`}>
                         <img className="collection-header-editable-icon" src={EditableIcon} alt="Editable" />

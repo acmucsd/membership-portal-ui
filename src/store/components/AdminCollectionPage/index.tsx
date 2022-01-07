@@ -5,9 +5,10 @@ import * as Yup from 'yup';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
 import { PublicMerchCollection } from '../../../types';
-import { fetchService } from '../../../utils';
+import { fetchService, notify } from '../../../utils';
 
 import StoreButton from '../StoreButton';
+import StoreCheckbox from '../StoreCheckbox';
 import StoreColorInput from '../StoreColorInput';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
@@ -16,12 +17,14 @@ import './style.less';
 
 interface AdminCollectionPageProps {
   collection?: PublicMerchCollection | undefined;
+  deleteCollection: Function;
 }
 
 interface AdminCollectionPageForm {
   title: string;
   themeColorHex: string;
   description: string;
+  archived: boolean;
 }
 
 const AdminCollectionPageFormSchema = Yup.object().shape({
@@ -33,7 +36,7 @@ const AdminCollectionPageFormSchema = Yup.object().shape({
 });
 
 const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
-  const { collection } = props;
+  const { collection, deleteCollection } = props;
   const creatingCollection = !collection;
   const title = creatingCollection ? 'Create Collection' : 'Edit Collection';
 
@@ -41,6 +44,7 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
     title: collection?.title ?? '',
     themeColorHex: collection?.themeColorHex ?? '',
     description: collection?.description ?? '',
+    archived: collection?.archived ?? false,
   };
 
   return (
@@ -108,11 +112,34 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
                   error={touched.description && errors.description}
                 />
               </div>
-
+              <div className="admin-item-page-form-field">
+                <h3 className="admin-item-page-form-field-label">Archived:</h3>
+                <StoreCheckbox attributeName="archived" checked={values.archived} onChange={handleChange} />
+              </div>
               <div className="admin-collection-page-form-buttons">
                 <StoreButton type="secondary" size="medium" text="Cancel" disabled={isSubmitting} link="/store" />
                 <StoreButton text="Save" size="medium" disabled={isSubmitting} onClick={() => handleSubmit()} />
               </div>
+              {collection && (
+                <div className="admin-collection-page-form-buttons">
+                  <StoreButton
+                    type="danger"
+                    size="medium"
+                    text="Delete"
+                    disabled={isSubmitting}
+                    onClick={() => {
+                      deleteCollection(collection?.uuid)
+                        .then(() => {
+                          notify('Success!', `Deleted ${collection.title}.`);
+                          history.push('/store');
+                        })
+                        .catch((reason) => {
+                          notify('API Error', reason.message || reason);
+                        });
+                    }}
+                  />
+                </div>
+              )}
             </form>
           )}
         </Formik>

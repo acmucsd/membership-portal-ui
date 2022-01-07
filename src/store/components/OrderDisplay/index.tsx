@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Typography } from 'antd';
 
-import { PublicOrderItem, PublicOrderItemWithQuantity, PublicOrderMerchItemOption } from '../../../types';
+import { PublicOrderItem, PublicOrderItemWithQuantity } from '../../../types';
 import { toProperCase } from '../../../utils';
 
 import DiamondDisplay from '../DiamondDisplay';
@@ -110,10 +110,8 @@ const OrderDisplay: React.FC<OrderDisplayProps> = (props) => {
     };
   });
 
-  const getFullPrice = ({ price, discountPercentage }: PublicOrderMerchItemOption) => price / (1 - discountPercentage / 100);
-  const fullTotal = updatedItems.reduce((sum, { option, quantity }) => sum + getFullPrice(option) * quantity, 0);
-
-  const discountedTotal = updatedItems.reduce((sum, { option, quantity }) => sum + option.price * quantity, 0);
+  const fullTotal = updatedItems.reduce((sum, { option: { price }, quantity }) => sum + price * quantity, 0);
+  const discountedTotal = updatedItems.reduce((sum, { salePriceAtPurchase, quantity }) => sum + salePriceAtPurchase * quantity, 0);
 
   return (
     <div className="order-display">

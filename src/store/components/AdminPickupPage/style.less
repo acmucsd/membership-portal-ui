@@ -2,6 +2,7 @@
 
 .admin-pickup-page {
   color: #333;
+  margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 2rem;
 
   &-title {
@@ -11,8 +12,10 @@
   }
 
   &-error {
-    color: red;
-    font-style: italic;
+    color: #e12b38;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
   }
 
   &-form {
@@ -37,7 +40,7 @@
       &-date-input {
         height: 2.5rem;
         margin-right: 1.5rem;
-        width: 7.5rem;
+        width: 18rem;
 
         .ant-calendar-picker-input {
           background-color: @white;

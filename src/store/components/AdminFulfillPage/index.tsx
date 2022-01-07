@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Modal } from 'antd';
 
 import { fulfillOrder, completePickupEvent } from '../../storeActions';
-import { PublicOrderPickupEvent, PublicOrderWithItems } from '../../../types';
+import { OrderStatus, PublicOrderPickupEvent, PublicOrderForFulfillment } from '../../../types';
 import { notify } from '../../../utils';
 
 import StoreButton from '../StoreButton';
@@ -25,7 +25,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const { pickupEvent, pickupEvents = [] } = props;
 
   const [uuid, setUuid] = useState<string>();
-  const [selectedOrder, setSelectedOrder] = useState<PublicOrderWithItems>();
+  const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
 
   if (!pickupEvent) {
@@ -37,26 +37,28 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
             <p className="admin-fulfill-page-title">Fufill Orders</p>
             <p className="admin-fulfill-page-hint">Select a pickup event to begin fulfillment for:</p>
             <StoreDropdown
-              options={pickupEvents.map((event) => ({ label: event.title, value: event.uuid }))}
+              options={pickupEvents.map((event) => ({
+                label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+                value: event.uuid,
+              }))}
               onChange={(option) => {
                 setUuid(option.value);
               }}
             />
-            <StoreButton type="primary" size="large" text="Continue" link={`/store/admin/fulfill/${uuid}`} disabled={!uuid} />
+            <StoreButton type="primary" size="medium" text="Continue" link={`/store/admin/fulfill/${uuid}`} disabled={!uuid} />
           </div>
         </div>
       </>
     );
   }
 
-  const startMoment = moment(pickupEvent.start);
-  const endMoment = moment(pickupEvent.end);
-
   let orderInfo = <></>;
   if (selectedOrder) {
     orderInfo = (
       <div className="admin-fulfill-page-right">
-        <h2 className="title">{selectedOrder?.user.firstName}&apos;s Order</h2>
+        <h2 className="title">
+          {selectedOrder?.user.firstName} {selectedOrder?.user.lastName}&apos;s Order
+        </h2>
         <p>
           <span role="img" aria-label="Warning">
             ⚠️
@@ -67,11 +69,11 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         {selectedOrder.items.map((item, idx) => (
           <div key={idx}>
             <StoreCheckbox
-              checked={item.fulfilled}
+              checked={item.fulfilled || item.needsFulfillment}
               disabled={item.fulfilled}
               onChange={(e) => {
                 const modifiedItems = [...selectedOrder.items];
-                modifiedItems[idx].fulfilled = e.target.checked;
+                modifiedItems[idx].needsFulfillment = e.target.checked;
                 setSelectedOrder({ ...selectedOrder, items: modifiedItems });
               }}
             />
@@ -87,10 +89,14 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
             props
               .fulfillOrder(
                 selectedOrder.uuid,
-                selectedOrder.items.filter((item) => item.fulfilled).map((item) => ({ uuid: item.uuid, notes: item.notes })),
+                selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
               )
               .then(() => {
                 notify('Success!', 'Order has been updated');
+                setSelectedOrder(undefined);
+              })
+              .catch((reason) => {
+                notify('API Error', reason.message || reason);
               });
           }}
         />
@@ -104,31 +110,31 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
       <div className="admin-fulfill-page">
         <div className="admin-fulfill-page-left">
           <h1 className="admin-fulfill-page-title">Fulfill Orders</h1>
-          <h3 className="admin-fulfill-page-secondary description">{startMoment.format('dddd, MMMM Do, YYYY')}</h3>
-          <h3 className="admin-fulfill-page-secondary description">
-            {startMoment.format('[from] ha [to] ')}
-            {endMoment.format('ha')}
+          <h3 className="admin-fulfill-page-dates">
+            from {moment(pickupEvent.start).format('MMM D[,] LT')} to {moment(pickupEvent.end).format('MMM D[,] LT')}
           </h3>
-          <h3 className="admin-fulfill-page-secondary title">Select Order</h3>
-          <div className="admin-fulfill-page-orders-box-orders-list">
-            {pickupEvent.orders?.map((order, key) => (
-              <button
-                type="button"
-                className={selectedOrder && selectedOrder.uuid === order.uuid ? 'selected-order' : ''}
-                onClick={() => {
-                  if (selectedOrder && selectedOrder.uuid === order.uuid) {
-                    setSelectedOrder(undefined);
-                  } else {
-                    setSelectedOrder(order);
-                  }
-                }}
-                key={key}
-              >
-                <h4>
+          <h3 className="admin-fulfill-page-orders-list-title">Select Order:</h3>
+          <div className="admin-fulfill-page-orders-list">
+            {pickupEvent.orders
+              ?.filter((order) => {
+                return order.status !== OrderStatus.CANCELLED;
+              })
+              .map((order, key) => (
+                <button
+                  type="button"
+                  className={`admin-fulfill-page-order${selectedOrder?.uuid === order.uuid ? ' selected' : ''}`}
+                  onClick={() => {
+                    if (selectedOrder && selectedOrder.uuid === order.uuid) {
+                      setSelectedOrder(undefined);
+                    } else {
+                      setSelectedOrder({ ...order, items: order.items.map((item) => ({ ...item, needsFulfillment: false })) });
+                    }
+                  }}
+                  key={key}
+                >
                   {order.user.firstName} {order.user.lastName}
-                </h4>
-              </button>
-            ))}
+                </button>
+              ))}
           </div>
           <StoreButton
             text="Finish Pickup Event"

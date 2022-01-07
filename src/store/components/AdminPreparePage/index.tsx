@@ -28,12 +28,15 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           <p className="admin-prepare-page-title">Prepare Orders</p>
           <p className="admin-prepare-page-hint">Select a pickup event to begin preparation for:</p>
           <StoreDropdown
-            options={pickupEvents.map((event) => ({ label: event.title, value: event.uuid }))}
+            options={pickupEvents.map((event) => ({
+              label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+              value: event.uuid,
+            }))}
             onChange={(option) => {
               setUuid(option.value);
             }}
           />
-          <StoreButton type="primary" size="large" text="Continue" link={`/store/admin/prepare/${uuid}`} disabled={!uuid} />
+          <StoreButton type="primary" size="medium" text="Continue" link={`/store/admin/prepare/${uuid}`} disabled={!uuid} />
         </div>
       </>
     );
@@ -66,11 +69,13 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           pagination={false}
           className="admin-prepare-page-table"
           size="small"
+          rowKey="uuid"
           dataSource={Object.values(merchData).map((data) => ({
+            uuid: data.name,
             itemDisplay: (
               <>
                 <h2>{data.name}</h2>
-                <h3>{data.variantType && data.variantValue && `${data.variantType}: ${data.variantValue}`}</h3>
+                {data.variantType && data.variantValue && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
               </>
             ),
             quantity: data.quantity,
@@ -93,6 +98,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           pagination={false}
           className="admin-prepare-page-table"
           size="small"
+          rowKey="uuid"
           dataSource={pickupEvent.orders?.map((order) => {
             const itemMap = new Map<string, PublicOrderItemWithQuantity>();
 
@@ -111,12 +117,14 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
             const updatedItems = Array.from(itemMap, ([, value]) => value);
 
             return {
+              uuid: order.uuid,
               user: `${order.user.firstName} ${order.user.lastName}`,
               items: (
                 <ul>
                   {updatedItems.map((item) => (
-                    <li>
-                      {item.option.item.itemName} ({item.option.metadata?.type}: {item.option.metadata?.value}) x {item.quantity}
+                    <li key={item.uuid}>
+                      {item.quantity} x {item.option.item.itemName}
+                      {item.option.metadata && ` (${item.option.metadata?.type}: ${item.option.metadata?.value})`}
                     </li>
                   ))}
                 </ul>
@@ -128,11 +136,13 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
               title: 'User',
               dataIndex: 'user',
               key: 'user',
+              className: 'user',
             },
             {
               title: 'Items',
               dataIndex: 'items',
               key: 'items',
+              className: 'items',
             },
           ]}
         />

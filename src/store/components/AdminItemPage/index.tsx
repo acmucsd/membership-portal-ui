@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
 import { PublicMerchCollection, PublicMerchItem } from '../../../types';
-import { fetchService } from '../../../utils';
+import { fetchService, notify } from '../../../utils';
 
 import OptionDisplay from '../OptionDisplay';
 import StoreButton from '../StoreButton';
@@ -20,6 +20,7 @@ import './style.less';
 interface AdminItemPageProps {
   item?: PublicMerchItem;
   collections: PublicMerchCollection[];
+  deleteItem: Function;
 }
 
 interface AdminItemPageForm {
@@ -55,8 +56,8 @@ const AdminItemPageFormSchema = Yup.object().shape({
     is: (existingPicture) => !existingPicture,
     then: Yup.mixed().required('Required'),
   }),
-  monthlyLimit: Yup.number().min(1, 'Too Low').max(10, 'Too High').required('Required'),
-  lifetimeLimit: Yup.number().min(1, 'Too Low').max(10, 'Too High').required('Required'),
+  monthlyLimit: Yup.number().min(1, 'Too Low').max(100, 'Too High').required('Required'),
+  lifetimeLimit: Yup.number().min(1, 'Too Low').max(100, 'Too High').required('Required'),
   categoryName: Yup.string().when('hasVariantsEnabled', {
     is: (hasVariantsEnabled) => hasVariantsEnabled,
     then: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
@@ -66,7 +67,7 @@ const AdminItemPageFormSchema = Yup.object().shape({
     then: Yup.array().of(
       Yup.object().shape({
         uuid: Yup.string(),
-        value: Yup.string().min(2, 'Too Short').max(50, 'Too Long').required('Required'),
+        value: Yup.string().min(1, 'Too Short').max(50, 'Too Long').required('Required'),
         price: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
         quantity: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
         discountPercentage: Yup.number().min(0, 'Too Low').max(100, 'Too High').required('Required'),
@@ -88,7 +89,7 @@ const AdminItemPageFormSchema = Yup.object().shape({
 });
 
 const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
-  const { item, collections } = props;
+  const { item, collections, deleteItem } = props;
 
   const creatingItem = !item;
 
@@ -98,7 +99,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
     description: item?.description ?? '',
     existingPicture: item?.picture,
     newPicture: undefined,
-    hidden: false, // TODO: Backend doesn't currently return this property, so we don't know its state.
+    hidden: item?.hidden ?? false,
     monthlyLimit: item?.monthlyLimit.toString() ?? '',
     lifetimeLimit: item?.lifetimeLimit.toString() ?? '',
     hasVariantsEnabled: item?.hasVariantsEnabled ?? false,
@@ -327,6 +328,24 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               <div className="admin-item-page-form-buttons">
                 <StoreButton type="secondary" size="medium" text="Cancel" disabled={isSubmitting} link="/store" />
                 <StoreButton text="Save" size="medium" disabled={isSubmitting} onClick={() => handleSubmit()} />
+              </div>
+              <div className="admin-item-page-form-buttons">
+                <StoreButton
+                  type="danger"
+                  size="medium"
+                  text="Delete"
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    deleteItem(item?.uuid)
+                      .then(() => {
+                        notify('Success!', `Deleted ${item?.itemName}.`);
+                        history.push('/store');
+                      })
+                      .catch((reason) => {
+                        notify('API Error', reason.message || reason);
+                      });
+                  }}
+                />
               </div>
             </form>
           )}

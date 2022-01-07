@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchCollection } from '../storeActions';
+import { fetchCollection, deleteCollection as deleteCollectionConnect } from '../storeActions';
 import { PublicMerchCollection } from '../../types';
 import { notify } from '../../utils';
 
@@ -11,11 +11,13 @@ import AdminCollectionPage from '../components/AdminCollectionPage';
 
 interface AdminCollectionPageContainerProps {
   fetchCollection: Function;
+  deleteCollection: Function;
 }
 
 const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
+  const { deleteCollection } = props;
 
   const [collection, setCollection] = useState<PublicMerchCollection>();
 
@@ -34,9 +36,9 @@ const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> 
 
   return (
     <PageLayout>
-      <AdminCollectionPage collection={collection} />
+      <AdminCollectionPage collection={collection} deleteCollection={deleteCollection} />
     </PageLayout>
   );
 };
 
-export default connect(() => ({}), { fetchCollection })(AdminCollectionPageContainer);
+export default connect(() => ({}), { fetchCollection, deleteCollection: deleteCollectionConnect })(AdminCollectionPageContainer);

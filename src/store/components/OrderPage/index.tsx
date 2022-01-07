@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 import { OrderStatus, PublicOrderWithItems, PublicOrderPickupEvent } from '../../../types';
 import { notify, toProperCase } from '../../../utils';
@@ -21,6 +22,7 @@ interface OrderPageProps {
 
 const OrderPage: React.FC<OrderPageProps> = (props) => {
   const { order, pickupEvents = [], rescheduleOrder, cancelOrder } = props;
+  const history = useHistory();
 
   const [selecting, setSelecting] = useState<boolean>(false);
   const [selectedPickup, setSelectedPickup] = useState<string>('');
@@ -47,7 +49,10 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
         {selecting && (
           <>
             <StoreDropdown
-              options={pickupEvents.map((event) => ({ label: event.title, value: event.uuid }))}
+              options={pickupEvents.map((event) => ({
+                label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+                value: event.uuid,
+              }))}
               onChange={(option) => {
                 setSelectedPickup(option.value);
               }}
@@ -69,6 +74,7 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
                   rescheduleOrder(uuid, selectedPickup)
                     .then(() => {
                       setSelecting(false);
+                      history.go(0); // Refresh page to fetch updated order data
                     })
                     .catch((reason) => {
                       notify('API Error', reason.message || reason);
@@ -105,7 +111,9 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
               text="Cancel Order"
               onClick={() => {
                 cancelOrder(uuid)
-                  .then(() => {})
+                  .then(() => {
+                    history.go(0); // Refresh page to fetch updated order data
+                  })
                   .catch((reason) => {
                     notify('API Error', reason.message || reason);
                   });

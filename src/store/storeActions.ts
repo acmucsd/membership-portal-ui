@@ -1,4 +1,4 @@
-import { CART_ADD, CART_EDIT, CART_REMOVE, ThunkActionCreator } from './storeTypes';
+import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR, ThunkActionCreator } from './storeTypes';
 import { fetchService } from '../utils';
 import Config from '../config';
 import { logoutUser } from '../auth/authActions';
@@ -42,6 +42,27 @@ export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   });
 };
 
+export const deleteCollection: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('deleteCollection: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
+      const data = await fetchService(url, 'DELETE', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.collection);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 // ITEMS
 
 export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) => {
@@ -54,6 +75,27 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
 
       const url = `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve(data.item);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const deleteItem: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('deleteItem: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
+      const data = await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
         onFailCallback: () => dispatch(logoutUser()),
       });
@@ -314,5 +356,11 @@ export const removeFromCart: ThunkActionCreator = (cartItem: CartItem) => (dispa
   dispatch({
     type: CART_REMOVE,
     payload: cartItem,
+  });
+};
+
+export const clearCart: ThunkActionCreator = () => (dispatch) => {
+  dispatch({
+    type: CART_CLEAR,
   });
 };

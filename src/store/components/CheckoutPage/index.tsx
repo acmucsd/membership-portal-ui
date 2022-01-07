@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { CartItem } from '../../../types';
+import moment from 'moment';
+import { CartItem, PublicOrderPickupEvent } from '../../../types';
 import CartDisplay from '../CartDisplay';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
@@ -10,7 +11,8 @@ import { fetchService, notify } from '../../../utils';
 
 type CheckoutPageProps = {
   cart: CartItem[];
-  getFuturePickup: (onFail: () => void) => Promise<any>;
+  getFuturePickup: Function;
+  clearCart: Function;
 };
 
 interface ItemAPIData {
@@ -23,25 +25,28 @@ interface APIData {
   pickupEvent: string;
 }
 
-const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup }) => {
-  const [pickupEvents, setPickupEvents] = useState({});
+const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clearCart }) => {
+  const [pickupEvents, setPickupEvents] = useState<PublicOrderPickupEvent[]>([]);
   const [eventUUID, setEventUUID] = useState('');
+
   useEffect(() => {
-    const updateEvents = async () => {
-      const resultEvents = await getFuturePickup(() => {});
+    getFuturePickup().then((resultEvents) => {
       setPickupEvents(resultEvents);
-    };
-    updateEvents();
+    });
   }, [getFuturePickup]);
+
   return (
     <>
       <StoreHeader breadcrumb breadcrumbTitle="Cart" breadcrumbLocation="/store/cart" showBalance />
       <div className="cart-page">
         <CartDisplay items={cart} writable={false} />
         <StoreDropdown
-          options={Object.keys(pickupEvents)}
+          options={pickupEvents.map((event) => ({
+            label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+            value: event.uuid,
+          }))}
           onChange={(option) => {
-            setEventUUID(pickupEvents[option.value]);
+            setEventUUID(option.value);
           }}
         />
         <StoreButton
@@ -58,6 +63,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup }) =>
                 requiresAuthorization: true,
                 payload: JSON.stringify(inputData),
               });
+              clearCart();
               history.push(`/store/order/${result.order.uuid}`);
             } catch (error) {
               notify('Order placement error', error.message);

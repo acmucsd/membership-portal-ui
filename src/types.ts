@@ -52,6 +52,7 @@ export interface PublicMerchCollection {
   title: string;
   themeColorHex?: string;
   description: string;
+  archived?: boolean;
   items: PublicMerchItem[];
 }
 
@@ -63,6 +64,7 @@ export interface PublicMerchItem {
   description: string;
   monthlyLimit: number;
   lifetimeLimit: number;
+  hidden?: boolean;
   hasVariantsEnabled: boolean;
   options: PublicMerchItemOption[];
 }
@@ -111,6 +113,10 @@ export interface PublicOrderItem {
   notes?: string;
 }
 
+export interface PublicOrderItemForFulfillment extends PublicOrderItem {
+  needsFulfillment: boolean;
+}
+
 export interface PublicOrderItemWithQuantity extends PublicOrderItem {
   quantity: number;
 }
@@ -135,6 +141,10 @@ export interface PublicOrder {
 
 export interface PublicOrderWithItems extends PublicOrder {
   items: PublicOrderItem[];
+}
+
+export interface PublicOrderForFulfillment extends PublicOrder {
+  items: PublicOrderItemForFulfillment[];
 }
 
 export interface PublicOrderPickupEvent {

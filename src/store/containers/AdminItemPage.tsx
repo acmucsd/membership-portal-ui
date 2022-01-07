@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchItem, fetchCollections } from '../storeActions';
+import { fetchItem, fetchCollections, deleteItem as deleteItemConnect } from '../storeActions';
 import { PublicMerchCollection, PublicMerchItem } from '../../types';
 import { notify } from '../../utils';
 
@@ -12,11 +12,13 @@ import AdminItemPage from '../components/AdminItemPage';
 interface AdminItemPageContainerProps {
   fetchItem: Function;
   fetchCollections: Function;
+  deleteItem: Function;
 }
 
 const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
+  const { deleteItem } = props;
 
   const [item, setItem] = useState<PublicMerchItem>();
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
@@ -45,9 +47,9 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
 
   return (
     <PageLayout>
-      <AdminItemPage item={item} collections={collections} />
+      <AdminItemPage item={item} collections={collections} deleteItem={deleteItem} />
     </PageLayout>
   );
 };
 
-export default connect(() => ({}), { fetchItem, fetchCollections })(AdminItemPageContainer);
+export default connect(() => ({}), { fetchItem, fetchCollections, deleteItem: deleteItemConnect })(AdminItemPageContainer);

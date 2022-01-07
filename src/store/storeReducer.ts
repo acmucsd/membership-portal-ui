@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { CART_ADD, CART_EDIT, CART_REMOVE } from './storeTypes';
+import { CART_ADD, CART_CLEAR, CART_EDIT, CART_REMOVE } from './storeTypes';
 import { CartItem } from '../types';
 
 const initialState = {
@@ -75,6 +75,13 @@ const StoreReducer = (state = initialState, action: AnyAction) => {
       localStorage.setItem('cart', JSON.stringify(newCart));
 
       const newState = { ...initialState, cart: newCart };
+
+      return newState;
+    }
+    case CART_CLEAR: {
+      localStorage.removeItem('cart');
+
+      const newState = { ...initialState, cart: {} };
 
       return newState;
     }
