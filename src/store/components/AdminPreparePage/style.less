@@ -24,6 +24,19 @@
   &-table {
     margin-bottom: 1rem;
 
+    td {
+      &.user {
+        color: #333;
+        font-size: 1.25rem;
+      }
+
+      &.items {
+        color: #333;
+        font-size: 1.125rem;
+        list-style-position: inside;
+      }
+    }
+
     .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
     .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
     .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
@@ -37,19 +50,6 @@
 
     .ant-table-column-title {
       font-size: 1rem;
-    }
-
-    td {
-      &.user {
-        color: #333;
-        font-size: 1.25rem;
-      }
-
-      &.items {
-        color: #333;
-        font-size: 1.125rem;
-        list-style-position: inside;
-      }
     }
   }
 
