@@ -58,7 +58,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup }) =>
                 requiresAuthorization: true,
                 payload: JSON.stringify(inputData),
               });
-              history.push(`/store/${result.order.uuid}`);
+              history.push(`/store/order/${result.order.uuid}`);
             } catch (error) {
               notify('Order placement error', error.message);
               history.push('/store/cart');
