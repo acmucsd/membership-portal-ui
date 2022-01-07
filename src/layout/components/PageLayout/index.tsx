@@ -24,12 +24,12 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
       {isMobile ? (
         <>
           <NavBarHorizontal />
-          <div className="content">{children}</div>
+          <div className="page-layout-content">{children}</div>
         </>
       ) : (
         <div className="content-table">
           <NavBarVertical isAdmin={isAdmin} />
-          <div className="content">{children}</div>
+          <div className="page-layout-content">{children}</div>
         </div>
       )}
     </>

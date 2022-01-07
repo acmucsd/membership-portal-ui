@@ -49,28 +49,31 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
   }, [fetchAttendance, fetchFutureEvents]);
 
   return (
-    <EventsList>
-      {events.map((event) => {
-        const startTime = formatTime(event.start);
-        const endTime = formatTime(event.end);
-        const date = `${formatDate(event.start)}, ${startTime} - ${endTime}`;
-        const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
-        return (
-          <EventCard
-            key={`upcoming-${event.uuid}`}
-            uuid={event.uuid}
-            cover={event.cover || background}
-            date={date}
-            description={event.description}
-            location={event.location}
-            points={event.pointValue}
-            title={event.title}
-            auth={auth}
-            attended={attended}
-          />
-        );
-      })}
-    </EventsList>
+    <div>
+      <h1 className="subtitle">Upcoming Events</h1>
+      <EventsList>
+        {events.map((event) => {
+          const startTime = formatTime(event.start);
+          const endTime = formatTime(event.end);
+          const date = `${formatDate(event.start)}, ${startTime} - ${endTime}`;
+          const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
+          return (
+            <EventCard
+              key={`upcoming-${event.uuid}`}
+              uuid={event.uuid}
+              cover={event.cover || background}
+              date={date}
+              description={event.description}
+              location={event.location}
+              points={event.pointValue}
+              title={event.title}
+              auth={auth}
+              attended={attended}
+            />
+          );
+        })}
+      </EventsList>
+    </div>
   );
 };
 

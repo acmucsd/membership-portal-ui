@@ -39,23 +39,31 @@
     margin: 40px 0;
   }
 
-  .ant-dropdown-link {
-    color: black;
-    cursor: pointer;
-    font-size: @general-body;
-    font-weight: 700;
-    padding-bottom: 1rem;
-    width: fit-content;
+  .top {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
 
-    svg {
-      margin-left: 5px;
-      vertical-align: middle;
+    .subtitle {
+      margin-bottom: 8px;
     }
   }
 
-  .ant-dropdown-menu-item {
-    width: fit-content !important;
+  .ant-dropdown-link {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+
+    svg {
+      margin-left: 5px;
+    }
   }
+}
+
+.event-timeframe {
+  color: black;
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 768px) {
