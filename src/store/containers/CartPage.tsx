@@ -10,14 +10,16 @@ import { CartItem } from '../../types';
 import { fetchService, notify } from '../../utils';
 
 type CartPageContainerProps = {
-  cart: CartItem[];
+  cart: { [key: string]: CartItem };
 };
 
 const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
+  const cartArray = Object.values(cart) as CartItem[];
+
   const verifyCart = async (onFailCallback: () => void) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.verification}`;
-      const payload = cart.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
+      const payload = cartArray.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
         payload: JSON.stringify({ order: payload }),
@@ -25,17 +27,36 @@ const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
       history.push('/store/checkout');
     } catch (error) {
       onFailCallback();
-      notify('Cart Error', error.message);
+
+      if (error.message.includes('The following items were not found: ')) {
+        const array = error.message.slice(`The following items were not found: `.length).split(',');
+
+        let message = 'The following items were not found: ';
+
+        for (let i = 0; i < array.length; i += 1) {
+          message += cart[array[i]]?.item?.itemName ?? array[i];
+
+          if (i !== array.length - 1) {
+            message += ', ';
+          }
+        }
+
+        message += '. Please remove them from your cart and try again.';
+
+        notify('Cart Error', message);
+      } else {
+        notify('Cart Error', error.message);
+      }
     }
   };
 
   return (
     <PageLayout>
-      <CartPage cart={cart} verifyCart={verifyCart} />
+      <CartPage cart={cartArray} verifyCart={verifyCart} />
     </PageLayout>
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({ cart: Object.values(state.store.cart) as CartItem[] });
+const mapStateToProps = (state: { [key: string]: any }) => ({ cart: state.store.cart });
 
 export default connect(mapStateToProps)(CartPageContainer);

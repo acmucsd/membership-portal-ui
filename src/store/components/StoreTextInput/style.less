@@ -10,6 +10,7 @@
     font-size: 1rem;
     padding: 0 1rem;
     resize: none;
+    transition: border 0.3s;
 
     &.full {
       height: 2.5rem;
@@ -30,6 +31,11 @@
       height: 10rem;
       padding: 1rem;
       width: 25rem;
+    }
+
+    &:focus,
+    &:hover {
+      border-color: #62b0ff;
     }
   }
 

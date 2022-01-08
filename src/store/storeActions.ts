@@ -2,7 +2,7 @@ import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR, ThunkActionCreator } from
 import { fetchService } from '../utils';
 import Config from '../config';
 import { logoutUser } from '../auth/authActions';
-import { CartItem } from '../types';
+import { CartItem, MerchItemOptionMetadata } from '../types';
 
 // COLLECTIONS
 
@@ -108,6 +108,41 @@ export const deleteItem: ThunkActionCreator = (uuid: string) => async (dispatch)
 };
 
 // ITEM OPTIONS
+
+export const createItemOption: ThunkActionCreator = (
+  uuid: string,
+  option: {
+    quantity: number;
+    price: number;
+    discountPercentage?: number;
+    metadata?: MerchItemOptionMetadata;
+  },
+) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('createItemOption: Missing required uuid in request.'));
+        return;
+      }
+
+      if (!option) {
+        reject(new Error('createItemOption: Missing required option in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
+      const data = await fetchService(url, 'POST', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+        payload: JSON.stringify({ option }),
+      });
+
+      resolve(data.option);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 export const deleteItemOption: ThunkActionCreator = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {

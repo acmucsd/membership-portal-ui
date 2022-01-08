@@ -93,9 +93,22 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
     return (
       <>
         {renderEditButton()}
-        <Button className="item-button remove-button" type="link" onClick={removeItem} disabled={!writable}>
-          Remove
-        </Button>
+        {editable ? (
+          <Button
+            className="item-button remove-button"
+            type="link"
+            onClick={() => {
+              setEditable(false);
+            }}
+            disabled={!writable}
+          >
+            Cancel
+          </Button>
+        ) : (
+          <Button className="item-button remove-button" type="link" onClick={removeItem} disabled={!writable}>
+            Remove
+          </Button>
+        )}
       </>
     );
   };

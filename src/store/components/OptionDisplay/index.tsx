@@ -1,40 +1,44 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Table } from 'antd';
 import { connect } from 'react-redux';
 
-import { deleteItemOption } from '../../storeActions';
+import { createItemOption, deleteItemOption } from '../../storeActions';
 import { Uuid } from '../../../types';
 
 import StoreButton from '../StoreButton';
 import StoreTextInput from '../StoreTextInput';
 
 import './style.less';
-
-const columns = [
-  ['Category Values', 'value'],
-  ['Price', 'price'],
-  ['Quantity', 'quantity'],
-  ['Discount Percentage', 'discountPercentage'],
-].map(([title, dataIndex]) => ({ title, dataIndex }));
+import { notify } from '../../../utils';
 
 interface Option {
   uuid?: Uuid;
   value: string;
   price: string;
   quantity: string;
+  quantityToAdd: string;
   discountPercentage: string;
 }
 
 interface OptionDisplayProps {
   options: Option[];
-  creatingItem: boolean;
+  itemUuid?: string;
   onChange: Function;
+  createItemOption: Function;
   deleteItemOption: Function;
   error: any;
+  currentType?: string;
 }
 
 const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
-  const { options, creatingItem, onChange, error } = props;
+  const { options, itemUuid, onChange, error, currentType } = props;
+  const [creatingOption, setCreatingOption] = useState<boolean>(false);
+  const [newValue, setNewValue] = useState('');
+  const [newQuantity, setNewQuantity] = useState('');
+  const [newPrice, setNewPrice] = useState('');
+  const [newDiscountPercentage, setNewDiscountPercentage] = useState('');
+
+  const creatingItem = !itemUuid;
 
   const newOptions = [...options];
 
@@ -57,10 +61,15 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
             newOptions.splice(index, 1);
             onChange(newOptions);
           } else {
-            props.deleteItemOption(option.uuid).then(() => {
-              newOptions.splice(index, 1);
-              onChange(newOptions);
-            });
+            props
+              .deleteItemOption(option.uuid)
+              .then(() => {
+                newOptions.splice(index, 1);
+                onChange(newOptions);
+              })
+              .catch((error) => {
+                notify('API Error', error.message);
+              });
           }
         }}
       >
@@ -79,17 +88,39 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
       error={error && error[index] && error[index].price}
     />
   );
-  const renderQuantity = (quantity: string, option: Option, index: number) => (
-    <StoreTextInput
-      size="Quarter"
-      value={quantity}
-      onChange={(e) => {
-        newOptions[index] = { ...option, quantity: e.target.value };
-        onChange(newOptions);
-      }}
-      error={error && error[index] && error[index].quantity}
-    />
-  );
+
+  const renderQuantity = (quantity: string, option: Option, index: number, readOnly: boolean) => {
+    if (readOnly) {
+      return <p>{quantity}</p>;
+    }
+
+    return (
+      <StoreTextInput
+        size="Quarter"
+        value={quantity}
+        onChange={(e) => {
+          newOptions[index] = { ...option, quantity: e.target.value };
+          onChange(newOptions);
+        }}
+        error={error && error[index] && error[index].quantity}
+      />
+    );
+  };
+
+  const renderQuantityToAdd = (quantityToAdd: string, option: Option, index: number) => {
+    return (
+      <StoreTextInput
+        size="Quarter"
+        value={quantityToAdd}
+        onChange={(e) => {
+          newOptions[index] = { ...option, quantityToAdd: e.target.value };
+          onChange(newOptions);
+        }}
+        error={error && error[index] && error[index].quantityToAdd}
+      />
+    );
+  };
+
   const renderDiscountPercentage = (discountPercentage: string, option: Option, index: number) => (
     <StoreTextInput
       size="Quarter"
@@ -107,27 +138,97 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
       key: `${index}`,
       value: renderValue(option.value, option, index),
       price: renderPrice(option.price, option, index),
-      quantity: renderQuantity(option.quantity, option, index),
+      quantity: renderQuantity(option.quantity, option, index, !creatingItem),
+      quantityToAdd: renderQuantityToAdd(option.quantityToAdd ?? '', option, index),
       discountPercentage: renderDiscountPercentage(option.discountPercentage, option, index),
     };
   });
 
+  const creatingColumns = [
+    ['Category Values', 'value'],
+    ['Price', 'price'],
+    ['Quantity', 'quantity'],
+    ['Discount Percentage', 'discountPercentage'],
+  ].map(([title, dataIndex]) => ({ title, dataIndex }));
+
+  const editingColumns = [
+    ['Category Values', 'value'],
+    ['Price', 'price'],
+    ['Current Quantity', 'quantity'],
+    ['Quantity Adjustment', 'quantityToAdd'],
+    ['Discount Percentage', 'discountPercentage'],
+  ].map(([title, dataIndex]) => ({ title, dataIndex, className: dataIndex }));
+
   return (
-    <div className="options-display">
-      <Table dataSource={cartData} columns={columns} pagination={false} />
-      <div className="options-display-button">
-        <StoreButton
-          type="secondary"
-          size="medium"
-          text="Add Option"
-          onClick={() => {
-            newOptions.push({ value: '', price: '', quantity: '', discountPercentage: '' });
-            onChange(newOptions);
-          }}
-        />
+    <>
+      <div className="options-display">
+        <Table dataSource={cartData} columns={creatingItem ? creatingColumns : editingColumns} pagination={false} />
+        <div className="options-display-button">
+          <StoreButton
+            type="secondary"
+            size="medium"
+            text="Add Option"
+            onClick={() => {
+              if (creatingItem) {
+                newOptions.push({ value: '', price: '', quantity: '', quantityToAdd: '', discountPercentage: '' });
+                onChange(newOptions);
+              } else {
+                setCreatingOption(true);
+              }
+            }}
+          />
+        </div>
       </div>
-    </div>
+      <Modal
+        visible={creatingOption}
+        onCancel={() => setCreatingOption(false)}
+        onOk={() => {
+          props
+            .createItemOption(itemUuid, {
+              quantity: parseInt(newQuantity, 10),
+              price: parseInt(newPrice, 10),
+              metadata: { type: currentType, value: newValue, position: options.length },
+            })
+            .then((newOption) => {
+              const {
+                uuid,
+                price,
+                discountPercentage,
+                quantity,
+                metadata: { value },
+              } = newOption;
+              newOptions.push({ uuid, value, price, quantity, quantityToAdd: '0', discountPercentage });
+              setNewValue('');
+              setNewPrice('');
+              setNewDiscountPercentage('');
+              setNewQuantity('');
+              onChange(newOptions);
+              setCreatingOption(false);
+            })
+            .catch((error) => {
+              notify('API Error', error.message);
+            });
+        }}
+      >
+        <div className="admin-item-page-form-field">
+          <h3 className="admin-item-page-form-field-label">Value:</h3>
+          <StoreTextInput size="Quarter" value={newValue} onChange={(e) => setNewValue(e.target.value)} />
+        </div>
+        <div className="admin-item-page-form-field">
+          <h3 className="admin-item-page-form-field-label">Quantity:</h3>
+          <StoreTextInput size="Quarter" value={newQuantity} onChange={(e) => setNewQuantity(e.target.value)} />
+        </div>
+        <div className="admin-item-page-form-field">
+          <h3 className="admin-item-page-form-field-label">Price:</h3>
+          <StoreTextInput size="Quarter" value={newPrice} onChange={(e) => setNewPrice(e.target.value)} />
+        </div>
+        <div className="admin-item-page-form-field">
+          <h3 className="admin-item-page-form-field-label">Discount Percentage:</h3>
+          <StoreTextInput size="Quarter" value={newDiscountPercentage} onChange={(e) => setNewDiscountPercentage(e.target.value)} />
+        </div>
+      </Modal>
+    </>
   );
 };
 
-export default connect(null, { deleteItemOption })(OptionDisplay);
+export default connect(null, { createItemOption, deleteItemOption })(OptionDisplay);

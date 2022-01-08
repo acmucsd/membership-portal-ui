@@ -2,9 +2,17 @@ import { AnyAction } from 'redux';
 import { CART_ADD, CART_CLEAR, CART_EDIT, CART_REMOVE } from './storeTypes';
 import { CartItem } from '../types';
 
+let initialCart: { [uuid: string]: CartItem };
+
+try {
+  initialCart = JSON.parse(localStorage.getItem('cart') || '{}');
+} catch {
+  initialCart = {};
+}
+
 const initialState = {
   error: false,
-  cart: JSON.parse(localStorage.getItem('cart') || '{}') as { [uuid: string]: CartItem },
+  cart: initialCart,
 };
 
 const StoreReducer = (state = initialState, action: AnyAction) => {

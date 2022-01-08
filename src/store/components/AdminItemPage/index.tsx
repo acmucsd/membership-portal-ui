@@ -40,10 +40,12 @@ interface AdminItemPageForm {
     value: string;
     price: string;
     quantity: string;
+    quantityToAdd: string;
     discountPercentage: string;
   }[];
 
   quantity: string;
+  quantityToAdd: string;
   price: string;
   discountPercentage: string;
 }
@@ -69,15 +71,20 @@ const AdminItemPageFormSchema = Yup.object().shape({
         uuid: Yup.string(),
         value: Yup.string().min(1, 'Too Short').max(50, 'Too Long').required('Required'),
         price: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
-        quantity: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+        // quantity: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+        // quantityToAdd: Yup.number().min(-1000000, 'Too Low').max(1000000, 'Too High').required('Required'),
         discountPercentage: Yup.number().min(0, 'Too Low').max(100, 'Too High').required('Required'),
       }),
     ),
   }),
-  quantity: Yup.number().when('hasVariantsEnabled', {
-    is: (hasVariantsEnabled) => !hasVariantsEnabled,
-    then: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
-  }),
+  // quantity: Yup.number().when('hasVariantsEnabled', {
+  //   is: (hasVariantsEnabled) => !hasVariantsEnabled,
+  //   then: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
+  // }),
+  // quantityToAdd: Yup.number().when('hasVariantsEnabled', {
+  //   is: (hasVariantsEnabled) => !hasVariantsEnabled,
+  //   then: Yup.number().min(-1000000, 'Too Low').max(1000000, 'Too High').required('Required'),
+  // }),
   price: Yup.number().when('hasVariantsEnabled', {
     is: (hasVariantsEnabled) => !hasVariantsEnabled,
     then: Yup.number().min(1, 'Too Low').max(1000000, 'Too High').required('Required'),
@@ -111,11 +118,13 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
           value: option.metadata?.value ?? '',
           price: option.price.toString(),
           quantity: option.quantity.toString(),
+          quantityToAdd: '0',
           discountPercentage: option.discountPercentage.toString(),
         }))
       : [],
     // Variants Disabled
     quantity: (!item?.hasVariantsEnabled && item?.options[0].quantity?.toString()) || '',
+    quantityToAdd: '0',
     price: (!item?.hasVariantsEnabled && item?.options[0].price.toString()) || '',
     discountPercentage: (!item?.hasVariantsEnabled && item?.options[0].discountPercentage.toString()) || '',
   };
@@ -172,9 +181,41 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   ],
                 };
 
-            if (!creatingItem && payload.options) {
-              // TODO: modify the options component to behave differently for existing items
+            if (!creatingItem) {
+              // Remove the new option structure, we'll recreate it here
               delete payload.options;
+
+              if (values.hasVariantsEnabled) {
+                payload.options = [];
+
+                values.options.forEach((option, index) => {
+                  payload.options.push({
+                    uuid: option.uuid,
+                    quantityToAdd: parseInt(option.quantityToAdd, 10),
+                    price: parseInt(option.price, 10),
+                    discountPercentage: parseInt(option.discountPercentage, 10),
+                    metadata: {
+                      type: values.categoryName,
+                      value: option.value,
+                      position: index,
+                    },
+                  });
+                });
+              } else {
+                payload.options = [
+                  {
+                    uuid: item?.options[0].uuid,
+                    quantityToAdd: parseInt(values.quantityToAdd ?? '0', 10),
+                    price: parseInt(values.price ?? '0', 10),
+                    discountPercentage: parseInt(values.discountPercentage ?? '0', 10),
+                  },
+                ];
+              }
+
+              // values.options.forEach((option) => {});
+
+              // TODO: modify the options component to behave differently for existing items
+              // delete payload.options;
             }
 
             const data = await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
@@ -265,7 +306,12 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               </div>
               <div className="admin-item-page-form-field">
                 <h3 className="admin-item-page-form-field-label">Has Variants:</h3>
-                <StoreCheckbox attributeName="hasVariantsEnabled" checked={values.hasVariantsEnabled} onChange={handleChange} />
+                <StoreCheckbox
+                  attributeName="hasVariantsEnabled"
+                  checked={values.hasVariantsEnabled}
+                  onChange={handleChange}
+                  disabled={!creatingItem}
+                />
               </div>
               {values.hasVariantsEnabled ? (
                 <>
@@ -283,7 +329,8 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                     <h3 className="admin-item-page-form-field-label">Options:</h3>
                     <OptionDisplay
                       options={values.options}
-                      creatingItem={creatingItem}
+                      itemUuid={item?.uuid}
+                      currentType={item?.options[0].metadata?.type}
                       onChange={(options) => {
                         setFieldValue('options', options);
                       }}
@@ -293,16 +340,35 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                 </>
               ) : (
                 <>
-                  <div className="admin-item-page-form-field">
-                    <h3 className="admin-item-page-form-field-label">Quantity:</h3>
-                    <StoreTextInput
-                      size="Quarter"
-                      attributeName="quantity"
-                      value={values.quantity}
-                      onChange={handleChange}
-                      error={touched.quantity && errors.quantity}
-                    />
-                  </div>
+                  {creatingItem ? (
+                    <div className="admin-item-page-form-field">
+                      <h3 className="admin-item-page-form-field-label">Quantity:</h3>
+                      <StoreTextInput
+                        size="Quarter"
+                        attributeName="quantity"
+                        value={values.quantity}
+                        onChange={handleChange}
+                        error={touched.quantity && errors.quantity}
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <div className="admin-item-page-form-field">
+                        <h3 className="admin-item-page-form-field-label">Current Quantity:</h3>
+                        <p className="admin-item-page-form-field-value">{values.quantity}</p>
+                      </div>
+                      <div className="admin-item-page-form-field">
+                        <h3 className="admin-item-page-form-field-label">Quantity Adjustment:</h3>
+                        <StoreTextInput
+                          size="Quarter"
+                          attributeName="quantityToAdd"
+                          value={values.quantityToAdd}
+                          onChange={handleChange}
+                          error={touched.quantityToAdd && errors.quantityToAdd}
+                        />
+                      </div>
+                    </>
+                  )}
                   <div className="admin-item-page-form-field">
                     <h3 className="admin-item-page-form-field-label">Price:</h3>
                     <StoreTextInput
