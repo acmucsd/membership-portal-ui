@@ -28,6 +28,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           <p className="admin-prepare-page-title">Prepare Orders</p>
           <p className="admin-prepare-page-hint">Select a pickup event to begin preparation for:</p>
           <StoreDropdown
+            placeholder="Select a pickup event..."
             options={pickupEvents.map((event) => ({
               label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
               value: event.uuid,

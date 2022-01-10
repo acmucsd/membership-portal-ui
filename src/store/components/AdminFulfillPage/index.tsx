@@ -37,6 +37,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
             <p className="admin-fulfill-page-title">Fufill Orders</p>
             <p className="admin-fulfill-page-hint">Select a pickup event to begin fulfillment for:</p>
             <StoreDropdown
+              placeholder="Select a pickup event..."
               options={pickupEvents.map((event) => ({
                 label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
                 value: event.uuid,

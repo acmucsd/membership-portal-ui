@@ -53,9 +53,21 @@ const StorePage: React.FC<StorePageProps> = (props) => {
                     )}
                   </h2>
                   <div className="collection-items">
-                    {collection.items.map((item, index) => (
-                      <ItemCard item={item} key={index} editable={canManageStore} editableLink={`/store/admin/item/${item.uuid}`} />
-                    ))}
+                    {collection.items
+                      .sort((a, b) => {
+                        const textA = a.itemName.toUpperCase();
+                        const textB = b.itemName.toUpperCase();
+                        if (textA < textB) {
+                          return -1;
+                        }
+                        if (textA > textB) {
+                          return 1;
+                        }
+                        return 0;
+                      })
+                      .map((item, index) => (
+                        <ItemCard item={item} key={index} editable={canManageStore} editableLink={`/store/admin/item/${item.uuid}`} />
+                      ))}
                     {canManageStore && <ItemCard placeholder placeholderLink="/store/admin/item" />}
                   </div>
                 </div>

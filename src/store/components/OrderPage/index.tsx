@@ -49,6 +49,7 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
         {selecting && (
           <>
             <StoreDropdown
+              placeholder="Select a pickup event..."
               options={pickupEvents.map((event) => ({
                 label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
                 value: event.uuid,

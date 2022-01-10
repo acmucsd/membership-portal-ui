@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import confetti from 'canvas-confetti';
 import { CartItem, PublicOrderPickupEvent } from '../../../types';
 import CartDisplay from '../CartDisplay';
 import Config from '../../../config';
@@ -41,6 +42,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clea
       <div className="cart-page">
         <CartDisplay items={cart} writable={false} />
         <StoreDropdown
+          placeholder="Select a pickup event..."
           options={pickupEvents.map((event) => ({
             label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
             value: event.uuid,
@@ -64,6 +66,26 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clea
                 payload: JSON.stringify(inputData),
               });
               clearCart();
+              const duration = 3 * 1000;
+              const animationEnd = Date.now() + duration;
+              const defaults = { startVelocity: 30, spread: 360, ticks: 120, zIndex: 0 };
+
+              const randomInRange = (min, max) => {
+                return Math.random() * (max - min) + min;
+              };
+
+              const interval = setInterval(() => {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                  return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, start a bit higher than random
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+              }, 250);
               history.push(`/store/order/${result.order.uuid}`);
             } catch (error) {
               notify('Order placement error', error.message);

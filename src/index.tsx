@@ -61,10 +61,10 @@ const App = () => {
         <Switch>
           <Route exact path="/about" component={requireAuth(AboutPage)} />
           <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
-          <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage)} />
+          <Route exact path="/admin/editEvent/:uuid" component={requireAuth(EditEventPage)} />
           <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage)} />
-          <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage)} />
-          <Route exact path="/admin/addAttendance" component={requireAdminAuth(AddAttendancePage)} />
+          <Route exact path="/admin/createEvent" component={requireAuth(CreateEventPage)} />
+          <Route exact path="/admin/addAttendance" component={requireAuth(AddAttendancePage)} />
           <Route exact path="/authenticate-email" component={AuthPage} />
           <Route exact path="/bread" component={BreadPage} />
           <Route exact path="/checkin" component={requireAuth(CheckInHandler)} />
