@@ -67,8 +67,8 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
                 newOptions.splice(index, 1);
                 onChange(newOptions);
               })
-              .catch((error) => {
-                notify('API Error', error.message);
+              .catch((e) => {
+                notify('API Error', e.message);
               });
           }
         }}
@@ -205,8 +205,8 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
               onChange(newOptions);
               setCreatingOption(false);
             })
-            .catch((error) => {
-              notify('API Error', error.message);
+            .catch((e) => {
+              notify('API Error', e.message);
             });
         }}
       >

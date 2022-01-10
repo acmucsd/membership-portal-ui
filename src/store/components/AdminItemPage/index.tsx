@@ -218,25 +218,29 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               // delete payload.options;
             }
 
-            const data = await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
-              requiresAuthorization: true,
-              payload: JSON.stringify({ merchandise: payload }),
-            });
-
-            if (values.newPicture) {
-              const formdata = new FormData();
-              formdata.append('image', values.newPicture);
-
-              const imageUrl = `${Config.API_URL}${Config.routes.store.itemPicture}/${data.item.uuid}`;
-
-              await fetchService(imageUrl, 'POST', 'image', {
+            try {
+              const data = await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
                 requiresAuthorization: true,
-                payload: formdata,
+                payload: JSON.stringify({ merchandise: payload }),
               });
-            }
 
-            setSubmitting(false);
-            history.push('/store');
+              if (values.newPicture) {
+                const formdata = new FormData();
+                formdata.append('image', values.newPicture);
+
+                const imageUrl = `${Config.API_URL}${Config.routes.store.itemPicture}/${data.item.uuid}`;
+
+                await fetchService(imageUrl, 'POST', 'image', {
+                  requiresAuthorization: true,
+                  payload: formdata,
+                });
+              }
+              setSubmitting(false);
+              history.push('/store');
+            } catch (reason) {
+              setSubmitting(false);
+              notify('API Error', reason.message || reason);
+            }
           }}
         >
           {({ values, errors, touched, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (

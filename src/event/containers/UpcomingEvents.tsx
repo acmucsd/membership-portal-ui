@@ -6,6 +6,7 @@ import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
 import { fetchAttendance as fetchAttendanceConnect, fetchFutureEvents as fetchFutureEventsConnect } from '../eventActions';
 import { formatDate, formatTime } from '../../utils';
+import { UserAccessType } from '../../types';
 
 interface UpcomingEventsContainerProps {
   attendance: [
@@ -23,7 +24,7 @@ interface UpcomingEventsContainerProps {
       };
     },
   ];
-  auth: boolean;
+  canEditEvents: boolean;
   events: [
     {
       uuid: string;
@@ -41,7 +42,7 @@ interface UpcomingEventsContainerProps {
 }
 
 const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
-  const { auth, events, attendance, fetchAttendance, fetchFutureEvents } = props;
+  const { canEditEvents, events, attendance, fetchAttendance, fetchFutureEvents } = props;
 
   useEffect(() => {
     fetchFutureEvents();
@@ -67,7 +68,7 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
               location={event.location}
               points={event.pointValue}
               title={event.title}
-              auth={auth}
+              canEditEvents={canEditEvents}
               attended={attended}
             />
           );
@@ -81,6 +82,7 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.event.futureEvents,
   auth: state.auth,
   attendance: state.event.attendance,
+  canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
 });
 
 export default connect(mapStateToProps, {

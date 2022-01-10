@@ -13,6 +13,23 @@ export type FetchServiceOptions = {
   onFailCallback?: () => void;
 };
 
+export enum UserAccessType {
+  RESTRICTED = 'RESTRICTED',
+  STANDARD = 'STANDARD',
+  STAFF = 'STAFF',
+  ADMIN = 'ADMIN',
+  MARKETING = 'MARKETING',
+  MERCH_STORE_MANAGER = 'MERCH_STORE_MANAGER',
+  MERCH_STORE_DISTRIBUTOR = 'MERCH_STORE_DISTRIBUTOR',
+}
+
+export enum UserState {
+  PENDING = 'PENDING',
+  ACTIVE = 'ACTIVE',
+  BLOCKED = 'BLOCKED',
+  PASSWORD_RESET = 'PASSWORD_RESET',
+}
+
 export type Uuid = string;
 
 export type Event = {

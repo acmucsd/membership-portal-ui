@@ -39,7 +39,7 @@ import EmailVerficationPage from './auth/containers/EmailVerificationPage';
 import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
 import requireAuth from './auth/containers/requireAuth';
 import requireAdminAuth from './auth/containers/requireAdminAuth';
-import requireStandardAccess from './auth/containers/requireStandardAccess';
+import requireStoreAccess from './auth/containers/requireStoreAccess';
 import OrderPage from './store/containers/OrderPage';
 import OrdersPage from './store/containers/OrdersPage';
 import StoreAdminPage from './store/containers/StoreAdminPage';
@@ -77,23 +77,23 @@ const App = () => {
           <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage)} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/resetPassword/:code" component={ResetPage} />
-          <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage))} />
-          <Route exact path="/store/item/:uuid" component={requireStandardAccess(requireAuth(ItemPage))} />
-          <Route exact path="/store/cart" component={requireStandardAccess(requireAuth(CartPage))} />
-          <Route exact path="/store/checkout" component={requireStandardAccess(requireAuth(CheckoutPage))} />
-          <Route exact path="/store/order/:uuid" component={requireStandardAccess(requireAuth(OrderPage))} />
-          <Route exact path="/store/orders" component={requireStandardAccess(requireAuth(OrdersPage))} />
-          <Route exact path="/store/admin" component={requireAdminAuth(StoreAdminPage)} />
-          <Route exact path="/store/admin/collection" component={requireAdminAuth(AdminCollectionPage)} />
-          <Route exact path="/store/admin/collection/:uuid" component={requireAdminAuth(AdminCollectionPage)} />
-          <Route exact path="/store/admin/item" component={requireAdminAuth(AdminItemPage)} />
-          <Route exact path="/store/admin/item/:uuid" component={requireAdminAuth(AdminItemPage)} />
-          <Route exact path="/store/admin/pickup" component={requireAdminAuth(AdminPickupPage)} />
-          <Route exact path="/store/admin/pickup/:uuid" component={requireAdminAuth(AdminPickupPage)} />
-          <Route exact path="/store/admin/prepare" component={requireAdminAuth(AdminPreparePage)} />
-          <Route exact path="/store/admin/prepare/:uuid" component={requireAdminAuth(AdminPreparePage)} />
-          <Route exact path="/store/admin/fulfill" component={requireAdminAuth(AdminFulfillPage)} />
-          <Route exact path="/store/admin/fulfill/:uuid" component={requireAdminAuth(AdminFulfillPage)} />
+          <Route exact path="/store" component={requireStoreAccess(requireAuth(StorePage))} />
+          <Route exact path="/store/item/:uuid" component={requireStoreAccess(requireAuth(ItemPage))} />
+          <Route exact path="/store/cart" component={requireStoreAccess(requireAuth(CartPage))} />
+          <Route exact path="/store/checkout" component={requireStoreAccess(requireAuth(CheckoutPage))} />
+          <Route exact path="/store/order/:uuid" component={requireStoreAccess(requireAuth(OrderPage))} />
+          <Route exact path="/store/orders" component={requireStoreAccess(requireAuth(OrdersPage))} />
+          <Route exact path="/store/admin" component={requireStoreAccess(StoreAdminPage)} />
+          <Route exact path="/store/admin/collection" component={requireStoreAccess(AdminCollectionPage)} />
+          <Route exact path="/store/admin/collection/:uuid" component={requireStoreAccess(AdminCollectionPage)} />
+          <Route exact path="/store/admin/item" component={requireStoreAccess(AdminItemPage)} />
+          <Route exact path="/store/admin/item/:uuid" component={requireStoreAccess(AdminItemPage)} />
+          <Route exact path="/store/admin/pickup" component={requireStoreAccess(AdminPickupPage)} />
+          <Route exact path="/store/admin/pickup/:uuid" component={requireStoreAccess(AdminPickupPage)} />
+          <Route exact path="/store/admin/prepare" component={requireStoreAccess(AdminPreparePage)} />
+          <Route exact path="/store/admin/prepare/:uuid" component={requireStoreAccess(AdminPreparePage)} />
+          <Route exact path="/store/admin/fulfill" component={requireStoreAccess(AdminFulfillPage)} />
+          <Route exact path="/store/admin/fulfill/:uuid" component={requireStoreAccess(AdminFulfillPage)} />
           <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
           <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
           <Route exact path="/" component={requireAuth(HomePage)} />

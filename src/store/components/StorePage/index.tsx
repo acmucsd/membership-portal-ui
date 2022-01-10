@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchCollections } from '../../storeActions';
 import { notify } from '../../../utils';
-import { PublicMerchCollection } from '../../../types';
+import { PublicMerchCollection, UserAccessType } from '../../../types';
 
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
 import StoreHeader from '../StoreHeader';
@@ -15,11 +15,11 @@ import StoreButton from '../StoreButton';
 
 interface StorePageProps {
   fetchCollections: Function;
-  isAdmin: boolean;
+  canManageStore: boolean;
 }
 
 const StorePage: React.FC<StorePageProps> = (props) => {
-  const { isAdmin } = props;
+  const { canManageStore } = props;
 
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
@@ -38,15 +38,15 @@ const StorePage: React.FC<StorePageProps> = (props) => {
     <>
       <StoreHeader showBalance showCart />
       <div className="store-page">
-        {isAdmin && <StoreButton type="secondary" size="large" text="Create Collection" link="/store/admin/collection" />}
+        {canManageStore && <StoreButton type="secondary" size="large" text="Create Collection" link="/store/admin/collection" />}
         <div className="collections">
           {collections.map((collection) => {
-            if (collection.items.length !== 0 || isAdmin) {
+            if (collection.items.length !== 0 || canManageStore) {
               return (
                 <div className={`collection${collection.archived ? ' archived' : ''}`} key={collection.uuid} id={collection.uuid}>
                   <h2 className="collection-header" style={{ color: collection.themeColorHex }}>
                     {collection.title} {collection.archived ? ' - Archived' : ''}
-                    {isAdmin && (
+                    {canManageStore && (
                       <Link to={`/store/admin/collection/${collection.uuid}`}>
                         <img className="collection-header-editable-icon" src={EditableIcon} alt="Editable" />
                       </Link>
@@ -54,9 +54,9 @@ const StorePage: React.FC<StorePageProps> = (props) => {
                   </h2>
                   <div className="collection-items">
                     {collection.items.map((item, index) => (
-                      <ItemCard item={item} key={index} editable={isAdmin} editableLink={`/store/admin/item/${item.uuid}`} />
+                      <ItemCard item={item} key={index} editable={canManageStore} editableLink={`/store/admin/item/${item.uuid}`} />
                     ))}
-                    {isAdmin && <ItemCard placeholder placeholderLink="/store/admin/item" />}
+                    {canManageStore && <ItemCard placeholder placeholderLink="/store/admin/item" />}
                   </div>
                 </div>
               );
@@ -71,7 +71,7 @@ const StorePage: React.FC<StorePageProps> = (props) => {
 };
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
-  isAdmin: state.auth.admin,
+  canManageStore: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
 });
 
 export default connect(mapStateToProps, { fetchCollections })(StorePage);

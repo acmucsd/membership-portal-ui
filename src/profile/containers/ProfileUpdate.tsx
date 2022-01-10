@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import ProfileUpdate from '../components/ProfileUpdate';
-import { updateProfile } from '../profileActions';
+import { updateProfile, updateEmail } from '../profileActions';
 import { fetchUser } from '../../auth/authActions';
 
 const FormikProfileUpdate = withFormik({
@@ -29,4 +29,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, { updateProfile, fetchUser })(FormikProfileUpdate);
+export default connect(mapStateToProps, { updateProfile, fetchUser, updateEmail })(FormikProfileUpdate);

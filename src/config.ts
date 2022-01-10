@@ -24,6 +24,7 @@ export default {
       verification: '/api/v2/auth/verification',
       resetPassword: '/api/v2/auth/passwordReset',
       emailVerification: '/api/v2/auth/emailVerification',
+      emailModification: '/api/v2/auth/emailModification',
     },
     admin: {
       attendance: '/api/v2/admin/attendance',
