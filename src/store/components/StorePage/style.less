@@ -1,31 +1,41 @@
 @import "../../../styles/vars.less";
 
 .store-page {
-  color: @black;
+  margin-top: 2rem;
 
-  h1 {
-    font-size: @general-heading-1;
-    font-weight: 700;
+  .store-button,
+  .store-button-link {
+    margin-bottom: 1rem;
   }
 
-  // TODO: Remove coming soon section.
-  .coming-soon {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: @general-heading-2;
-    height: 50vh;
-    justify-content: center;
-    margin-top: 20vh;
-    width: 100%;
+  .collections {
+    .collection {
+      margin-bottom: 1.5rem;
 
-    .temp-icon {
-      flex: 0 0 100%;
-      font-size: 200px;
-      opacity: 0.2;
-    }
+      .collection-header {
+        font-size: 1.75rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
 
-    p {
-      opacity: 0.8;
+        &-editable-icon {
+          margin: 0 0 0.25rem 0.5rem;
+        }
+      }
+
+      .collection-items {
+        display: flex;
+        flex-flow: row wrap;
+        margin-bottom: -2rem;
+        margin-right: -2rem;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &.archived {
+        background-color: #eee;
+      }
     }
   }
 }

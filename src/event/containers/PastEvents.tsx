@@ -9,6 +9,7 @@ import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
 import { fetchAttendance as fetchAttendanceConnect, fetchPastEvents as fetchPastEventsConnect } from '../eventActions';
 import { formatDate } from '../../utils';
+import { UserAccessType } from '../../types';
 
 interface PastEventsContainerProps {
   attendance: [
@@ -26,9 +27,6 @@ interface PastEventsContainerProps {
       };
     },
   ];
-  auth: {
-    admin: boolean;
-  };
   events: [
     {
       uuid: string;
@@ -42,10 +40,11 @@ interface PastEventsContainerProps {
   ];
   fetchAttendance: Function;
   fetchPastEvents: Function;
+  canEditEvents: boolean;
 }
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
-  const { auth, events, attendance, fetchAttendance, fetchPastEvents } = props;
+  const { canEditEvents, events, attendance, fetchAttendance, fetchPastEvents } = props;
   const [timeframe, setTimeframe] = useState(getCurrentYear()?.name ?? 'All Time');
   const [shownEvents, setShownEvents] = useState<any[]>(events);
 
@@ -137,7 +136,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
               location={event.location}
               points={event.pointValue}
               title={event.title}
-              auth={auth}
+              canEditEvents={canEditEvents}
               attended={attended}
             />
           );
@@ -149,9 +148,9 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.event.pastEvents,
-  auth: state.auth,
   attendance: state.event.attendance,
   timeframe: state.event.timeframe,
+  canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
 });
 
 export default connect(mapStateToProps, {

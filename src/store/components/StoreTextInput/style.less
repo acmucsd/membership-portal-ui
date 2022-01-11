@@ -1,0 +1,48 @@
+.store-text {
+  display: flex;
+  flex-direction: column;
+
+  &-input {
+    background: #fff;
+    border: 1px solid rgba(85, 85, 85, 50%);
+    border-radius: 0.625rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 0 1rem;
+    resize: none;
+    transition: border 0.3s;
+
+    &.full {
+      height: 2.5rem;
+      width: 25rem;
+    }
+
+    &.half {
+      height: 2.5rem;
+      width: 12.5rem;
+    }
+
+    &.quarter {
+      height: 2.5rem;
+      width: 6.25rem;
+    }
+
+    &.field {
+      height: 10rem;
+      padding: 1rem;
+      width: 25rem;
+    }
+
+    &:focus,
+    &:hover {
+      border-color: #62b0ff;
+    }
+  }
+
+  &-error {
+    color: #e12b38;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+}

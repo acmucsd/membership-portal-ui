@@ -24,6 +24,7 @@ export default {
       verification: '/api/v2/auth/verification',
       resetPassword: '/api/v2/auth/passwordReset',
       emailVerification: '/api/v2/auth/emailVerification',
+      emailModification: '/api/v2/auth/emailModification',
     },
     admin: {
       attendance: '/api/v2/admin/attendance',
@@ -38,5 +39,19 @@ export default {
     },
     attendance: '/api/v2/attendance',
     leaderboard: '/api/v2/leaderboard',
+    store: {
+      collection: '/api/v2/merch/collection',
+      item: '/api/v2/merch/item',
+      itemPicture: '/api/v2/merch/item/picture',
+      option: '/api/v2/merch/option',
+      verification: '/api/v2/merch/order/verification',
+      order: '/api/v2/merch/order',
+      orders: '/api/v2/merch/orders',
+      pickup: {
+        future: '/api/v2/merch/order/pickup/future',
+        past: '/api/v2/merch/order/pickup/past',
+        single: '/api/v2/merch/order/pickup',
+      },
+    },
   },
 };
