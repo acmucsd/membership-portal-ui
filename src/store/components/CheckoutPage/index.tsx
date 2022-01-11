@@ -42,10 +42,12 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clea
         <CartDisplay items={cart} writable={false} />
         <StoreDropdown
           placeholder="Select a pickup event..."
-          options={pickupEvents.map((event) => ({
-            label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
-            value: event.uuid,
-          }))}
+          options={pickupEvents
+            .sort((a, b) => moment(a.start).diff(moment(b.start)))
+            .map((event) => ({
+              label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+              value: event.uuid,
+            }))}
           onChange={(option) => {
             setEventUUID(option.value);
           }}

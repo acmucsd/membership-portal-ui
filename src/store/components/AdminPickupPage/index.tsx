@@ -181,10 +181,12 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
         <p className="admin-pickup-page-hint">Select a pickup event to edit:</p>
         <StoreDropdown
           placeholder="Select a pickup event..."
-          options={pickupEvents.map((event) => ({
-            label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
-            value: event.uuid,
-          }))}
+          options={pickupEvents
+            .sort((a, b) => moment(a.start).diff(moment(b.start)))
+            .map((event) => ({
+              label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+              value: event.uuid,
+            }))}
           onChange={(option) => {
             setUuid(option.value);
           }}
