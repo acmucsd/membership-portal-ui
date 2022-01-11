@@ -77,12 +77,12 @@ const App = () => {
           <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage)} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/resetPassword/:code" component={ResetPage} />
-          <Route exact path="/store" component={requireStoreAccess(requireAuth(StorePage))} />
-          <Route exact path="/store/item/:uuid" component={requireStoreAccess(requireAuth(ItemPage))} />
-          <Route exact path="/store/cart" component={requireStoreAccess(requireAuth(CartPage))} />
-          <Route exact path="/store/checkout" component={requireStoreAccess(requireAuth(CheckoutPage))} />
-          <Route exact path="/store/order/:uuid" component={requireStoreAccess(requireAuth(OrderPage))} />
-          <Route exact path="/store/orders" component={requireStoreAccess(requireAuth(OrdersPage))} />
+          <Route exact path="/store" component={requireAuth(requireStoreAccess(StorePage))} />
+          <Route exact path="/store/item/:uuid" component={requireAuth(requireStoreAccess(ItemPage))} />
+          <Route exact path="/store/cart" component={requireAuth(requireStoreAccess(CartPage))} />
+          <Route exact path="/store/checkout" component={requireAuth(requireStoreAccess(CheckoutPage))} />
+          <Route exact path="/store/order/:uuid" component={requireAuth(requireStoreAccess(OrderPage))} />
+          <Route exact path="/store/orders" component={requireAuth(requireStoreAccess(OrdersPage))} />
           <Route exact path="/store/admin" component={requireStoreAccess(StoreAdminPage)} />
           <Route exact path="/store/admin/collection" component={requireStoreAccess(AdminCollectionPage)} />
           <Route exact path="/store/admin/collection/:uuid" component={requireStoreAccess(AdminCollectionPage)} />
