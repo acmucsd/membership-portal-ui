@@ -59,10 +59,20 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
             <div className="item-option">
               <p className="item-option-header">{`${options[0].metadata ? options[0].metadata.type : ''}:`.toLocaleLowerCase()}</p>
               <OptionSelector
-                options={options.map((option) => {
-                  const { uuid: key, metadata } = option;
-                  return { key, label: metadata ? metadata.value : '', value: option };
-                })}
+                options={options
+                  .sort((a, b) => {
+                    if ((a.metadata?.position ?? 0) < (b.metadata?.position ?? 0)) {
+                      return -1;
+                    }
+                    if ((a.metadata?.position ?? 0) > (b.metadata?.position ?? 0)) {
+                      return 1;
+                    }
+                    return 0;
+                  })
+                  .map((option) => {
+                    const { uuid: key, metadata } = option;
+                    return { key, label: metadata ? metadata.value : '', value: option };
+                  })}
                 onChange={({ value }: { value: PublicMerchItemOption }) => {
                   setCurrentOption(value);
                 }}
