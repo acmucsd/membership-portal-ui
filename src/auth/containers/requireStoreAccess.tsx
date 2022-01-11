@@ -13,10 +13,12 @@ const withStoreAccess = (Component: React.FC) => (props: { [key: string]: any })
 
   useEffect(() => {
     const emailDomain = email?.split('@')[1];
-    if (state === UserState.PENDING || !(emailDomain === 'ucsd.edu' || emailDomain === 'acmucsd.org')) {
-      redirectHome();
-    } else {
-      setPermitted(true);
+    if (email) {
+      if (state === UserState.PENDING || !(emailDomain === 'ucsd.edu' || emailDomain === 'acmucsd.org')) {
+        redirectHome();
+      } else {
+        setPermitted(true);
+      }
     }
   }, [state, email, redirectHome]);
 
