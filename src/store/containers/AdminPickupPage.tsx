@@ -50,4 +50,4 @@ const AdminPickupPageContainer: React.FC<AdminPickupPageContainerProps> = (props
   );
 };
 
-export default connect(() => ({}), { fetchPickupEvent, fetchFuturePickupEvents })(AdminPickupPageContainer);
+export default connect(null, { fetchPickupEvent, fetchFuturePickupEvents })(AdminPickupPageContainer);

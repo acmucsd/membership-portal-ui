@@ -163,4 +163,4 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), { fulfillOrder, completePickupEvent })(AdminFulfillPage);
+export default connect(null, { fulfillOrder, completePickupEvent })(AdminFulfillPage);
