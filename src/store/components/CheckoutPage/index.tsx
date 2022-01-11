@@ -8,6 +8,7 @@ import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import { fetchService, notify } from '../../../utils';
+import './style.less';
 
 type CheckoutPageProps = {
   cart: CartItem[];
@@ -38,7 +39,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clea
   return (
     <>
       <StoreHeader breadcrumb breadcrumbTitle="Cart" breadcrumbLocation="/store/cart" showBalance />
-      <div className="cart-page">
+      <div className="checkout-page">
         <CartDisplay items={cart} writable={false} />
         <StoreDropdown
           placeholder="Select a pickup event..."
