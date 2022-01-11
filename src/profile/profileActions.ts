@@ -1,9 +1,9 @@
-import { PROFILE_FAIL, PROFILE_SUCCESS, ThunkActionCreator } from './profileTypes';
+import { PROFILE_FAIL, PROFILE_SUCCESS } from './profileTypes';
 import Config from '../config';
 import { logoutUser } from '../auth/authActions';
 import { notify, fetchService } from '../utils';
 
-export const updateProfile: ThunkActionCreator = (values) => async (dispatch) => {
+export const updateProfile = (values) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}`;
     await fetchService(url, 'PATCH', 'json', {

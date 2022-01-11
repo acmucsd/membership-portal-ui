@@ -1,11 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-import { FETCH_LEADERBOARD, LEADERBOARD_ERROR, ThunkActionCreator } from './leaderboardTypes';
+import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
 import { logoutUser } from '../auth/authActions';
 
 import Config from '../config';
 import { fetchService } from '../utils';
 
-export const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: number, from?: number, to?: number) => async (dispatch) => {
+export const fetchLeaderboard = (offset: number = 0, limit: number, from?: number, to?: number) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`;
     const data = await fetchService(url, 'GET', 'json', {

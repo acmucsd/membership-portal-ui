@@ -2,11 +2,11 @@ import copy from 'copy-to-clipboard';
 
 import Config from '../config';
 
-import { EVENT_DELETE, GET_EMAILS, ThunkActionCreator } from './adminTypes';
+import { EVENT_DELETE, GET_EMAILS } from './adminTypes';
 import { notify, fetchService } from '../utils';
 import { logoutUser } from '../auth/authActions';
 
-export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
+export const postEvent = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL}${Config.routes.events.event}`;
@@ -36,7 +36,7 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
   });
 };
 
-export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
+export const editEvent = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
@@ -68,7 +68,7 @@ export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
   });
 };
 
-export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
+export const deleteEvent = (uuid) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
@@ -90,7 +90,7 @@ export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
   });
 };
 
-export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dispatch) => {
+export const awardPoints = (pointDetails: any) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     if (!pointDetails.points) {
       notify('Validation Error!', 'No points provided');
@@ -124,7 +124,7 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
   });
 };
 
-export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => async (dispatch) => {
+export const addAttendance = (attendanceDetails: any) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     if (!attendanceDetails.event) {
       notify('Validation Error!', 'No event specified');
@@ -157,7 +157,7 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
   });
 };
 
-export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
+export const getAllEmails = () => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.admin.emails}`;
     const emails = await fetchService(url, 'GET', 'json', {
