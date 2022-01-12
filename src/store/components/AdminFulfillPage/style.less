@@ -1,0 +1,76 @@
+.admin-fulfill-page {
+  color: #333;
+  display: flex;
+  margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
+  margin-top: 2rem;
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  &-dates {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 1.5rem;
+  }
+
+  &-left {
+    width: 28rem;
+  }
+
+  &-orders-list {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+
+    &-title {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+    }
+  }
+
+  &-order {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    margin: 0;
+    margin-top: 1rem;
+    padding: 0;
+    text-decoration: underline;
+
+    &.selected {
+      font-weight: 700;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &-right {
+    border-left: 1px solid #333;
+    margin-left: 1rem;
+    padding-left: 1rem;
+
+    .title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-name {
+      font-size: 1rem;
+      padding-left: 0.75rem;
+    }
+  }
+
+  .store-dropdown {
+    margin-top: 0.75rem;
+  }
+
+  .store-button,
+  .store-button-link {
+    margin-top: 1.5rem;
+  }
+}

@@ -1,16 +1,7 @@
 import _ from 'lodash';
 
 import { AnyAction } from 'redux';
-import {
-  EVENT_CHECKIN,
-  EVENT_CHECKOUT,
-  EVENT_ERROR,
-  FETCH_ATTENDANCE,
-  FETCH_FUTURE_EVENTS,
-  FETCH_PAST_EVENTS,
-  FETCH_EVENT,
-  UPDATE_TIMEFRAME,
-} from './eventTypes';
+import { EVENT_CHECKIN, EVENT_CHECKOUT, EVENT_ERROR, FETCH_ATTENDANCE, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS, FETCH_EVENT } from './eventTypes';
 
 const initialState = {
   attendance: [],
@@ -19,7 +10,6 @@ const initialState = {
   futureEvents: [],
   pastEvents: [],
   checkin: false,
-  timeframe: 'All Time',
   error: null,
 };
 
@@ -56,12 +46,6 @@ const EventsReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         pastEvents: action.payload,
-      };
-
-    case UPDATE_TIMEFRAME:
-      return {
-        ...state,
-        timeframe: action.payload,
       };
 
     case FETCH_EVENT:

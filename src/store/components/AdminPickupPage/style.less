@@ -1,0 +1,108 @@
+@import "../../../styles/vars.less";
+
+.admin-pickup-page {
+  color: #333;
+  margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
+  margin-top: 2rem;
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 700;
+    padding-bottom: 1.5rem;
+  }
+
+  &-error {
+    color: #e12b38;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+
+    &-entry {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-field {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1.5rem;
+
+      &-label {
+        font-size: 1.25rem;
+        width: 12rem;
+      }
+
+      &-date-input {
+        height: 2.5rem;
+        margin-right: 1.5rem;
+        width: 18rem;
+
+        .ant-calendar-picker-input {
+          background-color: @white;
+          border-color: rgba(85, 85, 85, 50%);
+          border-radius: 0.625rem;
+          color: @black;
+          font-size: 1rem;
+          height: 2.5rem;
+        }
+
+        .ant-calendar-picker-icon {
+          display: none;
+        }
+      }
+
+      &-time-input {
+        height: 2.5rem;
+        margin-right: 1.5rem;
+        width: 6.25rem;
+
+        .ant-time-picker-input {
+          background-color: @white;
+          border-color: rgba(85, 85, 85, 50%);
+          border-radius: 0.625rem;
+          color: @black;
+          font-size: 1rem;
+          height: 2.5rem;
+        }
+
+        .ant-time-picker-icon {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &-hint {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    width: 37rem;
+  }
+
+  .store-dropdown {
+    margin-top: 0.75rem;
+  }
+
+  .store-button,
+  .store-button-link {
+    margin-top: 1.5rem;
+  }
+
+  .admin-pickup-page-divider {
+    background-color: #c4c4c4;
+    height: 0.125rem;
+    margin-top: 1.5rem;
+    width: 18.75rem;
+  }
+}

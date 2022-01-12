@@ -6,6 +6,7 @@ import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
 import { fetchAttendance as fetchAttendanceConnect, fetchFutureEvents as fetchFutureEventsConnect } from '../eventActions';
 import { formatDate, formatTime } from '../../utils';
+import { UserAccessType } from '../../types';
 
 interface UpcomingEventsContainerProps {
   attendance: [
@@ -23,7 +24,7 @@ interface UpcomingEventsContainerProps {
       };
     },
   ];
-  auth: boolean;
+  canEditEvents: boolean;
   events: [
     {
       uuid: string;
@@ -41,7 +42,7 @@ interface UpcomingEventsContainerProps {
 }
 
 const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
-  const { auth, events, attendance, fetchAttendance, fetchFutureEvents } = props;
+  const { canEditEvents, events, attendance, fetchAttendance, fetchFutureEvents } = props;
 
   useEffect(() => {
     fetchFutureEvents();
@@ -49,30 +50,33 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
   }, [fetchAttendance, fetchFutureEvents]);
 
   return (
-    <EventsList>
-      {events.map((event) => {
-        const startDate = formatDate(event.start);
-        const startTime = formatTime(event.start);
-        const endDate = formatDate(event.end);
-        const endTime = formatTime(event.end);
-        const date = startDate === endDate ? `${startDate}, ${startTime} - ${endTime}` : `${startDate}, ${startTime} - ${endDate}, ${endTime}`;
-        const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
-        return (
-          <EventCard
-            key={`upcoming-${event.uuid}`}
-            uuid={event.uuid}
-            cover={event.cover || background}
-            date={date}
-            description={event.description}
-            location={event.location}
-            points={event.pointValue}
-            title={event.title}
-            auth={auth}
-            attended={attended}
-          />
-        );
-      })}
-    </EventsList>
+    <div>
+      <h1 className="subtitle">Upcoming Events</h1>
+      <EventsList>
+        {events.map((event) => {
+          const startDate = formatDate(event.start);
+          const startTime = formatTime(event.start);
+          const endDate = formatDate(event.end);
+          const endTime = formatTime(event.end);
+          const date = startDate === endDate ? `${startDate}, ${startTime} - ${endTime}` : `${startDate}, ${startTime} - ${endDate}, ${endTime}`;
+          const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
+          return (
+            <EventCard
+              key={`upcoming-${event.uuid}`}
+              uuid={event.uuid}
+              cover={event.cover || background}
+              date={date}
+              description={event.description}
+              location={event.location}
+              points={event.pointValue}
+              title={event.title}
+              canEditEvents={canEditEvents}
+              attended={attended}
+            />
+          );
+        })}
+      </EventsList>
+    </div>
   );
 };
 
@@ -80,6 +84,7 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   events: state.event.futureEvents,
   auth: state.auth,
   attendance: state.event.attendance,
+  canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
 });
 
 export default connect(mapStateToProps, {

@@ -1,6 +1,10 @@
+import React from 'react';
 import { notification } from 'antd';
+
 import Storage from './storage';
-import { HttpRequestMethod, MimeType, FetchServiceOptions } from './types';
+import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption } from './types';
+
+import DiamondDisplay from './store/components/DiamondDisplay';
 
 export const notify = (title: string, description: string) => {
   notification.open({
@@ -190,7 +194,7 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   if (!data) throw new Error('Empty response from server');
   if (data.error) {
     let { message } = data.error;
-    if (status === 400) {
+    if (status === 400 && data.error.errors) {
       let messages = '';
       const { errors } = data.error;
       for (let i = 0; i < errors.length; i += 1) {
@@ -202,4 +206,81 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   }
 
   return data;
+};
+
+export const processItem = (
+  options: PublicMerchItemOption[],
+): {
+  outOfStock: boolean;
+  onSale: boolean;
+  priceRange: {
+    low: number;
+    high: number;
+  };
+  cheapestSalePriceTuple: {
+    normalPrice: number;
+    salePrice: number;
+  };
+} => {
+  const outOfStock = options.every((option) => option.quantity === 0);
+  const onSale = options.some((option) => option.discountPercentage !== 0);
+  const priceRange = options.reduce(
+    (acc, option) => {
+      const newAcc = acc;
+      if (acc.low > option.price) {
+        newAcc.low = option.price;
+      }
+      if (acc.high < option.price) {
+        newAcc.high = option.price;
+      }
+      return newAcc;
+    },
+    {
+      low: Number.POSITIVE_INFINITY,
+      high: Number.NEGATIVE_INFINITY,
+    },
+  );
+
+  const cheapestSalePriceTuple = options.reduce(
+    (acc, option) => {
+      const currentOptionDiscountPrice = ((100 - option.discountPercentage) * option.price) / 100;
+      return acc.salePrice > currentOptionDiscountPrice
+        ? {
+            normalPrice: option.price,
+            salePrice: currentOptionDiscountPrice,
+          }
+        : acc;
+    },
+    {
+      normalPrice: Infinity,
+      salePrice: Infinity,
+    },
+  );
+
+  return { outOfStock, onSale, priceRange, cheapestSalePriceTuple };
+};
+
+export const processItemPrice = (options: PublicMerchItemOption[]): React.ReactNode => {
+  const { outOfStock, onSale, priceRange, cheapestSalePriceTuple } = processItem(options);
+
+  if (outOfStock) {
+    return <DiamondDisplay outOfStock />;
+  }
+  if (onSale) {
+    if (cheapestSalePriceTuple.normalPrice === cheapestSalePriceTuple.salePrice) {
+      return <DiamondDisplay value={cheapestSalePriceTuple.normalPrice} />;
+    }
+    return <DiamondDisplay value={cheapestSalePriceTuple.normalPrice} saleValue={cheapestSalePriceTuple.salePrice} />;
+  }
+  if (priceRange.low === priceRange.high) {
+    return <DiamondDisplay value={priceRange.low} />;
+  }
+  return <DiamondDisplay prefix={`${priceRange.low.toLocaleString('en-US')} - `} value={priceRange.high} />;
+};
+
+export const toProperCase = (s: string) => {
+  return s
+    .split(' ')
+    .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
 };

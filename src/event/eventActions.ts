@@ -6,7 +6,6 @@ import {
   FETCH_EVENT,
   FETCH_FUTURE_EVENTS,
   FETCH_PAST_EVENTS,
-  UPDATE_TIMEFRAME,
   ThunkActionCreator,
 } from './eventTypes';
 
@@ -110,13 +109,6 @@ export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
 export const checkOut: ThunkActionCreator = () => (dispatch) => {
   dispatch({
     type: EVENT_CHECKOUT,
-  });
-};
-
-export const updateTimeframe: ThunkActionCreator = (timeframe) => (dispatch) => {
-  dispatch({
-    type: UPDATE_TIMEFRAME,
-    payload: timeframe,
   });
 };
 

@@ -41,14 +41,16 @@ interface ProfileUpdateProps {
     major: string;
     bio: string;
   };
+  updateEmail: Function;
 }
 
 const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values, updateEmail } = props;
 
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [email, setEmail] = useState<string>();
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
@@ -100,6 +102,10 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     setBG(user.profile.profilePicture);
   }, [user, setFieldValue]);
 
+  useEffect(() => {
+    setEmail(user.profile.email);
+  }, [user]);
+
   const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
   const CustomSelect = ANTD.Select as React.ComponentClass<any>;
   const CustomUpload = ANTD.Upload as React.ComponentClass<any>;
@@ -149,6 +155,21 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
             </CustomUpload>
           </div>
         </Modal>
+        <div className="divider" />
+        <Form.Item label="Email">
+          <Input name="email" className="input-box" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </Form.Item>
+        <Button
+          key="submit"
+          type="primary"
+          className="save-button"
+          onClick={() => {
+            updateEmail(email);
+          }}
+        >
+          Update Email
+        </Button>
+        <div className="divider" />
         <form onSubmit={handleSubmit} className="update-profile-form">
           <Form.Item label="First name">
             <Input name="firstName" className="input-box" value={values.firstName} onChange={handleChange} onBlur={handleBlur} />

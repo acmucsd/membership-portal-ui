@@ -1,0 +1,39 @@
+.option-selector {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.75rem -0.75rem 0;
+
+  .option {
+    align-items: center;
+    background: #fff;
+    border: 1px solid rgba(85, 85, 85, 50%);
+    border-radius: 0.625rem;
+    color: #333;
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: 700;
+    height: 2.5rem;
+    margin: 0 0.75rem 0.75rem 0;
+    min-width: 4.25rem;
+    padding: 0 1rem;
+    transition: border 0.3s;
+
+    &:focus,
+    &:hover {
+      border-color: #62b0ff;
+    }
+
+    &.selected {
+      border: 1px solid rgba(98, 176, 255, 50%);
+      color: #62b0ff;
+    }
+
+    &:disabled {
+      background: #f2f2f2;
+      border: 1px solid rgba(85, 85, 85, 50%);
+      color: #8d8d8d;
+      cursor: not-allowed;
+    }
+  }
+}
