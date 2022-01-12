@@ -2,8 +2,11 @@ import React, { useEffect, useState, useRef, FocusEventHandler, ChangeEventHandl
 import { Form, Input, Button, Select, Modal, Avatar } from 'antd';
 import * as ANTD from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getDefaultProfile } from '../../../utils';
 import { uploadUserImage } from '../../profileActions';
+import { fetchUser } from '../../../auth/authActions';
 
 import majorsData from '../../../constants/majors.json';
 
@@ -38,11 +41,16 @@ interface ProfileUpdateProps {
     major: string;
     bio: string;
   };
+  updateEmail: Function;
 }
 
 const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values, updateEmail } = props;
 
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState<string>();
   const [bg, setBG] = useState(user.profile.profilePicture);
   const [fileList, setFileList] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
@@ -80,6 +88,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
       .then(() => {
         setUploadState('none');
         setVisible(false);
+        dispatch(fetchUser());
       })
       .catch(() => {
         setUploadState('none');
@@ -90,7 +99,12 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
     keys.forEach((key) => {
       setFieldValue(key, user.profile[key]);
     });
+    setBG(user.profile.profilePicture);
   }, [user, setFieldValue]);
+
+  useEffect(() => {
+    setEmail(user.profile.email);
+  }, [user]);
 
   const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
   const CustomSelect = ANTD.Select as React.ComponentClass<any>;
@@ -141,6 +155,21 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
             </CustomUpload>
           </div>
         </Modal>
+        <div className="divider" />
+        <Form.Item label="Email">
+          <Input name="email" className="input-box" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </Form.Item>
+        <Button
+          key="submit"
+          type="primary"
+          className="save-button"
+          onClick={() => {
+            updateEmail(email);
+          }}
+        >
+          Update Email
+        </Button>
+        <div className="divider" />
         <form onSubmit={handleSubmit} className="update-profile-form">
           <Form.Item label="First name">
             <Input name="firstName" className="input-box" value={values.firstName} onChange={handleChange} onBlur={handleBlur} />
@@ -191,7 +220,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
           <Button type="primary" htmlType="submit" className="save-button">
             Save Profile Changes
           </Button>
-          <Button type="danger" className="discard-button">
+          <Button type="danger" className="discard-button" onClick={() => history.push('/profile')}>
             Discard
           </Button>
         </form>

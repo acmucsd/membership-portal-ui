@@ -40,11 +40,26 @@ export const uploadUserImage = async (file: string | Blob) => {
       });
 
       notify('Updated profile picture!', '');
-
       resolve(data);
     } catch (error) {
       notify('Unable to update profile picture!', error.message);
       reject(error);
     }
   });
+};
+
+export const updateEmail = (email: string) => async (dispatch) => {
+  try {
+    const url = `${Config.API_URL}${Config.routes.auth.emailModification}`;
+
+    await fetchService(url, 'POST', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify({ email }),
+      onFailCallback: () => dispatch(logoutUser()),
+    });
+
+    notify('Success!', 'Check your email to re-verify your account.');
+  } catch (error) {
+    notify('API Error', error.message);
+  }
 };

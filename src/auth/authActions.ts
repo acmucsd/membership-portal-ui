@@ -51,10 +51,19 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
       isAdmin: userData.admin,
     });
 
-    // Redirect to home on login.
-    if (search !== '') {
-      dispatch(replace(`/checkin${search}`));
+    const params = new URLSearchParams(search);
+
+    const code = params.get('code');
+    const destination = params.get('destination');
+
+    if (code) {
+      // If the user was signed out when trying to check in, direct them to the checkin page
+      dispatch(replace(`/checkin?code=${code}}`));
+    } else if (destination) {
+      // If the user was signed out when trying to access the site, return them to their desired destination
+      dispatch(replace(decodeURIComponent(destination)));
     } else {
+      // Otherwise, redirect to home
       dispatch(replace('/'));
     }
   } catch (error) {
@@ -92,6 +101,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
           type: AUTH_USER,
           isAdmin: userData.admin,
         });
+        data.admin = userData.admin;
         resolve(data);
       } catch (error) {
         notify('Unable to verify token!', error.message || 'Try logging in again');
@@ -119,8 +129,20 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
         notify('Not Authenticated', 'Please sign in or register for an account before continuing.');
       }
 
-      // redirerct to /login
-      dispatch(replace(`/login${search}`));
+      // redirerct to /login, while including the checkin code and desired destination if present
+      dispatch(
+        replace(
+          `/login${search}${
+            pathname.toString() !== '/'
+              ? `${
+                  search.toString()
+                    ? `&destination=${encodeURIComponent(pathname.toString())}`
+                    : `?destination=${encodeURIComponent(pathname.toString())}`
+                }`
+              : ''
+          }`,
+        ),
+      );
       resolve();
     }
   });

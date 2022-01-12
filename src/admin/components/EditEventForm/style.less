@@ -1,9 +1,17 @@
-@import '../../../styles/fonts.less';
-@import '../../../styles/vars.less';
+@import "../../../styles/vars.less";
 
 .edit-event-form {
   display: flex;
   width: 50%;
+
+  .cover-preview {
+    border: 2px solid rgba(6, 89, 188, 20%);
+    height: 150px;
+    margin: 0;
+    margin-bottom: 20px;
+    object-fit: cover;
+    width: 100%;
+  }
 
   .subtitle {
     color: @blue-3;
@@ -14,17 +22,17 @@
   label {
     color: @blue-3;
     font-size: @card-heading-2;
-    font-weight: 600;
+    font-weight: 500;
 
     &::after {
-      content: '';
+      content: "";
     }
   }
 
   h1 {
     color: @black;
     font-size: @general-heading-1;
-    font-weight: 800;
+    font-weight: 700;
   }
 
   .input-box {

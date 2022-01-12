@@ -1,0 +1,70 @@
+.admin-prepare-page {
+  color: #333;
+  margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
+  margin-top: 2rem;
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  &-subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  &-secondary {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  &-table {
+    margin-bottom: 1rem;
+
+    td {
+      &.user {
+        color: #333;
+        font-size: 1.25rem;
+      }
+
+      &.items {
+        color: #333;
+        font-size: 1.125rem;
+        list-style-position: inside;
+      }
+    }
+
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+      background: transparent;
+    }
+
+    li {
+      list-style-position: inside;
+    }
+
+    .ant-table-column-title {
+      font-size: 1rem;
+    }
+  }
+
+  .store-dropdown {
+    margin-top: 0.75rem;
+  }
+
+  .store-button,
+  .store-button-link {
+    margin-top: 1.5rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    &-table {
+      width: 60%;
+    }
+  }
+}

@@ -9,7 +9,7 @@ import './styles.less';
 
 interface EventCardProps {
   attended: boolean;
-  auth: any;
+  canEditEvents: boolean;
   cover: string;
   date: string;
   description: string;
@@ -20,7 +20,7 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = (props) => {
-  const { attended, auth, cover, date, description, location, points, title, uuid } = props;
+  const { attended, canEditEvents, cover, date, description, location, points, title, uuid } = props;
   const history = useHistory();
 
   return (
@@ -42,7 +42,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
           <div className="inner" />
           <h2 className="points">{points}</h2>
         </div>
-        {auth.admin && (
+        {canEditEvents && (
           <div className="edit-icon-wrapper">
             <Icon
               type="edit"

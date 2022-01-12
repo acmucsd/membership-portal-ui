@@ -1,7 +1,7 @@
-@import '../../../styles/vars.less';
+@import "../../../styles/vars.less";
 
 .event-card {
-  border: 2px solid rgba(6, 89, 188, 0.2);
+  border: 2px solid rgba(6, 89, 188, 20%);
   border-radius: 10px;
   height: @event-height;
   -ms-overflow-style: none;
@@ -41,7 +41,7 @@
     }
 
     .info {
-      padding: 5% 10% 0 10%;
+      padding: 5% 10% 0;
       width: 100%;
 
       > * {
@@ -55,16 +55,20 @@
 
       .location {
         opacity: 0.8;
+        overflow: hidden;
+        text-overflow: ellipsis;
         white-space: nowrap;
+        width: 100%;
       }
 
       .link {
         color: @blue-2;
+        display: block;
       }
 
       .title {
         font-size: @card-heading-2;
-        font-weight: bold;
+        font-weight: 700;
       }
     }
 
@@ -95,15 +99,15 @@
       }
 
       .points {
-        font-weight: 600;
+        font-weight: 500;
         position: absolute;
       }
     }
 
     .divider {
-      border: 1px solid rgba(51, 51, 51, 0.2);
+      border: 1px solid rgba(51, 51, 51, 20%);
       bottom: 0;
-      margin: auto 10% 15px 10%;
+      margin: auto 10% 15px;
       position: absolute;
       width: 80%;
     }

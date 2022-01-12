@@ -1,0 +1,33 @@
+.orders-page {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+
+  .order-entry {
+    border: 1px solid rgba(85, 85, 85, 50%);
+    border-radius: 0.625rem;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 400;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  & > p {
+    color: #333;
+    font-size: 1rem;
+  }
+}

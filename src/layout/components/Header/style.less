@@ -1,10 +1,9 @@
-@import '../../../styles/fonts.less';
-@import '../../../styles/vars.less';
-@import '../../../styles/mixins.less';
+@import "../../../styles/vars.less";
+@import "../../../styles/mixins.less";
 
 .header-container {
   .header-padding {
-    height: calc(@nav-header-height + 5px);
+    height: calc(4rem + 0.25rem);
   }
 
   .header-content {
@@ -12,26 +11,23 @@
     z-index: 1000;
 
     .header {
-      .noselect;
-
       align-items: center;
-      background: white;
-      color: white;
+      background-color: white;
       display: flex;
-      font-size: @nav-heading;
-      height: @nav-header-height;
-      padding: 0 40px;
+      height: 4rem;
+      padding: 0 1rem;
+      user-select: none;
 
       .title {
-        color: #333;
-
         .logo {
-          height: 55px;
-          margin-right: 16px;
-          width: 55px;
+          height: 3rem;
+          margin-right: 1rem;
+          width: 3rem;
         }
 
         .subheading {
+          color: #333;
+          font-size: 1.5rem;
           font-weight: 700;
           vertical-align: middle;
         }
@@ -68,7 +64,7 @@
           #816dff
         );
       display: table;
-      height: 5px;
+      height: 4px;
       width: 100vw;
     }
   }

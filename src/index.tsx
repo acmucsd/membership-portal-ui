@@ -30,15 +30,24 @@ import ResetPage from './auth/containers/ResetPage';
 import ProfilePage from './profile/containers/ProfilePage';
 import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
 import RegisterPage from './auth/containers/RegisterPage';
-// Comment import until Store Page is released and added back to router
-// import StorePage from './store/containers/StorePage';
+import CartPage from './store/containers/CartPage';
+import CheckoutPage from './store/containers/CheckoutPage';
+import ItemPage from './store/containers/ItemPage';
+import StorePage from './store/containers/StorePage';
 import ErrorPage from './layout/containers/ErrorPage';
 import EmailVerficationPage from './auth/containers/EmailVerificationPage';
 import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
 import requireAuth from './auth/containers/requireAuth';
 import requireAdminAuth from './auth/containers/requireAdminAuth';
-// Comment import until Store Page is released and added back to router
-// import requireStandardAccess from './auth/containers/requireStandardAccess';
+import requireStoreAccess from './auth/containers/requireStoreAccess';
+import OrderPage from './store/containers/OrderPage';
+import OrdersPage from './store/containers/OrdersPage';
+import StoreAdminPage from './store/containers/StoreAdminPage';
+import AdminCollectionPage from './store/containers/AdminCollectionPage';
+import AdminItemPage from './store/containers/AdminItemPage';
+import AdminPreparePage from './store/containers/AdminPreparePage';
+import AdminFulfillPage from './store/containers/AdminFulfillPage';
+import AdminPickupPage from './store/containers/AdminPickupPage';
 
 const store = configureStore();
 
@@ -49,41 +58,47 @@ const App = () => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <>
-          <Switch>
-            <Route exact path="/about" component={requireAuth(AboutPage) as React.FC} />
-            <Route exact path="/admin" component={requireAdminAuth(AdminPage) as React.FC} />
-            <Route exact path="/admin/editEvent/:uuid" component={requireAdminAuth(EditEventPage) as React.FC} />
-            <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage) as React.FC} />
-            <Route exact path="/admin/createEvent" component={requireAdminAuth(CreateEventPage) as React.FC} />
-            <Route exact path="/admin/addAttendance" component={requireAdminAuth(AddAttendancePage) as React.FC} />
-            <Route exact path="/authenticate-email" component={AuthPage} />
-            <Route exact path="/bread" component={BreadPage} />
-            <Route exact path="/checkin" component={requireAuth(CheckInHandler) as React.FC} />
-            <Route exact path="/discord" component={requireAuth(DiscordPage) as React.FC} />
-            <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route exact path="/leaderboard" component={requireAuth(LeaderPage) as React.FC} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/profile" component={requireAuth(ProfilePage) as React.FC} />
-            <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage) as React.FC} />
-            <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage) as React.FC} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route
-              exact
-              path="/store"
-              component={() => {
-                window.location.href = 'https://www.youtube.com/watch?v=iik25wqIuFo';
-                return null;
-              }}
-            />
-            {/* <Route exact path="/store" component={requireStandardAccess(requireAuth(StorePage)) as React.FC} /> */}
-            <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
-            <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage) as React.FC} />
-            <Route exact path="/" component={requireAuth(HomePage) as React.FC} />
-            <Route path="/" component={requireAuth(ErrorPage) as React.FC} />
-          </Switch>
-        </>
+        <Switch>
+          <Route exact path="/about" component={requireAuth(AboutPage)} />
+          <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
+          <Route exact path="/admin/editEvent/:uuid" component={requireAuth(EditEventPage)} />
+          <Route exact path="/admin/awardPoints" component={requireAdminAuth(AwardPointsPage)} />
+          <Route exact path="/admin/createEvent" component={requireAuth(CreateEventPage)} />
+          <Route exact path="/admin/addAttendance" component={requireAuth(AddAttendancePage)} />
+          <Route exact path="/authenticate-email" component={AuthPage} />
+          <Route exact path="/bread" component={BreadPage} />
+          <Route exact path="/checkin" component={requireAuth(CheckInHandler)} />
+          <Route exact path="/discord" component={requireAuth(DiscordPage)} />
+          <Route exact path="/forgot-password" component={PasswordPage} />
+          <Route exact path="/leaderboard" component={requireAuth(LeaderPage)} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/profile" component={requireAuth(ProfilePage)} />
+          <Route exact path="/profile/:uuid" component={requireAuth(ProfilePage)} />
+          <Route exact path="/editProfile" component={requireAuth(ProfileUpdatePage)} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/resetPassword/:code" component={ResetPage} />
+          <Route exact path="/store" component={requireAuth(requireStoreAccess(StorePage))} />
+          <Route exact path="/store/item/:uuid" component={requireAuth(requireStoreAccess(ItemPage))} />
+          <Route exact path="/store/cart" component={requireAuth(requireStoreAccess(CartPage))} />
+          <Route exact path="/store/checkout" component={requireAuth(requireStoreAccess(CheckoutPage))} />
+          <Route exact path="/store/order/:uuid" component={requireAuth(requireStoreAccess(OrderPage))} />
+          <Route exact path="/store/orders" component={requireAuth(requireStoreAccess(OrdersPage))} />
+          <Route exact path="/store/admin" component={requireStoreAccess(StoreAdminPage)} />
+          <Route exact path="/store/admin/collection" component={requireStoreAccess(AdminCollectionPage)} />
+          <Route exact path="/store/admin/collection/:uuid" component={requireStoreAccess(AdminCollectionPage)} />
+          <Route exact path="/store/admin/item" component={requireStoreAccess(AdminItemPage)} />
+          <Route exact path="/store/admin/item/:uuid" component={requireStoreAccess(AdminItemPage)} />
+          <Route exact path="/store/admin/pickup" component={requireStoreAccess(AdminPickupPage)} />
+          <Route exact path="/store/admin/pickup/:uuid" component={requireStoreAccess(AdminPickupPage)} />
+          <Route exact path="/store/admin/prepare" component={requireStoreAccess(AdminPreparePage)} />
+          <Route exact path="/store/admin/prepare/:uuid" component={requireStoreAccess(AdminPreparePage)} />
+          <Route exact path="/store/admin/fulfill" component={requireStoreAccess(AdminFulfillPage)} />
+          <Route exact path="/store/admin/fulfill/:uuid" component={requireStoreAccess(AdminFulfillPage)} />
+          <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
+          <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
+          <Route exact path="/" component={requireAuth(HomePage)} />
+          <Route path="/" component={requireAuth(ErrorPage)} />
+        </Switch>
       </ConnectedRouter>
     </Provider>
   );

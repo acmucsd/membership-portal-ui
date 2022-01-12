@@ -1,0 +1,77 @@
+.store-dropdown {
+  &-control {
+    align-items: center;
+    background: #fff;
+    border: 0;
+    border: 1px solid rgba(85, 85, 85, 50%);
+    border-radius: 0.625rem;
+    display: flex;
+    height: 2.5rem;
+    padding: 0 1rem;
+    transition: border 0.3s;
+
+    &:focus,
+    &:hover {
+      border-color: #62b0ff;
+    }
+  }
+
+  &-placeholder {
+    color: #000;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding-right: 1.625rem;
+  }
+
+  &-menu {
+    border: 1px solid rgba(85, 85, 85, 50%);
+    border-radius: 10px;
+    font-size: 18px;
+  }
+
+  .Dropdown-option {
+    padding: 0.5rem 1rem;
+
+    &.is-selected {
+      background-color: #d8ebff;
+      color: #333;
+    }
+
+    &:hover {
+      background-color: #ecf6ff;
+      color: #333;
+    }
+  }
+
+  &-arrow {
+    border-color: #000 transparent transparent;
+    margin-top: 0;
+    right: 16px;
+    top: 17.5px;
+  }
+
+  .is-open {
+    .store-dropdown-control {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .store-dropdown-menu {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .store-dropdown-arrow {
+      border-color: transparent transparent #000;
+      border-width: 0 5px 5px;
+    }
+  }
+
+  &-error {
+    color: #e12b38;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+}

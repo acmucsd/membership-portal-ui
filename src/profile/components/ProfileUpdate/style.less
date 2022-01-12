@@ -1,5 +1,4 @@
-@import '../../../styles/fonts.less';
-@import '../../../styles/vars.less';
+@import "../../../styles/vars.less";
 
 .update-card {
   display: flex;
@@ -12,7 +11,7 @@
     font-weight: 700;
 
     &::after {
-      content: '';
+      content: "";
     }
   }
 
@@ -28,6 +27,13 @@
     color: @black;
     font-size: @general-heading-1;
     font-weight: 700;
+  }
+
+  .divider {
+    background-color: #777;
+    height: 1px;
+    margin: 1rem 0;
+    width: 100%;
   }
 
   .save-button,
@@ -86,7 +92,8 @@
         display: flex;
 
         .ant-select-selection__rendered {
-          width: calc(100% - 11px - 24px); // fit input inside select component, account for ant's select left/right margins
+          // fit input inside select component, account for ant's select left/right margins
+          width: calc(100% - 11px - 24px);
         }
       }
     }

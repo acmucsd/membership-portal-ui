@@ -1,38 +1,44 @@
-@import '../../../styles/fonts.less';
-@import '../../../styles/vars.less';
+@import "../../../styles/vars.less";
 
-.navbar-vertical-container {
-  .padding {
-    width: 268px;
+.navbar-vertical {
+  &-padding {
+    width: 14rem;
   }
 
-  .content {
-    border-right: 1px solid rgba(51, 51, 51, 0.2);
-    color: #333;
+  &-container {
     display: flex;
     flex-direction: column;
-    font-size: @nav-body;
-    height: calc(100vh - @nav-header-height - 5px);
-    justify-content: space-between;
-    line-height: 50px;
-    min-height: 164px;
-    padding: 64px;
+    height: calc(100vh - 4rem - 0.25rem);
+    overflow-y: auto;
     position: fixed;
-    width: 268px;
+  }
 
-    .title {
-      color: rgba(51, 51, 51, 0.3);
-      font-size: @nav-heading;
-      font-weight: bold;
-      margin: 0;
-    }
+  &-content {
+    background-color: #f8f8f8;
+    border-right: 1px solid #c4c4c4;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 2rem;
+    width: 14rem;
+  }
 
-    .selected {
-      color: @blue-1;
-    }
+  &-title {
+    color: #c4c4c4;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
 
-    .logout {
-      cursor: pointer;
+  &-group {
+    margin-top: 1.5rem;
+
+    &:first-child {
+      margin-top: 0;
     }
+  }
+
+  &-items {
+    padding-left: 0.5rem;
   }
 }

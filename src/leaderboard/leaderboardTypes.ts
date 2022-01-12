@@ -3,6 +3,5 @@ import { ActionCreator, AnyAction } from 'redux';
 
 export const FETCH_LEADERBOARD = 'FETCH_LEADERBOARD';
 export const LEADERBOARD_ERROR = 'LEADERBOARD_ERROR';
-export const CLEAR_LEADERBOARD = 'CLEAR_LEADERBOARD';
 
 export type ThunkActionCreator = ActionCreator<ThunkAction<void, {}, {}, AnyAction>>;

@@ -5,9 +5,9 @@ import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 import { useParams, useHistory } from 'react-router-dom';
 import * as moment from 'moment';
-import { notify } from '../../../utils';
 
 import './style.less';
+import { Event } from '../../../types';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -28,7 +28,7 @@ interface EditEventFormProps {
   handleBlur: FocusEventHandler;
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
-  values: { [key: string]: any };
+  values: Event;
   copyLink: Function;
   errors: {
     uuid: string | null;
@@ -47,7 +47,7 @@ interface EditEventFormProps {
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = (props) => {
-  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values, errors, copyLink } = props;
+  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values: eventData, errors, copyLink } = props;
 
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
@@ -58,9 +58,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
       .then(() => {
         history.push('/');
       })
-      .catch((error: string) => {
-        notify('Failed to delete the event', error);
-      });
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -93,9 +91,9 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
       <div className="edit-event-form-wrapper">
         <h1 className="subtitle">Edit an Event</h1>
         <form onSubmit={handleSubmit}>
-          <Input type="hidden" value={values.uuid} name="uuid" />
+          <Input type="hidden" value={eventData.uuid} name="uuid" />
           <Form.Item label="Event Title">
-            <Input name="title" className="input-box" value={values.title} onChange={handleChange} onBlur={handleBlur} />
+            <Input name="title" className="input-box" value={eventData.title} onChange={handleChange} onBlur={handleBlur} />
           </Form.Item>
           <p className="form-error">{errors.title ? errors.title : null}</p>
           <Form.Item className="committee-wrapper" label="Community">
@@ -104,7 +102,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
               className="committee-box"
               size="large"
               optionFilterProp="children"
-              value={values.committee}
+              value={eventData.committee}
               onChange={(value: string) => setFieldValue('committee', value)}
               onBlur={() => setFieldTouched('committee', true)}
               filterOption={(input, option) => {
@@ -120,17 +118,17 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
           <p className="form-error">{errors.committee ? errors.committee : null}</p>
           <div className="horizontal-input">
             <Form.Item className="location-wrapper" label="Location">
-              <Input name="location" className="location" value={values.location} onChange={handleChange} onBlur={handleBlur} />
+              <Input name="location" className="location" value={eventData.location} onChange={handleChange} onBlur={handleBlur} />
               <p className="form-error">{errors.location ? errors.location : null}</p>
             </Form.Item>
             <Form.Item className="points-wrapper" label="Points">
-              <Input name="pointValue" className="points" value={values.pointValue} onChange={handleChange} onBlur={handleBlur} />
+              <Input name="pointValue" className="points" value={eventData.pointValue} onChange={handleChange} onBlur={handleBlur} />
               <p className="form-error">{errors.pointValue ? errors.pointValue : null}</p>
             </Form.Item>
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
-              <DatePicker className="date" value={values.startDate} onChange={(date) => setFieldValue('startDate', date)} />
+              <DatePicker className="date" value={eventData.startDate} onChange={(date) => setFieldValue('startDate', date)} />
               <p className="form-error">{errors.startDate ? errors.startDate : null}</p>
             </Form.Item>
             <Form.Item className="time-wrapper" label="Start Time">
@@ -139,7 +137,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
                 use12Hours
                 format="h:mm a"
                 minuteStep={15}
-                value={values.startTime}
+                value={eventData.startTime}
                 onChange={(time) => setFieldValue('startTime', time)}
               />
               <p className="form-error">{errors.startTime ? errors.startTime : null}</p>
@@ -147,7 +145,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
           </div>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="End Date">
-              <DatePicker className="date" value={values.endDate} onChange={(date) => setFieldValue('endDate', date)} />
+              <DatePicker className="date" value={eventData.endDate} onChange={(date) => setFieldValue('endDate', date)} />
               <p className="form-error">{errors.endDate ? errors.endDate : null}</p>
             </Form.Item>
             <Form.Item className="time-wrapper" label="End Time">
@@ -156,13 +154,14 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
                 use12Hours
                 format="h:mm a"
                 minuteStep={15}
-                value={values.endTime}
+                value={eventData.endTime}
                 onChange={(time) => setFieldValue('endTime', time)}
               />
               <p className="form-error">{errors.endTime ? errors.endTime : null}</p>
             </Form.Item>
           </div>
           <Form.Item className="cover-wrapper" label="Cover Link">
+            {eventData.cover && typeof eventData.cover === 'string' && <img className="cover-preview" src={eventData.cover} alt={eventData.cover} />}
             <ImgCrop aspect={16 / 9}>
               <Upload
                 name="cover"
@@ -179,11 +178,11 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
             <p className="form-error">{errors.cover ? errors.cover : null}</p>
           </Form.Item>
           <Form.Item label="Attendance Code">
-            <Input name="attendanceCode" className="input-box" value={values.attendanceCode} onChange={handleChange} onBlur={handleBlur} />
+            <Input name="attendanceCode" className="input-box" value={eventData.attendanceCode} onChange={handleChange} onBlur={handleBlur} />
             <p className="form-error">{errors.attendanceCode ? errors.attendanceCode : null}</p>
           </Form.Item>
           <Form.Item label="Description">
-            <TextArea name="description" className="area-box" value={values.description} onChange={handleChange} onBlur={handleBlur} />
+            <TextArea name="description" className="area-box" value={eventData.description} onChange={handleChange} onBlur={handleBlur} />
             <p className="form-error">{errors.description ? errors.description : null}</p>
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button">
@@ -202,7 +201,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
             type="primary"
             className="link-button"
             onClick={() => {
-              copyLink(values.attendanceCode);
+              copyLink(eventData.attendanceCode);
             }}
           >
             Copy Checkin Link
