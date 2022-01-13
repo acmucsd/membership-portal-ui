@@ -73,16 +73,26 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           className="admin-prepare-page-table"
           size="small"
           rowKey="uuid"
-          dataSource={Object.values(merchData).map((data) => ({
-            uuid: data.name,
-            itemDisplay: (
-              <>
-                <h2>{data.name}</h2>
-                {data.variantType && data.variantValue && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
-              </>
-            ),
-            quantity: data.quantity,
-          }))}
+          dataSource={Object.values(merchData)
+            .sort((a, b) => {
+              if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((data) => ({
+              uuid: data.name,
+              itemDisplay: (
+                <>
+                  <h2>{data.name}</h2>
+                  {data.variantType && data.variantValue && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
+                </>
+              ),
+              quantity: data.quantity,
+            }))}
           columns={[
             {
               title: 'Item',
@@ -102,38 +112,61 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           className="admin-prepare-page-table"
           size="small"
           rowKey="uuid"
-          dataSource={pickupEvent.orders?.map((order) => {
-            const itemMap = new Map<string, PublicOrderItemWithQuantity>();
+          dataSource={pickupEvent.orders
+            ?.sort((a, b) => {
+              const nameA = `${a.user.firstName} ${a.user.lastName}`;
+              const nameB = `${b.user.firstName} ${b.user.lastName}`;
 
-            order.items.forEach((item) => {
-              const existingItem = itemMap.get(item.option.uuid);
-
-              if (existingItem) {
-                existingItem.quantity += 1;
-
-                itemMap.set(existingItem.option.uuid, existingItem);
-              } else {
-                itemMap.set(item.option.uuid, { ...item, quantity: 1 });
+              if (nameA < nameB) {
+                return -1;
               }
-            });
+              if (nameA > nameB) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((order) => {
+              const itemMap = new Map<string, PublicOrderItemWithQuantity>();
 
-            const updatedItems = Array.from(itemMap, ([, value]) => value);
+              order.items.forEach((item) => {
+                const existingItem = itemMap.get(item.option.uuid);
 
-            return {
-              uuid: order.uuid,
-              user: `${order.user.firstName} ${order.user.lastName}`,
-              items: (
-                <ul>
-                  {updatedItems.map((item) => (
-                    <li key={item.uuid}>
-                      {item.quantity} x {item.option.item.itemName}
-                      {item.option.metadata && ` (${item.option.metadata?.type}: ${item.option.metadata?.value})`}
-                    </li>
-                  ))}
-                </ul>
-              ),
-            };
-          })}
+                if (existingItem) {
+                  existingItem.quantity += 1;
+
+                  itemMap.set(existingItem.option.uuid, existingItem);
+                } else {
+                  itemMap.set(item.option.uuid, { ...item, quantity: 1 });
+                }
+              });
+
+              const updatedItems = Array.from(itemMap, ([, value]) => value);
+
+              return {
+                uuid: order.uuid,
+                user: `${order.user.firstName} ${order.user.lastName}`,
+                items: (
+                  <ul>
+                    {updatedItems
+                      .sort((a, b) => {
+                        if (a.option.item.itemName < b.option.item.itemName) {
+                          return -1;
+                        }
+                        if (a.option.item.itemName > b.option.item.itemName) {
+                          return 1;
+                        }
+                        return 0;
+                      })
+                      .map((item) => (
+                        <li key={item.uuid}>
+                          {item.quantity} x {item.option.item.itemName}
+                          {item.option.metadata && ` (${item.option.metadata?.type}: ${item.option.metadata?.value})`}
+                        </li>
+                      ))}
+                  </ul>
+                ),
+              };
+            })}
           columns={[
             {
               title: 'User',
