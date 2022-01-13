@@ -70,7 +70,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         </p>
         <br />
         {selectedOrder.items.map((item, idx) => (
-          <div key={idx}>
+          <div className="order-item" key={idx}>
             <StoreCheckbox
               checked={item.fulfilled || item.needsFulfillment}
               disabled={item.fulfilled}
