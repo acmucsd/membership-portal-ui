@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import moment from 'moment';
 import { Modal } from 'antd';
 
@@ -27,6 +28,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const [uuid, setUuid] = useState<string>();
   const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
 
   if (!pickupEvent) {
     return (
@@ -153,10 +155,12 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
               props.completePickupEvent(pickupEvent.uuid).then(() => {
                 setShowModal(false);
                 notify('Success!', 'Pickup Event is Over');
+                history.push('/store/admin');
               });
             }}
           >
-            This will end the pickup event forever. Did you mean to do this?
+            This will end the pickup event forever. Any unfulfilled orders will be marked as missed, and any partially fulfilled orders will be
+            eligble to be rescheduled or cancelled. Are you sure you want to proceed?
           </Modal>
         </div>
         {orderInfo}
