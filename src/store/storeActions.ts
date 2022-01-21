@@ -218,13 +218,13 @@ export const fulfillOrder: ThunkActionCreator = (uuid: string, items: { uuid: st
       }
 
       const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/fulfill`;
-      await fetchService(url, 'POST', 'json', {
+      const data = await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
         onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ items }),
       });
 
-      resolve();
+      resolve(data.order);
     } catch (error) {
       reject(error);
     }

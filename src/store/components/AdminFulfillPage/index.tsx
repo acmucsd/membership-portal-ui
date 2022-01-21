@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import moment from 'moment';
@@ -23,12 +23,17 @@ interface AdminFulfillPageProps {
 }
 
 const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
-  const { pickupEvent, pickupEvents = [] } = props;
+  const { pickupEvent: pickupEventIn, pickupEvents = [] } = props;
 
   const [uuid, setUuid] = useState<string>();
+  const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    setPickupEvent(pickupEventIn);
+  }, [pickupEventIn]);
 
   if (!pickupEvent) {
     return (
@@ -96,7 +101,11 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                 selectedOrder.uuid,
                 selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
               )
-              .then(() => {
+              .then((newOrder) => {
+                setPickupEvent({
+                  ...pickupEvent,
+                  orders: [...(pickupEvent.orders ?? [])].map((order) => (selectedOrder.uuid === order.uuid ? newOrder : order)),
+                });
                 notify('Success!', 'Order has been updated');
                 setSelectedOrder(undefined);
               })
