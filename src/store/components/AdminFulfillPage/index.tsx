@@ -6,7 +6,7 @@ import { Modal } from 'antd';
 
 import { fulfillOrder, completePickupEvent } from '../../storeActions';
 import { OrderStatus, PublicOrderPickupEvent, PublicOrderForFulfillment } from '../../../types';
-import { notify } from '../../../utils';
+import { notify, toProperCase } from '../../../utils';
 
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
@@ -124,6 +124,18 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
               ?.filter((order) => {
                 return order.status !== OrderStatus.CANCELLED;
               })
+              .sort((a, b) => {
+                const aName = `${a.user.firstName} ${a.user.lastName}`;
+                const bName = `${b.user.firstName} ${b.user.lastName}`;
+
+                if (aName < bName) {
+                  return -1;
+                }
+                if (aName > bName) {
+                  return 1;
+                }
+                return 0;
+              })
               .map((order, key) => (
                 <button
                   type="button"
@@ -137,7 +149,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                   }}
                   key={key}
                 >
-                  {order.user.firstName} {order.user.lastName}
+                  {order.user.firstName} {order.user.lastName} ({toProperCase(order.status)})
                 </button>
               ))}
           </div>
