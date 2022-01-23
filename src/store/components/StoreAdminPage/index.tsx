@@ -25,6 +25,7 @@ const StoreAdminPage: React.FC<StoreAdminPageProps> = (props) => {
     <>
       <StoreHeader title="Diamond Outfitters: Admin Page" />
       <div className="store-admin-page">
+        {canManageStore && <StoreButton type="primary" size="large" text="View Quantities" link="/store/admin/quantities" />}
         {canManageStore && <StoreButton type="primary" size="large" text="Manage Pickup Events" link="/store/admin/pickup" />}
         <StoreButton type="primary" size="large" text="Prepare Orders" link="/store/admin/prepare" />
         <StoreButton type="primary" size="large" text="Fulfill Orders" link="/store/admin/fulfill" />
