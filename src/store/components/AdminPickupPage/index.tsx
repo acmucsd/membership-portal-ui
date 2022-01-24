@@ -19,6 +19,7 @@ import './style.less';
 interface AdminPickupPageProps {
   pickupEvent?: PublicOrderPickupEvent | undefined;
   pickupEvents: PublicOrderPickupEvent[];
+  deletePickupEvent: Function;
 }
 
 interface AdminPickupPageForm {
@@ -38,7 +39,7 @@ const AdminPickupPageFormSchema = Yup.object().shape({
 });
 
 const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
-  const { pickupEvent, pickupEvents = [] } = props;
+  const { pickupEvent, pickupEvents = [], deletePickupEvent } = props;
 
   const creatingPickup = !pickupEvent;
 
@@ -52,6 +53,17 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
     start: pickupEvent ? moment(pickupEvent?.start) : undefined,
     end: pickupEvent ? moment(pickupEvent?.end) : undefined,
     orderLimit: pickupEvent?.orderLimit?.toString() ?? '',
+  };
+
+  const handleDelete = () => {
+    deletePickupEvent(pickupEvent?.uuid)
+      .then(() => {
+        notify('Success!', `Deleted ${pickupEvent?.title}.`);
+        history.push('/store/admin');
+      })
+      .catch((reason) => {
+        notify('API Error', reason.message || reason);
+      });
   };
 
   if (createMode || pickupEvent) {
@@ -165,6 +177,11 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                   <StoreButton type="secondary" size="medium" text="Cancel" disabled={submitting} onClick={() => setCreateMode(false)} />
                   <StoreButton text="Save" size="medium" disabled={submitting} onClick={() => handleSubmit()} />
                 </div>
+                {!creatingPickup && (
+                  <div className="admin-pickup-page-buttons">
+                    <StoreButton type="danger" size="medium" text="Delete" disabled={submitting} onClick={() => handleDelete()} />
+                  </div>
+                )}
               </form>
             )}
           </Formik>
