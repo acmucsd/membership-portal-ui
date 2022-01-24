@@ -6,7 +6,7 @@ import { Modal } from 'antd';
 
 import { fulfillOrder, completePickupEvent } from '../../storeActions';
 import { OrderStatus, PublicOrderPickupEvent, PublicOrderForFulfillment } from '../../../types';
-import { notify, toProperCase } from '../../../utils';
+import { notify, parseOrderStatus } from '../../../utils';
 
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
@@ -34,6 +34,20 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   useEffect(() => {
     setPickupEvent(pickupEventIn);
   }, [pickupEventIn]);
+
+  const handleFinishPickup = () => {
+    props
+      .completePickupEvent(pickupEvent?.uuid)
+      .then(() => {
+        setShowModal(false);
+        notify('Success!', 'Pickup Event is Over');
+        history.push('/store/admin');
+      })
+      .catch((reason) => {
+        setShowModal(false);
+        notify('API Error', reason.message || reason);
+      });
+  };
 
   if (!pickupEvent) {
     return (
@@ -152,7 +166,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                   }}
                   key={key}
                 >
-                  {order.user.firstName} {order.user.lastName} ({toProperCase(order.status)})
+                  {order.user.firstName} {order.user.lastName} ({parseOrderStatus(order.status)})
                 </button>
               ))}
           </div>
@@ -163,17 +177,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
               setShowModal(true);
             }}
           />
-          <Modal
-            visible={showModal}
-            onCancel={() => setShowModal(false)}
-            onOk={() => {
-              props.completePickupEvent(pickupEvent.uuid).then(() => {
-                setShowModal(false);
-                notify('Success!', 'Pickup Event is Over');
-                history.push('/store/admin');
-              });
-            }}
-          >
+          <Modal visible={showModal} onCancel={() => setShowModal(false)} onOk={handleFinishPickup}>
             This will end the pickup event forever. Any unfulfilled orders will be marked as missed, and any partially fulfilled orders will be
             eligble to be rescheduled or cancelled. Are you sure you want to proceed?
           </Modal>

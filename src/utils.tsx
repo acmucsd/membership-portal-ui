@@ -2,7 +2,7 @@ import React from 'react';
 import { notification } from 'antd';
 
 import Storage from './storage';
-import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption } from './types';
+import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption, OrderStatus } from './types';
 
 import DiamondDisplay from './store/components/DiamondDisplay';
 
@@ -283,4 +283,29 @@ export const toProperCase = (s: string) => {
     .split(' ')
     .map((w) => w.slice(0, 1).toUpperCase() + w.slice(1).toLowerCase())
     .join(' ');
+};
+
+export const parseOrderStatus = (status: OrderStatus) => {
+  switch (status) {
+    case OrderStatus.PLACED:
+      return 'Placed';
+
+    case OrderStatus.CANCELLED:
+      return 'Cancelled';
+
+    case OrderStatus.FULFILLED:
+      return 'Fulfilled';
+
+    case OrderStatus.PARTIALLY_FULFILLED:
+      return 'Partially Fulfilled';
+
+    case OrderStatus.PICKUP_MISSED:
+      return 'Pickup Missed';
+
+    case OrderStatus.PICKUP_CANCELLED:
+      return 'Pickup Cancelled';
+
+    default:
+      return '';
+  }
 };
