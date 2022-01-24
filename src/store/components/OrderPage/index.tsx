@@ -35,8 +35,13 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
 
   const showPickup = !(status === OrderStatus.PARTIALLY_FULFILLED || status === OrderStatus.PICKUP_CANCELLED || status === OrderStatus.PICKUP_MISSED);
 
-  const actionable =
-    !(status === OrderStatus.CANCELLED || status === OrderStatus.FULFILLED) && new Date() < moment(pickupEvent.start).subtract(2, 'days').toDate();
+  let actionable = true;
+
+  if (status === OrderStatus.CANCELLED || status === OrderStatus.FULFILLED) {
+    actionable = false;
+  } else if (status === OrderStatus.PLACED && new Date() < moment(pickupEvent.start).subtract(2, 'days').toDate()) {
+    actionable = false;
+  }
 
   return (
     <>
