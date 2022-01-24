@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 import { OrderStatus, PublicOrderWithItems, PublicOrderPickupEvent } from '../../../types';
-import { notify, toProperCase } from '../../../utils';
+import { notify, parseOrderStatus } from '../../../utils';
 
 import OrderDisplay from '../OrderDisplay';
 import StoreButton from '../StoreButton';
@@ -47,7 +47,7 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
     <>
       <StoreHeader breadcrumb breadcrumbLocation="../orders" />
       <div className="order-page">
-        <h1>Order (Status: {toProperCase(status)})</h1>
+        <h1>Order (Status: {parseOrderStatus(status)})</h1>
         <h3>
           <span className="emphasized">Purchase Date:</span> {moment(orderedAt).format('MMMM Do, YYYY')}
         </h3>

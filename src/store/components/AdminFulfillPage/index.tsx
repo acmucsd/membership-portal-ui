@@ -6,7 +6,7 @@ import { Modal } from 'antd';
 
 import { fulfillOrder, completePickupEvent } from '../../storeActions';
 import { OrderStatus, PublicOrderPickupEvent, PublicOrderForFulfillment } from '../../../types';
-import { notify, toProperCase } from '../../../utils';
+import { notify, parseOrderStatus } from '../../../utils';
 
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
@@ -166,7 +166,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                   }}
                   key={key}
                 >
-                  {order.user.firstName} {order.user.lastName} ({toProperCase(order.status)})
+                  {order.user.firstName} {order.user.lastName} ({parseOrderStatus(order.status)})
                 </button>
               ))}
           </div>
