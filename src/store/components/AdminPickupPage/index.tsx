@@ -55,6 +55,17 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
     orderLimit: pickupEvent?.orderLimit?.toString() ?? '',
   };
 
+  const handleDelete = () => {
+    deletePickupEvent(pickupEvent?.uuid)
+      .then(() => {
+        notify('Success!', `Deleted ${pickupEvent?.title}.`);
+        history.push('/store/admin');
+      })
+      .catch((reason) => {
+        notify('API Error', reason.message || reason);
+      });
+  };
+
   if (createMode || pickupEvent) {
     return (
       <>
@@ -168,22 +179,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                 </div>
                 {!creatingPickup && (
                   <div className="admin-pickup-page-buttons">
-                    <StoreButton
-                      type="danger"
-                      size="medium"
-                      text="Delete"
-                      disabled={submitting}
-                      onClick={() => {
-                        deletePickupEvent(pickupEvent?.uuid)
-                          .then(() => {
-                            notify('Success!', `Deleted ${pickupEvent?.title}.`);
-                            history.push('/store/admin');
-                          })
-                          .catch((reason) => {
-                            notify('API Error', reason.message || reason);
-                          });
-                      }}
-                    />
+                    <StoreButton type="danger" size="medium" text="Delete" disabled={submitting} onClick={() => handleDelete()} />
                   </div>
                 )}
               </form>

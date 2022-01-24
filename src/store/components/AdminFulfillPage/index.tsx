@@ -137,13 +137,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                 const aName = `${a.user.firstName} ${a.user.lastName}`;
                 const bName = `${b.user.firstName} ${b.user.lastName}`;
 
-                if (aName < bName) {
-                  return -1;
-                }
-                if (aName > bName) {
-                  return 1;
-                }
-                return 0;
+                return aName.localeCompare(bName);
               })
               .map((order, key) => (
                 <button

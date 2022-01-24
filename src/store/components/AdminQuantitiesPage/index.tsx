@@ -25,17 +25,7 @@ const AdminQuantitiesPage: React.FC<AdminQuantitiesPageProps> = (props) => {
                 <div className="admin-quantities-page-collection" key={collection.uuid}>
                   <p className="admin-quantities-page-collection-title">{collection.title}</p>
                   {collection.items
-                    .sort((a, b) => {
-                      const textA = a.itemName.toUpperCase();
-                      const textB = b.itemName.toUpperCase();
-                      if (textA < textB) {
-                        return -1;
-                      }
-                      if (textA > textB) {
-                        return 1;
-                      }
-                      return 0;
-                    })
+                    .sort((a, b) => a.itemName.localeCompare(b.itemName))
                     .map((item) => {
                       return (
                         <div className="admin-quantities-page-item" key={item.uuid}>
@@ -44,15 +34,7 @@ const AdminQuantitiesPage: React.FC<AdminQuantitiesPageProps> = (props) => {
                           <div className="admin-quantities-page-item-options">
                             {item.options.length !== 1 &&
                               item.options
-                                .sort((a, b) => {
-                                  if ((a.metadata?.position ?? 0) < (b.metadata?.position ?? 0)) {
-                                    return -1;
-                                  }
-                                  if ((a.metadata?.position ?? 0) > (b.metadata?.position ?? 0)) {
-                                    return 1;
-                                  }
-                                  return 0;
-                                })
+                                .sort((a, b) => (a.metadata?.position ?? 0) - (b.metadata?.position ?? 0))
                                 .map((option) => {
                                   return (
                                     <div className="admin-quantities-page-option" key={option.uuid}>

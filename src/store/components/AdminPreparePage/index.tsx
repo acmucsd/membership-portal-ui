@@ -50,13 +50,13 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
     ?.filter((order) => order.status !== OrderStatus.CANCELLED)
     .forEach((order) => {
       order.items.forEach((item) => {
-        merchData[`${item.option.uuid}`] = merchData[`${item.option.uuid}`] ?? {
+        merchData[item.option.uuid] = merchData[`${item.option.uuid}`] ?? {
           quantity: 0,
           name: item.option.item.itemName,
           variantType: item.option.metadata?.type,
           variantValue: item.option.metadata?.value,
         };
-        merchData[`${item.option.uuid}`].quantity += 1;
+        merchData[item.option.uuid].quantity += 1;
       });
     });
 
@@ -76,25 +76,21 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           size="small"
           rowKey="uuid"
           dataSource={Object.values(merchData)
-            .sort((a, b) => {
-              if (a.name < b.name) {
-                return -1;
-              }
-              if (a.name > b.name) {
-                return 1;
-              }
-              return 0;
-            })
-            .map((data) => ({
-              uuid: data.name,
-              itemDisplay: (
-                <>
-                  <h2>{data.name}</h2>
-                  {data.variantType && data.variantValue && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
-                </>
-              ),
-              quantity: data.quantity,
-            }))}
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((data) => {
+              const hasVariant = data.variantType && data.variantValue;
+
+              return {
+                uuid: data.name,
+                itemDisplay: (
+                  <>
+                    <h2>{data.name}</h2>
+                    {hasVariant && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
+                  </>
+                ),
+                quantity: data.quantity,
+              };
+            })}
           columns={[
             {
               title: 'Item',
@@ -120,13 +116,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
               const nameA = `${a.user.firstName} ${a.user.lastName}`;
               const nameB = `${b.user.firstName} ${b.user.lastName}`;
 
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-              return 0;
+              return nameA.localeCompare(nameB);
             })
             .map((order) => {
               const itemMap = new Map<string, PublicOrderItemWithQuantity>();
@@ -152,13 +142,7 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
                   <ul>
                     {updatedItems
                       .sort((a, b) => {
-                        if (a.option.item.itemName < b.option.item.itemName) {
-                          return -1;
-                        }
-                        if (a.option.item.itemName > b.option.item.itemName) {
-                          return 1;
-                        }
-                        return 0;
+                        return a.option.item.itemName.localeCompare(b.option.item.itemName);
                       })
                       .map((item) => (
                         <li key={item.uuid}>
