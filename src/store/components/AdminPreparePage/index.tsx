@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
 
-import { PublicOrderPickupEvent, PublicOrderItemWithQuantity } from '../../../types';
+import { PublicOrderPickupEvent, PublicOrderItemWithQuantity, OrderStatus } from '../../../types';
 
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
@@ -46,17 +46,19 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
   }
 
   const merchData: Record<string, { quantity: number; name: string; variantType: string; variantValue: string }> = {};
-  pickupEvent.orders?.forEach((order) => {
-    order.items.forEach((item) => {
-      merchData[`${item.option.uuid}`] = merchData[`${item.option.uuid}`] ?? {
-        quantity: 0,
-        name: item.option.item.itemName,
-        variantType: item.option.metadata?.type,
-        variantValue: item.option.metadata?.value,
-      };
-      merchData[`${item.option.uuid}`].quantity += 1;
+  pickupEvent.orders
+    ?.filter((order) => order.status !== OrderStatus.CANCELLED)
+    .forEach((order) => {
+      order.items.forEach((item) => {
+        merchData[`${item.option.uuid}`] = merchData[`${item.option.uuid}`] ?? {
+          quantity: 0,
+          name: item.option.item.itemName,
+          variantType: item.option.metadata?.type,
+          variantValue: item.option.metadata?.value,
+        };
+        merchData[`${item.option.uuid}`].quantity += 1;
+      });
     });
-  });
 
   return (
     <>
@@ -113,7 +115,8 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           size="small"
           rowKey="uuid"
           dataSource={pickupEvent.orders
-            ?.sort((a, b) => {
+            ?.filter((order) => order.status !== OrderStatus.CANCELLED)
+            .sort((a, b) => {
               const nameA = `${a.user.firstName} ${a.user.lastName}`;
               const nameB = `${b.user.firstName} ${b.user.lastName}`;
 
