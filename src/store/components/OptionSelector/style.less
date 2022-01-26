@@ -26,14 +26,14 @@
     }
 
     &.selected {
-      border: 1px solid rgba(98, 176, 255, 50%);
+      border: 1px solid rgba(@@theme-primary-5, 50%);
       color: @@theme-primary-5;
     }
 
     &:disabled {
       background: @@theme-background;
-      border: 1px solid rgba(85, 85, 85, 50%);
-      color: #8d8d8d;
+      border: 1px solid rgba(@@theme-disabled, 50%);
+      color: @@theme-disabled;
       cursor: not-allowed;
     }
   }

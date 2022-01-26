@@ -1,6 +1,7 @@
 @import "../../../styles/vars.less";
 
 .home-page {
+  background-color: @@theme-background;
   color: @@theme-text-on-background-1;
 
   .border {
@@ -24,6 +25,7 @@
     }
 
     .profile-card {
+      background-color: inherit;
       margin-right: 5%;
     }
   }
@@ -31,9 +33,11 @@
   .title {
     font-size: @general-heading-1;
     font-weight: 700;
+    color: @@theme-text-on-background-1;
   }
 
   .subtitle {
+    color: @@theme-text-on-background-1;
     font-size: @general-heading-2;
     font-weight: 700;
     margin: 40px 0;
@@ -76,6 +80,7 @@
       }
 
       .profile-card {
+        background-color: inherit;
         margin-right: 0;
       }
     }

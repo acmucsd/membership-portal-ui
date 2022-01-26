@@ -1,6 +1,7 @@
 @import "../../../styles/vars.less";
 
 .leader-page {
+  color: @@theme-text-on-background-1;
   &-top {
     align-items: center;
     display: flex;
@@ -12,9 +13,11 @@
     display: inline-block;
     font-size: @general-heading-1;
     font-weight: 700;
+    color: @@theme-text-on-background-1;
   }
 
   &-dropdown-link {
+    background-color: inherit;
     color: @@theme-text-on-background-1;
     font-size: 1.5rem;
     font-weight: 700;
@@ -26,7 +29,7 @@
   }
 
   &-timeframe {
-    color: black;
+    color: @@theme-text-on-surface-1;
     font-size: 1rem;
   }
 

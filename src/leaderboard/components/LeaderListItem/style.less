@@ -11,7 +11,11 @@
   width: 100%;
 
   &.even {
-    background: #f4f4f4;
+    background: @@theme-surface-1;
+  }
+
+  &.odd {
+    background: inherit;
   }
 
   .placement {
@@ -64,8 +68,10 @@
     }
 
     .rank {
+      color: rgba(@@theme-text-on-background-1, 0.5);
       font-size: 12px;
     }
+
 
     .desktop {
       display: none;

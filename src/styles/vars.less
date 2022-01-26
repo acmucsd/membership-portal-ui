@@ -1,5 +1,5 @@
 // Theme
-@theme: light;
+@theme: dark;
 
 @theme-primary-1: "@{theme}-primary-1"; //this will evaluate to "dark-primary"
 @theme-primary-2: "@{theme}-primary-2"; //this will evaluate to "dark-primary-2"
@@ -13,12 +13,15 @@
 
 @theme-danger-1: "@{theme}-danger-1"; //this will evaluate to "dark-danger"
 
+@theme-disabled: "@{theme}-disabled"; //this will evaluate to "dark-disabled"
+
 @theme-background: "@{theme}-background"; //this will evaluate to "dark-background"
 
 @theme-surface-1: "@{theme}-surface-1"; //this will evaluate to "dark-surface"
 @theme-surface-2: "@{theme}-surface-2"; //this will evaluate to "dark-surface-2"
 
-@theme-accent-line: "@{theme}-accent-line"; //this will evaluate to "dark-accent-border"
+@theme-accent-line-1: "@{theme}-accent-line-1"; //this will evaluate to "dark-accent-border"
+@theme-accent-line-2: "@{theme}-accent-line-2"; //this will evaluate to "dark-accent-border-2"
 
 @theme-text-on-background-1: "@{theme}-text-on-background-1"; //this will evaluate to "dark-text"
 @theme-text-on-background-2: "@{theme}-text-on-background-2"; //this will evaluate to "dark-text"
@@ -44,18 +47,20 @@
 
 @gray-1: #fafafa;
 @gray-2: #f4f4f4;
-@gray-3: #e4e4e4;
-@gray-4: #979797;
-@gray-5: #7f7f7f;
-@gray-6: #f8f8f8;
-@grey-7: #000000d9;
-@grey-8: #33333333;
-@grey-9: #c4c4c4;
-@black: #333333;
+@gray-3: #f8f8f8;
+@gray-4: #e4e4e4;
+@gray-5: #c4c4c4;
+@gray-6: #979797;
+@gray-7: #7f7f7f;
+@gray-8: #424549;
+@gray-9: #333333;
+@gray-10: #000000d9;
+
 
 @bronze: #eecb97;
 @silver: #c0dae0;
 @gold: #fce183;
+
 
 // Light Theme
 @light-primary-1: @blue-1; // circle background, link hover, progress bar
@@ -70,18 +75,53 @@
 
 @light-danger-1: @red;
 
+@light-disabled: @gray-6; // disabled elements
+
 @light-background: @white; // page background
 
 @light-surface-1: @gray-2; // table rows
-@light-surface-2: @gray-6; // nav bar background
+@light-surface-2: @gray-3; // nav bar background
 
-@light-accent-line: @grey-8; // accent line on event cards
+@light-accent-line-1: @gray-9; // accent lines and gray borders
+@light-accent-line-2: @gray-4; // accent lines and gray borders
 
-@light-text-on-background-1: @grey-7; // text on primary titles and input borders
-@light-text-on-background-2: @black; // text on primary subtitles (LVL, Dates)
+@light-text-on-background-1: @gray-9; // text on primary titles and input borders
+@light-text-on-background-2: @gray-7; // text on primary subtitles (LVL, Dates)
 
-@light-text-on-surface-1: @black; // dark text on sidebar
-@light-text-on-surface-2: @grey-9; // light titles on sidebar
+@light-text-on-surface-1: @gray-9; // dark text on sidebar
+@light-text-on-surface-2: @gray-5; // light titles on sidebar
+
+
+
+// Dark Theme
+@dark-primary-1: #3dbeff; // circle background, link hover, progress bar
+@dark-primary-2: @blue-2; // event card links
+@dark-primary-3: #6cb5fd;
+@dark-primary-4: @blue-4;
+@dark-primary-5: rgb(112, 192, 231); // profile card borders, buttons, nav bar current item, collection header
+@dark-primary-6: #97c8f8; // event card borders
+
+@dark-success-1: @green-1;
+@dark-success-2: @green-2;
+
+@dark-danger-1: @red;
+
+@dark-disabled: @gray-6; // disabled elements
+
+@dark-background: @gray-8; // page background
+
+@dark-surface-1: @gray-2; // table rows
+@dark-surface-2: @gray-9; // nav bar background
+
+@dark-accent-line-1: @gray-10; // accent line on event cards
+@dark-accent-line-2: @gray-4; // accent line on event cards
+
+@dark-text-on-background-1: @white; // text on primary titles and input borders
+@dark-text-on-background-2: @white; // text on primary subtitles (LVL, Dates)
+
+@dark-text-on-surface-1: @white; // dark text on sidebar
+@dark-text-on-surface-2: @white; // light titles on sidebar
+
 
 
 

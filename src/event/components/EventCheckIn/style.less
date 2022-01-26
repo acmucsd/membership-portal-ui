@@ -8,6 +8,7 @@
   justify-content: center;
   margin: 0;
   max-width: @db-card-width;
+  background-color: inherit;
 
   .staff-checkin-div {
     margin-top: 12px;
@@ -34,7 +35,8 @@
     }
 
     .input {
-      border: 1px solid #555;
+      background-color: @@theme-background;
+      border: 1px solid @@theme-accent-line-2;
       color: @@theme-primary-3;
       margin-right: 20px;
       max-width: 200px;
