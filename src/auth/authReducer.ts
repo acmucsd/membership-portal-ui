@@ -6,8 +6,8 @@ import { getDefaultProfile } from '../utils';
 const defaultProfile = getDefaultProfile();
 
 const initialState = {
-  admin: true,
-  authenticated: true,
+  admin: false,
+  authenticated: false,
   error: false,
   emailSuccess: false,
   registerSuccess: false,
