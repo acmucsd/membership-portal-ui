@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .leaderboard-card {
-  background-color: @blue-3;
+  background-color: @@theme-primary-3;
   border-radius: 10px;
   height: @leaderboard-card-height;
   overflow: hidden;
@@ -37,9 +37,9 @@
   }
 
   .leaderboard-card-right {
-    background-color: white;
+    background-color: @@theme-background;
     border-radius: inherit;
-    color: black;
+    color: @@theme-text-on-background-1;
     flex-wrap: wrap;
     height: calc(100% - 10px);
     margin: 5px;
@@ -53,13 +53,13 @@
     width: 60%;
 
     > * {
-      color: black;
+      color: @@theme-text-on-background-1;
       flex: 1 100%;
       margin-bottom: 0;
     }
 
     .ant-avatar {
-      border: 1px solid@black;
+      border: 1px solid @@theme-text-on-background-1;
     }
 
     h1 {

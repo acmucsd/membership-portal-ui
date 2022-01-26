@@ -5,13 +5,13 @@
   width: 50%;
 
   .subtitle {
-    color: @blue-3;
+    color: @@theme-primary-3;
     font-size: @general-heading-2;
     font-weight: 700;
   }
 
   label {
-    color: @blue-3;
+    color: @@theme-primary-3;
     font-size: @card-heading-2;
     font-weight: 500;
 
@@ -20,13 +20,13 @@
     }
 
     span {
-      color: @black;
+      color: @@theme-text-on-background-2;
       font-weight: 400;
     }
   }
 
   h1 {
-    color: @black;
+    color: @@theme-text-on-background-2;
     font-size: @general-heading-1;
     font-weight: 700;
   }
@@ -38,8 +38,8 @@
   }
 
   .save-button {
-    background-color: @green-1;
-    border-color: @green-2;
+    background-color: @@theme-success-1;
+    border-color: @@theme-success-2;
     font-size: @general-body;
     font-weight: 500;
     height: @button-height;
@@ -47,9 +47,9 @@
   }
 
   .discard-button {
-    background-color: @white;
-    border-color: @red;
-    color: @red;
+    background-color: @@theme-background;
+    border-color: @@theme-danger-1;
+    color: @@theme-danger-1;
     font-size: @general-body;
     font-weight: 500;
     height: @button-height;
@@ -78,16 +78,16 @@
     }
 
     .add-new-attendee {
-      background: @white;
+      background: @@theme-background;
       border-style: dashed;
       font-size: @card-body;
     }
   }
 
   .input-style() {
-    background-color: @gray-1;
-    border-color: @gray-4;
-    color: @black;
+    background-color: @@theme-surface-1;
+    border-color: @@theme-accent-line;
+    color: @@theme-text-on-surface-1;
     font-size: @general-body;
     height: @profile-input-height;
   }

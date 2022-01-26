@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .admin-pickup-page {
-  color: #333;
+  color: @@theme-text-on-background-1;
   margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 2rem;
 
@@ -12,7 +12,7 @@
   }
 
   &-error {
-    color: #e12b38;
+    color: @@theme-danger-1;
     font-size: 0.75rem;
     font-weight: 500;
     margin-top: 0.5rem;
@@ -43,10 +43,10 @@
         width: 18rem;
 
         .ant-calendar-picker-input {
-          background-color: @white;
+          background-color: @@theme-background;
           border-color: rgba(85, 85, 85, 50%);
           border-radius: 0.625rem;
-          color: @black;
+          color: @@theme-text-on-surface-1;
           font-size: 1rem;
           height: 2.5rem;
         }
@@ -62,10 +62,10 @@
         width: 6.25rem;
 
         .ant-time-picker-input {
-          background-color: @white;
+          background-color: @@theme-background;
           border-color: rgba(85, 85, 85, 50%);
           border-radius: 0.625rem;
-          color: @black;
+          color: @@theme-text-on-surface-1;
           font-size: 1rem;
           height: 2.5rem;
         }

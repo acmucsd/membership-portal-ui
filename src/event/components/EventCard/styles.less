@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .event-card {
-  border: 2px solid rgba(6, 89, 188, 20%);
+  border: 2px solid @@theme-primary-6;
   border-radius: 10px;
   height: @event-height;
   -ms-overflow-style: none;
@@ -23,13 +23,13 @@
       top: 10px;
 
       .edit-icon {
-        color: @black;
+        color: @@theme-text-on-background-1;
         cursor: pointer;
         transition: all 0.2s;
       }
 
       .edit-icon:hover {
-        color: @gray-4;
+        color: @@theme-surface-1;
       }
     }
 
@@ -62,7 +62,7 @@
       }
 
       .link {
-        color: @blue-2;
+        color: @@theme-primary-2;
         display: block;
       }
 
@@ -84,15 +84,15 @@
       width: 50px;
 
       &.blue {
-        background-color: @blue-1;
+        background-color: @@theme-primary-1;
       }
 
       &.green {
-        background-color: @green-1;
+        background-color: @@theme-success-1;
       }
 
       .inner {
-        background-color: @white;
+        background-color: @@theme-background;
         border-radius: 50%;
         height: 37.5px;
         width: 37.5px;

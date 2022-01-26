@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .checkin-card {
-  border: 2px solid @blue-5;
+  border: 2px solid @@theme-primary-5;
   border-radius: 10px;
   display: flex;
   height: @db-card-height;
@@ -13,14 +13,14 @@
     margin-top: 12px;
 
     .staff-check-in-label {
-      color: @white;
+      color: @@theme-background;
       font-size: @card-heading-2;
       margin-right: 12px;
     }
   }
 
   h1 {
-    color: #555;
+    color: @@theme-text-on-background-1;
     font-size: @card-heading-1;
     font-weight: 700;
     margin: 20px 0;
@@ -35,16 +35,16 @@
 
     .input {
       border: 1px solid #555;
-      color: @blue-3;
+      color: @@theme-primary-3;
       margin-right: 20px;
       max-width: 200px;
       min-width: calc(100% - 140px);
     }
 
     .submit {
-      background-color: @blue-5;
+      background-color: @@theme-primary-5;
       border: 2px solid #518bd0;
-      color: @white;
+      color: @@theme-background;
       height: 40px;
       min-width: 100px;
       padding: 6px 11px;

@@ -1,3 +1,4 @@
+@import "../../../styles/vars.less";
 .option-selector {
   cursor: pointer;
   display: flex;
@@ -9,7 +10,7 @@
     background: #fff;
     border: 1px solid rgba(85, 85, 85, 50%);
     border-radius: 0.625rem;
-    color: #333;
+    color: @@theme-text-on-background-1;
     cursor: pointer;
     font-size: 1.125rem;
     font-weight: 700;
@@ -21,16 +22,16 @@
 
     &:focus,
     &:hover {
-      border-color: #62b0ff;
+      border-color: @@theme-primary-5;
     }
 
     &.selected {
       border: 1px solid rgba(98, 176, 255, 50%);
-      color: #62b0ff;
+      color: @@theme-primary-5;
     }
 
     &:disabled {
-      background: #f2f2f2;
+      background: @@theme-background;
       border: 1px solid rgba(85, 85, 85, 50%);
       color: #8d8d8d;
       cursor: not-allowed;

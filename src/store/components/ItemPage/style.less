@@ -1,3 +1,4 @@
+@import "../../../styles/vars.less";
 .item-page {
   display: flex;
   margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
@@ -22,14 +23,14 @@
 
   .item-contents {
     .item-name {
-      color: #333;
+      color: @@theme-text-on-background-1;
       font-size: 1.75rem;
       font-weight: 700;
       margin-bottom: 1rem;
     }
 
     .item-description {
-      color: #333;
+      color: @@theme-text-on-background-1;
       font-size: 1.125rem;
       margin-top: 1rem;
     }
@@ -38,7 +39,7 @@
       margin-top: 1.5rem;
 
       &-header {
-        color: #333;
+        color: @@theme-text-on-background-1;
         font-size: 1.125rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
@@ -54,7 +55,7 @@
         margin-top: 1.5rem;
 
         &-header {
-          color: #333;
+          color: @@theme-text-on-background-1;
           font-size: 1.125rem;
           font-weight: 700;
           margin-bottom: 0.75rem;
@@ -75,7 +76,7 @@
   }
 
   &-modal {
-    color: #333;
+    color: @@theme-text-on-background-1;
 
     &-title {
       font-size: 1.5rem;

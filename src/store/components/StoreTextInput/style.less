@@ -1,3 +1,5 @@
+@import "../../../styles/vars.less";
+
 .store-text {
   display: flex;
   flex-direction: column;
@@ -35,12 +37,12 @@
 
     &:focus,
     &:hover {
-      border-color: #62b0ff;
+      border-color: @@theme-primary-5;
     }
   }
 
   &-error {
-    color: #e12b38;
+    color: @@theme-danger-1;
     font-size: 0.75rem;
     font-weight: 500;
     margin-top: 0.5rem;

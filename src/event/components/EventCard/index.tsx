@@ -42,7 +42,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
           <div className="inner" />
           <h2 className="points">{points}</h2>
         </div>
-        {canEditEvents && (
+        {true && (
           <div className="edit-icon-wrapper">
             <Icon
               type="edit"

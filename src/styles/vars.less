@@ -1,24 +1,89 @@
+// Theme
+@theme: light;
+
+@theme-primary-1: "@{theme}-primary-1"; //this will evaluate to "dark-primary"
+@theme-primary-2: "@{theme}-primary-2"; //this will evaluate to "dark-primary-2"
+@theme-primary-3: "@{theme}-primary-3"; //this will evaluate to "dark-primary-3"
+@theme-primary-4: "@{theme}-primary-4"; //this will evaluate to "dark-primary-4"
+@theme-primary-5: "@{theme}-primary-5"; //this will evaluate to "dark-primary-5"
+@theme-primary-6: "@{theme}-primary-6"; //this will evaluate to "dark-primary-6"
+
+@theme-success-1: "@{theme}-success-1"; //this will evaluate to "dark-success"
+@theme-success-2: "@{theme}-success-2"; //this will evaluate to "dark-success"
+
+@theme-danger-1: "@{theme}-danger-1"; //this will evaluate to "dark-danger"
+
+@theme-background: "@{theme}-background"; //this will evaluate to "dark-background"
+
+@theme-surface-1: "@{theme}-surface-1"; //this will evaluate to "dark-surface"
+@theme-surface-2: "@{theme}-surface-2"; //this will evaluate to "dark-surface-2"
+
+@theme-accent-line: "@{theme}-accent-line"; //this will evaluate to "dark-accent-border"
+
+@theme-text-on-background-1: "@{theme}-text-on-background-1"; //this will evaluate to "dark-text"
+@theme-text-on-background-2: "@{theme}-text-on-background-2"; //this will evaluate to "dark-text"
+
+@theme-text-on-surface-1: "@{theme}-text-on-surface-1"; //this will evaluate to "dark-text"
+@theme-text-on-surface-2: "@{theme}-text-on-surface-2"; //this will evaluate to "dark-text"
+
+
 // Colors
 @blue-1: #22acea;
 @blue-2: #0659bc;
 @blue-3: #2c72c6;
 @blue-4: #bed9e6;
 @blue-5: #62b0ff;
+@blue-6: #0659bc33;
+
+
+@red: #ef626c;
+@green-1: #56c561;
+@green-2: #00ae11;
+
 @white: #ffffff;
+
 @gray-1: #fafafa;
 @gray-2: #f4f4f4;
 @gray-3: #e4e4e4;
 @gray-4: #979797;
 @gray-5: #7f7f7f;
+@gray-6: #f8f8f8;
+@grey-7: #000000d9;
+@grey-8: #33333333;
+@grey-9: #c4c4c4;
 @black: #333333;
 
 @bronze: #eecb97;
 @silver: #c0dae0;
 @gold: #fce183;
 
-@red: #ef626c;
-@green-1: #56c561;
-@green-2: #00ae11;
+// Light Theme
+@light-primary-1: @blue-1; // circle background, link hover, progress bar
+@light-primary-2: @blue-2; // event card links
+@light-primary-3: @blue-3;
+@light-primary-4: @blue-4;
+@light-primary-5: @blue-5; // profile card borders, buttons, nav bar current item, collection header
+@light-primary-6: @blue-6; // event card borders
+
+@light-success-1: @green-1;
+@light-success-2: @green-2;
+
+@light-danger-1: @red;
+
+@light-background: @white; // page background
+
+@light-surface-1: @gray-2; // table rows
+@light-surface-2: @gray-6; // nav bar background
+
+@light-accent-line: @grey-8; // accent line on event cards
+
+@light-text-on-background-1: @grey-7; // text on primary titles and input borders
+@light-text-on-background-2: @black; // text on primary subtitles (LVL, Dates)
+
+@light-text-on-surface-1: @black; // dark text on sidebar
+@light-text-on-surface-2: @grey-9; // light titles on sidebar
+
+
 
 // Font Sizes
 @general-heading-1: 2.5rem;

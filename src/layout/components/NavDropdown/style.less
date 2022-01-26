@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .nav-dropdown {
-  background-color: @white;
+  background-color: @@theme-background;
   border-radius: 2px;
   filter: drop-shadow(0 0 5px #aaa);
   font-size: @nav-caption;
@@ -12,7 +12,7 @@
   z-index: 2;
 
   &::after {
-    border-color: @white transparent;
+    border-color: @@theme-background transparent;
     border-style: solid;
     border-width: 0 15px 20px;
     content: "";
@@ -27,21 +27,21 @@
 
   .nav-list-item {
     &:hover {
-      background-color: @gray-2;
+      background-color: @@theme-background;
     }
 
     span {
-      color: @black;
+      color: @@theme-text-on-background-1;
     }
   }
 
   .logout {
-    color: @red;
+    color: @@theme-danger-1;
     cursor: pointer;
     padding-left: 10px;
 
     &:hover {
-      background-color: @gray-2;
+      background-color: @@theme-surface-1;
     }
   }
 }
