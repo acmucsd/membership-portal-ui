@@ -13,6 +13,12 @@
 
 @theme-danger-1: "@{theme}-danger-1"; //this will evaluate to "dark-danger"
 
+@theme-gold: "@{theme}-gold"; //this will evaluate to "dark-gold"
+@theme-silver: "@{theme}-silver"; //this will evaluate to "dark-silver"
+@theme-bronze: "@{theme}-bronze"; //this will evaluate to "dark-bronze"
+
+@theme-invert-percent: "@{theme}-invert-percent"; //this will evaluate to "dark-invert-percent"
+
 @theme-disabled: "@{theme}-disabled"; //this will evaluate to "dark-disabled"
 
 @theme-background: "@{theme}-background"; //this will evaluate to "dark-background"
@@ -31,90 +37,99 @@
 
 
 // Colors
-@blue-1: #22acea;
-@blue-2: #0659bc;
-@blue-3: #2c72c6;
-@blue-4: #bed9e6;
-@blue-5: #62b0ff;
-@blue-6: #0659bc33;
+@blue-100: #bed9e6;
+@blue-200: #62b0ff;
+@blue-300: #2c72c6;
+@blue-400: #22acea;
+@blue-500: #0659bc;
+@blue-600: #0659bc33;
 
 
 @red: #ef626c;
-@green-1: #56c561;
-@green-2: #00ae11;
+@green-100: #56c561;
+@green-200: #00ae11;
 
 @white: #ffffff;
 
-@gray-1: #fafafa;
-@gray-2: #f4f4f4;
-@gray-3: #f8f8f8;
-@gray-4: #e4e4e4;
-@gray-5: #c4c4c4;
-@gray-6: #979797;
-@gray-7: #7f7f7f;
-@gray-8: #424549;
-@gray-9: #333333;
-@gray-10: #000000d9;
+@gray-100: #fafafa;
+@gray-200: #f4f4f4;
+@gray-300: #f8f8f8;
+@gray-400: #e4e4e4;
+@gray-500: #c4c4c4;
+@gray-600: #979797;
+@gray-700: #7f7f7f;
+@gray-800: #37393e;
+@gray-900: #2e3036;
+
+@black: #000000d9;
 
 
-@bronze: #eecb97;
-@silver: #c0dae0;
-@gold: #fce183;
+@light-bronze: #eecb97;
+@light-silver: #c0dae0;
+@light-gold: #fce183;
+
+@dark-bronze: #c3a77d;
+@dark-silver: #95a7ac;
+@dark-gold: #ccb76b;
 
 
 // Light Theme
-@light-primary-1: @blue-1; // circle background, link hover, progress bar
-@light-primary-2: @blue-2; // event card links
-@light-primary-3: @blue-3;
-@light-primary-4: @blue-4;
-@light-primary-5: @blue-5; // profile card borders, buttons, nav bar current item, collection header
-@light-primary-6: @blue-6; // event card borders
+@light-primary-1: @blue-400; // circle background, link hover, progress bar
+@light-primary-2: @blue-500; // event card links, arrow hover
+@light-primary-3: @blue-300;
+@light-primary-4: @blue-100;
+@light-primary-5: @blue-200; // profile card borders, buttons, nav bar current item, collection header
+@light-primary-6: @blue-600; // event card borders
 
-@light-success-1: @green-1;
-@light-success-2: @green-2;
+@light-success-1: @green-100;
+@light-success-2: @green-200;
 
 @light-danger-1: @red;
 
-@light-disabled: @gray-6; // disabled elements
+@light-invert-percent: 0%;
+
+@light-disabled: @gray-600; // disabled elements
 
 @light-background: @white; // page background
 
-@light-surface-1: @gray-2; // table rows
-@light-surface-2: @gray-3; // nav bar background
+@light-surface-1: @gray-200; // table rows
+@light-surface-2: @gray-300; // nav bar background
 
-@light-accent-line-1: @gray-9; // accent lines and gray borders
-@light-accent-line-2: @gray-4; // accent lines and gray borders
+@light-accent-line-1: @gray-900; // heavy accent lines and gray borders
+@light-accent-line-2: @gray-400; // light accent lines and gray borders
 
-@light-text-on-background-1: @gray-9; // text on primary titles and input borders
-@light-text-on-background-2: @gray-7; // text on primary subtitles (LVL, Dates)
+@light-text-on-background-1: @gray-900; // text on primary titles and input borders
+@light-text-on-background-2: @gray-700; // text on primary subtitles (LVL, Dates)
 
-@light-text-on-surface-1: @gray-9; // dark text on sidebar
-@light-text-on-surface-2: @gray-5; // light titles on sidebar
+@light-text-on-surface-1: @gray-900; // dark text on sidebar
+@light-text-on-surface-2: @gray-500; // light titles on sidebar
 
 
 
 // Dark Theme
 @dark-primary-1: #3dbeff; // circle background, link hover, progress bar
-@dark-primary-2: @blue-2; // event card links
+@dark-primary-2: @blue-500; // event card links and links
 @dark-primary-3: #6cb5fd;
-@dark-primary-4: @blue-4;
+@dark-primary-4: @blue-100;
 @dark-primary-5: rgb(112, 192, 231); // profile card borders, buttons, nav bar current item, collection header
 @dark-primary-6: #97c8f8; // event card borders
 
-@dark-success-1: @green-1;
-@dark-success-2: @green-2;
+@dark-success-1: @green-100;
+@dark-success-2: @green-200;
 
 @dark-danger-1: @red;
 
-@dark-disabled: @gray-6; // disabled elements
+@dark-invert-percent: 100%;
 
-@dark-background: @gray-8; // page background
+@dark-disabled: @gray-600; // disabled elements
 
-@dark-surface-1: @gray-2; // table rows
-@dark-surface-2: @gray-9; // nav bar background
+@dark-background: @gray-800; // page background
 
-@dark-accent-line-1: @gray-10; // accent line on event cards
-@dark-accent-line-2: @gray-4; // accent line on event cards
+@dark-surface-1: @gray-700; // table rows (light)
+@dark-surface-2: @gray-900; // nav bar background (dark)
+
+@dark-accent-line-1: @black; // accent line on event cards
+@dark-accent-line-2: @gray-400; // accent line on event cards
 
 @dark-text-on-background-1: @white; // text on primary titles and input borders
 @dark-text-on-background-2: @white; // text on primary subtitles (LVL, Dates)

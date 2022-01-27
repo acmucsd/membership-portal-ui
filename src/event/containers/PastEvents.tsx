@@ -76,7 +76,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
   // does not include it.
   const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
-    <Menu>
+    <Menu className="menu">
       {yearCodes.map((yearCode, index) => {
         const yearFilteredEvents = events.filter((event) => {
           if (yearCode === 'All Time') {
@@ -95,7 +95,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
           return null;
         }
         return (
-          <Menu.Item key={yearCode}>
+          <Menu.Item className="menu-item" key={yearCode}>
             <div
               role="menuitem"
               className="event-timeframe"

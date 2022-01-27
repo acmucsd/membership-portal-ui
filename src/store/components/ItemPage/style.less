@@ -6,7 +6,8 @@
 
   .item-image-container {
     border-radius: 0.5rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 25%);
+    background-color: rgba(@@theme-surface-1, 25%);
+    box-shadow: 0 1px 4px rgba(@@theme-accent-line-1, 25%);
     flex-shrink: 0;
     height: 24rem;
     margin-right: 4rem;
@@ -116,6 +117,7 @@
     }
 
     .ant-modal-content {
+      background-color: @@theme-surface-2;
       padding: 1rem;
 
       .ant-modal-body {
@@ -123,7 +125,7 @@
       }
 
       .ant-modal-footer {
-        border-top: 1px solid #c4c4c4;
+        border-top: 1px solid @@theme-accent-line-2;
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;

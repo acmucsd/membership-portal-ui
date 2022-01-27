@@ -16,6 +16,7 @@
     display: flex;
 
     &-arrow {
+      filter: invert(@@theme-invert-percent);
       margin-right: 1.5rem;
     }
 
@@ -33,10 +34,10 @@
 
   &-cart {
     align-items: center;
-    background: #fff;
-    border: 1px solid rgba(85, 85, 85, 50%);
+    background: @@theme-background;
+    border: 1px solid rgba(@@theme-accent-line-1, 50%);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 25%);
+    box-shadow: 0 1px 4px rgba(@@theme-accent-line-1, 25%);
     cursor: pointer;
     display: flex;
     height: 2.5rem;
@@ -44,7 +45,9 @@
     margin-left: 1.5rem;
     width: 10rem;
 
+
     &-icon {
+      filter: invert(@@theme-invert-percent);
       margin-right: 0.5rem;
       vertical-align: middle;
       width: 1.5rem;

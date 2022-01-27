@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .order-display {
-  border: 2px solid #c4c4c4;
+  border: 2px solid @@theme-accent-line-2;
   border-radius: 0.75rem;
   margin-bottom: 1rem;
   width: fit-content;
@@ -37,7 +37,7 @@
     }
 
     .image-container {
-      border: 1px solid rgba(0, 0, 0, 10%);
+      border: 1px solid rgba(@@theme-accent-line-2, 10%);
       border-radius: 0.625rem;
       height: 10rem;
       padding: 1rem;
@@ -52,6 +52,7 @@
 
     .order-item {
       .item-name {
+        color: @@theme-text-on-background-1;
         font-size: 1.5rem;
         font-weight: 400;
         margin-bottom: 0;
@@ -68,6 +69,7 @@
         }
 
         .item-option {
+          color: @@theme-text-on-background-2;
           font-size: 1.25rem;
           font-weight: 400;
         }

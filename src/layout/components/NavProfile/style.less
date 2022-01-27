@@ -1,6 +1,10 @@
 @import "../../../styles/mixins.less";
 @import "../../../styles/vars.less";
 
+:root {
+  --bar-fill: @@theme-primary-1;
+}
+
 .nav-width {
   width: @nav-drop-width;
 }
@@ -26,7 +30,7 @@
 
   &:hover {
     .arrow {
-      color: darkblue;
+      color: @@theme-primary-2;
     }
   }
 

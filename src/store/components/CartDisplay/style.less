@@ -37,7 +37,7 @@
     }
 
     .image-container {
-      border: 1px solid rgba(0, 0, 0, 10%);
+      border: 1px solid rgba(@@theme-accent-line-1, 10%);
       border-radius: 0.625rem;
       height: 10rem;
       padding: 1rem;
@@ -52,6 +52,7 @@
 
     .cart-item {
       .item-name {
+        color: @@theme-text-on-background-1;
         font-size: 1.5rem;
         font-weight: 400;
         margin-bottom: 0;
@@ -68,13 +69,14 @@
         }
 
         .item-option {
+          color:  @@theme-text-on-background-2;
           font-size: 1.25rem;
           font-weight: 400;
         }
       }
 
       .item-button {
-        color: #777;
+        color: @@theme-text-on-background-2;
         font-size: 1rem;
         padding: 0;
         transition: color 0.3s;

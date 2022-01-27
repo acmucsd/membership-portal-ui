@@ -38,7 +38,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
 
   const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
-    <Menu>
+    <Menu className="menu">
       {yearCodes.map((yearCode, index) => {
         // if this academic quarter start hasn't at least started...
         if (yearCode !== 'All Time' && !(getYearBounds(yearCode as any).start < new Date())) {
@@ -46,7 +46,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
           return null;
         }
         return (
-          <Menu.Item key={yearCode}>
+          <Menu.Item className="menu-item" key={yearCode} >
             <div
               role="menuitem"
               className="leader-page-timeframe"

@@ -1,7 +1,19 @@
 @import "../../../styles/vars.less";
 
+.menu {
+  background-color: @@theme-surface-2;
+}
+
+:hover.menu-item {
+  background-color: @@theme-surface-1;
+}
 .leader-page {
   color: @@theme-text-on-background-1;
+
+  .arrow-icon {
+    color: @@theme-text-on-background-1;
+  }
+
   &-top {
     align-items: center;
     display: flex;
@@ -17,21 +29,24 @@
   }
 
   &-dropdown-link {
-    background-color: inherit;
+    background-color: @@theme-background;
     color: @@theme-text-on-background-1;
     font-size: 1.5rem;
     font-weight: 700;
     margin: 1rem 0;
 
     svg {
+      filter: invert(@@theme-invert-percent);
       margin-left: 5px;
     }
   }
+
 
   &-timeframe {
     color: @@theme-text-on-surface-1;
     font-size: 1rem;
   }
+
 
   &-leaderboard {
     > * {

@@ -1,5 +1,14 @@
 @import "../../../styles/vars.less";
 
+
+.menu {
+  background-color: @@theme-surface-2;
+}
+
+:hover.menu-item {
+  background-color: @@theme-surface-1;
+}
+
 .home-page {
   background-color: @@theme-background;
   color: @@theme-text-on-background-1;
@@ -60,6 +69,7 @@
     margin: 1rem 0;
 
     svg {
+      filter: invert(@@theme-invert-percent);
       margin-left: 5px;
     }
   }

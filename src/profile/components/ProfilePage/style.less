@@ -1,5 +1,8 @@
 @import "../../../styles/vars.less";
 
+:root {
+  --bar-color: rgba(@@theme-accent-line-1, 0.5);
+}
 .Profile-Page {
   color: @@theme-text-on-background-1;
   .title {
@@ -10,6 +13,7 @@
 
   .name {
     font-size: @general-heading-2;
+    color: @@theme-text-on-background-1;
     line-height: 115px;
     margin-right: 24px;
   }
@@ -51,6 +55,11 @@
   .meta-data {
     font-size: @general-body;
     margin-top: 24px;
+  }
+
+
+  .bio {
+    color: @@theme-text-on-background-1;
   }
 
   .bio > p {

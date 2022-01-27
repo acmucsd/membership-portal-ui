@@ -5,8 +5,8 @@
 
   &-placeholder {
     align-items: center;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 10%);
+    background: @@theme-surface-1;
+    border: 1px solid rgba(@@theme-accent-line-1, 10%);
     border-radius: 0.625rem;
     box-sizing: border-box;
     display: flex;
@@ -24,6 +24,7 @@
   }
 
   &-editable-icon {
+    filter: invert(@@theme-invert-percent);
     position: absolute;
     right: 0.5rem;
     top: 0.5rem;
