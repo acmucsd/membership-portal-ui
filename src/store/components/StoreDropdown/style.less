@@ -27,13 +27,19 @@
   }
 
   &-menu {
-    border: 1px solid rgba(@@theme-accent-line-2, 50%);
+    border: 1px solid rgba(@@theme-accent-line-1, 50%);
     border-radius: 10px;
     font-size: 18px;
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .Dropdown-option {
     padding: 0.5rem 1rem;
+    background-color: @@theme-surface-2;
+    color: @@theme-text-on-background-1;
 
     &.is-selected {
       background-color: @@theme-surface-1;
@@ -41,7 +47,7 @@
     }
 
     &:hover {
-      background-color: @@theme-surface-2;
+      background-color: @@theme-surface-1;
       color: @@theme-text-on-background-1;
     }
   }

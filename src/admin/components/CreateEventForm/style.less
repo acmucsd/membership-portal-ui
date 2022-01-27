@@ -166,3 +166,25 @@
     width: 100%;
   }
 }
+
+// fix ant time and date selectors for dark mode
+.ant-time-picker-panel-inner {
+  background-color: @@theme-background;
+}
+
+li.ant-time-picker-panel-select-option-selected  {
+  color: @@theme-primary-1;
+  background-color: @@theme-background;
+}
+.ant-time-picker-panel-select li:hover {
+  background-color: @@theme-surface-1;
+}
+
+.ant-time-picker-panel-input {
+  background-color: @@theme-background;
+  color: @@theme-text-on-surface-1;
+}
+
+[class*="-picker-clear"] {
+  background-color: @@theme-surface-2;
+}
