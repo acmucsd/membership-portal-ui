@@ -211,11 +211,6 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   },
                 ];
               }
-
-              // values.options.forEach((option) => {});
-
-              // TODO: modify the options component to behave differently for existing items
-              // delete payload.options;
             }
 
             try {
