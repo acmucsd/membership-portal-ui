@@ -33,6 +33,21 @@
         }
       }
 
+      .mode-switch {
+        position: absolute;
+        right: 40px;
+      }
+
+      .ant-switch {
+        background-color: @@theme-surface-2;
+      }
+      .ant-switch-checked {
+        background-color: @@theme-surface-2;
+      }
+      .ant-switch::after {
+        background-color: @@theme-primary-5;
+      }
+
       .profile {
         display: none;
         position: absolute;
@@ -79,7 +94,10 @@
             display: none;
           }
         }
-
+        .mode-switch {
+          position: relative;
+          left: 0.1rem;
+        }
         .profile {
           display: block;
         }
