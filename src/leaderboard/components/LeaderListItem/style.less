@@ -11,7 +11,7 @@
   width: 100%;
 
   &.even {
-    background: rgba(@@theme-surface-1, 0.5);
+    background: var(--theme-surface-1);
   }
 
   &.odd {
@@ -35,11 +35,12 @@
   }
 
   .name:hover {
-    color: @@theme-surface-2;
+    color: var(--theme-surface-2);
   }
 
   .rank {
-    color: rgba(@@theme-text-on-background-1, 0.5);
+    color: var(--theme-text-on-background-1);
+    opacity: 0.5;
     font-weight: 400;
     text-align: center;
     width: 25%;
@@ -68,7 +69,8 @@
     }
 
     .rank {
-      color: rgba(@@theme-text-on-background-1, 0.5);
+      color: var(--theme-text-on-background-1);
+      opacity: 0.5;
       font-size: 12px;
     }
 

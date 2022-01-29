@@ -2,19 +2,19 @@
 
 
 .menu {
-  background-color: @@theme-surface-2;
+  background-color: var(--theme-surface-2);
 }
 
 :hover.menu-item {
-  background-color: @@theme-surface-1;
+  background-color: var(--theme-surface-1);
 }
 
 .home-page {
-  background-color: @@theme-background;
-  color: @@theme-text-on-background-1;
+  background-color: var(--theme-background);
+  color: var(--theme-text-on-background-1);
 
   .border {
-    border-top: 1px solid rgba(51, 51, 51, 20%);
+    border-top: 1px solid var(--theme-accent-line-2-transparent);
     margin: 0 -5vw;
     width: calc(100% + 10vw);
 
@@ -42,11 +42,11 @@
   .title {
     font-size: @general-heading-1;
     font-weight: 700;
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
   }
 
   .subtitle {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     font-size: @general-heading-2;
     font-weight: 700;
     margin: 40px 0;
@@ -63,20 +63,20 @@
   }
 
   .ant-dropdown-link {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     font-size: 1.5rem;
     font-weight: 700;
     margin: 1rem 0;
 
     svg {
-      filter: invert(@@theme-invert-percent);
+      filter: invert(var(--theme-invert-percent));
       margin-left: 5px;
     }
   }
 }
 
 .event-timeframe {
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
   font-size: 1rem;
 }
 

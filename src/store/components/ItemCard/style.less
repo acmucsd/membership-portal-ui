@@ -5,8 +5,8 @@
 
   &-placeholder {
     align-items: center;
-    background: @@theme-surface-1;
-    border: 1px solid rgba(@@theme-accent-line-1, 10%);
+    background: var(--theme-surface-1);
+    border: 1px solid var(--theme-accent-line-1-transparent);
     border-radius: 0.625rem;
     box-sizing: border-box;
     display: flex;
@@ -24,15 +24,15 @@
   }
 
   &-editable-icon {
-    filter: invert(@@theme-invert-percent);
+    filter: invert(var(--theme-invert-percent));
     position: absolute;
     right: 0.5rem;
     top: 0.5rem;
   }
 
   &-image-container {
-    background-color: @@theme-background;
-    border: 1px solid @@theme-accent-line-2;
+    background-color: var(--theme-background);
+    border: 1px solid var(--theme-accent-line-2);
     border-radius: 0.625rem;
     box-sizing: border-box;
     height: 12.5rem;
@@ -41,7 +41,7 @@
     width: 12.5rem;
 
     .out-of-stock & {
-      background-color: @@theme-background;
+      background-color: var(--theme-background);
     }
   }
 
@@ -56,7 +56,7 @@
   }
 
   &-name {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     font-size: 1.25rem;
   }
 

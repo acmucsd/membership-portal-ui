@@ -12,11 +12,85 @@
  * make sure we're resetting all spacing elements.
  *
  */
+  // Light Theme Variables
+ .light-theme {
+  --theme: light;
+  --theme-primary-1: @blue-400; // circle background, link hover, progress bar
+  --theme-primary-2: @blue-500; // event card links, arrow hover
+  --theme-primary-3: @blue-300;
+  --theme-primary-4: @blue-100;
+  --theme-primary-5: @blue-200; // profile card borders, buttons, nav bar current item, collection header
+  --theme-primary-6: @blue-600; // event card borders
+
+  --theme-success-1: @green-100;
+  --theme-success-2: @green-200;
+
+  --theme-danger-1: @red;
+
+  --theme-invert-percent: 0%;
+
+  --theme-disabled: @gray-600; // disabled elements
+
+  --theme-background: @white; // page background
+
+  --theme-surface-1: @gray-200; // table rows
+  --theme-surface-2: @gray-300; // nav bar background
+
+  --theme-accent-line-1: @gray-900; // heavy accent lines and gray borders
+  --theme-accent-line-2: @gray-400; // light accent lines and gray borders
+  --theme-accent-line-1-transparent: rgba(@gray-900, 0.5); // light accent lines
+  --theme-accent-line-2-transparent: rgba(@gray-400, 0.5); // light accent lines
+
+  --theme-text-on-background-1: @gray-900; // text on primary titles and input borders
+  --theme-text-on-background-2: @gray-700; // text on primary subtitles (LVL, Dates)
+
+  --theme-text-on-surface-1: @gray-900; // dark text on sidebar
+  --theme-text-on-surface-2: @gray-500; // light titles on sidebar
+
+  background-color: var(--theme-background);
+}
+
+// Dark Theme Variables
+.dark-theme {
+  --theme: dark;
+  --theme-primary-1: #3dbeff; // circle background, link hover, progress bar
+  --theme-primary-2: @blue-500; // event card links and links
+  --theme-primary-3: #6cb5fd;
+  --theme-primary-4: @blue-100;
+  --theme-primary-5: rgb(112, 192, 231); // profile card borders, buttons, nav bar current item, collection header
+  --theme-primary-6: #97c8f8; // event card borders
+
+  --theme-success-1: @green-100;
+  --theme-success-2: @green-200;
+  
+  --theme-danger-1: @red;
+  
+  --theme-invert-percent: 100%;
+  
+  --theme-disabled: @gray-600; // disabled elements
+  
+  --theme-background: @gray-800; // page background
+  
+  --theme-surface-1: @gray-700; // table rows (light)
+  --theme-surface-2: @gray-900; // nav bar background (dark)
+  
+  --theme-accent-line-1: @black; // accent line on event cards
+  --theme-accent-line-2: @gray-400; // accent line on event cards
+  --theme-accent-line-1-transparent: rgba(@black, 0.5); // light accent lines
+  --theme-accent-line-2-transparent: rgba(@gray-400, 0.5); // light accent lines
+
+  --theme-text-on-background-1: @white; // text on primary titles and input borders
+  --theme-text-on-background-2: @white; // text on primary subtitles (LVL, Dates)
+  
+  --theme-text-on-surface-1: @white; // dark text on sidebar
+  --theme-text-on-surface-2: @white; // light titles on sidebar
+  background-color: var(--theme-background);
+}
+
 html,
 body {
   border: 0;
   font-family: "DM Sans", sans-serif;
-  background-color: @@theme-background;
   line-height: 1.5;
   margin: 0;
   padding: 0;
@@ -94,7 +168,8 @@ label {
   margin: 0;
   padding: 0;
   vertical-align: baseline;
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
+
 }
 
 article,

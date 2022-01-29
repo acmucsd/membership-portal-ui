@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .leaderboard-card {
-  background-color: @@theme-primary-3;
+  background-color: var(--theme-primary-3);
   border-radius: 10px;
   height: @leaderboard-card-height;
   overflow: hidden;
@@ -29,7 +29,8 @@
   }
 
   .leaderboard-card-left {
-    color: rgba(@@theme-text-on-surface-1, 0.3);
+    color: var(--theme-text-on-background-1);
+    opacity: 0.3;
     font-size: 5rem;
     font-weight: 500;
     left: 0;
@@ -37,9 +38,9 @@
   }
 
   .leaderboard-card-right {
-    background-color: @@theme-background;
+    background-color: var(--theme-background);
     border-radius: inherit;
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     flex-wrap: wrap;
     height: calc(100% - 10px);
     margin: 5px;
@@ -53,13 +54,13 @@
     width: 60%;
 
     > * {
-      color: @@theme-text-on-background-1;
+      color: var(--theme-text-on-background-1);
       flex: 1 100%;
       margin-bottom: 0;
     }
 
     .ant-avatar {
-      border: 1px solid rgba(@@theme-text-on-background-1, 0.5);
+      border: 1px solid var(--theme-text-on-background-1);
     }
 
     h1 {

@@ -4,7 +4,7 @@
 
 
 .event-card {
-  border: 2px solid @@theme-primary-6;
+  border: 2px solid var(--theme-primary-6);
   border-radius: 10px;
   height: @event-height;
   -ms-overflow-style: none;
@@ -26,13 +26,13 @@
       top: 10px;
 
       .edit-icon {
-        color: @@theme-text-on-background-1;
+        color: var(--theme-text-on-background-1);
         cursor: pointer;
         transition: all 0.2s;
       }
 
       .edit-icon:hover {
-        color: @@theme-surface-1;
+        color: var(--theme-surface-1);
       }
     }
 
@@ -65,14 +65,14 @@
       }
 
       .link {
-        color: @@theme-primary-2;
+        color: var(--theme-primary-2);
         display: block;
       }
 
       .title {
         font-size: @card-heading-2;
         font-weight: 700;
-        color: @@theme-text-on-background-1;
+        color: var(--theme-text-on-background-1);
       }
 
     }
@@ -89,29 +89,29 @@
       width: 50px;
 
       &.blue {
-        background-color: @@theme-primary-1;
+        background-color: var(--theme-primary-1);
       }
 
       &.green {
-        background-color: @@theme-success-1;
+        background-color: var(--theme-success-1);
       }
 
       .inner {
-        background-color: @@theme-background;
+        background-color: var(--theme-background);
         border-radius: 50%;
         height: 37.5px;
         width: 37.5px;
       }
 
       .points {
-        color: @@theme-text-on-background-1;
+        color: var(--theme-text-on-background-1);
         font-weight: 500;
         position: absolute;
       }
     }
 
     .divider {
-      border: 1px solid @@theme-accent-line-2;
+      border: 1px solid var(--theme-accent-line-2);
       bottom: 0;
       margin: auto 10% 15px;
       position: absolute;

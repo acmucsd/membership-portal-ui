@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 .store-header {
   align-items: center;
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
   display: flex;
   height: 3rem;
   justify-content: space-between;
@@ -16,7 +16,7 @@
     display: flex;
 
     &-arrow {
-      filter: invert(@@theme-invert-percent);
+      filter: invert(var(--theme-invert-percent));
       margin-right: 1.5rem;
     }
 
@@ -34,10 +34,10 @@
 
   &-cart {
     align-items: center;
-    background: @@theme-background;
-    border: 1px solid rgba(@@theme-accent-line-1, 50%);
+    background: var(--theme-background);
+    border: 1px solid var(--theme-accent-line-1-transparent);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 4px rgba(@@theme-accent-line-1, 25%);
+    box-shadow: 0 1px 4px var(--theme-accent-line-1-transparent);
     cursor: pointer;
     display: flex;
     height: 2.5rem;
@@ -47,7 +47,7 @@
 
 
     &-icon {
-      filter: invert(@@theme-invert-percent);
+      filter: invert(var(--theme-invert-percent));
       margin-right: 0.5rem;
       vertical-align: middle;
       width: 1.5rem;

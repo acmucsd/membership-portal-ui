@@ -1,9 +1,9 @@
 @import "../../../styles/vars.less";
 
 .about-page {
-  background-color: @@theme-background;
+  background-color: var(--theme-background);
   font-size: @general-body;
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
 
   .description {
     margin-bottom: 50px;
@@ -17,18 +17,18 @@
     h1 {
       font-size: @general-heading-1;
       margin: 0 0 0 20px;
-      color: @@theme-text-on-background-1
+      color: var(--theme-text-on-background-1)
     }
   }
 
   .socials {
     a {
-      color: @@theme-text-on-background-1;
+      color: var(--theme-text-on-background-1);
       display: block;
       margin-bottom: 10px;
 
       &:hover {
-        color: @@theme-primary-1;
+        color: var(--theme-primary-1);
       }
 
       .icon {

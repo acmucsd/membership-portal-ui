@@ -1,9 +1,6 @@
 @import "../../../styles/mixins.less";
 @import "../../../styles/vars.less";
 
-:root {
-  --bar-fill: @@theme-primary-1;
-}
 
 .nav-width {
   width: @nav-drop-width;
@@ -11,7 +8,7 @@
 
 .nav-profile {
   align-items: center;
-  color: @theme-text-on-background-1;
+  color: --theme-text-on-background-1;
   cursor: pointer;
   display: flex;
   font-size: @nav-body;
@@ -22,7 +19,7 @@
   width: @nav-drop-width;
 
   .arrow {
-    color: @@theme-primary-1;
+    color: var(--theme-primary-1);
     font-size: @nav-heading;
     position: absolute;
     right: 10px;
@@ -30,7 +27,7 @@
 
   &:hover {
     .arrow {
-      color: @@theme-primary-2;
+      color: var(--theme-primary-2);
     }
   }
 
@@ -43,7 +40,7 @@
     -ms-overflow-style: none;
     overflow-x: scroll;
     scrollbar-width: none;
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
   }
 
   .name::-webkit-scrollbar {

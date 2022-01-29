@@ -1,17 +1,18 @@
 @import "../../../styles/vars.less";
 
 .menu {
-  background-color: @@theme-surface-2;
+  background-color: var(--theme-surface-2);
 }
 
 :hover.menu-item {
-  background-color: @@theme-surface-1;
+  background-color: var(--theme-surface-1);
 }
+
 .leader-page {
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
 
   .arrow-icon {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
   }
 
   &-top {
@@ -25,25 +26,25 @@
     display: inline-block;
     font-size: @general-heading-1;
     font-weight: 700;
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
   }
 
   &-dropdown-link {
-    background-color: @@theme-background;
-    color: @@theme-text-on-background-1;
+    background-color: var(--theme-background);
+    color: var(--theme-text-on-background-1);
     font-size: 1.5rem;
     font-weight: 700;
     margin: 1rem 0;
 
     svg {
-      filter: invert(@@theme-invert-percent);
+      filter: invert(var(--theme-invert-percent));
       margin-left: 5px;
     }
   }
 
 
   &-timeframe {
-    color: @@theme-text-on-surface-1;
+    color: var(--theme-text-on-surface-1);
     font-size: 1rem;
   }
 
@@ -55,7 +56,7 @@
     }
 
     .empty-results {
-      color: @theme-text-on-background-1;
+      color: --theme-text-on-background-1;
       font-size: 1rem;
       margin-top: 1rem;
     }

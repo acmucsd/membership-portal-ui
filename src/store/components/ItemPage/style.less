@@ -6,8 +6,8 @@
 
   .item-image-container {
     border-radius: 0.5rem;
-    background-color: rgba(@@theme-surface-1, 25%);
-    box-shadow: 0 1px 4px rgba(@@theme-accent-line-1, 25%);
+    background-color: var(--theme-surface-2);
+    box-shadow: 0 1px 4px var(--theme-accent-line-1-transparent);
     flex-shrink: 0;
     height: 24rem;
     margin-right: 4rem;
@@ -24,14 +24,14 @@
 
   .item-contents {
     .item-name {
-      color: @@theme-text-on-background-1;
+      color: var(--theme-text-on-background-1);
       font-size: 1.75rem;
       font-weight: 700;
       margin-bottom: 1rem;
     }
 
     .item-description {
-      color: @@theme-text-on-background-1;
+      color: var(--theme-text-on-background-1);
       font-size: 1.125rem;
       margin-top: 1rem;
     }
@@ -40,7 +40,7 @@
       margin-top: 1.5rem;
 
       &-header {
-        color: @@theme-text-on-background-1;
+        color: var(--theme-text-on-background-1);
         font-size: 1.125rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
@@ -56,7 +56,7 @@
         margin-top: 1.5rem;
 
         &-header {
-          color: @@theme-text-on-background-1;
+          color: var(--theme-text-on-background-1);
           font-size: 1.125rem;
           font-weight: 700;
           margin-bottom: 0.75rem;
@@ -71,13 +71,13 @@
   }
 
   .item-limit {
-    color: @@theme-text-on-background-2;
+    color: var(--theme-text-on-background-2);
     font-size: 1.125rem;
     margin-top: 2rem;
   }
 
   &-modal {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
 
     &-title {
       font-size: 1.5rem;
@@ -105,19 +105,19 @@
       }
 
       &-option {
-        color: @@theme-text-on-background-2;
+        color: var(--theme-text-on-background-2);
         font-size: 1rem;
         margin-bottom: 0.5rem;
       }
 
       &-quantity {
-        color: @@theme-text-on-background-2;
+        color: var(--theme-text-on-background-2);
         font-size: 1rem;
       }
     }
 
     .ant-modal-content {
-      background-color: @@theme-surface-2;
+      background-color: var(--theme-surface-2);
       padding: 1rem;
 
       .ant-modal-body {
@@ -125,7 +125,7 @@
       }
 
       .ant-modal-footer {
-        border-top: 1px solid @@theme-accent-line-2;
+        border-top: 1px solid var(--theme-accent-line-2);
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;

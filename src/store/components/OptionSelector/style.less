@@ -7,11 +7,11 @@
 
   .option {
     align-items: center;
-    background: @@theme-surface-2;
-    color: @@theme-text-on-surface-2;
-    border: 1px solid @@theme-accent-line-2;
+    background: var(--theme-surface-2);
+    color: var(--theme-text-on-surface-2);
+    border: 1px solid var(--theme-accent-line-2);
     border-radius: 0.625rem;
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     cursor: pointer;
     font-size: 1.125rem;
     font-weight: 700;
@@ -23,18 +23,18 @@
 
     &:focus,
     &:hover {
-      border-color: @@theme-primary-5;
+      border-color: var(--theme-primary-5);
     }
 
     &.selected {
-      border: 1px solid rgba(@@theme-primary-5, 50%);
-      color: @@theme-primary-5;
+      border: 1px solid var(--theme-primary-5);
+      color: var(--theme-primary-5);
     }
 
     &:disabled {
-      background: @@theme-background;
-      border: 1px solid @@theme-accent-line-2;
-      color: @@theme-disabled;
+      background: var(--theme-background);
+      border: 1px solid var(--theme-accent-line-2);
+      color: var(--theme-disabled);
       cursor: not-allowed;
     }
   }

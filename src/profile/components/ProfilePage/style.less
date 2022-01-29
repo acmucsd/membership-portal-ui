@@ -1,19 +1,16 @@
 @import "../../../styles/vars.less";
 
-:root {
-  --bar-color: rgba(@@theme-accent-line-1, 0.5);
-}
 .Profile-Page {
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
   .title {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     font-size: @general-heading-1;
     font-weight: 700;
   }
 
   .name {
     font-size: @general-heading-2;
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
     line-height: 115px;
     margin-right: 24px;
   }
@@ -26,21 +23,21 @@
   }
 
   .edit-profile-btn {
-    background-color: @@theme-surface-1;
-    color: @@theme-text-on-surface-1;
+    background-color: var(--theme-surface-1);
+    color: var(--theme-text-on-surface-1);
     font-size: @general-body;
     height: @general-body * 2;
     margin-top: 24px;
   }
   .edit-profile-btn:hover {
-    color: @@theme-primary-5;
+    color: var(--theme-primary-5);
   }
 
   .level-info {
     margin-top: 18px;
     max-width: 256px;
     width: auto;
-    color: @@theme-text-on-background-2;
+    color: var(--theme-text-on-background-2);
 
     .rank {
       font-size: @general-body;
@@ -64,7 +61,7 @@
 
 
   .bio {
-    color: @@theme-text-on-background-1;
+    color: var(--theme-text-on-background-1);
   }
 
   .bio > p {

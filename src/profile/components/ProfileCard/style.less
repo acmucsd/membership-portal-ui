@@ -1,14 +1,12 @@
 @import "../../../styles/vars.less";
 
-:root {
-  --bar-color: rgba(@@theme-accent-line-1, 0.5);
-}
+
 .profile-card {
   align-items: center;
-  border: 2px solid @@theme-primary-5;
+  border: 2px solid var(--theme-primary-5);
   border-radius: 10px;
   background-color: inherit;
-  color: @@theme-text-on-background-1;
+  color: var(--theme-text-on-background-1);
   cursor: pointer;
   display: flex;
   height: @db-card-height;
@@ -30,7 +28,7 @@
   }
 
   .avatar {
-    border: 2px solid rgba(6, 89, 188, 50%);
+    border: 2px solid var(--theme-primary-6);
   }
 
   .avatar-flex {
