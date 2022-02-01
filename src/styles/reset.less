@@ -1,6 +1,7 @@
 @import "./vars.less";
 /**
- * Global Reset of all HTML Elements
+ * Global Reset of all HTML Elements. 
+ * Also defines light and dark theme colors.
  *
  * Resetting all of our HTML Elements ensures a smoother
  * visual transition between browsers. If you don't believe me,
@@ -12,15 +13,16 @@
  * make sure we're resetting all spacing elements.
  *
  */
+
   // Light Theme Variables
  .light-theme {
   --theme: light;
-  --theme-primary-1: @blue-400; // circle background, link hover, progress bar
-  --theme-primary-2: @blue-500; // event card links, arrow hover
-  --theme-primary-3: @blue-300;
-  --theme-primary-4: @blue-100;
-  --theme-primary-5: @blue-200; // profile card borders, buttons, nav bar current item, collection header
-  --theme-primary-6: @blue-600; // event card borders
+  --theme-primary-1: @light-blue-100; 
+  --theme-primary-2: @light-blue-200; // profile card borders, buttons, nav bar 
+  --theme-primary-3: @light-blue-300;
+  --theme-primary-4: @light-blue-400;// circle background, link hover, progress bar
+  --theme-primary-5: @light-blue-500; // event card links, arrow hover
+  --theme-primary-6: @light-blue-600; // event card borders
 
   --theme-success-1: @green-100;
   --theme-success-2: @green-200;
@@ -53,12 +55,12 @@
 // Dark Theme Variables
 .dark-theme {
   --theme: dark;
-  --theme-primary-1: #3dbeff; // circle background, link hover, progress bar
-  --theme-primary-2: @blue-500; // event card links and links
-  --theme-primary-3: #6cb5fd;
-  --theme-primary-4: @blue-100;
-  --theme-primary-5: rgb(112, 192, 231); // profile card borders, buttons, nav bar current item, collection header
-  --theme-primary-6: #97c8f8; // event card borders
+  --theme-primary-1: @dark-blue-100;
+  --theme-primary-2: @dark-blue-200; 
+  --theme-primary-3: @dark-blue-300;
+  --theme-primary-4: @dark-blue-400;
+  --theme-primary-5: @dark-blue-500; 
+  --theme-primary-6: @dark-blue-600; 
 
   --theme-success-1: @green-100;
   --theme-success-2: @green-200;
@@ -67,23 +69,22 @@
   
   --theme-invert-percent: 100%;
   
-  --theme-disabled: @gray-600; // disabled elements
+  --theme-disabled: @gray-600; 
+  --theme-background: @gray-800; 
   
-  --theme-background: @gray-800; // page background
+  --theme-surface-1: @gray-700; 
+  --theme-surface-2: @gray-900; 
   
-  --theme-surface-1: @gray-700; // table rows (light)
-  --theme-surface-2: @gray-900; // nav bar background (dark)
-  
-  --theme-accent-line-1: @black; // accent line on event cards
-  --theme-accent-line-2: @gray-400; // accent line on event cards
-  --theme-accent-line-1-transparent: rgba(@black, 0.5); // light accent lines
-  --theme-accent-line-2-transparent: rgba(@gray-400, 0.5); // light accent lines
+  --theme-accent-line-1: @black; 
+  --theme-accent-line-2: @gray-400; 
+  --theme-accent-line-1-transparent: rgba(@black, 0.5); 
+  --theme-accent-line-2-transparent: rgba(@gray-400, 0.5); 
 
-  --theme-text-on-background-1: @white; // text on primary titles and input borders
-  --theme-text-on-background-2: @white; // text on primary subtitles (LVL, Dates)
+  --theme-text-on-background-1: @white; 
+  --theme-text-on-background-2: @white; 
   
-  --theme-text-on-surface-1: @white; // dark text on sidebar
-  --theme-text-on-surface-2: @white; // light titles on sidebar
+  --theme-text-on-surface-1: @white; 
+  --theme-text-on-surface-2: @white; 
   background-color: var(--theme-background);
 }
 
