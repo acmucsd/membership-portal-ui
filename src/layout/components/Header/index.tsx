@@ -31,8 +31,8 @@ const Header: React.FC = () => {
             <span className="subheading">&nbsp;Membership Portal</span>
           </NavLink>
           <Switch onClick={HandleModeSwitch} 
-          checkedChildren={<Icon component={MoonIcon} className="icon" />}
-          unCheckedChildren={<Icon component={SunIcon} className="icon" />}
+          checkedChildren={<Icon component={MoonIcon} className="moon-icon" />}
+          unCheckedChildren={<Icon component={SunIcon} className="sun-icon" />}
           className="mode-switch" defaultChecked={theme === 'light' ? false : true} /> 
 
           <div className="profile">
