@@ -58,7 +58,7 @@ const App = () => {
   ReactGA.pageview('/');
 
   return (
-    <div id="app">
+    <div>
       <Provider store={store}>
       <ThemeProvider>
         <ConnectedRouter history={history}>
