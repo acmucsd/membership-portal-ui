@@ -5,7 +5,6 @@ import NavDropdown from '../../containers/NavDropdown';
 import NavProfile from '../../containers/NavProfile';
 import Icon from '@ant-design/icons';
 import logo from '../../../assets/graphics/logo.png';
-import './custom.less';
 import { Switch } from 'antd';
 import './style.less';
 import ThemeContext from '../../../styles/ThemeContext/themeContext';
