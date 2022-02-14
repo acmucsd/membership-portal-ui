@@ -9,7 +9,6 @@ interface IThemeContext {
 let initialTheme: string;
 
 initialTheme = localStorage.getItem('theme') || 'light';
-console.log(initialTheme);
 const initialState = {
     theme: initialTheme,
     toggleTheme: () => {},
