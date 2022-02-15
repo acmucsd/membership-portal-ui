@@ -8,16 +8,16 @@ import { verifyToken } from '../authActions';
 import PageLayout from '../../layout/containers/PageLayout';
 import { UserState } from '../../types';
 
-enum Options {
+export enum WithRouteOptions {
   ADMIN,
   AUTHENTICATED,
   STORE,
 }
 
-const withRoute = (Component: React.FC, option: Options, rejectRoute: string) => (props: { [key: string]: any }) => {
+const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: string) => (props: { [key: string]: any }) => {
   const { authenticated, pathname, search, verify, redirectHome, isAdmin, state, email } = props;
   switch (option) {
-    case Options.ADMIN: {
+    case WithRouteOptions.ADMIN: {
       useEffect(() => {
         // check if authenticated, if not, then verify the token
         if (!authenticated) {
@@ -39,7 +39,7 @@ const withRoute = (Component: React.FC, option: Options, rejectRoute: string) =>
       // TODO: Make redirecting screen and return that if not authenticated.
       return <Component />;
     }
-    case Options.AUTHENTICATED: {
+    case WithRouteOptions.AUTHENTICATED: {
       useEffect(() => {
         // check if authenticated, if not, then verify the token
         if (!authenticated) {
@@ -52,9 +52,13 @@ const withRoute = (Component: React.FC, option: Options, rejectRoute: string) =>
       }
 
       // TODO: Make redirecting screen and return that if not authenticated.
-      return null;
+      return (
+        <PageLayout>
+          <div />
+        </PageLayout>
+      );
     }
-    case Options.STORE: {
+    case WithRouteOptions.STORE: {
       const [permitted, setPermitted] = useState(false);
       useEffect(() => {
         const emailDomain = email?.split('@')[1];
@@ -81,7 +85,11 @@ const withRoute = (Component: React.FC, option: Options, rejectRoute: string) =>
       );
     }
     default:
-      break;
+      return (
+        <PageLayout>
+          <div />
+        </PageLayout>
+      );
   }
 };
 
