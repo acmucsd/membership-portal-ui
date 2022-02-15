@@ -310,3 +310,13 @@ export const parseOrderStatus = (status: OrderStatus) => {
       return '';
   }
 };
+
+export const generateQuery = (params: any): string => {
+  if (Object.keys(params).length === 0) {
+    return '';
+  }
+
+  return `?${Object.keys(params)
+    .map((key) => `${key}=${params[key]}`)
+    .join('&')}`;
+};

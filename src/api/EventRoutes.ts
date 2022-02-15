@@ -1,6 +1,6 @@
 import Config from '../config';
-import { notify, fetchService } from '../utils';
-import { PatchEventRequest, CreateEventRequest } from './ApiRequests';
+import { notify, fetchService, generateQuery } from '../utils';
+import { EventSearchOptions, PatchEventRequest, CreateEventRequest } from './ApiRequests';
 import {
   CreateEventResponse,
   PatchEventResponse,
@@ -12,8 +12,8 @@ import {
 } from './ApiResponses';
 
 // @Get('/event/past')
-export const fetchPastEvents = async () => {
-  const url = `${Config.API_URL}${Config.routes.events.past}`;
+export const fetchPastEvents = async (filters?: EventSearchOptions) => {
+  const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: true,
   })
@@ -26,8 +26,8 @@ export const fetchPastEvents = async () => {
 };
 
 // @Get('/event/future')
-export const fetchFutureEvents = async () => {
-  const url = `${Config.API_URL}${Config.routes.events.future}`;
+export const fetchFutureEvents = async (filters?: EventSearchOptions) => {
+  const url = `${Config.API_URL}${Config.routes.events.future}${generateQuery(filters)}`;
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: true,
   })
@@ -103,8 +103,8 @@ export const deleteEvent = async (uuid: string) => {
 };
 
 // @Get('/event')
-export const fetchAllEvents = async () => {
-  const url = `${Config.API_URL}${Config.routes.events.past}`;
+export const fetchAllEvents = async (filters?: EventSearchOptions) => {
+  const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: true,
   })

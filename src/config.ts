@@ -32,10 +32,10 @@ export default {
       email: '/api/v2/admin/email', // Done
     },
     events: {
-      event: '/api/v2/event',
-      past: '/api/v2/event/past',
-      future: '/api/v2/event/future',
-      picture: '/api/v2/event/picture',
+      event: '/api/v2/event', // Done
+      past: '/api/v2/event/past', // Done
+      future: '/api/v2/event/future', // Done
+      picture: '/api/v2/event/picture', // Done
     },
     attendance: '/api/v2/attendance', // Done
     leaderboard: '/api/v2/leaderboard',
