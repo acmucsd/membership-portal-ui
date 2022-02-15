@@ -17,27 +17,26 @@ export default {
       activity: '/api/v2/user/activity',
       profilepicture: '/api/v2/user/picture',
     },
-    activity: '/api/v2/activity',
     auth: {
-      register: '/api/v2/auth/registration', // Done
-      login: '/api/v2/auth/login', // Done
-      verification: '/api/v2/auth/verification', // Done
-      resetPassword: '/api/v2/auth/passwordReset', // Done
-      emailVerification: '/api/v2/auth/emailVerification', // Done
-      emailModification: '/api/v2/auth/emailModification', // Done
+      register: '/api/v2/auth/registration',
+      login: '/api/v2/auth/login',
+      verification: '/api/v2/auth/verification',
+      resetPassword: '/api/v2/auth/passwordReset',
+      emailVerification: '/api/v2/auth/emailVerification',
+      emailModification: '/api/v2/auth/emailModification',
     },
     admin: {
-      attendance: '/api/v2/admin/attendance', // Done
-      bonus: '/api/v2/admin/bonus', // Done
-      email: '/api/v2/admin/email', // Done
+      attendance: '/api/v2/admin/attendance',
+      bonus: '/api/v2/admin/bonus',
+      email: '/api/v2/admin/email',
     },
     events: {
-      event: '/api/v2/event', // Done
-      past: '/api/v2/event/past', // Done
-      future: '/api/v2/event/future', // Done
-      picture: '/api/v2/event/picture', // Done
+      event: '/api/v2/event',
+      past: '/api/v2/event/past',
+      future: '/api/v2/event/future',
+      picture: '/api/v2/event/picture',
     },
-    attendance: '/api/v2/attendance', // Done
+    attendance: '/api/v2/attendance',
     leaderboard: '/api/v2/leaderboard',
     store: {
       collection: '/api/v2/merch/collection',
@@ -47,6 +46,7 @@ export default {
       verification: '/api/v2/merch/order/verification',
       order: '/api/v2/merch/order',
       orders: '/api/v2/merch/orders',
+      cart: '/api/v2/merch/cart',
       pickup: {
         future: '/api/v2/merch/order/pickup/future',
         past: '/api/v2/merch/order/pickup/past',
