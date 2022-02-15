@@ -27,9 +27,9 @@ export default {
       emailModification: '/api/v2/auth/emailModification',
     },
     admin: {
-      attendance: '/api/v2/admin/attendance',
-      bonus: '/api/v2/admin/bonus',
-      emails: '/api/v2/admin/email',
+      attendance: '/api/v2/admin/attendance', // Done
+      bonus: '/api/v2/admin/bonus', // Done
+      email: '/api/v2/admin/email', // Done
     },
     events: {
       event: '/api/v2/event',
@@ -37,7 +37,7 @@ export default {
       future: '/api/v2/event/future',
       picture: '/api/v2/event/picture',
     },
-    attendance: '/api/v2/attendance',
+    attendance: '/api/v2/attendance', // Done
     leaderboard: '/api/v2/leaderboard',
     store: {
       collection: '/api/v2/merch/collection',

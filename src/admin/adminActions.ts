@@ -5,7 +5,6 @@ import Config from '../config';
 import { EVENT_DELETE, GET_EMAILS } from './adminTypes';
 import { notify, fetchService } from '../utils';
 
-
 export const postEvent = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -154,7 +153,7 @@ export const addAttendance = (attendanceDetails: any) => async (dispatch) => {
 
 export const getAllEmails = () => async (dispatch) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.admin.emails}`;
+    const url = `${Config.API_URL}${Config.routes.admin.email}`;
     const emails = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
     });
