@@ -1,18 +1,8 @@
-import { replace } from 'connected-react-router';
-import {
-  AUTH_ERROR,
-  AUTH_USER,
-  FETCH_USER,
-  PASSWORD_FAIL,
-  PASSWORD_SUCCESS,
-  REGISTER_FAIL,
-  REGISTER_USER,
-  UNAUTH_USER,
-  ThunkActionCreator,
-} from './authTypes';
+import { AUTH_ERROR, AUTH_USER, FETCH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, REGISTER_FAIL, REGISTER_USER, UNAUTH_USER } from './authTypes';
 
 import Config from '../config';
 import Storage from '../storage';
+import history from '../history';
 import { notify, fetchService } from '../utils';
 
 /**
@@ -33,7 +23,7 @@ const tokenGetClaims = (token?: string): object => {
   return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
 };
 
-export const loginUser: ThunkActionCreator = (values, search) => async (dispatch) => {
+export const loginUser = (values, search) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.login}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -58,13 +48,13 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
 
     if (code) {
       // If the user was signed out when trying to check in, direct them to the checkin page
-      dispatch(replace(`/checkin?code=${code}}`));
+      dispatch(history.replace(`/checkin?code=${code}}`));
     } else if (destination) {
       // If the user was signed out when trying to access the site, return them to their desired destination
-      dispatch(replace(decodeURIComponent(destination)));
+      dispatch(history.replace(decodeURIComponent(destination)));
     } else {
       // Otherwise, redirect to home
-      dispatch(replace('/'));
+      dispatch(history.replace('/'));
     }
   } catch (error) {
     notify('Unable to login!', error.message);
@@ -75,7 +65,7 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
   }
 };
 
-export const verifyToken: ThunkActionCreator = (dispatch) => async (search, pathname) => {
+export const verifyToken = (dispatch) => async (search, pathname) => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
@@ -92,7 +82,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
           });
           notify('Login expired', 'Please sign in again');
           // redirect to /login
-          dispatch(replace(`/login${search}`));
+          dispatch(history.replace(`/login${search}`));
           resolve(data);
           return;
         }
@@ -116,7 +106,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
           type: UNAUTH_USER,
         });
         // redirerct to /login
-        dispatch(replace(`/login${search}`));
+        dispatch(history.replace(`/login${search}`));
         reject(error);
       }
     } else {
@@ -131,7 +121,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
 
       // redirerct to /login, while including the checkin code and desired destination if present
       dispatch(
-        replace(
+        history.replace(
           `/login${search}${
             pathname.toString() !== '/'
               ? `${
@@ -148,15 +138,15 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
   });
 };
 
-export const logoutUser: ThunkActionCreator = () => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
   dispatch({
     type: UNAUTH_USER,
   });
   Storage.remove('token');
-  dispatch(replace('/login'));
+  dispatch(history.replace('/login'));
 };
 
-export const passwordReset: ThunkActionCreator = (email: string) => async (dispatch) => {
+export const passwordReset = (email: string) => async (dispatch) => {
   try {
     if (!email) {
       throw new Error('Email field cannot be empty.');
@@ -180,7 +170,7 @@ export const passwordReset: ThunkActionCreator = (email: string) => async (dispa
   }
 };
 
-export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => {
+export const updatePassword = (user) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -188,7 +178,7 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
       payload: JSON.stringify({ user }),
     });
 
-    dispatch(replace('/'));
+    dispatch(history.replace('/'));
   } catch (error) {
     notify('Unable to reset password!', error.message);
   }
@@ -222,7 +212,7 @@ export const sendEmailVerification = async (email: string) => {
   }
 };
 
-export const registerAccount: ThunkActionCreator = (user, search) => async (dispatch) => {
+export const registerAccount = (user, search) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.register}`;
     await fetchService(url, 'POST', 'json', {
@@ -254,16 +244,15 @@ export const registerAccount: ThunkActionCreator = (user, search) => async (disp
   }
 };
 
-export const redirectAuth: ThunkActionCreator = () => (dispatch) => {
-  dispatch(replace('/authenticate-email'));
+export const redirectAuth = () => (dispatch) => {
+  dispatch(history.replace('/authenticate-email'));
 };
 
-export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
+export const fetchUser = (uuid = '') => async (dispatch) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.user.user}/${uuid || ''}`;
+    const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
     const data = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     dispatch({
@@ -281,7 +270,6 @@ export const fetchUserByID = async (uuid: string) => {
       const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => logoutUser(),
       });
 
       resolve(data);

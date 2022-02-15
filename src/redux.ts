@@ -1,6 +1,4 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import { History } from 'history';
+import { createStore, combineReducers } from 'redux';
 
 import AdminReducer from './admin/adminReducer';
 import AuthReducer from './auth/authReducer';
@@ -9,13 +7,15 @@ import LeaderboardReducer from './leaderboard/leaderboardReducer';
 import ProfileReducer from './profile/profileReducer';
 import StoreReducer from './store/storeReducer';
 
-export default (history: History) =>
+const store = createStore(
   combineReducers({
-    router: connectRouter(history),
     admin: AdminReducer,
     auth: AuthReducer,
     event: EventReducer,
     leaderboard: LeaderboardReducer,
     profile: ProfileReducer,
     store: StoreReducer,
-  });
+  }),
+);
+
+export default store;

@@ -1,12 +1,12 @@
-import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR, ThunkActionCreator } from './storeTypes';
+import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR } from './storeTypes';
 import { fetchService } from '../utils';
 import Config from '../config';
-import { logoutUser } from '../auth/authActions';
+
 import { CartItem, MerchItemOptionMetadata } from '../types';
 
 // COLLECTIONS
 
-export const fetchCollection: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const fetchCollection = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -17,7 +17,6 @@ export const fetchCollection: ThunkActionCreator = (uuid: string) => async (disp
       const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.collection);
@@ -27,13 +26,12 @@ export const fetchCollection: ThunkActionCreator = (uuid: string) => async (disp
   });
 };
 
-export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
+export const fetchCollections = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.collection}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
       resolve(data.collections);
     } catch (error) {
@@ -42,7 +40,7 @@ export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
   });
 };
 
-export const deleteCollection: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const deleteCollection = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -53,7 +51,6 @@ export const deleteCollection: ThunkActionCreator = (uuid: string) => async (dis
       const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
       const data = await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.collection);
@@ -65,7 +62,7 @@ export const deleteCollection: ThunkActionCreator = (uuid: string) => async (dis
 
 // ITEMS
 
-export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const fetchItem = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -76,7 +73,6 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
       const url = `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.item);
@@ -86,7 +82,7 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
   });
 };
 
-export const deleteItem: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const deleteItem = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -97,7 +93,6 @@ export const deleteItem: ThunkActionCreator = (uuid: string) => async (dispatch)
       const url = `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
       const data = await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.item);
@@ -109,7 +104,7 @@ export const deleteItem: ThunkActionCreator = (uuid: string) => async (dispatch)
 
 // ITEM OPTIONS
 
-export const createItemOption: ThunkActionCreator = (
+export const createItemOption = (
   uuid: string,
   option: {
     quantity: number;
@@ -133,7 +128,6 @@ export const createItemOption: ThunkActionCreator = (
       const url = `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
       const data = await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ option }),
       });
 
@@ -144,7 +138,7 @@ export const createItemOption: ThunkActionCreator = (
   });
 };
 
-export const deleteItemOption: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const deleteItemOption = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -155,7 +149,6 @@ export const deleteItemOption: ThunkActionCreator = (uuid: string) => async (dis
       const url = `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
       await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -167,13 +160,12 @@ export const deleteItemOption: ThunkActionCreator = (uuid: string) => async (dis
 
 // ORDERS
 
-export const fetchOrders: ThunkActionCreator = () => async (dispatch) => {
+export const fetchOrders = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.orders}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.orders);
@@ -183,7 +175,7 @@ export const fetchOrders: ThunkActionCreator = () => async (dispatch) => {
   });
 };
 
-export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const fetchOrder = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -194,7 +186,6 @@ export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch)
       const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.order);
@@ -204,7 +195,7 @@ export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch)
   });
 };
 
-export const fulfillOrder: ThunkActionCreator = (uuid: string, items: { uuid: string; notes: string }[]) => async (dispatch) => {
+export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string }[]) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -220,7 +211,6 @@ export const fulfillOrder: ThunkActionCreator = (uuid: string, items: { uuid: st
       const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/fulfill`;
       const data = await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ items }),
       });
 
@@ -231,7 +221,7 @@ export const fulfillOrder: ThunkActionCreator = (uuid: string, items: { uuid: st
   });
 };
 
-export const rescheduleOrder: ThunkActionCreator = (uuid: string, pickupEvent: string) => async (dispatch) => {
+export const rescheduleOrder = (uuid: string, pickupEvent: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -247,7 +237,6 @@ export const rescheduleOrder: ThunkActionCreator = (uuid: string, pickupEvent: s
       const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/reschedule`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ pickupEvent }),
       });
 
@@ -258,7 +247,7 @@ export const rescheduleOrder: ThunkActionCreator = (uuid: string, pickupEvent: s
   });
 };
 
-export const cancelOrder: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const cancelOrder = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -269,7 +258,6 @@ export const cancelOrder: ThunkActionCreator = (uuid: string) => async (dispatch
       const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/cancel`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -279,13 +267,12 @@ export const cancelOrder: ThunkActionCreator = (uuid: string) => async (dispatch
   });
 };
 
-export const cancelAllOrders: ThunkActionCreator = () => async (dispatch) => {
+export const cancelAllOrders = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.order}/cleanup`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -297,7 +284,7 @@ export const cancelAllOrders: ThunkActionCreator = () => async (dispatch) => {
 
 // PICKUP EVENTS
 
-export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const fetchPickupEvent = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -308,7 +295,6 @@ export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dis
       const url = `${Config.API_URL}${Config.routes.store.pickup.single}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.pickupEvent);
@@ -318,13 +304,12 @@ export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dis
   });
 };
 
-export const fetchPastPickupEvents: ThunkActionCreator = () => async (dispatch) => {
+export const fetchPastPickupEvents = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.past}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.pickupEvents);
@@ -334,13 +319,12 @@ export const fetchPastPickupEvents: ThunkActionCreator = () => async (dispatch) 
   });
 };
 
-export const fetchFuturePickupEvents: ThunkActionCreator = () => async (dispatch) => {
+export const fetchFuturePickupEvents = () => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.pickupEvents);
@@ -350,7 +334,7 @@ export const fetchFuturePickupEvents: ThunkActionCreator = () => async (dispatch
   });
 };
 
-export const completePickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const completePickupEvent = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -361,7 +345,6 @@ export const completePickupEvent: ThunkActionCreator = (uuid: string) => async (
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}/complete`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -371,7 +354,7 @@ export const completePickupEvent: ThunkActionCreator = (uuid: string) => async (
   });
 };
 
-export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const deletePickupEvent = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -382,7 +365,6 @@ export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (di
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}`;
       await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -392,7 +374,7 @@ export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (di
   });
 };
 
-export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const cancelPickupEvent = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -403,7 +385,6 @@ export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (di
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}/cancel`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -415,28 +396,28 @@ export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (di
 
 // CART
 
-export const addToCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
+export const addToCart = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_ADD,
     payload: cartItem,
   });
 };
 
-export const editInCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
+export const editInCart = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_EDIT,
     payload: cartItem,
   });
 };
 
-export const removeFromCart: ThunkActionCreator = (cartItem: CartItem) => (dispatch) => {
+export const removeFromCart = (cartItem: CartItem) => (dispatch) => {
   dispatch({
     type: CART_REMOVE,
     payload: cartItem,
   });
 };
 
-export const clearCart: ThunkActionCreator = () => (dispatch) => {
+export const clearCart = () => (dispatch) => {
   dispatch({
     type: CART_CLEAR,
   });

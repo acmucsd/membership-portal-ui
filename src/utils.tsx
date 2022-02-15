@@ -5,6 +5,7 @@ import Storage from './storage';
 import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption, OrderStatus } from './types';
 
 import DiamondDisplay from './store/components/DiamondDisplay';
+import history from './history';
 
 export const notify = (title: string, description: string) => {
   notification.open({
@@ -161,7 +162,7 @@ const getServiceErrorMessage = (error) => {
  * Fetches data from server with simple error handling
  */
 export const fetchService = async (url: string, requestMethod: HttpRequestMethod, mimeType: MimeType, options: FetchServiceOptions) => {
-  const { payload, requiresAuthorization, onFailCallback } = options;
+  const { payload, requiresAuthorization } = options;
 
   let Accept;
   let ContentType;
@@ -189,7 +190,7 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   });
 
   const { status } = response;
-  if (status === 401 || status === 403) onFailCallback?.();
+  if (status === 401 || status === 403) history.push('/login');
   const data = await response.json();
   if (!data) throw new Error('Empty response from server');
   if (data.error) {

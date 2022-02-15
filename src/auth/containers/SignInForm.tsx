@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
+import history from '../../history';
+
 import SignInForm from '../components/SignInForm';
 import { loginUser } from '../authActions';
 
@@ -21,13 +23,9 @@ const FormikSignInForm = withFormik({
   validateOnChange: false,
   validateOnBlur: false,
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
-    props.loginUser(values, props.search);
+    props.loginUser(values, history.location.search);
     resetForm();
   },
 })(SignInForm as React.FC);
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  search: state.router.location.search,
-});
-
-export default connect(mapStateToProps, { loginUser })(FormikSignInForm);
+export default connect(null, { loginUser })(FormikSignInForm);

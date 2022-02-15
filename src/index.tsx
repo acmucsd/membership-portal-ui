@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ConnectedRouter } from 'connected-react-router';
-import { Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import ReactGA from 'react-ga';
 import BreadPage from './layout/components/BreadPage';
 
-import configureStore, { history } from './redux_store';
+import history from './history';
+import store from './redux';
 
 import './styles/reset.less';
 import AboutPage from './layout/containers/AboutPage';
@@ -50,15 +50,13 @@ import AdminFulfillPage from './store/containers/AdminFulfillPage';
 import AdminQuantitiesPage from './store/containers/AdminQuantitiesPage';
 import AdminPickupPage from './store/containers/AdminPickupPage';
 
-const store = configureStore();
-
 const App = () => {
   ReactGA.initialize('UA-165975388-1');
   ReactGA.pageview('/');
 
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <Router history={history}>
         <Switch>
           <Route exact path="/about" component={requireAuth(AboutPage)} />
           <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
@@ -101,7 +99,7 @@ const App = () => {
           <Route exact path="/" component={requireAuth(HomePage)} />
           <Route path="/" component={requireAuth(ErrorPage)} />
         </Switch>
-      </ConnectedRouter>
+      </Router>
     </Provider>
   );
 };

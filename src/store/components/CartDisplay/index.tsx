@@ -64,8 +64,10 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
         const { quantity } = item;
         const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
 
-        dispatch(editInCart({ ...item, quantity: 0 }));
-        dispatch(addToCart({ ...item, option: newOption, quantity }));
+        if (newOption) {
+          dispatch(editInCart({ ...item, quantity: 0 }));
+          dispatch(addToCart({ ...item, option: newOption, quantity }));
+        }
       }
       setEditable(false);
     } else {

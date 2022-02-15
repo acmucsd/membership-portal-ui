@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import withSizes from 'react-sizes';
-import { ThunkActionCreator } from '../../../auth/authTypes';
 
 import CheckInModal from '../../../event/containers/CheckInModal';
 import Header from '../Header';
@@ -45,7 +44,7 @@ const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-const mapDispatchToProps = (dispatch: ThunkActionCreator) => ({
+const mapDispatchToProps = (dispatch) => ({
   logout: () => {
     dispatch(logoutUser());
   },

@@ -1,15 +1,14 @@
-import { PROFILE_FAIL, PROFILE_SUCCESS, ThunkActionCreator } from './profileTypes';
+import { PROFILE_FAIL, PROFILE_SUCCESS } from './profileTypes';
 import Config from '../config';
-import { logoutUser } from '../auth/authActions';
+
 import { notify, fetchService } from '../utils';
 
-export const updateProfile: ThunkActionCreator = (values) => async (dispatch) => {
+export const updateProfile = (values) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}`;
     await fetchService(url, 'PATCH', 'json', {
       requiresAuthorization: true,
       payload: JSON.stringify({ user: values }),
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     notify('Updated profile!', 'Just now');
@@ -36,7 +35,6 @@ export const uploadUserImage = async (file: string | Blob) => {
       const data = await fetchService(url, 'POST', 'image', {
         requiresAuthorization: true,
         payload: formdata,
-        onFailCallback: () => logoutUser(),
       });
 
       notify('Updated profile picture!', '');
@@ -55,7 +53,6 @@ export const updateEmail = (email: string) => async (dispatch) => {
     await fetchService(url, 'POST', 'json', {
       requiresAuthorization: true,
       payload: JSON.stringify({ email }),
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     notify('Success!', 'Check your email to re-verify your account.');

@@ -1,25 +1,15 @@
-import {
-  EVENT_CHECKIN,
-  EVENT_CHECKOUT,
-  EVENT_ERROR,
-  FETCH_ATTENDANCE,
-  FETCH_EVENT,
-  FETCH_FUTURE_EVENTS,
-  FETCH_PAST_EVENTS,
-  ThunkActionCreator,
-} from './eventTypes';
+import { EVENT_CHECKIN, EVENT_CHECKOUT, EVENT_ERROR, FETCH_ATTENDANCE, FETCH_EVENT, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS } from './eventTypes';
 
-import { fetchUser, logoutUser } from '../auth/authActions';
+import { fetchUser } from '../auth/authActions';
 
 import Config from '../config';
 import { notify, fetchService } from '../utils';
 
-export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
+export const fetchFutureEvents = () => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.future}`;
     const futureEvents = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     dispatch({
@@ -35,12 +25,11 @@ export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
   }
 };
 
-export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
+export const fetchPastEvents = () => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.past}`;
     const pastEvents = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     dispatch({
@@ -56,12 +45,11 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
   }
 };
 
-export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
+export const fetchAttendance = () => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     dispatch({
@@ -77,7 +65,7 @@ export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
   }
 };
 
-export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
+export const checkIn = (info) => async (dispatch) => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -86,7 +74,6 @@ export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
         attendanceCode: decodeURI(info.attendanceCode),
         asStaff: info.asStaff,
       }),
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     dispatch(fetchUser());
@@ -106,18 +93,17 @@ export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
   }
 };
 
-export const checkOut: ThunkActionCreator = () => (dispatch) => {
+export const checkOut = () => (dispatch) => {
   dispatch({
     type: EVENT_CHECKOUT,
   });
 };
 
-export const fetchEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
+export const fetchEvent = (uuid) => async (dispatch) => {
   try {
     const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
     const thisEvent = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     if (!thisEvent) throw new Error('Empty response from server');

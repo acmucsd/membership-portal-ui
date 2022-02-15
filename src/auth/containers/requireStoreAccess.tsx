@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { compose, Dispatch } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
 import { notify } from '../../utils';
 import PageLayout from '../../layout/containers/PageLayout';
 import { UserState } from '../../types';
+import history from '../../history';
 
 const withStoreAccess = (Component: React.FC) => (props: { [key: string]: any }) => {
   const { state, redirectHome, email } = props;
@@ -15,7 +15,11 @@ const withStoreAccess = (Component: React.FC) => (props: { [key: string]: any })
     const emailDomain = email?.split('@')[1];
     if (email) {
       if (state === UserState.PENDING || !(emailDomain === 'ucsd.edu' || emailDomain === 'acmucsd.org')) {
-        redirectHome();
+        notify(
+          'Store Requirement',
+          'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.',
+        );
+        history.replace('/');
       } else {
         setPermitted(true);
       }
@@ -39,13 +43,6 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   email: state.auth.profile.email,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirectHome: () => {
-    notify('Store Requirement', 'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.');
-    dispatch(replace('/'));
-  },
-});
-
-const requireStoreAccess = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withStoreAccess);
+const requireStoreAccess = compose<React.FC>(connect(mapStateToProps), withStoreAccess);
 
 export default requireStoreAccess;
