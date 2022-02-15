@@ -48,13 +48,13 @@ export const loginUser = (values, search) => async (dispatch) => {
 
     if (code) {
       // If the user was signed out when trying to check in, direct them to the checkin page
-      dispatch(history.replace(`/checkin?code=${code}}`));
+      history.replace(`/checkin?code=${code}}`);
     } else if (destination) {
       // If the user was signed out when trying to access the site, return them to their desired destination
-      dispatch(history.replace(decodeURIComponent(destination)));
+      history.replace(decodeURIComponent(destination));
     } else {
       // Otherwise, redirect to home
-      dispatch(history.replace('/'));
+      history.replace('/');
     }
   } catch (error) {
     notify('Unable to login!', error.message);
@@ -82,7 +82,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
           });
           notify('Login expired', 'Please sign in again');
           // redirect to /login
-          dispatch(history.replace(`/login${search}`));
+          history.replace(`/login${search}`);
           resolve(data);
           return;
         }
@@ -106,7 +106,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
           type: UNAUTH_USER,
         });
         // redirerct to /login
-        dispatch(history.replace(`/login${search}`));
+        history.replace(`/login${search}`);
         reject(error);
       }
     } else {
@@ -143,7 +143,7 @@ export const logoutUser = () => (dispatch) => {
     type: UNAUTH_USER,
   });
   Storage.remove('token');
-  dispatch(history.replace('/login'));
+  history.replace('/login');
 };
 
 export const passwordReset = (email: string) => async (dispatch) => {
@@ -178,7 +178,7 @@ export const updatePassword = (user) => async (dispatch) => {
       payload: JSON.stringify({ user }),
     });
 
-    dispatch(history.replace('/'));
+    history.replace('/');
   } catch (error) {
     notify('Unable to reset password!', error.message);
   }
@@ -245,7 +245,7 @@ export const registerAccount = (user, search) => async (dispatch) => {
 };
 
 export const redirectAuth = () => (dispatch) => {
-  dispatch(history.replace('/authenticate-email'));
+  history.replace('/authenticate-email');
 };
 
 export const fetchUser = (uuid = '') => async (dispatch) => {
