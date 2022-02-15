@@ -1,5 +1,5 @@
 import Config from '../config';
-import { notify, fetchService } from '../utils';
+import { fetchService } from '../utils';
 import { CreateBonusRequest, SubmitAttendanceForUsersRequest } from './ApiRequests';
 import { CreateBonusResponse, GetAllEmailsResponse, SubmitAttendanceForUsersResponse } from './ApiResponses';
 
@@ -14,30 +14,26 @@ export const getAllEmails = async () => {
       return data.emails;
     })
     .catch((error) => {
-      notify('Unable to fetch emails!', error.message);
+      throw new Error(error.message);
     });
 };
 
 // @Post('/admin/bonus')
 export const awardPoints = async (request: CreateBonusRequest) => {
   if (!request.bonus) {
-    notify('Validation Error!', 'No bonus provided');
-    return;
+    throw new Error('No bonus provided');
   }
 
   if (!request.bonus.points) {
-    notify('Validation Error!', 'No points provided');
-    return;
+    throw new Error('No points provided');
   }
 
   if (!request.bonus.users || request.bonus.users.length === 0) {
-    notify('Validation Error!', 'No awardees provided');
-    return;
+    throw new Error('No awardees provided');
   }
 
   if (!request.bonus.description) {
-    notify('Validation Error!', 'Missing description field');
-    return;
+    throw new Error('Missing description field');
   }
 
   const url = `${Config.API_URL}${Config.routes.admin.bonus}`;
@@ -47,24 +43,21 @@ export const awardPoints = async (request: CreateBonusRequest) => {
     payload: JSON.stringify(request),
   })
     .then((data: CreateBonusResponse) => {
-      notify('Gave bonus points!', `to ${request.bonus.users.length} users`);
       return data.emails;
     })
     .catch((error) => {
-      notify('Unable to award points!', error.message);
+      throw new Error(error.message);
     });
 };
 
 // @Post('/admin/attendance')
 export const addAttendance = async (request: SubmitAttendanceForUsersRequest) => {
   if (!request.event) {
-    notify('Validation Error!', 'No event specified');
-    return;
+    throw new Error('No event specified');
   }
 
   if (!request.users || request.users.length === 0) {
-    notify('Validation Error!', 'No users added');
-    return;
+    throw new Error('No users added');
   }
 
   const url = `${Config.API_URL}${Config.routes.admin.attendance}`;
@@ -74,10 +67,9 @@ export const addAttendance = async (request: SubmitAttendanceForUsersRequest) =>
     payload: JSON.stringify(request),
   })
     .then((data: SubmitAttendanceForUsersResponse) => {
-      notify('Success!', `Added attendance to ${data.attendances.length} user(s)!`);
       return data.attendances;
     })
     .catch((error) => {
-      notify('Unable to add users!', error.message);
+      throw new Error(error.message);
     });
 };

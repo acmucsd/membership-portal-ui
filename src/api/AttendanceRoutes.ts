@@ -1,5 +1,5 @@
 import Config from '../config';
-import { notify, fetchService } from '../utils';
+import { fetchService } from '../utils';
 import { AttendEventRequest } from './ApiRequests';
 import { GetAttendancesForEventResponse, GetAttendancesForUserResponse, AttendEventResponse } from './ApiResponses';
 
@@ -14,7 +14,7 @@ export const fetchAttendances = async (uuid: string) => {
       return data.attendances;
     })
     .catch((error) => {
-      notify('Unable to fetch attendance for event!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -29,7 +29,7 @@ export const fetchAttendance = async () => {
       return data.attendances;
     })
     .catch((error) => {
-      notify('Unable to fetch attendance!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -46,6 +46,6 @@ export const checkIn = async (request: AttendEventRequest) => {
       return data.event;
     })
     .catch((error) => {
-      notify('Unable to checkin!', error.message);
+      throw new Error(error.message);
     });
 };

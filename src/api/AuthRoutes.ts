@@ -1,5 +1,5 @@
 import Config from '../config';
-import { notify, fetchService } from '../utils';
+import { fetchService } from '../utils';
 import { LoginRequest, RegistrationRequest, PasswordResetRequest, EmailModificationRequest } from './ApiRequests';
 import { RegistrationResponse, LoginResponse, VerifyAuthTokenResponse } from './ApiResponses';
 
@@ -15,7 +15,7 @@ export const registerAccount = async (request: RegistrationRequest) => {
       return data.user;
     })
     .catch((error) => {
-      notify('Unable to register account!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -31,7 +31,7 @@ export const loginUser = async (request: LoginRequest) => {
       return data.token;
     })
     .catch((error) => {
-      notify('Unable to login!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -42,11 +42,9 @@ export const sendEmailVerification = async (email: string) => {
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: false,
   })
-    .then(() => {
-      notify('Sent verification email!', '');
-    })
+    .then(() => {})
     .catch((error) => {
-      notify('Unable to send verification email!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -58,11 +56,9 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
     requiresAuthorization: false,
     payload: JSON.stringify({ ...info }),
   })
-    .then(() => {
-      notify('Verified email!', '');
-    })
+    .then(() => {})
     .catch((error) => {
-      notify('Unable to verify email!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -74,19 +70,16 @@ export const updateEmail = async (request: EmailModificationRequest) => {
     requiresAuthorization: true,
     payload: JSON.stringify(request),
   })
-    .then(() => {
-      notify('Success!', 'Check your email to re-verify your account.');
-    })
+    .then(() => {})
     .catch((error) => {
-      notify('API Error', error.message);
+      throw new Error(error.message);
     });
 };
 
 // @Get('/auth/passwordReset/:email')
 export const passwordReset = async (email: string) => {
   if (!email) {
-    notify('Email field cannot be empty.', '');
-    return;
+    throw new Error('Email field cannot be empty.');
   }
 
   const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${email}`;
@@ -94,11 +87,9 @@ export const passwordReset = async (email: string) => {
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: false,
   })
-    .then(() => {
-      notify('Success! Check your email shortly', `Email has been sent to ${email}`);
-    })
+    .then(() => {})
     .catch((error) => {
-      notify('Error with email!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -112,7 +103,7 @@ export const updatePassword = async (accessCode: string, request: PasswordResetR
   })
     .then(() => {})
     .catch((error) => {
-      notify('Unable to reset password!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -127,6 +118,6 @@ export const verifyToken = async () => {
       return data.authenticated;
     })
     .catch((error) => {
-      notify('Unable to reset password!', error.message);
+      throw new Error(error.message);
     });
 };

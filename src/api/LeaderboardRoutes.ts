@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import Config from '../config';
-import { notify, fetchService, generateQuery } from '../utils';
+import { fetchService, generateQuery } from '../utils';
 import { SlidingLeaderboardQueryParams } from './ApiRequests';
 import { GetLeaderboardResponse } from './ApiResponses';
 
@@ -15,6 +15,6 @@ export const fetchLeaderboard = (filters: SlidingLeaderboardQueryParams) => {
       return data.leaderboard;
     })
     .catch((error) => {
-      notify('Unable to fetch leaderboard!', error.message);
+      throw new Error(error.message);
     });
 };

@@ -21,7 +21,7 @@ export const fetchPastEvents = async (filters?: EventSearchOptions) => {
       return data.events;
     })
     .catch((error) => {
-      notify('Unable to fetch past events!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -35,7 +35,7 @@ export const fetchFutureEvents = async (filters?: EventSearchOptions) => {
       return data.events;
     })
     .catch((error) => {
-      notify('Unable to fetch future events!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -51,7 +51,7 @@ export const updateEventCover = async (uuid: string, formdata: FormData) => {
       return data.event;
     })
     .catch((error) => {
-      notify('Unable to update event cover!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -66,7 +66,7 @@ export const fetchEvent = async (uuid: string) => {
       return data.event;
     })
     .catch((error) => {
-      notify('Unable to fetch an event!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -79,11 +79,10 @@ export const editEvent = async (uuid: string, request: PatchEventRequest) => {
     payload: JSON.stringify(request),
   })
     .then((data: PatchEventResponse) => {
-      notify('Edited an event!', data.event.title);
       return data.event;
     })
     .catch((error) => {
-      notify('Unable to edit event!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -94,11 +93,9 @@ export const deleteEvent = async (uuid: string) => {
   await fetchService(url, 'DELETE', 'json', {
     requiresAuthorization: true,
   })
-    .then(() => {
-      notify('Success!', 'You successfully deleted the event!');
-    })
+    .then(() => {})
     .catch((error) => {
-      notify('Unable to delete event!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -112,7 +109,7 @@ export const fetchAllEvents = async (filters?: EventSearchOptions) => {
       return data.events;
     })
     .catch((error) => {
-      notify('Unable to fetch past events!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -125,10 +122,8 @@ export const postEvent = async (request: CreateEventRequest) => {
     payload: JSON.stringify(request),
   })
     .then((data: CreateEventResponse) => {
-      notify('Added an event!', data.event.title);
       return data.event;
-    })
     .catch((error) => {
-      notify('Unable to add event!', error.message);
+      throw new Error(error.message);
     });
 };

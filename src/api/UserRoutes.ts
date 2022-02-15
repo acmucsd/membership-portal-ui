@@ -1,13 +1,7 @@
 import Config from '../config';
-import { fetchService, notify } from '../utils';
+import { fetchService } from '../utils';
 import { PatchUserRequest } from './ApiRequests';
-import {
-  GetUserActivityStreamResponse,
-  UpdateProfilePictureResponse,
-  GetUserResponse,
-  GetCurrentUserResponse,
-  PatchUserResponse,
-} from './ApiResponses';
+import { UpdateProfilePictureResponse, GetUserResponse, GetCurrentUserResponse, PatchUserResponse } from './ApiResponses';
 
 // @Post('/user/picture')
 export const uploadUserImage = async (formdata: FormData) => {
@@ -18,11 +12,10 @@ export const uploadUserImage = async (formdata: FormData) => {
     payload: formdata,
   })
     .then((data: UpdateProfilePictureResponse) => {
-      notify('Updated profile picture!', '');
       return data.user;
     })
     .catch((error) => {
-      notify('Unable to update profile picture!', error.message);
+      throw new Error(error.message);
     });
 };
 
@@ -65,11 +58,9 @@ export const updateProfile = async (request: PatchUserRequest) => {
     payload: JSON.stringify(request),
   })
     .then((data: PatchUserResponse) => {
-      notify('Updated profile!', 'Just now');
       return data.user;
     })
     .catch((error) => {
-      notify('Unable to update profile!', error.message);
-      throw error;
+      throw new Error(error.message);
     });
 };

@@ -4,3 +4,11 @@
 export * from './Enums';
 export * from './ApiRequests';
 export * from './ApiResponses';
+
+export * from './AdminRoutes';
+export * from './AttendanceRoutes';
+export * from './AuthRoutes';
+export * from './EventRoutes';
+export * from './LeaderboardRoutes';
+export * from './MerchStoreRoutes';
+export * from './UserRoutes';
