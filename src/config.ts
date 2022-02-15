@@ -19,12 +19,12 @@ export default {
     },
     activity: '/api/v2/activity',
     auth: {
-      register: '/api/v2/auth/registration',
-      login: '/api/v2/auth/login',
-      verification: '/api/v2/auth/verification',
-      resetPassword: '/api/v2/auth/passwordReset',
-      emailVerification: '/api/v2/auth/emailVerification',
-      emailModification: '/api/v2/auth/emailModification',
+      register: '/api/v2/auth/registration', // Done
+      login: '/api/v2/auth/login', // Done
+      verification: '/api/v2/auth/verification', // Done
+      resetPassword: '/api/v2/auth/passwordReset', // Done
+      emailVerification: '/api/v2/auth/emailVerification', // Done
+      emailModification: '/api/v2/auth/emailModification', // Done
     },
     admin: {
       attendance: '/api/v2/admin/attendance', // Done
