@@ -5,7 +5,7 @@ import { fetchUser } from '../auth/authActions';
 import Config from '../config';
 import { notify, fetchService } from '../utils';
 
-export const fetchFutureEvents = () => async (dispatch) => {
+export const fetchFutureEvents = () => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.future}`;
     const futureEvents = await fetchService(url, 'GET', 'json', {
@@ -25,7 +25,7 @@ export const fetchFutureEvents = () => async (dispatch) => {
   }
 };
 
-export const fetchPastEvents = () => async (dispatch) => {
+export const fetchPastEvents = () => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.past}`;
     const pastEvents = await fetchService(url, 'GET', 'json', {
@@ -45,7 +45,7 @@ export const fetchPastEvents = () => async (dispatch) => {
   }
 };
 
-export const fetchAttendance = () => async (dispatch) => {
+export const fetchAttendance = () => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'GET', 'json', {
@@ -65,7 +65,7 @@ export const fetchAttendance = () => async (dispatch) => {
   }
 };
 
-export const checkIn = (info) => async (dispatch) => {
+export const checkIn = (info) => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -99,7 +99,7 @@ export const checkOut = () => (dispatch) => {
   });
 };
 
-export const fetchEvent = (uuid) => async (dispatch) => {
+export const fetchEvent = (uuid) => {
   try {
     const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
     const thisEvent = await fetchService(url, 'GET', 'json', {

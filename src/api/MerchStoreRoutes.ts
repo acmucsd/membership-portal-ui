@@ -37,7 +37,7 @@ import {
 } from './ApiResponses';
 
 // @Get('/merch/collection/:uuid')
-export const fetchCollection = async (uuid: string) => {
+export const getOneMerchCollection = async (uuid: string) => {
   if (!uuid) {
     throw new Error('fetchCollection: Missing required uuid in request.');
   }
@@ -56,7 +56,7 @@ export const fetchCollection = async (uuid: string) => {
 };
 
 // @Get('/merch/collection')
-export const fetchCollections = async () => {
+export const getAllMerchCollections = async () => {
   const url = `${Config.API_URL}${Config.routes.store.collection}`;
 
   fetchService(url, 'GET', 'json', {
@@ -71,7 +71,7 @@ export const fetchCollections = async () => {
 };
 
 // @Post('/merch/collection')
-export const createCollection = (request: CreateMerchCollectionRequest) => {
+export const createMerchCollection = (request: CreateMerchCollectionRequest) => {
   const url = `${Config.API_URL}${Config.routes.store.collection}`;
 
   fetchService(url, 'POST', 'json', {
@@ -87,7 +87,7 @@ export const createCollection = (request: CreateMerchCollectionRequest) => {
 };
 
 // @Patch('/merch/collection/:uuid')
-export const editCollection = (uuid: string, request: EditMerchCollectionRequest) => {
+export const editMerchCollection = (uuid: string, request: EditMerchCollectionRequest) => {
   const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
 
   fetchService(url, 'PATCH', 'json', {
@@ -103,7 +103,7 @@ export const editCollection = (uuid: string, request: EditMerchCollectionRequest
 };
 
 // @Delete('/merch/collection/:uuid')
-export const deleteCollection = async (uuid: string) => {
+export const deleteMerchCollection = async (uuid: string) => {
   if (!uuid) {
     throw new Error('deleteCollection: Missing required uuid in request.');
   }
@@ -120,7 +120,7 @@ export const deleteCollection = async (uuid: string) => {
 };
 
 // @Get('/merch/item/:uuid')
-export const fetchItem = async (uuid: string) => {
+export const getOneMerchItem = async (uuid: string) => {
   if (!uuid) {
     throw new Error('fetchItem: Missing required uuid in request.');
   }
@@ -138,7 +138,7 @@ export const fetchItem = async (uuid: string) => {
 };
 
 // @Post('/merch/item')
-export const createItem = async (request: CreateMerchItemRequest) => {
+export const createMerchItem = async (request: CreateMerchItemRequest) => {
   const url = `${Config.API_URL}${Config.routes.store.item}`;
 
   fetchService(url, 'POST', 'json', {
@@ -154,7 +154,7 @@ export const createItem = async (request: CreateMerchItemRequest) => {
 };
 
 // @Patch('/merch/item/:uuid')
-export const editItem = async (uuid: string, request: EditMerchItemRequest) => {
+export const editMerchItem = async (uuid: string, request: EditMerchItemRequest) => {
   if (!uuid) {
     throw new Error('editItem: Missing required uuid in request.');
   }
@@ -174,7 +174,7 @@ export const editItem = async (uuid: string, request: EditMerchItemRequest) => {
 };
 
 // @Delete('/merch/item/:uuid')
-export const deleteItem = async (uuid: string) => {
+export const deleteMerchItem = async (uuid: string) => {
   if (!uuid) {
     throw new Error('deleteItem: Missing required uuid in request.');
   }
@@ -191,7 +191,7 @@ export const deleteItem = async (uuid: string) => {
 };
 
 // @Post('/merch/item/picture/:uuid')
-export const setItemPicture = (uuid: string, formdata: FormData) => {
+export const updateMerchPhoto = (uuid: string, formdata: FormData) => {
   const url = `${Config.API_URL + Config.routes.store.itemPicture}/${uuid}`;
 
   fetchService(url, 'POST', 'image', {
@@ -207,7 +207,7 @@ export const setItemPicture = (uuid: string, formdata: FormData) => {
 };
 
 // @Post('/merch/option/:uuid')
-export const createItemOption = async (uuid: string, request: CreateMerchItemOptionRequest) => {
+export const createMerchItemOption = async (uuid: string, request: CreateMerchItemOptionRequest) => {
   if (!uuid) {
     throw new Error('createItemOption: Missing required uuid in request.');
   }
@@ -231,7 +231,7 @@ export const createItemOption = async (uuid: string, request: CreateMerchItemOpt
 };
 
 // @Delete('/merch/option/:uuid')
-export const deleteItemOption = async (uuid: string) => {
+export const deleteMerchItemOption = async (uuid: string) => {
   if (!uuid) {
     throw new Error('deleteItemOption: Missing required uuid in request.');
   }
@@ -248,7 +248,7 @@ export const deleteItemOption = async (uuid: string) => {
 };
 
 // @Get('/merch/order/:uuid')
-export const fetchOrder = async (uuid: string) => {
+export const getOneMerchOrder = async (uuid: string) => {
   if (!uuid) {
     throw new Error('fetchItem: Missing required uuid in request.');
   }
@@ -267,7 +267,7 @@ export const fetchOrder = async (uuid: string) => {
 };
 
 // @Get('/merch/orders/all')
-export const fetchAllOrders = async () => {
+export const getMerchOrdersForAllUsers = async () => {
   const url = `${Config.API_URL}${Config.routes.store.orders}/all`;
 
   fetchService(url, 'GET', 'json', {
@@ -282,7 +282,7 @@ export const fetchAllOrders = async () => {
 };
 
 // @Get('/merch/orders')
-export const fetchOrders = async () => {
+export const getMerchOrdersForCurrentUser = async () => {
   const url = `${Config.API_URL}${Config.routes.store.orders}`;
 
   fetchService(url, 'GET', 'json', {
@@ -297,7 +297,7 @@ export const fetchOrders = async () => {
 };
 
 // @Post('/merch/order')
-export const createOrder = async (request: PlaceMerchOrderRequest) => {
+export const placeMerchOrder = async (request: PlaceMerchOrderRequest) => {
   const url = `${Config.API_URL}${Config.routes.store.order}`;
 
   fetchService(url, 'POST', 'json', {
@@ -313,7 +313,7 @@ export const createOrder = async (request: PlaceMerchOrderRequest) => {
 };
 
 // @Post('/merch/order/verification')
-export const verifyOrder = async (request: VerifyMerchOrderRequest) => {
+export const verifyMerchOrder = async (request: VerifyMerchOrderRequest) => {
   const url = `${Config.API_URL}${Config.routes.store.order}/verification`;
 
   fetchService(url, 'POST', 'json', {
@@ -327,7 +327,7 @@ export const verifyOrder = async (request: VerifyMerchOrderRequest) => {
 };
 
 // @Post('/merch/order/:uuid/reschedule')
-export const rescheduleOrder = async (uuid: string, request: RescheduleOrderPickupRequest) => {
+export const rescheduleOrderPickup = async (uuid: string, request: RescheduleOrderPickupRequest) => {
   if (!uuid) {
     throw new Error('rescheduleOrder: Missing required uuid in request.');
   }
@@ -349,7 +349,7 @@ export const rescheduleOrder = async (uuid: string, request: RescheduleOrderPick
 };
 
 // @Post('/merch/order/:uuid/cancel')
-export const cancelOrder = async (uuid: string) => {
+export const cancelMerchOrder = async (uuid: string) => {
   if (!uuid) {
     throw new Error('cancelOrder: Missing required uuid in request.');
   }
@@ -368,7 +368,7 @@ export const cancelOrder = async (uuid: string) => {
 };
 
 // @Post('/merch/order/:uuid/fulfill')
-export const fulfillOrder = async (uuid: string, request: FulfillMerchOrderRequest) => {
+export const fulfillMerchOrderItems = async (uuid: string, request: FulfillMerchOrderRequest) => {
   if (!uuid) {
     throw new Error('fulfillOrder: Missing required uuid in request.');
   }
@@ -392,7 +392,7 @@ export const fulfillOrder = async (uuid: string, request: FulfillMerchOrderReque
 };
 
 // @Post('/merch/order/cleanup')
-export const cancelAllOrders = async () => {
+export const cancelAllPendingMerchOrders = async () => {
   const url = `${Config.API_URL}${Config.routes.store.order}/cleanup`;
 
   fetchService(url, 'POST', 'json', {
@@ -405,7 +405,7 @@ export const cancelAllOrders = async () => {
 };
 
 // @Get('/merch/order/pickup/past')
-export const fetchPastPickupEvents = async () => {
+export const getPastPickupEvents = async () => {
   const url = `${Config.API_URL}${Config.routes.store.pickup.past}`;
 
   fetchService(url, 'GET', 'json', {
@@ -420,7 +420,7 @@ export const fetchPastPickupEvents = async () => {
 };
 
 // @Get('/merch/order/pickup/future')
-export const fetchFuturePickupEvents = async () => {
+export const getFuturePickupEvents = async () => {
   const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
 
   fetchService(url, 'GET', 'json', {
@@ -435,7 +435,7 @@ export const fetchFuturePickupEvents = async () => {
 };
 
 // @Get('/merch/order/pickup/:uuid')
-export const fetchPickupEvent = async (uuid: string) => {
+export const getOnePickupEvent = async (uuid: string) => {
   if (!uuid) {
     throw new Error('fetchPickupEvent: Missing required uuid in request.');
   }
@@ -547,7 +547,7 @@ export const completePickupEvent = async (uuid: string) => {
 };
 
 // @Get('/merch/cart')
-export const getCart = async (request: GetCartRequest) => {
+export const getCartItems = async (request: GetCartRequest) => {
   if (!request) {
     throw new Error('getCart: Missing required request.');
   }

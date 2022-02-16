@@ -4,7 +4,7 @@ import { AttendEventRequest } from './ApiRequests';
 import { GetAttendancesForEventResponse, GetAttendancesForUserResponse, AttendEventResponse } from './ApiResponses';
 
 // @Get('/attendance/:uuid')
-export const fetchAttendances = async (uuid: string) => {
+export const getAttendancesForEvent = async (uuid: string) => {
   const url = `${Config.API_URL}${Config.routes.attendance}/${uuid}`;
 
   fetchService(url, 'GET', 'json', {
@@ -19,7 +19,7 @@ export const fetchAttendances = async (uuid: string) => {
 };
 
 // @Get('/attendance')
-export const fetchAttendance = async () => {
+export const getAttendancesForCurrentUser = async () => {
   const url = `${Config.API_URL}${Config.routes.attendance}`;
 
   fetchService(url, 'GET', 'json', {
@@ -35,7 +35,7 @@ export const fetchAttendance = async () => {
 
 // TODO: decodeURI(info.attendanceCode)
 // @Post('/attendance')
-export const checkIn = async (request: AttendEventRequest) => {
+export const attendEvent = async (request: AttendEventRequest) => {
   const url = `${Config.API_URL}${Config.routes.attendance}`;
 
   fetchService(url, 'POST', 'json', {

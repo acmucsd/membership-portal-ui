@@ -12,7 +12,7 @@ import {
 } from './ApiResponses';
 
 // @Get('/event/past')
-export const fetchPastEvents = async (filters?: EventSearchOptions) => {
+export const getPastEvents = async (filters?: EventSearchOptions) => {
   const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: true,
@@ -26,7 +26,7 @@ export const fetchPastEvents = async (filters?: EventSearchOptions) => {
 };
 
 // @Get('/event/future')
-export const fetchFutureEvents = async (filters?: EventSearchOptions) => {
+export const getFutureEvents = async (filters?: EventSearchOptions) => {
   const url = `${Config.API_URL}${Config.routes.events.future}${generateQuery(filters)}`;
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: true,
@@ -56,7 +56,7 @@ export const updateEventCover = async (uuid: string, formdata: FormData) => {
 };
 
 // @Get('/event/:uuid')
-export const fetchEvent = async (uuid: string) => {
+export const getOneEvent = async (uuid: string) => {
   const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
 
   fetchService(url, 'GET', 'json', {
@@ -71,7 +71,7 @@ export const fetchEvent = async (uuid: string) => {
 };
 
 // @Patch('/event/:uuid')
-export const editEvent = async (uuid: string, request: PatchEventRequest) => {
+export const updateEvent = async (uuid: string, request: PatchEventRequest) => {
   const eventUrl = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
 
   fetchService(eventUrl, 'PATCH', 'json', {
@@ -100,7 +100,7 @@ export const deleteEvent = async (uuid: string) => {
 };
 
 // @Get('/event')
-export const fetchAllEvents = async (filters?: EventSearchOptions) => {
+export const getAllEvents = async (filters?: EventSearchOptions) => {
   const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
   fetchService(url, 'GET', 'json', {
     requiresAuthorization: true,
@@ -114,7 +114,7 @@ export const fetchAllEvents = async (filters?: EventSearchOptions) => {
 };
 
 // @Post('/event')
-export const postEvent = async (request: CreateEventRequest) => {
+export const createEvent = async (request: CreateEventRequest) => {
   const url = `${Config.API_URL}${Config.routes.events.event}`;
 
   fetchService(url, 'POST', 'json', {
@@ -123,6 +123,7 @@ export const postEvent = async (request: CreateEventRequest) => {
   })
     .then((data: CreateEventResponse) => {
       return data.event;
+    })
     .catch((error) => {
       throw new Error(error.message);
     });

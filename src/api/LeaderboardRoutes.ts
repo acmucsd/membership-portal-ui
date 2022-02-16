@@ -5,7 +5,7 @@ import { SlidingLeaderboardQueryParams } from './ApiRequests';
 import { GetLeaderboardResponse } from './ApiResponses';
 
 // @Get('/leaderboard')
-export const fetchLeaderboard = (filters: SlidingLeaderboardQueryParams) => {
+export const getLeaderboard = (filters: SlidingLeaderboardQueryParams) => {
   const url = `${Config.API_URL}${Config.routes.leaderboard}${generateQuery(filters)}`;
 
   fetchService(url, 'GET', 'json', {

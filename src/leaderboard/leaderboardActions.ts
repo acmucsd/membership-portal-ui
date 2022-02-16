@@ -4,7 +4,7 @@ import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
 import Config from '../config';
 import { fetchService } from '../utils';
 
-export const fetchLeaderboard = (offset: number = 0, limit: number, from?: number, to?: number) => async (dispatch) => {
+export const fetchLeaderboard = (offset: number = 0, limit: number, from?: number, to?: number) => {
   try {
     const url = `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`;
     const data = await fetchService(url, 'GET', 'json', {

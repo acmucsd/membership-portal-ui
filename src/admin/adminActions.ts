@@ -5,7 +5,7 @@ import Config from '../config';
 import { EVENT_DELETE, GET_EMAILS } from './adminTypes';
 import { notify, fetchService } from '../utils';
 
-export const postEvent = (event) => async (dispatch) => {
+export const postEvent = (event) => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL}${Config.routes.events.event}`;
@@ -34,7 +34,7 @@ export const postEvent = (event) => async (dispatch) => {
   });
 };
 
-export const editEvent = (event) => async (dispatch) => {
+export const editEvent = (event) => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
@@ -65,7 +65,7 @@ export const editEvent = (event) => async (dispatch) => {
   });
 };
 
-export const deleteEvent = (uuid) => async (dispatch) => {
+export const deleteEvent = (uuid) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
@@ -86,7 +86,7 @@ export const deleteEvent = (uuid) => async (dispatch) => {
   });
 };
 
-export const awardPoints = (pointDetails: any) => async (dispatch) => {
+export const awardPoints = (pointDetails: any) => {
   return new Promise(async (resolve, reject) => {
     if (!pointDetails.points) {
       notify('Validation Error!', 'No points provided');
@@ -119,7 +119,7 @@ export const awardPoints = (pointDetails: any) => async (dispatch) => {
   });
 };
 
-export const addAttendance = (attendanceDetails: any) => async (dispatch) => {
+export const addAttendance = (attendanceDetails: any) => {
   return new Promise(async (resolve, reject) => {
     if (!attendanceDetails.event) {
       notify('Validation Error!', 'No event specified');
@@ -151,7 +151,7 @@ export const addAttendance = (attendanceDetails: any) => async (dispatch) => {
   });
 };
 
-export const getAllEmails = () => async (dispatch) => {
+export const getAllEmails = () => {
   try {
     const url = `${Config.API_URL}${Config.routes.admin.email}`;
     const emails = await fetchService(url, 'GET', 'json', {

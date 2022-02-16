@@ -4,7 +4,7 @@ import { LoginRequest, RegistrationRequest, PasswordResetRequest, EmailModificat
 import { RegistrationResponse, LoginResponse, VerifyAuthTokenResponse } from './ApiResponses';
 
 // @Post('/auth/registration')
-export const registerAccount = async (request: RegistrationRequest) => {
+export const register = async (request: RegistrationRequest) => {
   const url = `${Config.API_URL}${Config.routes.auth.register}`;
 
   fetchService(url, 'POST', 'json', {
@@ -20,7 +20,7 @@ export const registerAccount = async (request: RegistrationRequest) => {
 };
 
 // @Post('/auth/login')
-export const loginUser = async (request: LoginRequest) => {
+export const login = async (request: LoginRequest) => {
   const url = `${Config.API_URL}${Config.routes.auth.login}`;
 
   await fetchService(url, 'POST', 'json', {
@@ -36,7 +36,7 @@ export const loginUser = async (request: LoginRequest) => {
 };
 
 // @Get('/auth/emailVerification/:email')
-export const sendEmailVerification = async (email: string) => {
+export const resendEmailVerification = async (email: string) => {
   const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${email}`;
 
   fetchService(url, 'GET', 'json', {
@@ -63,7 +63,7 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
 };
 
 // @Post('/auth/emailModification')
-export const updateEmail = async (request: EmailModificationRequest) => {
+export const modifyEmail = async (request: EmailModificationRequest) => {
   const url = `${Config.API_URL}${Config.routes.auth.emailModification}`;
 
   fetchService(url, 'POST', 'json', {
@@ -77,7 +77,7 @@ export const updateEmail = async (request: EmailModificationRequest) => {
 };
 
 // @Get('/auth/passwordReset/:email')
-export const passwordReset = async (email: string) => {
+export const sendPasswordResetEmail = async (email: string) => {
   if (!email) {
     throw new Error('Email field cannot be empty.');
   }
@@ -94,7 +94,7 @@ export const passwordReset = async (email: string) => {
 };
 
 // @Post('/auth/passwordReset/:accessCode')
-export const updatePassword = async (accessCode: string, request: PasswordResetRequest) => {
+export const resetPassword = async (accessCode: string, request: PasswordResetRequest) => {
   const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${accessCode}`;
 
   fetchService(url, 'POST', 'json', {
@@ -108,7 +108,7 @@ export const updatePassword = async (accessCode: string, request: PasswordResetR
 };
 
 // @Post('/auth/verification')
-export const verifyToken = async () => {
+export const verifyAuthToken = async () => {
   const url = `${Config.API_URL}${Config.routes.auth.verification}`;
 
   fetchService(url, 'POST', 'json', {

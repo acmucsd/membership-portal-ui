@@ -4,7 +4,7 @@ import { PatchUserRequest } from './ApiRequests';
 import { UpdateProfilePictureResponse, GetUserResponse, GetCurrentUserResponse, PatchUserResponse } from './ApiResponses';
 
 // @Post('/user/picture')
-export const uploadUserImage = async (formdata: FormData) => {
+export const updateProfilePicture = async (formdata: FormData) => {
   const url = `${Config.API_URL}${Config.routes.user.profilepicture}`;
 
   fetchService(url, 'POST', 'image', {
@@ -20,7 +20,7 @@ export const uploadUserImage = async (formdata: FormData) => {
 };
 
 // @Get('/user/:uuid')
-export const fetchUserByID = async (uuid: string) => {
+export const getUser = async (uuid: string) => {
   const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
 
   fetchService(url, 'GET', 'json', {
@@ -35,7 +35,7 @@ export const fetchUserByID = async (uuid: string) => {
 };
 
 // @Get('/user')
-export const fetchUser = async () => {
+export const getCurrentUser = async () => {
   const url = `${Config.API_URL}${Config.routes.user.user}`;
 
   fetchService(url, 'GET', 'json', {
@@ -50,7 +50,7 @@ export const fetchUser = async () => {
 };
 
 // @Patch('/user')
-export const updateProfile = async (request: PatchUserRequest) => {
+export const patchCurrentUser = async (request: PatchUserRequest) => {
   const url = `${Config.API_URL}${Config.routes.user.user}`;
 
   fetchService(url, 'PATCH', 'json', {

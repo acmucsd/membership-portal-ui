@@ -3,7 +3,7 @@ import Config from '../config';
 
 import { notify, fetchService } from '../utils';
 
-export const updateProfile = (values) => async (dispatch) => {
+export const updateProfile = (values) => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}`;
     await fetchService(url, 'PATCH', 'json', {
@@ -46,7 +46,7 @@ export const uploadUserImage = async (file: string | Blob) => {
   });
 };
 
-export const updateEmail = (email: string) => async (dispatch) => {
+export const updateEmail = (email: string) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.emailModification}`;
 

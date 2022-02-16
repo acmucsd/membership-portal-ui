@@ -19,7 +19,7 @@ export const getAllEmails = async () => {
 };
 
 // @Post('/admin/bonus')
-export const awardPoints = async (request: CreateBonusRequest) => {
+export const addBonus = async (request: CreateBonusRequest) => {
   if (!request.bonus) {
     throw new Error('No bonus provided');
   }
@@ -51,7 +51,7 @@ export const awardPoints = async (request: CreateBonusRequest) => {
 };
 
 // @Post('/admin/attendance')
-export const addAttendance = async (request: SubmitAttendanceForUsersRequest) => {
+export const submitAttendanceForUsers = async (request: SubmitAttendanceForUsersRequest) => {
   if (!request.event) {
     throw new Error('No event specified');
   }

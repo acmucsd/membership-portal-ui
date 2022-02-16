@@ -23,7 +23,7 @@ const tokenGetClaims = (token?: string): object => {
   return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
 };
 
-export const loginUser = (values, search) => async (dispatch) => {
+export const loginUser = (values, search) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.login}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -146,7 +146,7 @@ export const logoutUser = () => (dispatch) => {
   history.replace('/login');
 };
 
-export const passwordReset = (email: string) => async (dispatch) => {
+export const passwordReset = (email: string) => {
   try {
     if (!email) {
       throw new Error('Email field cannot be empty.');
@@ -170,7 +170,7 @@ export const passwordReset = (email: string) => async (dispatch) => {
   }
 };
 
-export const updatePassword = (user) => async (dispatch) => {
+export const updatePassword = (user) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -212,7 +212,7 @@ export const sendEmailVerification = async (email: string) => {
   }
 };
 
-export const registerAccount = (user, search) => async (dispatch) => {
+export const registerAccount = (user, search) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.register}`;
     await fetchService(url, 'POST', 'json', {
@@ -248,7 +248,7 @@ export const redirectAuth = () => (dispatch) => {
   history.replace('/authenticate-email');
 };
 
-export const fetchUser = (uuid = '') => async (dispatch) => {
+export const fetchUser = (uuid = '') => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
     const data = await fetchService(url, 'GET', 'json', {

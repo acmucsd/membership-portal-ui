@@ -6,7 +6,7 @@ import { CartItem, MerchItemOptionMetadata } from '../types';
 
 // COLLECTIONS
 
-export const fetchCollection = (uuid: string) => async (dispatch) => {
+export const fetchCollection = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -26,7 +26,7 @@ export const fetchCollection = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const fetchCollections = () => async (dispatch) => {
+export const fetchCollections = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.collection}`;
@@ -40,7 +40,7 @@ export const fetchCollections = () => async (dispatch) => {
   });
 };
 
-export const deleteCollection = (uuid: string) => async (dispatch) => {
+export const deleteCollection = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -62,7 +62,7 @@ export const deleteCollection = (uuid: string) => async (dispatch) => {
 
 // ITEMS
 
-export const fetchItem = (uuid: string) => async (dispatch) => {
+export const fetchItem = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -82,7 +82,7 @@ export const fetchItem = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const deleteItem = (uuid: string) => async (dispatch) => {
+export const deleteItem = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -112,7 +112,7 @@ export const createItemOption = (
     discountPercentage?: number;
     metadata?: MerchItemOptionMetadata;
   },
-) => async (dispatch) => {
+) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -138,7 +138,7 @@ export const createItemOption = (
   });
 };
 
-export const deleteItemOption = (uuid: string) => async (dispatch) => {
+export const deleteItemOption = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -160,7 +160,7 @@ export const deleteItemOption = (uuid: string) => async (dispatch) => {
 
 // ORDERS
 
-export const fetchOrders = () => async (dispatch) => {
+export const fetchOrders = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.orders}`;
@@ -175,7 +175,7 @@ export const fetchOrders = () => async (dispatch) => {
   });
 };
 
-export const fetchOrder = (uuid: string) => async (dispatch) => {
+export const fetchOrder = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -195,7 +195,7 @@ export const fetchOrder = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string }[]) => async (dispatch) => {
+export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string }[]) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -221,7 +221,7 @@ export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string 
   });
 };
 
-export const rescheduleOrder = (uuid: string, pickupEvent: string) => async (dispatch) => {
+export const rescheduleOrder = (uuid: string, pickupEvent: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -247,7 +247,7 @@ export const rescheduleOrder = (uuid: string, pickupEvent: string) => async (dis
   });
 };
 
-export const cancelOrder = (uuid: string) => async (dispatch) => {
+export const cancelOrder = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -267,7 +267,7 @@ export const cancelOrder = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const cancelAllOrders = () => async (dispatch) => {
+export const cancelAllOrders = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.order}/cleanup`;
@@ -284,7 +284,7 @@ export const cancelAllOrders = () => async (dispatch) => {
 
 // PICKUP EVENTS
 
-export const fetchPickupEvent = (uuid: string) => async (dispatch) => {
+export const fetchPickupEvent = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -304,7 +304,7 @@ export const fetchPickupEvent = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const fetchPastPickupEvents = () => async (dispatch) => {
+export const fetchPastPickupEvents = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.past}`;
@@ -319,7 +319,7 @@ export const fetchPastPickupEvents = () => async (dispatch) => {
   });
 };
 
-export const fetchFuturePickupEvents = () => async (dispatch) => {
+export const fetchFuturePickupEvents = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
@@ -334,7 +334,7 @@ export const fetchFuturePickupEvents = () => async (dispatch) => {
   });
 };
 
-export const completePickupEvent = (uuid: string) => async (dispatch) => {
+export const completePickupEvent = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -354,7 +354,7 @@ export const completePickupEvent = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const deletePickupEvent = (uuid: string) => async (dispatch) => {
+export const deletePickupEvent = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -374,7 +374,7 @@ export const deletePickupEvent = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const cancelPickupEvent = (uuid: string) => async (dispatch) => {
+export const cancelPickupEvent = (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
