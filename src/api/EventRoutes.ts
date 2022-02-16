@@ -1,5 +1,5 @@
 import Config from '../config';
-import { notify, fetchService, generateQuery } from '../utils';
+import { fetchService, generateQuery } from '../utils';
 import { EventSearchOptions, PatchEventRequest, CreateEventRequest } from './ApiRequests';
 import {
   CreateEventResponse,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { notification } from 'antd';
+import copy from 'copy-to-clipboard';
 
 import Storage from './storage';
 import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption, OrderStatus } from './types';
@@ -319,4 +320,13 @@ export const generateQuery = (params: any): string => {
   return `?${Object.keys(params)
     .map((key) => `${key}=${params[key]}`)
     .join('&')}`;
+};
+
+export const generateCheckinLink = (attendanceCode: string) => () => {
+  if (!attendanceCode || attendanceCode === '') {
+    notify('Unable to generate link!', 'An attendance code is required.');
+  } else {
+    copy(`${window.location.origin}/checkin?code=${encodeURIComponent(attendanceCode)}`);
+    notify('Generated checkin link!', 'Link copied to the clipboard.');
+  }
 };
