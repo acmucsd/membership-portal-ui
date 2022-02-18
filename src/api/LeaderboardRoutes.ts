@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import Config from '../config';
-import { fetchService, generateQuery } from '../utils';
+import fetchService from './fetchService';
+import { generateQuery } from '../utils';
 import { SlidingLeaderboardQueryParams } from './ApiRequests';
 import { GetLeaderboardResponse } from './ApiResponses';
 

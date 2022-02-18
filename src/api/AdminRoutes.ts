@@ -1,5 +1,5 @@
 import Config from '../config';
-import { fetchService } from '../utils';
+import fetchService from './fetchService';
 import { CreateBonusRequest, SubmitAttendanceForUsersRequest } from './ApiRequests';
 import { CreateBonusResponse, GetAllEmailsResponse, SubmitAttendanceForUsersResponse } from './ApiResponses';
 

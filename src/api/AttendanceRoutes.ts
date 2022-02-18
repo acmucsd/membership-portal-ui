@@ -1,5 +1,5 @@
 import Config from '../config';
-import { fetchService } from '../utils';
+import fetchService from './fetchService';
 import { AttendEventRequest } from './ApiRequests';
 import { GetAttendancesForEventResponse, GetAttendancesForUserResponse, AttendEventResponse } from './ApiResponses';
 

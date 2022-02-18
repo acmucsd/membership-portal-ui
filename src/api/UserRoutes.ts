@@ -1,5 +1,5 @@
 import Config from '../config';
-import { fetchService } from '../utils';
+import fetchService from './fetchService';
 import { PatchUserRequest } from './ApiRequests';
 import { UpdateProfilePictureResponse, GetUserResponse, GetCurrentUserResponse, PatchUserResponse } from './ApiResponses';
 
