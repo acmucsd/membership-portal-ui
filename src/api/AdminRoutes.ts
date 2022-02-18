@@ -4,72 +4,78 @@ import { CreateBonusRequest, SubmitAttendanceForUsersRequest } from './ApiReques
 import { CreateBonusResponse, GetAllEmailsResponse, SubmitAttendanceForUsersResponse } from './ApiResponses';
 
 // @Get('/admin/email')
-export const getAllEmails = async () => {
-  const url = `${Config.API_URL}${Config.routes.admin.email}`;
+export const getAllEmails = (): Promise<GetAllEmailsResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.admin.email}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetAllEmailsResponse) => {
-      return data.emails;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Post('/admin/bonus')
-export const addBonus = async (request: CreateBonusRequest) => {
-  if (!request.bonus) {
-    throw new Error('No bonus provided');
-  }
+export const addBonus = (request: CreateBonusRequest): Promise<CreateBonusResponse> => {
+  return new Promise((resolve, reject) => {
+    if (!request.bonus) {
+      reject(new Error('No bonus provided'));
+    }
 
-  if (!request.bonus.points) {
-    throw new Error('No points provided');
-  }
+    if (!request.bonus.points) {
+      reject(new Error('No points provided'));
+    }
 
-  if (!request.bonus.users || request.bonus.users.length === 0) {
-    throw new Error('No awardees provided');
-  }
+    if (!request.bonus.users || request.bonus.users.length === 0) {
+      reject(new Error('No awardees provided'));
+    }
 
-  if (!request.bonus.description) {
-    throw new Error('Missing description field');
-  }
+    if (!request.bonus.description) {
+      reject(new Error('Missing description field'));
+    }
 
-  const url = `${Config.API_URL}${Config.routes.admin.bonus}`;
+    const url = `${Config.API_URL}${Config.routes.admin.bonus}`;
 
-  fetchService(url, 'POST', 'json', {
-    requiresAuthorization: true,
-    payload: JSON.stringify(request),
-  })
-    .then((data: CreateBonusResponse) => {
-      return data.emails;
+    fetchService(url, 'POST', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify(request),
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Post('/admin/attendance')
-export const submitAttendanceForUsers = async (request: SubmitAttendanceForUsersRequest) => {
-  if (!request.event) {
-    throw new Error('No event specified');
-  }
+export const submitAttendanceForUsers = (request: SubmitAttendanceForUsersRequest): Promise<SubmitAttendanceForUsersResponse> => {
+  return new Promise((resolve, reject) => {
+    if (!request.event) {
+      reject(new Error('No event specified'));
+    }
 
-  if (!request.users || request.users.length === 0) {
-    throw new Error('No users added');
-  }
+    if (!request.users || request.users.length === 0) {
+      reject(new Error('No users added'));
+    }
 
-  const url = `${Config.API_URL}${Config.routes.admin.attendance}`;
+    const url = `${Config.API_URL}${Config.routes.admin.attendance}`;
 
-  fetchService(url, 'POST', 'json', {
-    requiresAuthorization: true,
-    payload: JSON.stringify(request),
-  })
-    .then((data: SubmitAttendanceForUsersResponse) => {
-      return data.attendances;
+    fetchService(url, 'POST', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify(request),
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };

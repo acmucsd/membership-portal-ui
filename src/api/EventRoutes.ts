@@ -12,119 +12,137 @@ import {
 } from './ApiResponses';
 
 // @Get('/event/past')
-export const getPastEvents = async (filters?: EventSearchOptions) => {
-  const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetPastEventsResponse) => {
-      return data.events;
+export const getPastEvents = (filters?: EventSearchOptions): Promise<GetPastEventsResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Get('/event/future')
-export const getFutureEvents = async (filters?: EventSearchOptions) => {
-  const url = `${Config.API_URL}${Config.routes.events.future}${generateQuery(filters)}`;
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetFutureEventsResponse) => {
-      return data.events;
+export const getFutureEvents = (filters?: EventSearchOptions): Promise<GetFutureEventsResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.events.future}${generateQuery(filters)}`;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Post('/event/picture/:uuid')
-export const updateEventCover = async (uuid: string, formdata: FormData) => {
-  const url = `${Config.API_URL + Config.routes.events.picture}/${uuid}`;
+export const updateEventCover = (uuid: string, formdata: FormData): Promise<UpdateEventCoverResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL + Config.routes.events.picture}/${uuid}`;
 
-  fetchService(url, 'POST', 'image', {
-    requiresAuthorization: true,
-    payload: formdata,
-  })
-    .then((data: UpdateEventCoverResponse) => {
-      return data.event;
+    fetchService(url, 'POST', 'image', {
+      requiresAuthorization: true,
+      payload: formdata,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Get('/event/:uuid')
-export const getOneEvent = async (uuid: string) => {
-  const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
+export const getOneEvent = (uuid: string): Promise<GetOneEventResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetOneEventResponse) => {
-      return data.event;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Patch('/event/:uuid')
-export const updateEvent = async (uuid: string, request: PatchEventRequest) => {
-  const eventUrl = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
+export const updateEvent = (uuid: string, request: PatchEventRequest): Promise<PatchEventResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
 
-  fetchService(eventUrl, 'PATCH', 'json', {
-    requiresAuthorization: true,
-    payload: JSON.stringify(request),
-  })
-    .then((data: PatchEventResponse) => {
-      return data.event;
+    fetchService(url, 'PATCH', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify(request),
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Delete('/event/:uuid')
-export const deleteEvent = async (uuid: string) => {
-  const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
+export const deleteEvent = (uuid: string): Promise<void> => {
+  return new Promise(async (resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
 
-  await fetchService(url, 'DELETE', 'json', {
-    requiresAuthorization: true,
-  })
-    .then(() => {})
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+    fetchService(url, 'DELETE', 'json', {
+      requiresAuthorization: true,
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Get('/event')
-export const getAllEvents = async (filters?: EventSearchOptions) => {
-  const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetAllEventsResponse) => {
-      return data.events;
+export const getAllEvents = (filters?: EventSearchOptions): Promise<GetAllEventsResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.events.past}${generateQuery(filters)}`;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Post('/event')
-export const createEvent = async (request: CreateEventRequest) => {
-  const url = `${Config.API_URL}${Config.routes.events.event}`;
+export const createEvent = (request: CreateEventRequest): Promise<CreateEventResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.events.event}`;
 
-  fetchService(url, 'POST', 'json', {
-    requiresAuthorization: true,
-    payload: JSON.stringify(request),
-  })
-    .then((data: CreateEventResponse) => {
-      return data.event;
+    fetchService(url, 'POST', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify(request),
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };

@@ -4,63 +4,71 @@ import { PatchUserRequest } from './ApiRequests';
 import { UpdateProfilePictureResponse, GetUserResponse, GetCurrentUserResponse, PatchUserResponse } from './ApiResponses';
 
 // @Post('/user/picture')
-export const updateProfilePicture = async (formdata: FormData) => {
-  const url = `${Config.API_URL}${Config.routes.user.profilepicture}`;
+export const updateProfilePicture = (formdata: FormData): Promise<UpdateProfilePictureResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.user.profilepicture}`;
 
-  fetchService(url, 'POST', 'image', {
-    requiresAuthorization: true,
-    payload: formdata,
-  })
-    .then((data: UpdateProfilePictureResponse) => {
-      return data.user;
+    fetchService(url, 'POST', 'image', {
+      requiresAuthorization: true,
+      payload: formdata,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Get('/user/:uuid')
-export const getUser = async (uuid: string) => {
-  const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
+export const getUser = (uuid: string): Promise<GetUserResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetUserResponse) => {
-      return data.user;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw error;
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Get('/user')
-export const getCurrentUser = async () => {
-  const url = `${Config.API_URL}${Config.routes.user.user}`;
+export const getCurrentUser = (): Promise<GetCurrentUserResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.user.user}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetCurrentUserResponse) => {
-      return data.user;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw error;
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Patch('/user')
-export const patchCurrentUser = async (request: PatchUserRequest) => {
-  const url = `${Config.API_URL}${Config.routes.user.user}`;
+export const patchCurrentUser = (request: PatchUserRequest): Promise<PatchUserResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.user.user}`;
 
-  fetchService(url, 'PATCH', 'json', {
-    requiresAuthorization: true,
-    payload: JSON.stringify(request),
-  })
-    .then((data: PatchUserResponse) => {
-      return data.user;
+    fetchService(url, 'PATCH', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify(request),
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };

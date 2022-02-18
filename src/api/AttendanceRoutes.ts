@@ -4,48 +4,54 @@ import { AttendEventRequest } from './ApiRequests';
 import { GetAttendancesForEventResponse, GetAttendancesForUserResponse, AttendEventResponse } from './ApiResponses';
 
 // @Get('/attendance/:uuid')
-export const getAttendancesForEvent = async (uuid: string) => {
-  const url = `${Config.API_URL}${Config.routes.attendance}/${uuid}`;
+export const getAttendancesForEvent = (uuid: string): Promise<GetAttendancesForEventResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.attendance}/${uuid}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetAttendancesForEventResponse) => {
-      return data.attendances;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // @Get('/attendance')
-export const getAttendancesForCurrentUser = async () => {
-  const url = `${Config.API_URL}${Config.routes.attendance}`;
+export const getAttendancesForCurrentUser = (): Promise<GetAttendancesForUserResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.attendance}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetAttendancesForUserResponse) => {
-      return data.attendances;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 // TODO: decodeURI(info.attendanceCode)
 // @Post('/attendance')
-export const attendEvent = async (request: AttendEventRequest) => {
-  const url = `${Config.API_URL}${Config.routes.attendance}`;
+export const attendEvent = (request: AttendEventRequest): Promise<AttendEventResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.attendance}`;
 
-  fetchService(url, 'POST', 'json', {
-    requiresAuthorization: true,
-    payload: JSON.stringify(request),
-  })
-    .then((data: AttendEventResponse) => {
-      return data.event;
+    fetchService(url, 'POST', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify(request),
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };

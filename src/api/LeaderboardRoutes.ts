@@ -5,16 +5,18 @@ import { SlidingLeaderboardQueryParams } from './ApiRequests';
 import { GetLeaderboardResponse } from './ApiResponses';
 
 // @Get('/leaderboard')
-export const getLeaderboard = (filters: SlidingLeaderboardQueryParams) => {
-  const url = `${Config.API_URL}${Config.routes.leaderboard}${generateQuery(filters)}`;
+export const getLeaderboard = (filters: SlidingLeaderboardQueryParams): Promise<GetLeaderboardResponse> => {
+  return new Promise((resolve, reject) => {
+    const url = `${Config.API_URL}${Config.routes.leaderboard}${generateQuery(filters)}`;
 
-  fetchService(url, 'GET', 'json', {
-    requiresAuthorization: true,
-  })
-    .then((data: GetLeaderboardResponse) => {
-      return data.leaderboard;
+    fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
     })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
