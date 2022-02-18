@@ -313,7 +313,7 @@ export const parseOrderStatus = (status: OrderStatus) => {
 };
 
 export const generateQuery = (params: any): string => {
-  if (Object.keys(params).length === 0) {
+  if (!params || Object.keys(params).length === 0) {
     return '';
   }
 
