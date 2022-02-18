@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import ProfileUpdate from '../components/ProfileUpdate';
-import { updateProfile, updateEmail } from '../profileActions';
-import { fetchUser } from '../../auth/authActions';
+import { updateProfile } from '../profileActions';
 
 const FormikProfileUpdate = withFormik({
   mapPropsToValues() {
@@ -16,8 +15,7 @@ const FormikProfileUpdate = withFormik({
     };
   },
   handleSubmit(values, { props }: { [key: string]: any }) {
-    props
-      .updateProfile(values)
+    updateProfile(values)
       .then(() => {
         props.fetchUser();
       })
@@ -29,4 +27,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, { updateProfile, fetchUser, updateEmail })(FormikProfileUpdate);
+export default connect(mapStateToProps)(FormikProfileUpdate);

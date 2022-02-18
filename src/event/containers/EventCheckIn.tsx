@@ -11,7 +11,6 @@ interface EventCheckInContainerProps {
       accountType: string;
     };
   };
-  checkIn: Function;
 }
 
 const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
@@ -27,12 +26,12 @@ const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
   };
 
   const handleSubmit: FormEventHandler = () => {
-    props.checkIn({ attendanceCode: value, asStaff });
+    checkIn({ attendanceCode: value, asStaff });
   };
 
   const handleEnter: KeyboardEventHandler = (event) => {
     if (event.key === 'Enter') {
-      props.checkIn({ attendanceCode: value, asStaff });
+      checkIn({ attendanceCode: value, asStaff });
     }
   };
 
@@ -52,4 +51,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, { checkIn })(EventCheckInContainer);
+export default connect(mapStateToProps)(EventCheckInContainer);

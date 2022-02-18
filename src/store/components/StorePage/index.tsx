@@ -14,7 +14,6 @@ import './style.less';
 import StoreButton from '../StoreButton';
 
 interface StorePageProps {
-  fetchCollections: Function;
   canManageStore: boolean;
 }
 
@@ -24,8 +23,7 @@ const StorePage: React.FC<StorePageProps> = (props) => {
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
   useEffect(() => {
-    props
-      .fetchCollections()
+    fetchCollections()
       .then((value) => {
         setCollections(value);
       })
@@ -76,4 +74,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   canManageStore: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
 });
 
-export default connect(mapStateToProps, { fetchCollections })(StorePage);
+export default connect(mapStateToProps)(StorePage);

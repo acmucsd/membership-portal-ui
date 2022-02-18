@@ -1,13 +1,15 @@
 import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
+import { useParams, useHistory } from 'react-router-dom';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
-import { useParams, useHistory } from 'react-router-dom';
+
 import * as moment from 'moment';
+import { copyLink, deleteEvent } from '../../adminActions';
+import { Event } from '../../../types';
 
 import './style.less';
-import { Event } from '../../../types';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -22,14 +24,12 @@ interface EventProp {
 
 interface EditEventFormProps {
   event: EventProp;
-  deleteEvent: Function;
   setFieldValue: Function;
   setFieldTouched: Function;
   handleBlur: FocusEventHandler;
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
   values: Event;
-  copyLink: Function;
   errors: {
     uuid: string | null;
     title: string | null;
@@ -47,14 +47,13 @@ interface EditEventFormProps {
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = (props) => {
-  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values: eventData, errors, copyLink } = props;
+  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values: eventData, errors } = props;
 
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
 
   const handleDelete = () => {
-    props
-      .deleteEvent(props.values.uuid)
+    deleteEvent(props.values.uuid)
       .then(() => {
         history.push('/');
       })

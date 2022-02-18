@@ -15,11 +15,10 @@ interface PageLayoutProps {
   children: React.ComponentClass | React.FC;
   isAdmin: boolean;
   isMobile: boolean;
-  logout: Function;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
-  const { children, isAdmin, isMobile, logout } = props;
+  const { children, isAdmin, isMobile } = props;
 
   return (
     <>
@@ -32,7 +31,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
         </>
       ) : (
         <div className="page-layout-content-table">
-          <NavBarVertical isAdmin={isAdmin} logout={logout} />
+          <NavBarVertical isAdmin={isAdmin} logout={logoutUser} />
           <div className="page-layout-content">{children}</div>
         </div>
       )}
@@ -40,14 +39,12 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
   );
 };
 
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  isAdmin: state.auth.admin,
+});
+
 const mapSizesToProps = ({ width }: { width: number }) => ({
   isMobile: width < 768,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => {
-    dispatch(logoutUser());
-  },
-});
-
-export default withSizes(mapSizesToProps)(connect(null, mapDispatchToProps)(PageLayout) as any) as any; // TODO
+export default withSizes(mapSizesToProps)(connect(mapStateToProps)(PageLayout) as any) as any; // TODO

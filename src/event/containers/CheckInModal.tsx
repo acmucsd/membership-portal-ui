@@ -11,7 +11,6 @@ interface CheckInModalContainerProps {
     pointValue: number;
   };
   visible: boolean;
-  checkOut: Function;
 }
 
 const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
@@ -22,7 +21,7 @@ const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
   const fullMessage = `Thanks for checking in! You earned ${currentEvent.pointValue} points.`;
 
   const hideMessage = () => {
-    props.checkOut();
+    checkOut();
   };
 
   return (
@@ -42,4 +41,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   visible: state.event.checkin,
 });
 
-export default connect(mapStateToProps, { checkOut })(CheckInModalContainer);
+export default connect(mapStateToProps)(CheckInModalContainer);

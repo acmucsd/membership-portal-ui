@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchLeaderboard as fetchLeaderboardConnect } from '../leaderboardActions';
+import { fetchLeaderboard } from '../leaderboardActions';
 
 import LeaderPage from '../components/LeaderPage';
 import PageLayout from '../../layout/containers/PageLayout';
@@ -17,12 +17,11 @@ interface LeaderPageContainerProps {
       uuid: string;
     },
   ];
-  fetchLeaderboard: Function;
   selfUUID: string;
 }
 
 const LeaderPageContainer: React.FC<LeaderPageContainerProps> = (props) => {
-  const { users, fetchLeaderboard, selfUUID } = props;
+  const { users, selfUUID } = props;
 
   return (
     <PageLayout>
@@ -36,4 +35,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   selfUUID: state.auth.profile.uuid,
 });
 
-export default connect(mapStateToProps, { fetchLeaderboard: fetchLeaderboardConnect })(LeaderPageContainer);
+export default connect(mapStateToProps)(LeaderPageContainer);

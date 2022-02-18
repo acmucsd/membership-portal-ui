@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+
 import { CartItem, PublicOrderPickupEvent } from '../../../types';
 import CartDisplay from '../CartDisplay';
 import Config from '../../../config';
@@ -7,7 +8,9 @@ import history from '../../../history';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
-import { fetchService, notify } from '../../../utils';
+import fetchService from '../../../api/fetchService';
+import { notify } from '../../../utils';
+
 import './style.less';
 
 type CheckoutPageProps = {

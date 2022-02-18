@@ -1,31 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import {
-  fetchOrder as fetchOrderConnected,
-  fetchFuturePickupEvents as fetchFuturePickupEventsConnected,
-  rescheduleOrder as rescheduleOrderConnected,
-  cancelOrder as cancelOrderConnected,
-} from '../storeActions';
+import { fetchOrder, fetchFuturePickupEvents, rescheduleOrder, cancelOrder } from '../storeActions';
 import { PublicOrderWithItems, PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
 
 import PageLayout from '../../layout/containers/PageLayout';
 import OrderPage from '../components/OrderPage';
 
-interface OrderPageContainerProps {
-  fetchOrder: Function;
-  fetchFuturePickupEvents: Function;
-  rescheduleOrder: Function;
-  cancelOrder: Function;
-}
-
-const OrderPageContainer: React.FC<OrderPageContainerProps> = (props) => {
+const OrderPageContainer: React.FC = () => {
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
   const { uuid } = params;
-  const { fetchOrder, fetchFuturePickupEvents, rescheduleOrder, cancelOrder } = props;
 
   if (!uuid) {
     history.push('/store');
@@ -49,7 +35,7 @@ const OrderPageContainer: React.FC<OrderPageContainerProps> = (props) => {
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [fetchOrder, fetchFuturePickupEvents, uuid]);
+  }, [uuid]);
 
   return (
     <PageLayout>
@@ -58,9 +44,4 @@ const OrderPageContainer: React.FC<OrderPageContainerProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), {
-  fetchOrder: fetchOrderConnected,
-  fetchFuturePickupEvents: fetchFuturePickupEventsConnected,
-  rescheduleOrder: rescheduleOrderConnected,
-  cancelOrder: cancelOrderConnected,
-})(OrderPageContainer);
+export default OrderPageContainer;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { Modal } from 'antd';
 
 import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption } from '../../../types';
@@ -15,7 +14,6 @@ import './style.less';
 
 interface ItemPageProps {
   item: PublicMerchItemWithPurchaseLimits | undefined;
-  addToCart: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
@@ -100,9 +98,9 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit}
               onClick={() => {
                 if (hasVariantsEnabled) {
-                  props.addToCart({ item, option: currentOption, quantity: currentQuantity });
+                  addToCart({ item, option: currentOption, quantity: currentQuantity });
                 } else {
-                  props.addToCart({ item, option: item.options[0], quantity: currentQuantity });
+                  addToCart({ item, option: item.options[0], quantity: currentQuantity });
                 }
                 setConfirmation(true);
               }}
@@ -150,4 +148,4 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   );
 };
 
-export default connect(null, { addToCart })(ItemPage);
+export default ItemPage;

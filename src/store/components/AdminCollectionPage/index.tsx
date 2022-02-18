@@ -5,7 +5,8 @@ import * as Yup from 'yup';
 import Config from '../../../config';
 import history from '../../../history';
 import { PublicMerchCollection } from '../../../types';
-import { fetchService, notify } from '../../../utils';
+import fetchService from '../../../api/fetchService';
+import { notify } from '../../../utils';
 
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';

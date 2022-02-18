@@ -7,7 +7,7 @@ import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
-import { fetchAttendance as fetchAttendanceConnect, fetchPastEvents as fetchPastEventsConnect } from '../eventActions';
+import { fetchAttendance, fetchPastEvents } from '../eventActions';
 import { formatDate } from '../../utils';
 import { UserAccessType } from '../../types';
 
@@ -38,20 +38,18 @@ interface PastEventsContainerProps {
       start: string;
     },
   ];
-  fetchAttendance: Function;
-  fetchPastEvents: Function;
   canEditEvents: boolean;
 }
 
 const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
-  const { canEditEvents, events, attendance, fetchAttendance, fetchPastEvents } = props;
+  const { canEditEvents, events, attendance } = props;
   const [timeframe, setTimeframe] = useState(getCurrentYear()?.name ?? 'All Time');
   const [shownEvents, setShownEvents] = useState<any[]>(events);
 
   useEffect(() => {
     fetchPastEvents();
     fetchAttendance();
-  }, [fetchAttendance, fetchPastEvents]);
+  }, []);
 
   useEffect(() => {
     if (timeframe === 'All Time') {
@@ -153,7 +151,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
 });
 
-export default connect(mapStateToProps, {
-  fetchAttendance: fetchAttendanceConnect,
-  fetchPastEvents: fetchPastEventsConnect,
-})(PastEventsContainer);
+export default connect(mapStateToProps)(PastEventsContainer);

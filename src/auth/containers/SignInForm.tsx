@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -22,10 +21,10 @@ const FormikSignInForm = withFormik({
   validationSchema: LoginSchema,
   validateOnChange: false,
   validateOnBlur: false,
-  handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
-    props.loginUser(values, history.location.search);
+  handleSubmit(values, { resetForm }: { [key: string]: any }) {
+    loginUser(values, history.location.search);
     resetForm();
   },
 })(SignInForm as React.FC);
 
-export default connect(null, { loginUser })(FormikSignInForm);
+export default FormikSignInForm;

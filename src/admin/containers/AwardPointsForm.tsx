@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import AwardPointsForm from '../components/AwardPointsForm';
@@ -12,15 +11,14 @@ const FormikAwardPointsForm = withFormik({
       description: '',
     };
   },
-  handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
+  handleSubmit(values, { resetForm }: { [key: string]: any }) {
     const pointDetails = {
       points: Number(values.points),
       users: values.awardees,
       description: values.description,
     };
 
-    props
-      .awardPoints(pointDetails)
+    awardPoints(pointDetails)
       .then(() => {
         resetForm();
       })
@@ -28,4 +26,4 @@ const FormikAwardPointsForm = withFormik({
   },
 })(AwardPointsForm as any);
 
-export default connect(null, { awardPoints })(FormikAwardPointsForm);
+export default FormikAwardPointsForm;

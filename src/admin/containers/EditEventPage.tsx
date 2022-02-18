@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import EditEventPage from '../components/EditEventPage';
 import PageLayout from '../../layout/containers/PageLayout';
 
-import { fetchEvent as fetchEventConnect } from '../../event/eventActions';
+import { fetchEvent } from '../../event/eventActions';
 
 interface EditEventPageContainerProps {
   event: {
@@ -16,17 +16,16 @@ interface EditEventPageContainerProps {
     pointValue: string;
     title: string;
   };
-  fetchEvent: Function;
 }
 
 const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) => {
-  const { event, fetchEvent } = props;
+  const { event } = props;
 
   const params: { [key: string]: any } = useParams();
 
   useEffect(() => {
     fetchEvent(params.uuid);
-  }, [fetchEvent, params.uuid]);
+  }, [params.uuid]);
 
   return (
     <PageLayout>
@@ -39,4 +38,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   event: state.event.event,
 });
 
-export default connect(mapStateToProps, { fetchEvent: fetchEventConnect })(EditEventPageContainer);
+export default connect(mapStateToProps)(EditEventPageContainer);

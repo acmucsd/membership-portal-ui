@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import moment from 'moment';
 import { Modal } from 'antd';
@@ -18,8 +17,6 @@ import './style.less';
 interface AdminFulfillPageProps {
   pickupEvent?: PublicOrderPickupEvent | undefined;
   pickupEvents?: PublicOrderPickupEvent[] | undefined;
-  fulfillOrder: Function;
-  completePickupEvent: Function;
 }
 
 const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
@@ -36,8 +33,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   }, [pickupEventIn]);
 
   const handleFinishPickup = () => {
-    props
-      .completePickupEvent(pickupEvent?.uuid)
+    completePickupEvent(pickupEvent?.uuid)
       .then(() => {
         setShowModal(false);
         notify('Success!', 'Pickup Event is Over');
@@ -110,11 +106,10 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         <StoreButton
           text="Save"
           onClick={() => {
-            props
-              .fulfillOrder(
-                selectedOrder.uuid,
-                selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
-              )
+            fulfillOrder(
+              selectedOrder.uuid,
+              selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
+            )
               .then((newOrder) => {
                 setPickupEvent({
                   ...pickupEvent,
@@ -188,4 +183,4 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), { fulfillOrder, completePickupEvent })(AdminFulfillPage);
+export default AdminFulfillPage;

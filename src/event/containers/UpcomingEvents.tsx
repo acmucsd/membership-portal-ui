@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import background from '../../assets/graphics/background.svg';
-import { fetchAttendance as fetchAttendanceConnect, fetchFutureEvents as fetchFutureEventsConnect } from '../eventActions';
+import { fetchAttendance, fetchFutureEvents } from '../eventActions';
 import { formatDate, formatTime } from '../../utils';
 import { UserAccessType } from '../../types';
 
@@ -37,17 +37,15 @@ interface UpcomingEventsContainerProps {
       end: string;
     },
   ];
-  fetchAttendance: Function;
-  fetchFutureEvents: Function;
 }
 
 const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
-  const { canEditEvents, events, attendance, fetchAttendance, fetchFutureEvents } = props;
+  const { canEditEvents, events, attendance } = props;
 
   useEffect(() => {
     fetchFutureEvents();
     fetchAttendance();
-  }, [fetchAttendance, fetchFutureEvents]);
+  }, []);
 
   return (
     <div>
@@ -85,7 +83,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
 });
 
-export default connect(mapStateToProps, {
-  fetchAttendance: fetchAttendanceConnect,
-  fetchFutureEvents: fetchFutureEventsConnect,
-})(UpcomingEventsContainer);
+export default connect(mapStateToProps)(UpcomingEventsContainer);

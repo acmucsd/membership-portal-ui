@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Modal, Table } from 'antd';
-import { connect } from 'react-redux';
 
 import { createItemOption, deleteItemOption } from '../../storeActions';
 import { Uuid } from '../../../types';
@@ -24,8 +23,6 @@ interface OptionDisplayProps {
   options: Option[];
   itemUuid?: string;
   onChange: Function;
-  createItemOption: Function;
-  deleteItemOption: Function;
   error: any;
   currentType?: string;
 }
@@ -61,8 +58,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
             newOptions.splice(index, 1);
             onChange(newOptions);
           } else {
-            props
-              .deleteItemOption(option.uuid)
+            deleteItemOption(option.uuid)
               .then(() => {
                 newOptions.splice(index, 1);
                 onChange(newOptions);
@@ -183,13 +179,13 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         visible={creatingOption}
         onCancel={() => setCreatingOption(false)}
         onOk={() => {
-          props
-            .createItemOption(itemUuid, {
-              quantity: parseInt(newQuantity, 10),
-              price: parseInt(newPrice, 10),
-              metadata: { type: currentType, value: newValue, position: options.length },
-            })
-            .then((newOption) => {
+          createItemOption(itemUuid, {
+            quantity: parseInt(newQuantity, 10),
+            price: parseInt(newPrice, 10),
+            metadata: { type: currentType, value: newValue, position: options.length },
+          })
+            // TODO: Fix typecasting
+            .then((newOption: any) => {
               const {
                 uuid,
                 price,
@@ -231,4 +227,4 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
   );
 };
 
-export default connect(null, { createItemOption, deleteItemOption })(OptionDisplay);
+export default OptionDisplay;

@@ -7,7 +7,8 @@ import CartPage from '../components/CartPage';
 import Config from '../../config';
 import history from '../../history';
 import { CartItem } from '../../types';
-import { fetchService, notify } from '../../utils';
+import fetchService from '../../api/fetchService';
+import { notify } from '../../utils';
 
 type CartPageContainerProps = {
   cart: { [key: string]: CartItem };

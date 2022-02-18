@@ -26,4 +26,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   user: state.auth,
 });
 
-export default connect(mapStateToProps, {})(ResendEmailVerificationContainer);
+export default connect(mapStateToProps)(ResendEmailVerificationContainer);

@@ -168,7 +168,7 @@ export const getAllEmails = async (): Promise<any> => {
   }
 };
 
-export const copyLink: Function = (attendanceCode: string): Promise<any> => () => {
+export const copyLink: Function = (attendanceCode: string) => {
   if (!attendanceCode || attendanceCode === '') {
     notify('Unable to generate link!', 'An attendance code is required.');
   } else {

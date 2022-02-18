@@ -1,10 +1,12 @@
 import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
+import { useHistory } from 'react-router-dom';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 import * as moment from 'moment';
-import { useHistory } from 'react-router-dom';
+
+import { copyLink } from '../../adminActions';
 
 import './style.less';
 
@@ -45,12 +47,11 @@ interface CreateEventFormProps {
     attendanceCode: string | null;
     description: string | null;
   };
-  copyLink: Function;
 }
 
 /* Future Note: Add a fun generate attendance code function :) based on title */
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, errors, copyLink } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, errors } = props;
   const history = useHistory();
 
   return (

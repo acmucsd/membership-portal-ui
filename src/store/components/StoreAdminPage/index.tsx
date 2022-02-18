@@ -12,7 +12,6 @@ import StoreButton from '../StoreButton';
 import './style.less';
 
 interface StoreAdminPageProps {
-  cancelAllOrders: Function;
   canManageStore: boolean;
 }
 
@@ -46,7 +45,7 @@ const StoreAdminPage: React.FC<StoreAdminPageProps> = (props) => {
           visible={confirmation}
           onCancel={() => setConfirmation(false)}
           onOk={() => {
-            props.cancelAllOrders().then(() => {
+            cancelAllOrders().then(() => {
               setConfirmation(false);
               notify('Success!', 'You successfully cancelled all orders!');
             });
@@ -63,4 +62,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   canManageStore: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
 });
 
-export default connect(mapStateToProps, { cancelAllOrders })(StoreAdminPage);
+export default connect(mapStateToProps)(StoreAdminPage);

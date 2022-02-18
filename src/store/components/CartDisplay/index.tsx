@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Button, Select, Table, Typography } from 'antd';
 
 import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
@@ -27,7 +26,6 @@ type CartItemProps = {
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
   const [currentOptionValue, setVariant] = useState(item.option?.metadata?.value);
-  const dispatch = useDispatch();
 
   const renderTitle = () => (
     <Typography.Title className="item-name" level={4}>
@@ -65,8 +63,8 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
         const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
 
         if (newOption) {
-          dispatch(editInCart({ ...item, quantity: 0 }));
-          dispatch(addToCart({ ...item, option: newOption, quantity }));
+          editInCart({ ...item, quantity: 0 });
+          addToCart({ ...item, option: newOption, quantity });
         }
       }
       setEditable(false);
@@ -77,7 +75,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
 
   const renderButtons = () => {
     const removeItem = () => {
-      dispatch(removeFromCart(item));
+      removeFromCart(item);
     };
 
     const renderEditButton = () => {
@@ -130,7 +128,6 @@ type CartDisplayProps = {
 };
 const CartDisplay: React.FC<CartDisplayProps> = (props) => {
   const { writable = true, items } = props;
-  const dispatch = useDispatch();
 
   const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">
@@ -164,7 +161,7 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
       quantity,
     } = cartItem;
 
-    const setQuantity = (q: number) => dispatch(editInCart({ ...cartItem, quantity: q }));
+    const setQuantity = (q: number) => editInCart({ ...cartItem, quantity: q });
 
     return {
       key: uuid,

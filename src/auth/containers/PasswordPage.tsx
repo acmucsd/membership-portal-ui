@@ -1,15 +1,10 @@
 import React, { useState, ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
-import { connect } from 'react-redux';
 
 import LoginLayout from '../components/LoginLayout';
 import PasswordForm from '../components/PasswordForm';
 import { passwordReset } from '../authActions';
 
-interface PasswordPageProps {
-  passwordReset: Function;
-}
-
-const PasswordPage: React.FC<PasswordPageProps> = (props) => {
+const PasswordPage: React.FC = () => {
   const [value, setValue] = useState('');
 
   const handleChange: ChangeEventHandler = (event) => {
@@ -20,14 +15,14 @@ const PasswordPage: React.FC<PasswordPageProps> = (props) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setValue('');
-      props.passwordReset(value);
+      passwordReset(value);
     }
   };
 
   const handleClick: FormEventHandler = (event) => {
     event.preventDefault();
     setValue('');
-    props.passwordReset(value);
+    passwordReset(value);
   };
 
   return (
@@ -37,4 +32,4 @@ const PasswordPage: React.FC<PasswordPageProps> = (props) => {
   );
 };
 
-export default connect(null, { passwordReset })(PasswordPage);
+export default PasswordPage;

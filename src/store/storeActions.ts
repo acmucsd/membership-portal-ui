@@ -2,7 +2,7 @@ import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR } from './storeTypes';
 import fetchService from '../api/fetchService';
 import Config from '../config';
 import store from '../redux';
-import { CartItem, MerchItemOptionMetadata } from '../types';
+import { CartItem } from '../types';
 
 // COLLECTIONS
 
@@ -104,15 +104,7 @@ export const deleteItem = async (uuid: string): Promise<any> => {
 
 // ITEM OPTIONS
 
-export const createItemOption = (
-  uuid: string,
-  option: {
-    quantity: number;
-    price: number;
-    discountPercentage?: number;
-    metadata?: MerchItemOptionMetadata;
-  },
-) => {
+export const createItemOption = (uuid: any, option: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -138,7 +130,7 @@ export const createItemOption = (
   });
 };
 
-export const deleteItemOption = async (uuid: string): Promise<any> => {
+export const deleteItemOption = async (uuid: any): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -195,7 +187,7 @@ export const fetchOrder = async (uuid: string): Promise<any> => {
   });
 };
 
-export const fulfillOrder = async (uuid: string, items: { uuid: string; notes: string }[]): Promise<any> => {
+export const fulfillOrder = async (uuid: any, items: any): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -334,7 +326,7 @@ export const fetchFuturePickupEvents = async (): Promise<any> => {
   });
 };
 
-export const completePickupEvent = async (uuid: string): Promise<any> => {
+export const completePickupEvent = async (uuid: any): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -396,7 +388,7 @@ export const cancelPickupEvent = async (uuid: string): Promise<any> => {
 
 // CART
 
-export const addToCart = (cartItem: CartItem) => {
+export const addToCart = (cartItem: any) => {
   store.dispatch({
     type: CART_ADD,
     payload: cartItem,

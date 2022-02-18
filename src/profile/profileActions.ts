@@ -47,7 +47,7 @@ export const uploadUserImage = async (file: string | Blob): Promise<any> => {
   });
 };
 
-export const updateEmail = async (email: string): Promise<any> => {
+export const updateEmail = async (email: any): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.emailModification}`;
 

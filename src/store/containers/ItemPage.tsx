@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { fetchItem } from '../storeActions';
@@ -9,11 +8,7 @@ import { notify } from '../../utils';
 import PageLayout from '../../layout/containers/PageLayout';
 import ItemPage from '../components/ItemPage';
 
-interface ItemPageContainerProps {
-  fetchItem: Function;
-}
-
-const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
+const ItemPageContainer: React.FC = () => {
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
   const { uuid } = params;
@@ -25,15 +20,14 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
   const [item, setItem] = useState<PublicMerchItemWithPurchaseLimits>();
 
   useEffect(() => {
-    props
-      .fetchItem(uuid)
+    fetchItem(uuid)
       .then((value) => {
         setItem(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [props, uuid]);
+  }, [uuid]);
 
   return (
     <PageLayout>
@@ -42,4 +36,4 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), { fetchItem })(ItemPageContainer);
+export default ItemPageContainer;

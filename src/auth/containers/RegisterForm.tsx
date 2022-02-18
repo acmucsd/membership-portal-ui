@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -34,9 +33,9 @@ const FormikRegisterForm = withFormik({
   validationSchema: RegisterSchema,
   validateOnChange: false,
   validateOnBlur: false,
-  handleSubmit(values, { props }: { [key: string]: any }) {
-    props.registerAccount(values, history.location.search);
+  handleSubmit(values) {
+    registerAccount(values, history.location.search);
   },
 })(RegisterForm as React.FC);
 
-export default connect(null, { registerAccount })(FormikRegisterForm);
+export default FormikRegisterForm;

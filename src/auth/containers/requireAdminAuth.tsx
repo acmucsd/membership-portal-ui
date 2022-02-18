@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { compose, Dispatch } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import history from '../../history';
@@ -7,13 +7,13 @@ import history from '../../history';
 import { verifyToken } from '../authActions';
 
 const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
-  const { authenticated, verify, isAdmin } = props;
+  const { authenticated, isAdmin } = props;
 
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!authenticated) {
       // using then here because state doesn't update in right order
-      verify()(history.location.search, history.location.pathname)
+      verifyToken(history.location.search, history.location.pathname)
         .then((data: { [key: string]: any }) => {
           if (!data.admin) {
             // if not an admin, redirect
@@ -25,7 +25,7 @@ const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) =
       // if not an admin, redirect
       history.push('/');
     }
-  }, [authenticated, isAdmin, verify]);
+  }, [authenticated, isAdmin]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;
@@ -36,11 +36,6 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   isAdmin: state.auth.admin,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  verify: () => {
-    return verifyToken(dispatch);
-  },
-});
-const requireAdminAuth = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
+const requireAdminAuth = compose<React.FC>(connect(mapStateToProps), withAdminAuth);
 
 export default requireAdminAuth;

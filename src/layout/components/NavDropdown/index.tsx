@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { Divider } from 'antd';
 
 import NavBarItem from '../NavBarItem';
@@ -6,7 +6,7 @@ import NavBarItem from '../NavBarItem';
 import './style.less';
 
 interface NavDropdownProps {
-  logout: MouseEventHandler;
+  logout: Function;
 }
 
 const NavDropdown: React.FC<NavDropdownProps> = (props) => {

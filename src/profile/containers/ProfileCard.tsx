@@ -3,21 +3,20 @@ import { connect } from 'react-redux';
 
 import ProfileCard from '../components/ProfileCard';
 import { getLevel, getRank } from '../../utils';
-import { fetchUser as fetchUserConnect } from '../../auth/authActions';
+import { fetchUser } from '../../auth/authActions';
 
 interface NavProfileContainerProps {
   profilePicture: string;
   name: string;
   exp: number;
-  fetchUser: Function;
 }
 
 const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
-  const { profilePicture, name, exp, fetchUser } = props;
+  const { profilePicture, name, exp } = props;
 
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    fetchUser('');
+  }, []);
 
   return <ProfileCard exp={exp} profilePicture={profilePicture} level={getLevel(exp)} name={name} rank={getRank(exp)} />;
 };
@@ -28,4 +27,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   name: state.auth.profile.firstName,
 });
 
-export default connect(mapStateToProps, { fetchUser: fetchUserConnect })(NavProfileContainer);
+export default connect(mapStateToProps)(NavProfileContainer);
