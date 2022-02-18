@@ -5,7 +5,7 @@ import PageLayout from '../../layout/containers/PageLayout';
 import CartPage from '../components/CartPage';
 
 import Config from '../../config';
-import { history } from '../../redux_store';
+import history from '../../history';
 import { CartItem } from '../../types';
 import { fetchService, notify } from '../../utils';
 

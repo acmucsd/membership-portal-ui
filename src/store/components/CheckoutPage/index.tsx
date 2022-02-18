@@ -3,7 +3,7 @@ import moment from 'moment';
 import { CartItem, PublicOrderPickupEvent } from '../../../types';
 import CartDisplay from '../CartDisplay';
 import Config from '../../../config';
-import { history } from '../../../redux_store';
+import history from '../../../history';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';

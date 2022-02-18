@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
 
+import history from '../../history';
 import { verifyToken } from '../authActions';
 
 const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
@@ -31,7 +31,7 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   redirectLogin: () => {
-    dispatch(replace('/login'));
+    history.replace('/login');
   },
   verify: () => {
     return verifyToken(dispatch);

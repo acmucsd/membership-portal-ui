@@ -1,4 +1,3 @@
-import { replace } from 'connected-react-router';
 import {
   AUTH_ERROR,
   AUTH_USER,
@@ -12,6 +11,7 @@ import {
 } from './authTypes';
 
 import Config from '../config';
+import history from '../history';
 import Storage from '../storage';
 import { notify, fetchService } from '../utils';
 
@@ -58,13 +58,13 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
 
     if (code) {
       // If the user was signed out when trying to check in, direct them to the checkin page
-      dispatch(replace(`/checkin?code=${code}}`));
+      history.replace(`/checkin?code=${code}}`);
     } else if (destination) {
       // If the user was signed out when trying to access the site, return them to their desired destination
-      dispatch(replace(decodeURIComponent(destination)));
+      history.replace(decodeURIComponent(destination));
     } else {
       // Otherwise, redirect to home
-      dispatch(replace('/'));
+      history.replace('/');
     }
   } catch (error) {
     notify('Unable to login!', error.message);
@@ -92,7 +92,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
           });
           notify('Login expired', 'Please sign in again');
           // redirect to /login
-          dispatch(replace(`/login${search}`));
+          history.replace(`/login${search}`);
           resolve(data);
           return;
         }
@@ -116,7 +116,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
           type: UNAUTH_USER,
         });
         // redirerct to /login
-        dispatch(replace(`/login${search}`));
+        history.replace(`/login${search}`);
         reject(error);
       }
     } else {
@@ -130,18 +130,16 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
       }
 
       // redirerct to /login, while including the checkin code and desired destination if present
-      dispatch(
-        replace(
-          `/login${search}${
-            pathname.toString() !== '/'
-              ? `${
-                  search.toString()
-                    ? `&destination=${encodeURIComponent(pathname.toString())}`
-                    : `?destination=${encodeURIComponent(pathname.toString())}`
-                }`
-              : ''
-          }`,
-        ),
+      history.replace(
+        `/login${search}${
+          pathname.toString() !== '/'
+            ? `${
+                search.toString()
+                  ? `&destination=${encodeURIComponent(pathname.toString())}`
+                  : `?destination=${encodeURIComponent(pathname.toString())}`
+              }`
+            : ''
+        }`,
       );
       resolve();
     }
@@ -153,7 +151,7 @@ export const logoutUser: ThunkActionCreator = () => (dispatch) => {
     type: UNAUTH_USER,
   });
   Storage.remove('token');
-  dispatch(replace('/login'));
+  history.replace('/login');
 };
 
 export const passwordReset: ThunkActionCreator = (email: string) => async (dispatch) => {
@@ -180,7 +178,7 @@ export const passwordReset: ThunkActionCreator = (email: string) => async (dispa
   }
 };
 
-export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => {
+export const updatePassword: ThunkActionCreator = (user) => async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -188,7 +186,7 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
       payload: JSON.stringify({ user }),
     });
 
-    dispatch(replace('/'));
+    history.replace('/');
   } catch (error) {
     notify('Unable to reset password!', error.message);
   }
@@ -254,8 +252,8 @@ export const registerAccount: ThunkActionCreator = (user, search) => async (disp
   }
 };
 
-export const redirectAuth: ThunkActionCreator = () => (dispatch) => {
-  dispatch(replace('/authenticate-email'));
+export const redirectAuth: ThunkActionCreator = () => () => {
+  history.replace('/authenticate-email');
 };
 
 export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
