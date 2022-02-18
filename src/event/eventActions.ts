@@ -7,7 +7,7 @@ import fetchService from '../api/fetchService';
 import { notify } from '../utils';
 import store from '../redux';
 
-export const fetchFutureEvents = async () => {
+export const fetchFutureEvents = async (): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.future}`;
     const futureEvents = await fetchService(url, 'GET', 'json', {
@@ -27,7 +27,7 @@ export const fetchFutureEvents = async () => {
   }
 };
 
-export const fetchPastEvents = async () => {
+export const fetchPastEvents = async (): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.past}`;
     const pastEvents = await fetchService(url, 'GET', 'json', {
@@ -47,7 +47,7 @@ export const fetchPastEvents = async () => {
   }
 };
 
-export const fetchAttendance = async () => {
+export const fetchAttendance = async (): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'GET', 'json', {
@@ -67,7 +67,7 @@ export const fetchAttendance = async () => {
   }
 };
 
-export const checkIn = async (info) => {
+export const checkIn = async (info): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -101,7 +101,7 @@ export const checkOut = () => {
   });
 };
 
-export const fetchEvent = async (uuid) => {
+export const fetchEvent = async (uuid): Promise<any> => {
   try {
     const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
     const thisEvent = await fetchService(url, 'GET', 'json', {

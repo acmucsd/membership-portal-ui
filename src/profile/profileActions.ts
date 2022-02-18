@@ -4,7 +4,7 @@ import fetchService from '../api/fetchService';
 import store from '../redux';
 import { notify } from '../utils';
 
-export const updateProfile = async (values) => {
+export const updateProfile = async (values): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}`;
     await fetchService(url, 'PATCH', 'json', {
@@ -26,7 +26,7 @@ export const updateProfile = async (values) => {
   }
 };
 
-export const uploadUserImage = async (file: string | Blob) => {
+export const uploadUserImage = async (file: string | Blob): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const formdata = new FormData();
@@ -47,7 +47,7 @@ export const uploadUserImage = async (file: string | Blob) => {
   });
 };
 
-export const updateEmail = async (email: string) => {
+export const updateEmail = async (email: string): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.emailModification}`;
 

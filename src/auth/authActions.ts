@@ -25,7 +25,7 @@ const tokenGetClaims = (token?: string): object => {
   return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
 };
 
-export const loginUser = async (values, search) => {
+export const loginUser = async (values, search): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.login}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -67,7 +67,7 @@ export const loginUser = async (values, search) => {
   }
 };
 
-export const verifyToken = async (search, pathname) => {
+export const verifyToken = async (search, pathname): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
@@ -146,7 +146,7 @@ export const logoutUser = () => {
   history.replace('/login');
 };
 
-export const passwordReset = async (email: string) => {
+export const passwordReset = async (email: string): Promise<any> => {
   try {
     if (!email) {
       throw new Error('Email field cannot be empty.');
@@ -170,7 +170,7 @@ export const passwordReset = async (email: string) => {
   }
 };
 
-export const updatePassword = async (user) => {
+export const updatePassword = async (user): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -185,7 +185,7 @@ export const updatePassword = async (user) => {
 };
 
 // Verifies an email using a info object with email field and code field
-export const verifyEmail = async (info: { [key: string]: any }) => {
+export const verifyEmail = async (info: { [key: string]: any }): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${info.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -199,7 +199,7 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
   }
 };
 
-export const sendEmailVerification = async (email: string) => {
+export const sendEmailVerification = async (email: string): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${email}`;
     await fetchService(url, 'GET', 'json', {
@@ -212,7 +212,7 @@ export const sendEmailVerification = async (email: string) => {
   }
 };
 
-export const registerAccount = async (user, search) => {
+export const registerAccount = async (user, search): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.register}`;
     await fetchService(url, 'POST', 'json', {
@@ -246,7 +246,7 @@ export const redirectAuth = () => {
   history.replace('/authenticate-email');
 };
 
-export const fetchUser = async (uuid) => {
+export const fetchUser = async (uuid): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}/${uuid || ''}`;
     const data = await fetchService(url, 'GET', 'json', {
@@ -262,7 +262,7 @@ export const fetchUser = async (uuid) => {
   }
 };
 
-export const fetchUserByID = async (uuid: string) => {
+export const fetchUserByID = async (uuid: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;

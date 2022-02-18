@@ -7,7 +7,7 @@ import { EVENT_DELETE, GET_EMAILS } from './adminTypes';
 import fetchService from '../api/fetchService';
 import { notify } from '../utils';
 
-export const postEvent = async (event) => {
+export const postEvent = async (event): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL}${Config.routes.events.event}`;
@@ -36,7 +36,7 @@ export const postEvent = async (event) => {
   });
 };
 
-export const editEvent = async (event) => {
+export const editEvent = async (event): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
@@ -67,7 +67,7 @@ export const editEvent = async (event) => {
   });
 };
 
-export const deleteEvent = async (uuid) => {
+export const deleteEvent = async (uuid): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
@@ -88,7 +88,7 @@ export const deleteEvent = async (uuid) => {
   });
 };
 
-export const awardPoints = async (pointDetails: any) => {
+export const awardPoints = async (pointDetails: any): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     if (!pointDetails.points) {
       notify('Validation Error!', 'No points provided');
@@ -121,7 +121,7 @@ export const awardPoints = async (pointDetails: any) => {
   });
 };
 
-export const addAttendance = async (attendanceDetails: any) => {
+export const addAttendance = async (attendanceDetails: any): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     if (!attendanceDetails.event) {
       notify('Validation Error!', 'No event specified');
@@ -153,7 +153,7 @@ export const addAttendance = async (attendanceDetails: any) => {
   });
 };
 
-export const getAllEmails = async () => {
+export const getAllEmails = async (): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.admin.email}`;
     const emails = await fetchService(url, 'GET', 'json', {
@@ -168,7 +168,7 @@ export const getAllEmails = async () => {
   }
 };
 
-export const copyLink: Function = (attendanceCode: string) => () => {
+export const copyLink: Function = (attendanceCode: string): Promise<any> => () => {
   if (!attendanceCode || attendanceCode === '') {
     notify('Unable to generate link!', 'An attendance code is required.');
   } else {

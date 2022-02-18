@@ -5,7 +5,7 @@ import Config from '../config';
 import store from '../redux';
 import fetchService from '../api/fetchService';
 
-export const fetchLeaderboard = async (offset: number = 0, limit: number, from?: number, to?: number) => {
+export const fetchLeaderboard = async (offset: number = 0, limit: number, from?: number, to?: number): Promise<any> => {
   try {
     const url = `${Config.API_URL}${Config.routes.leaderboard}?offset=${offset}&limit=${limit}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`;
     const data = await fetchService(url, 'GET', 'json', {
