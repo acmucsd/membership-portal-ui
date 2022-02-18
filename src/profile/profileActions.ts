@@ -1,9 +1,10 @@
 import { PROFILE_FAIL, PROFILE_SUCCESS } from './profileTypes';
 import Config from '../config';
+import fetchService from '../api/fetchService';
+import store from '../redux';
+import { notify } from '../utils';
 
-import { notify, fetchService } from '../utils';
-
-export const updateProfile = (values) => {
+export const updateProfile = async (values) => {
   try {
     const url = `${Config.API_URL}${Config.routes.user.user}`;
     await fetchService(url, 'PATCH', 'json', {
@@ -12,13 +13,13 @@ export const updateProfile = (values) => {
     });
 
     notify('Updated profile!', 'Just now');
-    dispatch({
+    store.dispatch({
       type: PROFILE_SUCCESS,
       payload: values,
     });
   } catch (error) {
     notify('Unable to update profile!', error.message);
-    dispatch({
+    store.dispatch({
       type: PROFILE_FAIL,
       payload: error.message,
     });
@@ -46,7 +47,7 @@ export const uploadUserImage = async (file: string | Blob) => {
   });
 };
 
-export const updateEmail = (email: string) => {
+export const updateEmail = async (email: string) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.emailModification}`;
 

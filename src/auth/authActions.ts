@@ -1,9 +1,11 @@
 import { AUTH_ERROR, AUTH_USER, FETCH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, REGISTER_FAIL, REGISTER_USER, UNAUTH_USER } from './authTypes';
 
 import Config from '../config';
-import Storage from '../storage';
 import history from '../history';
-import { notify, fetchService } from '../utils';
+import store from '../redux';
+import Storage from '../storage';
+import fetchService from '../api/fetchService';
+import { notify } from '../utils';
 
 /**
  * Helper function to get token claims.
@@ -23,7 +25,7 @@ const tokenGetClaims = (token?: string): object => {
   return JSON.parse(window.atob(tokenArray[1].replace('-', '+').replace('_', '/')));
 };
 
-export const loginUser = (values, search) => {
+export const loginUser = async (values, search) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.login}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -36,7 +38,7 @@ export const loginUser = (values, search) => {
 
     Storage.set('token', data.token);
     const userData: { [key: string]: any } = tokenGetClaims(data.token);
-    dispatch({
+    store.dispatch({
       type: AUTH_USER,
       isAdmin: userData.admin,
     });
@@ -58,14 +60,14 @@ export const loginUser = (values, search) => {
     }
   } catch (error) {
     notify('Unable to login!', error.message);
-    dispatch({
+    store.dispatch({
       type: AUTH_ERROR,
       error,
     });
   }
 };
 
-export const verifyToken = (dispatch) => async (search, pathname) => {
+export const verifyToken = async (search, pathname) => {
   return new Promise(async (resolve, reject) => {
     const token = Storage.get('token');
     if (token) {
@@ -77,7 +79,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
 
         if (!data.authenticated) {
           // not authenticated? log out user
-          dispatch({
+          store.dispatch({
             type: UNAUTH_USER,
           });
           notify('Login expired', 'Please sign in again');
@@ -87,7 +89,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
           return;
         }
         const userData: { [key: string]: any } = tokenGetClaims(token);
-        dispatch({
+        store.dispatch({
           type: AUTH_USER,
           isAdmin: userData.admin,
         });
@@ -96,13 +98,13 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
       } catch (error) {
         notify('Unable to verify token!', error.message || 'Try logging in again');
 
-        dispatch({
+        store.dispatch({
           type: AUTH_ERROR,
           error,
         });
 
         // log out user due to probably faulty token
-        dispatch({
+        store.dispatch({
           type: UNAUTH_USER,
         });
         // redirerct to /login
@@ -111,7 +113,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
       }
     } else {
       // log out user due to no token
-      dispatch({
+      store.dispatch({
         type: UNAUTH_USER,
       });
 
@@ -120,33 +122,31 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
       }
 
       // redirerct to /login, while including the checkin code and desired destination if present
-      dispatch(
-        history.replace(
-          `/login${search}${
-            pathname.toString() !== '/'
-              ? `${
-                  search.toString()
-                    ? `&destination=${encodeURIComponent(pathname.toString())}`
-                    : `?destination=${encodeURIComponent(pathname.toString())}`
-                }`
-              : ''
-          }`,
-        ),
+      history.replace(
+        `/login${search}${
+          pathname.toString() !== '/'
+            ? `${
+                search.toString()
+                  ? `&destination=${encodeURIComponent(pathname.toString())}`
+                  : `?destination=${encodeURIComponent(pathname.toString())}`
+              }`
+            : ''
+        }`,
       );
       resolve();
     }
   });
 };
 
-export const logoutUser = () => (dispatch) => {
-  dispatch({
+export const logoutUser = () => {
+  store.dispatch({
     type: UNAUTH_USER,
   });
   Storage.remove('token');
   history.replace('/login');
 };
 
-export const passwordReset = (email: string) => {
+export const passwordReset = async (email: string) => {
   try {
     if (!email) {
       throw new Error('Email field cannot be empty.');
@@ -158,19 +158,19 @@ export const passwordReset = (email: string) => {
     });
 
     notify('Success! Check your email shortly', `Email has been sent to ${email}`);
-    dispatch({
+    store.dispatch({
       type: PASSWORD_SUCCESS,
     });
   } catch (error) {
     notify('Error with email!', error.message);
-    dispatch({
+    store.dispatch({
       type: PASSWORD_FAIL,
       payload: error.message,
     });
   }
 };
 
-export const updatePassword = (user) => {
+export const updatePassword = async (user) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -212,7 +212,7 @@ export const sendEmailVerification = async (email: string) => {
   }
 };
 
-export const registerAccount = (user, search) => {
+export const registerAccount = async (user, search) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.register}`;
     await fetchService(url, 'POST', 'json', {
@@ -220,47 +220,45 @@ export const registerAccount = (user, search) => {
       payload: JSON.stringify({ user }),
     });
 
-    dispatch({
+    store.dispatch({
       type: REGISTER_USER,
       payload: user,
     });
     // TODO: Redirect to auth, then log user in on register.
     // For now just login.
-    dispatch(
-      loginUser(
-        {
-          email: user.email,
-          password: user.password,
-        },
-        search,
-      ),
+    loginUser(
+      {
+        email: user.email,
+        password: user.password,
+      },
+      search,
     );
   } catch (error) {
     notify('Unable to register account!', error.message);
-    dispatch({
+    store.dispatch({
       type: REGISTER_FAIL,
       error,
     });
   }
 };
 
-export const redirectAuth = () => (dispatch) => {
+export const redirectAuth = () => {
   history.replace('/authenticate-email');
 };
 
-export const fetchUser = (uuid = '') => {
+export const fetchUser = async (uuid) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
+    const url = `${Config.API_URL}${Config.routes.user.user}/${uuid || ''}`;
     const data = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
     });
 
-    dispatch({
+    store.dispatch({
       type: FETCH_USER,
       payload: data.user,
     });
   } catch (error) {
-    // TODO: Dispatch error message.
+    // TODO: store.Dispatch error message.
   }
 };
 

@@ -1,12 +1,12 @@
 import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR } from './storeTypes';
-import { fetchService } from '../utils';
+import fetchService from '../api/fetchService';
 import Config from '../config';
-
+import store from '../redux';
 import { CartItem, MerchItemOptionMetadata } from '../types';
 
 // COLLECTIONS
 
-export const fetchCollection = (uuid: string) => {
+export const fetchCollection = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -26,7 +26,7 @@ export const fetchCollection = (uuid: string) => {
   });
 };
 
-export const fetchCollections = () => {
+export const fetchCollections = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.collection}`;
@@ -40,7 +40,7 @@ export const fetchCollections = () => {
   });
 };
 
-export const deleteCollection = (uuid: string) => {
+export const deleteCollection = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -62,7 +62,7 @@ export const deleteCollection = (uuid: string) => {
 
 // ITEMS
 
-export const fetchItem = (uuid: string) => {
+export const fetchItem = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -82,7 +82,7 @@ export const fetchItem = (uuid: string) => {
   });
 };
 
-export const deleteItem = (uuid: string) => {
+export const deleteItem = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -138,7 +138,7 @@ export const createItemOption = (
   });
 };
 
-export const deleteItemOption = (uuid: string) => {
+export const deleteItemOption = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -160,7 +160,7 @@ export const deleteItemOption = (uuid: string) => {
 
 // ORDERS
 
-export const fetchOrders = () => {
+export const fetchOrders = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.orders}`;
@@ -175,7 +175,7 @@ export const fetchOrders = () => {
   });
 };
 
-export const fetchOrder = (uuid: string) => {
+export const fetchOrder = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -195,7 +195,7 @@ export const fetchOrder = (uuid: string) => {
   });
 };
 
-export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string }[]) => {
+export const fulfillOrder = async (uuid: string, items: { uuid: string; notes: string }[]) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -221,7 +221,7 @@ export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string 
   });
 };
 
-export const rescheduleOrder = (uuid: string, pickupEvent: string) => {
+export const rescheduleOrder = async (uuid: string, pickupEvent: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -247,7 +247,7 @@ export const rescheduleOrder = (uuid: string, pickupEvent: string) => {
   });
 };
 
-export const cancelOrder = (uuid: string) => {
+export const cancelOrder = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -267,7 +267,7 @@ export const cancelOrder = (uuid: string) => {
   });
 };
 
-export const cancelAllOrders = () => {
+export const cancelAllOrders = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.order}/cleanup`;
@@ -284,7 +284,7 @@ export const cancelAllOrders = () => {
 
 // PICKUP EVENTS
 
-export const fetchPickupEvent = (uuid: string) => {
+export const fetchPickupEvent = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -304,7 +304,7 @@ export const fetchPickupEvent = (uuid: string) => {
   });
 };
 
-export const fetchPastPickupEvents = () => {
+export const fetchPastPickupEvents = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.past}`;
@@ -319,7 +319,7 @@ export const fetchPastPickupEvents = () => {
   });
 };
 
-export const fetchFuturePickupEvents = () => {
+export const fetchFuturePickupEvents = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
@@ -334,7 +334,7 @@ export const fetchFuturePickupEvents = () => {
   });
 };
 
-export const completePickupEvent = (uuid: string) => {
+export const completePickupEvent = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -354,7 +354,7 @@ export const completePickupEvent = (uuid: string) => {
   });
 };
 
-export const deletePickupEvent = (uuid: string) => {
+export const deletePickupEvent = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -374,7 +374,7 @@ export const deletePickupEvent = (uuid: string) => {
   });
 };
 
-export const cancelPickupEvent = (uuid: string) => {
+export const cancelPickupEvent = async (uuid: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -396,29 +396,29 @@ export const cancelPickupEvent = (uuid: string) => {
 
 // CART
 
-export const addToCart = (cartItem: CartItem) => (dispatch) => {
-  dispatch({
+export const addToCart = (cartItem: CartItem) => {
+  store.dispatch({
     type: CART_ADD,
     payload: cartItem,
   });
 };
 
-export const editInCart = (cartItem: CartItem) => (dispatch) => {
-  dispatch({
+export const editInCart = (cartItem: CartItem) => {
+  store.dispatch({
     type: CART_EDIT,
     payload: cartItem,
   });
 };
 
-export const removeFromCart = (cartItem: CartItem) => (dispatch) => {
-  dispatch({
+export const removeFromCart = (cartItem: CartItem) => {
+  store.dispatch({
     type: CART_REMOVE,
     payload: cartItem,
   });
 };
 
-export const clearCart = () => (dispatch) => {
-  dispatch({
+export const clearCart = () => {
+  store.dispatch({
     type: CART_CLEAR,
   });
 };

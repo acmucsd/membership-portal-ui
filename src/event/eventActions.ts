@@ -3,69 +3,71 @@ import { EVENT_CHECKIN, EVENT_CHECKOUT, EVENT_ERROR, FETCH_ATTENDANCE, FETCH_EVE
 import { fetchUser } from '../auth/authActions';
 
 import Config from '../config';
-import { notify, fetchService } from '../utils';
+import fetchService from '../api/fetchService';
+import { notify } from '../utils';
+import store from '../redux';
 
-export const fetchFutureEvents = () => {
+export const fetchFutureEvents = async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.future}`;
     const futureEvents = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
     });
 
-    dispatch({
+    store.dispatch({
       type: FETCH_FUTURE_EVENTS,
       payload: futureEvents.events,
     });
   } catch (error) {
     notify('Unable to fetch future events!', error.message);
-    dispatch({
+    store.dispatch({
       type: EVENT_ERROR,
       payload: error.message,
     });
   }
 };
 
-export const fetchPastEvents = () => {
+export const fetchPastEvents = async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.events.past}`;
     const pastEvents = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
     });
 
-    dispatch({
+    store.dispatch({
       type: FETCH_PAST_EVENTS,
       payload: pastEvents.events,
     });
   } catch (error) {
     notify('Unable to fetch past events!', error.message);
-    dispatch({
+    store.dispatch({
       type: EVENT_ERROR,
       payload: error.message,
     });
   }
 };
 
-export const fetchAttendance = () => {
+export const fetchAttendance = async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
     });
 
-    dispatch({
+    store.dispatch({
       type: FETCH_ATTENDANCE,
       payload: data.attendances,
     });
   } catch (error) {
     notify('Unable to fetch attendance!', error.message);
-    dispatch({
+    store.dispatch({
       type: EVENT_ERROR,
       payload: error.message,
     });
   }
 };
 
-export const checkIn = (info) => {
+export const checkIn = async (info) => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;
     const data = await fetchService(url, 'POST', 'json', {
@@ -76,30 +78,30 @@ export const checkIn = (info) => {
       }),
     });
 
-    dispatch(fetchUser());
-    dispatch(fetchAttendance());
-    dispatch(fetchPastEvents());
-    dispatch(fetchFutureEvents());
-    dispatch({
+    fetchUser('');
+    fetchAttendance();
+    fetchPastEvents();
+    fetchFutureEvents();
+    store.dispatch({
       type: EVENT_CHECKIN,
       payload: data.event,
     });
   } catch (error) {
     notify('Unable to checkin!', error.message);
-    dispatch({
+    store.dispatch({
       type: EVENT_ERROR,
       payload: error.message,
     });
   }
 };
 
-export const checkOut = () => (dispatch) => {
-  dispatch({
+export const checkOut = () => {
+  store.dispatch({
     type: EVENT_CHECKOUT,
   });
 };
 
-export const fetchEvent = (uuid) => {
+export const fetchEvent = async (uuid) => {
   try {
     const url = `${Config.API_URL + Config.routes.events.event}/${uuid}`;
     const thisEvent = await fetchService(url, 'GET', 'json', {
@@ -108,13 +110,13 @@ export const fetchEvent = (uuid) => {
 
     if (!thisEvent) throw new Error('Empty response from server');
     else if (thisEvent.error) throw new Error(thisEvent.error.message);
-    dispatch({
+    store.dispatch({
       type: FETCH_EVENT,
       payload: thisEvent.event,
     });
   } catch (error) {
     notify('Unable to fetch an event!', error.message);
-    dispatch({
+    store.dispatch({
       type: EVENT_ERROR,
       payload: error.message,
     });

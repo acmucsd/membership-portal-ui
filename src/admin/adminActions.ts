@@ -1,11 +1,13 @@
 import copy from 'copy-to-clipboard';
 
 import Config from '../config';
+import store from '../redux';
 
 import { EVENT_DELETE, GET_EMAILS } from './adminTypes';
-import { notify, fetchService } from '../utils';
+import fetchService from '../api/fetchService';
+import { notify } from '../utils';
 
-export const postEvent = (event) => {
+export const postEvent = async (event) => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL}${Config.routes.events.event}`;
@@ -34,7 +36,7 @@ export const postEvent = (event) => {
   });
 };
 
-export const editEvent = (event) => {
+export const editEvent = async (event) => {
   return new Promise(async (resolve, reject) => {
     try {
       const eventUrl = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
@@ -65,7 +67,7 @@ export const editEvent = (event) => {
   });
 };
 
-export const deleteEvent = (uuid) => {
+export const deleteEvent = async (uuid) => {
   return new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
@@ -73,7 +75,7 @@ export const deleteEvent = (uuid) => {
         requiresAuthorization: true,
       });
 
-      dispatch({
+      store.dispatch({
         type: EVENT_DELETE,
         uuid,
       });
@@ -86,7 +88,7 @@ export const deleteEvent = (uuid) => {
   });
 };
 
-export const awardPoints = (pointDetails: any) => {
+export const awardPoints = async (pointDetails: any) => {
   return new Promise(async (resolve, reject) => {
     if (!pointDetails.points) {
       notify('Validation Error!', 'No points provided');
@@ -119,7 +121,7 @@ export const awardPoints = (pointDetails: any) => {
   });
 };
 
-export const addAttendance = (attendanceDetails: any) => {
+export const addAttendance = async (attendanceDetails: any) => {
   return new Promise(async (resolve, reject) => {
     if (!attendanceDetails.event) {
       notify('Validation Error!', 'No event specified');
@@ -151,13 +153,13 @@ export const addAttendance = (attendanceDetails: any) => {
   });
 };
 
-export const getAllEmails = () => {
+export const getAllEmails = async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.admin.email}`;
     const emails = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
     });
-    dispatch({
+    store.dispatch({
       type: GET_EMAILS,
       payload: emails,
     });
