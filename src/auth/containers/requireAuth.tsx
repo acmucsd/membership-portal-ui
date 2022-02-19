@@ -6,14 +6,14 @@ import history from '../../history';
 import { verifyToken } from '../authActions';
 
 const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
-  const { authenticated, pathname, search, verify } = props;
+  const { authenticated, verify } = props;
 
   useEffect(() => {
     // check if authenticated, if not, then verify the token
     if (!authenticated) {
-      verify()(search, pathname);
+      verify()(history.location.search, history.location.pathname);
     }
-  }, [authenticated, verify, search, pathname]);
+  }, [authenticated, verify]);
 
   if (authenticated) {
     return <Component />;
@@ -25,8 +25,6 @@ const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   authenticated: state.auth.authenticated,
-  pathname: state.router.location.pathname,
-  search: state.router.location.search,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
