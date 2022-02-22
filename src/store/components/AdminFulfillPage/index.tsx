@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import moment from 'moment';
 import { Modal } from 'antd';
 
 import { fulfillOrder, completePickupEvent } from '../../storeActions';
 import { OrderStatus, PublicOrderPickupEvent, PublicOrderForFulfillment } from '../../../types';
-import { notify } from '../../../utils';
+import { notify, parseOrderStatus } from '../../../utils';
 
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
@@ -22,11 +23,31 @@ interface AdminFulfillPageProps {
 }
 
 const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
-  const { pickupEvent, pickupEvents = [] } = props;
+  const { pickupEvent: pickupEventIn, pickupEvents = [] } = props;
 
   const [uuid, setUuid] = useState<string>();
+  const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    setPickupEvent(pickupEventIn);
+  }, [pickupEventIn]);
+
+  const handleFinishPickup = () => {
+    props
+      .completePickupEvent(pickupEvent?.uuid)
+      .then(() => {
+        setShowModal(false);
+        notify('Success!', 'Pickup Event is Over');
+        history.push('/store/admin');
+      })
+      .catch((reason) => {
+        setShowModal(false);
+        notify('API Error', reason.message || reason);
+      });
+  };
 
   if (!pickupEvent) {
     return (
@@ -38,10 +59,12 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
             <p className="admin-fulfill-page-hint">Select a pickup event to begin fulfillment for:</p>
             <StoreDropdown
               placeholder="Select a pickup event..."
-              options={pickupEvents.map((event) => ({
-                label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
-                value: event.uuid,
-              }))}
+              options={pickupEvents
+                .sort((a, b) => moment(a.start).diff(moment(b.start)))
+                .map((event) => ({
+                  label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+                  value: event.uuid,
+                }))}
               onChange={(option) => {
                 setUuid(option.value);
               }}
@@ -68,7 +91,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         </p>
         <br />
         {selectedOrder.items.map((item, idx) => (
-          <div key={idx}>
+          <div className="order-item" key={idx}>
             <StoreCheckbox
               checked={item.fulfilled || item.needsFulfillment}
               disabled={item.fulfilled}
@@ -92,7 +115,11 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                 selectedOrder.uuid,
                 selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
               )
-              .then(() => {
+              .then((newOrder) => {
+                setPickupEvent({
+                  ...pickupEvent,
+                  orders: [...(pickupEvent.orders ?? [])].map((order) => (selectedOrder.uuid === order.uuid ? newOrder : order)),
+                });
                 notify('Success!', 'Order has been updated');
                 setSelectedOrder(undefined);
               })
@@ -120,6 +147,12 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
               ?.filter((order) => {
                 return order.status !== OrderStatus.CANCELLED;
               })
+              .sort((a, b) => {
+                const aName = `${a.user.firstName} ${a.user.lastName}`;
+                const bName = `${b.user.firstName} ${b.user.lastName}`;
+
+                return aName.localeCompare(bName);
+              })
               .map((order, key) => (
                 <button
                   type="button"
@@ -133,7 +166,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
                   }}
                   key={key}
                 >
-                  {order.user.firstName} {order.user.lastName}
+                  {order.user.firstName} {order.user.lastName} ({parseOrderStatus(order.status)})
                 </button>
               ))}
           </div>
@@ -144,17 +177,9 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
               setShowModal(true);
             }}
           />
-          <Modal
-            visible={showModal}
-            onCancel={() => setShowModal(false)}
-            onOk={() => {
-              props.completePickupEvent(pickupEvent.uuid).then(() => {
-                setShowModal(false);
-                notify('Success!', 'Pickup Event is Over');
-              });
-            }}
-          >
-            This will end the pickup event forever. Did you mean to do this?
+          <Modal visible={showModal} onCancel={() => setShowModal(false)} onOk={handleFinishPickup}>
+            This will end the pickup event forever. Any unfulfilled orders will be marked as missed, and any partially fulfilled orders will be
+            eligble to be rescheduled or cancelled. Are you sure you want to proceed?
           </Modal>
         </div>
         {orderInfo}

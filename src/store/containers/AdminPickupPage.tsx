@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchPickupEvent, fetchFuturePickupEvents } from '../storeActions';
+import {
+  fetchPickupEvent,
+  fetchFuturePickupEvents,
+  deletePickupEvent as deletePickupEventConnected,
+  cancelPickupEvent as cancelPickupEventConnected,
+} from '../storeActions';
 import { PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
 
@@ -12,11 +17,14 @@ import AdminPickupPage from '../components/AdminPickupPage';
 interface AdminPickupPageContainerProps {
   fetchPickupEvent: Function;
   fetchFuturePickupEvents: Function;
+  deletePickupEvent: Function;
+  cancelPickupEvent: Function;
 }
 
 const AdminPickupPageContainer: React.FC<AdminPickupPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
+  const { deletePickupEvent, cancelPickupEvent } = props;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
@@ -45,9 +53,19 @@ const AdminPickupPageContainer: React.FC<AdminPickupPageContainerProps> = (props
 
   return (
     <PageLayout>
-      <AdminPickupPage pickupEvent={pickupEvent} pickupEvents={pickupEvents} />
+      <AdminPickupPage
+        pickupEvent={pickupEvent}
+        pickupEvents={pickupEvents}
+        deletePickupEvent={deletePickupEvent}
+        cancelPickupEvent={cancelPickupEvent}
+      />
     </PageLayout>
   );
 };
 
-export default connect(null, { fetchPickupEvent, fetchFuturePickupEvents })(AdminPickupPageContainer);
+export default connect(null, {
+  fetchPickupEvent,
+  fetchFuturePickupEvents,
+  deletePickupEvent: deletePickupEventConnected,
+  cancelPickupEvent: cancelPickupEventConnected,
+})(AdminPickupPageContainer);

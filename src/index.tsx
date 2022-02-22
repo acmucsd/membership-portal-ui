@@ -47,6 +47,7 @@ import AdminCollectionPage from './store/containers/AdminCollectionPage';
 import AdminItemPage from './store/containers/AdminItemPage';
 import AdminPreparePage from './store/containers/AdminPreparePage';
 import AdminFulfillPage from './store/containers/AdminFulfillPage';
+import AdminQuantitiesPage from './store/containers/AdminQuantitiesPage';
 import AdminPickupPage from './store/containers/AdminPickupPage';
 import { subscriber as storeSubscriber } from './store/storeSlice';
 
@@ -114,6 +115,7 @@ const App = () => {
           <Route exact path="/store/admin/prepare/:uuid" component={requireStoreAccess(AdminPreparePage)} />
           <Route exact path="/store/admin/fulfill" component={requireStoreAccess(AdminFulfillPage)} />
           <Route exact path="/store/admin/fulfill/:uuid" component={requireStoreAccess(AdminFulfillPage)} />
+          <Route exact path="/store/admin/quantities" component={requireStoreAccess(AdminQuantitiesPage)} />
           <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
           <Route exact path="/resendEmailVerification" component={requireAuth(ResendEmailVerificationPage)} />
           <Route exact path="/" component={requireAuth(HomePage)} />

@@ -36,9 +36,12 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
 
   const { itemName, description, hasVariantsEnabled, options, picture } = item;
 
+  const limitHit = item.monthlyRemaining === 0 || item.lifetimeRemaining === 0;
   let limitMessage;
 
-  if (item.monthlyRemaining < item.lifetimeRemaining) {
+  if (limitHit) {
+    limitMessage = `You have purchased the the max allowed quantity of this item.`;
+  } else if (item.monthlyRemaining < item.lifetimeRemaining) {
     limitMessage = `You can buy up to ${item.monthlyLimit} of this item this month.`;
   } else {
     limitMessage = `You can buy up to ${item.lifetimeRemaining} of this item.`;
@@ -94,7 +97,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               type="primary"
               size="medium"
               text="Add to Cart"
-              disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock)}
+              disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit}
               onClick={() => {
                 if (hasVariantsEnabled) {
                   props.addToCart({ item, option: currentOption, quantity: currentQuantity });

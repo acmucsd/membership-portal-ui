@@ -218,13 +218,13 @@ export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string 
       }
 
       const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/fulfill`;
-      await fetchService(url, 'POST', 'json', {
+      const data = await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
         onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ items }),
       });
 
-      resolve();
+      resolve(data.order);
     } catch (error) {
       reject(error);
     }
@@ -359,6 +359,48 @@ export const completePickupEvent = (uuid: string) => async (dispatch) => {
       }
 
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}/complete`;
+      await fetchService(url, 'POST', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('deletePickupEvent: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}`;
+      await fetchService(url, 'DELETE', 'json', {
+        requiresAuthorization: true,
+        onFailCallback: () => dispatch(logoutUser()),
+      });
+
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!uuid) {
+        reject(new Error('deletePickupEvent: Missing required uuid in request.'));
+        return;
+      }
+
+      const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}/cancel`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
         onFailCallback: () => dispatch(logoutUser()),

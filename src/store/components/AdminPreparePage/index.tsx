@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
 
-import { PublicOrderPickupEvent, PublicOrderItemWithQuantity } from '../../../types';
+import { PublicOrderPickupEvent, PublicOrderItemWithQuantity, OrderStatus } from '../../../types';
 
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
@@ -29,10 +29,12 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           <p className="admin-prepare-page-hint">Select a pickup event to begin preparation for:</p>
           <StoreDropdown
             placeholder="Select a pickup event..."
-            options={pickupEvents.map((event) => ({
-              label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
-              value: event.uuid,
-            }))}
+            options={pickupEvents
+              .sort((a, b) => moment(a.start).diff(moment(b.start)))
+              .map((event) => ({
+                label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+                value: event.uuid,
+              }))}
             onChange={(option) => {
               setUuid(option.value);
             }}
@@ -44,17 +46,19 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
   }
 
   const merchData: Record<string, { quantity: number; name: string; variantType: string; variantValue: string }> = {};
-  pickupEvent.orders?.forEach((order) => {
-    order.items.forEach((item) => {
-      merchData[`${item.option.uuid}`] = merchData[`${item.option.uuid}`] ?? {
-        quantity: 0,
-        name: item.option.item.itemName,
-        variantType: item.option.metadata?.type,
-        variantValue: item.option.metadata?.value,
-      };
-      merchData[`${item.option.uuid}`].quantity += 1;
+  pickupEvent.orders
+    ?.filter((order) => order.status !== OrderStatus.CANCELLED)
+    .forEach((order) => {
+      order.items.forEach((item) => {
+        merchData[item.option.uuid] = merchData[`${item.option.uuid}`] ?? {
+          quantity: 0,
+          name: item.option.item.itemName,
+          variantType: item.option.metadata?.type,
+          variantValue: item.option.metadata?.value,
+        };
+        merchData[item.option.uuid].quantity += 1;
+      });
     });
-  });
 
   return (
     <>
@@ -71,16 +75,22 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           className="admin-prepare-page-table"
           size="small"
           rowKey="uuid"
-          dataSource={Object.values(merchData).map((data) => ({
-            uuid: data.name,
-            itemDisplay: (
-              <>
-                <h2>{data.name}</h2>
-                {data.variantType && data.variantValue && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
-              </>
-            ),
-            quantity: data.quantity,
-          }))}
+          dataSource={Object.values(merchData)
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((data) => {
+              const hasVariant = data.variantType && data.variantValue;
+
+              return {
+                uuid: data.name,
+                itemDisplay: (
+                  <>
+                    <h2>{data.name}</h2>
+                    {hasVariant && <h3>{`${data.variantType}: ${data.variantValue}`}</h3>}
+                  </>
+                ),
+                quantity: data.quantity,
+              };
+            })}
           columns={[
             {
               title: 'Item',
@@ -100,38 +110,50 @@ const AdminPreparePage: React.FC<AdminPreparePageProps> = (props) => {
           className="admin-prepare-page-table"
           size="small"
           rowKey="uuid"
-          dataSource={pickupEvent.orders?.map((order) => {
-            const itemMap = new Map<string, PublicOrderItemWithQuantity>();
+          dataSource={pickupEvent.orders
+            ?.filter((order) => order.status !== OrderStatus.CANCELLED)
+            .sort((a, b) => {
+              const nameA = `${a.user.firstName} ${a.user.lastName}`;
+              const nameB = `${b.user.firstName} ${b.user.lastName}`;
 
-            order.items.forEach((item) => {
-              const existingItem = itemMap.get(item.option.uuid);
+              return nameA.localeCompare(nameB);
+            })
+            .map((order) => {
+              const itemMap = new Map<string, PublicOrderItemWithQuantity>();
 
-              if (existingItem) {
-                existingItem.quantity += 1;
+              order.items.forEach((item) => {
+                const existingItem = itemMap.get(item.option.uuid);
 
-                itemMap.set(existingItem.option.uuid, existingItem);
-              } else {
-                itemMap.set(item.option.uuid, { ...item, quantity: 1 });
-              }
-            });
+                if (existingItem) {
+                  existingItem.quantity += 1;
 
-            const updatedItems = Array.from(itemMap, ([, value]) => value);
+                  itemMap.set(existingItem.option.uuid, existingItem);
+                } else {
+                  itemMap.set(item.option.uuid, { ...item, quantity: 1 });
+                }
+              });
 
-            return {
-              uuid: order.uuid,
-              user: `${order.user.firstName} ${order.user.lastName}`,
-              items: (
-                <ul>
-                  {updatedItems.map((item) => (
-                    <li key={item.uuid}>
-                      {item.quantity} x {item.option.item.itemName}
-                      {item.option.metadata && ` (${item.option.metadata?.type}: ${item.option.metadata?.value})`}
-                    </li>
-                  ))}
-                </ul>
-              ),
-            };
-          })}
+              const updatedItems = Array.from(itemMap, ([, value]) => value);
+
+              return {
+                uuid: order.uuid,
+                user: `${order.user.firstName} ${order.user.lastName}`,
+                items: (
+                  <ul>
+                    {updatedItems
+                      .sort((a, b) => {
+                        return a.option.item.itemName.localeCompare(b.option.item.itemName);
+                      })
+                      .map((item) => (
+                        <li key={item.uuid}>
+                          {item.quantity} x {item.option.item.itemName}
+                          {item.option.metadata && ` (${item.option.metadata?.type}: ${item.option.metadata?.value})`}
+                        </li>
+                      ))}
+                  </ul>
+                ),
+              };
+            })}
           columns={[
             {
               title: 'User',

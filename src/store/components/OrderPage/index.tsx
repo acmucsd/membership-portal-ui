@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 import { OrderStatus, PublicOrderWithItems, PublicOrderPickupEvent } from '../../../types';
-import { notify, toProperCase } from '../../../utils';
+import { notify, parseOrderStatus } from '../../../utils';
 
 import OrderDisplay from '../OrderDisplay';
 import StoreButton from '../StoreButton';
@@ -35,14 +35,19 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
 
   const showPickup = !(status === OrderStatus.PARTIALLY_FULFILLED || status === OrderStatus.PICKUP_CANCELLED || status === OrderStatus.PICKUP_MISSED);
 
-  const actionable =
-    !(status === OrderStatus.CANCELLED || status === OrderStatus.FULFILLED) && new Date() < moment(pickupEvent.start).subtract(2, 'days').toDate();
+  let actionable = true;
+
+  if (status === OrderStatus.CANCELLED || status === OrderStatus.FULFILLED) {
+    actionable = false;
+  } else if (status === OrderStatus.PLACED && new Date() > moment(pickupEvent.start).subtract(2, 'days').toDate()) {
+    actionable = false;
+  }
 
   return (
     <>
       <StoreHeader breadcrumb breadcrumbLocation="../orders" />
       <div className="order-page">
-        <h1>Order (Status: {toProperCase(status)})</h1>
+        <h1>Order (Status: {parseOrderStatus(status)})</h1>
         <h3>
           <span className="emphasized">Purchase Date:</span> {moment(orderedAt).format('MMMM Do, YYYY')}
         </h3>
@@ -50,10 +55,12 @@ const OrderPage: React.FC<OrderPageProps> = (props) => {
           <>
             <StoreDropdown
               placeholder="Select a pickup event..."
-              options={pickupEvents.map((event) => ({
-                label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
-                value: event.uuid,
-              }))}
+              options={pickupEvents
+                .sort((a, b) => moment(a.start).diff(moment(b.start)))
+                .map((event) => ({
+                  label: `${event.title} from ${moment(event.start).format('MMM D[,] LT')} to ${moment(event.end).format('MMM D[,] LT')}`,
+                  value: event.uuid,
+                }))}
               onChange={(option) => {
                 setSelectedPickup(option.value);
               }}

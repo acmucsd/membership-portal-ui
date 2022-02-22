@@ -1,5 +1,8 @@
 import React, { useEffect, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import 'antd/es/modal/style';
+import 'antd/es/slider/style';
 import { useParams, useHistory } from 'react-router-dom';
 import * as moment from 'moment';
 
@@ -159,17 +162,19 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
           </div>
           <Form.Item className="cover-wrapper" label="Cover Link">
             {eventData.cover && typeof eventData.cover === 'string' && <img className="cover-preview" src={eventData.cover} alt={eventData.cover} />}
-            <Upload
-              name="cover"
-              className="cover"
-              accept="image/*"
-              listType="picture"
-              customRequest={(options) => {
-                setFieldValue('cover', options.file);
-              }}
-            >
-              <Button>{eventData.cover ? 'Click to update' : 'Click to upload'}</Button>
-            </Upload>
+            <ImgCrop aspect={16 / 9}>
+              <Upload
+                name="cover"
+                className="cover"
+                accept="image/*"
+                listType="picture"
+                customRequest={(options) => {
+                  setFieldValue('cover', options.file);
+                }}
+              >
+                <Button>Click to upload</Button>
+              </Upload>
+            </ImgCrop>
             <p className="form-error">{errors.cover ? errors.cover : null}</p>
           </Form.Item>
           <Form.Item label="Attendance Code">
