@@ -41,4 +41,4 @@ const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> 
   );
 };
 
-export default connect(() => ({}), { fetchCollection, deleteCollection: deleteCollectionConnect })(AdminCollectionPageContainer);
+export default connect(null, { fetchCollection, deleteCollection: deleteCollectionConnect })(AdminCollectionPageContainer);

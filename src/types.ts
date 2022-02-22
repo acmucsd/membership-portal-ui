@@ -97,6 +97,10 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface Cart {
+  [uuid: string]: CartItem;
+}
+
 export interface PublicCartMerchItem {
   uuid: Uuid;
   itemName: string;

@@ -4,7 +4,7 @@ import { Button, Select, Table, Typography } from 'antd';
 
 import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
 import { toProperCase } from '../../../utils';
-import { addToCart, editInCart, removeFromCart } from '../../storeActions';
+import { addToCart, editInCart, removeFromCart } from '../../storeSlice';
 
 import './style.less';
 import DiamondDisplay from '../DiamondDisplay';
@@ -64,8 +64,10 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
         const { quantity } = item;
         const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
 
-        dispatch(editInCart({ ...item, quantity: 0 }));
-        dispatch(addToCart({ ...item, option: newOption, quantity }));
+        if (newOption) {
+          dispatch(editInCart({ ...item, quantity: 0 }));
+          dispatch(addToCart({ ...item, option: newOption, quantity }));
+        }
       }
       setEditable(false);
     } else {

@@ -52,4 +52,4 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
   );
 };
 
-export default connect(() => ({}), { fetchItem, fetchCollections, deleteItem: deleteItemConnect })(AdminItemPageContainer);
+export default connect(null, { fetchItem, fetchCollections, deleteItem: deleteItemConnect })(AdminItemPageContainer);

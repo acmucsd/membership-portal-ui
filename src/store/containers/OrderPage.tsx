@@ -58,7 +58,7 @@ const OrderPageContainer: React.FC<OrderPageContainerProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), {
+export default connect(null, {
   fetchOrder: fetchOrderConnected,
   fetchFuturePickupEvents: fetchFuturePickupEventsConnected,
   rescheduleOrder: rescheduleOrderConnected,

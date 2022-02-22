@@ -42,4 +42,4 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), { fetchItem })(ItemPageContainer);
+export default connect(null, { fetchItem })(ItemPageContainer);

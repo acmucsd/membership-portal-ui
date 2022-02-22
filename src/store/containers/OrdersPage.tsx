@@ -33,4 +33,4 @@ const OrdersPageContainer: React.FC<OrdersPageContainerProps> = (props) => {
   );
 };
 
-export default connect(() => ({}), { fetchOrders })(OrdersPageContainer);
+export default connect(null, { fetchOrders })(OrdersPageContainer);
