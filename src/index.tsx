@@ -48,8 +48,28 @@ import AdminItemPage from './store/containers/AdminItemPage';
 import AdminPreparePage from './store/containers/AdminPreparePage';
 import AdminFulfillPage from './store/containers/AdminFulfillPage';
 import AdminPickupPage from './store/containers/AdminPickupPage';
+import { subscriber as storeSubscriber } from './store/storeSlice';
 
 const store = configureStore();
+
+type RootState = ReturnType<typeof store.getState>;
+const observeStore = <T,>(selector: (state: RootState) => T, onChange: (state: T) => void) => {
+  let currentState;
+
+  const handleChange = () => {
+    const nextState = selector(store.getState());
+    if (nextState !== currentState) {
+      currentState = nextState;
+      onChange(currentState);
+    }
+  };
+
+  console.log('subscribing to store');
+  const unsubscribe = store.subscribe(handleChange);
+  handleChange();
+  return unsubscribe;
+};
+observeStore(storeSubscriber.selector, storeSubscriber.onChange);
 
 const App = () => {
   ReactGA.initialize('UA-165975388-1');

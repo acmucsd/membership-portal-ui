@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 
 import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
-import { addToCart } from '../../storeActions';
+import { addToCart } from '../../storeSlice';
 
 import StoreHeader from '../StoreHeader';
 import OptionSelector from '../OptionSelector';

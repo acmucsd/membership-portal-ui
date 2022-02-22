@@ -4,7 +4,7 @@ import { Button, Select, Table, Typography } from 'antd';
 
 import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
 import { toProperCase } from '../../../utils';
-import { addToCart, editInCart, removeFromCart } from '../../storeActions';
+import { addToCart, editInCart, removeFromCart } from '../../storeSlice';
 
 import './style.less';
 import DiamondDisplay from '../DiamondDisplay';
