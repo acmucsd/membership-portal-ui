@@ -1,17 +1,15 @@
 import { createContext } from 'react';
 
 interface IThemeContext {
-    theme: string;
-    toggleTheme?: () => void;
+  theme: string;
+toggleTheme: () => void;
 }
 
 // set initial theme to localStorage if it exists, otherwise set to light
-let initialTheme: string;
-
-initialTheme = localStorage.getItem('theme') || 'light';
+const initialTheme: string = localStorage.getItem('theme') || 'light';
 const initialState = {
-    theme: initialTheme,
-    toggleTheme: () => {},
+  theme: initialTheme,
+  toggleTheme: () => {},
 };
 
 const ThemeContext = createContext<IThemeContext>(initialState);

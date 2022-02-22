@@ -11,15 +11,13 @@ import ThemeContext from '../../../styles/ThemeContext/themeContext';
 import { ReactComponent as MoonIcon } from '../../../assets/icons/moon.svg';
 import { ReactComponent as SunIcon } from '../../../assets/icons/sun.svg';
 
-
 const Header: React.FC = () => {
-
   // gets theme and toggleTheme function from the ThemeContext
-  const {theme, toggleTheme } = React.useContext(ThemeContext);
+  const { theme, toggleTheme } = React.useContext(ThemeContext);
 
   const HandleModeSwitch = () => {
-    toggleTheme?.();
-  }
+    toggleTheme();
+  };
 
   return (
     <div className="header-container">
@@ -29,10 +27,13 @@ const Header: React.FC = () => {
             <img className="logo" src={logo} alt="ACM Logo" />
             <span className="subheading">&nbsp;Membership Portal</span>
           </NavLink>
-          <Switch onClick={HandleModeSwitch} 
-          checkedChildren={<Icon component={MoonIcon} className="moon-icon" />}
-          unCheckedChildren={<Icon component={SunIcon} className="sun-icon" />}
-          className="mode-switch" defaultChecked={theme === 'light' ? false : true} /> 
+          <Switch
+            onClick={HandleModeSwitch}
+            checkedChildren={<Icon component={MoonIcon} className="moon-icon" />}
+            unCheckedChildren={<Icon component={SunIcon} className="sun-icon" />}
+            className="mode-switch"
+            defaultChecked={theme !== 'light'}
+          />
 
           <div className="profile">
             <NavProfile menu={<NavDropdown />} />

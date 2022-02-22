@@ -14,8 +14,8 @@
  *
  */
 
-  // Light Theme Variables
- .light-theme {
+html {
+  // light theme variables (default)
   --theme: light;
   --theme-primary-1: @light-blue-100; 
   --theme-primary-2: @light-blue-200; // profile card borders, buttons, nav bar 
@@ -52,13 +52,10 @@
 
   --theme-text-on-surface-1: @gray-900; // dark text on sidebar
   --theme-text-on-surface-2: @gray-500; // light titles on sidebar
-
-  background-color: var(--theme-background);
-  transition: background 0.3s ease;
 }
 
-// Dark Theme Variables
-.dark-theme {
+html[theme="dark"] {
+  // Dark Theme Variables
   --theme: dark;
   --theme-primary-1: @dark-blue-100;
   --theme-primary-2: @dark-blue-200; 
@@ -94,18 +91,19 @@
   
   --theme-text-on-surface-1: @white; 
   --theme-text-on-surface-2: @white; 
-  background-color: var(--theme-background);
-  transition: background 0.3s ease;
 }
 
 html,
 body {
+  background-color: var(--theme-background);
   border: 0;
   font-family: "DM Sans", sans-serif;
   line-height: 1.5;
   margin: 0;
   padding: 0;
-  transition: background 0.3s ease;
+  transition-property: background-color, color, border-color, border, filter;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 div,
@@ -199,6 +197,15 @@ section,
 audio,
 video {
   display: block;
+}
+
+input {
+  transition: inherit;
+  &:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 30px var(--theme-background) inset;
+    box-shadow: 0 0 0 30px var(--theme-background) inset;
+    -webkit-text-fill-color: var(--theme-text-on-background-1);
+  }
 }
 
 table {
