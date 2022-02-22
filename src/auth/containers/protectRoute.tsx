@@ -15,7 +15,7 @@ export enum WithRouteOptions {
 }
 
 const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: string) => (props: { [key: string]: any }) => {
-  const { authenticated, pathname, search, verify, redirectHome, isAdmin, state, email } = props;
+  const { authenticated, pathname, search, verify, redirect, isAdmin, state, email } = props;
   switch (option) {
     case WithRouteOptions.ADMIN: {
       useEffect(() => {
@@ -26,15 +26,15 @@ const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: s
             .then((data: { [key: string]: any }) => {
               if (!data.admin) {
                 // if not an admin, redirect
-                redirectHome(rejectRoute);
+                redirect(rejectRoute);
               }
             })
             .catch(() => {});
         } else if (!isAdmin) {
           // if not an admin, redirect
-          redirectHome(rejectRoute);
+          redirect(rejectRoute);
         }
-      }, [authenticated, isAdmin, verify, redirectHome, search, pathname]);
+      }, [authenticated, isAdmin, verify, redirect, search, pathname]);
 
       // TODO: Make redirecting screen and return that if not authenticated.
       return <Component />;
@@ -68,12 +68,12 @@ const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: s
               'Store Requirement',
               'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.',
             );
-            redirectHome(rejectRoute);
+            redirect(rejectRoute);
           } else {
             setPermitted(true);
           }
         }
-      }, [state, email, redirectHome]);
+      }, [state, email, redirect]);
       if (permitted) {
         return <Component />;
       }
@@ -103,7 +103,7 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirectHome: (rejectRoute: string) => {
+  redirect: (rejectRoute: string) => {
     dispatch(replace(rejectRoute));
   },
   verify: () => {
