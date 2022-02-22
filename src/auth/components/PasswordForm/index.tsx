@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 
-import { ReactComponent as EmailIcon} from '../../../assets/icons/email-icon.svg';
 import Icon from '@ant-design/icons';
+import { ReactComponent as EmailIcon } from '../../../assets/icons/email-icon.svg';
 
 import './style.less';
 

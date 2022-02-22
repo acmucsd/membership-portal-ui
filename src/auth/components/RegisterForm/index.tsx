@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, FormEventHandler, FocusEventHandler } from 'react';
 import { Select } from 'antd';
 import { NavLink } from 'react-router-dom';
-import Icon from '@ant-design/icons'
+import Icon from '@ant-design/icons';
 
 import './style.less';
 

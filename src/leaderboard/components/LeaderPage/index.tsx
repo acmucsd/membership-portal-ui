@@ -46,7 +46,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
           return null;
         }
         return (
-          <Menu.Item className="menu-item" key={yearCode} >
+          <Menu.Item className="menu-item" key={yearCode}>
             <div
               role="menuitem"
               className="leader-page-timeframe"

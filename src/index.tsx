@@ -51,6 +51,7 @@ import AdminQuantitiesPage from './store/containers/AdminQuantitiesPage';
 import AdminPickupPage from './store/containers/AdminPickupPage';
 
 import ThemeProvider from './styles/ThemeContext/themeProvider';
+
 const store = configureStore();
 
 const App = () => {
@@ -60,8 +61,8 @@ const App = () => {
   return (
     <div>
       <Provider store={store}>
-      <ThemeProvider>
-        <ConnectedRouter history={history}>
+        <ThemeProvider>
+          <ConnectedRouter history={history}>
             <Switch>
               <Route exact path="/about" component={requireAuth(AboutPage)} />
               <Route exact path="/admin" component={requireAdminAuth(AdminPage)} />
@@ -104,7 +105,7 @@ const App = () => {
               <Route exact path="/" component={requireAuth(HomePage)} />
               <Route path="/" component={requireAuth(ErrorPage)} />
             </Switch>
-        </ConnectedRouter>
+          </ConnectedRouter>
         </ThemeProvider>
       </Provider>
     </div>

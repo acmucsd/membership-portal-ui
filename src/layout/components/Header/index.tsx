@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import Icon from '@ant-design/icons';
+import { Switch } from 'antd';
 import NavDropdown from '../../containers/NavDropdown';
 import NavProfile from '../../containers/NavProfile';
-import Icon from '@ant-design/icons';
 import logo from '../../../assets/graphics/logo.png';
-import { Switch } from 'antd';
 import './style.less';
 import ThemeContext from '../../../styles/ThemeContext/themeContext';
 import { ReactComponent as MoonIcon } from '../../../assets/icons/moon.svg';
