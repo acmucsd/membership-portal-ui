@@ -5,7 +5,7 @@ import moment from 'moment';
 import * as Yup from 'yup';
 
 import Config from '../../../config';
-import { history } from '../../../redux_store';
+import history from '../../../history';
 import { PublicOrderPickupEvent } from '../../../types';
 import { fetchService, notify } from '../../../utils';
 

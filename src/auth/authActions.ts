@@ -1,7 +1,7 @@
-import { replace } from 'connected-react-router';
 import { AUTH_ERROR, AUTH_USER, FETCH_USER, PASSWORD_FAIL, PASSWORD_SUCCESS, REGISTER_FAIL, REGISTER_USER, UNAUTH_USER } from './authTypes';
 
 import Config from '../config';
+import history from '../history';
 import Storage from '../storage';
 import { notify, fetchService } from '../utils';
 
@@ -48,13 +48,13 @@ export const loginUser = (values, search) => async (dispatch) => {
 
     if (code) {
       // If the user was signed out when trying to check in, direct them to the checkin page
-      dispatch(replace(`/checkin?code=${code}}`));
+      history.replace(`/checkin?code=${code}}`);
     } else if (destination) {
       // If the user was signed out when trying to access the site, return them to their desired destination
-      dispatch(replace(decodeURIComponent(destination)));
+      history.replace(decodeURIComponent(destination));
     } else {
       // Otherwise, redirect to home
-      dispatch(replace('/'));
+      history.replace('/');
     }
   } catch (error) {
     notify('Unable to login!', error.message);
@@ -82,7 +82,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
           });
           notify('Login expired', 'Please sign in again');
           // redirect to /login
-          dispatch(replace(`/login${search}`));
+          history.replace(`/login${search}`);
           resolve(data);
           return;
         }
@@ -106,7 +106,7 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
           type: UNAUTH_USER,
         });
         // redirerct to /login
-        dispatch(replace(`/login${search}`));
+        history.replace(`/login${search}`);
         reject(error);
       }
     } else {
@@ -120,18 +120,16 @@ export const verifyToken = (dispatch) => async (search, pathname) => {
       }
 
       // redirerct to /login, while including the checkin code and desired destination if present
-      dispatch(
-        replace(
-          `/login${search}${
-            pathname.toString() !== '/'
-              ? `${
-                  search.toString()
-                    ? `&destination=${encodeURIComponent(pathname.toString())}`
-                    : `?destination=${encodeURIComponent(pathname.toString())}`
-                }`
-              : ''
-          }`,
-        ),
+      history.replace(
+        `/login${search}${
+          pathname.toString() !== '/'
+            ? `${
+                search.toString()
+                  ? `&destination=${encodeURIComponent(pathname.toString())}`
+                  : `?destination=${encodeURIComponent(pathname.toString())}`
+              }`
+            : ''
+        }`,
       );
       resolve();
     }
@@ -143,7 +141,7 @@ export const logoutUser = () => (dispatch) => {
     type: UNAUTH_USER,
   });
   Storage.remove('token');
-  dispatch(replace('/login'));
+  history.replace('/login');
 };
 
 export const passwordReset = (email: string) => async (dispatch) => {
@@ -170,7 +168,7 @@ export const passwordReset = (email: string) => async (dispatch) => {
   }
 };
 
-export const updatePassword = (user) => async (dispatch) => {
+export const updatePassword = (user) => async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
@@ -178,7 +176,7 @@ export const updatePassword = (user) => async (dispatch) => {
       payload: JSON.stringify({ user }),
     });
 
-    dispatch(replace('/'));
+    history.replace('/');
   } catch (error) {
     notify('Unable to reset password!', error.message);
   }
@@ -244,8 +242,8 @@ export const registerAccount = (user, search) => async (dispatch) => {
   }
 };
 
-export const redirectAuth = () => (dispatch) => {
-  dispatch(replace('/authenticate-email'));
+export const redirectAuth = () => () => {
+  history.replace('/authenticate-email');
 };
 
 export const fetchUser = (uuid?) => async (dispatch) => {

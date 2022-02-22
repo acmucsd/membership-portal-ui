@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { compose, Dispatch } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
+import history from '../../history';
 import { notify } from '../../utils';
 import PageLayout from '../../layout/containers/PageLayout';
 import { UserState } from '../../types';
@@ -39,10 +39,10 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   email: state.auth.profile.email,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = () => ({
   redirectHome: () => {
     notify('Store Requirement', 'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.');
-    dispatch(replace('/'));
+    history.replace('/');
   },
 });
 
