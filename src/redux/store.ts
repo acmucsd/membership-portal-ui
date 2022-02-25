@@ -1,9 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
+import AdminReducer from '../admin/adminReducer';
+import AuthReducer from '../auth/authReducer';
+import EventReducer from '../event/eventReducer';
+import LeaderboardReducer from '../leaderboard/leaderboardReducer';
+import ProfileReducer from '../profile/profileReducer';
 import storeSlice, { subscriber as storeSubscriber } from '../store/storeSlice';
 
 export const store = configureStore({
   reducer: {
     store: storeSlice,
+    admin: AdminReducer,
+    auth: AuthReducer,
+    event: EventReducer,
+    leaderboard: LeaderboardReducer,
+    profile: ProfileReducer,
   },
 });
 

@@ -1,76 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-
 import ReactGA from 'react-ga';
-import BreadPage from './layout/components/BreadPage';
-
-import history from './history';
-import configureStore from './redux_store';
-
-import './styles/reset.less';
-import AboutPage from './layout/containers/AboutPage';
-
+import { Provider } from 'react-redux';
+import { Route, Router, Switch } from 'react-router-dom';
+import AddAttendancePage from './admin/containers/AddAttendancePage';
 /* Admin Container Pages */
 import AdminPage from './admin/containers/AdminPage';
 import AwardPointsPage from './admin/containers/AwardPointsPage';
-import EditEventPage from './admin/containers/EditEventPage';
 import CreateEventPage from './admin/containers/CreateEventPage';
-import AddAttendancePage from './admin/containers/AddAttendancePage';
-
+import EditEventPage from './admin/containers/EditEventPage';
 import AuthPage from './auth/containers/AuthPage';
-import CheckInHandler from './event/containers/CheckInHandler';
-import DiscordPage from './layout/containers/DiscordPage';
-import HomePage from './layout/containers/HomePage';
-import LeaderPage from './leaderboard/containers/LeaderPage';
+import EmailVerficationPage from './auth/containers/EmailVerificationPage';
 import LoginPage from './auth/containers/LoginPage';
 import PasswordPage from './auth/containers/PasswordPage';
+import RegisterPage from './auth/containers/RegisterPage';
+import requireAdminAuth from './auth/containers/requireAdminAuth';
+import requireAuth from './auth/containers/requireAuth';
+import requireStoreAccess from './auth/containers/requireStoreAccess';
+import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
 import ResetPage from './auth/containers/ResetPage';
+import CheckInHandler from './event/containers/CheckInHandler';
+import history from './history';
+import BreadPage from './layout/components/BreadPage';
+import AboutPage from './layout/containers/AboutPage';
+import DiscordPage from './layout/containers/DiscordPage';
+import ErrorPage from './layout/containers/ErrorPage';
+import HomePage from './layout/containers/HomePage';
+import LeaderPage from './leaderboard/containers/LeaderPage';
 import ProfilePage from './profile/containers/ProfilePage';
 import ProfileUpdatePage from './profile/containers/ProfileUpdatePage';
-import RegisterPage from './auth/containers/RegisterPage';
+import { store } from './redux/store';
+import AdminCollectionPage from './store/containers/AdminCollectionPage';
+import AdminFulfillPage from './store/containers/AdminFulfillPage';
+import AdminItemPage from './store/containers/AdminItemPage';
+import AdminPickupPage from './store/containers/AdminPickupPage';
+import AdminPreparePage from './store/containers/AdminPreparePage';
+import AdminQuantitiesPage from './store/containers/AdminQuantitiesPage';
 import CartPage from './store/containers/CartPage';
 import CheckoutPage from './store/containers/CheckoutPage';
 import ItemPage from './store/containers/ItemPage';
-import StorePage from './store/containers/StorePage';
-import ErrorPage from './layout/containers/ErrorPage';
-import EmailVerficationPage from './auth/containers/EmailVerificationPage';
-import ResendEmailVerificationPage from './auth/containers/ResendEmailVerificationPage';
-import requireAuth from './auth/containers/requireAuth';
-import requireAdminAuth from './auth/containers/requireAdminAuth';
-import requireStoreAccess from './auth/containers/requireStoreAccess';
 import OrderPage from './store/containers/OrderPage';
 import OrdersPage from './store/containers/OrdersPage';
 import StoreAdminPage from './store/containers/StoreAdminPage';
-import AdminCollectionPage from './store/containers/AdminCollectionPage';
-import AdminItemPage from './store/containers/AdminItemPage';
-import AdminPreparePage from './store/containers/AdminPreparePage';
-import AdminFulfillPage from './store/containers/AdminFulfillPage';
-import AdminQuantitiesPage from './store/containers/AdminQuantitiesPage';
-import AdminPickupPage from './store/containers/AdminPickupPage';
-import { subscriber as storeSubscriber } from './store/storeSlice';
-
-const store = configureStore();
-
-type RootState = ReturnType<typeof store.getState>;
-const observeStore = <T,>(selector: (state: RootState) => T, onChange: (state: T) => void) => {
-  let currentState;
-
-  const handleChange = () => {
-    const nextState = selector(store.getState());
-    if (nextState !== currentState) {
-      currentState = nextState;
-      onChange(currentState);
-    }
-  };
-
-  console.log('subscribing to store');
-  const unsubscribe = store.subscribe(handleChange);
-  handleChange();
-  return unsubscribe;
-};
-observeStore(storeSubscriber.selector, storeSubscriber.onChange);
+import StorePage from './store/containers/StorePage';
+import './styles/reset.less';
 
 const App = () => {
   ReactGA.initialize('UA-165975388-1');
