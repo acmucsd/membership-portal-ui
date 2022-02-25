@@ -1,8 +1,7 @@
-import { CART_ADD, CART_EDIT, CART_REMOVE, CART_CLEAR } from './storeTypes';
-import { fetchService } from '../utils';
-import Config from '../config';
 import { logoutUser } from '../auth/authActions';
-import { CartItem, MerchItemOptionMetadata } from '../types';
+import Config from '../config';
+import { MerchItemOptionMetadata } from '../types';
+import { fetchService } from '../utils';
 
 // COLLECTIONS
 
@@ -371,7 +370,7 @@ export const completePickupEvent = (uuid: string) => async (dispatch) => {
   });
 };
 
-export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const deletePickupEvent = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -392,7 +391,7 @@ export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (di
   });
 };
 
-export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (dispatch) => {
+export const cancelPickupEvent = (uuid: string) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
@@ -410,34 +409,5 @@ export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (di
     } catch (error) {
       reject(error);
     }
-  });
-};
-
-// CART
-
-export const addToCart = (cartItem: CartItem) => (dispatch) => {
-  dispatch({
-    type: CART_ADD,
-    payload: cartItem,
-  });
-};
-
-export const editInCart = (cartItem: CartItem) => (dispatch) => {
-  dispatch({
-    type: CART_EDIT,
-    payload: cartItem,
-  });
-};
-
-export const removeFromCart = (cartItem: CartItem) => (dispatch) => {
-  dispatch({
-    type: CART_REMOVE,
-    payload: cartItem,
-  });
-};
-
-export const clearCart = () => (dispatch) => {
-  dispatch({
-    type: CART_CLEAR,
   });
 };
