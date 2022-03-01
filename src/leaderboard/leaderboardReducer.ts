@@ -3,7 +3,7 @@ import { FETCH_LEADERBOARD, LEADERBOARD_ERROR } from './leaderboardTypes';
 import { getDefaultProfile } from '../utils';
 
 const initialState = {
-  users: [],
+  users: null,
 };
 
 const LeaderboardReducer = (state = initialState, action: AnyAction) => {
