@@ -1,7 +1,7 @@
-import { PROFILE_FAIL, PROFILE_SUCCESS } from './profileTypes';
+import { logoutUser } from '../auth/authSlice';
 import Config from '../config';
-import { logoutUser } from '../auth/authActions';
-import { notify, fetchService } from '../utils';
+import { fetchService, getErrorMessage, notify } from '../utils';
+import { PROFILE_FAIL, PROFILE_SUCCESS } from './profileTypes';
 
 export const updateProfile = (values) => async (dispatch) => {
   try {
@@ -18,10 +18,10 @@ export const updateProfile = (values) => async (dispatch) => {
       payload: values,
     });
   } catch (error) {
-    notify('Unable to update profile!', error.message);
+    notify('Unable to update profile!', getErrorMessage(error));
     dispatch({
       type: PROFILE_FAIL,
-      payload: error.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -42,7 +42,7 @@ export const uploadUserImage = async (file: string | Blob) => {
       notify('Updated profile picture!', '');
       resolve(data);
     } catch (error) {
-      notify('Unable to update profile picture!', error.message);
+      notify('Unable to update profile picture!', getErrorMessage(error));
       reject(error);
     }
   });
@@ -60,6 +60,6 @@ export const updateEmail = (email: string) => async (dispatch) => {
 
     notify('Success!', 'Check your email to re-verify your account.');
   } catch (error) {
-    notify('API Error', error.message);
+    notify('API Error', getErrorMessage(error));
   }
 };
