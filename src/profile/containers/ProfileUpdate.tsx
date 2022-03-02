@@ -3,7 +3,7 @@ import { withFormik } from 'formik';
 
 import ProfileUpdate from '../components/ProfileUpdate';
 import { updateProfile, updateEmail } from '../profileActions';
-import { fetchUser } from '../../auth/authActions';
+import { fetchUser } from '../../auth/authSlice';
 
 const FormikProfileUpdate = withFormik({
   mapPropsToValues() {

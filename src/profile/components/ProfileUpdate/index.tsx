@@ -6,11 +6,11 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getDefaultProfile } from '../../../utils';
 import { uploadUserImage } from '../../profileActions';
-import { fetchUser } from '../../../auth/authActions';
 
 import majorsData from '../../../constants/majors.json';
 
 import './style.less';
+import { fetchUser } from '../../../auth/authSlice';
 
 const { Option } = Select;
 const { TextArea } = Input;

@@ -1,40 +1,30 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
-import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import history from '../../history';
-import { verifyToken } from '../authActions';
+import { useAppDispatch } from '../../redux/store';
+import { authSelector, verifyToken } from '../authSlice';
 
-const withAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
-  const { authenticated, verify } = props;
+const withAuth =
+  <T,>(Component: React.ComponentType<T>) =>
+  (props: T) => {
+    const { authenticated } = useSelector(authSelector);
+    const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    // check if authenticated, if not, then verify the token
-    if (!authenticated) {
-      verify()(history.location.search, history.location.pathname);
+    useEffect(() => {
+      // check if authenticated, if not, then verify the token
+      if (!authenticated) {
+        const { search, pathname } = history.location;
+        dispatch(verifyToken({ search, pathname }));
+      }
+    }, [authenticated, dispatch]);
+
+    if (authenticated) {
+      return <Component {...props} />;
     }
-  }, [authenticated, verify]);
 
-  if (authenticated) {
-    return <Component />;
-  }
+    // TODO: Make redirecting screen and return that if not authenticated.
+    return null;
+  };
 
-  // TODO: Make redirecting screen and return that if not authenticated.
-  return null;
-};
-
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  authenticated: state.auth.authenticated,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirectLogin: () => {
-    history.replace('/login');
-  },
-  verify: () => {
-    return verifyToken(dispatch);
-  },
-});
-const requireAuth = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withAuth);
-
-export default requireAuth;
+export default withAuth;

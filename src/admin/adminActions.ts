@@ -3,8 +3,8 @@ import copy from 'copy-to-clipboard';
 import Config from '../config';
 
 import { EVENT_DELETE, GET_EMAILS } from './adminTypes';
-import { notify, fetchService } from '../utils';
-import { logoutUser } from '../auth/authActions';
+import { notify, fetchService, getErrorMessage } from '../utils';
+import { logoutUser } from '../auth/authSlice';
 
 export const postEvent = (event) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
@@ -30,7 +30,7 @@ export const postEvent = (event) => async (dispatch) => {
       notify('Added an event!', event.title);
       resolve(event);
     } catch (error) {
-      notify('Unable to add events!', error.message);
+      notify('Unable to add events!', getErrorMessage(error));
       reject(error);
     }
   });
@@ -62,14 +62,14 @@ export const editEvent = (event) => async (dispatch) => {
       notify('Edited an event!', event.title);
       resolve(event);
     } catch (error) {
-      notify('Unable to edit event!', error.message);
+      notify('Unable to edit event!', getErrorMessage(error));
       reject(error);
     }
   });
 };
 
 export const deleteEvent = (uuid) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise<void>(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
       await fetchService(url, 'DELETE', 'json', {
@@ -84,7 +84,7 @@ export const deleteEvent = (uuid) => async (dispatch) => {
       notify('Success!', 'You successfully deleted the event!');
       resolve();
     } catch (error) {
-      notify('Unable to delete event!', error.message);
+      notify('Unable to delete event!', getErrorMessage(error));
       reject();
     }
   });
@@ -118,7 +118,7 @@ export const awardPoints = (pointDetails: any) => async (dispatch) => {
       notify('Gave bonus points!', `to ${pointDetails.users.length} users`);
       resolve(pointDetails);
     } catch (error) {
-      notify('Unable to award points!', error.message);
+      notify('Unable to award points!', getErrorMessage(error));
       reject(error);
     }
   });
@@ -151,7 +151,7 @@ export const addAttendance = (attendanceDetails: any) => async (dispatch) => {
       notify('Success!', `Added ${attendanceDetails.attendees.length} user(s)!`);
       resolve(attendanceDetails);
     } catch (error) {
-      notify('Unable to add attendees!', error.message);
+      notify('Unable to add attendees!', getErrorMessage(error));
       reject(error);
     }
   });
@@ -169,7 +169,7 @@ export const getAllEmails = () => async (dispatch) => {
       payload: emails,
     });
   } catch (error) {
-    notify('Unable to fetch emails!', error.message);
+    notify('Unable to fetch emails!', getErrorMessage(error));
   }
 };
 

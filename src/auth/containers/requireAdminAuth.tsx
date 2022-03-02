@@ -1,48 +1,32 @@
 import React, { useEffect } from 'react';
-import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import history from '../../history';
-import { verifyToken } from '../authActions';
+import { useAppDispatch } from '../../redux/store';
+import { authSelector, verifyToken } from '../authSlice';
 
-const withAdminAuth = (Component: React.FC) => (props: { [key: string]: any }) => {
-  const { authenticated, verify, redirectHome, isAdmin } = props;
+const redirectHome = () => history.replace('/');
+
+const withAdminAuth = (Component: React.FC) => () => {
+  const { isAdmin, authenticated } = useSelector(authSelector);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // check if authenticated, if not, then verify the token
-    if (!authenticated) {
-      // using then here because state doesn't update in right order
-      verify()(history.location.search, history.location.pathname)
-        .then((data: { [key: string]: any }) => {
-          if (!data.admin) {
-            // if not an admin, redirect
-            redirectHome();
-          }
-        })
-        .catch(() => {});
-    } else if (!isAdmin) {
+    (async () => {
+      // check if authenticated, if not, then verify the token
+      if (!authenticated) {
+        const { search, pathname } = history.location;
+        await dispatch(verifyToken({ search, pathname }));
+      }
+
       // if not an admin, redirect
-      redirectHome();
-    }
-  }, [authenticated, isAdmin, verify, redirectHome]);
+      if (!isAdmin) {
+        redirectHome();
+      }
+    })();
+  }, [authenticated, dispatch, isAdmin]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   return <Component />;
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  authenticated: state.auth.authenticated,
-  isAdmin: state.auth.admin,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirectHome: () => {
-    history.replace('/');
-  },
-  verify: () => {
-    return verifyToken(dispatch);
-  },
-});
-const requireAdminAuth = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withAdminAuth);
-
-export default requireAdminAuth;
+export default withAdminAuth;

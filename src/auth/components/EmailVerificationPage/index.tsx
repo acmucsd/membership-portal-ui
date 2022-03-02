@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
-import { verifyEmail } from '../../authActions';
 import './style.less';
+import { verifyEmail } from '../../utils';
 
 const EmailVerficationPage: React.FC = () => {
   const params: { [key: string]: any } = useParams();

@@ -47,6 +47,10 @@ export type Event = {
   uuid: string;
 };
 
+export type ProfileParams = {
+  uuid: string;
+};
+
 export interface PublicProfile {
   uuid: Uuid;
   firstName: string;

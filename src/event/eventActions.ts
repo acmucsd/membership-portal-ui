@@ -1,9 +1,7 @@
-import { EVENT_CHECKIN, EVENT_CHECKOUT, EVENT_ERROR, FETCH_ATTENDANCE, FETCH_EVENT, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS } from './eventTypes';
-
-import { fetchUser, logoutUser } from '../auth/authActions';
-
+import { fetchUser, logoutUser } from '../auth/authSlice';
 import Config from '../config';
-import { notify, fetchService } from '../utils';
+import { fetchService, getErrorMessage, notify } from '../utils';
+import { EVENT_CHECKIN, EVENT_CHECKOUT, EVENT_ERROR, FETCH_ATTENDANCE, FETCH_EVENT, FETCH_FUTURE_EVENTS, FETCH_PAST_EVENTS } from './eventTypes';
 
 export const fetchFutureEvents = () => async (dispatch) => {
   try {
@@ -18,10 +16,10 @@ export const fetchFutureEvents = () => async (dispatch) => {
       payload: futureEvents.events,
     });
   } catch (error) {
-    notify('Unable to fetch future events!', error.message);
+    notify('Unable to fetch future events!', getErrorMessage(error));
     dispatch({
       type: EVENT_ERROR,
-      payload: error.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -39,10 +37,10 @@ export const fetchPastEvents = () => async (dispatch) => {
       payload: pastEvents.events,
     });
   } catch (error) {
-    notify('Unable to fetch past events!', error.message);
+    notify('Unable to fetch past events!', getErrorMessage(error));
     dispatch({
       type: EVENT_ERROR,
-      payload: error.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -60,10 +58,10 @@ export const fetchAttendance = () => async (dispatch) => {
       payload: data.attendances,
     });
   } catch (error) {
-    notify('Unable to fetch attendance!', error.message);
+    notify('Unable to fetch attendance!', getErrorMessage(error));
     dispatch({
       type: EVENT_ERROR,
-      payload: error.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -89,10 +87,10 @@ export const checkIn = (info) => async (dispatch) => {
       payload: data.event,
     });
   } catch (error) {
-    notify('Unable to checkin!', error.message);
+    notify('Unable to checkin!', getErrorMessage(error));
     dispatch({
       type: EVENT_ERROR,
-      payload: error.message,
+      payload: getErrorMessage(error),
     });
   }
 };
@@ -118,10 +116,10 @@ export const fetchEvent = (uuid) => async (dispatch) => {
       payload: thisEvent.event,
     });
   } catch (error) {
-    notify('Unable to fetch an event!', error.message);
+    notify('Unable to fetch an event!', getErrorMessage(error));
     dispatch({
       type: EVENT_ERROR,
-      payload: error.message,
+      payload: getErrorMessage(error),
     });
   }
 };

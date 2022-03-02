@@ -3,7 +3,7 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
 import RegisterForm from '../components/RegisterForm';
-import { registerAccount } from '../authActions';
+import { registerAccount } from '../authSlice';
 import history from '../../history';
 
 const RegisterSchema = Yup.object().shape({

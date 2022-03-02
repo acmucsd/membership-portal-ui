@@ -1,23 +1,8 @@
-import React, { MouseEventHandler } from 'react';
-import { connect } from 'react-redux';
-
+import React from 'react';
 import NavDropdown from '../components/NavDropdown';
-import { logoutUser } from '../../auth/authActions';
 
-interface NavDropdownContainerProps {
-  logout: MouseEventHandler;
-}
-
-const NavDropdownContainer: React.FC<NavDropdownContainerProps> = (props) => {
-  const { logout } = props;
-
-  return <NavDropdown logout={logout} />;
+const NavDropdownContainer: React.FC = () => {
+  return <NavDropdown />;
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => {
-    dispatch(logoutUser());
-  },
-});
-
-export default connect(null, mapDispatchToProps)(NavDropdownContainer);
+export default NavDropdownContainer;

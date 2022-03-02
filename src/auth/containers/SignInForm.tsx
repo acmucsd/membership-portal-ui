@@ -1,10 +1,9 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
+import { connect } from 'react-redux';
 import * as Yup from 'yup';
-
-import SignInForm from '../components/SignInForm';
-import { loginUser } from '../authActions';
 import history from '../../history';
+import { loginUser } from '../authSlice';
+import SignInForm from '../components/SignInForm';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid Email').required('Required'),
