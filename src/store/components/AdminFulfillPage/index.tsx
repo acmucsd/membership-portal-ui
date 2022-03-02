@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import moment from 'moment';
 import { Modal } from 'antd';
-
-import { fulfillOrder, completePickupEvent } from '../../storeActions';
-import { OrderStatus, PublicOrderPickupEvent, PublicOrderForFulfillment } from '../../../types';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { useAppDispatch } from '../../../redux/store';
+import { OrderStatus, PublicOrderForFulfillment, PublicOrderPickupEvent } from '../../../types';
 import { notify, parseOrderStatus } from '../../../utils';
-
+import { completePickupEvent, fulfillOrder } from '../../storeSlice';
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
-
 import './style.less';
 
 interface AdminFulfillPageProps {
   pickupEvent?: PublicOrderPickupEvent | undefined;
   pickupEvents?: PublicOrderPickupEvent[] | undefined;
-  fulfillOrder: Function;
-  completePickupEvent: Function;
 }
 
 const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
@@ -30,14 +25,15 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setPickupEvent(pickupEventIn);
   }, [pickupEventIn]);
 
   const handleFinishPickup = () => {
-    props
-      .completePickupEvent(pickupEvent?.uuid)
+    dispatch(completePickupEvent(pickupEvent?.uuid ?? ''))
+      .unwrap()
       .then(() => {
         setShowModal(false);
         notify('Success!', 'Pickup Event is Over');
@@ -55,7 +51,7 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         <StoreHeader breadcrumb breadcrumbLocation="/store/admin" />
         <div className="admin-fulfill-page">
           <div className="admin-fulfill-page-left">
-            <p className="admin-fulfill-page-title">Fufill Orders</p>
+            <p className="admin-fulfill-page-title">Fulfill Orders</p>
             <p className="admin-fulfill-page-hint">Select a pickup event to begin fulfillment for:</p>
             <StoreDropdown
               placeholder="Select a pickup event..."
@@ -110,11 +106,13 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         <StoreButton
           text="Save"
           onClick={() => {
-            props
-              .fulfillOrder(
-                selectedOrder.uuid,
-                selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
-              )
+            dispatch(
+              fulfillOrder({
+                uuid: selectedOrder.uuid,
+                items: selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes ?? '' })),
+              }),
+            )
+              .unwrap()
               .then((newOrder) => {
                 setPickupEvent({
                   ...pickupEvent,
@@ -188,4 +186,4 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   );
 };
 
-export default connect(null, { fulfillOrder, completePickupEvent })(AdminFulfillPage);
+export default AdminFulfillPage;

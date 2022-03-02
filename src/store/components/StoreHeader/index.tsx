@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import BreadcrumbArrow from '../../../assets/icons/breadcrumb-arrow.svg';
 import CartIcon from '../../../assets/icons/cart-icon.svg';
-
+import { authSelector } from '../../../auth/authSlice';
 import DiamondDisplay from '../DiamondDisplay';
-
 import './style.less';
 
 interface StoreHeaderProps {
@@ -16,11 +14,13 @@ interface StoreHeaderProps {
   showBalance?: boolean;
   showCart?: boolean;
   title?: string;
-  credits: number;
 }
 
 const StoreHeader: React.FC<StoreHeaderProps> = (props) => {
-  const { breadcrumb, breadcrumbTitle, breadcrumbLocation, showBalance, showCart, title = 'Diamond Outfitters', credits } = props;
+  const { breadcrumb, breadcrumbTitle, breadcrumbLocation, showBalance, showCart, title = 'Diamond Outfitters' } = props;
+  const {
+    profile: { credits },
+  } = useSelector(authSelector);
 
   return (
     <div className="store-header">
@@ -51,8 +51,4 @@ const StoreHeader: React.FC<StoreHeaderProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  credits: state.auth.profile.credits,
-});
-
-export default connect(mapStateToProps)(StoreHeader);
+export default StoreHeader;

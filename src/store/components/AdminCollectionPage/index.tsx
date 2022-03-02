@@ -1,18 +1,15 @@
-import React from 'react';
 import { Formik } from 'formik';
+import React from 'react';
 import * as Yup from 'yup';
-
 import Config from '../../../config';
 import history from '../../../history';
 import { PublicMerchCollection } from '../../../types';
 import { fetchService, notify } from '../../../utils';
-
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
 import StoreColorInput from '../StoreColorInput';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
-
 import './style.less';
 
 interface AdminCollectionPageProps {

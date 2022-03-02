@@ -1,9 +1,6 @@
 import React from 'react';
-
 import { PublicMerchCollection } from '../../../types';
-
 import StoreHeader from '../StoreHeader';
-
 import './style.less';
 
 interface AdminQuantitiesPageProps {

@@ -1,22 +1,26 @@
-import { logoutUser } from '../auth/authActions';
 import Config from '../config';
-import { MerchItemOptionMetadata } from '../types';
+import {
+  MerchItemOptionMetadata,
+  PublicMerchCollection,
+  PublicMerchItemWithPurchaseLimits,
+  PublicOrder,
+  PublicOrderPickupEvent,
+  PublicOrderWithItems,
+  Uuid,
+} from '../types';
 import { fetchService } from '../utils';
 
-// COLLECTIONS
+const collectionURL = (uuid: string = '') => `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
 
-export const fetchCollection = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchCollection = (uuid: string) =>
+  new Promise<PublicMerchCollection>(async (resolve, reject) => {
+    if (!uuid) {
+      reject(new Error('fetchCollection: Missing required uuid in request.'));
+      return;
+    }
     try {
-      if (!uuid) {
-        reject(new Error('fetchCollection: Missing required uuid in request.'));
-        return;
-      }
-
-      const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
-      const data = await fetchService(url, 'GET', 'json', {
+      const data = await fetchService(collectionURL(uuid), 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.collection);
@@ -24,58 +28,49 @@ export const fetchCollection = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const fetchCollections = () => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchCollections = () =>
+  new Promise<PublicMerchCollection[]>(async (resolve, reject) => {
     try {
-      const url = `${Config.API_URL}${Config.routes.store.collection}`;
-      const data = await fetchService(url, 'GET', 'json', {
+      const data = await fetchService(collectionURL(), 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
+
       resolve(data.collections);
     } catch (error) {
       reject(error);
     }
   });
-};
 
-export const deleteCollection = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const deleteCollection = (uuid: string) =>
+  new Promise(async (resolve, reject) => {
+    if (!uuid) {
+      reject(new Error('deleteCollection: Missing required uuid in request.'));
+      return;
+    }
+
     try {
-      if (!uuid) {
-        reject(new Error('deleteCollection: Missing required uuid in request.'));
-        return;
-      }
-
-      const url = `${Config.API_URL}${Config.routes.store.collection}/${uuid}`;
-      const data = await fetchService(url, 'DELETE', 'json', {
+      const data = await fetchService(collectionURL(uuid), 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
-
       resolve(data.collection);
     } catch (error) {
       reject(error);
     }
   });
-};
 
-// ITEMS
+const itemURL = (uuid: string = '') => `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
 
-export const fetchItem = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchItem = (uuid: string) =>
+  new Promise<PublicMerchItemWithPurchaseLimits>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('fetchItem: Missing required uuid in request.'));
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
-      const data = await fetchService(url, 'GET', 'json', {
+      const data = await fetchService(itemURL(uuid), 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.item);
@@ -83,20 +78,17 @@ export const fetchItem = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const deleteItem = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const deleteItem = (uuid: string) =>
+  new Promise(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('deleteItem: Missing required uuid in request.'));
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.item}/${uuid}`;
-      const data = await fetchService(url, 'DELETE', 'json', {
+      const data = await fetchService(itemURL(uuid), 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.item);
@@ -104,20 +96,32 @@ export const deleteItem = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
 // ITEM OPTIONS
+const optionURL = (uuid: string = '') => `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
 
-export const createItemOption = (
-  uuid: string,
+interface Option {
+  uuid?: Uuid;
+  value: string;
+  price: string;
+  quantity: string;
+  quantityToAdd: string;
+  discountPercentage: string;
+  metadata?: MerchItemOptionMetadata;
+}
+export const createItemOption = ({
+  uuid,
+  option,
+}: {
+  uuid: string;
   option: {
     quantity: number;
     price: number;
     discountPercentage?: number;
     metadata?: MerchItemOptionMetadata;
-  },
-) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+  };
+}) =>
+  new Promise<Option>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('createItemOption: Missing required uuid in request.'));
@@ -129,10 +133,8 @@ export const createItemOption = (
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
-      const data = await fetchService(url, 'POST', 'json', {
+      const data = await fetchService(optionURL(uuid), 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ option }),
       });
 
@@ -141,20 +143,17 @@ export const createItemOption = (
       reject(error);
     }
   });
-};
 
-export const deleteItemOption = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const deleteItemOption = (uuid: string) =>
+  new Promise<void>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('deleteItemOption: Missing required uuid in request.'));
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.option}/${uuid}`;
-      await fetchService(url, 'DELETE', 'json', {
+      await fetchService(optionURL(uuid), 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -162,17 +161,15 @@ export const deleteItemOption = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
 // ORDERS
+const orderURL = (uuid: string = '') => `${Config.API_URL}${Config.routes.store.orders}/${uuid}`;
 
-export const fetchOrders = () => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchOrders = () =>
+  new Promise<PublicOrder[]>(async (resolve, reject) => {
     try {
-      const url = `${Config.API_URL}${Config.routes.store.orders}`;
-      const data = await fetchService(url, 'GET', 'json', {
+      const data = await fetchService(orderURL(), 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.orders);
@@ -180,20 +177,17 @@ export const fetchOrders = () => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const fetchOrder = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchOrder = (uuid: string) =>
+  new Promise<PublicOrderWithItems>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('fetchItem: Missing required uuid in request.'));
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}`;
-      const data = await fetchService(url, 'GET', 'json', {
+      const data = await fetchService(orderURL(uuid), 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.order);
@@ -201,10 +195,9 @@ export const fetchOrder = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string }[]) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fulfillOrder = ({ uuid, items }: { uuid: string; items: { uuid: string; notes: string }[] }) =>
+  new Promise<PublicOrderWithItems>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('fetchItem: Missing required uuid in request.'));
@@ -216,10 +209,9 @@ export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string 
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/fulfill`;
+      const url = `${orderURL(uuid)}/fulfill`;
       const data = await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ items }),
       });
 
@@ -228,10 +220,9 @@ export const fulfillOrder = (uuid: string, items: { uuid: string; notes: string 
       reject(error);
     }
   });
-};
 
-export const rescheduleOrder = (uuid: string, pickupEvent: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const rescheduleOrder = (uuid: string, pickupEvent: string) =>
+  new Promise<void>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('fetchItem: Missing required uuid in request.'));
@@ -243,10 +234,9 @@ export const rescheduleOrder = (uuid: string, pickupEvent: string) => async (dis
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/reschedule`;
+      const url = `${orderURL(uuid)}/reschedule`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
         payload: JSON.stringify({ pickupEvent }),
       });
 
@@ -255,20 +245,18 @@ export const rescheduleOrder = (uuid: string, pickupEvent: string) => async (dis
       reject(error);
     }
   });
-};
 
-export const cancelOrder = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const cancelOrder = (uuid: string) =>
+  new Promise<void>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('fetchItem: Missing required uuid in request.'));
         return;
       }
 
-      const url = `${Config.API_URL}${Config.routes.store.order}/${uuid}/cancel`;
+      const url = `${orderURL(uuid)}/cancel`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -276,15 +264,13 @@ export const cancelOrder = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const cancelAllOrders = () => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const cancelAllOrders = () =>
+  new Promise<void>(async (resolve, reject) => {
     try {
-      const url = `${Config.API_URL}${Config.routes.store.order}/cleanup`;
+      const url = `${orderURL()}cleanup`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -292,12 +278,11 @@ export const cancelAllOrders = () => async (dispatch) => {
       reject(error);
     }
   });
-};
 
 // PICKUP EVENTS
 
-export const fetchPickupEvent = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchPickupEvent = (uuid: string) =>
+  new Promise<PublicOrderPickupEvent>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('fetchPickupEvent: Missing required uuid in request.'));
@@ -307,7 +292,6 @@ export const fetchPickupEvent = (uuid: string) => async (dispatch) => {
       const url = `${Config.API_URL}${Config.routes.store.pickup.single}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.pickupEvent);
@@ -315,15 +299,13 @@ export const fetchPickupEvent = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const fetchPastPickupEvents = () => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchPastPickupEvents = () =>
+  new Promise(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.past}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.pickupEvents);
@@ -331,15 +313,13 @@ export const fetchPastPickupEvents = () => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const fetchFuturePickupEvents = () => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const fetchFuturePickupEvents = () =>
+  new Promise<PublicOrderPickupEvent[]>(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.future}`;
       const data = await fetchService(url, 'GET', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve(data.pickupEvents);
@@ -347,10 +327,9 @@ export const fetchFuturePickupEvents = () => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const completePickupEvent = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const completePickupEvent = (uuid: string) =>
+  new Promise<void>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('completePickupEvent: Missing required uuid in request.'));
@@ -360,7 +339,6 @@ export const completePickupEvent = (uuid: string) => async (dispatch) => {
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}/complete`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -368,10 +346,9 @@ export const completePickupEvent = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const deletePickupEvent = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const deletePickupEvent = (uuid: string) =>
+  new Promise<void>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('deletePickupEvent: Missing required uuid in request.'));
@@ -381,7 +358,6 @@ export const deletePickupEvent = (uuid: string) => async (dispatch) => {
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}`;
       await fetchService(url, 'DELETE', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -389,10 +365,9 @@ export const deletePickupEvent = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};
 
-export const cancelPickupEvent = (uuid: string) => async (dispatch) => {
-  return new Promise(async (resolve, reject) => {
+export const cancelPickupEvent = (uuid: string) =>
+  new Promise<void>(async (resolve, reject) => {
     try {
       if (!uuid) {
         reject(new Error('deletePickupEvent: Missing required uuid in request.'));
@@ -402,7 +377,6 @@ export const cancelPickupEvent = (uuid: string) => async (dispatch) => {
       const url = `${Config.API_URL}${Config.routes.store.order}/pickup/${uuid}/cancel`;
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
-        onFailCallback: () => dispatch(logoutUser()),
       });
 
       resolve();
@@ -410,4 +384,3 @@ export const cancelPickupEvent = (uuid: string) => async (dispatch) => {
       reject(error);
     }
   });
-};

@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Button, Select, Table, Typography } from 'antd';
-
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../../redux/store';
 import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
 import { toProperCase } from '../../../utils';
 import { addToCart, editInCart, removeFromCart } from '../../storeSlice';
-
-import './style.less';
 import DiamondDisplay from '../DiamondDisplay';
 import StoreDropdown from '../StoreDropdown';
+import './style.less';
 
 const { Option } = Select;
 
@@ -27,7 +25,7 @@ type CartItemProps = {
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
   const [currentOptionValue, setVariant] = useState(item.option?.metadata?.value);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const renderTitle = () => (
     <Typography.Title className="item-name" level={4}>
@@ -125,12 +123,11 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
 };
 
 type CartDisplayProps = {
-  writable?: boolean;
+  writable: boolean;
   items: CartItem[];
 };
-const CartDisplay: React.FC<CartDisplayProps> = (props) => {
-  const { writable = true, items } = props;
-  const dispatch = useDispatch();
+const CartDisplay: React.FC<CartDisplayProps> = ({ writable, items }) => {
+  const dispatch = useAppDispatch();
 
   const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">
