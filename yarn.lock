@@ -13406,11 +13406,6 @@ yargs@^13.3.0:
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
 
-yarn@^1.22.17:
-  version "1.22.17"
-  resolved "https://registry.npmjs.org/yarn/-/yarn-1.22.17.tgz"
-  integrity sha512-H0p241BXaH0UN9IeH//RT82tl5PfNraVpSpEoW+ET7lmopNC61eZ+A+IDvU8FM6Go5vx162SncDL8J1ZjRBriQ==
-
 yup@^0.29.3:
   version "0.29.3"
   resolved "https://registry.npmjs.org/yup/-/yup-0.29.3.tgz"
