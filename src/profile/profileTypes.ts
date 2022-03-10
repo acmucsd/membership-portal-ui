@@ -1,2 +1,0 @@
-export const PROFILE_FAIL = 'PROFILE_FAIL';
-export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
