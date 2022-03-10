@@ -1,18 +1,17 @@
+import { withFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withFormik } from 'formik';
-
-import AddAttendanceForm from '../components/AddAttendanceForm';
-import { addAttendance, getAllEmails as getAllEmailsConnect } from '../adminActions';
 import { fetchPastEvents as fetchPastEventsConnect } from '../../event/eventActions';
+import { addAttendance, getEmails } from '../adminSlice';
+import AddAttendanceForm from '../components/AddAttendanceForm';
 
 const AddAttendanceFormContainer = (props) => {
-  const { fetchPastEventsConnect, getAllEmailsConnect } = props; // eslint-disable-line no-shadow
+  const { fetchPastEventsConnect, getEmails } = props; // eslint-disable-line no-shadow
 
   useEffect(() => {
-    getAllEmailsConnect();
+    getEmails();
     fetchPastEventsConnect();
-  }, [fetchPastEventsConnect, getAllEmailsConnect]);
+  }, [fetchPastEventsConnect, getEmails]);
 
   const FormikAddAttendanceForm = withFormik({
     mapPropsToValues() {
@@ -46,4 +45,4 @@ const mapStateToProps = (state: { [key: string]: any }) => ({
   pastEvents: state.event.pastEvents,
 });
 
-export default connect(mapStateToProps, { addAttendance, getAllEmailsConnect, fetchPastEventsConnect })(AddAttendanceFormContainer);
+export default connect(mapStateToProps, { addAttendance, getEmails, fetchPastEventsConnect })(AddAttendanceFormContainer);

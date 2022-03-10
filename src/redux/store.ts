@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import AdminReducer from '../admin/adminReducer';
+import adminSlice from '../admin/adminSlice';
+import authSlice from '../auth/authSlice';
 import EventReducer from '../event/eventReducer';
 import LeaderboardReducer from '../leaderboard/leaderboardReducer';
 import ProfileReducer from '../profile/profileReducer';
-import authSlice from '../auth/authSlice';
 import storeSlice, { subscriber as storeSubscriber } from '../store/storeSlice';
 
 export const store = configureStore({
   reducer: {
     store: storeSlice,
-    admin: AdminReducer,
+    admin: adminSlice,
     auth: authSlice,
     event: EventReducer,
     leaderboard: LeaderboardReducer,
