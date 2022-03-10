@@ -27,6 +27,7 @@ const initialState = {
   registerSuccess: false,
   register,
   profile: {
+    uuid: '',
     firstName: '',
     lastName: '',
     credits: 0,
@@ -231,6 +232,10 @@ export const fetchUser = createAsyncThunk<void, { uuid: string } | undefined>('a
   }
 });
 
+/**
+ * Converts an async function into a thunk that logs out the user when an error
+ * occurs
+ */
 type AsyncFunction = (...args: any) => Promise<any>;
 export const withLogout = <T extends AsyncFunction>(fn: T, type: string) =>
   createAsyncThunk<Awaited<ReturnType<T>>, Parameters<T>[0]>(type, async (args, { dispatch }) => {
