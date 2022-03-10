@@ -1,8 +1,8 @@
-import React from 'react';
 import { Avatar } from 'antd';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './style.less';
 import { getRank } from '../../../utils';
+import './style.less';
 
 interface TopLeaderCardProps {
   exp: number;
@@ -10,7 +10,6 @@ interface TopLeaderCardProps {
   image: string;
   placement: number;
   uuid: string;
-  rank: number;
   selfUUID: string;
 }
 

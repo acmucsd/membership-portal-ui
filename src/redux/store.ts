@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import adminSlice from '../admin/adminSlice';
 import authSlice from '../auth/authSlice';
 import EventReducer from '../event/eventReducer';
-import LeaderboardReducer from '../leaderboard/leaderboardReducer';
-import ProfileReducer from '../profile/profileReducer';
+import leaderboardSlice from '../leaderboard/leaderboardSlice';
+import profileSlice from '../profile/profileSlice';
 import storeSlice, { subscriber as storeSubscriber } from '../store/storeSlice';
 
 export const store = configureStore({
@@ -13,8 +13,8 @@ export const store = configureStore({
     admin: adminSlice,
     auth: authSlice,
     event: EventReducer,
-    leaderboard: LeaderboardReducer,
-    profile: ProfileReducer,
+    leaderboard: leaderboardSlice,
+    profile: profileSlice,
   },
 });
 
