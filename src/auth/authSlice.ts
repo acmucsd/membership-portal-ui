@@ -62,7 +62,6 @@ const authSlice = createSlice({
       if (payload.profilePicture == null) payload.profilePicture = defaultProfile;
 
       state.profile = payload;
-      console.log(payload);
     },
     passwordFail(state) {
       state.error = true;
