@@ -1,29 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { Button, notification } from 'antd';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { authSelector } from '../../auth/authSlice';
 import PageLayout from '../components/PageLayout';
 
 let notifiedAboutEmail = false;
 
-interface PageLayoutContainerProps {
-  isAdmin: boolean;
-  children: React.ReactChildren | React.ReactChild[] | React.ReactElement;
-  user: {
-    profile: {
-      state: string;
-    };
-  };
-}
-
-const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
-  const { isAdmin, children, user } = props;
-
+const PageLayoutContainer: React.FC = ({ children }) => {
+  const user = useSelector(authSelector);
   const history = useHistory();
+  const { isAdmin } = user;
 
   React.useEffect(() => {
     const key = `open${Date.now()}`;
-
     const btn = (
       <Button
         onClick={() => {
@@ -49,9 +39,4 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
   return <PageLayout isAdmin={isAdmin}>{children}</PageLayout>;
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  isAdmin: state.auth.admin,
-  user: state.auth,
-});
-
-export default connect(mapStateToProps)(PageLayoutContainer);
+export default PageLayoutContainer;

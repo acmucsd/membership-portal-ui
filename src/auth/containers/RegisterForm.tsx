@@ -1,10 +1,9 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
+import { connect } from 'react-redux';
 import * as Yup from 'yup';
-
-import RegisterForm from '../components/RegisterForm';
-import { registerAccount } from '../authSlice';
 import history from '../../history';
+import { registerAccount } from '../authSlice';
+import RegisterForm from '../components/RegisterForm';
 
 const RegisterSchema = Yup.object().shape({
   firstName: Yup.string().max(20, 'Too Long').required('Required'),

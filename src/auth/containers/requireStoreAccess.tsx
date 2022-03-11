@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import history from '../../history';
-import { notify } from '../../utils';
 import PageLayout from '../../layout/containers/PageLayout';
 import { UserState } from '../../types';
+import { notify } from '../../utils';
+import { authSelector } from '../authSlice';
 
-const withStoreAccess = (Component: React.FC) => (props: { [key: string]: any }) => {
-  const { state, redirectHome, email } = props;
+const redirectHome = () => {
+  notify('Store Requirement', 'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.');
+  history.replace('/');
+};
 
+const withStoreAccess = (Component: React.FC) => () => {
+  const {
+    profile: { email, state },
+  } = useSelector(authSelector);
   const [permitted, setPermitted] = useState(false);
 
   useEffect(() => {
@@ -20,7 +26,7 @@ const withStoreAccess = (Component: React.FC) => (props: { [key: string]: any })
         setPermitted(true);
       }
     }
-  }, [state, email, redirectHome]);
+  }, [email, state]);
 
   // TODO: Make redirecting screen and return that if not authenticated.
   if (permitted) {
@@ -34,18 +40,4 @@ const withStoreAccess = (Component: React.FC) => (props: { [key: string]: any })
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  state: state.auth.profile.state,
-  email: state.auth.profile.email,
-});
-
-const mapDispatchToProps = () => ({
-  redirectHome: () => {
-    notify('Store Requirement', 'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.');
-    history.replace('/');
-  },
-});
-
-const requireStoreAccess = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withStoreAccess);
-
-export default requireStoreAccess;
+export default withStoreAccess;

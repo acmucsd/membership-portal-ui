@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import CreateEventPage from '../components/CreateEventPage';
 import PageLayout from '../../layout/containers/PageLayout';
+import CreateEventPage from '../components/CreateEventPage';
 
 const CreateEventPageContainer: React.FC = () => {
   return (
@@ -12,4 +10,4 @@ const CreateEventPageContainer: React.FC = () => {
   );
 };
 
-export default connect(null, {})(CreateEventPageContainer);
+export default CreateEventPageContainer;
