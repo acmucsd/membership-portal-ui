@@ -37,6 +37,7 @@ const initialState = {
     major: '',
     bio: '',
     points: 0,
+    accountType: '',
   },
 };
 
@@ -243,7 +244,7 @@ export const withLogout = <T extends AsyncFunction>(fn: T, type: string) =>
       return await fn(args);
     } catch (err) {
       dispatch(logoutUser());
-      return Promise.reject(err);
+      throw err;
     }
   });
 
