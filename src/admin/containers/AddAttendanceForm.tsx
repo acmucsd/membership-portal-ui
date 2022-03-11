@@ -1,24 +1,27 @@
 import { withFormik } from 'formik';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { fetchPastEvents as fetchPastEventsConnect } from '../../event/eventActions';
-import { addAttendance, getEmails } from '../adminSlice';
+import { useSelector } from 'react-redux';
+import { eventSelector, fetchPastEvents } from '../../event/eventSlice';
+import { useAppDispatch } from '../../redux/store';
+import { addAttendance, adminSelector, getEmails } from '../adminSlice';
 import AddAttendanceForm from '../components/AddAttendanceForm';
 
-const AddAttendanceFormContainer = (props) => {
-  const { fetchPastEventsConnect, getEmails } = props; // eslint-disable-line no-shadow
+const AddAttendanceFormContainer = () => {
+  const { emails } = useSelector(adminSelector);
+  const { pastEvents } = useSelector(eventSelector);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getEmails();
-    fetchPastEventsConnect();
-  }, [fetchPastEventsConnect, getEmails]);
+    dispatch(getEmails());
+    dispatch(fetchPastEvents());
+  }, [dispatch]);
 
   const FormikAddAttendanceForm = withFormik({
     mapPropsToValues() {
       return {
         attendees: [],
-        emails: props.emails,
-        pastEvents: props.pastEvents,
+        emails,
+        pastEvents,
         event: '',
         staff: false,
       };
@@ -29,20 +32,10 @@ const AddAttendanceFormContainer = (props) => {
         event: values.event,
         asStaff: values.staff,
       };
-      props
-        .addAttendance(attendanceDetails)
-        .then(() => {
-          resetForm();
-        })
-        .catch(() => {});
+      dispatch(addAttendance(attendanceDetails)).unwrap().then(resetForm).catch();
     },
   })(AddAttendanceForm as any);
   return <FormikAddAttendanceForm />;
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  emails: state.admin.emails,
-  pastEvents: state.event.pastEvents,
-});
-
-export default connect(mapStateToProps, { addAttendance, getEmails, fetchPastEventsConnect })(AddAttendanceFormContainer);
+export default AddAttendanceFormContainer;
