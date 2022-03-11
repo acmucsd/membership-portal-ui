@@ -46,15 +46,22 @@ interface EditEventFormProps {
   };
 }
 
-const EditEventForm: React.FC<EditEventFormProps> = (props) => {
-  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values: eventData, errors } = props;
-
+const EditEventForm: React.FC<EditEventFormProps> = ({
+  event,
+  setFieldValue,
+  setFieldTouched,
+  handleBlur,
+  handleChange,
+  handleSubmit,
+  values: eventData,
+  deleteEvent,
+  errors,
+}) => {
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
 
   const handleDelete = () => {
-    props
-      .deleteEvent(props.values.uuid)
+    deleteEvent(eventData.uuid)
       .then(() => {
         history.push('/');
       })

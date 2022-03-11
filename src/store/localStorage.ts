@@ -17,6 +17,7 @@ export const saveCart = (cart: Cart) => {
     const serializedCart = JSON.stringify(cart);
     localStorage.setItem('cart', serializedCart);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
   }
 };

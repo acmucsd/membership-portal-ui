@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isEqual } from 'lodash';
 import { fetchUser, logoutUser, withLogout } from '../auth/authSlice';
@@ -5,8 +6,12 @@ import type { RootState } from '../redux/store';
 import * as utils from './utils';
 
 const initialState = {
-  attendance: [],
-  currentEvent: {},
+  attendance: [] as any[],
+  currentEvent: {
+    title: '',
+    pointValue: 0,
+    cover: '',
+  },
   event: {
     uuid: '',
     cover: '',
@@ -14,9 +19,10 @@ const initialState = {
     location: '',
     pointValue: '',
     title: '',
+    start: '',
   },
-  futureEvents: [],
-  pastEvents: [],
+  futureEvents: [] as any[],
+  pastEvents: [] as any[],
   checkin: false,
   error: null as any,
 };

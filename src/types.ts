@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * @file Type declarations for membership portal ui
  */
