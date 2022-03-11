@@ -4,7 +4,7 @@ import Config from '../config';
 import history from '../history';
 import type { RootState } from '../redux/store';
 import Storage from '../storage';
-import { UserAccessType } from '../types';
+import { UserAccessType, UserState } from '../types';
 import { fetchService, getDefaultProfile, getErrorMessage, notify } from '../utils';
 import * as utils from './utils';
 
@@ -30,6 +30,7 @@ const initialState = {
     uuid: '',
     firstName: '',
     lastName: '',
+    email: '',
     credits: 0,
     accessType: UserAccessType.STANDARD,
     profilePicture: defaultProfile,
@@ -38,6 +39,7 @@ const initialState = {
     bio: '',
     points: 0,
     accountType: '',
+    state: UserState.ACTIVE,
   },
 };
 
@@ -60,6 +62,7 @@ const authSlice = createSlice({
       if (payload.profilePicture == null) payload.profilePicture = defaultProfile;
 
       state.profile = payload;
+      console.log(payload);
     },
     passwordFail(state) {
       state.error = true;

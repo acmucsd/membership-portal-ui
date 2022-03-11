@@ -7,7 +7,14 @@ import * as utils from './utils';
 const initialState = {
   attendance: [],
   currentEvent: {},
-  event: {},
+  event: {
+    uuid: '',
+    cover: '',
+    description: '',
+    location: '',
+    pointValue: '',
+    title: '',
+  },
   futureEvents: [],
   pastEvents: [],
   checkin: false,
