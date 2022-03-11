@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { withLogout } from '../auth/authSlice';
+import type { RootState } from '../redux/store';
 import * as utils from './utils';
 
 const initialState = {
@@ -31,4 +32,5 @@ const awardPoints = withLogout(utils.awardPoints, 'admin/awardPoints');
 const addAttendance = withLogout(utils.addAttendance, 'admin/addAttendance');
 export { postEvent, editEvent, deleteEvent, awardPoints, addAttendance };
 
+export const adminSelector = (state: RootState) => state.admin;
 export default adminSlice.reducer;
