@@ -33,7 +33,7 @@ const ProfileCard: React.FC<ProfileCardProps> = (props) => {
           <h3>{rank}</h3>
           <Progress successPercent={exp % 100} percent={100} showInfo={false} strokeWidth={12} strokeColor="#587291" />
           <p>
-            <span> LVL {level}</span>
+            <span className="profile-card__level"> LVL {level}</span>
             <span className="experience"> {exp % 100} / 100 </span>
           </p>
         </div>
