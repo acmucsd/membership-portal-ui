@@ -103,7 +103,6 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
                   image={user.profilePicture}
                   name={`${user.firstName} ${user.lastName}`}
                   placement={index + 1}
-                  rank={parseInt(user.rank, 10)}
                   uuid={user.uuid}
                   selfUUID={selfUUID}
                 />
@@ -117,7 +116,6 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
                   image={user.profilePicture}
                   name={`${user.firstName} ${user.lastName}`}
                   placement={index + 4}
-                  rank={parseInt(user.rank, 10)}
                   uuid={user.uuid}
                   selfUUID={selfUUID}
                 />
