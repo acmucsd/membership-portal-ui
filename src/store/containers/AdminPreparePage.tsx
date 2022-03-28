@@ -17,14 +17,14 @@ interface AdminPreparePageContainerProps {
 const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
+  const { fetchPickupEvent: fetchPickupEventFunction, fetchFuturePickupEvents: fetchFuturePickupEventsFunction } = props;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
 
   useEffect(() => {
     if (uuid) {
-      props
-        .fetchPickupEvent(uuid)
+      fetchPickupEventFunction(uuid)
         .then((value) => {
           setPickupEvent(value);
         })
@@ -32,8 +32,7 @@ const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (pro
           notify('API Error', reason.message || reason);
         });
     } else {
-      props
-        .fetchFuturePickupEvents()
+      fetchFuturePickupEventsFunction()
         .then((value) => {
           setPickupEvents(value);
         })

@@ -21,7 +21,6 @@
     }
 
     .form-item {
-      
       .form-input {
         border-bottom: 1px solid var(--theme-text-on-background-1);
         display: flex;
@@ -34,30 +33,30 @@
           flex-shrink: 0;
           justify-content: center;
           width: 40px;
+
           .icon {
             color: var(--theme-text-on-background-1);
           }
         }
 
         .input-box {
+          background-color: var(--theme-background);
           border: none;
+          color: var(--theme-text-on-background-1);
           flex-grow: 1;
           font-size: 16px;
-          background-color: var(--theme-background);
-          color: var(--theme-text-on-background-1);
         }
 
         &.major {
-          
           .input-box {
             width: 80px;
           }
 
           .ant-select-selection {
-            border: none;
-            height: 27px;
             background-color: var(--theme-background);
+            border: none;
             color: var(--theme-text-on-background-1);
+            height: 27px;
 
             .ant-select-selection__rendered {
               margin-left: 0;
@@ -73,10 +72,10 @@
           }
 
           .ant-select-selection {
-            border: none;
-            height: 27px;
             background-color: var(--theme-background);
+            border: none;
             color: var(--theme-text-on-background-1);
+            height: 27px;
 
             .ant-select-selection__rendered {
               margin-left: 0;

@@ -17,14 +17,13 @@ interface AdminCollectionPageContainerProps {
 const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
-  const { deleteCollection } = props;
+  const { deleteCollection, fetchCollection: fetchCollectionFunction } = props;
 
   const [collection, setCollection] = useState<PublicMerchCollection>();
 
   useEffect(() => {
     if (uuid) {
-      props
-        .fetchCollection(uuid)
+      fetchCollectionFunction(uuid)
         .then((value) => {
           setCollection(value);
         })

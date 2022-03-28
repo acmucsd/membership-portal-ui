@@ -135,7 +135,6 @@ const App = () => {
         </ThemeProvider>
       </Provider>
     </div>
-
   );
 };
 

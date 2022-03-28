@@ -11,7 +11,6 @@ interface LeaderListItemProps {
   name: string;
   placement: number;
   uuid: string;
-  rank: number;
   selfUUID: string;
 }
 

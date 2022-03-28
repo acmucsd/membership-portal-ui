@@ -6,7 +6,6 @@ import './style.less';
 
 interface NavTileItemProps {
   icon: React.ComponentClass | React.FC;
-  text: string;
 }
 
 const NavTileItem: React.FC<NavTileItemProps> = (props) => {

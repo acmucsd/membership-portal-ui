@@ -13,11 +13,12 @@ interface AdminQuantitiesPageContainerProps {
 }
 
 const AdminQuantitiesPageContainer: React.FC<AdminQuantitiesPageContainerProps> = (props) => {
+  const { fetchCollections: fetchCollectionsFunction } = props;
+
   const [collections, setCollections] = useState<PublicMerchCollection[]>();
 
   useEffect(() => {
-    props
-      .fetchCollections()
+    fetchCollectionsFunction()
       .then((value) => {
         setCollections(value);
       })

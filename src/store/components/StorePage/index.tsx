@@ -19,13 +19,12 @@ interface StorePageProps {
 }
 
 const StorePage: React.FC<StorePageProps> = (props) => {
-  const { canManageStore } = props;
+  const { canManageStore, fetchCollections: fetchCollectionsFunction } = props;
 
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
   useEffect(() => {
-    props
-      .fetchCollections()
+    fetchCollectionsFunction()
       .then((value) => {
         setCollections(value);
       })
