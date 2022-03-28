@@ -31,6 +31,7 @@ interface UpcomingEventsContainerProps {
       cover: string;
       description: string;
       location: string;
+      eventLink: string | null;
       pointValue: string;
       title: string;
       start: string;
@@ -66,6 +67,7 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
               date={date}
               description={event.description}
               location={event.location}
+              eventLink={event.eventLink}
               points={event.pointValue}
               title={event.title}
               canEditEvents={canEditEvents}
