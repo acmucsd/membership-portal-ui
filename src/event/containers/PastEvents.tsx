@@ -134,6 +134,7 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
               date={startTime}
               description={event.description}
               location={event.location}
+              eventLink={event.eventLink}
               points={event.pointValue}
               title={event.title}
               canEditEvents={canEditEvents}
