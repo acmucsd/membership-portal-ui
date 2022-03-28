@@ -23,6 +23,7 @@ interface CreateEventFormProps {
     title: string;
     committee: string;
     location: string;
+    eventLink: string | null;
     pointValue: string;
     startDate: moment.Moment;
     startTime: moment.Moment;
@@ -36,6 +37,7 @@ interface CreateEventFormProps {
     title: string | null;
     committee: string | null;
     location: string | null;
+    eventLink: string | null;
     pointValue: string | null;
     startDate: string | null;
     startTime: string | null;
@@ -92,6 +94,10 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
               <p className="form-error">{errors.pointValue ? errors.pointValue : null}</p>
             </Form.Item>
           </div>
+          <Form.Item label="Facebook Event Link (Optional)">
+            <Input name="eventLink" className="eventLink" value={values.eventLink || ''} onChange={handleChange} onBlur={handleBlur} />
+            <p className="form-error">{errors.eventLink ? errors.eventLink : null}</p>
+          </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
               <DatePicker className="date" value={values.startDate} onChange={(date) => setFieldValue('startDate', date)} />

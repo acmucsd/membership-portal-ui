@@ -13,6 +13,7 @@ interface EditEventPageContainerProps {
     cover: string;
     description: string;
     location: string;
+    eventLink?: string;
     pointValue: string;
     title: string;
   };
