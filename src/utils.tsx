@@ -59,7 +59,7 @@ export const formatDate = (time: string): string => {
   const parsedTime = Date.parse(time);
   const parsedDate = new Date(parsedTime);
   return parsedDate.toLocaleDateString('en-US', {
-    month: 'long',
+    month: 'short',
     day: 'numeric',
   });
 };
@@ -75,8 +75,8 @@ export const formatDate = (time: string): string => {
 export const formatTime = (time: string | number | Date): string => {
   const parsedTime = new Date(time);
   return parsedTime.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
     hour12: true,
   });
 };

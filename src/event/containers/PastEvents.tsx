@@ -125,13 +125,15 @@ const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
       <EventsList>
         {shownEvents.map((event) => {
           const startTime = formatDate(event.start);
+          const endTime = formatDate(event.end);
+          const date = startTime === endTime ? startTime : `${startTime} - ${endTime}`;
           const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
           return (
             <EventCard
               key={`past-${event.uuid}`}
               uuid={event.uuid}
               cover={event.cover || background}
-              date={startTime}
+              date={date}
               description={event.description}
               location={event.location}
               eventLink={event.eventLink}
