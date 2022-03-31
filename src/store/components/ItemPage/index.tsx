@@ -19,7 +19,7 @@ interface ItemPageProps {
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
-  const { item } = props;
+  const { item, addToCart: addToCartFunction } = props;
 
   const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
@@ -100,9 +100,9 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit}
               onClick={() => {
                 if (hasVariantsEnabled) {
-                  props.addToCart({ item, option: currentOption, quantity: currentQuantity });
+                  addToCartFunction({ item, option: currentOption, quantity: currentQuantity });
                 } else {
-                  props.addToCart({ item, option: item.options[0], quantity: currentQuantity });
+                  addToCartFunction({ item, option: item.options[0], quantity: currentQuantity });
                 }
                 setConfirmation(true);
               }}

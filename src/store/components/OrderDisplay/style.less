@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .order-display {
-  border: 2px solid #c4c4c4;
+  border: 2px solid var(--theme-accent-line-2);
   border-radius: 0.75rem;
   margin-bottom: 1rem;
   width: fit-content;
@@ -13,7 +13,7 @@
       background: transparent;
 
       .ant-table-column-title {
-        color: #333;
+        color: var(--theme-text-on-background-1);
         font-size: 1.125rem;
       }
     }
@@ -37,7 +37,7 @@
     }
 
     .image-container {
-      border: 1px solid rgba(0, 0, 0, 10%);
+      border: 1px solid var(--theme-accent-line-2-transparent);
       border-radius: 0.625rem;
       height: 10rem;
       padding: 1rem;
@@ -52,6 +52,7 @@
 
     .order-item {
       .item-name {
+        color: var(--theme-text-on-background-1);
         font-size: 1.5rem;
         font-weight: 400;
         margin-bottom: 0;
@@ -62,19 +63,20 @@
         margin-bottom: 1rem;
 
         .item-option-label {
-          color: #333;
+          color: var(--theme-text-on-background-1);
           font-size: 1.25rem;
           font-weight: 500;
         }
 
         .item-option {
+          color: var(--theme-text-on-background-2);
           font-size: 1.25rem;
           font-weight: 400;
         }
       }
 
       .item-button {
-        color: #777;
+        color: var(--theme-text-on-background-2);
         font-size: 1rem;
         padding: 0;
 
@@ -89,7 +91,7 @@
     }
 
     .item-quantity {
-      color: #333;
+      color: var(--theme-text-on-background-1);
       font-size: 1.125rem;
       text-align: center;
     }
@@ -102,7 +104,7 @@
     width: 100%;
 
     &-text {
-      color: #333;
+      color: var(--theme-text-on-background-1);
       font-size: 1.5rem;
       margin-right: 1.25rem;
     }

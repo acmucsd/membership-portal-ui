@@ -11,6 +11,7 @@ interface PasswordPageProps {
 
 const PasswordPage: React.FC<PasswordPageProps> = (props) => {
   const [value, setValue] = useState('');
+  const { passwordReset: passwordResetFunction } = props;
 
   const handleChange: ChangeEventHandler = (event) => {
     setValue((event.target as any).value);
@@ -20,14 +21,14 @@ const PasswordPage: React.FC<PasswordPageProps> = (props) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setValue('');
-      props.passwordReset(value);
+      passwordResetFunction(value);
     }
   };
 
   const handleClick: FormEventHandler = (event) => {
     event.preventDefault();
     setValue('');
-    props.passwordReset(value);
+    passwordResetFunction(value);
   };
 
   return (

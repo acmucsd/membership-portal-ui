@@ -5,7 +5,6 @@
   padding-top: 64px;
 
   .title {
-    color: @black;
     font-size: 48px;
     font-weight: 500;
     margin: 24px 0;
@@ -23,7 +22,7 @@
 
     .form-item {
       .form-input {
-        border-bottom: 1px solid @black;
+        border-bottom: 1px solid var(--theme-text-on-background-1);
         display: flex;
         height: 28px;
         width: 300px;
@@ -34,10 +33,16 @@
           flex-shrink: 0;
           justify-content: center;
           width: 40px;
+
+          .icon {
+            color: var(--theme-text-on-background-1);
+          }
         }
 
         .input-box {
+          background-color: var(--theme-background);
           border: none;
+          color: var(--theme-text-on-background-1);
           flex-grow: 1;
           font-size: 16px;
         }
@@ -48,7 +53,9 @@
           }
 
           .ant-select-selection {
+            background-color: var(--theme-background);
             border: none;
+            color: var(--theme-text-on-background-1);
             height: 27px;
 
             .ant-select-selection__rendered {
@@ -65,7 +72,9 @@
           }
 
           .ant-select-selection {
+            background-color: var(--theme-background);
             border: none;
+            color: var(--theme-text-on-background-1);
             height: 27px;
 
             .ant-select-selection__rendered {
@@ -76,7 +85,7 @@
       }
 
       .form-error {
-        color: #f66;
+        color: var(--theme-danger-1);
         height: 20px;
       }
     }
@@ -84,10 +93,10 @@
     .sign-up {
       .button-hover();
 
-      background-color: #62b0ff;
+      background-color: var(--theme-primary-2);
       border: none;
       border-radius: 100px;
-      color: white;
+      color: var(--theme-background);
       font-size: 20px;
       font-weight: 700;
       height: 40px;
@@ -96,7 +105,7 @@
     }
 
     .login {
-      color: @black;
+      color: var(--theme-text-on-background-1);
       font-size: 16px;
       margin-bottom: 25px;
       margin-top: -5px;

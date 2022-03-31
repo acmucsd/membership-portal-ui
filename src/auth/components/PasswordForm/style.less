@@ -5,7 +5,6 @@
   padding-top: 64px;
 
   .title {
-    color: @black;
     font-size: 48px;
     font-weight: 500;
     margin: 24px 0;
@@ -21,14 +20,17 @@
     position: relative;
 
     .icon {
+      color: var(--theme-text-on-background-1);
       left: 8px;
       position: absolute;
       top: 6.5px;
     }
 
     .input-box {
+      background-color: var(--theme-background);
       border: none;
-      border-bottom: 1px solid @black;
+      border-bottom: 1px solid var(--theme-text-on-background-1);
+      color: var(--theme-text-on-background-1);
       font-size: 16px;
       height: 28px;
       margin-bottom: 20px;
@@ -40,7 +42,7 @@
   .submit {
     .button-hover();
 
-    background-color: #62b0ff;
+    background-color: var(--theme-primary-2);
     border: none;
     border-radius: 100px;
     color: white;

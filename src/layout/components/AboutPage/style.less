@@ -1,6 +1,8 @@
 @import "../../../styles/vars.less";
 
 .about-page {
+  background-color: var(--theme-background);
+  color: var(--theme-text-on-background-1);
   font-size: @general-body;
 
   .description {
@@ -13,6 +15,7 @@
     display: flex;
 
     h1 {
+      color: var(--theme-text-on-background-1);
       font-size: @general-heading-1;
       margin: 0 0 0 20px;
     }
@@ -20,12 +23,12 @@
 
   .socials {
     a {
-      color: @black;
+      color: var(--theme-text-on-background-1);
       display: block;
       margin-bottom: 10px;
 
       &:hover {
-        color: @blue-1;
+        color: var(--theme-primary-4);
       }
 
       .icon {

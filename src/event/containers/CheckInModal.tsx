@@ -21,8 +21,10 @@ const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
 
   const fullMessage = `Thanks for checking in! You earned ${currentEvent.pointValue} points.`;
 
+  const { checkOut: checkOutFunction } = props;
+
   const hideMessage = () => {
-    props.checkOut();
+    checkOutFunction();
   };
 
   return (

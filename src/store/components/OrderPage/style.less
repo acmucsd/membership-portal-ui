@@ -1,3 +1,5 @@
+@import "../../../styles/vars.less";
+
 .order-page {
   display: flex;
   flex-direction: column;
@@ -21,13 +23,13 @@
     display: flex;
 
     &-button {
-      color: #777;
+      color: var(--theme-text-on-background-2);
       font-size: 1rem;
       padding: 0;
       transition: color 0.3s;
 
       &:hover {
-        color: #62b0ff;
+        color: var(--theme-primary-2);
       }
 
       span {

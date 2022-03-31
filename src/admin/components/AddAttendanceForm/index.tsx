@@ -1,4 +1,4 @@
-import React, { useState, ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
+import React, { useState, FormEventHandler } from 'react';
 import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 
@@ -7,8 +7,6 @@ import './style.less';
 const { Option } = AutoComplete;
 
 interface AddAttendanceFormProps {
-  handleBlur: FocusEventHandler;
-  handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
   isSubmitting: boolean;
   isValidating: boolean;

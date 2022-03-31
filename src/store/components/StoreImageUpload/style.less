@@ -1,10 +1,12 @@
+@import "../../../styles/vars.less";
+
 .store-image-upload {
   display: flex;
   flex-direction: column;
 
   &-image-container {
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 10%);
+    background-color: var(--theme-background);
+    border: 1px solid var(--theme-accent-line-2-transparent);
     border-radius: 0.625rem;
     box-sizing: border-box;
     height: 11.25rem;
@@ -21,7 +23,7 @@
   }
 
   &-error {
-    color: #e12b38;
+    color: var(--theme-danger-1);
     font-size: 0.75rem;
     font-weight: 500;
     margin-top: 0.5rem;

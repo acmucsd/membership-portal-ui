@@ -1,3 +1,5 @@
+@import "../../../styles/vars.less";
+
 .option-selector {
   cursor: pointer;
   display: flex;
@@ -6,10 +8,11 @@
 
   .option {
     align-items: center;
-    background: #fff;
-    border: 1px solid rgba(85, 85, 85, 50%);
+    background: var(--theme-surface-2);
+    border: 1px solid var(--theme-accent-line-2);
     border-radius: 0.625rem;
-    color: #333;
+    color: var(--theme-text-on-surface-2);
+    color: var(--theme-text-on-background-1);
     cursor: pointer;
     font-size: 1.125rem;
     font-weight: 700;
@@ -21,18 +24,18 @@
 
     &:focus,
     &:hover {
-      border-color: #62b0ff;
+      border-color: var(--theme-primary-2);
     }
 
     &.selected {
-      border: 1px solid rgba(98, 176, 255, 50%);
-      color: #62b0ff;
+      border: 1px solid var(--theme-primary-2);
+      color: var(--theme-primary-2);
     }
 
     &:disabled {
-      background: #f2f2f2;
-      border: 1px solid rgba(85, 85, 85, 50%);
-      color: #8d8d8d;
+      background: var(--theme-background);
+      border: 1px solid var(--theme-accent-line-2);
+      color: var(--theme-disabled);
       cursor: not-allowed;
     }
   }

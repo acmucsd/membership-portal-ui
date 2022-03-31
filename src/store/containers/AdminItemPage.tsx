@@ -18,15 +18,14 @@ interface AdminItemPageContainerProps {
 const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
-  const { deleteItem } = props;
+  const { deleteItem, fetchItem: fetchItemFunction, fetchCollections: fetchCollectionsFunction } = props;
 
   const [item, setItem] = useState<PublicMerchItem>();
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
   useEffect(() => {
     if (uuid) {
-      props
-        .fetchItem(uuid)
+      fetchItemFunction(uuid)
         .then((value) => {
           setItem(value);
         })
@@ -35,8 +34,7 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
         });
     }
 
-    props
-      .fetchCollections()
+    fetchCollectionsFunction()
       .then((value) => {
         setCollections(value);
       })

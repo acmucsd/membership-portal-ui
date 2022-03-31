@@ -6,7 +6,7 @@
   width: @db-card-width;
 
   label {
-    color: @black;
+    color: var(--theme-text-on-background-1);
     font-size: @card-heading-2;
     font-weight: 700;
 
@@ -24,13 +24,12 @@
   }
 
   .title {
-    color: @black;
     font-size: @general-heading-1;
     font-weight: 700;
   }
 
   .divider {
-    background-color: #777;
+    background-color: var(--theme-text-on-background-2);
     height: 1px;
     margin: 1rem 0;
     width: 100%;
@@ -38,8 +37,8 @@
 
   .save-button,
   .upload-modal-button {
-    background-color: @blue-5;
-    border-color: @blue-5;
+    background-color: var(--theme-primary-2);
+    border-color: var(--theme-primary-2);
     font-size: @general-body;
     font-weight: 700;
     height: @button-height;
@@ -49,9 +48,9 @@
   }
 
   .discard-button {
-    background-color: @white;
-    border-color: @red;
-    color: @red;
+    background-color: var(--theme-background);
+    border-color: var(--theme-danger-1);
+    color: var(--theme-danger-1);
     font-size: @general-body;
     font-weight: 700;
     height: @button-height;
@@ -104,9 +103,9 @@
   }
 
   .input-style() {
-    background-color: @gray-1;
-    border-color: @gray-4;
-    color: @black;
+    background-color: var(--theme-surface-2);
+    border-color: var(--theme-accent-line-1);
+    color: var(--theme-text-on-surface-1);
     font-size: @general-body;
     height: @profile-input-height;
   }
@@ -126,7 +125,7 @@
   }
 
   .avatar {
-    border: solid 3px @gray-5;
+    border: solid 3px var(--theme-accent-line-1);
     margin-bottom: 24px;
   }
 }

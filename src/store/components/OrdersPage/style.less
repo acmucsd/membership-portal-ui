@@ -1,3 +1,5 @@
+@import "../../../styles/vars.less";
+
 .orders-page {
   align-items: flex-start;
   display: flex;
@@ -5,7 +7,7 @@
   margin-top: 2rem;
 
   .order-entry {
-    border: 1px solid rgba(85, 85, 85, 50%);
+    border: 1px solid var(--theme-accent-line-1-transparent);
     border-radius: 0.625rem;
     margin-top: 2rem;
     padding: 0.5rem 1rem;
@@ -27,7 +29,7 @@
   }
 
   & > p {
-    color: #333;
+    color: var(--theme-text-on-background-1);
     font-size: 1rem;
   }
 }

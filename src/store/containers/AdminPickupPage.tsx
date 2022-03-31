@@ -24,15 +24,19 @@ interface AdminPickupPageContainerProps {
 const AdminPickupPageContainer: React.FC<AdminPickupPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
-  const { deletePickupEvent, cancelPickupEvent } = props;
+  const {
+    deletePickupEvent,
+    cancelPickupEvent,
+    fetchPickupEvent: fetchPickupEventFunction,
+    fetchFuturePickupEvents: fetchFuturePickupEventsFunction,
+  } = props;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
 
   useEffect(() => {
     if (uuid) {
-      props
-        .fetchPickupEvent(uuid)
+      fetchPickupEventFunction(uuid)
         .then((value) => {
           setPickupEvent(value);
         })
@@ -40,8 +44,7 @@ const AdminPickupPageContainer: React.FC<AdminPickupPageContainerProps> = (props
           notify('API Error', reason.message || reason);
         });
     } else {
-      props
-        .fetchFuturePickupEvents()
+      fetchFuturePickupEventsFunction()
         .then((value) => {
           setPickupEvents(value);
         })

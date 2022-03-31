@@ -1,8 +1,8 @@
 import React, { FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
 import { NavLink } from 'react-router-dom';
-
-import email from '../../../assets/icons/email-icon.svg';
-import password from '../../../assets/icons/password-icon.svg';
+import Icon from '@ant-design/icons';
+import { ReactComponent as EmailIcon } from '../../../assets/icons/email-icon.svg';
+import { ReactComponent as PasswordIcon } from '../../../assets/icons/password-icon.svg';
 
 import './style.less';
 
@@ -35,7 +35,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" alt="" src={email} />
+              <Icon component={EmailIcon} className="icon" />
             </div>
             <input
               name="email"
@@ -52,7 +52,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" alt="" src={password} />
+              <Icon component={PasswordIcon} className="icon" />
             </div>
             <input
               name="password"

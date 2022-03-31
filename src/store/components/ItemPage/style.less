@@ -1,11 +1,14 @@
+@import "../../../styles/vars.less";
+
 .item-page {
   display: flex;
   margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 2rem;
 
   .item-image-container {
+    background-color: var(--theme-surface-2);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 25%);
+    box-shadow: 0 1px 4px var(--theme-accent-line-1-transparent);
     flex-shrink: 0;
     height: 24rem;
     margin-right: 4rem;
@@ -22,14 +25,14 @@
 
   .item-contents {
     .item-name {
-      color: #333;
+      color: var(--theme-text-on-background-1);
       font-size: 1.75rem;
       font-weight: 700;
       margin-bottom: 1rem;
     }
 
     .item-description {
-      color: #333;
+      color: var(--theme-text-on-background-1);
       font-size: 1.125rem;
       margin-top: 1rem;
     }
@@ -38,7 +41,7 @@
       margin-top: 1.5rem;
 
       &-header {
-        color: #333;
+        color: var(--theme-text-on-background-1);
         font-size: 1.125rem;
         font-weight: 700;
         margin-bottom: 0.75rem;
@@ -54,7 +57,7 @@
         margin-top: 1.5rem;
 
         &-header {
-          color: #333;
+          color: var(--theme-text-on-background-1);
           font-size: 1.125rem;
           font-weight: 700;
           margin-bottom: 0.75rem;
@@ -69,13 +72,13 @@
   }
 
   .item-limit {
-    color: #777;
+    color: var(--theme-text-on-background-2);
     font-size: 1.125rem;
     margin-top: 2rem;
   }
 
   &-modal {
-    color: #333;
+    color: var(--theme-text-on-background-1);
 
     &-title {
       font-size: 1.5rem;
@@ -103,18 +106,19 @@
       }
 
       &-option {
-        color: #777;
+        color: var(--theme-text-on-background-2);
         font-size: 1rem;
         margin-bottom: 0.5rem;
       }
 
       &-quantity {
-        color: #777;
+        color: var(--theme-text-on-background-2);
         font-size: 1rem;
       }
     }
 
     .ant-modal-content {
+      background-color: var(--theme-surface-2);
       padding: 1rem;
 
       .ant-modal-body {
@@ -122,7 +126,7 @@
       }
 
       .ant-modal-footer {
-        border-top: 1px solid #c4c4c4;
+        border-top: 1px solid var(--theme-accent-line-2);
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;
