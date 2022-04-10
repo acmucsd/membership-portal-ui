@@ -13,11 +13,11 @@ import { ReactComponent as AdminIcon } from '../../../assets/icons/admin-icon.sv
 import './style.less';
 
 interface NavBarHorizontalProps {
-  isAdmin: boolean;
+  hasAdminAccess: boolean;
 }
 
 const NavBarHorizontal: React.FC<NavBarHorizontalProps> = (props) => {
-  const { isAdmin } = props;
+  const { hasAdminAccess } = props;
 
   return (
     <>
@@ -34,7 +34,7 @@ const NavBarHorizontal: React.FC<NavBarHorizontalProps> = (props) => {
         <NavLink activeClassName="selected" to="/discord">
           <NavTileItem icon={DiscordIcon} text="Discord" />
         </NavLink>
-        {isAdmin && (
+        {hasAdminAccess && (
           <NavLink activeClassName="selected" to="/admin">
             <NavTileItem icon={AdminIcon} text="Admin" />
           </NavLink>
