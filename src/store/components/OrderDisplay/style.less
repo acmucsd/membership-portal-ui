@@ -14,7 +14,7 @@
 
       .ant-table-column-title {
         color: var(--theme-text-on-background-1);
-        font-size: 1.125rem;
+        font-size: @table-text;
       }
     }
 
@@ -64,20 +64,20 @@
 
         .item-option-label {
           color: var(--theme-text-on-background-1);
-          font-size: 1.25rem;
+          font-size: @item-option-text;
           font-weight: 500;
         }
 
         .item-option {
           color: var(--theme-text-on-background-2);
-          font-size: 1.25rem;
+          font-size: @item-option-text;
           font-weight: 400;
         }
       }
 
       .item-button {
         color: var(--theme-text-on-background-2);
-        font-size: 1rem;
+        font-size: @input-text-small;
         padding: 0;
 
         span {
@@ -92,7 +92,7 @@
 
     .item-quantity {
       color: var(--theme-text-on-background-1);
-      font-size: 1.125rem;
+      font-size: @table-text;
       text-align: center;
     }
   }
@@ -105,7 +105,7 @@
 
     &-text {
       color: var(--theme-text-on-background-1);
-      font-size: 1.5rem;
+      font-size: @total-text;
       margin-right: 1.25rem;
     }
   }
