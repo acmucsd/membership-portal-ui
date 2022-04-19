@@ -17,6 +17,7 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
   const { uuid } = params;
+  const { fetchItem: fetchItemFunction } = props;
 
   if (!uuid) {
     history.push('/store');
@@ -25,8 +26,7 @@ const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
   const [item, setItem] = useState<PublicMerchItemWithPurchaseLimits>();
 
   useEffect(() => {
-    props
-      .fetchItem(uuid)
+    fetchItemFunction(uuid)
       .then((value) => {
         setItem(value);
       })

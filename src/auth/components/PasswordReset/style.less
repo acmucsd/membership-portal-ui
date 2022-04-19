@@ -5,8 +5,8 @@
   padding-top: 64px;
 
   .title {
-    color: @black;
-    font-size: 48px;
+    color: var(--theme-text-on-background-1);
+    font-size: @card-title-px;
     font-weight: 500;
     margin: 24px 0;
     text-align: center;
@@ -23,8 +23,8 @@
 
     .input-box {
       border: none;
-      border-bottom: 1px solid @black;
-      font-size: 16px;
+      border-bottom: 1px solid var(--theme-text-on-background-1);
+      font-size: @card-input-box-px;
       height: 28px;
       margin-bottom: 20px;
       padding-left: 34px;
@@ -35,11 +35,11 @@
   .submit {
     .button-hover();
 
-    background-color: #62b0ff;
+    background-color: var(--theme-primary-2);
     border: none;
     border-radius: 100px;
     color: white;
-    font-size: 20px;
+    font-size: @card-submit-px;
     font-weight: 700;
     height: 40px;
     margin-bottom: 20px;

@@ -7,7 +7,7 @@ import { addAttendance, getAllEmails as getAllEmailsConnect } from '../adminActi
 import { fetchPastEvents as fetchPastEventsConnect } from '../../event/eventActions';
 
 const AddAttendanceFormContainer = (props) => {
-  const { fetchPastEventsConnect, getAllEmailsConnect } = props; // eslint-disable-line no-shadow
+  const { emails, pastEvents, addAttendance: addAttendanceFunction, fetchPastEventsConnect, getAllEmailsConnect } = props; // eslint-disable-line no-shadow
 
   useEffect(() => {
     getAllEmailsConnect();
@@ -18,8 +18,8 @@ const AddAttendanceFormContainer = (props) => {
     mapPropsToValues() {
       return {
         attendees: [],
-        emails: props.emails,
-        pastEvents: props.pastEvents,
+        emails,
+        pastEvents,
         event: '',
         staff: false,
       };
@@ -30,8 +30,7 @@ const AddAttendanceFormContainer = (props) => {
         event: values.event,
         asStaff: values.staff,
       };
-      props
-        .addAttendance(attendanceDetails)
+      addAttendanceFunction(attendanceDetails)
         .then(() => {
           resetForm();
         })

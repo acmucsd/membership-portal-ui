@@ -1,6 +1,8 @@
 @import "../../../styles/mixins.less";
+@import "../../../styles/vars.less";
 
 .store-button {
+
   .button-hover();
 
   align-items: center;
@@ -12,47 +14,47 @@
   padding: 0;
 
   &.disabled {
-    background-color: #f2f2f2;
-    border-color: #e9e9e9;
-    color: #8d8d8d;
+    background-color: var(--theme-background);
+    border-color: var(--theme-accent-line-2);
+    color: var(--theme-disabled);
     cursor: not-allowed;
   }
 
   &.primary {
-    background-color: #62b0ff;
-    border-color: #e9e9e9;
-    color: #fff;
+    background-color: var(--theme-primary-2);
+    border-color: var(--theme-accent-line-2);
+    color: var(--theme-background);
   }
 
   &.secondary {
-    background-color: #fff;
-    border-color: #62b0ff;
-    color: #62b0ff;
+    background-color: var(--theme-background);
+    border-color: var(--theme-primary-2);
+    color: var(--theme-primary-2);
   }
 
   &.danger {
-    background-color: #ff6f6f;
-    border-color: #e9e9e9;
-    color: #fff;
+    background-color: var(--theme-danger-1);
+    border-color: var(--theme-accent-line-2);
+    color: var(--theme-background);
   }
 
   &.small {
     border-radius: 0.5rem;
-    font-size: 1rem;
+    font-size: @input-text-small;
     height: 2rem;
     width: 10rem;
   }
 
   &.medium {
     border-radius: 0.625rem;
-    font-size: 1.25rem;
+    font-size: @input-text-medium;
     height: 2.5rem;
     width: 15.75rem;
   }
 
   &.large {
     border-radius: 0.75rem;
-    font-size: 1.5rem;
+    font-size: @input-text-large;
     height: 3.5rem;
     width: 18.75rem;
   }

@@ -17,7 +17,7 @@ interface StoreAdminPageProps {
 }
 
 const StoreAdminPage: React.FC<StoreAdminPageProps> = (props) => {
-  const { canManageStore } = props;
+  const { canManageStore, cancelAllOrders: cancelAllOrdersFunction } = props;
 
   const [confirmation, setConfirmation] = useState<boolean>(false);
 
@@ -46,7 +46,7 @@ const StoreAdminPage: React.FC<StoreAdminPageProps> = (props) => {
           visible={confirmation}
           onCancel={() => setConfirmation(false)}
           onOk={() => {
-            props.cancelAllOrders().then(() => {
+            cancelAllOrdersFunction().then(() => {
               setConfirmation(false);
               notify('Success!', 'You successfully cancelled all orders!');
             });

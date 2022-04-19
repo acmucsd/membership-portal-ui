@@ -42,6 +42,8 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
 
   const newOptions = [...options];
 
+  const { deleteItemOption: deleteItemOptionFunction, createItemOption: createItemOptionFunction } = props;
+
   const renderValue = (value: string, option: Option, index: number) => (
     <>
       <StoreTextInput
@@ -61,8 +63,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
             newOptions.splice(index, 1);
             onChange(newOptions);
           } else {
-            props
-              .deleteItemOption(option.uuid)
+            deleteItemOptionFunction(option.uuid)
               .then(() => {
                 newOptions.splice(index, 1);
                 onChange(newOptions);
@@ -183,12 +184,11 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         visible={creatingOption}
         onCancel={() => setCreatingOption(false)}
         onOk={() => {
-          props
-            .createItemOption(itemUuid, {
-              quantity: parseInt(newQuantity, 10),
-              price: parseInt(newPrice, 10),
-              metadata: { type: currentType, value: newValue, position: options.length },
-            })
+          createItemOptionFunction(itemUuid, {
+            quantity: parseInt(newQuantity, 10),
+            price: parseInt(newPrice, 10),
+            metadata: { type: currentType, value: newValue, position: options.length },
+          })
             .then((newOption) => {
               const {
                 uuid,

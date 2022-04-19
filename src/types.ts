@@ -40,6 +40,7 @@ export type Event = {
   endDate: Moment;
   endTime: Moment;
   location: string;
+  eventLink: string | null;
   pointValue: number;
   startDate: Moment;
   startTime: Moment;

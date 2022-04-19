@@ -1,7 +1,7 @@
 @import "../../../styles/vars.less";
 
 .leaderboard-card {
-  background-color: @blue-3;
+  background-color: var(--theme-primary-3);
   border-radius: 10px;
   height: @leaderboard-card-height;
   overflow: hidden;
@@ -17,29 +17,30 @@
   }
 
   &.first {
-    background-color: @gold;
+    background-color: var(--theme-gold);
   }
 
   &.second {
-    background-color: @silver;
+    background-color: var(--theme-silver);
   }
 
   &.third {
-    background-color: @bronze;
+    background-color: var(--theme-bronze);
   }
 
   .leaderboard-card-left {
-    color: rgba(51, 51, 51, 30%);
+    color: var(--theme-text-on-background-1);
     font-size: 5rem;
     font-weight: 500;
     left: 0;
+    opacity: 0.3;
     width: 40%;
   }
 
   .leaderboard-card-right {
-    background-color: white;
+    background-color: var(--theme-background);
     border-radius: inherit;
-    color: black;
+    color: var(--theme-text-on-background-1);
     flex-wrap: wrap;
     height: calc(100% - 10px);
     margin: 5px;
@@ -53,13 +54,13 @@
     width: 60%;
 
     > * {
-      color: black;
+      color: var(--theme-text-on-background-1);
       flex: 1 100%;
       margin-bottom: 0;
     }
 
     .ant-avatar {
-      border: 1px solid@black;
+      border: 1px solid var(--theme-text-on-background-1);
     }
 
     h1 {
@@ -68,7 +69,7 @@
     }
 
     .name:hover {
-      color: @gold;
+      color: var(--theme-gold);
     }
 
     h2 {

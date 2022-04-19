@@ -1,10 +1,13 @@
+@import "../../../styles/vars.less";
+
 .store-dropdown {
   &-control {
     align-items: center;
-    background: #fff;
+    background: var(--theme-surface-2);
     border: 0;
-    border: 1px solid rgba(85, 85, 85, 50%);
+    border: 1px solid var(--theme-accent-line-2-transparent);
     border-radius: 0.625rem;
+    color: var(--theme-text-on-surface-2);
     display: flex;
     height: 2.5rem;
     padding: 0 1rem;
@@ -12,40 +15,46 @@
 
     &:focus,
     &:hover {
-      border-color: #62b0ff;
+      border-color: var(--theme-primary-2);
     }
   }
 
   &-placeholder {
-    color: #000;
+    color: var(--theme-text-on-surface-1);
     font-family: "DM Sans", sans-serif;
-    font-size: 1.125rem;
+    font-size: @input-text;
     font-weight: 500;
     padding-right: 1.625rem;
   }
 
   &-menu {
-    border: 1px solid rgba(85, 85, 85, 50%);
+    border: 1px solid var(--theme-accent-line-1-transparent);
     border-radius: 10px;
     font-size: 18px;
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .Dropdown-option {
+    background-color: var(--theme-surface-2);
+    color: var(--theme-text-on-background-1);
     padding: 0.5rem 1rem;
 
     &.is-selected {
-      background-color: #d8ebff;
-      color: #333;
+      background-color: var(--theme-surface-1);
+      color: var(--theme-text-on-background-1);
     }
 
     &:hover {
-      background-color: #ecf6ff;
-      color: #333;
+      background-color: var(--theme-surface-1);
+      color: var(--theme-text-on-background-1);
     }
   }
 
   &-arrow {
-    border-color: #000 transparent transparent;
+    border-color: var(--theme-accent-line-1) transparent transparent;
     margin-top: 0;
     right: 16px;
     top: 17.5px;
@@ -63,14 +72,14 @@
     }
 
     .store-dropdown-arrow {
-      border-color: transparent transparent #000;
+      border-color: transparent transparent var(--theme-accent-line-1);
       border-width: 0 5px 5px;
     }
   }
 
   &-error {
-    color: #e12b38;
-    font-size: 0.75rem;
+    color: var(--theme-danger-1);
+    font-size: @error-size;
     font-weight: 500;
     margin-top: 0.5rem;
   }

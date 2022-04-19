@@ -1,3 +1,5 @@
+@import "../../../styles/vars.less";
+
 .order-page {
   display: flex;
   flex-direction: column;
@@ -5,11 +7,11 @@
   margin-top: 2rem;
 
   h1 {
-    font-size: 2rem;
+    font-size: @general-heading-2;
   }
 
   h3 {
-    font-size: 1.25rem;
+    font-size: @general-heading-3-4;
     font-weight: 400;
   }
 
@@ -21,13 +23,13 @@
     display: flex;
 
     &-button {
-      color: #777;
-      font-size: 1rem;
+      color: var(--theme-text-on-background-2);
+      font-size: @input-text-small;
       padding: 0;
       transition: color 0.3s;
 
       &:hover {
-        color: #62b0ff;
+        color: var(--theme-primary-2);
       }
 
       span {

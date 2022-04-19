@@ -30,14 +30,14 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
+  const { completePickupEvent: completePickupEventFunction, fulfillOrder: fulfillOrderFunction } = props;
 
   useEffect(() => {
     setPickupEvent(pickupEventIn);
   }, [pickupEventIn]);
 
   const handleFinishPickup = () => {
-    props
-      .completePickupEvent(pickupEvent?.uuid)
+    completePickupEventFunction(pickupEvent?.uuid)
       .then(() => {
         setShowModal(false);
         notify('Success!', 'Pickup Event is Over');
@@ -110,11 +110,10 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         <StoreButton
           text="Save"
           onClick={() => {
-            props
-              .fulfillOrder(
-                selectedOrder.uuid,
-                selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
-              )
+            fulfillOrderFunction(
+              selectedOrder.uuid,
+              selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes })),
+            )
               .then((newOrder) => {
                 setPickupEvent({
                   ...pickupEvent,

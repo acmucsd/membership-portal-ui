@@ -11,7 +11,11 @@
   width: 100%;
 
   &.even {
-    background: #f4f4f4;
+    background: var(--theme-surface-1);
+  }
+
+  &.odd {
+    background: inherit;
   }
 
   .placement {
@@ -31,12 +35,13 @@
   }
 
   .name:hover {
-    color: @green-2;
+    color: var(--theme-primary-3);
   }
 
   .rank {
-    color: rgba(0, 0, 0, 50%);
+    color: var(--theme-text-on-background-1);
     font-weight: 400;
+    opacity: 0.5;
     text-align: center;
     width: 25%;
   }
@@ -64,7 +69,9 @@
     }
 
     .rank {
+      color: var(--theme-text-on-background-1);
       font-size: 12px;
+      opacity: 0.5;
     }
 
     .desktop {

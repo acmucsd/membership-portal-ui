@@ -13,11 +13,12 @@ interface OrdersPageContainerProps {
 }
 
 const OrdersPageContainer: React.FC<OrdersPageContainerProps> = (props) => {
+  const { fetchOrders: fetchOrdersFunction } = props;
+
   const [orders, setOrders] = useState<Array<PublicOrder>>();
 
   useEffect(() => {
-    props
-      .fetchOrders()
+    fetchOrdersFunction()
       .then((value) => {
         setOrders(value);
       })

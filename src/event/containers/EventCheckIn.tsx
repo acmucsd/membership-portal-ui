@@ -15,7 +15,7 @@ interface EventCheckInContainerProps {
 }
 
 const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
-  const { user } = props;
+  const { user, checkIn: checkInFunction } = props;
 
   const [value, setValue] = useState('');
   const [asStaff, setAsStaff] = useState(false);
@@ -27,12 +27,12 @@ const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
   };
 
   const handleSubmit: FormEventHandler = () => {
-    props.checkIn({ attendanceCode: value, asStaff });
+    checkInFunction({ attendanceCode: value, asStaff });
   };
 
   const handleEnter: KeyboardEventHandler = (event) => {
     if (event.key === 'Enter') {
-      props.checkIn({ attendanceCode: value, asStaff });
+      checkInFunction({ attendanceCode: value, asStaff });
     }
   };
 

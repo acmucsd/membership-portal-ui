@@ -34,6 +34,7 @@ interface EditEventFormProps {
     uuid: string | null;
     title: string | null;
     location: string | null;
+    eventLink: string | null;
     pointValue: string | null;
     startDate: string | null;
     startTime: string | null;
@@ -47,14 +48,25 @@ interface EditEventFormProps {
 }
 
 const EditEventForm: React.FC<EditEventFormProps> = (props) => {
-  const { event, setFieldValue, setFieldTouched, handleBlur, handleChange, handleSubmit, values: eventData, errors, copyLink } = props;
+  const {
+    event,
+    setFieldValue,
+    setFieldTouched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values: eventData,
+    errors,
+    copyLink,
+    deleteEvent,
+    values,
+  } = props;
 
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
 
   const handleDelete = () => {
-    props
-      .deleteEvent(props.values.uuid)
+    deleteEvent(values.uuid)
       .then(() => {
         history.push('/');
       })
@@ -67,7 +79,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
 
   useEffect(() => {
     if (event) {
-      const keys = ['title', 'location', 'pointValue', 'start', 'end', 'cover', 'description', 'attendanceCode', 'committee'];
+      const keys = ['title', 'location', 'eventLink', 'pointValue', 'start', 'end', 'cover', 'description', 'attendanceCode', 'committee'];
       keys.forEach((key) => {
         switch (key) {
           case 'start':
@@ -126,6 +138,10 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
               <p className="form-error">{errors.pointValue ? errors.pointValue : null}</p>
             </Form.Item>
           </div>
+          <Form.Item label="Facebook Event Link (Optional)">
+            <Input name="eventLink" className="eventLink" value={eventData.eventLink || ''} onChange={handleChange} onBlur={handleBlur} />
+            <p className="form-error">{errors.eventLink ? errors.eventLink : null}</p>
+          </Form.Item>
           <div className="horizontal-input">
             <Form.Item className="date-wrapper" label="Start Date">
               <DatePicker className="date" value={eventData.startDate} onChange={(date) => setFieldValue('startDate', date)} />

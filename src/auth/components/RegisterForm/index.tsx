@@ -1,14 +1,15 @@
 import React, { ChangeEventHandler, FormEventHandler, FocusEventHandler } from 'react';
 import { Select } from 'antd';
 import { NavLink } from 'react-router-dom';
+import Icon from '@ant-design/icons';
 
 import './style.less';
 
-import NameIcon from '../../../assets/icons/name-icon.svg';
-import EmailIcon from '../../../assets/icons/email-icon.svg';
-import PasswordIcon from '../../../assets/icons/password-icon.svg';
-import MajorIcon from '../../../assets/icons/major-icon.svg';
-import YearIcon from '../../../assets/icons/year-icon.svg';
+import { ReactComponent as NameIcon } from '../../../assets/icons/name-icon.svg';
+import { ReactComponent as EmailIcon } from '../../../assets/icons/email-icon.svg';
+import { ReactComponent as PasswordIcon } from '../../../assets/icons/password-icon.svg';
+import { ReactComponent as MajorIcon } from '../../../assets/icons/major-icon.svg';
+import { ReactComponent as YearIcon } from '../../../assets/icons/year-icon.svg';
 
 import majorsData from '../../../constants/majors.json';
 
@@ -55,7 +56,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" src={NameIcon} alt="Name Icon" />
+              <Icon className="icon" component={NameIcon} alt="Name Icon" />
             </div>
             <input
               name="firstName"
@@ -71,7 +72,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" src={NameIcon} alt="Name Icon" />
+              <Icon className="icon" component={NameIcon} alt="Name Icon" />
             </div>
             <input
               name="lastName"
@@ -87,7 +88,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" src={EmailIcon} alt="Email Icon" />
+              <Icon className="icon" component={EmailIcon} alt="Email Icon" />
             </div>
             <input
               name="email"
@@ -104,7 +105,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" src={PasswordIcon} alt="Password Icon" />
+              <Icon className="icon" component={PasswordIcon} alt="Password Icon" />
             </div>
             <input
               name="password"
@@ -121,7 +122,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input">
             <div className="icon-container">
-              <img className="icon" src={PasswordIcon} alt="Password Icon" />
+              <Icon className="icon" component={PasswordIcon} alt="Password Icon" />
             </div>
             <input
               name="confirmpassword"
@@ -138,7 +139,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item">
           <div className="form-input major">
             <div className="icon-container">
-              <img className="icon" src={MajorIcon} alt="Major Icon" />
+              <Icon className="icon" component={MajorIcon} alt="Major Icon" />
             </div>
             <Select
               className="input-box"
@@ -160,7 +161,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <div className="form-item year">
           <div className="form-input year">
             <div className="icon-container">
-              <img className="icon" src={YearIcon} alt="Year Icon" />
+              <Icon className="icon" component={YearIcon} alt="Year Icon" />
             </div>
             <Select
               className="input-box"

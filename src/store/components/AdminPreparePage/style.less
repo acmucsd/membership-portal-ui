@@ -1,22 +1,24 @@
+@import "../../../styles/vars.less";
+
 .admin-prepare-page {
-  color: #333;
+  color: var(--theme-text-on-background-1);
   margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 2rem;
 
   &-title {
-    font-size: 2rem;
+    font-size: @page-heading-large;
     font-weight: 800;
     margin-bottom: 1rem;
   }
 
   &-subtitle {
-    font-size: 1.25rem;
+    font-size: @general-heading-3-4;
     font-weight: 400;
     margin-bottom: 1rem;
   }
 
   &-secondary {
-    font-size: 1.5rem;
+    font-size: @general-heading-3;
     font-weight: 800;
     margin-bottom: 0.5rem;
   }
@@ -26,13 +28,13 @@
 
     td {
       &.user {
-        color: #333;
+        color: var(--theme-text-on-background-1);
         font-size: 1.25rem;
       }
 
       &.items {
-        color: #333;
-        font-size: 1.125rem;
+        color: var(--theme-text-on-background-1);
+        font-size: @table-text;
         list-style-position: inside;
       }
     }
@@ -42,6 +44,14 @@
     .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
     .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
       background: transparent;
+    }
+
+    .ant-table-thead > tr > th {
+      color: var(--theme-text-on-background-1);
+    }
+
+    .ant-table-placeholder {
+      background: var(--theme-background);
     }
 
     li {
