@@ -5,6 +5,7 @@
   "proxy": "https://acmucsd-membership-portal-api.herokuapp.com",
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
+    "@mantine/core": "^4.1.4",
     "antd": "3.24.3",
     "antd-img-crop": "^4.0.2",
     "babel-plugin-import": "^1.12.0",
