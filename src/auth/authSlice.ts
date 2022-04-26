@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Config from '../config';
 import history from '../history';

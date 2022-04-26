@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isEqual } from 'lodash';
 import { fetchUser, logoutUser, withLogout } from '../auth/authSlice';

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { logoutUser, withLogout } from '../auth/authSlice';
 import * as utils from './utils';

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { withLogout } from '../auth/authSlice';
 import type { RootState } from '../redux/store';
