@@ -1,13 +1,16 @@
+@import "../../../styles/vars.less";
+
 .store-text {
   display: flex;
   flex-direction: column;
 
   &-input {
-    background: #fff;
-    border: 1px solid rgba(85, 85, 85, 50%);
+    background: var(--theme-surface-2);
+    border: 1px solid var(--theme-accent-line-2-transparent);
     border-radius: 0.625rem;
     box-sizing: border-box;
-    font-size: 1rem;
+    color: var(--theme-text-on-surface-2);
+    font-size: @input-text-small;
     padding: 0 1rem;
     resize: none;
     transition: border 0.3s;
@@ -35,13 +38,13 @@
 
     &:focus,
     &:hover {
-      border-color: #62b0ff;
+      border-color: var(--theme-primary-2);
     }
   }
 
   &-error {
-    color: #e12b38;
-    font-size: 0.75rem;
+    color: var(--theme-danger-1);
+    font-size: @error-size;
     font-weight: 500;
     margin-top: 0.5rem;
   }

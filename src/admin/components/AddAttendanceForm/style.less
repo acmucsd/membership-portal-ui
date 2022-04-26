@@ -5,14 +5,14 @@
   width: 50%;
 
   .subtitle {
-    color: @blue-3;
+    color: var(--theme-primary-3);
     font-size: @general-heading-2;
     font-weight: 700;
   }
 
   label {
-    color: @blue-3;
-    font-size: @card-heading-2;
+    color: var(--theme-primary-3);
+    font-size: @form-label-small;
     font-weight: 500;
 
     &::after {
@@ -20,13 +20,13 @@
     }
 
     span {
-      color: @black;
+      color: var(--theme-text-on-background-2);
       font-weight: 400;
     }
   }
 
   h1 {
-    color: @black;
+    color: var(--theme-text-on-background-2);
     font-size: @general-heading-1;
     font-weight: 700;
   }
@@ -37,9 +37,14 @@
     width: 100%;
   }
 
+  .ant-select-selection {
+    background-color: var(--theme-surface-2);
+    color: var(--theme-text-on-surface-1);
+  }
+
   .save-button {
-    background-color: @green-1;
-    border-color: @green-2;
+    background-color: var(--theme-success-1);
+    border-color: var(--theme-success-2);
     font-size: @general-body;
     font-weight: 500;
     height: @button-height;
@@ -47,9 +52,9 @@
   }
 
   .discard-button {
-    background-color: @white;
-    border-color: @red;
-    color: @red;
+    background-color: var(--theme-background);
+    border-color: var(--theme-danger-1);
+    color: var(--theme-danger-1);
     font-size: @general-body;
     font-weight: 500;
     height: @button-height;
@@ -78,16 +83,17 @@
     }
 
     .add-new-attendee {
-      background: @white;
+      background: var(--theme-background);
       border-style: dashed;
+      color: var(--theme-text-on-background-2);
       font-size: @card-body;
     }
   }
 
   .input-style() {
-    background-color: @gray-1;
-    border-color: @gray-4;
-    color: @black;
+    background-color: var(--theme-surface-1);
+    border-color: var(--theme-accent-line-1);
+    color: var(--theme-text-on-surface-1);
     font-size: @general-body;
     height: @profile-input-height;
   }
@@ -95,7 +101,7 @@
   .area-box {
     .input-style;
 
-    font-size: @card-heading-2;
+    font-size: @form-area-box;
     height: @text-input-height;
     width: 100%;
   }

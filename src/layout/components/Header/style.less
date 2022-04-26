@@ -12,7 +12,7 @@
 
     .header {
       align-items: center;
-      background-color: white;
+      background-color: var(--theme-background);
       display: flex;
       height: 4rem;
       padding: 0 1rem;
@@ -26,11 +26,46 @@
         }
 
         .subheading {
-          color: #333;
-          font-size: 1.5rem;
+          color: var(--theme-text-on-background-1);
+          font-size: @general-heading-3;
           font-weight: 700;
           vertical-align: middle;
         }
+      }
+
+      .mode-switch {
+        position: absolute;
+        right: 40px;
+      }
+
+      .ant-switch {
+        background-color: var(--theme-surface-2);
+      }
+
+      .ant-switch-checked {
+        background-color: var(--theme-surface-2);
+      }
+
+      .ant-switch::after {
+        background-color: var(--theme-primary-2);
+      }
+
+      .ant-switch-inner {
+        align-items: center;
+        display: inline-flex;
+        transition: all 0.5s ease;
+      }
+
+      .moon-icon {
+        color: var(--theme-silver);
+        font-size: 1em;
+        margin-top: 0.3em;
+      }
+
+      .sun-icon {
+        color: var(--theme-text-on-background-3);
+        font-size: 1.2em;
+        margin-top: 0.15em;
       }
 
       .profile {
@@ -78,6 +113,11 @@
           .subheading {
             display: none;
           }
+        }
+
+        .mode-switch {
+          left: 0.1rem;
+          position: relative;
         }
 
         .profile {

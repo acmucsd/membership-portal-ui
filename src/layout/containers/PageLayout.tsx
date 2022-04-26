@@ -4,13 +4,18 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { authSelector } from '../../auth/authSlice';
 import PageLayout from '../components/PageLayout';
+import { UserAccessType } from '../../types';
 
 let notifiedAboutEmail = false;
 
 const PageLayoutContainer: React.FC = ({ children }) => {
   const user = useSelector(authSelector);
+  const {
+    isAdmin: hasAdminAccess,
+    profile: { accessType },
+  } = user;
+  const hasStoreAdminAccess = [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(accessType);
   const history = useHistory();
-  const { isAdmin } = user;
 
   React.useEffect(() => {
     const key = `open${Date.now()}`;
@@ -36,7 +41,11 @@ const PageLayoutContainer: React.FC = ({ children }) => {
       notifiedAboutEmail = true;
     }
   }, [user, history]);
-  return <PageLayout isAdmin={isAdmin}>{children}</PageLayout>;
+  return (
+    <PageLayout hasAdminAccess={hasAdminAccess} hasStoreAdminAccess={hasStoreAdminAccess}>
+      {children}
+    </PageLayout>
+  );
 };
 
 export default PageLayoutContainer;

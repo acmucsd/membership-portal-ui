@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 
-import EmailIcon from '../../../assets/icons/email-icon.svg';
+import Icon from '@ant-design/icons';
+import { ReactComponent as EmailIcon } from '../../../assets/icons/email-icon.svg';
 
 import './style.less';
 
@@ -23,7 +24,7 @@ const PasswordForm: React.FC<PasswordFormProps> = (props) => {
       </h2>
       <form className="form">
         <div className="email-container">
-          <img className="icon" alt="" src={EmailIcon} />
+          <Icon className="icon" alt="" component={EmailIcon} />
           <input
             name="email"
             type="email"

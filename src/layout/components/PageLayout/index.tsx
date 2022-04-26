@@ -8,12 +8,13 @@ import './style.less';
 
 interface PageLayoutProps {
   children: React.ComponentClass | React.FC;
-  isAdmin: boolean;
+  hasAdminAccess: boolean;
+  hasStoreAdminAccess: boolean;
   isMobile: boolean;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = (props) => {
-  const { children, isAdmin, isMobile } = props;
+  const { children, hasAdminAccess, hasStoreAdminAccess, isMobile } = props;
 
   return (
     <>
@@ -21,12 +22,12 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
       <Header />
       {isMobile ? (
         <>
-          <NavBarHorizontal isAdmin={isAdmin} />
+          <NavBarHorizontal hasAdminAccess={hasAdminAccess} />
           <div className="page-layout-content">{children}</div>
         </>
       ) : (
         <div className="page-layout-content-table">
-          <NavBarVertical isAdmin={isAdmin} />
+          <NavBarVertical hasAdminAccess={hasAdminAccess} hasStoreAdminAccess={hasStoreAdminAccess} />
           <div className="page-layout-content">{children}</div>
         </div>
       )}

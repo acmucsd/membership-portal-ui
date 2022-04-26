@@ -14,13 +14,14 @@ interface EventCardProps {
   date: string;
   description: string;
   location: string;
+  eventLink: string | null;
   points: string;
   title: string;
   uuid: string;
 }
 
 const EventCard: React.FC<EventCardProps> = (props) => {
-  const { attended, canEditEvents, cover, date, description, location, points, title, uuid } = props;
+  const { attended, canEditEvents, cover, date, description, location, eventLink, points, title, uuid } = props;
   const history = useHistory();
 
   return (
@@ -55,7 +56,18 @@ const EventCard: React.FC<EventCardProps> = (props) => {
         )}
         <hr className="divider" />
       </div>
-      <p className="description">{description}</p>
+      <p className="description">
+        {description}
+        {eventLink ? (
+          <>
+            <br />
+            <br />
+            <a href={eventLink}>
+              <p className="event-link">{eventLink}</p>
+            </a>
+          </>
+        ) : null}
+      </p>
     </div>
   );
 };

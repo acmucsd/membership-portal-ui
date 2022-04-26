@@ -9,6 +9,7 @@ import CreateEventForm from '../components/CreateEventForm';
 const CreateEventSchema = Yup.object().shape({
   title: Yup.string().required('Required'),
   location: Yup.string().required('Required'),
+  eventLink: Yup.string(),
   pointValue: Yup.number().required('Required').moreThan(0, 'Must be greater than 0').integer('Must be an integer'),
   startDate: Yup.date().typeError('Not a date').required('Required'),
   startTime: Yup.date().typeError('Not a time').required('Required'),
@@ -25,6 +26,7 @@ const FormikCreateEventForm = withFormik({
     return {
       title: '',
       location: '',
+      eventLink: '',
       pointValue: 0,
       startDate: null,
       startTime: null,
@@ -45,6 +47,7 @@ const FormikCreateEventForm = withFormik({
     const event = {
       title: values.title,
       location: isURL(values.location.trim()) ? values.location.trim().toLowerCase() : values.location.trim(),
+      eventLink: isURL(values.eventLink.trim()) ? values.eventLink.trim().toLowerCase() : values.eventLink.trim(),
       pointValue: values.pointValue,
       start: new Date(`${Moment(startDate).format(`LL`)} ${Moment(startTime).format(`LT`)}`).toISOString(),
       end: new Date(`${Moment(endDate).format(`LL`)} ${Moment(endTime).format(`LT`)}`).toISOString(),

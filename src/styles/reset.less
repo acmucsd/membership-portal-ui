@@ -1,5 +1,8 @@
+@import "./vars.less";
+
 /**
- * Global Reset of all HTML Elements
+ * Global Reset of all HTML Elements.
+ * Also defines light and dark theme colors.
  *
  * Resetting all of our HTML Elements ensures a smoother
  * visual transition between browsers. If you don't believe me,
@@ -11,13 +14,79 @@
  * make sure we're resetting all spacing elements.
  *
  */
+
+html {
+  // light theme variables (default)
+  --theme: light;
+  --theme-primary-1: @light-blue-100;
+  --theme-primary-2: @light-blue-200; // profile card borders, buttons, nav bar
+  --theme-primary-3: @light-blue-300;
+  --theme-primary-4: @light-blue-400;// circle background, link hover, progress bar
+  --theme-primary-5: @light-blue-500; // event card links, arrow hover
+  --theme-primary-6: @light-blue-600; // event card borders
+  --theme-success-1: @green-100;
+  --theme-success-2: @green-200;
+  --theme-gold: @light-gold;
+  --theme-silver: @light-silver;
+  --theme-bronze: @light-bronze;
+  --theme-danger-1: @red;
+  --theme-invert-percent: 0%;
+  --theme-disabled: @gray-600; // disabled elements
+  --theme-background: @white; // page background
+  --theme-surface-1: @gray-200; // table rows
+  --theme-surface-2: @gray-300; // nav bar background
+  --theme-accent-line-1: @gray-900; // heavy accent lines and gray borders
+  --theme-accent-line-2: @gray-400; // light accent lines and gray borders
+  --theme-accent-line-1-transparent: rgba(@gray-900, 0.5); // light accent lines
+  --theme-accent-line-2-transparent: rgba(@gray-400, 0.5); // light accent lines
+  --theme-text-on-background-1: @gray-900; // text on primary titles and input borders
+  --theme-text-on-background-2: @gray-700; // text on primary subtitles (LVL, Dates)
+  --theme-text-on-background-3: @gray-600; // text on secondary subtitles
+  --theme-text-on-surface-1: @gray-900; // dark text on sidebar
+  --theme-text-on-surface-2: @gray-500; // light titles on sidebar
+}
+
+html[theme="dark"] {
+  // Dark Theme Variables
+  --theme: dark;
+  --theme-primary-1: @dark-blue-100;
+  --theme-primary-2: @dark-blue-200;
+  --theme-primary-3: @dark-blue-300;
+  --theme-primary-4: @dark-blue-400;
+  --theme-primary-5: @dark-blue-500;
+  --theme-primary-6: @dark-blue-600;
+  --theme-success-1: @green-100;
+  --theme-success-2: @green-200;
+  --theme-gold: @dark-gold;
+  --theme-silver: @dark-silver;
+  --theme-bronze: @dark-bronze;
+  --theme-danger-1: @red;
+  --theme-invert-percent: 100%;
+  --theme-disabled: @gray-600;
+  --theme-background: @gray-800;
+  --theme-surface-1: @gray-700;
+  --theme-surface-2: @gray-900;
+  --theme-accent-line-1: @black;
+  --theme-accent-line-2: @gray-400;
+  --theme-accent-line-1-transparent: rgba(@black, 0.5);
+  --theme-accent-line-2-transparent: rgba(@gray-400, 0.5);
+  --theme-text-on-background-1: @white;
+  --theme-text-on-background-2: @white;
+  --theme-text-on-surface-1: @white;
+  --theme-text-on-surface-2: @white;
+}
+
 html,
 body {
+  background-color: var(--theme-background);
   border: 0;
   font-family: "DM Sans", sans-serif;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+  transition-duration: 0.3s;
+  transition-property: background-color, color, border-color, border, filter;
+  transition-timing-function: ease;
 }
 
 div,
@@ -50,6 +119,7 @@ video {
   border: 0;
   margin: 0;
   padding: 0;
+  transition: background 0.3s ease !important;
 }
 
 h1,
@@ -88,9 +158,11 @@ fieldset,
 legend,
 label {
   border: 0;
+  color: var(--theme-text-on-background-1);
   font-size: 100%;
   margin: 0;
   padding: 0;
+  transition: background 0.3s ease;
   vertical-align: baseline;
 }
 
@@ -108,6 +180,15 @@ section,
 audio,
 video {
   display: block;
+}
+
+input {
+  transition: inherit;
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 30px var(--theme-background) inset;
+    -webkit-text-fill-color: var(--theme-text-on-background-1);
+  }
 }
 
 table {

@@ -13,11 +13,12 @@
       margin-bottom: 1.5rem;
 
       .collection-header {
-        font-size: 1.75rem;
+        font-size: @general-heading-2-3;
         font-weight: 500;
         margin-bottom: 1rem;
 
         &-editable-icon {
+          filter: invert(var(--theme-invert-percent));
           margin: 0 0 0.25rem 0.5rem;
         }
       }
@@ -34,7 +35,7 @@
       }
 
       &.archived {
-        background-color: #eee;
+        background-color: var(--theme-background);
       }
     }
   }

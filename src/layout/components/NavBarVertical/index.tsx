@@ -15,11 +15,12 @@ import NavBarItem from '../NavBarItem';
 import './style.less';
 
 interface NavbarVerticalProps {
-  isAdmin: boolean;
+  hasAdminAccess: boolean;
+  hasStoreAdminAccess: boolean;
 }
 
 const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
-  const { isAdmin } = props;
+  const { hasAdminAccess, hasStoreAdminAccess } = props;
   const dispatch = useAppDispatch();
 
   return (
@@ -35,16 +36,16 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
                 <NavBarItem icon={LBIcon} text="Leaderboard" innerDest="/leaderboard" />
                 <NavBarItem icon={ProfileIcon} text="Profile" innerDest="/profile" />
                 <NavBarItem icon={ACMIcon} text="Explore ACM" innerDest="/about" />
-                <NavBarItem icon={DiscordIcon} text="Discord" innerDest="/discord" last={!isAdmin} />
-                {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/admin" last />}
+                <NavBarItem icon={DiscordIcon} text="Discord" innerDest="/discord" last={!hasAdminAccess} />
+                {hasAdminAccess && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/admin" last />}
               </div>
             </div>
             <div className="navbar-vertical-group">
               <h1 className="navbar-vertical-title">Store</h1>
               <div className="navbar-vertical-items">
                 <NavBarItem icon={SwagIcon} text="Shop" innerDest="/store" />
-                <NavBarItem icon={OrdersIcon} text="Orders" innerDest="/store/orders" last={!isAdmin} />
-                {isAdmin && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/store/admin" last />}
+                <NavBarItem icon={OrdersIcon} text="Orders" innerDest="/store/orders" last={!hasStoreAdminAccess} />
+                {hasStoreAdminAccess && <NavBarItem icon={AdminIcon} text="Admin" innerDest="/store/admin" last />}
               </div>
             </div>
           </div>

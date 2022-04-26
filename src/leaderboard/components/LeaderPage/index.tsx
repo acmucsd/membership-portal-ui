@@ -30,7 +30,7 @@ const LeaderPage: React.FC = () => {
 
   const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
-    <Menu>
+    <Menu className="menu">
       {yearCodes.map((yearCode, index) => {
         // if this academic quarter start hasn't at least started...
         if (yearCode !== 'All Time' && !(getYearBounds(yearCode as any).start < new Date())) {
@@ -38,7 +38,7 @@ const LeaderPage: React.FC = () => {
           return null;
         }
         return (
-          <Menu.Item key={yearCode}>
+          <Menu.Item className="menu-item" key={yearCode}>
             <div
               role="menuitem"
               className="leader-page-timeframe"
@@ -83,33 +83,38 @@ const LeaderPage: React.FC = () => {
       </div>
 
       <div className="leader-page-leaderboard">
-        {users.length === 0 && <div className="empty-results">No users found for this timeframe!</div>}
-        <div className="top-three">
-          {users.slice(0, 3).map((user, index) => (
-            <TopLeaderCard
-              key={index}
-              exp={user.points}
-              image={user.profilePicture}
-              name={`${user.firstName} ${user.lastName}`}
-              placement={index + 1}
-              uuid={user.uuid}
-              selfUUID={selfUUID}
-            />
-          ))}
-        </div>
-        <div className="four-and-more">
-          {users.slice(3).map((user, index) => (
-            <LeaderListItem
-              key={index + 3}
-              exp={user.points}
-              image={user.profilePicture}
-              name={`${user.firstName} ${user.lastName}`}
-              placement={index + 4}
-              uuid={user.uuid}
-              selfUUID={selfUUID}
-            />
-          ))}
-        </div>
+        {!users && <div className="empty-results">Loading users...</div>}
+        {users && users.length === 0 && <div className="empty-results">No users found for this timeframe!</div>}
+        {users && users.length !== 0 && (
+          <>
+            <div className="top-three">
+              {users.slice(0, 3).map((user, index) => (
+                <TopLeaderCard
+                  key={index}
+                  exp={user.points}
+                  image={user.profilePicture}
+                  name={`${user.firstName} ${user.lastName}`}
+                  placement={index + 1}
+                  uuid={user.uuid}
+                  selfUUID={selfUUID}
+                />
+              ))}
+            </div>
+            <div className="four-and-more">
+              {users.slice(3).map((user, index) => (
+                <LeaderListItem
+                  key={index + 3}
+                  exp={user.points}
+                  image={user.profilePicture}
+                  name={`${user.firstName} ${user.lastName}`}
+                  placement={index + 4}
+                  uuid={user.uuid}
+                  selfUUID={selfUUID}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

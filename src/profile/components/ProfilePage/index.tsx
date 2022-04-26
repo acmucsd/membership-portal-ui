@@ -37,7 +37,13 @@ const ProfilePage: React.FC = () => {
           </div>
           <div className="level-info">
             <p className="rank">{getRank(profile.points)}</p>
-            <Progress successPercent={profile.points % 100} percent={100} showInfo={false} strokeWidth={12} strokeColor="#587291" />
+            <Progress
+              successPercent={profile.points % 100}
+              percent={100}
+              showInfo={false}
+              strokeWidth={12}
+              strokeColor="var(--theme-accent-line-2)"
+            />
             <p className="level-stats">
               <span> LVL {getLevel(profile.points)}</span>
               <span className="experience"> {profile.points % 100} / 100 </span>
@@ -48,7 +54,7 @@ const ProfilePage: React.FC = () => {
             <p>Major: {profile.major}</p>
           </div>
           <div className="meta-data bio">
-            <h2>Bio</h2>
+            <h2 className="bio">Bio</h2>
             <p>{isWhitespace(profile.bio) ? "This user hasn't added a bio yet!" : profile.bio}</p>
           </div>
           {!uuid && (

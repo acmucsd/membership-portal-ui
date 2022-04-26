@@ -49,11 +49,9 @@ const updateError = (state, { payload }) => {
   state.error = payload;
 };
 
-const updateField =
-  (field: string) =>
-  (state, { payload }) => {
-    if (!isEqual(state[field], payload)) state[field] = payload;
-  };
+const updateField = (field: string) => (state, { payload }) => {
+  if (!isEqual(state[field], payload)) state[field] = payload;
+};
 
 const eventSlice = createSlice({
   name: 'event',

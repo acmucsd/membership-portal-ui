@@ -1,11 +1,13 @@
+@import "../../../styles/vars.less";
+
 .admin-fulfill-page {
-  color: #333;
+  color: var(--theme-text-on-background-1);
   display: flex;
   margin-bottom: 12.5rem; // Prevent quantity dropdown from getting cut off
   margin-top: 2rem;
 
   &-title {
-    font-size: 2rem;
+    font-size: @general-heading-2;
     font-weight: 700;
   }
 
@@ -26,7 +28,7 @@
     margin-top: 1.5rem;
 
     &-title {
-      font-size: 1.5rem;
+      font-size: @general-heading-3;
       margin-top: 1.5rem;
     }
   }
@@ -50,12 +52,12 @@
   }
 
   &-right {
-    border-left: 1px solid #333;
+    border-left: 1px solid var(--theme-text-on-background-1);
     margin-left: 1rem;
     padding-left: 1rem;
 
     .title {
-      font-size: 1.75rem;
+      font-size: @page-heading;
       margin-bottom: 0.5rem;
     }
 

@@ -13,8 +13,8 @@
       background: transparent;
 
       .ant-table-column-title {
-        color: #333;
-        font-size: 1.125rem;
+        color: var(--theme-text-on-background-1);
+        font-size: @table-text;
       }
     }
 
@@ -37,7 +37,7 @@
     }
 
     .image-container {
-      border: 1px solid rgba(0, 0, 0, 10%);
+      border: 1px solid var(--theme-accent-line-2-transparent);
       border-radius: 0.625rem;
       height: 10rem;
       padding: 1rem;
@@ -52,6 +52,7 @@
 
     .cart-item {
       .item-name {
+        color: var(--theme-text-on-background-1);
         font-size: 1.5rem;
         font-weight: 400;
         margin-bottom: 0;
@@ -62,25 +63,26 @@
         margin-bottom: 1rem;
 
         .item-option-label {
-          color: #333;
-          font-size: 1.25rem;
+          color: var(--theme-text-on-background-1);
+          font-size: @item-option-text;
           font-weight: 500;
         }
 
         .item-option {
-          font-size: 1.25rem;
+          color: var(--theme-text-on-background-2);
+          font-size: @item-option-text;
           font-weight: 400;
         }
       }
 
       .item-button {
-        color: #777;
-        font-size: 1rem;
+        color: var(--theme-text-on-background-2);
+        font-size: @input-text-small;
         padding: 0;
         transition: color 0.3s;
 
         &:hover {
-          color: #62b0ff;
+          color: var(--theme-primary-2);
         }
 
         span {
@@ -94,10 +96,14 @@
     }
 
     .item-quantity {
-      color: #333;
-      font-size: 1.125rem;
+      color: var(--theme-text-on-background-1);
+      font-size: @table-text;
       text-align: center;
     }
+  }
+
+  .ant-table-placeholder {
+    background-color: var(--theme-background);
   }
 
   &-total {
@@ -107,8 +113,8 @@
     width: 100%;
 
     &-text {
-      color: #333;
-      font-size: 1.5rem;
+      color: var(--theme-text-on-background-1);
+      font-size: @total-text;
       margin-right: 1.25rem;
     }
   }

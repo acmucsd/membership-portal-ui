@@ -27,9 +27,11 @@ const UpcomingEventsContainer: React.FC = () => {
       <h1 className="subtitle">Upcoming Events</h1>
       <EventsList>
         {events.map((event) => {
+          const startDate = formatDate(event.start);
           const startTime = formatTime(event.start);
+          const endDate = formatDate(event.end);
           const endTime = formatTime(event.end);
-          const date = `${formatDate(event.start)}, ${startTime} - ${endTime}`;
+          const date = startDate === endDate ? `${startDate}, ${startTime} - ${endTime}` : `${startDate}, ${startTime} - ${endDate}, ${endTime}`;
           const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
           return (
             <EventCard
@@ -39,6 +41,7 @@ const UpcomingEventsContainer: React.FC = () => {
               date={date}
               description={event.description}
               location={event.location}
+              eventLink={event.eventLink}
               points={event.pointValue}
               title={event.title}
               canEditEvents={canEditEvents}

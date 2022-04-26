@@ -7,6 +7,7 @@
   }
 
   .name {
+    color: var(--theme-text-on-background-1);
     font-size: @general-heading-2;
     line-height: 115px;
     margin-right: 24px;
@@ -20,12 +21,19 @@
   }
 
   .edit-profile-btn {
+    background-color: var(--theme-surface-1);
+    color: var(--theme-text-on-surface-1);
     font-size: @general-body;
     height: @general-body * 2;
     margin-top: 24px;
+
+    &:hover {
+      color: var(--theme-primary-2);
+    }
   }
 
   .level-info {
+    color: var(--theme-text-on-background-2);
     margin-top: 18px;
     max-width: 256px;
     width: auto;
@@ -48,6 +56,10 @@
   .meta-data {
     font-size: @general-body;
     margin-top: 24px;
+  }
+
+  .bio {
+    color: var(--theme-text-on-background-1);
   }
 
   .bio > p {
