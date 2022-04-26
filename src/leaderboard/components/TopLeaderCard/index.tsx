@@ -1,5 +1,5 @@
-import { Avatar } from 'antd';
 import React from 'react';
+import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import { getRank } from '../../../utils';
 import './style.less';

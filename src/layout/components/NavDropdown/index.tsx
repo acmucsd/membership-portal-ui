@@ -1,5 +1,5 @@
-import { Divider } from 'antd';
 import React from 'react';
+import { Divider } from 'antd';
 import { logoutUser } from '../../../auth/authSlice';
 import { useAppDispatch } from '../../../redux/store';
 import NavBarItem from '../NavBarItem';

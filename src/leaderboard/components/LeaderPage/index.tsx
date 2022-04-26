@@ -1,5 +1,5 @@
-import { Dropdown, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Dropdown, Menu } from 'antd';
 import { useSelector } from 'react-redux';
 import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
 import { ReactComponent as ArrowsIcon } from '../../../assets/icons/caret-icon-double.svg';

@@ -1,5 +1,5 @@
-import { Formik } from 'formik';
 import React from 'react';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Config from '../../../config';
 import history from '../../../history';

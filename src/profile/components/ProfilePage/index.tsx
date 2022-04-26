@@ -1,5 +1,5 @@
-import { Avatar, Button, Progress } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Progress } from 'antd';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { authSelector, fetchUserByID } from '../../../auth/authSlice';

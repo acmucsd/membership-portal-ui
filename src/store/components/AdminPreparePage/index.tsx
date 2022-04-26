@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
-import React, { useState } from 'react';
 import { OrderStatus, PublicOrderItemWithQuantity, PublicOrderPickupEvent } from '../../../types';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';

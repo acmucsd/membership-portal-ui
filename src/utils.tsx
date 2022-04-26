@@ -1,5 +1,5 @@
-import { notification } from 'antd';
 import React from 'react';
+import { notification } from 'antd';
 import Storage from './storage';
 import DiamondDisplay from './store/components/DiamondDisplay';
 import { FetchServiceOptions, HttpRequestMethod, MimeType, OrderStatus, PublicMerchItemOption } from './types';

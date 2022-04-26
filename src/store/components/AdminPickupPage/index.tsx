@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import { DatePicker } from 'antd';
 import { Formik } from 'formik';
 import moment from 'moment';
-import React, { useState } from 'react';
 import * as Yup from 'yup';
 import Config from '../../../config';
 import history from '../../../history';

@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAppDispatch } from '../../../redux/store';
 import { OrderStatus, PublicOrderForFulfillment, PublicOrderPickupEvent } from '../../../types';

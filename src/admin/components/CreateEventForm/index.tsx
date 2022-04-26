@@ -1,9 +1,9 @@
+import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import { Button, DatePicker, Form, Input, Select, TimePicker, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 import * as moment from 'moment';
-import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
 import { useHistory } from 'react-router-dom';
 import { copyLink } from '../../utils';
 import './style.less';

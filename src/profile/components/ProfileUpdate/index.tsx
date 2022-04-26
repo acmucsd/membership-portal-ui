@@ -1,7 +1,7 @@
+import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler, useEffect, useRef, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import * as ANTD from 'antd';
 import { Avatar, Button, Form, Input, Modal, Select } from 'antd';
-import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchUser } from '../../../auth/authSlice';
 import majorsData from '../../../constants/majors.json';

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-import './style.less';
 import { sendEmailVerification } from '../../utils';
+import './style.less';
 
 interface ResendEmailVerficationPageProps {
   email: string;

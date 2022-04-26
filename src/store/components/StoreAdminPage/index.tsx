@@ -1,5 +1,5 @@
-import { Modal } from 'antd';
 import React, { useState } from 'react';
+import { Modal } from 'antd';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../auth/authSlice';
 import { useAppDispatch } from '../../../redux/store';

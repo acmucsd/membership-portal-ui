@@ -1,5 +1,5 @@
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import React, { ChangeEventHandler, FormEventHandler, KeyboardEventHandler, useState } from 'react';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../auth/authSlice';
 import { useAppDispatch } from '../../redux/store';

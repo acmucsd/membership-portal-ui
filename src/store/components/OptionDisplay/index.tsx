@@ -1,5 +1,5 @@
-import { Modal, Table } from 'antd';
 import React, { useState } from 'react';
+import { Modal, Table } from 'antd';
 import { useAppDispatch } from '../../../redux/store';
 import { Uuid } from '../../../types';
 import { notify } from '../../../utils';

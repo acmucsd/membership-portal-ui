@@ -1,5 +1,5 @@
-import { withFormik } from 'formik';
 import React, { useEffect } from 'react';
+import { withFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import { eventSelector, fetchPastEvents } from '../../event/eventSlice';
 import { useAppDispatch } from '../../redux/store';
