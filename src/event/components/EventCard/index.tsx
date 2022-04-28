@@ -62,7 +62,7 @@ const EventCard: React.FC<EventCardProps> = (props) => {
           <>
             <br />
             <br />
-            <a href={eventLink}>
+            <a href={getAbsoluteURL(eventLink)}>
               <p className="event-link">{eventLink}</p>
             </a>
           </>
