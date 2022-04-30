@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, notification } from 'antd';
+import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { hideNotification, showNotification } from '@mantine/notifications';
 import PageLayout from '../components/PageLayout';
 import { UserAccessType } from '../../types';
 
@@ -26,25 +27,26 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
   React.useEffect(() => {
     const key = `open${Date.now()}`;
 
-    const btn = (
-      <Button
-        onClick={() => {
-          history.push('/resendEmailVerification');
-          notification.close(key);
-        }}
-      >
-        Resend Verification Email
-      </Button>
-    );
-
     if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
-      notification.warning({
-        message: 'Make sure to check your email and click the verification link in order to get full access to all features!',
-        description: "If you didn't receive the email, click the button below",
-        btn,
-        key,
-        duration: 0,
+      showNotification({
+        id: key,
+        title: <p>Make sure to check your email and click the verification link in order to get full access to all features!</p>,
+        message: (
+          <>
+            <p>If you didn&apos;t receive the email, click the button below</p>
+            <Button
+              onClick={() => {
+                history.push('/resendEmailVerification');
+                hideNotification(key);
+              }}
+            >
+              Resend Verification Email
+            </Button>
+          </>
+        ),
+        autoClose: false,
       });
+
       notifiedAboutEmail = true;
     }
   }, [user, history]);
