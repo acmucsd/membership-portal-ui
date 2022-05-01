@@ -110,7 +110,7 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                 setSubmitting(false);
                 notify('Success!', creatingPickup ? 'Pickup event created.' : 'Pickup event modified.');
                 history.push('/store/admin');
-              } catch (error) {
+              } catch (error: any) {
                 notify(creatingPickup ? 'Error creating pickup event!' : 'Error modifying pickup event!', error.message);
                 setSubmitting(false);
               }

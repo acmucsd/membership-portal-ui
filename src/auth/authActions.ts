@@ -66,7 +66,7 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
       // Otherwise, redirect to home
       dispatch(replace('/'));
     }
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to login!', error.message);
     dispatch({
       type: AUTH_ERROR,
@@ -103,7 +103,7 @@ export const verifyToken: ThunkActionCreator = (dispatch) => async (search, path
         });
         data.admin = userData.admin;
         resolve(data);
-      } catch (error) {
+      } catch (error: any) {
         notify('Unable to verify token!', error.message || 'Try logging in again');
 
         dispatch({
@@ -171,7 +171,7 @@ export const passwordReset: ThunkActionCreator = (email: string) => async (dispa
     dispatch({
       type: PASSWORD_SUCCESS,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Error with email!', error.message);
     dispatch({
       type: PASSWORD_FAIL,
@@ -189,7 +189,7 @@ export const updatePassword: ThunkActionCreator = (user) => async (dispatch) => 
     });
 
     dispatch(replace('/'));
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to reset password!', error.message);
   }
 };
@@ -204,7 +204,7 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
     });
 
     notify('Verified email!', '');
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to verify email!', error.message);
   }
 };
@@ -217,7 +217,7 @@ export const sendEmailVerification = async (email: string) => {
     });
 
     notify('Sent verification email!', '');
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to send verification email!', error.message);
   }
 };
@@ -245,7 +245,7 @@ export const registerAccount: ThunkActionCreator = (user, search) => async (disp
         search,
       ),
     );
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to register account!', error.message);
     dispatch({
       type: REGISTER_FAIL,
@@ -270,7 +270,7 @@ export const fetchUser: ThunkActionCreator = (uuid) => async (dispatch) => {
       type: FETCH_USER,
       payload: data.user,
     });
-  } catch (error) {
+  } catch (error: any) {
     // TODO: Dispatch error message.
   }
 };
@@ -285,7 +285,7 @@ export const fetchUserByID = async (uuid: string) => {
       });
 
       resolve(data);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });

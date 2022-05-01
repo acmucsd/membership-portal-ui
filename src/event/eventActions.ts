@@ -26,7 +26,7 @@ export const fetchFutureEvents: ThunkActionCreator = () => async (dispatch) => {
       type: FETCH_FUTURE_EVENTS,
       payload: futureEvents.events,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to fetch future events!', error.message);
     dispatch({
       type: EVENT_ERROR,
@@ -47,7 +47,7 @@ export const fetchPastEvents: ThunkActionCreator = () => async (dispatch) => {
       type: FETCH_PAST_EVENTS,
       payload: pastEvents.events,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to fetch past events!', error.message);
     dispatch({
       type: EVENT_ERROR,
@@ -68,7 +68,7 @@ export const fetchAttendance: ThunkActionCreator = () => async (dispatch) => {
       type: FETCH_ATTENDANCE,
       payload: data.attendances,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to fetch attendance!', error.message);
     dispatch({
       type: EVENT_ERROR,
@@ -97,7 +97,7 @@ export const checkIn: ThunkActionCreator = (info) => async (dispatch) => {
       type: EVENT_CHECKIN,
       payload: data.event,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to checkin!', error.message);
     dispatch({
       type: EVENT_ERROR,
@@ -126,7 +126,7 @@ export const fetchEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
       type: FETCH_EVENT,
       payload: thisEvent.event,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to fetch an event!', error.message);
     dispatch({
       type: EVENT_ERROR,

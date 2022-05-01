@@ -17,7 +17,7 @@ export const updateProfile: ThunkActionCreator = (values) => async (dispatch) =>
       type: PROFILE_SUCCESS,
       payload: values,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to update profile!', error.message);
     dispatch({
       type: PROFILE_FAIL,
@@ -41,7 +41,7 @@ export const uploadUserImage = async (file: string | Blob) => {
 
       notify('Updated profile picture!', '');
       resolve(data);
-    } catch (error) {
+    } catch (error: any) {
       notify('Unable to update profile picture!', error.message);
       reject(error);
     }
@@ -59,7 +59,7 @@ export const updateEmail = (email: string) => async (dispatch) => {
     });
 
     notify('Success!', 'Check your email to re-verify your account.');
-  } catch (error) {
+  } catch (error: any) {
     notify('API Error', error.message);
   }
 };

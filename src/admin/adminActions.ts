@@ -29,7 +29,7 @@ export const postEvent: ThunkActionCreator = (event) => async (dispatch) => {
 
       notify('Added an event!', event.title);
       resolve(event);
-    } catch (error) {
+    } catch (error: any) {
       notify('Unable to add events!', error.message);
       reject(error);
     }
@@ -61,7 +61,7 @@ export const editEvent: ThunkActionCreator = (event) => async (dispatch) => {
 
       notify('Edited an event!', event.title);
       resolve(event);
-    } catch (error) {
+    } catch (error: any) {
       notify('Unable to edit event!', error.message);
       reject(error);
     }
@@ -83,7 +83,7 @@ export const deleteEvent: ThunkActionCreator = (uuid) => async (dispatch) => {
       });
       notify('Success!', 'You successfully deleted the event!');
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       notify('Unable to delete event!', error.message);
       reject();
     }
@@ -117,7 +117,7 @@ export const awardPoints: ThunkActionCreator = (pointDetails: any) => async (dis
 
       notify('Gave bonus points!', `to ${pointDetails.users.length} users`);
       resolve(pointDetails);
-    } catch (error) {
+    } catch (error: any) {
       notify('Unable to award points!', error.message);
       reject(error);
     }
@@ -150,7 +150,7 @@ export const addAttendance: ThunkActionCreator = (attendanceDetails: any) => asy
 
       notify('Success!', `Added ${attendanceDetails.attendees.length} user(s)!`);
       resolve(attendanceDetails);
-    } catch (error) {
+    } catch (error: any) {
       notify('Unable to add attendees!', error.message);
       reject(error);
     }
@@ -168,7 +168,7 @@ export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
       type: GET_EMAILS,
       payload: emails,
     });
-  } catch (error) {
+  } catch (error: any) {
     notify('Unable to fetch emails!', error.message);
   }
 };

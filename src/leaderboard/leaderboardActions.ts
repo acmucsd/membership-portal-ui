@@ -21,7 +21,7 @@ export const fetchLeaderboard: ThunkActionCreator = (offset: number = 0, limit: 
       offset,
       limit,
     });
-  } catch (error) {
+  } catch (error: any) {
     dispatch({
       type: LEADERBOARD_ERROR,
       payload: error,

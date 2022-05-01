@@ -25,7 +25,7 @@ const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
         payload: JSON.stringify({ order: payload }),
       });
       history.push('/store/checkout');
-    } catch (error) {
+    } catch (error: any) {
       onFailCallback();
 
       if (error.message.includes('The following items were not found: ')) {

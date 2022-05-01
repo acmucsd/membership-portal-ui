@@ -21,7 +21,7 @@ export const fetchCollection: ThunkActionCreator = (uuid: string) => async (disp
       });
 
       resolve(data.collection);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -36,7 +36,7 @@ export const fetchCollections: ThunkActionCreator = () => async (dispatch) => {
         onFailCallback: () => dispatch(logoutUser()),
       });
       resolve(data.collections);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -57,7 +57,7 @@ export const deleteCollection: ThunkActionCreator = (uuid: string) => async (dis
       });
 
       resolve(data.collection);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -80,7 +80,7 @@ export const fetchItem: ThunkActionCreator = (uuid: string) => async (dispatch) 
       });
 
       resolve(data.item);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -101,7 +101,7 @@ export const deleteItem: ThunkActionCreator = (uuid: string) => async (dispatch)
       });
 
       resolve(data.item);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -138,7 +138,7 @@ export const createItemOption: ThunkActionCreator = (
       });
 
       resolve(data.option);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -159,7 +159,7 @@ export const deleteItemOption: ThunkActionCreator = (uuid: string) => async (dis
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -177,7 +177,7 @@ export const fetchOrders: ThunkActionCreator = () => async (dispatch) => {
       });
 
       resolve(data.orders);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -198,7 +198,7 @@ export const fetchOrder: ThunkActionCreator = (uuid: string) => async (dispatch)
       });
 
       resolve(data.order);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -225,7 +225,7 @@ export const fulfillOrder: ThunkActionCreator = (uuid: string, items: { uuid: st
       });
 
       resolve(data.order);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -252,7 +252,7 @@ export const rescheduleOrder: ThunkActionCreator = (uuid: string, pickupEvent: s
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -273,7 +273,7 @@ export const cancelOrder: ThunkActionCreator = (uuid: string) => async (dispatch
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -289,7 +289,7 @@ export const cancelAllOrders: ThunkActionCreator = () => async (dispatch) => {
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -312,7 +312,7 @@ export const fetchPickupEvent: ThunkActionCreator = (uuid: string) => async (dis
       });
 
       resolve(data.pickupEvent);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -328,7 +328,7 @@ export const fetchPastPickupEvents: ThunkActionCreator = () => async (dispatch) 
       });
 
       resolve(data.pickupEvents);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -344,7 +344,7 @@ export const fetchFuturePickupEvents: ThunkActionCreator = () => async (dispatch
       });
 
       resolve(data.pickupEvents);
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -365,7 +365,7 @@ export const completePickupEvent: ThunkActionCreator = (uuid: string) => async (
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -386,7 +386,7 @@ export const deletePickupEvent: ThunkActionCreator = (uuid: string) => async (di
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });
@@ -407,7 +407,7 @@ export const cancelPickupEvent: ThunkActionCreator = (uuid: string) => async (di
       });
 
       resolve();
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
   });

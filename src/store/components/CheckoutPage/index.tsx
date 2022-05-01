@@ -69,7 +69,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clea
               });
               clearCart();
               history.push(`/store/order/${result.order.uuid}`);
-            } catch (error) {
+            } catch (error: any) {
               notify('Order placement error', error.message);
               history.push('/store/cart');
             }

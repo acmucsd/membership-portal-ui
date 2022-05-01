@@ -232,7 +232,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               }
               setSubmitting(false);
               history.push('/store');
-            } catch (reason) {
+            } catch (reason: any) {
               setSubmitting(false);
               notify('API Error', reason.message || reason);
             }
