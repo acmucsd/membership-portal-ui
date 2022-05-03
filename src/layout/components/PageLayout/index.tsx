@@ -36,7 +36,7 @@ const PageLayout: React.FC<PageLayoutProps> = (props) => {
 };
 
 const mapSizesToProps = ({ width }: { width: number }) => ({
-  isMobile: width < 768,
+  isMobile: width <= 768,
 });
 
 export default withSizes(mapSizesToProps)(PageLayout as any) as any; // TODO
