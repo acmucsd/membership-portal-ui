@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
-
-import { CartItem } from '../../../types';
-
+import { useSelector } from 'react-redux';
+import { cartSelector } from '../../storeSlice';
 import CartDisplay from '../CartDisplay';
 import StoreButton from '../StoreButton';
 import StoreHeader from '../StoreHeader';
-
 import './style.less';
 
 type CartPageProps = {
-  cart: CartItem[];
   verifyCart: (onFail: () => void) => void;
 };
 
-const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
+const CartPage: React.FC<CartPageProps> = ({ verifyCart }) => {
   const [isCheckoutLocked, setIsCheckoutLocked] = useState(false);
+  const cart = Object.values(useSelector(cartSelector));
 
   // unlock checkout if cart is modified
   useEffect(() => {
@@ -29,7 +27,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart, verifyCart }) => {
     <>
       <StoreHeader breadcrumb breadcrumbTitle="Shopping" breadcrumbLocation="/store" showBalance />
       <div className="cart-page">
-        <CartDisplay items={cart} />
+        <CartDisplay items={cart} writable />
         <StoreButton type="primary" size="large" text="Checkout" disabled={isCheckoutLocked} onClick={onCheckoutButtonClick} />
       </div>
     </>

@@ -1,8 +1,7 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-
+import { connect } from 'react-redux';
+import { awardPoints } from '../adminSlice';
 import AwardPointsForm from '../components/AwardPointsForm';
-import { awardPoints } from '../adminActions';
 
 const FormikAwardPointsForm = withFormik({
   mapPropsToValues() {
@@ -21,9 +20,7 @@ const FormikAwardPointsForm = withFormik({
 
     props
       .awardPoints(pointDetails)
-      .then(() => {
-        resetForm();
-      })
+      .then(() => resetForm())
       .catch(() => {});
   },
 })(AwardPointsForm as any);

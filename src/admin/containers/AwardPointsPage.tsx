@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import AwardPointsPage from '../components/AwardPointsPage';
 import PageLayout from '../../layout/containers/PageLayout';
+import AwardPointsPage from '../components/AwardPointsPage';
 
 const AwardPointsPageContainer: React.FC = () => {
   return (
@@ -12,4 +10,4 @@ const AwardPointsPageContainer: React.FC = () => {
   );
 };
 
-export default connect(null, {})(AwardPointsPageContainer);
+export default AwardPointsPageContainer;

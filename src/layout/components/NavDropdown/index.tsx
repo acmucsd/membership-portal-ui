@@ -1,16 +1,12 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { Divider } from 'antd';
-
+import { logoutUser } from '../../../auth/authSlice';
+import { useAppDispatch } from '../../../redux/store';
 import NavBarItem from '../NavBarItem';
-
 import './style.less';
 
-interface NavDropdownProps {
-  logout: MouseEventHandler;
-}
-
-const NavDropdown: React.FC<NavDropdownProps> = (props) => {
-  const { logout } = props;
+const NavDropdown: React.FC = () => {
+  const dispatch = useAppDispatch();
 
   return (
     <nav className="nav-dropdown">
@@ -29,7 +25,7 @@ const NavDropdown: React.FC<NavDropdownProps> = (props) => {
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <NavBarItem text="Sign Out" func={logout} mobile />
+      <NavBarItem text="Sign Out" func={() => dispatch(logoutUser())} mobile />
     </nav>
   );
 };

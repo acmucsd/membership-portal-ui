@@ -1,33 +1,20 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import EditEventPage from '../components/EditEventPage';
+import { eventSelector, fetchEvent } from '../../event/eventSlice';
 import PageLayout from '../../layout/containers/PageLayout';
+import { useAppDispatch } from '../../redux/store';
+import { ProfileParams } from '../../types';
+import EditEventPage from '../components/EditEventPage';
 
-import { fetchEvent as fetchEventConnect } from '../../event/eventActions';
-
-interface EditEventPageContainerProps {
-  event: {
-    uuid: string;
-    cover: string;
-    description: string;
-    location: string;
-    eventLink?: string;
-    pointValue: string;
-    title: string;
-  };
-  fetchEvent: Function;
-}
-
-const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) => {
-  const { event, fetchEvent } = props;
-
-  const params: { [key: string]: any } = useParams();
+const EditEventPageContainer: React.FC = () => {
+  const { event } = useSelector(eventSelector);
+  const dispatch = useAppDispatch();
+  const params = useParams<ProfileParams>();
 
   useEffect(() => {
-    fetchEvent(params.uuid);
-  }, [fetchEvent, params.uuid]);
+    dispatch(fetchEvent(params.uuid));
+  }, [dispatch, params.uuid]);
 
   return (
     <PageLayout>
@@ -36,8 +23,4 @@ const EditEventPageContainer: React.FC<EditEventPageContainerProps> = (props) =>
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  event: state.event.event,
-});
-
-export default connect(mapStateToProps, { fetchEvent: fetchEventConnect })(EditEventPageContainer);
+export default EditEventPageContainer;

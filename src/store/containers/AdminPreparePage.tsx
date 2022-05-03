@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
-import { fetchPickupEvent, fetchFuturePickupEvents } from '../storeActions';
+import PageLayout from '../../layout/containers/PageLayout';
+import { useAppDispatch } from '../../redux/store';
 import { PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
-
-import PageLayout from '../../layout/containers/PageLayout';
 import AdminPreparePage from '../components/AdminPreparePage';
+import { fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
 
-interface AdminPreparePageContainerProps {
-  fetchPickupEvent: Function;
-  fetchFuturePickupEvents: Function;
-}
-
-const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (props) => {
+const AdminPreparePageContainer: React.FC = () => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
-  const { fetchPickupEvent: fetchPickupEventFunction, fetchFuturePickupEvents: fetchFuturePickupEventsFunction } = props;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
-      fetchPickupEventFunction(uuid)
+      dispatch(fetchPickupEvent(uuid))
+        .unwrap()
         .then((value) => {
           setPickupEvent(value);
         })
@@ -32,7 +26,8 @@ const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (pro
           notify('API Error', reason.message || reason);
         });
     } else {
-      fetchFuturePickupEventsFunction()
+      dispatch(fetchFuturePickupEvents())
+        .unwrap()
         .then((value) => {
           setPickupEvents(value);
         })
@@ -40,7 +35,7 @@ const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (pro
           notify('API Error', reason.message || reason);
         });
     }
-  }, [props, uuid]);
+  }, [dispatch, uuid]);
 
   return (
     <PageLayout>
@@ -49,4 +44,4 @@ const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (pro
   );
 };
 
-export default connect(() => ({}), { fetchPickupEvent, fetchFuturePickupEvents })(AdminPreparePageContainer);
+export default AdminPreparePageContainer;

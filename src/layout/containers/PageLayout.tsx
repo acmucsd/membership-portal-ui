@@ -1,31 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button, notification } from 'antd';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { authSelector } from '../../auth/authSlice';
 import PageLayout from '../components/PageLayout';
 import { UserAccessType } from '../../types';
 
 let notifiedAboutEmail = false;
 
-interface PageLayoutContainerProps {
-  hasAdminAccess: boolean;
-  hasStoreAdminAccess: boolean;
-  children: React.ReactChildren | React.ReactChild[] | React.ReactElement;
-  user: {
-    profile: {
-      state: string;
-    };
-  };
-}
-
-const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
-  const { hasAdminAccess, hasStoreAdminAccess, children, user } = props;
-
+const PageLayoutContainer: React.FC = ({ children }) => {
+  const user = useSelector(authSelector);
+  const {
+    isAdmin: hasAdminAccess,
+    profile: { accessType },
+  } = user;
+  const hasStoreAdminAccess = [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(accessType);
   const history = useHistory();
 
   React.useEffect(() => {
     const key = `open${Date.now()}`;
-
     const btn = (
       <Button
         onClick={() => {
@@ -55,12 +48,4 @@ const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  hasAdminAccess: state.auth.admin,
-  hasStoreAdminAccess: [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(
-    state.auth.profile.accessType,
-  ),
-  user: state.auth,
-});
-
-export default connect(mapStateToProps)(PageLayoutContainer);
+export default PageLayoutContainer;

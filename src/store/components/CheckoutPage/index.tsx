@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { CartItem, PublicOrderPickupEvent } from '../../../types';
-import CartDisplay from '../CartDisplay';
+import { useSelector } from 'react-redux';
 import Config from '../../../config';
-import { history } from '../../../redux_store';
+import history from '../../../history';
+import { useAppDispatch } from '../../../redux/store';
+import { PublicOrderPickupEvent } from '../../../types';
+import { fetchService, getErrorMessage, notify } from '../../../utils';
+import { cartSelector, clearCart, fetchFuturePickupEvents } from '../../storeSlice';
+import CartDisplay from '../CartDisplay';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
-import { fetchService, notify } from '../../../utils';
 import './style.less';
-
-type CheckoutPageProps = {
-  cart: CartItem[];
-  getFuturePickup: Function;
-  clearCart: Function;
-};
 
 interface ItemAPIData {
   option: string;
@@ -26,15 +23,19 @@ interface APIData {
   pickupEvent: string;
 }
 
-const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clearCart }) => {
+const CheckoutPage: React.FC = () => {
   const [pickupEvents, setPickupEvents] = useState<PublicOrderPickupEvent[]>([]);
   const [eventUUID, setEventUUID] = useState('');
+  const cart = Object.values(useSelector(cartSelector));
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getFuturePickup().then((resultEvents) => {
-      setPickupEvents(resultEvents);
-    });
-  }, [getFuturePickup]);
+    dispatch(fetchFuturePickupEvents())
+      .unwrap()
+      .then((resultEvents) => {
+        setPickupEvents(resultEvents);
+      });
+  }, [dispatch]);
 
   return (
     <>
@@ -67,10 +68,10 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cart, getFuturePickup, clea
                 requiresAuthorization: true,
                 payload: JSON.stringify(inputData),
               });
-              clearCart();
+              dispatch(clearCart());
               history.push(`/store/order/${result.order.uuid}`);
             } catch (error) {
-              notify('Order placement error', error.message);
+              notify('Order placement error', getErrorMessage(error));
               history.push('/store/cart');
             }
           }}

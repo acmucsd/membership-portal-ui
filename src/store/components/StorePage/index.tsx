@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { fetchCollections } from '../../storeActions';
-import { notify } from '../../../utils';
-import { PublicMerchCollection, UserAccessType } from '../../../types';
-
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
-import StoreHeader from '../StoreHeader';
+import { authSelector } from '../../../auth/authSlice';
+import { useAppDispatch } from '../../../redux/store';
+import { PublicMerchCollection, UserAccessType } from '../../../types';
+import { notify } from '../../../utils';
+import { fetchCollections } from '../../storeSlice';
 import ItemCard from '../ItemCard';
-
-import './style.less';
 import StoreButton from '../StoreButton';
+import StoreHeader from '../StoreHeader';
+import './style.less';
 
-interface StorePageProps {
-  fetchCollections: Function;
-  canManageStore: boolean;
-}
-
-const StorePage: React.FC<StorePageProps> = (props) => {
-  const { canManageStore, fetchCollections: fetchCollectionsFunction } = props;
+const StorePage: React.FC = () => {
+  const auth = useSelector(authSelector);
+  const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(auth.profile.accessType);
 
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    fetchCollectionsFunction()
+    dispatch(fetchCollections())
+      .unwrap()
       .then((value) => {
         setCollections(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [props]);
+  }, [dispatch]);
 
   return (
     <>
@@ -71,8 +68,4 @@ const StorePage: React.FC<StorePageProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  canManageStore: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
-});
-
-export default connect(mapStateToProps, { fetchCollections })(StorePage);
+export default StorePage;

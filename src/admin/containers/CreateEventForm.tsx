@@ -1,11 +1,10 @@
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-import * as Yup from 'yup';
-
 import Moment from 'moment';
-import CreateEventForm from '../components/CreateEventForm';
-import { postEvent, copyLink } from '../adminActions';
+import { connect } from 'react-redux';
+import * as Yup from 'yup';
 import { isURL } from '../../utils';
+import { postEvent } from '../adminSlice';
+import CreateEventForm from '../components/CreateEventForm';
 
 const CreateEventSchema = Yup.object().shape({
   title: Yup.string().required('Required'),
@@ -67,4 +66,4 @@ const FormikCreateEventForm = withFormik({
   },
 })(CreateEventForm as React.FC);
 
-export default connect(null, { postEvent, copyLink })(FormikCreateEventForm);
+export default connect(null, { postEvent })(FormikCreateEventForm);
