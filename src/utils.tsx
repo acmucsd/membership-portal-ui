@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { showNotification } from '@mantine/notifications';
 import Storage from './storage';
-import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption, OrderStatus } from './types';
-
 import DiamondDisplay from './store/components/DiamondDisplay';
+import { FetchServiceOptions, HttpRequestMethod, MimeType, OrderStatus, PublicMerchItemOption } from './types';
 
 export const notify = (title: string, description: string) => {
   showNotification({
@@ -309,3 +307,7 @@ export const parseOrderStatus = (status: OrderStatus) => {
       return '';
   }
 };
+
+export const isWhitespace = (s: any) => typeof s === 'string' && s.trim().length === 0;
+
+export const getErrorMessage = (err: any) => (err instanceof Error ? err.message : String(err));

@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-
+import { useSelector } from 'react-redux';
+import { eventSelector, fetchPastEvents } from '../../event/eventSlice';
+import { useAppDispatch } from '../../redux/store';
+import { addAttendance, adminSelector, getEmails } from '../adminSlice';
 import AddAttendanceForm from '../components/AddAttendanceForm';
-import { addAttendance, getAllEmails as getAllEmailsConnect } from '../adminActions';
-import { fetchPastEvents as fetchPastEventsConnect } from '../../event/eventActions';
 
-const AddAttendanceFormContainer = (props) => {
-  const { emails, pastEvents, addAttendance: addAttendanceFunction, fetchPastEventsConnect, getAllEmailsConnect } = props; // eslint-disable-line no-shadow
+const AddAttendanceFormContainer = () => {
+  const { emails } = useSelector(adminSelector);
+  const { pastEvents } = useSelector(eventSelector);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getAllEmailsConnect();
-    fetchPastEventsConnect();
-  }, [fetchPastEventsConnect, getAllEmailsConnect]);
+    dispatch(getEmails());
+    dispatch(fetchPastEvents());
+  }, [dispatch]);
 
   const FormikAddAttendanceForm = withFormik({
     mapPropsToValues() {
@@ -30,19 +32,10 @@ const AddAttendanceFormContainer = (props) => {
         event: values.event,
         asStaff: values.staff,
       };
-      addAttendanceFunction(attendanceDetails)
-        .then(() => {
-          resetForm();
-        })
-        .catch(() => {});
+      dispatch(addAttendance(attendanceDetails)).unwrap().then(resetForm).catch();
     },
   })(AddAttendanceForm as any);
   return <FormikAddAttendanceForm />;
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  emails: state.admin.emails,
-  pastEvents: state.event.pastEvents,
-});
-
-export default connect(mapStateToProps, { addAttendance, getAllEmailsConnect, fetchPastEventsConnect })(AddAttendanceFormContainer);
+export default AddAttendanceFormContainer;

@@ -1,21 +1,14 @@
-import React, { useState, ChangeEventHandler, FormEventHandler, KeyboardEventHandler } from 'react';
-import { connect } from 'react-redux';
-
+import React, { ChangeEventHandler, FormEventHandler, KeyboardEventHandler, useState } from 'react';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../../auth/authSlice';
+import { useAppDispatch } from '../../redux/store';
 import EventCheckIn from '../components/EventCheckIn';
-import { checkIn } from '../eventActions';
+import { checkIn } from '../eventSlice';
 
-interface EventCheckInContainerProps {
-  user: {
-    profile: {
-      accountType: string;
-    };
-  };
-  checkIn: Function;
-}
-
-const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
-  const { user, checkIn: checkInFunction } = props;
+const EventCheckInContainer: React.FC = () => {
+  const user = useSelector(authSelector);
+  const dispatch = useAppDispatch();
 
   const [value, setValue] = useState('');
   const [asStaff, setAsStaff] = useState(false);
@@ -26,13 +19,10 @@ const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
     setAsStaff(event.target.checked);
   };
 
-  const handleSubmit: FormEventHandler = () => {
-    checkInFunction({ attendanceCode: value, asStaff });
-  };
-
+  const handleSubmit: FormEventHandler = () => dispatch(checkIn({ attendanceCode: value, asStaff }));
   const handleEnter: KeyboardEventHandler = (event) => {
     if (event.key === 'Enter') {
-      checkInFunction({ attendanceCode: value, asStaff });
+      dispatch(checkIn({ attendanceCode: value, asStaff }));
     }
   };
 
@@ -48,8 +38,4 @@ const EventCheckInContainer: React.FC<EventCheckInContainerProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  user: state.auth,
-});
-
-export default connect(mapStateToProps, { checkIn })(EventCheckInContainer);
+export default EventCheckInContainer;

@@ -1,24 +1,16 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Redirect, useLocation } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/store';
+import { checkIn } from '../eventSlice';
 
-import { checkIn } from '../eventActions';
+const CheckInHandler: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
 
-interface CheckInHandlerProps {
-  query: { code: string | null };
-  checkIn: Function;
-}
-
-const CheckInHandler: React.FC<CheckInHandlerProps> = (props) => {
-  const { query, checkIn: reduxCheckIn } = props;
-
-  reduxCheckIn({ attendanceCode: decodeURIComponent(query.code || ''), asStaff: false });
+  dispatch(checkIn({ attendanceCode: decodeURIComponent(params.get('code') || ''), asStaff: false }));
 
   return <Redirect to="/" />;
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  query: state.router.location.query,
-});
-
-export default connect(mapStateToProps, { checkIn })(CheckInHandler);
+export default CheckInHandler;

@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import AddAttendancePage from '../components/AddAttendancePage';
 import PageLayout from '../../layout/containers/PageLayout';
+import AddAttendancePage from '../components/AddAttendancePage';
 
 const AddAttendancePageContainer: React.FC = () => {
   return (
@@ -12,4 +10,4 @@ const AddAttendancePageContainer: React.FC = () => {
   );
 };
 
-export default connect(null, {})(AddAttendancePageContainer);
+export default AddAttendancePageContainer;

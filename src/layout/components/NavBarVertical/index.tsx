@@ -1,28 +1,27 @@
 import React from 'react';
-
-import NavBarItem from '../NavBarItem';
-
 import { ReactComponent as ACMIcon } from '../../../assets/icons/acm-icon.svg';
 import { ReactComponent as AdminIcon } from '../../../assets/icons/admin-icon.svg';
 import { ReactComponent as DashboardIcon } from '../../../assets/icons/dashboard-icon.svg';
 import { ReactComponent as DiscordIcon } from '../../../assets/icons/discord-icon.svg';
-import { ReactComponent as LBIcon } from '../../../assets/icons/lb-icon.svg';
-import { ReactComponent as ProfileIcon } from '../../../assets/icons/profile-icon.svg';
-import { ReactComponent as SwagIcon } from '../../../assets/icons/swag-icon.svg';
 import { ReactComponent as FeedbackIcon } from '../../../assets/icons/feedback-icon.svg';
+import { ReactComponent as LBIcon } from '../../../assets/icons/lb-icon.svg';
 import { ReactComponent as LogoutIcon } from '../../../assets/icons/logout-icon.svg';
 import { ReactComponent as OrdersIcon } from '../../../assets/icons/orders-icon.svg';
-
+import { ReactComponent as ProfileIcon } from '../../../assets/icons/profile-icon.svg';
+import { ReactComponent as SwagIcon } from '../../../assets/icons/swag-icon.svg';
+import { logoutUser } from '../../../auth/authSlice';
+import { useAppDispatch } from '../../../redux/store';
+import NavBarItem from '../NavBarItem';
 import './style.less';
 
 interface NavbarVerticalProps {
   hasAdminAccess: boolean;
   hasStoreAdminAccess: boolean;
-  logout: Function;
 }
 
 const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
-  const { hasAdminAccess, hasStoreAdminAccess, logout } = props;
+  const { hasAdminAccess, hasStoreAdminAccess } = props;
+  const dispatch = useAppDispatch();
 
   return (
     <div className="navbar-vertical">
@@ -53,7 +52,7 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
           <div className="navbar-vertical-group">
             <div className="navbar-vertical-items">
               <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
-              <NavBarItem icon={LogoutIcon} text="Sign Out" func={logout} last />
+              <NavBarItem icon={LogoutIcon} text="Sign Out" func={() => dispatch(logoutUser())} last />
             </div>
           </div>
         </nav>

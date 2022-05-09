@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
-
-import { notify } from '../../utils';
-import { verifyToken } from '../authActions';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { ComponentType, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import history from '../../history';
 import PageLayout from '../../layout/containers/PageLayout';
+import { useAppDispatch } from '../../redux/store';
 import { UserState } from '../../types';
+import { notify } from '../../utils';
+import { authSelector, verifyToken } from '../authSlice';
 
 export enum WithRouteOptions {
   ADMIN,
@@ -14,42 +14,54 @@ export enum WithRouteOptions {
   STORE,
 }
 
-const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: string) => (props: { [key: string]: any }) => {
-  const { authenticated, pathname, search, verify, redirect, isAdmin, state, email } = props;
+const redirectHome = (option: WithRouteOptions) => {
+  switch (option) {
+    case WithRouteOptions.ADMIN: {
+      history.replace('/');
+      break;
+    }
+    case WithRouteOptions.STORE: {
+      notify('Store Requirement', 'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.');
+      history.replace('/');
+      break;
+    }
+    default:
+  }
+};
+
+const withRoute = <T extends object>(Component: ComponentType<T>, option: WithRouteOptions) => (props: T) => {
+  const {
+    authenticated,
+    isAdmin,
+    profile: { state, email },
+  } = useSelector(authSelector);
+  const dispatch = useAppDispatch();
+  const { search, pathname } = history.location;
+
   switch (option) {
     case WithRouteOptions.ADMIN: {
       useEffect(() => {
-        // check if authenticated, if not, then verify the token
-        if (!authenticated) {
-          // using then here because state doesn't update in right order
-          verify()(search, pathname)
-            .then((data: { [key: string]: any }) => {
-              if (!data.admin) {
-                // if not an admin, redirect
-                redirect(rejectRoute);
-              }
-            })
-            .catch(() => {});
-        } else if (!isAdmin) {
+        (async () => {
+          // check if authenticated, if not, then verify the token
+          if (!authenticated) await dispatch(verifyToken({ search, pathname })).unwrap();
+
           // if not an admin, redirect
-          redirect(rejectRoute);
-        }
-      }, [authenticated, isAdmin, verify, redirect, search, pathname]);
+          if (!isAdmin) redirectHome(option);
+        })();
+      }, [authenticated, dispatch, isAdmin, pathname, search]);
 
       // TODO: Make redirecting screen and return that if not authenticated.
-      return <Component />;
+      return <Component {...props} />;
     }
     case WithRouteOptions.AUTHENTICATED: {
       useEffect(() => {
         // check if authenticated, if not, then verify the token
         if (!authenticated) {
-          verify()(search, pathname);
+          dispatch(verifyToken({ search, pathname }));
         }
-      }, [authenticated, verify, search, pathname]);
+      }, [authenticated, dispatch, pathname, search]);
 
-      if (authenticated) {
-        return <Component />;
-      }
+      if (authenticated) return <Component {...props} />;
 
       // TODO: Make redirecting screen and return that if not authenticated.
       return (
@@ -64,19 +76,14 @@ const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: s
         const emailDomain = email?.split('@')[1];
         if (email) {
           if (state === UserState.PENDING || !(emailDomain === 'ucsd.edu' || emailDomain === 'acmucsd.org')) {
-            notify(
-              'Store Requirement',
-              'You need a verified account with an @ucsd.edu address to use the store. Visit your profile to update your email.',
-            );
-            redirect(rejectRoute);
+            redirectHome(option);
           } else {
             setPermitted(true);
           }
         }
-      }, [state, email, redirect]);
-      if (permitted) {
-        return <Component />;
-      }
+      }, [state, email]);
+
+      if (permitted) return <Component {...props} />;
 
       return (
         <PageLayout>
@@ -93,24 +100,4 @@ const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: s
   }
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  authenticated: state.auth.authenticated,
-  pathname: state.router.location.pathname,
-  search: state.router.location.search,
-  isAdmin: state.auth.admin,
-  state: state.auth.profile.state,
-  email: state.auth.profile.email,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirect: (rejectRoute: string) => {
-    dispatch(replace(rejectRoute));
-  },
-  verify: () => {
-    return verifyToken(dispatch);
-  },
-});
-
-const protectRoute = compose<React.FC>(connect(mapStateToProps, mapDispatchToProps), withRoute);
-
-export default protectRoute;
+export default withRoute;

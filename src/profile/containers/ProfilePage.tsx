@@ -1,27 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import ProfilePage from '../components/ProfilePage';
 import PageLayout from '../../layout/containers/PageLayout';
-import { fetchUser } from '../../auth/authActions';
+import ProfilePage from '../components/ProfilePage';
 
-interface ProfilePageContainerProps {
-  user: {
-    uuid: string;
-  };
-}
-
-const ProfilePageContainer: React.FC<ProfilePageContainerProps> = (props) => {
-  const { user } = props;
-
+const ProfilePageContainer: React.FC = () => {
   return (
     <PageLayout>
-      <ProfilePage user={user} />
+      <ProfilePage />
     </PageLayout>
   );
 };
 
-const mapStateToProps = (state: { [key: string]: any }) => ({
-  user: state.auth,
-});
-
-export default connect(mapStateToProps, { fetchUser })(ProfilePageContainer);
+export default ProfilePageContainer;

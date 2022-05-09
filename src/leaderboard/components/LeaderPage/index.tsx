@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Menu, Dropdown } from 'antd';
+import { Dropdown, Menu } from 'antd';
+import { useSelector } from 'react-redux';
 import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
-
-import TopLeaderCard from '../TopLeaderCard';
-import LeaderListItem from '../LeaderListItem';
-
 import { ReactComponent as ArrowsIcon } from '../../../assets/icons/caret-icon-double.svg';
-
+import { authSelector } from '../../../auth/authSlice';
+import { useAppDispatch } from '../../../redux/store';
+import { fetchLeaderboard, leaderboardSelector } from '../../leaderboardSlice';
+import LeaderListItem from '../LeaderListItem';
+import TopLeaderCard from '../TopLeaderCard';
 import './style.less';
 
-interface LeaderPageProps {
-  users: {
-    points: string;
-    profilePicture: string;
-    firstName: string;
-    lastName: string;
-    rank: string;
-    uuid: string;
-  }[];
-  fetchLeaderboard: Function;
-  selfUUID: string;
-}
-
-const LeaderPage: React.FC<LeaderPageProps> = (props) => {
-  const { users, fetchLeaderboard, selfUUID } = props;
+const LeaderPage: React.FC = () => {
+  const { users } = useSelector(leaderboardSelector);
+  const {
+    profile: { uuid: selfUUID },
+  } = useSelector(authSelector);
+  const dispatch = useAppDispatch();
 
   // Default to the current year, otherwise use all time
   const { name, start, end } = getCurrentYear() ?? { name: 'All Time', start: 0, end: 0 };
@@ -33,8 +25,8 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
   const [endTime, setEndTime] = useState<number>(new Date(end).getTime() / 1000); // Convert time to unix
 
   useEffect(() => {
-    fetchLeaderboard(0, 0, startTime, endTime);
-  }, [fetchLeaderboard, startTime, endTime]);
+    dispatch(fetchLeaderboard({ offset: 0, limit: 0, from: startTime, to: endTime }));
+  }, [dispatch, endTime, startTime]);
 
   const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
@@ -99,7 +91,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
               {users.slice(0, 3).map((user, index) => (
                 <TopLeaderCard
                   key={index}
-                  exp={parseInt(user.points, 10)}
+                  exp={user.points}
                   image={user.profilePicture}
                   name={`${user.firstName} ${user.lastName}`}
                   placement={index + 1}
@@ -112,7 +104,7 @@ const LeaderPage: React.FC<LeaderPageProps> = (props) => {
               {users.slice(3).map((user, index) => (
                 <LeaderListItem
                   key={index + 3}
-                  exp={parseInt(user.points, 10)}
+                  exp={user.points}
                   image={user.profilePicture}
                   name={`${user.firstName} ${user.lastName}`}
                   placement={index + 4}

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * @file Type declarations for membership portal ui
  */
@@ -45,6 +46,10 @@ export type Event = {
   startDate: Moment;
   startTime: Moment;
   title: string;
+  uuid: string;
+};
+
+export type ProfileParams = {
   uuid: string;
 };
 
@@ -96,6 +101,10 @@ export interface CartItem {
   item: PublicMerchItem;
   option: PublicMerchItemOption;
   quantity: number;
+}
+
+export interface Cart {
+  [uuid: string]: CartItem;
 }
 
 export interface PublicCartMerchItem {
