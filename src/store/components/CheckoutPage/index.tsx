@@ -70,7 +70,7 @@ const CheckoutPage: React.FC = () => {
               });
               dispatch(clearCart());
               history.push(`/store/order/${result.order.uuid}`);
-            } catch (error) {
+            } catch (error: any) {
               notify('Order placement error', getErrorMessage(error));
               history.push('/store/cart');
             }

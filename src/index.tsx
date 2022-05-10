@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
-import { Provider } from 'react-redux';
+import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 import { Route, Router, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import './styles/reset.less';
+
 /* Admin Container Pages */
 import AddAttendancePage from './admin/containers/AddAttendancePage';
 import AdminPage from './admin/containers/AdminPage';
@@ -50,72 +55,80 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <ThemeProvider>
-        <Router history={history}>
-          <Switch>
-            <Route exact path="/about" component={protectRoute(AboutPage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/admin" component={protectRoute(AdminPage, WithRouteOptions.ADMIN)} />
-            <Route exact path="/admin/editEvent/:uuid" component={protectRoute(EditEventPage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/admin/awardPoints" component={protectRoute(AwardPointsPage, WithRouteOptions.ADMIN)} />
-            <Route exact path="/admin/createEvent" component={protectRoute(CreateEventPage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/admin/addAttendance" component={protectRoute(AddAttendancePage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/authenticate-email" component={AuthPage} />
-            <Route exact path="/bread" component={BreadPage} />
-            <Route exact path="/checkin" component={protectRoute(CheckInHandler, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/discord" component={protectRoute(DiscordPage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/forgot-password" component={PasswordPage} />
-            <Route exact path="/leaderboard" component={protectRoute(LeaderPage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/profile" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/profile/:uuid" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/editProfile" component={protectRoute(ProfileUpdatePage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/resetPassword/:code" component={ResetPage} />
-            <Route exact path="/store" component={protectRoute(protectRoute(StorePage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)} />
-            <Route
-              exact
-              path="/store/item/:uuid"
-              component={protectRoute(protectRoute(ItemPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
-            />
-            <Route
-              exact
-              path="/store/cart"
-              component={protectRoute(protectRoute(CartPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
-            />
-            <Route
-              exact
-              path="/store/checkout"
-              component={protectRoute(protectRoute(CheckoutPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
-            />
-            <Route
-              exact
-              path="/store/order/:uuid"
-              component={protectRoute(protectRoute(OrderPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
-            />
-            <Route
-              exact
-              path="/store/orders"
-              component={protectRoute(protectRoute(OrdersPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
-            />
-            <Route exact path="/store/admin" component={protectRoute(StoreAdminPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/collection" component={protectRoute(AdminCollectionPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/collection/:uuid" component={protectRoute(AdminCollectionPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/item" component={protectRoute(AdminItemPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/item/:uuid" component={protectRoute(AdminItemPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/pickup" component={protectRoute(AdminPickupPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/pickup/:uuid" component={protectRoute(AdminPickupPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/prepare" component={protectRoute(AdminPreparePage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/prepare/:uuid" component={protectRoute(AdminPreparePage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/fulfill" component={protectRoute(AdminFulfillPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/fulfill/:uuid" component={protectRoute(AdminFulfillPage, WithRouteOptions.STORE)} />
-            <Route exact path="/store/admin/quantities" component={protectRoute(AdminQuantitiesPage, WithRouteOptions.STORE)} />
-            <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
-            <Route exact path="/resendEmailVerification" component={protectRoute(ResendEmailVerificationPage, WithRouteOptions.AUTHENTICATED)} />
-            <Route exact path="/" component={protectRoute(HomePage, WithRouteOptions.AUTHENTICATED)} />
-            <Route path="/" component={protectRoute(ErrorPage, WithRouteOptions.AUTHENTICATED)} />
-          </Switch>
-        </Router>
-      </ThemeProvider>
+      <MantineProvider>
+        <NotificationsProvider>
+          <ThemeProvider>
+            <Router history={history}>
+              <Switch>
+                <Route exact path="/about" component={protectRoute(AboutPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/admin" component={protectRoute(AdminPage, WithRouteOptions.ADMIN)} />
+                <Route exact path="/admin/editEvent/:uuid" component={protectRoute(EditEventPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/admin/awardPoints" component={protectRoute(AwardPointsPage, WithRouteOptions.ADMIN)} />
+                <Route exact path="/admin/createEvent" component={protectRoute(CreateEventPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/admin/addAttendance" component={protectRoute(AddAttendancePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/authenticate-email" component={AuthPage} />
+                <Route exact path="/bread" component={BreadPage} />
+                <Route exact path="/checkin" component={protectRoute(CheckInHandler, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/discord" component={protectRoute(DiscordPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/forgot-password" component={PasswordPage} />
+                <Route exact path="/leaderboard" component={protectRoute(LeaderPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/profile" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/profile/:uuid" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/editProfile" component={protectRoute(ProfileUpdatePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/register" component={RegisterPage} />
+                <Route exact path="/resetPassword/:code" component={ResetPage} />
+                <Route
+                  exact
+                  path="/store"
+                  component={protectRoute(protectRoute(StorePage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
+                />
+                <Route
+                  exact
+                  path="/store/item/:uuid"
+                  component={protectRoute(protectRoute(ItemPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
+                />
+                <Route
+                  exact
+                  path="/store/cart"
+                  component={protectRoute(protectRoute(CartPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
+                />
+                <Route
+                  exact
+                  path="/store/checkout"
+                  component={protectRoute(protectRoute(CheckoutPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
+                />
+                <Route
+                  exact
+                  path="/store/order/:uuid"
+                  component={protectRoute(protectRoute(OrderPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
+                />
+                <Route
+                  exact
+                  path="/store/orders"
+                  component={protectRoute(protectRoute(OrdersPage, WithRouteOptions.STORE), WithRouteOptions.AUTHENTICATED)}
+                />
+                <Route exact path="/store/admin" component={protectRoute(StoreAdminPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/collection" component={protectRoute(AdminCollectionPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/collection/:uuid" component={protectRoute(AdminCollectionPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/item" component={protectRoute(AdminItemPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/item/:uuid" component={protectRoute(AdminItemPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/pickup" component={protectRoute(AdminPickupPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/pickup/:uuid" component={protectRoute(AdminPickupPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/prepare" component={protectRoute(AdminPreparePage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/prepare/:uuid" component={protectRoute(AdminPreparePage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/fulfill" component={protectRoute(AdminFulfillPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/fulfill/:uuid" component={protectRoute(AdminFulfillPage, WithRouteOptions.STORE)} />
+                <Route exact path="/store/admin/quantities" component={protectRoute(AdminQuantitiesPage, WithRouteOptions.STORE)} />
+                <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
+                <Route exact path="/resendEmailVerification" component={protectRoute(ResendEmailVerificationPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/" component={protectRoute(HomePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route path="/" component={protectRoute(ErrorPage, WithRouteOptions.AUTHENTICATED)} />
+              </Switch>
+            </Router>
+          </ThemeProvider>
+        </NotificationsProvider>
+      </MantineProvider>
     </Provider>
   );
 };

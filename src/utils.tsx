@@ -1,13 +1,13 @@
 import React from 'react';
-import { notification } from 'antd';
+import { showNotification } from '@mantine/notifications';
 import Storage from './storage';
 import DiamondDisplay from './store/components/DiamondDisplay';
 import { FetchServiceOptions, HttpRequestMethod, MimeType, OrderStatus, PublicMerchItemOption } from './types';
 
 export const notify = (title: string, description: string) => {
-  notification.open({
-    message: title,
-    description,
+  showNotification({
+    title,
+    message: description,
   });
 };
 

@@ -19,7 +19,7 @@ const CartPageContainer: React.FC = () => {
         payload: JSON.stringify({ order: payload }),
       });
       history.push('/store/checkout');
-    } catch (error) {
+    } catch (error: any) {
       onFail();
 
       if (getErrorMessage(error).includes('The following items were not found: ')) {
