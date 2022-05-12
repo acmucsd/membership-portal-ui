@@ -38,7 +38,7 @@ export const loginUser = async (email: string, password: string) => {
   return data;
 };
 
-export const updatePassword = (user) => async () => {
+export const updatePassword = async (user) => {
   try {
     const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
     await fetchService(url, 'POST', 'json', {
