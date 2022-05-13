@@ -20,7 +20,7 @@ export const fetchLeaderboard = createAsyncThunk<
   }
 >('leaderboard/fetchLeaderboard', async (args, { dispatch }) => {
   try {
-    const data = await utils.fetchLeaderboard(args.offset, args.limit, args.to, args.from);
+    const data = await utils.fetchLeaderboard(args.offset, args.limit, args.from, args.to);
     return data;
   } catch (error) {
     dispatch(logoutUser());
