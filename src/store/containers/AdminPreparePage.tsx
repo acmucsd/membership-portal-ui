@@ -5,14 +5,15 @@ import { useAppDispatch } from '../../redux/store';
 import { PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
 import AdminPreparePage from '../components/AdminPreparePage';
-import { fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
+import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
 
 const AdminPreparePageContainer: React.FC = () => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
-  const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
+  const [pastPickupEvents, setPastPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
+  const [futurePickupEvents, setFuturePickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,10 +27,18 @@ const AdminPreparePageContainer: React.FC = () => {
           notify('API Error', reason.message || reason);
         });
     } else {
+      dispatch(fetchPastPickupEvents())
+        .unwrap()
+        .then((value) => {
+          setPastPickupEvents(value);
+        })
+        .catch((reason) => {
+          notify('API Error', reason.message || reason);
+        });
       dispatch(fetchFuturePickupEvents())
         .unwrap()
         .then((value) => {
-          setPickupEvents(value);
+          setFuturePickupEvents(value);
         })
         .catch((reason) => {
           notify('API Error', reason.message || reason);
@@ -37,9 +46,13 @@ const AdminPreparePageContainer: React.FC = () => {
     }
   }, [dispatch, uuid]);
 
+  const activePickupEvents = pastPickupEvents.concat(futurePickupEvents).filter((pEvent) => {
+    return pEvent.status === 'ACTIVE';
+  });
+
   return (
     <PageLayout>
-      <AdminPreparePage pickupEvent={pickupEvent} pickupEvents={pickupEvents} />
+      <AdminPreparePage pickupEvent={pickupEvent} pickupEvents={activePickupEvents} />
     </PageLayout>
   );
 };
