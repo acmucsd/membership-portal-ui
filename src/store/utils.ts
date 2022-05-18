@@ -301,7 +301,7 @@ export const fetchPickupEvent = (uuid: string) =>
   });
 
 export const fetchPastPickupEvents = () =>
-  new Promise(async (resolve, reject) => {
+  new Promise<PublicOrderPickupEvent[]>(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.pickup.past}`;
       const data = await fetchService(url, 'GET', 'json', {

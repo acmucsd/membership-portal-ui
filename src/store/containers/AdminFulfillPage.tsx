@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../redux/store';
 import { PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
 import AdminFulfillPage from '../components/AdminFulfillPage';
-import { fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
+import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
 
 interface AdminFulfillPageContainerProps {}
 
@@ -14,7 +14,8 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = () =
   const { uuid } = params;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
-  const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
+  const [pastPickupEvents, setPastPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
+  const [futurePickupEvents, setFuturePickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,16 +25,24 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = () =
         .then((value) => setPickupEvent(value))
         .catch((reason) => notify('API Error', reason.message || reason));
     } else {
+      dispatch(fetchPastPickupEvents())
+        .unwrap()
+        .then((value) => setPastPickupEvents(value))
+        .catch((reason) => notify('API Error', reason.message || reason));
       dispatch(fetchFuturePickupEvents())
         .unwrap()
-        .then((value) => setPickupEvents(value))
+        .then((value) => setFuturePickupEvents(value))
         .catch((reason) => notify('API Error', reason.message || reason));
     }
   }, [uuid, dispatch]);
 
+  const activePickupEvents = pastPickupEvents.concat(futurePickupEvents).filter((pEvent) => {
+    return pEvent.status === 'ACTIVE';
+  });
+
   return (
     <PageLayout>
-      <AdminFulfillPage pickupEvent={pickupEvent} pickupEvents={pickupEvents} />
+      <AdminFulfillPage pickupEvent={pickupEvent} pickupEvents={activePickupEvents} />
     </PageLayout>
   );
 };

@@ -174,6 +174,12 @@ export interface PublicOrderForFulfillment extends PublicOrder {
   items: PublicOrderItemForFulfillment[];
 }
 
+export enum OrderPickupEventStatus {
+  ACTIVE = 'ACTIVE',
+  CANCELLED = 'CANCELLED',
+  COMPLETED = 'COMPLETED',
+}
+
 export interface PublicOrderPickupEvent {
   uuid: Uuid;
   title: string;
@@ -182,4 +188,5 @@ export interface PublicOrderPickupEvent {
   description: string;
   orders?: PublicOrderWithItems[];
   orderLimit?: number;
+  status: OrderPickupEventStatus;
 }
