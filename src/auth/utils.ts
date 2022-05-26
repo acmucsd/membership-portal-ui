@@ -1,6 +1,6 @@
 import Config from '../config';
 import history from '../history';
-import { PublicProfile } from '../types';
+import { PublicProfileWithEmail } from '../types';
 import { fetchService, getErrorMessage, notify } from '../utils';
 
 /**
@@ -81,7 +81,7 @@ export const sendEmailVerification = async (email: string) => {
 };
 
 export const fetchUserByID = async (uuid: string) =>
-  new Promise<{ user: PublicProfile }>(async (resolve, reject) => {
+  new Promise<{ user: PublicProfileWithEmail }>(async (resolve, reject) => {
     try {
       const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
       const data = await fetchService(url, 'GET', 'json', {

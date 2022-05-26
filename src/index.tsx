@@ -39,6 +39,7 @@ import AdminItemPage from './store/containers/AdminItemPage';
 import AdminPickupPage from './store/containers/AdminPickupPage';
 import AdminPreparePage from './store/containers/AdminPreparePage';
 import AdminQuantitiesPage from './store/containers/AdminQuantitiesPage';
+import ProfileQRPage from './profile/containers/ProfileQRPage';
 import CartPage from './store/containers/CartPage';
 import CheckoutPage from './store/containers/CheckoutPage';
 import ItemPage from './store/containers/ItemPage';
@@ -75,6 +76,7 @@ const App = () => {
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/profile" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED)} />
                 <Route exact path="/profile/:uuid" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/memberCard" component={protectRoute(ProfileQRPage, WithRouteOptions.AUTHENTICATED)} />
                 <Route exact path="/editProfile" component={protectRoute(ProfileUpdatePage, WithRouteOptions.AUTHENTICATED)} />
                 <Route exact path="/register" component={RegisterPage} />
                 <Route exact path="/resetPassword/:code" component={ResetPage} />

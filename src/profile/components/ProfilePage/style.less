@@ -20,6 +20,20 @@
     width: 100%;
   }
 
+  .member-card-btn {
+    background-color: @light-blue-200;
+    font-size: @general-body;
+    height: @general-body * 2;
+    margin-top: 24px;
+    color: @white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > img {
+      margin-right: 6px;
+    }
+  }
+
   .edit-profile-btn {
     background-color: var(--theme-surface-1);
     color: var(--theme-text-on-surface-1);
@@ -65,5 +79,9 @@
   .bio > p {
     overflow-wrap: anywhere;
     white-space: pre-wrap;
+  }
+
+  button {
+    display: block;
   }
 }

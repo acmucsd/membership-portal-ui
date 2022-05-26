@@ -6,6 +6,7 @@ import { authSelector, fetchUserByID } from '../../../auth/authSlice';
 import { useAppDispatch } from '../../../redux/store';
 import { ProfileParams, PublicProfile } from '../../../types';
 import { getDefaultProfile, getLevel, getRank, isWhitespace } from '../../../utils';
+import MemberIDWhiteIcon from '../../../assets/icons/member-id-white.svg';
 import './style.less';
 
 const ProfilePage: React.FC = () => {
@@ -57,11 +58,19 @@ const ProfilePage: React.FC = () => {
             <h2 className="bio">Bio</h2>
             <p>{isWhitespace(profile.bio) ? "This user hasn't added a bio yet!" : profile.bio}</p>
           </div>
-          {!uuid && (
-            <Link to="/editProfile">
-              <Button className="edit-profile-btn">Edit Profile</Button>
+          <div className="buttons">
+            <Link to="/memberCard">
+              <Button className="member-card-btn">
+                <img src={MemberIDWhiteIcon} alt="Member ID Icon" />
+                My Member ID
+              </Button>
             </Link>
-          )}
+            {!uuid && (
+              <Link to="/editProfile">
+                <Button className="edit-profile-btn">Edit Profile</Button>
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </div>

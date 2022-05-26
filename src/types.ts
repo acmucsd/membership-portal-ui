@@ -64,6 +64,10 @@ export interface PublicProfile {
   points: number;
 }
 
+export interface PublicProfileWithEmail extends PublicProfile {
+  email: string;
+}
+
 export interface MerchItemOptionMetadata {
   type: string;
   value: string;
