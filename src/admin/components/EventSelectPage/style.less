@@ -1,0 +1,43 @@
+@import "../../../styles/vars.less";
+
+.event-select-page {
+    .title {
+        font-size: @general-heading-1;
+        font-weight: 700;
+    }
+    .subtitle {
+        color: var(--theme-primary-3);
+        font-size: @general-heading-2;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+    .message-wrapper {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .success-msg,
+    .error-msg {
+        text-align: center;
+        > span {
+            font-size: 1.4rem;
+        }
+    }
+    .success-msg {
+        color: var(--theme-primary-3);
+    }
+    .error-msg {
+        color: @red;
+    }
+    &__grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .hidden {
+        display: none;
+    }
+
+}

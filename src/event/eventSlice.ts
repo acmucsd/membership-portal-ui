@@ -21,12 +21,14 @@ const initialState = {
     start: '',
   },
   futureEvents: [] as any[],
+  currentEvents: [] as any[],
   pastEvents: [] as any[],
   checkin: false,
   error: null as any,
 };
 
 export const fetchPastEvents = withLogout(utils.fetchPastEvents, 'event/fetchPastEvents');
+export const fetchCurrentEvents = withLogout(utils.fetchCurrentEvents, 'event/fetchCurrentEvents');
 export const fetchFutureEvents = withLogout(utils.fetchFutureEvents, 'event/fetchFutureEvents');
 export const fetchAttendance = withLogout(utils.fetchAttendance, 'event/fetchAttendance');
 export const fetchEvent = withLogout(utils.fetchEvent, 'event/fetchEvent');
@@ -37,6 +39,7 @@ export const checkIn = createAsyncThunk<any, any>('event/checkIn', async (info, 
     dispatch(fetchAttendance());
     dispatch(fetchPastEvents());
     dispatch(fetchFutureEvents());
+    dispatch(fetchCurrentEvents());
     return data;
   } catch (error) {
     dispatch(logoutUser());
@@ -63,6 +66,7 @@ const eventSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(fetchPastEvents.fulfilled, updateField('pastEvents')).addCase(fetchPastEvents.rejected, updateError);
+    builder.addCase(fetchCurrentEvents.fulfilled, updateField('currentEvents')).addCase(fetchCurrentEvents.rejected, updateError);
     builder.addCase(fetchFutureEvents.fulfilled, updateField('futureEvents')).addCase(fetchFutureEvents.rejected, updateError);
     builder.addCase(fetchAttendance.fulfilled, updateField('attendance')).addCase(fetchAttendance.rejected, updateError);
     builder.addCase(fetchEvent.fulfilled, updateField('event')).addCase(fetchEvent.rejected, updateError);

@@ -26,6 +26,7 @@ import CheckInHandler from './event/containers/CheckInHandler';
 import history from './history';
 import BreadPage from './layout/components/BreadPage';
 import AboutPage from './layout/containers/AboutPage';
+import CheckInMemberPage from './admin/containers/CheckInMemberPage';
 import DiscordPage from './layout/containers/DiscordPage';
 import ErrorPage from './layout/containers/ErrorPage';
 import HomePage from './layout/containers/HomePage';
@@ -67,6 +68,8 @@ const App = () => {
                 <Route exact path="/admin/awardPoints" component={protectRoute(AwardPointsPage, WithRouteOptions.ADMIN)} />
                 <Route exact path="/admin/createEvent" component={protectRoute(CreateEventPage, WithRouteOptions.AUTHENTICATED)} />
                 <Route exact path="/admin/addAttendance" component={protectRoute(AddAttendancePage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/admin/checkInMember" component={protectRoute(CheckInMemberPage, WithRouteOptions.AUTHENTICATED)} />
+                <Route exact path="/admin/checkInMember/:eventId" component={protectRoute(CheckInMemberPage, WithRouteOptions.AUTHENTICATED)} />
                 <Route exact path="/authenticate-email" component={AuthPage} />
                 <Route exact path="/bread" component={BreadPage} />
                 <Route exact path="/checkin" component={protectRoute(CheckInHandler, WithRouteOptions.AUTHENTICATED)} />

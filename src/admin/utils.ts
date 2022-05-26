@@ -125,7 +125,7 @@ export const addAttendance = async (attendanceDetails: any) => {
   }
   try {
     const url = `${Config.API_URL}${Config.routes.admin.attendance}`;
-    await fetchService(url, 'POST', 'json', {
+    const data = await fetchService(url, 'POST', 'json', {
       requiresAuthorization: true,
       payload: JSON.stringify({
         users: attendanceDetails.attendees,
@@ -135,7 +135,7 @@ export const addAttendance = async (attendanceDetails: any) => {
     });
 
     notify('Success!', `Added ${attendanceDetails.attendees.length} user(s)!`);
-    return attendanceDetails;
+    return data;
   } catch (error) {
     notify('Unable to add attendees!', getErrorMessage(error));
     throw error;

@@ -29,6 +29,24 @@ export const fetchPastEvents = async () => {
   }
 };
 
+export const fetchCurrentEvents = async () => {
+  const futureEvents = await fetchFutureEvents();
+  const threshold = 30;
+  if (futureEvents.length <= 0) {
+    return [];
+  }
+  return futureEvents.filter((event) => {
+    const currTime = new Date();
+    const eventStartTime = new Date(event.start);
+    const eventEndTime = new Date(event.end);
+
+    const beforeThreshold = new Date(eventStartTime.getTime() - threshold * 60000);
+    const afterThreshold = new Date(eventEndTime.getTime() + threshold * 60000);
+
+    return currTime >= beforeThreshold && currTime <= afterThreshold;
+  });
+};
+
 export const fetchAttendance = async () => {
   try {
     const url = `${Config.API_URL}${Config.routes.attendance}`;

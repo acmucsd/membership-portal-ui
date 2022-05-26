@@ -49,6 +49,10 @@ export type Event = {
   uuid: string;
 };
 
+export type EventSelectParams = {
+  eventId: string;
+};
+
 export type ProfileParams = {
   uuid: string;
 };
