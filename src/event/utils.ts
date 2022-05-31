@@ -57,7 +57,7 @@ export const checkIn = async (info) => {
     return data.event;
   } catch (error) {
     notify('Unable to checkin!', getErrorMessage(error));
-    throw new Error(getErrorMessage(error));
+    throw error;
   }
 };
 

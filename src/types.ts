@@ -11,7 +11,6 @@ export type MimeType = 'json' | 'image';
 export type FetchServiceOptions = {
   requiresAuthorization: boolean;
   payload?: any;
-  onFailCallback?: () => void;
 };
 
 export enum UserAccessType {

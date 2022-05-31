@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Config from '../config';
+import { AuthError } from '../errors';
 import history from '../history';
 import type { RootState } from '../redux/store';
 import Storage from '../storage';
@@ -225,12 +226,12 @@ export const fetchUser = createAsyncThunk<void, { uuid: string } | undefined>('a
     const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
     const data = await fetchService(url, 'GET', 'json', {
       requiresAuthorization: true,
-      onFailCallback: () => dispatch(logoutUser()),
     });
 
     dispatch(setUser(data.user));
   } catch (error) {
     // TODO: Dispatch error message.
+    if (error instanceof AuthError) dispatch(logoutUser());
   }
 });
 
@@ -243,9 +244,9 @@ export const withLogout = <T extends AsyncFunction>(fn: T, type: string) =>
   createAsyncThunk<Awaited<ReturnType<T>>, Parameters<T>[0]>(type, async (args, { dispatch }) => {
     try {
       return await fn(args);
-    } catch (err) {
-      dispatch(logoutUser());
-      throw err;
+    } catch (error) {
+      if (error instanceof AuthError) dispatch(logoutUser());
+      throw error;
     }
   });
 
