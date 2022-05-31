@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { logoutUser } from '../auth/authSlice';
+import { AuthError } from '../errors';
 import type { RootState } from '../redux/store';
 import { PublicProfile } from '../types';
 import { getDefaultProfile } from '../utils';
@@ -23,7 +24,7 @@ export const fetchLeaderboard = createAsyncThunk<
     const data = await utils.fetchLeaderboard(args.offset, args.limit, args.from, args.to);
     return data;
   } catch (error) {
-    dispatch(logoutUser());
+    if (error instanceof AuthError) dispatch(logoutUser());
     throw error;
   }
 });

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { logoutUser, withLogout } from '../auth/authSlice';
+import { AuthError } from '../errors';
 import * as utils from './utils';
 
 const initialState = {
@@ -11,7 +12,7 @@ export const updateProfile = createAsyncThunk('utils/updateProfile', async (valu
   try {
     await utils.updateProfile(values);
   } catch (error) {
-    dispatch(logoutUser());
+    if (error instanceof AuthError) dispatch(logoutUser());
   }
 });
 

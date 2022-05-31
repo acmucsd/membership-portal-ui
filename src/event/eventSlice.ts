@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isEqual } from 'lodash';
 import { fetchUser, logoutUser, withLogout } from '../auth/authSlice';
+import { AuthError } from '../errors';
 import type { RootState } from '../redux/store';
 import * as utils from './utils';
 
@@ -39,7 +40,7 @@ export const checkIn = createAsyncThunk<any, any>('event/checkIn', async (info, 
     dispatch(fetchFutureEvents());
     return data;
   } catch (error) {
-    dispatch(logoutUser());
+    if (error instanceof AuthError) dispatch(logoutUser());
     throw error;
   }
 });

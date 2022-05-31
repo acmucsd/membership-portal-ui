@@ -9,7 +9,5 @@ export const fetchLeaderboard = async (offset: number = 0, limit: number, from?:
     requiresAuthorization: true,
   });
 
-  if (!data) throw new Error('Empty response from server');
-  if (data.error) throw new Error(data.error.message);
   return data.leaderboard as PublicProfile[];
 };

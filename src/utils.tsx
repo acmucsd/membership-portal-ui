@@ -3,6 +3,7 @@ import { showNotification } from '@mantine/notifications';
 import Storage from './storage';
 import DiamondDisplay from './store/components/DiamondDisplay';
 import { FetchServiceOptions, HttpRequestMethod, MimeType, OrderStatus, PublicMerchItemOption } from './types';
+import { AuthError, UserError } from './errors';
 
 export const notify = (title: string, description: string) => {
   showNotification({
@@ -159,7 +160,7 @@ const getServiceErrorMessage = (error) => {
  * Fetches data from server with simple error handling
  */
 export const fetchService = async (url: string, requestMethod: HttpRequestMethod, mimeType: MimeType, options: FetchServiceOptions) => {
-  const { payload, requiresAuthorization, onFailCallback } = options;
+  const { payload, requiresAuthorization } = options;
 
   let Accept;
   let ContentType;
@@ -187,9 +188,9 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
   });
 
   const { status } = response;
-  if (status === 401 || status === 403) onFailCallback?.();
+  if (status === 401 || status === 403) throw new AuthError('');
   const data = await response.json();
-  if (!data) throw new Error('Empty response from server');
+  if (!data) throw new AuthError('Empty response from server');
   if (data.error) {
     let { message } = data.error;
     if (status === 400 && data.error.errors) {
@@ -200,7 +201,7 @@ export const fetchService = async (url: string, requestMethod: HttpRequestMethod
       }
       message = messages;
     }
-    throw new Error(message);
+    throw new UserError(message);
   }
 
   return data;
