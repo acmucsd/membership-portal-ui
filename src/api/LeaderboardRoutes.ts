@@ -5,7 +5,7 @@ import { GetLeaderboardResponse } from './ApiResponses';
 import { generateQuery } from './Utils';
 
 class LeaderboardRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;

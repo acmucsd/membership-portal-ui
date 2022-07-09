@@ -4,7 +4,7 @@ import { CreateBonusRequest, SubmitAttendanceForUsersRequest } from './ApiReques
 import { CreateBonusResponse, GetAllEmailsResponse, SubmitAttendanceForUsersResponse } from './ApiResponses';
 
 class AdminRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;

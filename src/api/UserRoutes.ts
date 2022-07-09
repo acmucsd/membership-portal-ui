@@ -4,7 +4,7 @@ import { PatchUserRequest } from './ApiRequests';
 import { UpdateProfilePictureResponse, GetUserResponse, GetCurrentUserResponse, PatchUserResponse } from './ApiResponses';
 
 class UserRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;

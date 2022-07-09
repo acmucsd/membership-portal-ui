@@ -4,7 +4,7 @@ import { LoginRequest, RegistrationRequest, PasswordResetRequest, EmailModificat
 import { RegistrationResponse, LoginResponse, VerifyAuthTokenResponse } from './ApiResponses';
 
 class AuthRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;

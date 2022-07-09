@@ -13,7 +13,7 @@ import {
 import { generateQuery } from './Utils';
 
 class EventRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;

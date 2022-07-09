@@ -12,24 +12,42 @@ import MerchStoreRoutes from './MerchStoreRoutes';
 import UserRoutes from './UserRoutes';
 
 class ApiInterface {
-  constructor(logoutHandler: Function) {
-    const fetchService = new FetchService(logoutHandler);
-    const adminRoutes = new AdminRoutes(fetchService);
-    const attendanceRoutes = new AttendanceRoutes(fetchService);
-    const authRoutes = new AuthRoutes(fetchService);
-    const eventRoutes = new EventRoutes(fetchService);
-    const leaderboardRoutes = new LeaderboardRoutes(fetchService);
-    const merchStoreRoutes = new MerchStoreRoutes(fetchService);
-    const userRoutes = new UserRoutes(fetchService);
+  fetchService: FetchService;
 
+  adminRoutes: AdminRoutes;
+
+  attendanceRoutes: AttendanceRoutes;
+
+  authRoutes: AuthRoutes;
+
+  eventRoutes: EventRoutes;
+
+  leaderboardRoutes: LeaderboardRoutes;
+
+  merchStoreRoutes: MerchStoreRoutes;
+
+  userRoutes: UserRoutes;
+
+  constructor(logoutHandler: Function) {
+    this.fetchService = new FetchService(logoutHandler);
+    this.adminRoutes = new AdminRoutes(this.fetchService);
+    this.attendanceRoutes = new AttendanceRoutes(this.fetchService);
+    this.authRoutes = new AuthRoutes(this.fetchService);
+    this.eventRoutes = new EventRoutes(this.fetchService);
+    this.leaderboardRoutes = new LeaderboardRoutes(this.fetchService);
+    this.merchStoreRoutes = new MerchStoreRoutes(this.fetchService);
+    this.userRoutes = new UserRoutes(this.fetchService);
+  }
+
+  getRoutes() {
     return {
-      ...adminRoutes,
-      ...attendanceRoutes,
-      ...authRoutes,
-      ...eventRoutes,
-      ...leaderboardRoutes,
-      ...merchStoreRoutes,
-      ...userRoutes,
+      ...this.adminRoutes,
+      ...this.attendanceRoutes,
+      ...this.authRoutes,
+      ...this.eventRoutes,
+      ...this.leaderboardRoutes,
+      ...this.merchStoreRoutes,
+      ...this.userRoutes,
     };
   }
 }

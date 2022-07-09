@@ -37,7 +37,7 @@ import {
 } from './ApiResponses';
 
 class MerchStoreRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;

@@ -4,7 +4,7 @@ import { AttendEventRequest } from './ApiRequests';
 import { GetAttendancesForEventResponse, GetAttendancesForUserResponse, AttendEventResponse } from './ApiResponses';
 
 class AttendanceRoutes {
-  fetchService: FetchService;
+  private fetchService: FetchService;
 
   constructor(fetchService: FetchService) {
     this.fetchService = fetchService;
