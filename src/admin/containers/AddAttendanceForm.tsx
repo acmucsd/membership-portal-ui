@@ -1,20 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withFormik } from 'formik';
-import { useSelector } from 'react-redux';
-import { eventSelector, fetchPastEvents } from '../../event/eventSlice';
-import { useAppDispatch } from '../../redux/store';
-import { addAttendance, adminSelector, getEmails } from '../adminSlice';
+import { fetchPastEvents } from '../../event/utils';
+import { addAttendance, getEmails } from '../utils';
 import AddAttendanceForm from '../components/AddAttendanceForm';
+import { Event } from '../../api';
 
 const AddAttendanceFormContainer = () => {
-  const { emails } = useSelector(adminSelector);
-  const { pastEvents } = useSelector(eventSelector);
-  const dispatch = useAppDispatch();
+  const [emails, setEmails] = useState<string[]>([]);
+  const [pastEvents, setPastEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    dispatch(getEmails());
-    dispatch(fetchPastEvents());
-  }, [dispatch]);
+    getEmails().then(setEmails); // TODO: Move to context
+    fetchPastEvents().then(setPastEvents); // TODO: Move to context
+  }, []);
 
   const FormikAddAttendanceForm = withFormik({
     mapPropsToValues() {
@@ -28,11 +26,14 @@ const AddAttendanceFormContainer = () => {
     },
     handleSubmit(values, { resetForm }: { [key: string]: any }) {
       const attendanceDetails = {
-        attendees: values.attendees,
+        users: values.attendees,
         event: values.event,
         asStaff: values.staff,
       };
-      dispatch(addAttendance(attendanceDetails)).unwrap().then(resetForm).catch();
+
+      addAttendance(attendanceDetails)
+        .then(resetForm)
+        .catch(() => {});
     },
   })(AddAttendanceForm as any);
   return <FormikAddAttendanceForm />;

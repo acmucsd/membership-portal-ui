@@ -1,38 +1,25 @@
 import copy from 'copy-to-clipboard';
-import Config from '../config';
-import { fetchService, getErrorMessage, notify } from '../utils';
+import { Bonus, Event, SubmitAttendanceForUsersRequest } from '../api';
+import backend from '../backend';
+import { getErrorMessage, notify } from '../utils';
 
 export const getEmails = async () => {
   try {
-    const url = `${Config.API_URL}${Config.routes.admin.emails}`;
-    const emails = await fetchService(url, 'GET', 'json', {
-      requiresAuthorization: true,
-    });
-    return emails as string[];
+    const data = await backend.getAllEmails();
+    return data.emails;
   } catch (error) {
     notify('Unable to fetch emails!', getErrorMessage(error));
     return [];
   }
 };
 
-export const postEvent = async (event) => {
+export const postEvent = async (event: Event) => {
   try {
-    const eventUrl = `${Config.API_URL}${Config.routes.events.event}`;
-    const data = await fetchService(eventUrl, 'POST', 'json', {
-      requiresAuthorization: true,
-      payload: JSON.stringify({
-        event,
-      }),
-    });
+    const data = await backend.createEvent({ event });
 
     const formdata = new FormData();
     formdata.append('image', event.cover);
-
-    const imageUrl = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
-    await fetchService(imageUrl, 'POST', 'image', {
-      requiresAuthorization: true,
-      payload: formdata,
-    });
+    await backend.updateEventCover(data.event.uuid, formdata);
 
     notify('Added an event!', event.title);
     return event;
@@ -42,25 +29,15 @@ export const postEvent = async (event) => {
   }
 };
 
-export const editEvent = async (event) => {
+export const editEvent = async (event: any) => {
   try {
-    const eventUrl = `${Config.API_URL + Config.routes.events.event}/${event.uuid}`;
-    const data = await fetchService(eventUrl, 'PATCH', 'json', {
-      requiresAuthorization: true,
-      payload: JSON.stringify({
-        event,
-      }),
-    });
+    const data = await backend.updateEvent(event.uuid, { event });
 
     if (typeof event.cover === 'object') {
       const formdata = new FormData();
       formdata.append('image', event.cover);
 
-      const imageUrl = `${Config.API_URL + Config.routes.events.picture}/${data.event.uuid}`;
-      await fetchService(imageUrl, 'POST', 'image', {
-        requiresAuthorization: true,
-        payload: formdata,
-      });
+      await backend.updateEventCover(data.event.uuid, formdata);
     }
 
     notify('Edited an event!', event.title);
@@ -71,70 +48,51 @@ export const editEvent = async (event) => {
   }
 };
 
-export const deleteEvent = async (uuid) => {
+export const deleteEvent = async (uuid: string) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.events.event}/${uuid}`;
-    await fetchService(url, 'DELETE', 'json', {
-      requiresAuthorization: true,
-    });
-
+    await backend.deleteEvent(uuid);
     notify('Success!', 'You successfully deleted the event!');
-    return;
   } catch (error) {
     notify('Unable to delete event!', getErrorMessage(error));
     throw error;
   }
 };
 
-export const awardPoints = async (pointDetails: any) => {
-  if (!pointDetails.points) {
+export const awardPoints = async (bonus: Bonus) => {
+  if (!bonus.points) {
     notify('Validation Error!', 'No points provided');
     throw new Error();
   }
-  if (!pointDetails.users || pointDetails.users.length === 0) {
+  if (!bonus.users || bonus.users.length === 0) {
     notify('Validation Error!', 'No awardees provided');
     throw new Error();
   }
-  if (!pointDetails.description) {
+  if (!bonus.description) {
     notify('Validation Error!', 'Missing description field');
     throw new Error();
   }
   try {
-    const url = `${Config.API_URL}${Config.routes.admin.bonus}`;
-    await fetchService(url, 'POST', 'json', {
-      requiresAuthorization: true,
-      payload: JSON.stringify({ bonus: pointDetails }),
-    });
-
-    notify('Gave bonus points!', `to ${pointDetails.users.length} users`);
-    return pointDetails;
+    const data = await backend.addBonus({ bonus });
+    notify('Gave bonus points!', `to ${data.emails.length} users`);
+    return data.emails;
   } catch (error) {
     notify('Unable to award points!', getErrorMessage(error));
     throw error;
   }
 };
 
-export const addAttendance = async (attendanceDetails: any) => {
+export const addAttendance = async (attendanceDetails: SubmitAttendanceForUsersRequest) => {
   if (!attendanceDetails.event) {
     notify('Validation Error!', 'No event specified');
     throw new Error();
   }
-  if (!attendanceDetails.attendees || attendanceDetails.attendees.length === 0) {
+  if (!attendanceDetails.users || attendanceDetails.users.length === 0) {
     notify('Validation Error!', 'No attendees added');
     throw new Error();
   }
   try {
-    const url = `${Config.API_URL}${Config.routes.admin.attendance}`;
-    await fetchService(url, 'POST', 'json', {
-      requiresAuthorization: true,
-      payload: JSON.stringify({
-        users: attendanceDetails.attendees,
-        event: attendanceDetails.event,
-        asStaff: attendanceDetails.asStaff,
-      }),
-    });
-
-    notify('Success!', `Added ${attendanceDetails.attendees.length} user(s)!`);
+    const data = await backend.submitAttendanceForUsers(attendanceDetails);
+    notify('Success!', `Added attendances for ${data.attendances.length} user(s)!`);
     return attendanceDetails;
   } catch (error) {
     notify('Unable to add attendees!', getErrorMessage(error));

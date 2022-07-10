@@ -1,9 +1,8 @@
 import { withFormik } from 'formik';
 import Moment from 'moment';
-import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import { isURL } from '../../utils';
-import { deleteEvent, editEvent } from '../adminSlice';
+import { editEvent } from '../utils';
 import EditEventForm from '../components/EditEventForm';
 
 const EditEventSchema = Yup.object().shape({
@@ -42,7 +41,7 @@ const FormikEditEventForm = withFormik({
   validationSchema: EditEventSchema,
   validateOnChange: false,
   validateOnBlur: false,
-  handleSubmit(values, { props }: { [key: string]: any }) {
+  handleSubmit(values) {
     const { startDate, startTime, endDate, endTime } = values;
 
     const event = {
@@ -59,11 +58,10 @@ const FormikEditEventForm = withFormik({
       committee: values.committee,
     };
 
-    props
-      .editEvent(event)
+    editEvent(event)
       .then(() => {})
       .catch(() => {});
   },
 })(EditEventForm as React.FC);
 
-export default connect(null, { editEvent, deleteEvent })(FormikEditEventForm);
+export default FormikEditEventForm;

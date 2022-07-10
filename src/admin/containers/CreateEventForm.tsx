@@ -1,9 +1,8 @@
 import { withFormik } from 'formik';
 import Moment from 'moment';
-import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import { isURL } from '../../utils';
-import { postEvent } from '../adminSlice';
+import { postEvent } from '../utils';
 import CreateEventForm from '../components/CreateEventForm';
 
 const CreateEventSchema = Yup.object().shape({
@@ -41,7 +40,7 @@ const FormikCreateEventForm = withFormik({
   validationSchema: CreateEventSchema,
   validateOnChange: false,
   validateOnBlur: false,
-  handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
+  handleSubmit(values, { resetForm }) {
     const { startDate, startTime, endDate, endTime } = values;
 
     const event = {
@@ -49,16 +48,15 @@ const FormikCreateEventForm = withFormik({
       location: isURL(values.location.trim()) ? values.location.trim().toLowerCase() : values.location.trim(),
       eventLink: isURL(values.eventLink.trim()) ? values.eventLink.trim().toLowerCase() : values.eventLink.trim(),
       pointValue: values.pointValue,
-      start: new Date(`${Moment(startDate).format(`LL`)} ${Moment(startTime).format(`LT`)}`).toISOString(),
-      end: new Date(`${Moment(endDate).format(`LL`)} ${Moment(endTime).format(`LT`)}`).toISOString(),
+      start: new Date(`${Moment(startDate).format(`LL`)} ${Moment(startTime).format(`LT`)}`),
+      end: new Date(`${Moment(endDate).format(`LL`)} ${Moment(endTime).format(`LT`)}`),
       cover: values.cover,
       attendanceCode: values.attendanceCode,
       description: values.description,
       committee: values.committee,
     };
 
-    props
-      .postEvent(event)
+    postEvent(event)
       .then(() => {
         resetForm();
       })
@@ -66,4 +64,4 @@ const FormikCreateEventForm = withFormik({
   },
 })(CreateEventForm as React.FC);
 
-export default connect(null, { postEvent })(FormikCreateEventForm);
+export default FormikCreateEventForm;
