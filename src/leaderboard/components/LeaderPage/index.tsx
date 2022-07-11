@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Menu } from 'antd';
-import { useSelector } from 'react-redux';
 import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
 import { ReactComponent as ArrowsIcon } from '../../../assets/icons/caret-icon-double.svg';
-import { authSelector } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
-import { fetchLeaderboard, leaderboardSelector } from '../../leaderboardSlice';
+import { fetchLeaderboard } from '../../utils';
 import LeaderListItem from '../LeaderListItem';
 import TopLeaderCard from '../TopLeaderCard';
 import './style.less';
+import { PublicProfile } from '../../../api';
+import { AppContext } from '../../../context';
 
 const LeaderPage: React.FC = () => {
-  const { users } = useSelector(leaderboardSelector);
-  const {
-    profile: { uuid: selfUUID },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+  const { user } = useContext(AppContext);
+
+  const [users, setUsers] = useState<PublicProfile[]>([]);
+
+  const { uuid: selfUUID } = user;
 
   // Default to the current year, otherwise use all time
   const { name, start, end } = getCurrentYear() ?? { name: 'All Time', start: 0, end: 0 };
@@ -25,8 +24,8 @@ const LeaderPage: React.FC = () => {
   const [endTime, setEndTime] = useState<number>(new Date(end).getTime() / 1000); // Convert time to unix
 
   useEffect(() => {
-    dispatch(fetchLeaderboard({ offset: 0, limit: 0, from: startTime, to: endTime }));
-  }, [dispatch, endTime, startTime]);
+    fetchLeaderboard(0, 0, startTime, endTime).then(setUsers);
+  }, [startTime, endTime]);
 
   const yearCodes = ['All Time'].concat(Object.keys(years));
   const menu = (
