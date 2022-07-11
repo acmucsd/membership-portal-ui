@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { hideNotification, showNotification } from '@mantine/notifications';
 import { Button } from 'antd';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { authSelector } from '../../auth/authSlice';
 import PageLayout from '../components/PageLayout';
 import { UserAccessType } from '../../types';
+import { AppContext } from '../../context';
 
 let notifiedAboutEmail = false;
 
 const PageLayoutContainer: React.FC = ({ children }) => {
-  const user = useSelector(authSelector);
-  const {
-    isAdmin: hasAdminAccess,
-    profile: { accessType },
-  } = user;
-  const hasStoreAdminAccess = [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(accessType);
+  const { user } = useContext(AppContext);
   const history = useHistory();
 
-  React.useEffect(() => {
+  const { accessType } = user;
+
+  const hasAdminAccess = accessType === UserAccessType.ADMIN;
+  const hasStoreAdminAccess = [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(accessType);
+
+  useEffect(() => {
     const key = `open${Date.now()}`;
 
-    if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
+    if (!notifiedAboutEmail && user.state === 'PENDING') {
       showNotification({
         id: key,
         title: 'Make sure to check your email and click the verification link in order to get full access to all features!',

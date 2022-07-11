@@ -1,5 +1,9 @@
+import { Dispatch, SetStateAction } from 'react';
+import { PrivateProfile } from '../api';
 import Config from '../config';
+import { userPlaceholder } from '../context';
 import history from '../history';
+import storage from '../storage';
 import { PublicProfile } from '../types';
 import { fetchService, getErrorMessage, notify } from '../utils';
 
@@ -36,6 +40,17 @@ export const loginUser = async (email: string, password: string) => {
     }),
   });
   return data;
+};
+
+export const logoutUser = (setUser: Dispatch<SetStateAction<PrivateProfile>>) => {
+  // Set the user object to placeholder data
+  setUser(userPlaceholder);
+
+  // Remove the API token so future calls aren't authenticated
+  storage.remove('token');
+
+  // Direct user to the login pace
+  history.replace('/login');
 };
 
 export const updatePassword = async (user) => {

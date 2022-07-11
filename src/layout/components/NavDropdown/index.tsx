@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Divider } from 'antd';
-import { logoutUser } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
+import { logoutUser } from '../../../auth/utils';
 import NavBarItem from '../NavBarItem';
 import './style.less';
+import { AppContext } from '../../../context';
 
 const NavDropdown: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { setUser } = useContext(AppContext);
 
   return (
     <nav className="nav-dropdown">
@@ -25,7 +25,7 @@ const NavDropdown: React.FC = () => {
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <NavBarItem text="Sign Out" func={() => dispatch(logoutUser())} mobile />
+      <NavBarItem text="Sign Out" func={() => logoutUser(setUser)} mobile />
     </nav>
   );
 };
