@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { eventSelector, fetchEvent } from '../../event/eventSlice';
+import { PublicEvent } from '../../api';
+import { fetchEvent } from '../../event/utils';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
 import { ProfileParams } from '../../types';
 import EditEventPage from '../components/EditEventPage';
 
 const EditEventPageContainer: React.FC = () => {
-  const { event } = useSelector(eventSelector);
-  const dispatch = useAppDispatch();
   const params = useParams<ProfileParams>();
 
+  const [event, setEvent] = useState<PublicEvent>();
+
   useEffect(() => {
-    dispatch(fetchEvent(params.uuid));
-  }, [dispatch, params.uuid]);
+    fetchEvent(params.uuid).then(setEvent);
+  }, [params.uuid]);
+
+  if (!event) {
+    return null;
+  }
 
   return (
     <PageLayout>

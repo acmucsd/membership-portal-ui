@@ -1,19 +1,11 @@
 import React from 'react';
+import { PublicEvent } from '../../../api';
 import EditEventForm from '../../containers/EditEventForm';
 
 import './style.less';
 
-interface EventProp {
-  uuid: string;
-  cover: string;
-  description: string;
-  location: string;
-  pointValue: string;
-  title: string;
-}
-
 interface EditEventPageProps {
-  event: EventProp;
+  event: PublicEvent;
 }
 
 const EditEventPage: React.FC<EditEventPageProps> = (props) => {

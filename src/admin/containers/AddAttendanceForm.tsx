@@ -3,11 +3,11 @@ import { withFormik } from 'formik';
 import { fetchPastEvents } from '../../event/utils';
 import { addAttendance, getEmails } from '../utils';
 import AddAttendanceForm from '../components/AddAttendanceForm';
-import { Event } from '../../api';
+import { PublicEvent } from '../../api';
 
 const AddAttendanceFormContainer = () => {
   const [emails, setEmails] = useState<string[]>([]);
-  const [pastEvents, setPastEvents] = useState<Event[]>([]);
+  const [pastEvents, setPastEvents] = useState<PublicEvent[]>([]);
 
   useEffect(() => {
     getEmails().then(setEmails); // TODO: Move to context

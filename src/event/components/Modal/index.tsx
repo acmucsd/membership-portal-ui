@@ -5,7 +5,7 @@ import './style.less';
 
 interface ModalComponentProps {
   title: React.ReactNode;
-  image: string;
+  image: string | undefined;
   visible: boolean;
   handleOk: MouseEventHandler;
   handleCancel: MouseEventHandler;

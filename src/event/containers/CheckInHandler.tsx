@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { useAppDispatch } from '../../redux/store';
-import { checkIn } from '../eventSlice';
+import { AppContext } from '../../context';
+import { checkIn, fetchAttendance } from '../utils';
 
 const CheckInHandler: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { setCheckinEvent, setAttendance } = useContext(AppContext);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
 
-  dispatch(checkIn({ attendanceCode: decodeURIComponent(params.get('code') || ''), asStaff: false }));
+  checkIn({ attendanceCode: decodeURIComponent(params.get('code') || ''), asStaff: false }).then((event) => {
+    setCheckinEvent(event);
+    fetchAttendance().then(setAttendance);
+  });
 
   return <Redirect to="/" />;
 };

@@ -1,4 +1,4 @@
-import { ActivityScope, ActivityType, FeedbackStatus, FeedbackType, OrderPickupEventStatus } from './Enums';
+import { ActivityScope, ActivityType, FeedbackStatus, FeedbackType, OrderPickupEventStatus, UserAccessType } from './Enums';
 import { MerchItemOptionMetadata } from './ApiRequests';
 
 type Uuid = string;
@@ -42,7 +42,7 @@ export interface SubmitAttendanceForUsersResponse extends ApiResponse {
 export interface PublicAttendance {
   user: PublicProfile;
   event: PublicEvent;
-  timestamp: Date;
+  timestamp: string;
   asStaff: boolean;
   feedback: string[];
 }
@@ -95,8 +95,8 @@ export interface PublicEvent {
   description: string;
   location: string;
   eventLink: string;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   attendanceCode?: string;
   pointValue: number;
   requiresStaff: boolean;
@@ -147,7 +147,7 @@ export interface PublicMerchCollection {
   themeColorHex?: string;
   description: string;
   items: PublicMerchItem[];
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface PublicMerchItem {
@@ -197,7 +197,7 @@ export interface PublicOrderItem {
   salePriceAtPurchase: number;
   discountPercentageAtPurchase: number;
   fulfilled: boolean;
-  fulfilledAt?: Date;
+  fulfilledAt?: string;
   notes?: string;
 }
 
@@ -206,7 +206,7 @@ export interface PublicOrder {
   user: PublicProfile;
   totalCost: number;
   status: string;
-  orderedAt: Date;
+  orderedAt: string;
   pickupEvent: PublicOrderPickupEvent;
 }
 
@@ -286,7 +286,7 @@ export interface PublicActivity {
   scope: ActivityScope;
   description: string;
   pointsEarned: number;
-  timestamp: Date;
+  timestamp: string;
 }
 
 export interface PublicProfile {
@@ -302,7 +302,7 @@ export interface PublicProfile {
 
 export interface PrivateProfile extends PublicProfile {
   email: string;
-  accessType: string;
+  accessType: UserAccessType;
   state: string;
   credits: number;
 }
@@ -312,7 +312,7 @@ export interface PublicFeedback {
   user: PublicProfile;
   title: string;
   description: string;
-  timestamp: Date;
+  timestamp: string;
   status: FeedbackStatus;
   type: FeedbackType;
 }
@@ -352,8 +352,8 @@ export interface UpdateFeedbackStatusResponse extends ApiResponse {
 export interface PublicOrderPickupEvent {
   uuid: Uuid;
   title: string;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   description: string;
   orders?: PublicOrderWithItems[];
   orderLimit?: number;

@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import authSlice from '../auth/authSlice';
-import eventSlice from '../event/eventSlice';
 import leaderboardSlice from '../leaderboard/leaderboardSlice';
 import profileSlice from '../profile/profileSlice';
 import storeSlice, { subscriber as storeSubscriber } from '../store/storeSlice';
@@ -10,7 +9,6 @@ export const store = configureStore({
   reducer: {
     store: storeSlice,
     auth: authSlice,
-    event: eventSlice,
     leaderboard: leaderboardSlice,
     profile: profileSlice,
   },

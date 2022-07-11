@@ -15,7 +15,7 @@ interface EventCardProps {
   description: string;
   location: string;
   eventLink: string | null;
-  points: string;
+  points: number;
   title: string;
   uuid: string;
 }

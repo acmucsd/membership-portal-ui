@@ -1,22 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../redux/store';
+import React, { useContext } from 'react';
+import { AppContext } from '../../context';
 import ModalComponent from '../components/Modal';
-import { checkOutEvent, eventSelector } from '../eventSlice';
 
 const CheckInModalContainer: React.FC = () => {
-  const { currentEvent, checkin: visible } = useSelector(eventSelector);
-  const dispatch = useAppDispatch();
+  const { checkinEvent, setCheckinEvent } = useContext(AppContext);
 
-  const checkInMessage = `Checked in to ${currentEvent.title}!`;
-  const fullMessage = `Thanks for checking in! You earned ${currentEvent.pointValue} points.`;
-  const hideMessage = () => dispatch(checkOutEvent());
+  const checkInMessage = `Checked in to ${checkinEvent?.title}!`;
+  const fullMessage = `Thanks for checking in! You earned ${checkinEvent?.pointValue} points.`;
+  const hideMessage = () => setCheckinEvent(undefined);
 
   return (
     <ModalComponent
       title={<div style={{ marginRight: 32 }}>{checkInMessage}</div>} // Prevents title and close button from overlapping
-      image={currentEvent.cover}
-      visible={visible}
+      image={checkinEvent?.cover}
+      visible={!!checkinEvent}
       handleOk={hideMessage}
       handleCancel={hideMessage}
       content={fullMessage}

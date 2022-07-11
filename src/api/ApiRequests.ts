@@ -125,8 +125,8 @@ export interface Event extends OptionalEventProperties {
   title: string;
   description: string;
   location: string;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   attendanceCode: string;
   pointValue: number;
 }
@@ -261,8 +261,8 @@ export interface MerchItemOptionAndQuantity {
 
 export interface OrderPickupEvent {
   title: string;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   description: string;
   orderLimit: number;
 }

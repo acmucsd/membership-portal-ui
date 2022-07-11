@@ -1,32 +1,34 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
 import background from '../../assets/graphics/background.svg';
-import { authSelector } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
+import { AppContext } from '../../context';
 import { UserAccessType } from '../../types';
 import { formatDate, formatTime } from '../../utils';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
-import { eventSelector, fetchAttendance, fetchFutureEvents } from '../eventSlice';
+import { fetchAttendance, fetchFutureEvents } from '../utils';
 
 const UpcomingEventsContainer: React.FC = () => {
-  const { futureEvents: events, attendance } = useSelector(eventSelector);
-  const {
-    profile: { accessType },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
-  const canEditEvents = [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(accessType);
+  const { futureEvents, setFutureEvents, attendance, setAttendance, user } = useContext(AppContext);
 
   useEffect(() => {
-    dispatch(fetchFutureEvents());
-    dispatch(fetchAttendance());
-  }, [dispatch]);
+    fetchFutureEvents().then(setFutureEvents);
+    fetchAttendance().then(setAttendance);
+  }, [setAttendance, setFutureEvents]);
+
+  // Since user can be undefined if the call to load the user fails, it must be
+  // checked before use.
+  if (!user) {
+    return null;
+  }
+
+  const { accessType } = user;
+  const canEditEvents = [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(accessType);
 
   return (
     <div>
       <h1 className="subtitle">Upcoming Events</h1>
       <EventsList>
-        {events.map((event) => {
+        {futureEvents.map((event) => {
           const startDate = formatDate(event.start);
           const startTime = formatTime(event.start);
           const endDate = formatDate(event.end);

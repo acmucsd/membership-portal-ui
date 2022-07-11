@@ -1,37 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Menu } from 'antd';
-import { useSelector } from 'react-redux';
 import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
 import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
-import { authSelector } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
 import { UserAccessType } from '../../types';
 import { formatDate } from '../../utils';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
-import { eventSelector, fetchAttendance, fetchPastEvents } from '../eventSlice';
+import { fetchAttendance, fetchPastEvents } from '../utils';
+import { AppContext } from '../../context';
 
 const PastEventsContainer: React.FC = () => {
-  const { pastEvents: events, attendance } = useSelector(eventSelector);
-  const {
-    profile: { accessType },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
-  const canEditEvents = [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(accessType);
-  const [timeframe, setTimeframe] = useState(getCurrentYear()?.name ?? 'All Time');
-  const [shownEvents, setShownEvents] = useState<any[]>(events);
+  const { pastEvents, setPastEvents, attendance, setAttendance, user } = useContext(AppContext);
 
   useEffect(() => {
-    dispatch(fetchPastEvents());
-    dispatch(fetchAttendance());
-  }, [dispatch]);
+    fetchPastEvents().then(setPastEvents);
+    fetchAttendance().then(setAttendance);
+  }, [setAttendance, setPastEvents]);
+
+  const [timeframe, setTimeframe] = useState(getCurrentYear()?.name ?? 'All Time');
+  const [shownEvents, setShownEvents] = useState<any[]>(pastEvents);
 
   useEffect(() => {
     if (timeframe === 'All Time') {
-      setShownEvents(events);
+      setShownEvents(pastEvents);
     } else {
-      const yearFilteredEvents = events.filter((event) => {
+      const yearFilteredEvents = pastEvents.filter((event) => {
         if (timeframe === 'All Time') {
           return event;
         }
@@ -43,7 +37,16 @@ const PastEventsContainer: React.FC = () => {
 
       setShownEvents(yearFilteredEvents);
     }
-  }, [events, timeframe]);
+  }, [pastEvents, timeframe]);
+
+  // Since user can be undefined if the call to load the user fails, it must be
+  // checked before use.
+  if (!user) {
+    return null;
+  }
+
+  const { accessType } = user;
+  const canEditEvents = [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(accessType);
 
   // All representations of timeframes displayed in dropdown.
   // 'All Time' is concatenated, since the `ucsd-quarters-years` package
@@ -52,7 +55,7 @@ const PastEventsContainer: React.FC = () => {
   const menu = (
     <Menu className="menu">
       {yearCodes.map((yearCode, index) => {
-        const yearFilteredEvents = events.filter((event) => {
+        const yearFilteredEvents = pastEvents.filter((event) => {
           if (yearCode === 'All Time') {
             return event;
           }
