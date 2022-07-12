@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { PrivateProfile } from '../api';
+import backend from '../backend';
 import Config from '../config';
 import { userPlaceholder } from '../context';
 import history from '../history';
@@ -95,16 +96,22 @@ export const sendEmailVerification = async (email: string) => {
   }
 };
 
-export const fetchUserByID = async (uuid: string) =>
-  new Promise<{ user: PublicProfile }>(async (resolve, reject) => {
-    try {
-      const url = `${Config.API_URL}${Config.routes.user.user}/${uuid}`;
-      const data = await fetchService(url, 'GET', 'json', {
-        requiresAuthorization: true,
-      });
+export const fetchUser = async () => {
+  try {
+    const data = await backend.getCurrentUser();
+    return data.user;
+  } catch (error) {
+    notify('Unable to fetch user!', getErrorMessage(error));
+    throw error;
+  }
+};
 
-      resolve(data);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const fetchUserByID = async (uuid: string) => {
+  try {
+    const data = await backend.getUser(uuid);
+    return data.user;
+  } catch (error) {
+    notify('Unable to fetch user!', getErrorMessage(error));
+    throw error;
+  }
+};

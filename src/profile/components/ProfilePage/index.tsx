@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, Button, Progress } from 'antd';
-import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { authSelector, fetchUserByID } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
+import { fetchUserByID } from '../../../auth/utils';
 import { ProfileParams, PublicProfile } from '../../../types';
 import { getDefaultProfile, getLevel, getRank, isWhitespace } from '../../../utils';
 import './style.less';
+import { AppContext } from '../../../context';
 
 const ProfilePage: React.FC = () => {
   const { uuid } = useParams<ProfileParams>();
+  const { user } = useContext(AppContext);
   const [profile, setProfile] = useState<Omit<PublicProfile, 'uuid'>>();
-  const auth = useSelector(authSelector);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
-      dispatch(fetchUserByID(uuid))
-        .unwrap()
-        .then(({ user }) => setProfile(user));
+      fetchUserByID(uuid).then(setProfile);
     } else {
-      setProfile(auth.profile);
+      setProfile(user);
     }
-  }, [auth.profile, dispatch, uuid]);
+  }, [user, uuid]);
 
   return (
     <div className="Profile-Page">

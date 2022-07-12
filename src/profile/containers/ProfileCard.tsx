@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { authSelector, fetchUser } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
+import React, { useContext, useEffect } from 'react';
+import { fetchUser } from '../../auth/utils';
+import { AppContext } from '../../context';
 import { getLevel, getRank } from '../../utils';
 import ProfileCard from '../components/ProfileCard';
 
 const NavProfileContainer: React.FC = () => {
-  const {
-    profile: { profilePicture, firstName, points },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+  const { user, setUser } = useContext(AppContext);
+
+  const { profilePicture, firstName, points } = user;
 
   useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+    fetchUser().then(setUser);
+  }, [setUser]);
 
   return <ProfileCard exp={points} profilePicture={profilePicture} level={getLevel(points)} name={firstName} rank={getRank(points)} />;
 };

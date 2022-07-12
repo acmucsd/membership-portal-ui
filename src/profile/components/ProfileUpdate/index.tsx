@@ -1,14 +1,14 @@
-import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler, useEffect, useRef, useState } from 'react';
+import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler, useContext, useEffect, useRef, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import * as ANTD from 'antd';
 import { Avatar, Button, Form, Input, Modal, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { fetchUser } from '../../../auth/authSlice';
+import { fetchUser } from '../../../auth/utils';
 import majorsData from '../../../constants/majors.json';
-import { useAppDispatch } from '../../../redux/store';
 import { getDefaultProfile } from '../../../utils';
-import { updateEmail, uploadUserImage } from '../../profileSlice';
+import { updateEmail, uploadUserImage } from '../../utils';
 import './style.less';
+import { AppContext } from '../../../context';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -20,18 +20,6 @@ interface ProfileUpdateProps {
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
   setFieldValue: Function;
-  user: {
-    profile: {
-      uuid: string;
-      firstName: string;
-      lastName: string;
-      major: string;
-      bio: string;
-      profilePicture: string;
-      graduationYear: string;
-      [key: string]: any;
-    };
-  };
   values: {
     firstName: string;
     lastName: string;
@@ -42,13 +30,14 @@ interface ProfileUpdateProps {
 }
 
 const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, values } = props;
+
+  const { user, setUser } = useContext(AppContext);
 
   const history = useHistory();
-  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState<string>();
-  const [bg, setBG] = useState(user.profile.profilePicture);
+  const [bg, setBG] = useState(user.profilePicture);
   const [fileList, setFileList] = useState([] as any[]);
   const [visible, setVisible] = useState(false);
   const [uploadState, setUploadState] = useState('none');
@@ -81,12 +70,11 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
     setUploadState('uploading');
-    dispatch(uploadUserImage(fileList[0].originFileObj))
-      .unwrap()
+    uploadUserImage(fileList[0].originFileObj)
       .then(() => {
         setUploadState('none');
         setVisible(false);
-        dispatch(fetchUser());
+        fetchUser().then(setUser);
       })
       .catch(() => {
         setUploadState('none');
@@ -95,13 +83,13 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   useEffect(() => {
     const keys = ['firstName', 'lastName', 'major', 'bio', 'graduationYear'];
     keys.forEach((key) => {
-      setFieldValue(key, user.profile[key]);
+      setFieldValue(key, user[key]);
     });
-    setBG(user.profile.profilePicture);
+    setBG(user.profilePicture);
   }, [user, setFieldValue]);
 
   useEffect(() => {
-    setEmail(user.profile.email);
+    setEmail(user.email);
   }, [user]);
 
   const InnerRefButton = ANTD.Button as React.ComponentClass<any>;
@@ -162,7 +150,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
           type="primary"
           className="save-button"
           onClick={() => {
-            if (email) dispatch(updateEmail(email));
+            if (email) updateEmail(email);
           }}
         >
           Update Email
