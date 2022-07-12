@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Table } from 'antd';
-import { useAppDispatch } from '../../../redux/store';
 import { Uuid } from '../../../types';
 import { notify } from '../../../utils';
-import { createItemOption, deleteItemOption } from '../../storeSlice';
+import { createItemOption, deleteItemOption } from '../../utils';
 import StoreButton from '../StoreButton';
 import StoreTextInput from '../StoreTextInput';
 import './style.less';
@@ -11,10 +10,10 @@ import './style.less';
 interface Option {
   uuid?: Uuid;
   value: string;
-  price: string;
-  quantity: string;
+  price: number;
+  quantity: number;
   quantityToAdd: string;
-  discountPercentage: string;
+  discountPercentage: number;
 }
 
 interface OptionDisplayProps {
@@ -32,7 +31,6 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
   const [newQuantity, setNewQuantity] = useState('');
   const [newPrice, setNewPrice] = useState('');
   const [newDiscountPercentage, setNewDiscountPercentage] = useState('');
-  const dispatch = useAppDispatch();
 
   const creatingItem = !itemUuid;
 
@@ -57,8 +55,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
             newOptions.splice(index, 1);
             onChange(newOptions);
           } else {
-            dispatch(deleteItemOption(option.uuid ?? ''))
-              .unwrap()
+            deleteItemOption(option.uuid ?? '')
               .then(() => {
                 newOptions.splice(index, 1);
                 onChange(newOptions);
@@ -73,7 +70,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
       </button>
     </>
   );
-  const renderPrice = (price: string, option: Option, index: number) => (
+  const renderPrice = (price: number, option: Option, index: number) => (
     <StoreTextInput
       size="Quarter"
       value={price}
@@ -85,7 +82,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
     />
   );
 
-  const renderQuantity = (quantity: string, option: Option, index: number, readOnly: boolean) => {
+  const renderQuantity = (quantity: number, option: Option, index: number, readOnly: boolean) => {
     if (readOnly) {
       return <p>{quantity}</p>;
     }
@@ -117,7 +114,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
     );
   };
 
-  const renderDiscountPercentage = (discountPercentage: string, option: Option, index: number) => (
+  const renderDiscountPercentage = (discountPercentage: number, option: Option, index: number) => (
     <StoreTextInput
       size="Quarter"
       value={discountPercentage}
@@ -166,7 +163,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
             text="Add Option"
             onClick={() => {
               if (creatingItem) {
-                newOptions.push({ value: '', price: '', quantity: '', quantityToAdd: '', discountPercentage: '' });
+                newOptions.push({ value: '', price: 0, quantity: 0, quantityToAdd: '', discountPercentage: 0 });
                 onChange(newOptions);
               } else {
                 setCreatingOption(true);
@@ -179,17 +176,14 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         visible={creatingOption}
         onCancel={() => setCreatingOption(false)}
         onOk={() => {
-          dispatch(
-            createItemOption({
-              uuid: itemUuid ?? '',
-              option: {
-                quantity: parseInt(newQuantity, 10),
-                price: parseInt(newPrice, 10),
-                metadata: { type: currentType ?? '', value: newValue, position: options.length },
-              },
-            }),
-          )
-            .unwrap()
+          createItemOption({
+            uuid: itemUuid ?? '',
+            option: {
+              quantity: parseInt(newQuantity, 10),
+              price: parseInt(newPrice, 10),
+              metadata: { type: currentType ?? '', value: newValue, position: options.length },
+            },
+          })
             .then((newOption) => {
               const { uuid, price, discountPercentage, quantity, metadata: { value = '' } = { value: '' } } = newOption;
               newOptions.push({ uuid, value, price, quantity, quantityToAdd: '0', discountPercentage });

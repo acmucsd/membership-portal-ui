@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { useAppDispatch } from '../../../redux/store';
-import { PublicMerchItemOption, PublicMerchItemWithPurchaseLimits } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
-import { addToCart } from '../../storeSlice';
+import { addToCart } from '../../utils';
 import OptionSelector from '../OptionSelector';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import './style.less';
+import { PublicMerchItemOption, PublicMerchItemWithPurchaseLimits } from '../../../api';
 
 interface ItemPageProps {
   item: PublicMerchItemWithPurchaseLimits | undefined;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { PublicMerchCollection, PublicMerchItem } from '../../../api';
+import backend from '../../../backend';
 import Config from '../../../config';
 import history from '../../../history';
-import { PublicMerchCollection, PublicMerchItem } from '../../../types';
-import { fetchService, getErrorMessage, notify } from '../../../utils';
+import { getErrorMessage, notify } from '../../../utils';
 import OptionDisplay from '../OptionDisplay';
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
@@ -211,21 +212,19 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
             }
 
             try {
-              const data = await fetchService(url, creatingItem ? 'POST' : 'PATCH', 'json', {
-                requiresAuthorization: true,
-                payload: JSON.stringify({ merchandise: payload }),
-              });
+              let data;
+
+              if (creatingItem) {
+                data = await backend.createMerchItem({ merchandise: payload });
+              } else {
+                data = await backend.editMerchItem(item?.uuid, { merchandise: payload });
+              }
 
               if (values.newPicture) {
                 const formdata = new FormData();
                 formdata.append('image', values.newPicture);
 
-                const imageUrl = `${Config.API_URL}${Config.routes.store.itemPicture}/${data.item.uuid}`;
-
-                await fetchService(imageUrl, 'POST', 'image', {
-                  requiresAuthorization: true,
-                  payload: formdata,
-                });
+                await backend.updateMerchPhoto(data.item.uuid, formdata);
               }
               setSubmitting(false);
               history.push('/store');

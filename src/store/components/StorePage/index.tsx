@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { PublicMerchCollection, UserAccessType } from '../../../api';
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
 import { authSelector } from '../../../auth/authSlice';
 import { useAppDispatch } from '../../../redux/store';
-import { PublicMerchCollection, UserAccessType } from '../../../types';
 import { notify } from '../../../utils';
-import { fetchCollections } from '../../storeSlice';
+import { fetchCollections } from '../../utils';
 import ItemCard from '../ItemCard';
 import StoreButton from '../StoreButton';
 import StoreHeader from '../StoreHeader';
@@ -20,11 +20,8 @@ const StorePage: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollections())
-      .unwrap()
-      .then((value) => {
-        setCollections(value);
-      })
+    fetchCollections()
+      .then(setCollections)
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });

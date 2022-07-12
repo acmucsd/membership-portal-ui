@@ -87,7 +87,7 @@ export const loginUser = createAsyncThunk<void, { values: { email: string; passw
   async ({ values, search }, { dispatch }) => {
     try {
       const { email, password } = values;
-      const { token } = await utils.loginUser(email, password);
+      const token = await utils.loginUser(email, password);
       const { isAdmin } = utils.tokenGetClaims(token);
       Storage.set('token', token);
       dispatch(authUser({ isAdmin }));

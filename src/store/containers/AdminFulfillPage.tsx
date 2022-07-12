@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { PublicOrderPickupEvent } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
 import { useAppDispatch } from '../../redux/store';
-import { PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
 import AdminFulfillPage from '../components/AdminFulfillPage';
-import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
+import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../utils';
 
 interface AdminFulfillPageContainerProps {}
 
@@ -20,18 +20,15 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = () =
 
   useEffect(() => {
     if (uuid) {
-      dispatch(fetchPickupEvent(uuid))
-        .unwrap()
-        .then((value) => setPickupEvent(value))
+      fetchPickupEvent(uuid)
+        .then(setPickupEvent)
         .catch((reason) => notify('API Error', reason.message || reason));
     } else {
-      dispatch(fetchPastPickupEvents())
-        .unwrap()
-        .then((value) => setPastPickupEvents(value))
+      fetchPastPickupEvents()
+        .then(setPastPickupEvents)
         .catch((reason) => notify('API Error', reason.message || reason));
-      dispatch(fetchFuturePickupEvents())
-        .unwrap()
-        .then((value) => setFuturePickupEvents(value))
+      fetchFuturePickupEvents()
+        .then(setFuturePickupEvents)
         .catch((reason) => notify('API Error', reason.message || reason));
     }
   }, [uuid, dispatch]);

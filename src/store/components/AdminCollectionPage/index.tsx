@@ -1,10 +1,10 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import Config from '../../../config';
+import { PublicMerchCollection } from '../../../api';
+import backend from '../../../backend';
 import history from '../../../history';
-import { PublicMerchCollection } from '../../../types';
-import { fetchService, notify } from '../../../utils';
+import { notify } from '../../../utils';
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
 import StoreColorInput from '../StoreColorInput';
@@ -54,14 +54,11 @@ const AdminCollectionPage: React.FC<AdminCollectionPageProps> = (props) => {
           initialValues={initialValues}
           validationSchema={AdminCollectionPageFormSchema}
           onSubmit={async (values, { setSubmitting }) => {
-            const url = creatingCollection
-              ? `${Config.API_URL}${Config.routes.store.collection}`
-              : `${Config.API_URL}${Config.routes.store.collection}/${collection?.uuid}`;
-
-            await fetchService(url, creatingCollection ? 'POST' : 'PATCH', 'json', {
-              requiresAuthorization: true,
-              payload: JSON.stringify({ collection: values }),
-            });
+            if (creatingCollection) {
+              await backend.createMerchCollection({ collection: values });
+            } else {
+              await backend.editMerchCollection(collection?.uuid, { collection: values });
+            }
             setSubmitting(false);
             history.push('/store');
           }}

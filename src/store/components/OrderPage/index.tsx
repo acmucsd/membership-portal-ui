@@ -3,7 +3,6 @@ import { Button } from 'antd';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
-import { OrderStatus, PublicOrderWithItems, PublicOrderPickupEvent } from '../../../types';
 import { notify, parseOrderStatus } from '../../../utils';
 
 import OrderDisplay from '../OrderDisplay';
@@ -12,6 +11,7 @@ import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 
 import './style.less';
+import { OrderStatus, PublicOrderPickupEvent, PublicOrderWithItems } from '../../../api';
 
 interface OrderPageProps {
   order: PublicOrderWithItems | undefined;

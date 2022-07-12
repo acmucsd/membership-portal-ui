@@ -1,4 +1,10 @@
-import { HttpRequestMethod, MimeType, FetchServiceOptions } from '../types';
+type HttpRequestMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+type MimeType = 'json' | 'image';
+type FetchServiceOptions = {
+  requiresAuthorization: boolean;
+  payload?: any;
+  onFailCallback?: () => void;
+};
 
 /**
  * Recursive function to print all errors from back-end.

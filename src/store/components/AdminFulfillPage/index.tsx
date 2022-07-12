@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import moment from 'moment';
 import { useHistory } from 'react-router';
-import { useAppDispatch } from '../../../redux/store';
-import { OrderStatus, PublicOrderForFulfillment, PublicOrderPickupEvent } from '../../../types';
+import { OrderStatus, PublicOrderPickupEvent } from '../../../api';
+import { PublicOrderForFulfillment } from '../../../types';
 import { notify, parseOrderStatus } from '../../../utils';
-import { completePickupEvent, fulfillOrder } from '../../storeSlice';
+import { completePickupEvent, fulfillOrder } from '../../utils';
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
 import StoreDropdown from '../StoreDropdown';
@@ -25,15 +25,13 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
   const [selectedOrder, setSelectedOrder] = useState<PublicOrderForFulfillment>();
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setPickupEvent(pickupEventIn);
   }, [pickupEventIn]);
 
   const handleFinishPickup = () => {
-    dispatch(completePickupEvent(pickupEvent?.uuid ?? ''))
-      .unwrap()
+    completePickupEvent(pickupEvent?.uuid ?? '')
       .then(() => {
         setShowModal(false);
         notify('Success!', 'Pickup Event is Over');
@@ -106,13 +104,10 @@ const AdminFulfillPage: React.FC<AdminFulfillPageProps> = (props) => {
         <StoreButton
           text="Save"
           onClick={() => {
-            dispatch(
-              fulfillOrder({
-                uuid: selectedOrder.uuid,
-                items: selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes ?? '' })),
-              }),
-            )
-              .unwrap()
+            fulfillOrder({
+              uuid: selectedOrder.uuid,
+              items: selectedOrder.items.filter((item) => item.needsFulfillment).map((item) => ({ uuid: item.uuid, notes: item.notes ?? '' })),
+            })
               .then((newOrder) => {
                 setPickupEvent({
                   ...pickupEvent,

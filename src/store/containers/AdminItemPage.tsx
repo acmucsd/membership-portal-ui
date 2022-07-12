@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { PublicMerchCollection, PublicMerchItem } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
 import { useAppDispatch } from '../../redux/store';
-import { PublicMerchCollection, PublicMerchItem } from '../../types';
 import { notify } from '../../utils';
 import AdminItemPage from '../components/AdminItemPage';
-import { fetchCollections, fetchItem } from '../storeSlice';
+import { fetchCollections, fetchItem } from '../utils';
 
 interface AdminItemPageContainerProps {
   deleteItem: Function;
@@ -22,21 +22,15 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
 
   useEffect(() => {
     if (uuid) {
-      dispatch(fetchItem(uuid))
-        .unwrap()
-        .then((value) => {
-          setItem(value);
-        })
+      fetchItem(uuid)
+        .then(setItem)
         .catch((reason) => {
           notify('API Error', reason.message || reason);
         });
     }
 
-    dispatch(fetchCollections())
-      .unwrap()
-      .then((value) => {
-        setCollections(value);
-      })
+    fetchCollections()
+      .then(setCollections)
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });

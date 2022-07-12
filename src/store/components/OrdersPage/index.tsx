@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { PublicOrder } from '../../../api';
 
-import { PublicOrder } from '../../../types';
 import { parseOrderStatus } from '../../../utils';
 import StoreHeader from '../StoreHeader';
 

@@ -3,15 +3,16 @@ import { DatePicker } from 'antd';
 import { Formik } from 'formik';
 import moment from 'moment';
 import * as Yup from 'yup';
+import { PublicOrderPickupEvent } from '../../../api';
 import Config from '../../../config';
 import history from '../../../history';
-import { PublicOrderPickupEvent } from '../../../types';
-import { fetchService, getErrorMessage, notify } from '../../../utils';
+import { getErrorMessage, notify } from '../../../utils';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
 import './style.less';
+import backend from '../../../backend';
 
 interface AdminPickupPageProps {
   pickupEvent?: PublicOrderPickupEvent | undefined;
@@ -100,10 +101,11 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
               };
 
               try {
-                await fetchService(url, creatingPickup ? 'POST' : 'PATCH', 'json', {
-                  requiresAuthorization: true,
-                  payload: JSON.stringify({ pickupEvent: payload }),
-                });
+                if (creatingPickup) {
+                  await backend.createPickupEvent({ pickupEvent: payload });
+                } else {
+                  await backend.editPickupEvent(pickupEvent?.uuid, { pickupEvent: payload });
+                }
                 setSubmitting(false);
                 notify('Success!', creatingPickup ? 'Pickup event created.' : 'Pickup event modified.');
                 history.push('/store/admin');

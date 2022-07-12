@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
-import { OrderStatus, PublicOrderItemWithQuantity, PublicOrderPickupEvent } from '../../../types';
+import { OrderStatus, PublicOrderPickupEvent } from '../../../api';
+import { PublicOrderItemWithQuantity } from '../../../types';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';

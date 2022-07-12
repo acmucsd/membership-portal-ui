@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { PublicOrderPickupEvent, PublicOrderWithItems } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
 import { useAppDispatch } from '../../redux/store';
-import { PublicOrderPickupEvent, PublicOrderWithItems } from '../../types';
 import { notify } from '../../utils';
 import OrderPage from '../components/OrderPage';
-import { cancelOrder, fetchFuturePickupEvents, fetchOrder, rescheduleOrder } from '../storeSlice';
+import { cancelOrder, fetchFuturePickupEvents, fetchOrder, rescheduleOrder } from '../utils';
 
 interface OrderPageContainerProps {}
 
@@ -23,19 +23,13 @@ const OrderPageContainer: React.FC<OrderPageContainerProps> = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOrder(uuid))
-      .unwrap()
-      .then((value) => {
-        setOrder(value);
-      })
+    fetchOrder(uuid)
+      .then(setOrder)
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-    dispatch(fetchFuturePickupEvents())
-      .unwrap()
-      .then((value) => {
-        setPickupEvents(value);
-      })
+    fetchFuturePickupEvents()
+      .then(setPickupEvents)
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });

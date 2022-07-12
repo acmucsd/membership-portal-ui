@@ -1,12 +1,13 @@
 import React from 'react';
 import { Table, Typography } from 'antd';
 
-import { PublicOrderItem, PublicOrderItemWithQuantity } from '../../../types';
+import { PublicOrderItemWithQuantity } from '../../../types';
 import { toProperCase } from '../../../utils';
 
 import DiamondDisplay from '../DiamondDisplay';
 
 import './style.less';
+import { PublicOrderItem } from '../../../api';
 
 const orderColumns = [
   ['', 'itemImage'],

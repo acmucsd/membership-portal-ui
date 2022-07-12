@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PublicMerchItem } from '../../../types';
+import { PublicMerchItem } from '../../../api';
 import { processItem, processItemPrice } from '../../../utils';
 
 import StorePlus from '../../../assets/icons/store-plus-icon.svg';

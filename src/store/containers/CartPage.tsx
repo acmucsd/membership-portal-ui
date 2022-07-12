@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import backend from '../../backend';
 import Config from '../../config';
 import history from '../../history';
 import PageLayout from '../../layout/containers/PageLayout';
-import { fetchService, getErrorMessage, notify } from '../../utils';
+import { getErrorMessage, notify } from '../../utils';
 import CartPage from '../components/CartPage';
-import { cartSelector } from '../storeSlice';
+import { cartSelector } from '../utils';
 
 const CartPageContainer: React.FC = () => {
   const cart = Object.values(useSelector(cartSelector));
@@ -14,10 +15,9 @@ const CartPageContainer: React.FC = () => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.verification}`;
       const payload = cart.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
-      await fetchService(url, 'POST', 'json', {
-        requiresAuthorization: true,
-        payload: JSON.stringify({ order: payload }),
-      });
+
+      await backend.verifyMerchOrder({ order: payload }); // TODO: STEETS
+
       history.push('/store/checkout');
     } catch (error: any) {
       onFail();

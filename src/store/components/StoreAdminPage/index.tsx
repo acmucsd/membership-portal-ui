@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
-import { UserAccessType } from '../../../types';
 import { notify } from '../../../utils';
-import { cancelAllOrders } from '../../storeSlice';
+import { cancelAllOrders } from '../../utils';
 import StoreButton from '../StoreButton';
 import StoreHeader from '../StoreHeader';
 import './style.less';
+import { UserAccessType } from '../../../api';
 
 const StoreAdminPage: React.FC = () => {
   const auth = useSelector(authSelector);
   const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(auth.profile.accessType);
 
   const [confirmation, setConfirmation] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -42,12 +40,10 @@ const StoreAdminPage: React.FC = () => {
           visible={confirmation}
           onCancel={() => setConfirmation(false)}
           onOk={() => {
-            dispatch(cancelAllOrders())
-              .unwrap()
-              .then(() => {
-                setConfirmation(false);
-                notify('Success!', 'You successfully cancelled all orders!');
-              });
+            cancelAllOrders().then(() => {
+              setConfirmation(false);
+              notify('Success!', 'You successfully cancelled all orders!');
+            });
           }}
         >
           Are you sure you want to cancel all orders?

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PublicMerchCollection } from '../../../types';
+import { PublicMerchCollection } from '../../../api';
 import StoreHeader from '../StoreHeader';
 import './style.less';
 

@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 import { PrivateProfile } from '../api';
 import backend from '../backend';
-import Config from '../config';
 import { userPlaceholder } from '../context';
 import history from '../history';
 import storage from '../storage';
-import { PublicProfile } from '../types';
-import { fetchService, getErrorMessage, notify } from '../utils';
+import { getErrorMessage, notify } from '../utils';
 
 /**
  * Helper function to get token claims.
@@ -32,15 +30,8 @@ export const tokenGetClaims = (token?: string) => {
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const url = `${Config.API_URL}${Config.routes.auth.login}`;
-  const data = await fetchService(url, 'POST', 'json', {
-    requiresAuthorization: false,
-    payload: JSON.stringify({
-      email,
-      password,
-    }),
-  });
-  return data;
+  const data = await backend.login({ email, password });
+  return data.token;
 };
 
 export const logoutUser = (setUser: Dispatch<SetStateAction<PrivateProfile>>) => {
@@ -56,12 +47,7 @@ export const logoutUser = (setUser: Dispatch<SetStateAction<PrivateProfile>>) =>
 
 export const updatePassword = async (user) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.auth.resetPassword}/${user.code}`;
-    await fetchService(url, 'POST', 'json', {
-      requiresAuthorization: false,
-      payload: JSON.stringify({ user }),
-    });
-
+    await backend.resetPassword(user.code, { user });
     history.replace('/');
   } catch (error) {
     notify('Unable to reset password!', getErrorMessage(error));
@@ -71,12 +57,7 @@ export const updatePassword = async (user) => {
 // Verifies an email using a info object with email field and code field
 export const verifyEmail = async (info: { [key: string]: any }) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${info.code}`;
-    await fetchService(url, 'POST', 'json', {
-      requiresAuthorization: false,
-      payload: JSON.stringify({ ...info }),
-    });
-
+    await backend.verifyEmail(info);
     notify('Verified email!', '');
   } catch (error) {
     notify('Unable to verify email!', getErrorMessage(error));
@@ -85,11 +66,7 @@ export const verifyEmail = async (info: { [key: string]: any }) => {
 
 export const sendEmailVerification = async (email: string) => {
   try {
-    const url = `${Config.API_URL}${Config.routes.auth.emailVerification}/${email}`;
-    await fetchService(url, 'GET', 'json', {
-      requiresAuthorization: false,
-    });
-
+    await backend.resendEmailVerification(email);
     notify('Sent verification email!', '');
   } catch (error) {
     notify('Unable to send verification email!', getErrorMessage(error));

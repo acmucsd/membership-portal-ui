@@ -1,5 +1,7 @@
 import React, { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { PublicEvent, PrivateProfile, PublicAttendance, UserAccessType } from './api';
+import { loadCart } from './store/localStorage';
+import { Cart } from './types';
 
 // This context provides a central location for shared data to be stored, and
 // then used throughout the app via a call to useContext. Currently, the data
@@ -42,6 +44,12 @@ export const AppContext = createContext<{
   setAttendance: Dispatch<SetStateAction<PublicAttendance[]>>;
   checkinEvent: PublicEvent | undefined;
   setCheckinEvent: Dispatch<SetStateAction<PublicEvent | undefined>>;
+  cart: Cart;
+  setCart: Dispatch<SetStateAction<Cart>>;
+  addToCart: Function;
+  editInCart: Function;
+  removeFromCart: Function;
+  clearCart: Function;
 }>({
   user: userPlaceholder,
   setUser: () => {},
@@ -53,6 +61,12 @@ export const AppContext = createContext<{
   setAttendance: () => {},
   checkinEvent: undefined,
   setCheckinEvent: () => {},
+  cart: {},
+  setCart: () => {},
+  addToCart: () => {},
+  editInCart: () => {},
+  removeFromCart: () => {},
+  clearCart: () => {},
 });
 
 export const AppProvider = ({ children }) => {
@@ -61,10 +75,66 @@ export const AppProvider = ({ children }) => {
   const [futureEvents, setFutureEvents] = useState<PublicEvent[]>([]);
   const [attendance, setAttendance] = useState<PublicAttendance[]>([]);
   const [checkinEvent, setCheckinEvent] = useState<PublicEvent>();
+  const [cart, setCart] = useState<Cart>(loadCart());
+
+  const addToCart = (payload) => {
+    const {
+      option: { uuid },
+      quantity,
+    } = payload;
+
+    if (quantity < 1) return;
+
+    if (uuid in cart) cart[uuid].quantity += quantity;
+    // TODO
+    else cart[uuid] = payload; // TODO
+  };
+
+  const editInCart = (payload) => {
+    const {
+      option: { uuid },
+      quantity,
+    } = payload;
+
+    if (!(uuid in cart)) return;
+
+    if (quantity < 1) delete cart[uuid];
+    // TODO
+    else cart[uuid].quantity = quantity; // TODO
+  };
+
+  const removeFromCart = (payload) => {
+    const {
+      option: { uuid },
+    } = payload;
+
+    if (uuid in cart) delete cart[uuid]; // TODO
+  };
+
+  const clearCart = () => {
+    setCart({});
+  };
 
   return (
     <AppContext.Provider
-      value={{ user, setUser, pastEvents, setPastEvents, futureEvents, setFutureEvents, attendance, setAttendance, checkinEvent, setCheckinEvent }}
+      value={{
+        user,
+        setUser,
+        pastEvents,
+        setPastEvents,
+        futureEvents,
+        setFutureEvents,
+        attendance,
+        setAttendance,
+        checkinEvent,
+        setCheckinEvent,
+        cart,
+        setCart,
+        addToCart,
+        editInCart,
+        removeFromCart,
+        clearCart,
+      }}
     >
       {children}
     </AppContext.Provider>

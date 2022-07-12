@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import Config from '../../../config';
 import history from '../../../history';
-import { useAppDispatch } from '../../../redux/store';
-import { PublicOrderPickupEvent } from '../../../types';
-import { fetchService, getErrorMessage, notify } from '../../../utils';
-import { cartSelector, clearCart, fetchFuturePickupEvents } from '../../storeSlice';
+import { getErrorMessage, notify } from '../../../utils';
+import { cartSelector, clearCart, fetchFuturePickupEvents } from '../../utils';
 import CartDisplay from '../CartDisplay';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import './style.less';
+import { PublicOrderPickupEvent } from '../../../api';
+import backend from '../../../backend';
 
 interface ItemAPIData {
   option: string;
@@ -27,15 +26,10 @@ const CheckoutPage: React.FC = () => {
   const [pickupEvents, setPickupEvents] = useState<PublicOrderPickupEvent[]>([]);
   const [eventUUID, setEventUUID] = useState('');
   const cart = Object.values(useSelector(cartSelector));
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFuturePickupEvents())
-      .unwrap()
-      .then((resultEvents) => {
-        setPickupEvents(resultEvents);
-      });
-  }, [dispatch]);
+    fetchFuturePickupEvents().then(setPickupEvents);
+  }, []);
 
   return (
     <>
@@ -62,14 +56,10 @@ const CheckoutPage: React.FC = () => {
             cart.forEach((item) => {
               inputData.order.push({ option: item.option.uuid, quantity: item.quantity });
             });
-            const url = `${Config.API_URL}${Config.routes.store.order}`;
             try {
-              const result = await fetchService(url, 'POST', 'json', {
-                requiresAuthorization: true,
-                payload: JSON.stringify(inputData),
-              });
-              dispatch(clearCart());
-              history.push(`/store/order/${result.order.uuid}`);
+              const data = await backend.placeMerchOrder(inputData);
+              clearCart();
+              history.push(`/store/order/${data.order.uuid}`);
             } catch (error: any) {
               notify('Order placement error', getErrorMessage(error));
               history.push('/store/cart');

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { PublicOrder } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
 import { useAppDispatch } from '../../redux/store';
-import { PublicOrder } from '../../types';
 import { notify } from '../../utils';
 import OrdersPage from '../components/OrdersPage';
-import { fetchOrders } from '../storeSlice';
+import { fetchOrders } from '../utils';
 
 interface OrdersPageContainerProps {}
 
@@ -13,11 +13,8 @@ const OrdersPageContainer: React.FC<OrdersPageContainerProps> = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOrders())
-      .unwrap()
-      .then((value) => {
-        setOrders(value);
-      })
+    fetchOrders()
+      .then(setOrders)
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });

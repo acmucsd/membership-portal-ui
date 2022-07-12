@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Select, Table, Typography } from 'antd';
 import { useAppDispatch } from '../../../redux/store';
-import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
+import { CartItem } from '../../../types';
 import { toProperCase } from '../../../utils';
-import { addToCart, editInCart, removeFromCart } from '../../storeSlice';
+import { addToCart, editInCart, removeFromCart } from '../../utils';
 import DiamondDisplay from '../DiamondDisplay';
 import StoreDropdown from '../StoreDropdown';
 import './style.less';
+import { PublicMerchItem, PublicMerchItemOption } from '../../../api';
 
 const { Option } = Select;
 

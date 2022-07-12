@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { PublicMerchCollection } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
 import { useAppDispatch } from '../../redux/store';
-import { PublicMerchCollection } from '../../types';
 import { notify } from '../../utils';
 import AdminQuantitiesPage from '../components/AdminQuantitiesPage';
-import { fetchCollections } from '../storeSlice';
+import { fetchCollections } from '../utils';
 
 const AdminQuantitiesPageContainer: React.FC = () => {
   const [collections, setCollections] = useState<PublicMerchCollection[]>();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollections())
-      .unwrap()
-      .then((value) => {
-        setCollections(value);
-      })
+    fetchCollections()
+      .then(setCollections)
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
