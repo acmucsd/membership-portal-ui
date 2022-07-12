@@ -1,14 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext } from 'react';
+import { AppContext } from '../../context';
 import PageLayout from '../../layout/containers/PageLayout';
-import { authSelector } from '../authSlice';
 import ResendEmailVerificationPage from '../components/ResendEmailVerificationPage';
 
 const ResendEmailVerificationContainer: React.FC = () => {
-  const {
-    profile: { email },
-  } = useSelector(authSelector);
-
+  const { user: { email } } = useContext(AppContext);
+  
   return (
     <PageLayout>
       <ResendEmailVerificationPage email={email} />

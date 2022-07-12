@@ -1,12 +1,10 @@
 import React, { ChangeEventHandler, FormEventHandler, KeyboardEventHandler, useState } from 'react';
-import { useAppDispatch } from '../../redux/store';
-import { passwordReset } from '../authSlice';
+import { passwordReset } from '../utils';
 import LoginLayout from '../components/LoginLayout';
 import PasswordForm from '../components/PasswordForm';
 
 const PasswordPage: React.FC = () => {
   const [value, setValue] = useState('');
-  const dispatch = useAppDispatch();
 
   const handleChange: ChangeEventHandler = (event) => {
     setValue((event.target as any).value);
@@ -16,14 +14,14 @@ const PasswordPage: React.FC = () => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setValue('');
-      dispatch(passwordReset(value));
+      passwordReset(value);
     }
   };
 
   const handleClick: FormEventHandler = (event) => {
     event.preventDefault();
     setValue('');
-    dispatch(passwordReset(value));
+    passwordReset(value);
   };
 
   return (

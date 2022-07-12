@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { ComponentType, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { ComponentType, useContext, useEffect, useState } from 'react';
+import { UserAccessType, UserState } from '../../api';
+import { AppContext } from '../../context';
 import history from '../../history';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
-import { UserState } from '../../types';
 import { notify } from '../../utils';
-import { authSelector, verifyToken } from '../authSlice';
+import { verifyToken } from '../utils';
 
 export enum WithRouteOptions {
   ADMIN,
@@ -30,12 +29,8 @@ const redirectHome = (option: WithRouteOptions) => {
 };
 
 const withRoute = <T extends object>(Component: ComponentType<T>, option: WithRouteOptions) => (props: T) => {
-  const {
-    authenticated,
-    isAdmin,
-    profile: { state, email },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+  const { authenticated, user: { accessType, email, state  } } = useContext(AppContext);
+  
   const { search, pathname } = history.location;
 
   switch (option) {
@@ -43,12 +38,12 @@ const withRoute = <T extends object>(Component: ComponentType<T>, option: WithRo
       useEffect(() => {
         (async () => {
           // check if authenticated, if not, then verify the token
-          if (!authenticated) await dispatch(verifyToken({ search, pathname })).unwrap();
+          if (!authenticated) await verifyToken(search, pathname);
 
           // if not an admin, redirect
-          if (!isAdmin) redirectHome(option);
+          if (accessType !== UserAccessType.ADMIN) redirectHome(option);
         })();
-      }, [authenticated, dispatch, isAdmin, pathname, search]);
+      }, [authenticated, pathname, search]);
 
       // TODO: Make redirecting screen and return that if not authenticated.
       return <Component {...props} />;
@@ -57,9 +52,9 @@ const withRoute = <T extends object>(Component: ComponentType<T>, option: WithRo
       useEffect(() => {
         // check if authenticated, if not, then verify the token
         if (!authenticated) {
-          dispatch(verifyToken({ search, pathname }));
+          verifyToken(search, pathname);
         }
-      }, [authenticated, dispatch, pathname, search]);
+      }, [authenticated, pathname, search]);
 
       if (authenticated) return <Component {...props} />;
 

@@ -34,6 +34,8 @@ export const userPlaceholder: PrivateProfile = {
 // Dispatch<SetStateAction<T | undefined>> if it can be empty, or
 // Dispatch<SetStateAction<T[]>> for an array of the type
 export const AppContext = createContext<{
+  authenticated: boolean;
+  setAuthenticated: Dispatch<SetStateAction<boolean>>;
   user: PrivateProfile;
   setUser: Dispatch<SetStateAction<PrivateProfile>>;
   pastEvents: PublicEvent[];
@@ -51,6 +53,8 @@ export const AppContext = createContext<{
   removeFromCart: Function;
   clearCart: Function;
 }>({
+  authenticated: false,
+  setAuthenticated: () => {},
   user: userPlaceholder,
   setUser: () => {},
   pastEvents: [],
@@ -70,6 +74,7 @@ export const AppContext = createContext<{
 });
 
 export const AppProvider = ({ children }) => {
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<PrivateProfile>(userPlaceholder);
   const [pastEvents, setPastEvents] = useState<PublicEvent[]>([]);
   const [futureEvents, setFutureEvents] = useState<PublicEvent[]>([]);
@@ -118,6 +123,8 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        authenticated,
+        setAuthenticated,
         user,
         setUser,
         pastEvents,

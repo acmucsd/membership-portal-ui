@@ -1,9 +1,9 @@
 import { withFormik } from 'formik';
-import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import history from '../../history';
-import { registerAccount } from '../authSlice';
+import { registerAccount } from '../utils';
 import RegisterForm from '../components/RegisterForm';
+import { UserRegistration } from '../../api';
 
 const RegisterSchema = Yup.object().shape({
   firstName: Yup.string().max(20, 'Too Long').required('Required'),
@@ -32,9 +32,10 @@ const FormikRegisterForm = withFormik({
   validationSchema: RegisterSchema,
   validateOnChange: false,
   validateOnBlur: false,
-  handleSubmit(values, { props }: { [key: string]: any }) {
-    props.registerAccount(values, history.location.search);
+  handleSubmit(values) {
+    // Convert values to unkown to deal with major initially being undefined
+    registerAccount((values as unknown) as UserRegistration, history.location.search);
   },
 })(RegisterForm as React.FC);
 
-export default connect(null, { registerAccount })(FormikRegisterForm);
+export default FormikRegisterForm;
