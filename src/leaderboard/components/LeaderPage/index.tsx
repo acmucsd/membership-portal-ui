@@ -10,11 +10,11 @@ import { PublicProfile } from '../../../api';
 import { AppContext } from '../../../context';
 
 const LeaderPage: React.FC = () => {
-  const { user } = useContext(AppContext);
+  const {
+    user: { uuid: selfUUID },
+  } = useContext(AppContext);
 
   const [users, setUsers] = useState<PublicProfile[]>([]);
-
-  const { uuid: selfUUID } = user;
 
   // Default to the current year, otherwise use all time
   const { name, start, end } = getCurrentYear() ?? { name: 'All Time', start: 0, end: 0 };

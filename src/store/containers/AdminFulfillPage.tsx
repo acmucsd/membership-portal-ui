@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PublicOrderPickupEvent } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
 import { notify } from '../../utils';
 import AdminFulfillPage from '../components/AdminFulfillPage';
 import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../utils';
@@ -16,7 +15,6 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = () =
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [pastPickupEvents, setPastPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
   const [futurePickupEvents, setFuturePickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
@@ -31,7 +29,7 @@ const AdminFulfillPageContainer: React.FC<AdminFulfillPageContainerProps> = () =
         .then(setFuturePickupEvents)
         .catch((reason) => notify('API Error', reason.message || reason));
     }
-  }, [uuid, dispatch]);
+  }, [uuid]);
 
   const activePickupEvents = pastPickupEvents.concat(futurePickupEvents).filter((pEvent) => {
     return pEvent.status === 'ACTIVE';

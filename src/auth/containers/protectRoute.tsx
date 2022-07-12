@@ -29,8 +29,11 @@ const redirectHome = (option: WithRouteOptions) => {
 };
 
 const withRoute = <T extends object>(Component: ComponentType<T>, option: WithRouteOptions) => (props: T) => {
-  const { authenticated, user: { accessType, email, state  } } = useContext(AppContext);
-  
+  const {
+    authenticated,
+    user: { accessType, email, state },
+  } = useContext(AppContext);
+
   const { search, pathname } = history.location;
 
   switch (option) {
@@ -43,7 +46,7 @@ const withRoute = <T extends object>(Component: ComponentType<T>, option: WithRo
           // if not an admin, redirect
           if (accessType !== UserAccessType.ADMIN) redirectHome(option);
         })();
-      }, [authenticated, pathname, search]);
+      }, [accessType, authenticated, pathname, search]);
 
       // TODO: Make redirecting screen and return that if not authenticated.
       return <Component {...props} />;

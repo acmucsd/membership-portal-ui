@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
 import { Card, Input, Button, Checkbox } from 'antd';
-
-import './style.less';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import { UserAccessType } from '../../../api';
+import './style.less';
 
 interface EventCheckProps {
   onAsStaffChange: (e: CheckboxChangeEvent) => void;
@@ -10,15 +10,20 @@ interface EventCheckProps {
   onKeyPress: KeyboardEventHandler;
   onSubmit: FormEventHandler;
   user: {
-    profile: {
-      accountType: string;
-    };
+    accessType: UserAccessType;
   };
   value: string;
 }
 
 const EventCheck: React.FC<EventCheckProps> = (props) => {
-  const { onAsStaffChange, onChange, onKeyPress, onSubmit, user, value } = props;
+  const {
+    onAsStaffChange,
+    onChange,
+    onKeyPress,
+    onSubmit,
+    user: { accessType },
+    value,
+  } = props;
 
   return (
     <Card className="checkin-card">
@@ -29,7 +34,7 @@ const EventCheck: React.FC<EventCheckProps> = (props) => {
           Submit
         </Button>
       </div>
-      {user.profile.accountType === 'STAFF' && (
+      {accessType === UserAccessType.STAFF && (
         <div className="staff-checkin-div">
           <label className="staff-check-in-label">Staff Check In</label>
           <Checkbox onChange={onAsStaffChange} />

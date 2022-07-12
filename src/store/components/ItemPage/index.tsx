@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal } from 'antd';
-import { useAppDispatch } from '../../../redux/store';
 import { processItem, processItemPrice } from '../../../utils';
-import { addToCart } from '../../utils';
 import OptionSelector from '../OptionSelector';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import './style.less';
 import { PublicMerchItemOption, PublicMerchItemWithPurchaseLimits } from '../../../api';
+import { AppContext } from '../../../context';
 
 interface ItemPageProps {
   item: PublicMerchItemWithPurchaseLimits | undefined;
@@ -16,11 +15,11 @@ interface ItemPageProps {
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { item } = props;
+  const { addToCart } = useContext(AppContext);
 
   const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
   const [confirmation, setConfirmation] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   if (!item) {
     return null;
@@ -90,9 +89,9 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit}
               onClick={() => {
                 if (hasVariantsEnabled && currentOption) {
-                  dispatch(addToCart({ item, option: currentOption, quantity: currentQuantity }));
+                  addToCart(item, currentOption, currentQuantity);
                 } else {
-                  dispatch(addToCart({ item, option: item.options[0], quantity: currentQuantity }));
+                  addToCart(item, item.options[0], currentQuantity);
                 }
                 setConfirmation(true);
               }}

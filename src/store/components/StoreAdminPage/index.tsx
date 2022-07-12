@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal } from 'antd';
-import { useSelector } from 'react-redux';
-import { authSelector } from '../../../auth/authSlice';
+import { UserAccessType } from '../../../api';
 import { notify } from '../../../utils';
 import { cancelAllOrders } from '../../utils';
 import StoreButton from '../StoreButton';
 import StoreHeader from '../StoreHeader';
+import { AppContext } from '../../../context';
 import './style.less';
-import { UserAccessType } from '../../../api';
 
 const StoreAdminPage: React.FC = () => {
-  const auth = useSelector(authSelector);
-  const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(auth.profile.accessType);
+  const {
+    user: { accessType },
+  } = useContext(AppContext);
+
+  const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(accessType);
 
   const [confirmation, setConfirmation] = useState<boolean>(false);
 

@@ -1,9 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import BreadcrumbArrow from '../../../assets/icons/breadcrumb-arrow.svg';
 import CartIcon from '../../../assets/icons/cart-icon.svg';
-import { authSelector } from '../../../auth/authSlice';
+import { AppContext } from '../../../context';
 import DiamondDisplay from '../DiamondDisplay';
 import './style.less';
 
@@ -19,8 +18,8 @@ interface StoreHeaderProps {
 const StoreHeader: React.FC<StoreHeaderProps> = (props) => {
   const { breadcrumb, breadcrumbTitle, breadcrumbLocation, showBalance, showCart, title = 'Diamond Outfitters' } = props;
   const {
-    profile: { credits },
-  } = useSelector(authSelector);
+    user: { credits },
+  } = useContext(AppContext);
 
   return (
     <div className="store-header">

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { cartSelector } from '../../utils';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../../context';
 import CartDisplay from '../CartDisplay';
 import StoreButton from '../StoreButton';
 import StoreHeader from '../StoreHeader';
@@ -12,7 +11,9 @@ type CartPageProps = {
 
 const CartPage: React.FC<CartPageProps> = ({ verifyCart }) => {
   const [isCheckoutLocked, setIsCheckoutLocked] = useState(false);
-  const cart = Object.values(useSelector(cartSelector));
+  const { cart: originalCart } = useContext(AppContext);
+
+  const cart = Object.values(originalCart);
 
   // unlock checkout if cart is modified
   useEffect(() => {

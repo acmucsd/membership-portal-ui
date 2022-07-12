@@ -1,14 +1,11 @@
 import React, { ChangeEventHandler, FormEventHandler, KeyboardEventHandler, useContext, useState } from 'react';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
-import { useSelector } from 'react-redux';
-import { authSelector } from '../../auth/authSlice';
 import EventCheckIn from '../components/EventCheckIn';
 import { checkIn, fetchAttendance } from '../utils';
 import { AppContext } from '../../context';
 
 const EventCheckInContainer: React.FC = () => {
-  const user = useSelector(authSelector);
-  const { setAttendance, setCheckinEvent } = useContext(AppContext);
+  const { user, setAttendance, setCheckinEvent } = useContext(AppContext);
 
   const [value, setValue] = useState('');
   const [asStaff, setAsStaff] = useState(false);

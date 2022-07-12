@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { UserAccessType } from '../../api';
 import background from '../../assets/graphics/background.svg';
 import { AppContext } from '../../context';
-import { UserAccessType } from '../../types';
 import { formatDate, formatTime } from '../../utils';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';

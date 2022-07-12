@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import moment from 'moment';
 import * as Yup from 'yup';
 import { PublicOrderPickupEvent } from '../../../api';
-import Config from '../../../config';
 import history from '../../../history';
 import { getErrorMessage, notify } from '../../../utils';
 import StoreButton from '../StoreButton';
@@ -87,10 +86,6 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
             validationSchema={AdminPickupPageFormSchema}
             onSubmit={async (values) => {
               setSubmitting(true);
-
-              const url = creatingPickup
-                ? `${Config.API_URL}${Config.routes.store.pickup.single}`
-                : `${Config.API_URL}${Config.routes.store.pickup.single}/${pickupEvent?.uuid}`;
 
               const payload = {
                 title: values.title,

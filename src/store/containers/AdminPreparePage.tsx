@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PublicOrderPickupEvent } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
 import { notify } from '../../utils';
 import AdminPreparePage from '../components/AdminPreparePage';
 import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../utils';
@@ -14,7 +13,6 @@ const AdminPreparePageContainer: React.FC = () => {
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
   const [pastPickupEvents, setPastPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
   const [futurePickupEvents, setFuturePickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
@@ -35,7 +33,7 @@ const AdminPreparePageContainer: React.FC = () => {
           notify('API Error', reason.message || reason);
         });
     }
-  }, [dispatch, uuid]);
+  }, [uuid]);
 
   const activePickupEvents = pastPickupEvents.concat(futurePickupEvents).filter((pEvent) => {
     return pEvent.status === 'ACTIVE';

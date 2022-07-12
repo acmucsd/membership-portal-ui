@@ -90,9 +90,10 @@ export const AppProvider = ({ children }) => {
 
     if (quantity < 1) return;
 
-    if (uuid in cart) cart[uuid].quantity += quantity;
-    // TODO
-    else cart[uuid] = payload; // TODO
+    const newCart = { ...cart };
+    if (uuid in cart) newCart[uuid].quantity += quantity;
+    else newCart[uuid] = payload;
+    setCart(newCart);
   };
 
   const editInCart = (payload) => {
@@ -103,9 +104,10 @@ export const AppProvider = ({ children }) => {
 
     if (!(uuid in cart)) return;
 
-    if (quantity < 1) delete cart[uuid];
-    // TODO
-    else cart[uuid].quantity = quantity; // TODO
+    const newCart = { ...cart };
+    if (quantity < 1) delete newCart[uuid];
+    else newCart[uuid].quantity = quantity;
+    setCart(newCart);
   };
 
   const removeFromCart = (payload) => {
@@ -113,7 +115,9 @@ export const AppProvider = ({ children }) => {
       option: { uuid },
     } = payload;
 
-    if (uuid in cart) delete cart[uuid]; // TODO
+    const newCart = { ...cart };
+    if (uuid in cart) delete newCart[uuid];
+    setCart(newCart);
   };
 
   const clearCart = () => {

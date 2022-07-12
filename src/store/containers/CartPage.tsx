@@ -1,19 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import backend from '../../backend';
-import Config from '../../config';
+import { AppContext } from '../../context';
 import history from '../../history';
-import PageLayout from '../../layout/containers/PageLayout';
 import { getErrorMessage, notify } from '../../utils';
 import CartPage from '../components/CartPage';
-import { cartSelector } from '../utils';
+import PageLayout from '../../layout/containers/PageLayout';
 
 const CartPageContainer: React.FC = () => {
-  const cart = Object.values(useSelector(cartSelector));
+  const { cart: oldCart } = useContext(AppContext);
+  const cart = Object.values(oldCart);
 
   const verifyCart = async (onFail: () => void) => {
     try {
-      const url = `${Config.API_URL}${Config.routes.store.verification}`;
       const payload = cart.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
 
       await backend.verifyMerchOrder({ order: payload }); // TODO: STEETS

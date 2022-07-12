@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Select, Table, Typography } from 'antd';
-import { useAppDispatch } from '../../../redux/store';
 import { CartItem } from '../../../types';
 import { toProperCase } from '../../../utils';
-import { addToCart, editInCart, removeFromCart } from '../../utils';
 import DiamondDisplay from '../DiamondDisplay';
 import StoreDropdown from '../StoreDropdown';
 import './style.less';
 import { PublicMerchItem, PublicMerchItemOption } from '../../../api';
+import { AppContext } from '../../../context';
 
 const { Option } = Select;
 
@@ -26,7 +25,7 @@ type CartItemProps = {
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
   const [currentOptionValue, setVariant] = useState(item.option?.metadata?.value);
-  const dispatch = useAppDispatch();
+  const { addToCart, editInCart, removeFromCart } = useContext(AppContext);
 
   const renderTitle = () => (
     <Typography.Title className="item-name" level={4}>
@@ -64,8 +63,8 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
         const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
 
         if (newOption) {
-          dispatch(editInCart({ ...item, quantity: 0 }));
-          dispatch(addToCart({ ...item, option: newOption, quantity }));
+          editInCart({ ...item, quantity: 0 });
+          addToCart({ ...item, option: newOption, quantity });
         }
       }
       setEditable(false);
@@ -76,7 +75,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
 
   const renderButtons = () => {
     const removeItem = () => {
-      dispatch(removeFromCart(item));
+      removeFromCart(item);
     };
 
     const renderEditButton = () => {
@@ -128,7 +127,7 @@ type CartDisplayProps = {
   items: CartItem[];
 };
 const CartDisplay: React.FC<CartDisplayProps> = ({ writable, items }) => {
-  const dispatch = useAppDispatch();
+  const { editInCart } = useContext(AppContext);
 
   const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">
@@ -162,7 +161,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ writable, items }) => {
       quantity,
     } = cartItem;
 
-    const setQuantity = (q: number) => dispatch(editInCart({ ...cartItem, quantity: q }));
+    const setQuantity = (q: number) => editInCart({ ...cartItem, quantity: q });
 
     return {
       key: uuid,

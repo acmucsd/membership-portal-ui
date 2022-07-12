@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { PublicOrderPickupEvent, PublicOrderWithItems } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
 import { notify } from '../../utils';
 import OrderPage from '../components/OrderPage';
 import { cancelOrder, fetchFuturePickupEvents, fetchOrder, rescheduleOrder } from '../utils';
@@ -20,7 +19,6 @@ const OrderPageContainer: React.FC<OrderPageContainerProps> = () => {
 
   const [order, setOrder] = useState<PublicOrderWithItems>();
   const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     fetchOrder(uuid)
@@ -33,7 +31,7 @@ const OrderPageContainer: React.FC<OrderPageContainerProps> = () => {
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch, uuid]);
+  }, [uuid]);
 
   return (
     <PageLayout>

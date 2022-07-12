@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Divider } from 'antd';
 import { logoutUser } from '../../../auth/utils';
 import NavBarItem from '../NavBarItem';
 import './style.less';
-import { AppContext } from '../../../context';
 
 const NavDropdown: React.FC = () => {
-  const { setUser } = useContext(AppContext);
-
   return (
     <nav className="nav-dropdown">
       <section>
@@ -25,7 +22,7 @@ const NavDropdown: React.FC = () => {
       </section>
 
       <Divider style={{ margin: '0.5rem 0' }} />
-      <NavBarItem text="Sign Out" func={() => logoutUser(setUser)} mobile />
+      <NavBarItem text="Sign Out" func={() => logoutUser()} mobile />
     </nav>
   );
 };

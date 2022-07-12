@@ -20,7 +20,7 @@ const FormikSignInForm = withFormik({
   validateOnChange: false,
   validateOnBlur: false,
   handleSubmit(values, { resetForm }) {
-    loginUser(values, history.location.search);
+    loginUser({ email: values.email, password: values.password }, history.location.search);
     resetForm();
   },
 })(SignInForm as React.FC);

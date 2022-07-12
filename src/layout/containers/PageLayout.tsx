@@ -3,8 +3,8 @@ import { hideNotification, showNotification } from '@mantine/notifications';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
-import { UserAccessType } from '../../types';
 import { AppContext } from '../../context';
+import { UserAccessType } from '../../api';
 
 let notifiedAboutEmail = false;
 

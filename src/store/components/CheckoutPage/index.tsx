@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { PublicOrderPickupEvent } from '../../../api';
+import backend from '../../../backend';
+import { AppContext } from '../../../context';
 import history from '../../../history';
 import { getErrorMessage, notify } from '../../../utils';
-import { cartSelector, clearCart, fetchFuturePickupEvents } from '../../utils';
+import { fetchFuturePickupEvents } from '../../utils';
 import CartDisplay from '../CartDisplay';
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import './style.less';
-import { PublicOrderPickupEvent } from '../../../api';
-import backend from '../../../backend';
 
 interface ItemAPIData {
   option: string;
@@ -25,7 +25,8 @@ interface APIData {
 const CheckoutPage: React.FC = () => {
   const [pickupEvents, setPickupEvents] = useState<PublicOrderPickupEvent[]>([]);
   const [eventUUID, setEventUUID] = useState('');
-  const cart = Object.values(useSelector(cartSelector));
+  const { cart: oldCart, clearCart } = useContext(AppContext);
+  const cart = Object.values(oldCart);
 
   useEffect(() => {
     fetchFuturePickupEvents().then(setPickupEvents);

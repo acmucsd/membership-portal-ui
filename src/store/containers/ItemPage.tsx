@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { PublicMerchItemWithPurchaseLimits } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
 import { notify } from '../../utils';
 import ItemPage from '../components/ItemPage';
 import { fetchItem } from '../utils';
@@ -17,7 +16,6 @@ const ItemPageContainer: React.FC = () => {
   }
 
   const [item, setItem] = useState<PublicMerchItemWithPurchaseLimits>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     fetchItem(uuid)
@@ -25,7 +23,7 @@ const ItemPageContainer: React.FC = () => {
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch, uuid]);
+  }, [uuid]);
 
   return (
     <PageLayout>

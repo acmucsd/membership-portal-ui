@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ReactComponent as ACMIcon } from '../../../assets/icons/acm-icon.svg';
 import { ReactComponent as AdminIcon } from '../../../assets/icons/admin-icon.svg';
 import { ReactComponent as DashboardIcon } from '../../../assets/icons/dashboard-icon.svg';
@@ -10,7 +10,6 @@ import { ReactComponent as OrdersIcon } from '../../../assets/icons/orders-icon.
 import { ReactComponent as ProfileIcon } from '../../../assets/icons/profile-icon.svg';
 import { ReactComponent as SwagIcon } from '../../../assets/icons/swag-icon.svg';
 import { logoutUser } from '../../../auth/utils';
-import { AppContext } from '../../../context';
 import NavBarItem from '../NavBarItem';
 import './style.less';
 
@@ -21,7 +20,6 @@ interface NavbarVerticalProps {
 
 const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
   const { hasAdminAccess, hasStoreAdminAccess } = props;
-  const { setUser } = useContext(AppContext);
 
   return (
     <div className="navbar-vertical">
@@ -52,7 +50,7 @@ const NavbarVertical: React.FC<NavbarVerticalProps> = (props) => {
           <div className="navbar-vertical-group">
             <div className="navbar-vertical-items">
               <NavBarItem icon={FeedbackIcon} text="Feedback" outerDest="https://www.acmurl.com/portal-feedback" />
-              <NavBarItem icon={LogoutIcon} text="Sign Out" func={() => logoutUser(setUser)} last />
+              <NavBarItem icon={LogoutIcon} text="Sign Out" func={() => logoutUser()} last />
             </div>
           </div>
         </nav>

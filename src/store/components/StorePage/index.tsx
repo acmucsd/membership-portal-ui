@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PublicMerchCollection, UserAccessType } from '../../../api';
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
-import { authSelector } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
+import { AppContext } from '../../../context';
 import { notify } from '../../../utils';
 import { fetchCollections } from '../../utils';
 import ItemCard from '../ItemCard';
@@ -13,11 +11,12 @@ import StoreHeader from '../StoreHeader';
 import './style.less';
 
 const StorePage: React.FC = () => {
-  const auth = useSelector(authSelector);
-  const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(auth.profile.accessType);
+  const {
+    user: { accessType },
+  } = useContext(AppContext);
+  const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(accessType);
 
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     fetchCollections()
@@ -25,7 +24,7 @@ const StorePage: React.FC = () => {
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

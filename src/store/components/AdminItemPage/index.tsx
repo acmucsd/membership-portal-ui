@@ -3,7 +3,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { PublicMerchCollection, PublicMerchItem } from '../../../api';
 import backend from '../../../backend';
-import Config from '../../../config';
 import history from '../../../history';
 import { getErrorMessage, notify } from '../../../utils';
 import OptionDisplay from '../OptionDisplay';
@@ -36,10 +35,10 @@ interface AdminItemPageForm {
   options: {
     uuid: string | undefined;
     value: string;
-    price: string;
-    quantity: string;
+    price: number;
+    quantity: number;
     quantityToAdd: string;
-    discountPercentage: string;
+    discountPercentage: number;
   }[];
 
   quantity: string;
@@ -114,10 +113,10 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
       ? item?.options.map((option) => ({
           uuid: option.uuid,
           value: option.metadata?.value ?? '',
-          price: option.price.toString(),
-          quantity: option.quantity.toString(),
+          price: option.price,
+          quantity: option.quantity,
           quantityToAdd: '0',
-          discountPercentage: option.discountPercentage.toString(),
+          discountPercentage: option.discountPercentage,
         }))
       : [],
     // Variants Disabled
@@ -137,8 +136,6 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
           initialValues={initialValues}
           validationSchema={AdminItemPageFormSchema}
           onSubmit={async (values, { setSubmitting }) => {
-            const url = creatingItem ? `${Config.API_URL}${Config.routes.store.item}` : `${Config.API_URL}${Config.routes.store.item}/${item?.uuid}`;
-
             const payload: any = values.hasVariantsEnabled
               ? {
                   itemName: values.itemName,
@@ -151,9 +148,9 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   options: values.options
                     ? values.options.map((option, index) => ({
                         uuid: option.uuid,
-                        quantity: parseInt(option.quantity, 10),
-                        price: parseInt(option.price, 10),
-                        discountPercentage: parseInt(option.discountPercentage, 10),
+                        quantity: option.quantity,
+                        price: option.price,
+                        discountPercentage: option.discountPercentage,
                         metadata: {
                           type: values.categoryName,
                           value: option.value,
@@ -190,8 +187,8 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   payload.options.push({
                     uuid: option.uuid,
                     quantityToAdd: parseInt(option.quantityToAdd, 10),
-                    price: parseInt(option.price, 10),
-                    discountPercentage: parseInt(option.discountPercentage, 10),
+                    price: option.price,
+                    discountPercentage: option.discountPercentage,
                     metadata: {
                       type: values.categoryName,
                       value: option.value,

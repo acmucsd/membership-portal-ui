@@ -1,4 +1,4 @@
-import { ActivityScope, ActivityType, FeedbackStatus, FeedbackType, OrderPickupEventStatus, UserAccessType } from './Enums';
+import { ActivityScope, ActivityType, FeedbackStatus, FeedbackType, OrderPickupEventStatus, OrderStatus, UserAccessType } from './Enums';
 import { MerchItemOptionMetadata } from './ApiRequests';
 
 type Uuid = string;
@@ -206,7 +206,7 @@ export interface PublicOrder {
   uuid: Uuid;
   user: PublicProfile;
   totalCost: number;
-  status: string;
+  status: OrderStatus;
   orderedAt: string;
   pickupEvent: PublicOrderPickupEvent;
 }

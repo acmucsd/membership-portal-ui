@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PublicMerchCollection, PublicMerchItem } from '../../api';
 import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
 import { notify } from '../../utils';
 import AdminItemPage from '../components/AdminItemPage';
 import { fetchCollections, fetchItem } from '../utils';
@@ -18,7 +17,6 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
 
   const [item, setItem] = useState<PublicMerchItem>();
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
@@ -34,7 +32,7 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch, uuid]);
+  }, [uuid]);
 
   return (
     <PageLayout>

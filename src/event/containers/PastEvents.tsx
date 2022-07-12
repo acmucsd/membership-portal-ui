@@ -3,12 +3,12 @@ import { Dropdown, Menu } from 'antd';
 import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
 import background from '../../assets/graphics/background.svg';
 import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
-import { UserAccessType } from '../../types';
 import { formatDate } from '../../utils';
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
 import { fetchAttendance, fetchPastEvents } from '../utils';
 import { AppContext } from '../../context';
+import { UserAccessType } from '../../api';
 
 const PastEventsContainer: React.FC = () => {
   const { pastEvents, setPastEvents, attendance, setAttendance, user } = useContext(AppContext);

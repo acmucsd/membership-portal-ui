@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { authSelector, fetchUser } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
+import React, { useContext, useEffect } from 'react';
+import { fetchUser } from '../../auth/utils';
+import { AppContext } from '../../context';
 import NavProfile from '../components/NavProfile';
 
 interface NavProfileContainerProps {
@@ -10,14 +9,13 @@ interface NavProfileContainerProps {
 
 const NavProfileContainer: React.FC<NavProfileContainerProps> = ({ menu }) => {
   const {
-    profile: { points, profilePicture, firstName },
     authenticated,
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+    user: { firstName, points, profilePicture },
+  } = useContext(AppContext);
 
   useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+    fetchUser();
+  }, []);
 
   if (authenticated) {
     return <NavProfile exp={points} profilePicture={profilePicture} name={firstName} menu={menu} />;
