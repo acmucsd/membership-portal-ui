@@ -26,7 +26,8 @@ const UpcomingEventsContainer: React.FC = () => {
     <div>
       <h1 className="subtitle">Upcoming Events</h1>
       <EventsList>
-        {events.map((event) => {
+        {events.length === 0 ? [ <div key="upcoming-none" className="no-events">No Events :(</div> ]
+          : events.map((event) => {
           const startDate = formatDate(event.start);
           const startTime = formatTime(event.start);
           const endDate = formatDate(event.end);
