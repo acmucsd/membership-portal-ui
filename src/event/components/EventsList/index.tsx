@@ -3,7 +3,7 @@ import React from 'react';
 import './style.less';
 
 interface EventList {
-  children: React.ReactChildren | React.ReactChild[];
+  children: React.ReactChildren | React.ReactChild[] | React.ReactChild;
 }
 
 const EventsList: React.FC<EventList> = (props) => {
