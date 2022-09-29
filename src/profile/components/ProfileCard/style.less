@@ -12,13 +12,20 @@
   justify-content: center;
   margin: 0;
   max-width: @db-card-width;
+  min-width: @db-card-width-min;
   overflow: hidden;
   white-space: nowrap;
+
+  .ant-card-body {
+    max-width:100%
+  }
 
   h2 {
     font-size: @card-heading-1;
     font-weight: 700;
     margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   h3 {
@@ -45,6 +52,7 @@
     overflow-x: scroll;
     scrollbar-width: none;
     vertical-align: middle;
+    max-width: calc(100% - 145px);
 
     .profile-card__level {
       margin-right: 20px;
