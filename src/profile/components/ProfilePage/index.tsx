@@ -1,63 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Progress } from 'antd';
-import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { authSelector, fetchUserByID } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
-import { ProfileParams, PublicProfile } from '../../../types';
-import { getDefaultProfile, getLevel, getRank, isWhitespace } from '../../../utils';
+import { Button, Avatar, Progress } from 'antd';
+import { useParams, Link } from 'react-router-dom';
+import { getLevel, getRank, getDefaultProfile } from '../../../utils';
+import { fetchUserByID } from '../../../auth/authActions';
+
 import './style.less';
 
-const ProfilePage: React.FC = () => {
-  const { uuid } = useParams<ProfileParams>();
-  const [profile, setProfile] = useState<Omit<PublicProfile, 'uuid'>>();
-  const auth = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+interface ProfilePageProps {
+  user: {
+    uuid: string;
+  };
+}
 
+const ProfilePage: React.FC<ProfilePageProps> = (props) => {
+  const { user } = props;
+
+  const params: { [key: string]: any } = useParams();
+  const [stateUser, setUser] = useState<{ [key: string]: any }>();
   useEffect(() => {
-    if (uuid) {
-      dispatch(fetchUserByID(uuid))
-        .unwrap()
-        .then(({ user }) => setProfile(user));
+    if (params.uuid) {
+      fetchUserByID(params.uuid).then((res) => {
+        setUser({
+          profile: { ...(res as { [key: string]: any }).user },
+          image: (res as { [key: string]: any }).user.profilePicture,
+        });
+      });
     } else {
-      setProfile(auth.profile);
+      setUser(user);
     }
-  }, [auth.profile, dispatch, uuid]);
+  }, [params.uuid, user]);
 
   return (
     <div className="Profile-Page">
       <h1 className="title">Profile</h1>
-      {profile && (
+
+      {stateUser && stateUser.profile && (
         <div>
           <div className="avatar-flex">
             <h2 className="name">
-              {profile.firstName} {profile.lastName}
+              {stateUser.profile.firstName} {stateUser.profile.lastName}
             </h2>
-            <Avatar size={115} icon="user" className="avatar" src={profile.profilePicture || getDefaultProfile()} />
+            <Avatar size={115} icon="user" className="avatar" src={stateUser.profile.profilePicture || getDefaultProfile()} />
           </div>
           <div className="level-info">
-            <p className="rank">{getRank(profile.points)}</p>
+            <p className="rank">{getRank(stateUser.profile.points)}</p>
             <Progress
-              successPercent={profile.points % 100}
+              successPercent={stateUser.profile.points % 100}
               percent={100}
               showInfo={false}
               strokeWidth={12}
               strokeColor="var(--theme-accent-line-2)"
             />
             <p className="level-stats">
-              <span> LVL {getLevel(profile.points)}</span>
-              <span className="experience"> {profile.points % 100} / 100 </span>
+              <span> LVL {getLevel(stateUser.profile.points)}</span>
+              <span className="experience"> {stateUser.profile.points % 100} / 100 </span>
             </p>
           </div>
           <div className="meta-data">
-            <p>Graduation Year: {profile.graduationYear}</p>
-            <p>Major: {profile.major}</p>
+            <p>Graduation Year: {stateUser.profile.graduationYear}</p>
+            <p>Major: {stateUser.profile.major}</p>
           </div>
           <div className="meta-data bio">
             <h2 className="bio">Bio</h2>
-            <p>{isWhitespace(profile.bio) ? "This user hasn't added a bio yet!" : profile.bio}</p>
+            <p>{!/^\s*$/.test(stateUser.profile.bio as string) ? stateUser.profile.bio : "This user hasn't added a bio yet!"}</p>
           </div>
-          {!uuid && (
+          {!params.uuid && (
             <Link to="/editProfile">
               <Button className="edit-profile-btn">Edit Profile</Button>
             </Link>

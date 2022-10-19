@@ -1,46 +1,50 @@
 import React from 'react';
-import { hideNotification, showNotification } from '@mantine/notifications';
-import { Button } from 'antd';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import { Button, notification } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { authSelector } from '../../auth/authSlice';
 import PageLayout from '../components/PageLayout';
 import { UserAccessType } from '../../types';
 
 let notifiedAboutEmail = false;
 
-const PageLayoutContainer: React.FC = ({ children }) => {
-  const user = useSelector(authSelector);
-  const {
-    isAdmin: hasAdminAccess,
-    profile: { accessType },
-  } = user;
-  const hasStoreAdminAccess = [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(accessType);
+interface PageLayoutContainerProps {
+  hasAdminAccess: boolean;
+  hasStoreAdminAccess: boolean;
+  children: React.ReactChildren | React.ReactChild[] | React.ReactElement;
+  user: {
+    profile: {
+      state: string;
+    };
+  };
+}
+
+const PageLayoutContainer: React.FC<PageLayoutContainerProps> = (props) => {
+  const { hasAdminAccess, hasStoreAdminAccess, children, user } = props;
+
   const history = useHistory();
 
   React.useEffect(() => {
     const key = `open${Date.now()}`;
 
-    if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
-      showNotification({
-        id: key,
-        title: 'Make sure to check your email and click the verification link in order to get full access to all features!',
-        message: (
-          <>
-            <p>If you didn&apos;t receive the email, click the button below</p>
-            <Button
-              onClick={() => {
-                history.push('/resendEmailVerification');
-                hideNotification(key);
-              }}
-            >
-              Resend Verification Email
-            </Button>
-          </>
-        ),
-        autoClose: false,
-      });
+    const btn = (
+      <Button
+        onClick={() => {
+          history.push('/resendEmailVerification');
+          notification.close(key);
+        }}
+      >
+        Resend Verification Email
+      </Button>
+    );
 
+    if (!notifiedAboutEmail && user.profile.state === 'PENDING') {
+      notification.warning({
+        message: 'Make sure to check your email and click the verification link in order to get full access to all features!',
+        description: "If you didn't receive the email, click the button below",
+        btn,
+        key,
+        duration: 0,
+      });
       notifiedAboutEmail = true;
     }
   }, [user, history]);
@@ -51,4 +55,12 @@ const PageLayoutContainer: React.FC = ({ children }) => {
   );
 };
 
-export default PageLayoutContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  hasAdminAccess: state.auth.admin,
+  hasStoreAdminAccess: [UserAccessType.MERCH_STORE_DISTRIBUTOR, UserAccessType.MERCH_STORE_MANAGER, UserAccessType.ADMIN].includes(
+    state.auth.profile.accessType,
+  ),
+  user: state.auth,
+});
+
+export default connect(mapStateToProps)(PageLayoutContainer);

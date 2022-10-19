@@ -1,29 +1,35 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import Config from '../../config';
-import history from '../../history';
+import { connect } from 'react-redux';
+
 import PageLayout from '../../layout/containers/PageLayout';
-import { fetchService, getErrorMessage, notify } from '../../utils';
 import CartPage from '../components/CartPage';
-import { cartSelector } from '../storeSlice';
 
-const CartPageContainer: React.FC = () => {
-  const cart = Object.values(useSelector(cartSelector));
+import Config from '../../config';
+import { history } from '../../redux_store';
+import { CartItem } from '../../types';
+import { fetchService, notify } from '../../utils';
 
-  const verifyCart = async (onFail: () => void) => {
+type CartPageContainerProps = {
+  cart: { [key: string]: CartItem };
+};
+
+const CartPageContainer: React.FC<CartPageContainerProps> = ({ cart }) => {
+  const cartArray = Object.values(cart) as CartItem[];
+
+  const verifyCart = async (onFailCallback: () => void) => {
     try {
       const url = `${Config.API_URL}${Config.routes.store.verification}`;
-      const payload = cart.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
+      const payload = cartArray.map(({ option: { uuid }, quantity }) => ({ option: uuid, quantity }));
       await fetchService(url, 'POST', 'json', {
         requiresAuthorization: true,
         payload: JSON.stringify({ order: payload }),
       });
       history.push('/store/checkout');
-    } catch (error: any) {
-      onFail();
+    } catch (error) {
+      onFailCallback();
 
-      if (getErrorMessage(error).includes('The following items were not found: ')) {
-        const array = getErrorMessage(error).slice(`The following items were not found: `.length).split(',');
+      if (error.message.includes('The following items were not found: ')) {
+        const array = error.message.slice(`The following items were not found: `.length).split(',');
 
         let message = 'The following items were not found: ';
 
@@ -39,16 +45,18 @@ const CartPageContainer: React.FC = () => {
 
         notify('Cart Error', message);
       } else {
-        notify('Cart Error', getErrorMessage(error));
+        notify('Cart Error', error.message);
       }
     }
   };
 
   return (
     <PageLayout>
-      <CartPage verifyCart={verifyCart} />
+      <CartPage cart={cartArray} verifyCart={verifyCart} />
     </PageLayout>
   );
 };
 
-export default CartPageContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({ cart: state.store.cart });
+
+export default connect(mapStateToProps)(CartPageContainer);

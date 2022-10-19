@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
+
+import { fetchCollection, deleteCollection as deleteCollectionConnect } from '../storeActions';
 import { PublicMerchCollection } from '../../types';
 import { notify } from '../../utils';
+
+import PageLayout from '../../layout/containers/PageLayout';
 import AdminCollectionPage from '../components/AdminCollectionPage';
-import { deleteCollection, fetchCollection } from '../storeSlice';
 
-interface AdminCollectionPageContainerProps {}
+interface AdminCollectionPageContainerProps {
+  fetchCollection: Function;
+  deleteCollection: Function;
+}
 
-const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> = () => {
+const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
+  const { deleteCollection, fetchCollection: fetchCollectionFunction } = props;
 
   const [collection, setCollection] = useState<PublicMerchCollection>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
-      dispatch(fetchCollection(uuid))
-        .unwrap()
+      fetchCollectionFunction(uuid)
         .then((value) => {
           setCollection(value);
         })
@@ -27,7 +31,7 @@ const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> 
           notify('API Error', reason.message || reason);
         });
     }
-  }, [dispatch, uuid]);
+  }, [props, uuid]);
 
   return (
     <PageLayout>
@@ -36,4 +40,4 @@ const AdminCollectionPageContainer: React.FC<AdminCollectionPageContainerProps> 
   );
 };
 
-export default AdminCollectionPageContainer;
+export default connect(() => ({}), { fetchCollection, deleteCollection: deleteCollectionConnect })(AdminCollectionPageContainer);

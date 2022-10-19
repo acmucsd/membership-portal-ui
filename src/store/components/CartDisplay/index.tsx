@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Button, Select, Table, Typography } from 'antd';
-import { useAppDispatch } from '../../../redux/store';
+
 import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
 import { toProperCase } from '../../../utils';
-import { addToCart, editInCart, removeFromCart } from '../../storeSlice';
+import { addToCart, editInCart, removeFromCart } from '../../storeActions';
+
+import './style.less';
 import DiamondDisplay from '../DiamondDisplay';
 import StoreDropdown from '../StoreDropdown';
-import './style.less';
 
 const { Option } = Select;
 
@@ -25,7 +27,7 @@ type CartItemProps = {
 const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
   const [editable, setEditable] = useState(false);
   const [currentOptionValue, setVariant] = useState(item.option?.metadata?.value);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const renderTitle = () => (
     <Typography.Title className="item-name" level={4}>
@@ -62,10 +64,8 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
         const { quantity } = item;
         const newOption = item.item.options.find((opt) => opt?.metadata?.value === currentOptionValue);
 
-        if (newOption) {
-          dispatch(editInCart({ ...item, quantity: 0 }));
-          dispatch(addToCart({ ...item, option: newOption, quantity }));
-        }
+        dispatch(editInCart({ ...item, quantity: 0 }));
+        dispatch(addToCart({ ...item, option: newOption, quantity }));
       }
       setEditable(false);
     } else {
@@ -123,11 +123,12 @@ const CartItemComponent: React.FC<CartItemProps> = ({ item, writable }) => {
 };
 
 type CartDisplayProps = {
-  writable: boolean;
+  writable?: boolean;
   items: CartItem[];
 };
-const CartDisplay: React.FC<CartDisplayProps> = ({ writable, items }) => {
-  const dispatch = useAppDispatch();
+const CartDisplay: React.FC<CartDisplayProps> = (props) => {
+  const { writable = true, items } = props;
+  const dispatch = useDispatch();
 
   const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">

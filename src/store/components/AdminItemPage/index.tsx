@@ -1,10 +1,12 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+
 import Config from '../../../config';
-import history from '../../../history';
+import { history } from '../../../redux_store';
 import { PublicMerchCollection, PublicMerchItem } from '../../../types';
-import { fetchService, getErrorMessage, notify } from '../../../utils';
+import { fetchService, notify } from '../../../utils';
+
 import OptionDisplay from '../OptionDisplay';
 import StoreButton from '../StoreButton';
 import StoreCheckbox from '../StoreCheckbox';
@@ -12,6 +14,7 @@ import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import StoreImageUpload from '../StoreImageUpload';
 import StoreTextInput from '../StoreTextInput';
+
 import './style.less';
 
 interface AdminItemPageProps {
@@ -229,9 +232,9 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
               }
               setSubmitting(false);
               history.push('/store');
-            } catch (error: any) {
+            } catch (reason) {
               setSubmitting(false);
-              notify('API Error', getErrorMessage(error));
+              notify('API Error', reason.message || reason);
             }
           }}
         >

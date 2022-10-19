@@ -1,29 +1,36 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { authSelector, fetchUser } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
+import { connect } from 'react-redux';
+
 import NavProfile from '../components/NavProfile';
+import { fetchUser as fetchUserConnect } from '../../auth/authActions';
 
 interface NavProfileContainerProps {
+  exp: number;
+  profilePicture: string;
+  name: string;
   menu: any;
+  fetchUser: Function;
+  authenticated: boolean;
 }
 
-const NavProfileContainer: React.FC<NavProfileContainerProps> = ({ menu }) => {
-  const {
-    profile: { points, profilePicture, firstName },
-    authenticated,
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
+  const { exp, profilePicture, name, menu, authenticated, fetchUser } = props;
 
   useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+    fetchUser();
+  }, [fetchUser]);
 
   if (authenticated) {
-    return <NavProfile exp={points} profilePicture={profilePicture} name={firstName} menu={menu} />;
+    return <NavProfile exp={exp} profilePicture={profilePicture} name={name} menu={menu} />;
   }
-
-  return null;
+  return <></>;
 };
 
-export default NavProfileContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  exp: state.auth.profile.points,
+  profilePicture: state.auth.profile.profilePicture,
+  name: state.auth.profile.firstName,
+  authenticated: state.auth.authenticated,
+});
+
+export default connect(mapStateToProps, { fetchUser: fetchUserConnect })(NavProfileContainer);
