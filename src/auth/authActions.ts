@@ -58,7 +58,7 @@ export const loginUser: ThunkActionCreator = (values, search) => async (dispatch
 
     if (code) {
       // If the user was signed out when trying to check in, direct them to the checkin page
-      dispatch(replace(`/checkin?code=${code}}`));
+      dispatch(replace(`/checkin?code=${code}`));
     } else if (destination) {
       // If the user was signed out when trying to access the site, return them to their desired destination
       dispatch(replace(decodeURIComponent(destination)));
