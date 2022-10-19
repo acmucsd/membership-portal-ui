@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
+
+import { fetchPickupEvent, fetchFuturePickupEvents } from '../storeActions';
 import { PublicOrderPickupEvent } from '../../types';
 import { notify } from '../../utils';
-import AdminPreparePage from '../components/AdminPreparePage';
-import { fetchPastPickupEvents, fetchFuturePickupEvents, fetchPickupEvent } from '../storeSlice';
 
-const AdminPreparePageContainer: React.FC = () => {
+import PageLayout from '../../layout/containers/PageLayout';
+import AdminPreparePage from '../components/AdminPreparePage';
+
+interface AdminPreparePageContainerProps {
+  fetchPickupEvent: Function;
+  fetchFuturePickupEvents: Function;
+}
+
+const AdminPreparePageContainer: React.FC<AdminPreparePageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
+  const { fetchPickupEvent: fetchPickupEventFunction, fetchFuturePickupEvents: fetchFuturePickupEventsFunction } = props;
 
   const [pickupEvent, setPickupEvent] = useState<PublicOrderPickupEvent>();
-  const [pastPickupEvents, setPastPickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
-  const [futurePickupEvents, setFuturePickupEvents] = useState<Array<PublicOrderPickupEvent>>([]);
-  const dispatch = useAppDispatch();
+  const [pickupEvents, setPickupEvents] = useState<Array<PublicOrderPickupEvent>>();
 
   useEffect(() => {
     if (uuid) {
-      dispatch(fetchPickupEvent(uuid))
-        .unwrap()
+      fetchPickupEventFunction(uuid)
         .then((value) => {
           setPickupEvent(value);
         })
@@ -27,34 +32,21 @@ const AdminPreparePageContainer: React.FC = () => {
           notify('API Error', reason.message || reason);
         });
     } else {
-      dispatch(fetchPastPickupEvents())
-        .unwrap()
+      fetchFuturePickupEventsFunction()
         .then((value) => {
-          setPastPickupEvents(value);
-        })
-        .catch((reason) => {
-          notify('API Error', reason.message || reason);
-        });
-      dispatch(fetchFuturePickupEvents())
-        .unwrap()
-        .then((value) => {
-          setFuturePickupEvents(value);
+          setPickupEvents(value);
         })
         .catch((reason) => {
           notify('API Error', reason.message || reason);
         });
     }
-  }, [dispatch, uuid]);
-
-  const activePickupEvents = pastPickupEvents.concat(futurePickupEvents).filter((pEvent) => {
-    return pEvent.status === 'ACTIVE';
-  });
+  }, [props, uuid]);
 
   return (
     <PageLayout>
-      <AdminPreparePage pickupEvent={pickupEvent} pickupEvents={activePickupEvents} />
+      <AdminPreparePage pickupEvent={pickupEvent} pickupEvents={pickupEvents} />
     </PageLayout>
   );
 };
 
-export default AdminPreparePageContainer;
+export default connect(() => ({}), { fetchPickupEvent, fetchFuturePickupEvents })(AdminPreparePageContainer);

@@ -1,6 +1,7 @@
-import React, { FormEventHandler, useState } from 'react';
-import { AutoComplete, Button, Checkbox, Form, Icon, Input, Select, Tag, Tooltip } from 'antd';
+import React, { useState, FormEventHandler } from 'react';
+import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
+
 import './style.less';
 
 const { Option } = AutoComplete;

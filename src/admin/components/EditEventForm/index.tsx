@@ -8,7 +8,6 @@ import * as moment from 'moment';
 
 import './style.less';
 import { Event } from '../../../types';
-import { copyLink } from '../../utils';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -30,6 +29,7 @@ interface EditEventFormProps {
   handleChange: ChangeEventHandler;
   handleSubmit: FormEventHandler;
   values: Event;
+  copyLink: Function;
   errors: {
     uuid: string | null;
     title: string | null;
@@ -47,22 +47,26 @@ interface EditEventFormProps {
   };
 }
 
-const EditEventForm: React.FC<EditEventFormProps> = ({
-  event,
-  setFieldValue,
-  setFieldTouched,
-  handleBlur,
-  handleChange,
-  handleSubmit,
-  values: eventData,
-  deleteEvent,
-  errors,
-}) => {
+const EditEventForm: React.FC<EditEventFormProps> = (props) => {
+  const {
+    event,
+    setFieldValue,
+    setFieldTouched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values: eventData,
+    errors,
+    copyLink,
+    deleteEvent,
+    values,
+  } = props;
+
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
 
   const handleDelete = () => {
-    deleteEvent(eventData.uuid)
+    deleteEvent(values.uuid)
       .then(() => {
         history.push('/');
       })
@@ -209,7 +213,13 @@ const EditEventForm: React.FC<EditEventFormProps> = ({
           >
             Discard
           </Button>
-          <Button type="primary" className="link-button" onClick={() => copyLink(eventData.attendanceCode)}>
+          <Button
+            type="primary"
+            className="link-button"
+            onClick={() => {
+              copyLink(eventData.attendanceCode);
+            }}
+          >
             Copy Checkin Link
           </Button>
           <Button type="danger" onClick={handleDelete} className="delete-button">

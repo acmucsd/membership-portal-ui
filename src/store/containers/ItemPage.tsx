@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
+
+import { fetchItem } from '../storeActions';
 import { PublicMerchItemWithPurchaseLimits } from '../../types';
 import { notify } from '../../utils';
-import ItemPage from '../components/ItemPage';
-import { fetchItem } from '../storeSlice';
 
-const ItemPageContainer: React.FC = () => {
+import PageLayout from '../../layout/containers/PageLayout';
+import ItemPage from '../components/ItemPage';
+
+interface ItemPageContainerProps {
+  fetchItem: Function;
+}
+
+const ItemPageContainer: React.FC<ItemPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const history = useHistory();
   const { uuid } = params;
+  const { fetchItem: fetchItemFunction } = props;
 
   if (!uuid) {
     history.push('/store');
   }
 
   const [item, setItem] = useState<PublicMerchItemWithPurchaseLimits>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchItem(uuid))
-      .unwrap()
+    fetchItemFunction(uuid)
       .then((value) => {
         setItem(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch, uuid]);
+  }, [props, uuid]);
 
   return (
     <PageLayout>
@@ -37,4 +42,4 @@ const ItemPageContainer: React.FC = () => {
   );
 };
 
-export default ItemPageContainer;
+export default connect(() => ({}), { fetchItem })(ItemPageContainer);

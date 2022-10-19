@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-import { useSelector } from 'react-redux';
-import { eventSelector, fetchPastEvents } from '../../event/eventSlice';
-import { useAppDispatch } from '../../redux/store';
-import { addAttendance, adminSelector, getEmails } from '../adminSlice';
-import AddAttendanceForm from '../components/AddAttendanceForm';
 
-const AddAttendanceFormContainer = () => {
-  const { emails } = useSelector(adminSelector);
-  const { pastEvents } = useSelector(eventSelector);
-  const dispatch = useAppDispatch();
+import AddAttendanceForm from '../components/AddAttendanceForm';
+import { addAttendance, getAllEmails as getAllEmailsConnect } from '../adminActions';
+import { fetchPastEvents as fetchPastEventsConnect } from '../../event/eventActions';
+
+const AddAttendanceFormContainer = (props) => {
+  const { emails, pastEvents, addAttendance: addAttendanceFunction, fetchPastEventsConnect, getAllEmailsConnect } = props; // eslint-disable-line no-shadow
 
   useEffect(() => {
-    dispatch(getEmails());
-    dispatch(fetchPastEvents());
-  }, [dispatch]);
+    getAllEmailsConnect();
+    fetchPastEventsConnect();
+  }, [fetchPastEventsConnect, getAllEmailsConnect]);
 
   const FormikAddAttendanceForm = withFormik({
     mapPropsToValues() {
@@ -32,10 +30,19 @@ const AddAttendanceFormContainer = () => {
         event: values.event,
         asStaff: values.staff,
       };
-      dispatch(addAttendance(attendanceDetails)).unwrap().then(resetForm).catch();
+      addAttendanceFunction(attendanceDetails)
+        .then(() => {
+          resetForm();
+        })
+        .catch(() => {});
     },
   })(AddAttendanceForm as any);
   return <FormikAddAttendanceForm />;
 };
 
-export default AddAttendanceFormContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  emails: state.admin.emails,
+  pastEvents: state.event.pastEvents,
+});
+
+export default connect(mapStateToProps, { addAttendance, getAllEmailsConnect, fetchPastEventsConnect })(AddAttendanceFormContainer);

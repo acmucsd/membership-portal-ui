@@ -1,19 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import PageLayout from '../../layout/containers/PageLayout';
-import { authSelector } from '../authSlice';
+
 import ResendEmailVerificationPage from '../components/ResendEmailVerificationPage';
 
-const ResendEmailVerificationContainer: React.FC = () => {
-  const {
-    profile: { email },
-  } = useSelector(authSelector);
+interface ResendEmailVerificationContainerProps {
+  user: {
+    profile: {
+      email: string;
+    };
+  };
+}
+
+const ResendEmailVerificationContainer: React.FC<ResendEmailVerificationContainerProps> = (props) => {
+  const { user } = props;
 
   return (
     <PageLayout>
-      <ResendEmailVerificationPage email={email} />
+      <ResendEmailVerificationPage email={user.profile.email} />
     </PageLayout>
   );
 };
 
-export default ResendEmailVerificationContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  user: state.auth,
+});
+
+export default connect(mapStateToProps, {})(ResendEmailVerificationContainer);

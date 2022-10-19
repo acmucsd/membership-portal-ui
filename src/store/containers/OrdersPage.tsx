@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
+import { connect } from 'react-redux';
+
+import { fetchOrders } from '../storeActions';
 import { PublicOrder } from '../../types';
 import { notify } from '../../utils';
+
+import PageLayout from '../../layout/containers/PageLayout';
 import OrdersPage from '../components/OrdersPage';
-import { fetchOrders } from '../storeSlice';
 
-interface OrdersPageContainerProps {}
+interface OrdersPageContainerProps {
+  fetchOrders: Function;
+}
 
-const OrdersPageContainer: React.FC<OrdersPageContainerProps> = () => {
+const OrdersPageContainer: React.FC<OrdersPageContainerProps> = (props) => {
+  const { fetchOrders: fetchOrdersFunction } = props;
+
   const [orders, setOrders] = useState<Array<PublicOrder>>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOrders())
-      .unwrap()
+    fetchOrdersFunction()
       .then((value) => {
         setOrders(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch]);
+  }, [props]);
 
   return (
     <PageLayout>
@@ -30,4 +34,4 @@ const OrdersPageContainer: React.FC<OrdersPageContainerProps> = () => {
   );
 };
 
-export default OrdersPageContainer;
+export default connect(() => ({}), { fetchOrders })(OrdersPageContainer);

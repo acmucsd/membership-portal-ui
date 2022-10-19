@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
+import { connect } from 'react-redux';
+
+import { fetchCollections as fetchCollectionsConnection } from '../storeActions';
 import { PublicMerchCollection } from '../../types';
 import { notify } from '../../utils';
-import AdminQuantitiesPage from '../components/AdminQuantitiesPage';
-import { fetchCollections } from '../storeSlice';
 
-const AdminQuantitiesPageContainer: React.FC = () => {
+import PageLayout from '../../layout/containers/PageLayout';
+import AdminQuantitiesPage from '../components/AdminQuantitiesPage';
+
+interface AdminQuantitiesPageContainerProps {
+  fetchCollections: Function;
+}
+
+const AdminQuantitiesPageContainer: React.FC<AdminQuantitiesPageContainerProps> = (props) => {
+  const { fetchCollections: fetchCollectionsFunction } = props;
+
   const [collections, setCollections] = useState<PublicMerchCollection[]>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollections())
-      .unwrap()
+    fetchCollectionsFunction()
       .then((value) => {
         setCollections(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch]);
+  }, [props]);
 
   return (
     <PageLayout>
@@ -28,4 +34,4 @@ const AdminQuantitiesPageContainer: React.FC = () => {
   );
 };
 
-export default AdminQuantitiesPageContainer;
+export default connect(() => ({}), { fetchCollections: fetchCollectionsConnection })(AdminQuantitiesPageContainer);

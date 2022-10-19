@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ['plugin:react-hooks/recommended', 'airbnb-typescript', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
+  extends: [
+    'airbnb-typescript',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+  ],
   parserOptions: {
     project: './tsconfig.json',
   },
@@ -13,8 +17,7 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
     'react/jsx-one-expression-per-line': 'off',
-    'react/require-default-props': 'off',
-    'react-hooks/exhaustive-deps': 1,
+    'react-hooks/exhaustive-deps': 'off',
     'no-async-promise-executor': ['off'],
     'jsx-a11y/click-events-have-key-events': ['off'],
     'jsx-a11y/href-no-hash': ['off'],
@@ -22,8 +25,6 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': ['off'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.ts', '.tsx'] }],
     'react/no-array-index-key': 'off',
-    'no-param-reassign': ['error', { props: false }],
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
+    'react/require-default-props': 'off'
   },
 };

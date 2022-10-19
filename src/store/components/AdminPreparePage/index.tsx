@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
-import { OrderStatus, PublicOrderItemWithQuantity, PublicOrderPickupEvent } from '../../../types';
+import React, { useState } from 'react';
+
+import { PublicOrderPickupEvent, PublicOrderItemWithQuantity, OrderStatus } from '../../../types';
+
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
+
 import './style.less';
 
 interface AdminPreparePageProps {

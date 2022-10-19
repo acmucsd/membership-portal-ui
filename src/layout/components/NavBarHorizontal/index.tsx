@@ -23,20 +23,20 @@ const NavBarHorizontal: React.FC<NavBarHorizontalProps> = (props) => {
     <>
       <nav className="navbar-horizontal">
         <NavLink exact activeClassName="selected" to="/">
-          <NavTileItem icon={DashboardIcon} />
+          <NavTileItem icon={DashboardIcon} text="Dashboard" />
         </NavLink>
         <NavLink activeClassName="selected" to="/leaderboard">
-          <NavTileItem icon={LBIcon} />
+          <NavTileItem icon={LBIcon} text="Leaderboard" />
         </NavLink>
         <NavLink exact activeClassName="selected" to="/profile">
-          <NavTileItem icon={ProfileIcon} />
+          <NavTileItem icon={ProfileIcon} text="Profile" />
         </NavLink>
         <NavLink activeClassName="selected" to="/discord">
-          <NavTileItem icon={DiscordIcon} />
+          <NavTileItem icon={DiscordIcon} text="Discord" />
         </NavLink>
         {hasAdminAccess && (
           <NavLink activeClassName="selected" to="/admin">
-            <NavTileItem icon={AdminIcon} />
+            <NavTileItem icon={AdminIcon} text="Admin" />
           </NavLink>
         )}
       </nav>
