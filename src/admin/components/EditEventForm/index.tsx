@@ -138,7 +138,7 @@ const EditEventForm: React.FC<EditEventFormProps> = (props) => {
               <p className="form-error">{errors.pointValue ? errors.pointValue : null}</p>
             </Form.Item>
           </div>
-          <Form.Item label="Facebook Event Link (Optional)">
+          <Form.Item label="Facebook Event Link">
             <Input name="eventLink" className="eventLink" value={eventData.eventLink || ''} onChange={handleChange} onBlur={handleBlur} />
             <p className="form-error">{errors.eventLink ? errors.eventLink : null}</p>
           </Form.Item>
