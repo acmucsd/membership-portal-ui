@@ -1,12 +1,20 @@
-import React, { ChangeEventHandler, FormEventHandler, KeyboardEventHandler, useState } from 'react';
+import { connect } from 'react-redux';
+import React, { useState, ChangeEventHandler, KeyboardEventHandler, FormEventHandler } from 'react';
 import { useParams } from 'react-router-dom';
-import PasswordReset from '../components/PasswordReset';
-import { updatePassword } from '../utils';
 
-const PasswordUpdate: React.FC = () => {
+import { updatePassword } from '../authActions';
+import PasswordReset from '../components/PasswordReset';
+
+interface PasswordUpdateProps {
+  updatePassword: Function;
+}
+
+const PasswordUpdate: React.FC<PasswordUpdateProps> = (props) => {
   const [conPass, setConPass] = useState('');
   const [newPass, setNewPass] = useState('');
   const params: { [key: string]: any } = useParams();
+
+  const { updatePassword: updatePasswordFunction } = props;
 
   const handleConChange: ChangeEventHandler = (event) => {
     setConPass((event.target as any).value);
@@ -19,7 +27,7 @@ const PasswordUpdate: React.FC = () => {
   const handleEnter: KeyboardEventHandler = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      updatePassword({
+      updatePasswordFunction({
         code: params.code,
         newPassword: newPass,
         confirmPassword: conPass,
@@ -29,7 +37,7 @@ const PasswordUpdate: React.FC = () => {
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
-    updatePassword({
+    updatePasswordFunction({
       code: params.code,
       newPassword: newPass,
       confirmPassword: conPass,
@@ -48,4 +56,4 @@ const PasswordUpdate: React.FC = () => {
   );
 };
 
-export default PasswordUpdate;
+export default connect(null, { updatePassword })(PasswordUpdate);

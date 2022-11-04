@@ -1,13 +1,15 @@
-import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler, useEffect, useRef, useState } from 'react';
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useEffect, useState, useRef, FocusEventHandler, ChangeEventHandler, FormEventHandler } from 'react';
+import { Form, Input, Button, Select, Modal, Avatar } from 'antd';
 import * as ANTD from 'antd';
-import { Avatar, Button, Form, Input, Modal, Select } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { fetchUser } from '../../../auth/authSlice';
-import majorsData from '../../../constants/majors.json';
-import { useAppDispatch } from '../../../redux/store';
+import { useDispatch } from 'react-redux';
 import { getDefaultProfile } from '../../../utils';
-import { updateEmail, uploadUserImage } from '../../profileSlice';
+import { uploadUserImage } from '../../profileActions';
+import { fetchUser } from '../../../auth/authActions';
+
+import majorsData from '../../../constants/majors.json';
+
 import './style.less';
 
 const { Option } = Select;
@@ -39,13 +41,14 @@ interface ProfileUpdateProps {
     major: string;
     bio: string;
   };
+  updateEmail: Function;
 }
 
 const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
-  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values } = props;
+  const { handleBlur, handleChange, handleSubmit, setFieldValue, user, values, updateEmail } = props;
 
   const history = useHistory();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState<string>();
   const [bg, setBG] = useState(user.profile.profilePicture);
@@ -81,8 +84,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
   const uploadImageButton = useRef(null);
   const uploadPhoto = () => {
     setUploadState('uploading');
-    dispatch(uploadUserImage(fileList[0].originFileObj))
-      .unwrap()
+    uploadUserImage(fileList[0].originFileObj)
       .then(() => {
         setUploadState('none');
         setVisible(false);
@@ -162,7 +164,7 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
           type="primary"
           className="save-button"
           onClick={() => {
-            if (email) dispatch(updateEmail(email));
+            updateEmail(email);
           }}
         >
           Update Email

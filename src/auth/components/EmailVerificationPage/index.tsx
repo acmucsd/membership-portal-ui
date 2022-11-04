@@ -1,7 +1,7 @@
-import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { verifyEmail } from '../../utils';
+import { Button } from 'antd';
+import { useParams, useHistory } from 'react-router-dom';
+import { verifyEmail } from '../../authActions';
 import './style.less';
 
 const EmailVerficationPage: React.FC = () => {

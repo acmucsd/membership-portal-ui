@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Modal } from 'antd';
-import { useAppDispatch } from '../../../redux/store';
-import { PublicMerchItemOption, PublicMerchItemWithPurchaseLimits } from '../../../types';
+
+import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
-import { addToCart } from '../../storeSlice';
-import OptionSelector from '../OptionSelector';
-import StoreButton from '../StoreButton';
-import StoreDropdown from '../StoreDropdown';
+import { addToCart } from '../../storeActions';
+
 import StoreHeader from '../StoreHeader';
+import OptionSelector from '../OptionSelector';
+import StoreDropdown from '../StoreDropdown';
+import StoreButton from '../StoreButton';
+
 import './style.less';
 
 interface ItemPageProps {
   item: PublicMerchItemWithPurchaseLimits | undefined;
+  addToCart: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
-  const { item } = props;
+  const { item, addToCart: addToCartFunction } = props;
 
   const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
   const [confirmation, setConfirmation] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   if (!item) {
     return null;
@@ -60,8 +63,15 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               <p className="item-option-header">{`${options[0].metadata ? options[0].metadata.type : ''}:`.toLocaleLowerCase()}</p>
               <OptionSelector
                 options={options
-                  .slice()
-                  .sort((a, b) => (a.metadata?.position ?? 0) - (b.metadata?.position ?? 0))
+                  .sort((a, b) => {
+                    if ((a.metadata?.position ?? 0) < (b.metadata?.position ?? 0)) {
+                      return -1;
+                    }
+                    if ((a.metadata?.position ?? 0) > (b.metadata?.position ?? 0)) {
+                      return 1;
+                    }
+                    return 0;
+                  })
                   .map((option) => {
                     const { uuid: key, metadata } = option;
                     return { key, label: metadata ? metadata.value : '', value: option };
@@ -89,10 +99,10 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               text="Add to Cart"
               disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit}
               onClick={() => {
-                if (hasVariantsEnabled && currentOption) {
-                  dispatch(addToCart({ item, option: currentOption, quantity: currentQuantity }));
+                if (hasVariantsEnabled) {
+                  addToCartFunction({ item, option: currentOption, quantity: currentQuantity });
                 } else {
-                  dispatch(addToCart({ item, option: item.options[0], quantity: currentQuantity }));
+                  addToCartFunction({ item, option: item.options[0], quantity: currentQuantity });
                 }
                 setConfirmation(true);
               }}
@@ -140,4 +150,4 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   );
 };
 
-export default ItemPage;
+export default connect(null, { addToCart })(ItemPage);

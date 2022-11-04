@@ -1,9 +1,9 @@
-import { withFormik } from 'formik';
 import { connect } from 'react-redux';
+import { withFormik } from 'formik';
 import * as Yup from 'yup';
-import history from '../../history';
-import { loginUser } from '../authSlice';
+
 import SignInForm from '../components/SignInForm';
+import { loginUser } from '../authActions';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid Email').required('Required'),
@@ -21,9 +21,13 @@ const FormikSignInForm = withFormik({
   validateOnChange: false,
   validateOnBlur: false,
   handleSubmit(values, { resetForm, props }: { [key: string]: any }) {
-    props.loginUser({ values, search: history.location.search });
+    props.loginUser(values, props.search);
     resetForm();
   },
 })(SignInForm as React.FC);
 
-export default connect(null, { loginUser })(FormikSignInForm);
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  search: state.router.location.search,
+});
+
+export default connect(mapStateToProps, { loginUser })(FormikSignInForm);

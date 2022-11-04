@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { sendEmailVerification } from '../../utils';
+import { sendEmailVerification } from '../../authActions';
 import './style.less';
 
 interface ResendEmailVerficationPageProps {
@@ -21,7 +21,11 @@ const ResendEmailVerficationPage: React.FC<ResendEmailVerficationPageProps> = (p
       sendEmailVerification(email)
         .then(() => {
           setText('Go to Home Page');
-          setAction(() => () => history.push('/'));
+          setAction(() => {
+            return () => {
+              history.push('/');
+            };
+          });
         })
         .catch(() => {})
         .finally(() => {

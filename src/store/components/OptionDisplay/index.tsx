@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Modal, Table } from 'antd';
-import { useAppDispatch } from '../../../redux/store';
+import { connect } from 'react-redux';
+
+import { createItemOption, deleteItemOption } from '../../storeActions';
 import { Uuid } from '../../../types';
-import { notify } from '../../../utils';
-import { createItemOption, deleteItemOption } from '../../storeSlice';
+
 import StoreButton from '../StoreButton';
 import StoreTextInput from '../StoreTextInput';
+
 import './style.less';
+import { notify } from '../../../utils';
 
 interface Option {
   uuid?: Uuid;
@@ -21,6 +24,8 @@ interface OptionDisplayProps {
   options: Option[];
   itemUuid?: string;
   onChange: Function;
+  createItemOption: Function;
+  deleteItemOption: Function;
   error: any;
   currentType?: string;
 }
@@ -32,11 +37,12 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
   const [newQuantity, setNewQuantity] = useState('');
   const [newPrice, setNewPrice] = useState('');
   const [newDiscountPercentage, setNewDiscountPercentage] = useState('');
-  const dispatch = useAppDispatch();
 
   const creatingItem = !itemUuid;
 
   const newOptions = [...options];
+
+  const { deleteItemOption: deleteItemOptionFunction, createItemOption: createItemOptionFunction } = props;
 
   const renderValue = (value: string, option: Option, index: number) => (
     <>
@@ -57,8 +63,7 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
             newOptions.splice(index, 1);
             onChange(newOptions);
           } else {
-            dispatch(deleteItemOption(option.uuid ?? ''))
-              .unwrap()
+            deleteItemOptionFunction(option.uuid)
               .then(() => {
                 newOptions.splice(index, 1);
                 onChange(newOptions);
@@ -179,19 +184,19 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
         visible={creatingOption}
         onCancel={() => setCreatingOption(false)}
         onOk={() => {
-          dispatch(
-            createItemOption({
-              uuid: itemUuid ?? '',
-              option: {
-                quantity: parseInt(newQuantity, 10),
-                price: parseInt(newPrice, 10),
-                metadata: { type: currentType ?? '', value: newValue, position: options.length },
-              },
-            }),
-          )
-            .unwrap()
+          createItemOptionFunction(itemUuid, {
+            quantity: parseInt(newQuantity, 10),
+            price: parseInt(newPrice, 10),
+            metadata: { type: currentType, value: newValue, position: options.length },
+          })
             .then((newOption) => {
-              const { uuid, price, discountPercentage, quantity, metadata: { value = '' } = { value: '' } } = newOption;
+              const {
+                uuid,
+                price,
+                discountPercentage,
+                quantity,
+                metadata: { value },
+              } = newOption;
               newOptions.push({ uuid, value, price, quantity, quantityToAdd: '0', discountPercentage });
               setNewValue('');
               setNewPrice('');
@@ -226,4 +231,4 @@ const OptionDisplay: React.FC<OptionDisplayProps> = (props) => {
   );
 };
 
-export default OptionDisplay;
+export default connect(null, { createItemOption, deleteItemOption })(OptionDisplay);

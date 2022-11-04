@@ -1,31 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, Menu } from 'antd';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import { Menu, Dropdown } from 'antd';
 import { getCurrentYear, getYearBounds, years } from 'ucsd-quarters-years';
-import background from '../../assets/graphics/background.svg';
-import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
-import { authSelector } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
-import { UserAccessType } from '../../types';
-import { formatDate } from '../../utils';
+
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
-import { eventSelector, fetchAttendance, fetchPastEvents } from '../eventSlice';
+import background from '../../assets/graphics/background.svg';
+import { ReactComponent as ArrowsIcon } from '../../assets/icons/caret-icon-double.svg';
+import { fetchAttendance as fetchAttendanceConnect, fetchPastEvents as fetchPastEventsConnect } from '../eventActions';
+import { formatDate } from '../../utils';
+import { UserAccessType } from '../../types';
 
-const PastEventsContainer: React.FC = () => {
-  const { pastEvents: events, attendance } = useSelector(eventSelector);
-  const {
-    profile: { accessType },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
-  const canEditEvents = [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(accessType);
+interface PastEventsContainerProps {
+  attendance: [
+    {
+      uuid: string;
+      user: string;
+      event: {
+        uuid: string;
+        cover: string;
+        description: string;
+        location: string;
+        pointValue: string;
+        title: string;
+        start: string;
+      };
+    },
+  ];
+  events: [
+    {
+      uuid: string;
+      cover: string;
+      description: string;
+      location: string;
+      pointValue: string;
+      title: string;
+      start: string;
+    },
+  ];
+  fetchAttendance: Function;
+  fetchPastEvents: Function;
+  canEditEvents: boolean;
+}
+
+const PastEventsContainer: React.FC<PastEventsContainerProps> = (props) => {
+  const { canEditEvents, events, attendance, fetchAttendance, fetchPastEvents } = props;
   const [timeframe, setTimeframe] = useState(getCurrentYear()?.name ?? 'All Time');
   const [shownEvents, setShownEvents] = useState<any[]>(events);
 
   useEffect(() => {
-    dispatch(fetchPastEvents());
-    dispatch(fetchAttendance());
-  }, [dispatch]);
+    fetchPastEvents();
+    fetchAttendance();
+  }, [fetchAttendance, fetchPastEvents]);
 
   useEffect(() => {
     if (timeframe === 'All Time') {
@@ -123,4 +149,14 @@ const PastEventsContainer: React.FC = () => {
   );
 };
 
-export default PastEventsContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  events: state.event.pastEvents,
+  attendance: state.event.attendance,
+  timeframe: state.event.timeframe,
+  canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
+});
+
+export default connect(mapStateToProps, {
+  fetchAttendance: fetchAttendanceConnect,
+  fetchPastEvents: fetchPastEventsConnect,
+})(PastEventsContainer);

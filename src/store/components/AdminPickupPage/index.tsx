@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { DatePicker } from 'antd';
 import { Formik } from 'formik';
+import { DatePicker } from 'antd';
 import moment from 'moment';
 import * as Yup from 'yup';
+
 import Config from '../../../config';
-import history from '../../../history';
+import { history } from '../../../redux_store';
 import { PublicOrderPickupEvent } from '../../../types';
-import { fetchService, getErrorMessage, notify } from '../../../utils';
+import { fetchService, notify } from '../../../utils';
+
 import StoreButton from '../StoreButton';
 import StoreDropdown from '../StoreDropdown';
 import StoreHeader from '../StoreHeader';
 import StoreTextInput from '../StoreTextInput';
+
 import './style.less';
 
 interface AdminPickupPageProps {
@@ -107,8 +110,8 @@ const AdminPickupPage: React.FC<AdminPickupPageProps> = (props) => {
                 setSubmitting(false);
                 notify('Success!', creatingPickup ? 'Pickup event created.' : 'Pickup event modified.');
                 history.push('/store/admin');
-              } catch (error: any) {
-                notify(creatingPickup ? 'Error creating pickup event!' : 'Error modifying pickup event!', getErrorMessage(error));
+              } catch (error) {
+                notify(creatingPickup ? 'Error creating pickup event!' : 'Error modifying pickup event!', error.message);
                 setSubmitting(false);
               }
             }}

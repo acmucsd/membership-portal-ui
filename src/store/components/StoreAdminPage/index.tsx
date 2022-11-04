@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Modal } from 'antd';
-import { useSelector } from 'react-redux';
-import { authSelector } from '../../../auth/authSlice';
-import { useAppDispatch } from '../../../redux/store';
+
+import { cancelAllOrders } from '../../storeActions';
 import { UserAccessType } from '../../../types';
 import { notify } from '../../../utils';
-import { cancelAllOrders } from '../../storeSlice';
-import StoreButton from '../StoreButton';
+
 import StoreHeader from '../StoreHeader';
+import StoreButton from '../StoreButton';
+
 import './style.less';
 
-const StoreAdminPage: React.FC = () => {
-  const auth = useSelector(authSelector);
-  const canManageStore = [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(auth.profile.accessType);
+interface StoreAdminPageProps {
+  cancelAllOrders: Function;
+  canManageStore: boolean;
+}
+
+const StoreAdminPage: React.FC<StoreAdminPageProps> = (props) => {
+  const { canManageStore, cancelAllOrders: cancelAllOrdersFunction } = props;
 
   const [confirmation, setConfirmation] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -42,12 +46,10 @@ const StoreAdminPage: React.FC = () => {
           visible={confirmation}
           onCancel={() => setConfirmation(false)}
           onOk={() => {
-            dispatch(cancelAllOrders())
-              .unwrap()
-              .then(() => {
-                setConfirmation(false);
-                notify('Success!', 'You successfully cancelled all orders!');
-              });
+            cancelAllOrdersFunction().then(() => {
+              setConfirmation(false);
+              notify('Success!', 'You successfully cancelled all orders!');
+            });
           }}
         >
           Are you sure you want to cancel all orders?
@@ -57,4 +59,8 @@ const StoreAdminPage: React.FC = () => {
   );
 };
 
-export default StoreAdminPage;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  canManageStore: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
+});
+
+export default connect(mapStateToProps, { cancelAllOrders })(StoreAdminPage);

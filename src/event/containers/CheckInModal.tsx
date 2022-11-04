@@ -1,16 +1,31 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../redux/store';
-import ModalComponent from '../components/Modal';
-import { checkOutEvent, eventSelector } from '../eventSlice';
+import { connect } from 'react-redux';
 
-const CheckInModalContainer: React.FC = () => {
-  const { currentEvent, checkin: visible } = useSelector(eventSelector);
-  const dispatch = useAppDispatch();
+import ModalComponent from '../components/Modal';
+import { checkOut } from '../eventActions';
+
+interface CheckInModalContainerProps {
+  currentEvent: {
+    cover: string;
+    title: string;
+    pointValue: number;
+  };
+  visible: boolean;
+  checkOut: Function;
+}
+
+const CheckInModalContainer: React.FC<CheckInModalContainerProps> = (props) => {
+  const { currentEvent, visible } = props;
 
   const checkInMessage = `Checked in to ${currentEvent.title}!`;
+
   const fullMessage = `Thanks for checking in! You earned ${currentEvent.pointValue} points.`;
-  const hideMessage = () => dispatch(checkOutEvent());
+
+  const { checkOut: checkOutFunction } = props;
+
+  const hideMessage = () => {
+    checkOutFunction();
+  };
 
   return (
     <ModalComponent
@@ -24,4 +39,9 @@ const CheckInModalContainer: React.FC = () => {
   );
 };
 
-export default CheckInModalContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  currentEvent: state.event.currentEvent,
+  visible: state.event.checkin,
+});
+
+export default connect(mapStateToProps, { checkOut })(CheckInModalContainer);
