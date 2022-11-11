@@ -25,19 +25,17 @@ interface UpcomingEventsContainerProps {
     },
   ];
   canEditEvents: boolean;
-  events: [
-    {
-      uuid: string;
-      cover: string;
-      description: string;
-      location: string;
-      eventLink: string | null;
-      pointValue: string;
-      title: string;
-      start: string;
-      end: string;
-    },
-  ];
+  events: {
+    uuid: string;
+    cover: string;
+    description: string;
+    location: string;
+    eventLink: string | null;
+    pointValue: string;
+    title: string;
+    start: string;
+    end: string;
+  }[];
   fetchAttendance: Function;
   fetchFutureEvents: Function;
 }
