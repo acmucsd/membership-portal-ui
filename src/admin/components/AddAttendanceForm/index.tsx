@@ -1,5 +1,5 @@
 import React, { useState, FormEventHandler } from 'react';
-import { AutoComplete, Checkbox, Form, Input, Button, Tooltip, Tag, Icon, Select } from 'antd';
+import { AutoComplete, Form, Input, Button, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 import './style.less';
@@ -29,37 +29,10 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
   const { handleSubmit, isSubmitting, isValidating, setFieldValue, values } = props;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [attendees, _setAttendees] = useState<string[]>([]);
-  const [isStaff, toggleStaff] = useState<boolean>(false);
-  const [inputVisible, setInputVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState('');
-
-  const showInput = () => {
-    setInputVisible(true);
-  };
 
   const updateAttendees = (newAttendees: any[]) => {
     _setAttendees(newAttendees);
     setFieldValue('attendees', newAttendees);
-  };
-
-  const handleClose = (removedAttendee: { [key: string]: any } | string) => {
-    const newAttendees = attendees.filter((attendee) => attendee !== removedAttendee);
-    updateAttendees(newAttendees);
-  };
-
-  const handleInputConfirm = (optionValue?: string) => {
-    let newAttendees = attendees;
-    // cross check with email list
-
-    if (optionValue) {
-      newAttendees = [...newAttendees, optionValue];
-    } else if (inputValue && attendees.indexOf(inputValue) === -1) {
-      // add to list if input user does not exist
-      newAttendees = [...newAttendees, inputValue];
-    }
-    updateAttendees(newAttendees);
-    setInputVisible(false);
-    setInputValue('');
   };
 
   return (
@@ -86,63 +59,13 @@ const AddAttendanceForm: React.FC<AddAttendanceFormProps> = (props) => {
             </Select>
           </Form.Item>
           <Form.Item label="Attendees" className="attendees-list-wrapper">
-            <div>
-              {attendees.map((attendee) => {
-                const isLongName = attendee.length > 20;
-                const tagElem = (
-                  <Tag key={attendee} closable onClose={() => handleClose(attendees)} className="attendee-tag">
-                    {isLongName ? `${attendee.slice(0, 10)}...` : attendee}
-                  </Tag>
-                );
-                return isLongName ? (
-                  <Tooltip title={attendee} key={attendee}>
-                    {tagElem}
-                  </Tooltip>
-                ) : (
-                  tagElem
-                );
-              })}
-              {inputVisible && (
-                <AutoComplete
-                  className="attendee-input"
-                  style={{ width: 200 }}
-                  filterOption={(input, email) => {
-                    return email.props.children?.toString().toLowerCase().indexOf(input.toLowerCase()) !== -1;
-                  }}
-                  onChange={(value) => {
-                    setInputValue(value.toString());
-                  }}
-                  onBlur={() => {
-                    handleInputConfirm();
-                  }}
-                  onSelect={(value, option: { key?: string }) => {
-                    setInputValue(option.key ? option.key : '');
-                    handleInputConfirm(option.key ? option.key : '');
-                  }}
-                >
-                  {values.emails.map((email: string) => (
-                    <Option key={email} value={email}>
-                      {email}
-                    </Option>
-                  ))}
-                </AutoComplete>
-              )}
-              {!inputVisible && (
-                <Tag onClick={showInput} className="add-new-attendee">
-                  <Icon type="plus" /> Enter Attendee Email
-                </Tag>
-              )}
-            </div>
-            <Checkbox
-              name="staff"
-              checked={isStaff}
-              onChange={() => {
-                setFieldValue('staff', !isStaff);
-                toggleStaff(!isStaff);
-              }}
-            >
-              All of these attendees are staff
-            </Checkbox>
+            <Select mode="multiple" allowClear placeholder="Add Attendees" defaultValue={[]} onChange={updateAttendees}>
+              {values.emails.map((email: string) => (
+                <Option key={email} value={email}>
+                  {email}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
           <Button type="primary" htmlType="submit" className="save-button" loading={isSubmitting && isValidating}>
             Submit Edits

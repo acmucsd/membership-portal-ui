@@ -24,17 +24,13 @@ const AddAttendanceFormContainer = (props) => {
         staff: false,
       };
     },
-    handleSubmit(values, { resetForm }: { [key: string]: any }) {
+    handleSubmit(values) {
       const attendanceDetails = {
         attendees: values.attendees,
         event: values.event,
         asStaff: values.staff,
       };
-      addAttendanceFunction(attendanceDetails)
-        .then(() => {
-          resetForm();
-        })
-        .catch(() => {});
+      addAttendanceFunction(attendanceDetails).catch(() => {});
     },
   })(AddAttendanceForm as any);
   return <FormikAddAttendanceForm />;
