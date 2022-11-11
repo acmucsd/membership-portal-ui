@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import PageLayout from '../../layout/containers/PageLayout';
-import { useAppDispatch } from '../../redux/store';
+
+import { fetchItem, fetchCollections, deleteItem as deleteItemConnect } from '../storeActions';
 import { PublicMerchCollection, PublicMerchItem } from '../../types';
 import { notify } from '../../utils';
+
+import PageLayout from '../../layout/containers/PageLayout';
 import AdminItemPage from '../components/AdminItemPage';
-import { fetchCollections, fetchItem } from '../storeSlice';
 
 interface AdminItemPageContainerProps {
+  fetchItem: Function;
+  fetchCollections: Function;
   deleteItem: Function;
 }
 
 const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) => {
   const params: { [key: string]: any } = useParams();
   const { uuid } = params;
-  const { deleteItem } = props;
+  const { deleteItem, fetchItem: fetchItemFunction, fetchCollections: fetchCollectionsFunction } = props;
 
   const [item, setItem] = useState<PublicMerchItem>();
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uuid) {
-      dispatch(fetchItem(uuid))
-        .unwrap()
+      fetchItemFunction(uuid)
         .then((value) => {
           setItem(value);
         })
@@ -32,15 +34,14 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
         });
     }
 
-    dispatch(fetchCollections())
-      .unwrap()
+    fetchCollectionsFunction()
       .then((value) => {
         setCollections(value);
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
       });
-  }, [dispatch, uuid]);
+  }, [props, uuid]);
 
   return (
     <PageLayout>
@@ -49,4 +50,4 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
   );
 };
 
-export default AdminItemPageContainer;
+export default connect(() => ({}), { fetchItem, fetchCollections, deleteItem: deleteItemConnect })(AdminItemPageContainer);

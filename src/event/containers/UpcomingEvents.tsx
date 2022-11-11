@@ -1,26 +1,54 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import background from '../../assets/graphics/background.svg';
-import { authSelector } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
-import { UserAccessType } from '../../types';
-import { formatDate, formatTime } from '../../utils';
+import { connect } from 'react-redux';
+
 import EventCard from '../components/EventCard';
 import EventsList from '../components/EventsList';
-import { eventSelector, fetchAttendance, fetchFutureEvents } from '../eventSlice';
+import background from '../../assets/graphics/background.svg';
+import { fetchAttendance as fetchAttendanceConnect, fetchFutureEvents as fetchFutureEventsConnect } from '../eventActions';
+import { formatDate, formatTime } from '../../utils';
+import { UserAccessType } from '../../types';
 
-const UpcomingEventsContainer: React.FC = () => {
-  const { futureEvents: events, attendance } = useSelector(eventSelector);
-  const {
-    profile: { accessType },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
-  const canEditEvents = [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(accessType);
+interface UpcomingEventsContainerProps {
+  attendance: [
+    {
+      uuid: string;
+      user: string;
+      event: {
+        uuid: string;
+        cover: string;
+        description: string;
+        location: string;
+        pointValue: string;
+        title: string;
+        start: string;
+      };
+    },
+  ];
+  canEditEvents: boolean;
+  events: [
+    {
+      uuid: string;
+      cover: string;
+      description: string;
+      location: string;
+      eventLink: string | null;
+      pointValue: string;
+      title: string;
+      start: string;
+      end: string;
+    },
+  ];
+  fetchAttendance: Function;
+  fetchFutureEvents: Function;
+}
+
+const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) => {
+  const { canEditEvents, events, attendance, fetchAttendance, fetchFutureEvents } = props;
 
   useEffect(() => {
-    dispatch(fetchFutureEvents());
-    dispatch(fetchAttendance());
-  }, [dispatch]);
+    fetchFutureEvents();
+    fetchAttendance();
+  }, [fetchAttendance, fetchFutureEvents]);
 
   return (
     <div>
@@ -60,4 +88,14 @@ const UpcomingEventsContainer: React.FC = () => {
   );
 };
 
-export default UpcomingEventsContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  events: state.event.futureEvents,
+  auth: state.auth,
+  attendance: state.event.attendance,
+  canEditEvents: [UserAccessType.MARKETING, UserAccessType.ADMIN].includes(state.auth.profile.accessType),
+});
+
+export default connect(mapStateToProps, {
+  fetchAttendance: fetchAttendanceConnect,
+  fetchFutureEvents: fetchFutureEventsConnect,
+})(UpcomingEventsContainer);

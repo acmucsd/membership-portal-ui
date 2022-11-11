@@ -1,21 +1,31 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { authSelector, fetchUser } from '../../auth/authSlice';
-import { useAppDispatch } from '../../redux/store';
-import { getLevel, getRank } from '../../utils';
-import ProfileCard from '../components/ProfileCard';
+import { connect } from 'react-redux';
 
-const NavProfileContainer: React.FC = () => {
-  const {
-    profile: { profilePicture, firstName, points },
-  } = useSelector(authSelector);
-  const dispatch = useAppDispatch();
+import ProfileCard from '../components/ProfileCard';
+import { getLevel, getRank } from '../../utils';
+import { fetchUser as fetchUserConnect } from '../../auth/authActions';
+
+interface NavProfileContainerProps {
+  profilePicture: string;
+  name: string;
+  exp: number;
+  fetchUser: Function;
+}
+
+const NavProfileContainer: React.FC<NavProfileContainerProps> = (props) => {
+  const { profilePicture, name, exp, fetchUser } = props;
 
   useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+    fetchUser();
+  }, [fetchUser]);
 
-  return <ProfileCard exp={points} profilePicture={profilePicture} level={getLevel(points)} name={firstName} rank={getRank(points)} />;
+  return <ProfileCard exp={exp} profilePicture={profilePicture} level={getLevel(exp)} name={name} rank={getRank(exp)} />;
 };
 
-export default NavProfileContainer;
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  profilePicture: state.auth.profile.profilePicture,
+  exp: state.auth.profile.points,
+  name: state.auth.profile.firstName,
+});
+
+export default connect(mapStateToProps, { fetchUser: fetchUserConnect })(NavProfileContainer);
