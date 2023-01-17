@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { getDefaultProfile } from '../../../utils';
 import { uploadUserImage } from '../../profileActions';
 import { fetchUser } from '../../../auth/authActions';
+import ManageResume from '../ManageResume';
 
 import majorsData from '../../../constants/majors.json';
 
@@ -169,6 +170,8 @@ const ProfileUpdate: React.FC<ProfileUpdateProps> = (props) => {
         >
           Update Email
         </Button>
+        <div className="divider" />
+        <ManageResume user={user} />
         <div className="divider" />
         <form onSubmit={handleSubmit} className="update-profile-form">
           <Form.Item label="First name">

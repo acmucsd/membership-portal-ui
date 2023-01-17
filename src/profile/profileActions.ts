@@ -63,3 +63,32 @@ export const updateEmail = (email: string) => async (dispatch) => {
     notify('API Error', error.message);
   }
 };
+
+export const postUserResume = async (file: string | Blob, sharing: boolean) => {
+  try {
+    const formdata = new FormData();
+    formdata.append('file', file);
+
+    const url = `${Config.API_URL}${Config.routes.user.resume}`;
+    const data = await fetchService(url, 'POST', 'application/pdf', {
+      requiresAuthorization: true,
+      payload: formdata,
+    });
+
+    notify('Updated resume!', '');
+
+    await fetchService(`${url}/${data.resume.uuid}`, 'PATCH', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify({
+        resume: {
+          isResumeVisible: sharing,
+        },
+      }),
+    });
+
+    return data;
+  } catch (error) {
+    notify('Unable to update resume!', error.message);
+    throw error;
+  }
+};
