@@ -82,8 +82,8 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
   };
 
   const getCurrResumeName = () => {
-    if (!user.profile.resumes[0]) return 'No resume uploaded';
-    const { url } = user.profile.resumes[0];
+    if (!user.profile.resumes?.[0]) return 'No resume uploaded';
+    const { url } = user.profile.resumes?.[0];
     return decodeURIComponent(url.substring(url.lastIndexOf('/') + 1));
   };
 
@@ -91,7 +91,7 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
     <>
       <p>{getCurrResumeName()}</p>
       <p>
-        <em>{user.profile.resumes[0].isResumeVisible ? 'Resume visible to recruiters' : 'Resume not visible to recruiters'}</em>
+        <em>{user.profile.resumes?.[0].isResumeVisible ? 'Resume visible to recruiters' : 'Resume not visible to recruiters'}</em>
       </p>
       <Button type="primary" className="upload-modal-button" onClick={() => setModalOn(true)}>
         <UploadOutlined />
