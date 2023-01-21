@@ -91,7 +91,7 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
     <>
       <p>{getCurrResumeName()}</p>
       <p>
-        <em>{user.profile.resumes?.[0].isResumeVisible ? 'Resume visible to recruiters' : 'Resume not visible to recruiters'}</em>
+        <em>{user.profile.resumes?.[0]?.isResumeVisible ? 'Resume visible to recruiters' : 'Resume not visible to recruiters'}</em>
       </p>
       <Button type="primary" className="upload-modal-button" onClick={() => setModalOn(true)}>
         <UploadOutlined />
