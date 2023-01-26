@@ -18,6 +18,7 @@ import AwardPointsPage from './admin/containers/AwardPointsPage';
 import EditEventPage from './admin/containers/EditEventPage';
 import CreateEventPage from './admin/containers/CreateEventPage';
 import AddAttendancePage from './admin/containers/AddAttendancePage';
+import UserResumesPage from './admin/containers/UserResumesPage';
 
 import AuthPage from './auth/containers/AuthPage';
 import CheckInHandler from './event/containers/CheckInHandler';
@@ -68,6 +69,7 @@ const App = () => {
               <Route exact path="/admin/awardPoints" component={protectRoute(AwardPointsPage, WithRouteOptions.ADMIN, '/')} />
               <Route exact path="/admin/createEvent" component={protectRoute(CreateEventPage, WithRouteOptions.AUTHENTICATED, '/login')} />
               <Route exact path="/admin/addAttendance" component={protectRoute(AddAttendancePage, WithRouteOptions.AUTHENTICATED, '/login')} />
+              <Route exact path="/admin/userResumes" component={protectRoute(UserResumesPage, WithRouteOptions.ADMIN, '/')} />
               <Route exact path="/authenticate-email" component={AuthPage} />
               <Route exact path="/bread" component={BreadPage} />
               <Route exact path="/checkin" component={protectRoute(CheckInHandler, WithRouteOptions.AUTHENTICATED, '/login')} />

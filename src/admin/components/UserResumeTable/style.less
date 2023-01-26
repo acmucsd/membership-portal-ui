@@ -1,0 +1,93 @@
+@import '../../../styles/vars.less';
+
+.user-resume-table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+
+  .download-button-container {
+    padding: 8px;
+    .download-button {
+      background-color: var(--theme-surface-2);
+      border-color: @black;
+      color: var(--theme-text-on-background-1);
+      font-size: @general-body;
+      font-weight: 500;
+    }
+
+    .download-button-disabled {
+      background-color: var(--theme-disabled);
+      border-color: @black;
+      color: var(--theme-text-on-background-1);
+      font-size: @general-body;
+      font-weight: 500;
+    }
+  }
+
+  .table-container {
+    padding: 8px;
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 1px solid var(--theme-text-on-background-1);
+      border-radius: 10px 10px 0px 0px;
+      overflow: hidden;
+
+      .uploader-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        .avatar {
+          width: 20px;
+          height: 20px;
+          min-width: 20px;
+          align-self: center;
+          flex-basis: 1;
+        }
+        .name {
+          flex-basis: 1;
+          text-align: left;
+          padding-left: 8px;
+        }
+      }
+    }
+
+    .ant-table-thead {
+      tr {
+        padding: 8px;
+        th {
+          background-color: var(--theme-primary-6);
+          color: @gray-800;
+          font-size: @form-label-small;
+          font-weight: 400;
+          padding: 12px;
+          text-align: center;
+        }
+        th:nth-child(2) {
+          text-align: left;
+        }
+      }
+    }
+
+    .ant-table-tbody {
+      background-color: @white;
+      color: @gray-800;
+      text-overflow: ellipsis;
+      tr {
+        td {
+          padding: 12px;
+          text-align: center;
+        }
+        td:nth-child(2),
+        td:nth-child(3) {
+          color: var(--theme-primary-3);
+        }
+      }
+    }
+  }
+}

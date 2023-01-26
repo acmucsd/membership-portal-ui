@@ -34,6 +34,14 @@ const AdminPage: React.FC = () => {
       >
         Retroactive Attendance
       </Button>
+      <Button
+        className="admin-redirect-button"
+        onClick={() => {
+          history.push('/admin/userResumes');
+        }}
+      >
+        User Resumes
+      </Button>
     </div>
   );
 };

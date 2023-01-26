@@ -13,6 +13,11 @@ const AdminReducer = (state = initialState, action: AnyAction) => {
         ...state,
         emails: action.payload.emails,
       };
+    case 'GET_RESUMES':
+      return {
+        ...state,
+        resumes: action.payload.resumes,
+      };
     default:
       return state;
   }

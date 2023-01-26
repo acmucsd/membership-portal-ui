@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard';
 
 import Config from '../config';
 
-import { EVENT_DELETE, GET_EMAILS, ThunkActionCreator } from './adminTypes';
+import { EVENT_DELETE, GET_EMAILS, GET_RESUMES, ThunkActionCreator } from './adminTypes';
 import { notify, fetchService } from '../utils';
 import { logoutUser } from '../auth/authActions';
 
@@ -170,6 +170,22 @@ export const getAllEmails: ThunkActionCreator = () => async (dispatch) => {
     });
   } catch (error) {
     notify('Unable to fetch emails!', error.message);
+  }
+};
+
+export const getAllVisibleResumes: ThunkActionCreator = () => async (dispatch) => {
+  try {
+    const url = `${Config.API_URL}${Config.routes.resumes}`;
+    const resumes = await fetchService(url, 'GET', 'json', {
+      requiresAuthorization: true,
+      onFailCallback: () => dispatch(logoutUser()),
+    });
+    dispatch({
+      type: GET_RESUMES,
+      payload: resumes,
+    });
+  } catch (error) {
+    notify('Unable to fetch resumes!', error.message);
   }
 };
 
