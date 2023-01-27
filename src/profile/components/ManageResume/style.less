@@ -1,23 +1,45 @@
 @import "../../../styles/vars.less";
 
-.File-Upload {
-  input {
-    display: none;
+.ManageResume {
+  .upload-modal-button {
+    margin-top: 1rem;
   }
 
-  .upload-area {
-    background: @gray-400;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    width: 100%;
+  .section-label {
+    color: var(--theme-text-on-background-1);
+    font-size: @card-heading-2;
+    font-weight: 700;
+  }
+}
+
+.ManageResume-Modal {
+  .File-Upload {
+    margin-bottom: 2rem;
+
+    input {
+      display: none;
+    }
+
+    .upload-area {
+      background: @gray-400;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .done {
+      background: @green-100;
+
+      span {
+        color: @white;
+      }
+    }
   }
 
-  .done {
-    background: @green-100;
-
-    span {
-      color: @white;
+  .share-horizontal {
+    button {
+      margin: 0 0.5rem;
     }
   }
 }

@@ -88,7 +88,8 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
   };
 
   return (
-    <>
+    <div className="ManageResume">
+      <span className="section-label">Resume</span>
       <p>{getCurrResumeName()}</p>
       <p>
         <em>
@@ -105,7 +106,7 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
         title="Upload your resume!"
         onOk={uploadResume}
         onCancel={resetModal}
-        className="EditProfilePage-Modal"
+        className="ManageResume-Modal"
         footer={[
           <Button key="back" onClick={resetModal}>
             Cancel
@@ -132,7 +133,7 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
           <span>Share my resume with recruiters from ACM sponsor companies</span>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 
