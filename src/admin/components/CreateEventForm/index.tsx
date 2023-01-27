@@ -11,7 +11,7 @@ import './style.less';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const suborgs = ['General', 'AI', 'Cyber', 'Design', 'Hack', 'Innovate'];
+const suborgs = ['General', 'AI', 'Cyber'];
 
 interface CreateEventFormProps {
   handleBlur: FocusEventHandler;

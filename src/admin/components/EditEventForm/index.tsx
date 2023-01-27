@@ -12,7 +12,7 @@ import { Event } from '../../../types';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const suborgs = ['General', 'AI', 'Cyber', 'Design', 'Hack', 'Innovate'];
+const suborgs = ['General', 'AI', 'Cyber'];
 
 interface EventProp {
   start: string;
