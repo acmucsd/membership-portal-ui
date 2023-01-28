@@ -96,6 +96,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
             // TODO: Clean up type definitions
             {
               title: 'Uploader',
+              ellipsis: true,
               render: (text, record: any) => (
                 <div className="uploader-container">
                   <Avatar className="avatar" src={record.user.profilePicture || getDefaultProfile()} />
