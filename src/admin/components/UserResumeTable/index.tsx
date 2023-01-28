@@ -58,7 +58,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
         if (r.status === 200) return r.blob();
         return Promise.reject(new Error(r.statusText));
       });
-      const name = url.substring(url.lastIndexOf('/') + 1);
+      const name = decodeURI(url.substring(url.lastIndexOf('/') + 1));
       folder?.file(name, promise);
     });
     zip.generateAsync({ type: 'blob' }).then((blob) => saveAs(blob, filename));
@@ -91,7 +91,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
               title: 'File Name',
               dataIndex: 'url',
               ellipsis: true,
-              render: (url: string) => <a href={url}>{url.substring(url.lastIndexOf('/') + 1)}</a>,
+              render: (url: string) => <a href={url}>{decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))}</a>,
             },
             // TODO: Clean up type definitions
             {
