@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { replace } from 'connected-react-router';
 import { Modal } from 'antd';
 
-import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption } from '../../../types';
+import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
 import { addToCart } from '../../storeActions';
 
@@ -18,12 +18,12 @@ import './style.less';
 interface ItemPageProps {
   item: PublicMerchItemWithPurchaseLimits | undefined;
   addToCart: Function;
-  isAdmin: boolean;
+  isStoreAdmin: boolean;
   redirect: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
-  const { item, addToCart: addToCartFunction, isAdmin, redirect } = props;
+  const { item, addToCart: addToCartFunction, isStoreAdmin, redirect } = props;
 
   const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
@@ -33,7 +33,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
     return null;
   }
 
-  if (!isAdmin && item.hidden) {
+  if (!isStoreAdmin && item.hidden) {
     redirect('/store');
   }
 
@@ -166,7 +166,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
-  isAdmin: state.auth.admin,
+  isStoreAdmin: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemPage);
