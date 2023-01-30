@@ -25,19 +25,17 @@ interface UpcomingEventsContainerProps {
     },
   ];
   canEditEvents: boolean;
-  events: [
-    {
-      uuid: string;
-      cover: string;
-      description: string;
-      location: string;
-      eventLink: string | null;
-      pointValue: string;
-      title: string;
-      start: string;
-      end: string;
-    },
-  ];
+  events: {
+    uuid: string;
+    cover: string;
+    description: string;
+    location: string;
+    eventLink: string | null;
+    pointValue: string;
+    title: string;
+    start: string;
+    end: string;
+  }[];
   fetchAttendance: Function;
   fetchFutureEvents: Function;
 }
@@ -54,29 +52,35 @@ const UpcomingEventsContainer: React.FC<UpcomingEventsContainerProps> = (props) 
     <div>
       <h1 className="subtitle">Upcoming Events</h1>
       <EventsList>
-        {events.map((event) => {
-          const startDate = formatDate(event.start);
-          const startTime = formatTime(event.start);
-          const endDate = formatDate(event.end);
-          const endTime = formatTime(event.end);
-          const date = startDate === endDate ? `${startDate}, ${startTime} - ${endTime}` : `${startDate}, ${startTime} - ${endDate}, ${endTime}`;
-          const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
-          return (
-            <EventCard
-              key={`upcoming-${event.uuid}`}
-              uuid={event.uuid}
-              cover={event.cover || background}
-              date={date}
-              description={event.description}
-              location={event.location}
-              eventLink={event.eventLink}
-              points={event.pointValue}
-              title={event.title}
-              canEditEvents={canEditEvents}
-              attended={attended}
-            />
-          );
-        })}
+        {events.length === 0 ? (
+          <div key="upcoming-none" className="no-events">
+            No Events :(
+          </div>
+        ) : (
+          events.map((event) => {
+            const startDate = formatDate(event.start);
+            const startTime = formatTime(event.start);
+            const endDate = formatDate(event.end);
+            const endTime = formatTime(event.end);
+            const date = startDate === endDate ? `${startDate}, ${startTime} - ${endTime}` : `${startDate}, ${startTime} - ${endDate}, ${endTime}`;
+            const attended = attendance.some((attend) => attend.event.uuid === event.uuid);
+            return (
+              <EventCard
+                key={`upcoming-${event.uuid}`}
+                uuid={event.uuid}
+                cover={event.cover || background}
+                date={date}
+                description={event.description}
+                location={event.location}
+                eventLink={event.eventLink}
+                points={event.pointValue}
+                title={event.title}
+                canEditEvents={canEditEvents}
+                attended={attended}
+              />
+            );
+          })
+        )}
       </EventsList>
     </div>
   );
