@@ -84,3 +84,21 @@ export const postUserResume = async (file: string | Blob, sharing: boolean) => {
     throw error;
   }
 };
+
+export const updateResumeVisbility = async (uuid: string, sharing: boolean) => {
+  try {
+    const url = `${Config.API_URL}${Config.routes.user.resume}`;
+    await fetchService(`${url}/${uuid}`, 'PATCH', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify({
+        resume: {
+          isResumeVisible: sharing,
+        },
+      }),
+    });
+    notify('Updated resume visibility!', `Resume is ${sharing ? 'now' : 'no longer'} visible to recruiters.`);
+  } catch (error) {
+    notify("Couldn't update resume visibility!", '');
+    throw error;
+  }
+}

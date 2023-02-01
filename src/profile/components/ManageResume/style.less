@@ -1,17 +1,5 @@
 @import "../../../styles/vars.less";
 
-.ManageResume {
-  .upload-modal-button {
-    margin-top: 1rem;
-  }
-
-  .section-label {
-    color: var(--theme-text-on-background-1);
-    font-size: @card-heading-2;
-    font-weight: 700;
-  }
-}
-
 .ManageResume-Modal {
   .File-Upload {
     margin-bottom: 2rem;
@@ -44,6 +32,40 @@
   .share-horizontal {
     button {
       margin: 0 0.5rem;
+    }
+  }
+}
+
+.ManageResume {
+  .upload-modal-button {
+    margin-top: 1rem;
+  }
+
+  .section-label {
+    color: var(--theme-text-on-background-1);
+    font-size: @card-heading-2;
+    font-weight: 700;
+  }
+
+  .info-box {
+    background-color: var(--theme-surface-2);
+    border: 1px solid;
+    border-color: var(--theme-accent-line-1);
+    border-radius: 4px;
+    color: var(--theme-text-on-surface-1);
+    padding: 11px; // consistent with antd input box
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .share-horizontal {
+      display: flex;
+      margin-top: 0.5rem;
+
+      button {
+        margin: 0 0.5rem;
+      }
     }
   }
 }

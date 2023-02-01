@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Button, Modal, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { fetchUser } from '../../../auth/authActions';
 
 import './style.less';
-import { postUserResume } from '../../profileActions';
+import { postUserResume, updateResumeVisbility } from '../../profileActions';
 
 interface ManageResumeProps {
   user: {
@@ -28,8 +28,14 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
   const [modalOn, setModalOn] = useState(false);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [newResumeSharing, setNewResumeSharing] = useState(true);
+  const [currResumeSharing, setCurrResumeSharing] = useState(false);
   const [uploadState, setUploadState] = useState('none');
   const [uploaded, setUploaded] = useState(false);
+  const [onCooldown, setOnCooldown] = useState(false);
+
+  useEffect(() => {
+    setCurrResumeSharing(!!user.profile.resumes?.[0]?.isResumeVisible);
+  }, [user]);
 
   const uploadIcon = (
     <svg width="160" height="160" viewBox="0 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,19 +93,41 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
     return decodeURIComponent(url.substring(url.lastIndexOf('/') + 1));
   };
 
+  // This function is for the switch that toggles resume visibility directly,
+  // not the the switch in the modal
+  const visRef = useRef(currResumeSharing);
+  visRef.current = currResumeSharing;
+  const toggleVisbility = async () => {
+    if (!onCooldown) {
+      updateResumeVisbility(user.profile.resumes[0].uuid, !currResumeSharing);
+      setOnCooldown(true);
+      setTimeout(() => {
+        setOnCooldown(false);
+        if (visRef.current !== !currResumeSharing) updateResumeVisbility(user.profile.resumes[0].uuid, visRef.current);
+      }, 2000);
+    }
+    setCurrResumeSharing((prevSharing) => !prevSharing);
+  };
+
   return (
     <div className="ManageResume">
-      <span className="section-label">Resume</span>
-      <p>{getCurrResumeName()}</p>
-      <p>
-        <em>
-          {user.profile.resumes?.[0] &&
-            (user.profile.resumes?.[0]?.isResumeVisible ? 'Resume visible to recruiters' : 'Resume not visible to recruiters')}
-        </em>
-      </p>
+      <div className="ant-form-item-label">
+        <p className="section-label">Resume</p>
+      </div>
+      {user.profile.resumes?.[0] && (
+        <div className="info-box">
+          <a href={user.profile.resumes?.[0]?.url} download>
+            <b>{getCurrResumeName()}</b>
+          </a>
+          <div className="share-horizontal">
+            <Switch size="small" defaultChecked className="switch" checked={currResumeSharing} onClick={toggleVisbility} />
+            <p>Share my resume with recruiters from ACM sponsor companies</p>
+          </div>
+        </div>
+      )}
       <Button type="primary" className="upload-modal-button" onClick={() => setModalOn(true)}>
         <UploadOutlined />
-        Add Resume
+        {user.profile.resumes?.[0] ? 'Update Resume' : 'Add Resume'}
       </Button>
       <Modal
         visible={modalOn}
@@ -129,7 +157,13 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
           </form>
         </div>
         <div className="share-horizontal">
-          <Switch size="small" defaultChecked className="switch" checked={newResumeSharing} onClick={() => setNewResumeSharing(!newResumeSharing)} />
+          <Switch
+            size="small"
+            defaultChecked
+            className="switch"
+            checked={newResumeSharing}
+            onClick={() => setNewResumeSharing((prevSharing) => !prevSharing)}
+          />
           <span>Share my resume with recruiters from ACM sponsor companies</span>
         </div>
       </Modal>
