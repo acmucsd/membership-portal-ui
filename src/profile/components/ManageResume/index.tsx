@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -95,18 +95,15 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
 
   // This function is for the switch that toggles resume visibility directly,
   // not the the switch in the modal
-  const visRef = useRef(currResumeSharing);
-  visRef.current = currResumeSharing;
   const toggleVisbility = async () => {
     if (!onCooldown) {
       updateResumeVisbility(user.profile.resumes[0].uuid, !currResumeSharing);
       setOnCooldown(true);
       setTimeout(() => {
         setOnCooldown(false);
-        if (visRef.current !== !currResumeSharing) updateResumeVisbility(user.profile.resumes[0].uuid, visRef.current);
-      }, 2000);
+      }, 1000);
+      setCurrResumeSharing((prevSharing) => !prevSharing);
     }
-    setCurrResumeSharing((prevSharing) => !prevSharing);
   };
 
   return (
