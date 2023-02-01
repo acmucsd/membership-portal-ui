@@ -101,4 +101,4 @@ export const updateResumeVisbility = async (uuid: string, sharing: boolean) => {
     notify("Couldn't update resume visibility!", '');
     throw error;
   }
-}
+};
