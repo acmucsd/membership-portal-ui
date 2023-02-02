@@ -31,31 +31,27 @@
 
     .ant-table-wrapper {
       border: none;
+      overflow: hidden;
+      width: 100%;
 
-      .table {
-        overflow: hidden;
-        width: 100%;
+      .uploader-container {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        justify-content: center;
 
-        .uploader-container {
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          gap: 8px;
-          justify-content: center;
+        .avatar {
+          align-self: center;
+          flex-basis: 1;
+          height: 20px;
+          min-width: 20px;
+          width: 20px;
+        }
 
-          .avatar {
-            align-self: center;
-            flex-basis: 1;
-            height: 20px;
-            min-width: 20px;
-            width: 20px;
-          }
-
-          .name {
-            flex-basis: 1;
-            padding-left: 8px;
-            text-align: left;
-          }
+        .name {
+          flex-basis: 1;
+          text-align: left;
         }
       }
 

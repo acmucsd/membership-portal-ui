@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 import UserResumeTable from '../components/UserResumeTable';
 import { getAllVisibleResumes as getAllVisibleResumesConnect } from '../adminActions';
+import { UserResume } from '../../types';
 
 interface UserResumesTableContainerProps {
-  resumes: any;
+  resumes: UserResume[];
   getAllVisibleResumes: Function;
 }
 

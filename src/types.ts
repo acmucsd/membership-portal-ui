@@ -174,3 +174,11 @@ export interface PublicOrderPickupEvent {
   orders?: PublicOrderWithItems[];
   orderLimit?: number;
 }
+
+export interface UserResume {
+  uuid: React.Key;
+  isResumeVisible: boolean;
+  url: string;
+  lastUpdated: string;
+  user: PublicProfile;
+}
