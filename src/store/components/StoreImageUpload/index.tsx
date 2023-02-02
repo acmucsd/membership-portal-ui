@@ -19,7 +19,9 @@ const StoreImageUpload: React.FC<StoreImageUploadProps> = (props) => {
   const [fileList, setFileList] = useState<any[]>([]);
 
   const handleChange: (info: UploadChangeParam) => void = ({ fileList: newFileList }) => {
-    if (newFileList.length === 1) {
+    if (newFileList.length === 0) {
+      setFileList([]);
+    } else if (newFileList.length === 1) {
       setFileList([{ ...newFileList[0], name: 'New Image' }]);
     } else {
       setFileList([{ ...newFileList[1], name: 'New Image' }]);
