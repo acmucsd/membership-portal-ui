@@ -96,14 +96,13 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
   // This function is for the switch that toggles resume visibility directly,
   // not the the switch in the modal
   const toggleVisbility = async () => {
-    if (!onCooldown) {
-      updateResumeVisbility(user.profile.resumes[0].uuid, !currResumeSharing);
-      setOnCooldown(true);
-      setTimeout(() => {
-        setOnCooldown(false);
-      }, 1000);
-      setCurrResumeSharing((prevSharing) => !prevSharing);
-    }
+    if (onCooldown) return;
+    updateResumeVisbility(user.profile.resumes[0].uuid, !currResumeSharing);
+    setOnCooldown(true);
+    setTimeout(() => {
+      setOnCooldown(false);
+    }, 1000);
+    setCurrResumeSharing((prevSharing) => !prevSharing);
   };
 
   return (
@@ -111,6 +110,7 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
       <div className="ant-form-item-label">
         <p className="section-label">Resume</p>
       </div>
+      <br />
       {user.profile.resumes?.[0] && (
         <div className="info-box">
           <a href={user.profile.resumes?.[0]?.url} download>
