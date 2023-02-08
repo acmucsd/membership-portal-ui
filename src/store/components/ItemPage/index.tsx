@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { replace } from 'connected-react-router';
 import { Modal } from 'antd';
 
-import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption } from '../../../types';
+import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
 import { addToCart } from '../../storeActions';
 
@@ -16,10 +18,12 @@ import './style.less';
 interface ItemPageProps {
   item: PublicMerchItemWithPurchaseLimits | undefined;
   addToCart: Function;
+  isStoreAdmin: boolean;
+  redirect: Function;
 }
 
 const ItemPage: React.FC<ItemPageProps> = (props) => {
-  const { item, addToCart: addToCartFunction } = props;
+  const { item, addToCart: addToCartFunction, isStoreAdmin, redirect } = props;
 
   const [currentOption, setCurrentOption] = useState<PublicMerchItemOption>();
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
@@ -29,12 +33,16 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
     return null;
   }
 
+  if (!isStoreAdmin && item.hidden) {
+    redirect('/store');
+  }
+
   const { outOfStock: itemOutOfStock } = processItem(item.options);
   const itemPrice = processItemPrice(item.options);
   const { outOfStock: optionOutOfStock } = currentOption ? processItem([currentOption]) : { outOfStock: false };
   const itemOptionPrice = currentOption ? processItemPrice([currentOption]) : null;
 
-  const { itemName, description, hasVariantsEnabled, options, picture } = item;
+  const { itemName, description, hasVariantsEnabled, options, picture, hidden } = item;
 
   const limitHit = item.monthlyRemaining === 0 || item.lifetimeRemaining === 0;
   let limitMessage;
@@ -97,7 +105,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
               type="primary"
               size="medium"
               text="Add to Cart"
-              disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit}
+              disabled={(hasVariantsEnabled && !currentOption) || itemOutOfStock || (currentOption && optionOutOfStock) || limitHit || hidden}
               onClick={() => {
                 if (hasVariantsEnabled) {
                   addToCartFunction({ item, option: currentOption, quantity: currentQuantity });
@@ -150,4 +158,15 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   );
 };
 
-export default connect(null, { addToCart })(ItemPage);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  redirect: (rejectRoute: string) => {
+    dispatch(replace(rejectRoute));
+  },
+  addToCart,
+});
+
+const mapStateToProps = (state: { [key: string]: any }) => ({
+  isStoreAdmin: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemPage);
