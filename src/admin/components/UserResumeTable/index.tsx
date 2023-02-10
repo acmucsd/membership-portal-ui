@@ -48,7 +48,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
     zip.generateAsync({ type: 'blob' }).then((blob) => saveAs(blob, filename));
   };
 
-  const handleDonwloadZip = () => {
+  const handleDownloadZip = () => {
     const selectedResumeLinks: string[] = selectedRowKeys.map((key) => resumes.find((resume) => resume.uuid === key)?.url ?? '');
     saveZip(fileName, selectedResumeLinks);
   };
@@ -87,18 +87,19 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
     },
   ];
 
+  const isDownloadButtonDisabled = selectedRowKeys.length < 1;
+
   return (
     <div className="user-resume-table">
       <div className="download-button-container">
-        {selectedRowKeys.length > 0 ? (
-          <Button type="primary" onClick={handleDonwloadZip} className="download-button">
-            Download ZIP
-          </Button>
-        ) : (
-          <Button type="primary" className="download-button-disabled" disabled>
-            Download ZIP
-          </Button>
-        )}
+        <Button
+          type="primary"
+          onClick={handleDownloadZip}
+          className={`download-button${isDownloadButtonDisabled ? '-disabled' : ''}`}
+          disabled={isDownloadButtonDisabled}
+        >
+          Download ZIP
+        </Button>
       </div>
       <div className="table-container">
         <Table
