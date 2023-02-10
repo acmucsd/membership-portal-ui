@@ -54,7 +54,9 @@ const ManageResume: React.FC<ManageResumeProps> = (props) => {
     setUploadState('uploading');
 
     if (resumeFile === null) return;
-    await postUserResume(resumeFile, newResumeSharing);
+    await postUserResume(resumeFile, newResumeSharing).catch(() => {
+      return resetModal();
+    });
     await dispatch(fetchUser());
 
     resetModal();
