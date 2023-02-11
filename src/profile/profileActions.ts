@@ -63,3 +63,42 @@ export const updateEmail = (email: string) => async (dispatch) => {
     notify('API Error', error.message);
   }
 };
+
+export const postUserResume = async (file: string | Blob, sharing: boolean) => {
+  try {
+    const formdata = new FormData();
+    formdata.append('file', file);
+    formdata.append('isResumeVisible', sharing.toString());
+
+    const url = `${Config.API_URL}${Config.routes.user.resume}`;
+    const data = await fetchService(url, 'POST', 'application/pdf', {
+      requiresAuthorization: true,
+      payload: formdata,
+    });
+
+    notify('Updated resume!', '');
+
+    return data;
+  } catch (error) {
+    notify('Unable to update resume!', error.message);
+    throw error;
+  }
+};
+
+export const updateResumeVisbility = async (uuid: string, sharing: boolean) => {
+  try {
+    const url = `${Config.API_URL}${Config.routes.user.resume}`;
+    await fetchService(`${url}/${uuid}`, 'PATCH', 'json', {
+      requiresAuthorization: true,
+      payload: JSON.stringify({
+        resume: {
+          isResumeVisible: sharing,
+        },
+      }),
+    });
+    notify('Updated resume visibility!', `Resume is ${sharing ? 'now' : 'no longer'} visible to recruiters.`);
+  } catch (error) {
+    notify("Couldn't update resume visibility!", '');
+    throw error;
+  }
+};

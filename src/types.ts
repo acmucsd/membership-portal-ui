@@ -6,7 +6,7 @@ import { Moment } from 'moment';
 
 // generic fetch function
 export type HttpRequestMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
-export type MimeType = 'json' | 'image';
+export type MimeType = 'json' | 'image' | 'application/pdf';
 export type FetchServiceOptions = {
   requiresAuthorization: boolean;
   payload?: any;

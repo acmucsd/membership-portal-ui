@@ -16,6 +16,7 @@ export default {
       user: '/api/v2/user',
       activity: '/api/v2/user/activity',
       profilepicture: '/api/v2/user/picture',
+      resume: '/api/v2/resume',
     },
     activity: '/api/v2/activity',
     auth: {

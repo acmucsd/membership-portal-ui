@@ -1,0 +1,71 @@
+@import "../../../styles/vars.less";
+
+.ManageResume-Modal {
+  .File-Upload {
+    margin-bottom: 2rem;
+
+    input {
+      display: none;
+    }
+
+    span {
+      color: @gray-900; // theme-text-on-background-1 for light mode
+    }
+
+    .upload-area {
+      background: @gray-400;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .done {
+      background: @green-100;
+
+      span {
+        color: @white;
+      }
+    }
+  }
+
+  .share-horizontal {
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+}
+
+.ManageResume {
+  .upload-modal-button {
+    margin-top: 1rem;
+  }
+
+  .section-label {
+    color: var(--theme-text-on-background-1);
+    font-size: @card-heading-2;
+    font-weight: 700;
+  }
+
+  .info-box {
+    background-color: var(--theme-surface-2);
+    border: 1px solid;
+    border-color: var(--theme-accent-line-1);
+    border-radius: 4px;
+    color: var(--theme-text-on-surface-1);
+    padding: 11px; // consistent with antd input box
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .share-horizontal {
+      display: flex;
+      margin-top: 0.5rem;
+
+      button {
+        margin: 0 0.5rem;
+      }
+    }
+  }
+}
