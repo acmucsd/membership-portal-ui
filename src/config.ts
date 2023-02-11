@@ -38,6 +38,7 @@ export default {
       future: '/api/v2/event/future',
       picture: '/api/v2/event/picture',
     },
+    resumes: '/api/v2/resume',
     attendance: '/api/v2/attendance',
     leaderboard: '/api/v2/leaderboard',
     store: {

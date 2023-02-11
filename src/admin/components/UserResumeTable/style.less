@@ -1,0 +1,113 @@
+@import "../../../styles/vars.less";
+
+.user-resume-table {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .download-button-container {
+    padding: 8px;
+
+    .download-button {
+      background-color: var(--theme-surface-2);
+      border-color: @black;
+      color: var(--theme-text-on-background-1);
+      font-size: @general-body;
+      font-weight: 500;
+    }
+
+    .download-button-disabled {
+      background-color: var(--theme-disabled);
+      border-color: @black;
+      color: var(--theme-text-on-background-1);
+      font-size: @general-body;
+      font-weight: 500;
+    }
+  }
+
+  .table-container {
+    padding: 8px;
+
+    .ant-table-wrapper {
+      border: none;
+      overflow: hidden;
+      width: 100%;
+
+      .uploader-container {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        justify-content: center;
+
+        .avatar {
+          align-self: center;
+          flex-basis: 1;
+          height: 20px;
+          min-width: 20px;
+          width: 20px;
+        }
+
+        .name {
+          flex-basis: 1;
+          text-align: left;
+        }
+      }
+
+      .ant-table-thead {
+        tr {
+          padding: 8px;
+
+          th {
+            background-color: var(--theme-primary-6);
+            color: @gray-800;
+            font-size: @form-label-small;
+            font-weight: 400;
+            padding: 12px;
+            text-align: center;
+          }
+
+          th:first-child {
+            border-top-left-radius: 10px;
+          }
+
+          th:last-child {
+            border-top-right-radius: 10px;
+          }
+
+          th:nth-child(2) {
+            text-align: left;
+          }
+        }
+      }
+
+      .ant-table-tbody {
+        background-color: @white;
+        color: @gray-800;
+        text-overflow: ellipsis;
+
+        tr {
+          td {
+            padding: 12px;
+            text-align: center;
+          }
+
+          td:nth-child(2),
+          td:nth-child(3) {
+            color: var(--theme-primary-3);
+          }
+        }
+      }
+
+      .ant-table-tbody > tr.ant-table-row:hover > td,
+      .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+        background-color: @gray-200;
+      }
+
+      .ant-pagination {
+        padding: 8px;
+      }
+    }
+  }
+}
