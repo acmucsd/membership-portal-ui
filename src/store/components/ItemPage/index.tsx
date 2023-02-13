@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { replace } from 'connected-react-router';
 import { Modal } from 'antd';
 
-import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType, CartItem } from '../../../types';
+import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
 import { addToCart } from '../../storeActions';
 
@@ -160,7 +160,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
 
 const mapDispatchToProps = {
   addToCart,
-  redirect: (rejectRoute: string) => (dispatch: any) => {
+  redirect: (rejectRoute: string) => (dispatch: Dispatch) => {
     dispatch(replace(rejectRoute));
   },
 };
