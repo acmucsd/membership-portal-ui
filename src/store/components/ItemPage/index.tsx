@@ -158,12 +158,12 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirect: (rejectRoute: string) => {
+const mapDispatchToProps = {
+  addToCart,
+  redirect: (rejectRoute: string) => (dispatch: Dispatch) => {
     dispatch(replace(rejectRoute));
   },
-  addToCart,
-});
+};
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   isStoreAdmin: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
