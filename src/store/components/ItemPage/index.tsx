@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { replace } from 'connected-react-router';
 import { Modal } from 'antd';
 
-import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType } from '../../../types';
+import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType, CartItem } from '../../../types';
 import { processItem, processItemPrice } from '../../../utils';
 import { addToCart } from '../../storeActions';
 
@@ -158,12 +158,12 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  redirect: (rejectRoute: string) => {
+const mapDispatchToProps = {
+  addToCart,
+  redirect: (rejectRoute: string) => (dispatch: any) => {
     dispatch(replace(rejectRoute));
   },
-  addToCart,
-});
+};
 
 const mapStateToProps = (state: { [key: string]: any }) => ({
   isStoreAdmin: [UserAccessType.ADMIN, UserAccessType.MERCH_STORE_MANAGER].includes(state.auth.profile.accessType),
