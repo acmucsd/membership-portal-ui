@@ -101,7 +101,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
   const creatingItem = !item;
 
   const initialValues: AdminItemPageForm = {
-    collection: item?.collection?.uuid ?? '',
+    collection: item?.collection?.title ?? '',
     itemName: item?.itemName ?? '',
     description: item?.description ?? '',
     existingPicture: item?.picture,
