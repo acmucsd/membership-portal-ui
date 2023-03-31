@@ -52,10 +52,10 @@ export interface PublicProfile {
   uuid: Uuid;
   firstName: string;
   lastName: string;
-  profilePicture: string;
+  profilePicture: string | null;
   graduationYear: number;
   major: string;
-  bio: string;
+  bio: string | null;
   points: number;
 }
 
