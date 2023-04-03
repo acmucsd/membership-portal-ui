@@ -1,10 +1,9 @@
 // component for admin table to use inside of userresumetable component
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Table, Button, Avatar } from 'antd';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import './style.less';
-import { array } from 'prop-types';
 import { getDefaultProfile } from '../../../utils';
 import { UserResume } from '../../../types';
 
@@ -30,7 +29,6 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
   };
 
   const fileName = 'acm_resumes';
-
 
   // const categoriesOfYear = props.resumes.filter((value : UserResume, index : number) =>
   //     {
@@ -102,8 +100,6 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       sorter: (record1: UserResume, record2: UserResume) => {
         const fullName1 = `${record1.user.firstName} ${record1.user.lastName}`;
         const fullName2 = `${record2.user.firstName} ${record2.user.lastName}`;
-        console.log(fullName1);
-        console.log(fullName2);
         return fullName1.localeCompare(fullName2);
       },
     },
@@ -125,7 +121,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       },
 
       // Value we are filtering by, record = content of current row
-      onFilter: (value: string, record: UserResume) => `${record.user.graduationYear}` == value,
+      onFilter: (value: string, record: UserResume) => `${record.user.graduationYear}` === value,
     },
     {
       title: 'Date Uploaded',
@@ -134,16 +130,12 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
 
       onFilter: (value, record) => record.name.indexOf(value) === 0,
       sorter: (a, b) => {
-        console.log(a.lastUpdated);
-        console.log(b.lastUpdated);
         return a.lastUpdated.localeCompare(b.lastUpdated);
       },
     },
   ];
 
   const isDownloadButtonDisabled = selectedRowKeys.length < 1;
-
-  console.log(`Resumes before return ${resumes}`);
 
   return (
     <div className="user-resume-table">
