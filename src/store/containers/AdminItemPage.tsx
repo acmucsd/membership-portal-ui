@@ -25,6 +25,13 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
 
   useEffect(() => {
     if (uuid) {
+      fetchCollectionsFunction()
+        .then((value) => {
+          setCollections(value);
+        })
+        .catch((reason) => {
+          notify('API Error', reason.message || reason);
+        });
       fetchItemFunction(uuid)
         .then((value) => {
           setItem(value);
@@ -33,14 +40,6 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
           notify('API Error', reason.message || reason);
         });
     }
-
-    fetchCollectionsFunction()
-      .then((value) => {
-        setCollections(value);
-      })
-      .catch((reason) => {
-        notify('API Error', reason.message || reason);
-      });
   }, [props, uuid]);
 
   return (
