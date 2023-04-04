@@ -13,39 +13,29 @@ interface UserResumeTableProps {
 
 const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
   const { resumes } = props;
-  const [yearFilters, setYearFilters] = useState([{ text: '2026', value: '2026' }]);
+  const [yearFilters, setYearFilters] = useState([{ text: '', value: '' }]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const updateYearFilters = () => {
     setYearFilters(
+      // Resumes.indexOf(value) === index checks for first occurance
       resumes
-        .filter((value: UserResume, index: number) => {
-          // Resumes.indexOf(value) === index checks for first occurance
-          return resumes.indexOf(value) === index;
-        })
+        .filter((value: UserResume, index: number) => resumes.indexOf(value) === index)
         .sort()
-        .map((element) => ({ text: `${element.user.graduationYear}`, value: `${element.user.graduationYear}` })),
+        .map((element) => ({
+          text: `${element.user.graduationYear}`,
+          value: `${element.user.graduationYear}`,
+        })),
     );
   };
 
   const fileName = 'acm_resumes';
-
-  // const categoriesOfYear = props.resumes.filter((value : UserResume, index : number) =>
-  //     {
-  //         //Resumes.indexOf(value) === index checks for first occurance
-  //         return resumes.indexOf(value) === index;
-  //     }).sort().
-  //     map(element => ({text: `${element.user.graduationYear}`, value: `${element.user.graduationYear}`}));
 
   const resumeSelection = {
     onChange: (newSelectedRowKeys) => {
       setSelectedRowKeys(newSelectedRowKeys);
     },
   };
-
-  // const handleChange = (pagination, filters, sorter) => {
-  //   console.log('Various parameters', pagination, filters, sorter);
-  // };
 
   const reformatDate = (dateString) => {
     const date = new Date(dateString);
@@ -77,7 +67,6 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
     saveZip(fileName, selectedResumeLinks);
   };
 
-  // TODO: Look for sorter key inside documentation
   const columns = [
     {
       title: 'File Name',
@@ -129,9 +118,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       render: (date: string) => <span>{reformatDate(date)}</span>,
 
       onFilter: (value, record) => record.name.indexOf(value) === 0,
-      sorter: (a, b) => {
-        return a.lastUpdated.localeCompare(b.lastUpdated);
-      },
+      sorter: (user1, user2) => user1.lastUpdated.localeCompare(user2.lastUpdated),
     },
   ];
 

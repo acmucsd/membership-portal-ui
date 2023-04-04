@@ -165,7 +165,6 @@ const UserResumesTableContainer: React.FC<UserResumesTableContainerProps> = (pro
     getAllVisibleResumes();
   }, [getAllVisibleResumes]);
 
-  // Can set resumes to testingData to use testingData
   return <UserResumeTable resumes={resumes} />;
 };
 
