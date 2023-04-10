@@ -81,7 +81,7 @@ const App = () => {
               <Route exact path="/profile/:uuid" component={protectRoute(ProfilePage, WithRouteOptions.AUTHENTICATED, '/login')} />
               <Route exact path="/editProfile" component={protectRoute(ProfileUpdatePage, WithRouteOptions.AUTHENTICATED, '/login')} />
               <Route exact path="/register" component={RegisterPage} />
-              <Route exact path="/resetPassword/:code" component={ResetPage} />
+              <Route exact path="/reset-password/:code" component={ResetPage} />
               <Route
                 exact
                 path="/store"
@@ -124,7 +124,7 @@ const App = () => {
               <Route exact path="/store/admin/fulfill" component={protectRoute(AdminFulfillPage, WithRouteOptions.STORE, '/')} />
               <Route exact path="/store/admin/fulfill/:uuid" component={protectRoute(AdminFulfillPage, WithRouteOptions.STORE, '/')} />
               <Route exact path="/store/admin/quantities" component={protectRoute(AdminQuantitiesPage, WithRouteOptions.STORE, '/')} />
-              <Route exact path="/verifyEmail/:code" component={EmailVerficationPage} />
+              <Route exact path="/verify-email/:code" component={EmailVerficationPage} />
               <Route
                 exact
                 path="/resendEmailVerification"

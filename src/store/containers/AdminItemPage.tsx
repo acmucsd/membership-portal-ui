@@ -24,19 +24,18 @@ const AdminItemPageContainer: React.FC<AdminItemPageContainerProps> = (props) =>
   const [collections, setCollections] = useState<PublicMerchCollection[]>([]);
 
   useEffect(() => {
-    if (uuid) {
-      fetchItemFunction(uuid)
-        .then((value) => {
-          setItem(value);
-        })
-        .catch((reason) => {
-          notify('API Error', reason.message || reason);
-        });
-    }
-
     fetchCollectionsFunction()
-      .then((value) => {
-        setCollections(value);
+      .then((collection) => {
+        setCollections(collection);
+        if (uuid) {
+          fetchItemFunction(uuid)
+            .then((value) => {
+              setItem(value);
+            })
+            .catch((reason) => {
+              notify('API Error', reason.message || reason);
+            });
+        }
       })
       .catch((reason) => {
         notify('API Error', reason.message || reason);
