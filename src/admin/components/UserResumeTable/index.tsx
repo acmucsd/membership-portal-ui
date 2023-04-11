@@ -1,9 +1,10 @@
 // component for admin table to use inside of userresumetable component
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Avatar } from 'antd';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import './style.less';
+import { ColumnFilterItem } from 'antd/lib/table';
 import { getDefaultProfile } from '../../../utils';
 import { UserResume } from '../../../types';
 
@@ -11,9 +12,9 @@ interface UserResumeTableProps {
   resumes: UserResume[];
 }
 
-interface YearFilter {
+interface YearFilter extends ColumnFilterItem {
   text: string;
-  value: number;
+  value: string;
 }
 
 const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
@@ -25,11 +26,11 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
     setYearFilters(
       // Resumes.indexOf(value) === index checks for first occurance
       resumes
-        .filter((value: UserResume, index: number) => resumes.indexOf(value) === index)
-        .sort()
+        ?.filter((value: UserResume, index: number) => resumes.indexOf(value) === index)
+        .sort((resume1, resume2) => resume1.user.graduationYear - resume2.user.graduationYear)
         .map((element) => ({
           text: `${element.user.graduationYear}`,
-          value: element.user.graduationYear,
+          value: `${element.user.graduationYear}`,
         })),
     );
   };
@@ -66,6 +67,10 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
     });
     zip.generateAsync({ type: 'blob' }).then((blob) => saveAs(blob, filename));
   };
+
+  useEffect(() => {
+    updateYearFilters();
+  }, [resumes]);
 
   const handleDownloadZip = () => {
     const selectedResumeLinks: string[] = selectedRowKeys.map((key) => resumes.find((resume) => resume.uuid === key)?.url ?? '');
@@ -106,7 +111,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       dataIndex: 'user.graduationYear',
 
       filterMultiple: true,
-      filters: yearFilters, // [{ text: "2016", value: 2016 }],
+      filters: yearFilters, // [{ text: "2016", value: "2016" }],
 
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
@@ -115,7 +120,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       },
 
       // Value we are filtering by, record = content of current row
-      onFilter: (value: number, record: UserResume) => record.user.graduationYear === value,
+      onFilter: (value: string, record: UserResume) => `${record.user.graduationYear}` === value,
     },
     {
       title: 'Date Uploaded',
