@@ -11,9 +11,14 @@ interface UserResumeTableProps {
   resumes: UserResume[];
 }
 
+interface YearFilter {
+  text: string;
+  value: number;
+}
+
 const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
   const { resumes } = props;
-  const [yearFilters, setYearFilters] = useState([{ text: '', value: '' }]);
+  const [yearFilters, setYearFilters] = useState<YearFilter[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const updateYearFilters = () => {
@@ -24,7 +29,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
         .sort()
         .map((element) => ({
           text: `${element.user.graduationYear}`,
-          value: `${element.user.graduationYear}`,
+          value: element.user.graduationYear,
         })),
     );
   };
@@ -101,7 +106,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       dataIndex: 'user.graduationYear',
 
       filterMultiple: true,
-      filters: yearFilters, // [{ text: "2016", value: "2016" }],
+      filters: yearFilters, // [{ text: "2016", value: 2016 }],
 
       onFilterDropdownVisibleChange: (visible) => {
         if (visible) {
@@ -110,14 +115,12 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       },
 
       // Value we are filtering by, record = content of current row
-      onFilter: (value: string, record: UserResume) => `${record.user.graduationYear}` === value,
+      onFilter: (value: number, record: UserResume) => record.user.graduationYear === value,
     },
     {
       title: 'Date Uploaded',
       dataIndex: 'lastUpdated',
       render: (date: string) => <span>{reformatDate(date)}</span>,
-
-      onFilter: (value, record) => record.name.indexOf(value) === 0,
       sorter: (user1, user2) => user1.lastUpdated.localeCompare(user2.lastUpdated),
     },
   ];
