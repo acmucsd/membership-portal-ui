@@ -112,13 +112,6 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
 
       filterMultiple: true,
       filters: yearFilters, // [{ text: "2016", value: "2016" }],
-
-      onFilterDropdownVisibleChange: (visible) => {
-        if (visible) {
-          setTimeout(() => updateYearFilters());
-        }
-      },
-
       // Value we are filtering by, record = content of current row
       onFilter: (value: string, record: UserResume) => `${record.user.graduationYear}` === value,
     },
