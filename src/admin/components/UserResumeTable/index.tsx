@@ -119,8 +119,7 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
       title: 'Date Uploaded',
       dataIndex: 'lastUpdated',
       render: (date: string) => <span>{reformatDate(date)}</span>,
-      sorter: (user1, user2) => new Date(user1.lastUpdated) < new Date(user2.lastUpdated)
-,
+      sorter: (user1, user2) => user1.lastUpdated.localeCompare(user2.lastUpdated),
     },
   ];
 
