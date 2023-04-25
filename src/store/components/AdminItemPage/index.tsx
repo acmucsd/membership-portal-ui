@@ -113,14 +113,17 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
     // Variants Enabled
     categoryName: (item?.hasVariantsEnabled && item?.options[0].metadata?.type) || '',
     options: item?.hasVariantsEnabled
-      ? item?.options.map((option) => ({
-          uuid: option.uuid,
-          value: option.metadata?.value ?? '',
-          price: option.price.toString(),
-          quantity: option.quantity.toString(),
-          quantityToAdd: '0',
-          discountPercentage: option.discountPercentage.toString(),
-        }))
+      ? item?.options
+          .map((option, index) => ({
+            uuid: option.uuid,
+            value: option.metadata?.value ?? '',
+            price: option.price.toString(),
+            quantity: option.quantity.toString(),
+            quantityToAdd: '0',
+            discountPercentage: option.discountPercentage.toString(),
+            position: option.metadata?.position ?? index,
+          }))
+          .sort((option1, option2) => option1.position - option2.position)
       : [],
     // Variants Disabled
     quantity: (!item?.hasVariantsEnabled && item?.options[0].quantity?.toString()) || '',

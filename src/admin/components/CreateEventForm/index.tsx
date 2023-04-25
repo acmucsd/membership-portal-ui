@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler } from 'react';
+import React, { ChangeEventHandler, FocusEventHandler, FormEventHandler, useState, useEffect } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
@@ -54,6 +54,13 @@ interface CreateEventFormProps {
 const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
   const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values, errors, copyLink } = props;
   const history = useHistory();
+
+  const [file, setFile] = useState<any>(null);
+  const [fileList, setFileList] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!file) setFileList([]);
+  }, [file]);
 
   return (
     <div className="create-event-form">
@@ -141,7 +148,10 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
                 listType="picture"
                 customRequest={(options) => {
                   setFieldValue('cover', options.file);
+                  setFile(options.file);
                 }}
+                onChange={(info) => setFileList([...info.fileList])}
+                fileList={fileList}
               >
                 <Button>Click to upload</Button>
               </Upload>
@@ -156,7 +166,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = (props) => {
             <TextArea name="description" className="area-box" value={values.description} onChange={handleChange} onBlur={handleBlur} />
             <p className="form-error">{errors.description ? errors.description : null}</p>
           </Form.Item>
-          <Button type="primary" htmlType="submit" className="save-button">
+          <Button type="primary" htmlType="submit" className="save-button" onClick={() => setFile(null)}>
             Add Event
           </Button>
           <Button
