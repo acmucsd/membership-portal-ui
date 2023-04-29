@@ -7,6 +7,7 @@ import './style.less';
 import { ColumnFilterItem } from 'antd/lib/table';
 import { getDefaultProfile } from '../../../utils';
 import { UserResume } from '../../../types';
+import { values } from 'lodash';
 
 interface UserResumeTableProps {
   resumes: UserResume[];
@@ -26,8 +27,10 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
     setYearFilters(
       // Resumes.indexOf(value) === index checks for first occurance
       resumes
-        ?.filter((value: UserResume, index: number) => resumes.indexOf(value) === index)
-        .sort((resume1, resume2) => resume1.user.graduationYear - resume2.user.graduationYear)
+        ?.sort((resume1, resume2) => resume1.user.graduationYear - resume2.user.graduationYear)
+        .filter(
+          (value: UserResume, index: number) => resumes.map((resume) => resume.user.graduationYear).indexOf(value.user.graduationYear) === index,
+        )
         .map((element) => ({
           text: `${element.user.graduationYear}`,
           value: `${element.user.graduationYear}`,

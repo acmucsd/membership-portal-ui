@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_LEN 256 // maximum length of a single word
+
+char rotate(char c, int n){
+    if(c == ' ' || c == '\n'){
+        return c;
+    }
+
+    if(c >= 'A' && c <= 'Z'){
+     //fprintf(stdout, "%d vs %d after %d shift\n", (int)(('A'+c)%26), (int)(('A'+c+n)%26),n);  
+     return 'A' + ((c-'A'+n) % 26);
+    }else if(c >= 'a' && c <= 'z'){ 
+      return 'a' + ((c-'a'+n) % 26);
+    }else{
+       return c;
+    }
+}
+
+int main(int argc, char* argv[]) {
+  //char word[MAX_LEN];
+  
+  if(argc >3){
+    fprintf(stdout, "Too many arguments: %i", argc);
+    return EXIT_FAILURE;
+  }
+
+  FILE* fp = fopen( argv[1], "r" );
+
+  if(fp == NULL) {
+    perror("Could not open input file.");
+    return 1;
+  }
+
+  // TODO: Write your code here to implement the encryption.
+  int shift = atoi(argv[2]);
+   char c;
+   //int i = 0;
+   while((c = fgetc(fp)) != EOF){
+        fputc(rotate(c, shift), stdout);
+        //word[i] = rotate(c,shift);
+        //i++;
+    }
+
+
+    fputc('\n', stdout);
+    fclose(fp);
+    return EXIT_SUCCESS;
+  // clean up gracefully
+  fclose(fp);
+
+  return 0;
+}
