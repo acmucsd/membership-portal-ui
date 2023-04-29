@@ -7,7 +7,6 @@ import './style.less';
 import { ColumnFilterItem } from 'antd/lib/table';
 import { getDefaultProfile } from '../../../utils';
 import { UserResume } from '../../../types';
-import { values } from 'lodash';
 
 interface UserResumeTableProps {
   resumes: UserResume[];
