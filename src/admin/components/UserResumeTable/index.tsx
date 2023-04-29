@@ -23,15 +23,16 @@ const UserResumeTable: React.FC<UserResumeTableProps> = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const updateYearFilters = () => {
+    const gradYears = resumes?.map((resume) => resume.user.graduationYear);
+    const uniqueYears = [...new Set(gradYears)];
+    const dropdownOptions = uniqueYears?.sort((a, b) => a - b);
+
     setYearFilters(
       // Resumes.indexOf(value) === index checks for first occurance
-      resumes
-        ?.filter((value: UserResume, index: number) => resumes.indexOf(value) === index)
-        .sort((resume1, resume2) => resume1.user.graduationYear - resume2.user.graduationYear)
-        .map((element) => ({
-          text: `${element.user.graduationYear}`,
-          value: `${element.user.graduationYear}`,
-        })),
+      dropdownOptions.map((uniqueYear) => ({
+        text: `${uniqueYear}`,
+        value: `${uniqueYear}`,
+      })),
     );
   };
 
