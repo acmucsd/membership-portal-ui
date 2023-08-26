@@ -63,7 +63,7 @@ const withRoute = (Component: React.FC, option: WithRouteOptions, rejectRoute: s
       useEffect(() => {
         const emailDomain = email?.split('@')[1];
         if (email) {
-          if (state === UserState.PENDING || !(emailDomain === 'ucsd.edu' || emailDomain === 'berkeley.edu' || emailDomain === 'stanford.edu' || emailDomain === 'mit.edu' || emailDomain === 'ucla.edu' || emailDomain === 'acmucsd.org')) {
+          if (state === UserState.PENDING || !(emailDomain === 'ucsd.edu' || emailDomain === 'sdsu.edu' || emailDomain === 'berkeley.edu' || emailDomain === 'stanford.edu' || emailDomain === 'mit.edu' || emailDomain === 'ucla.edu' || emailDomain === 'acmucsd.org')) {
             notify(
               'Store Requirement',
               'You need a verified account with an @ucsd.edu address (or from a better school) to use the store. Visit your profile to update your email.',
