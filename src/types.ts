@@ -78,7 +78,12 @@ export interface PublicMerchItem {
   uuid: Uuid;
   itemName: string;
   collection?: PublicMerchCollection;
-  picture: string;
+  merchPhotos: {
+    uuid: string;
+    uploadedPhoto: string;
+    uploadedAt: string;
+    position: number;
+  };
   description: string;
   monthlyLimit: number;
   lifetimeLimit: number;

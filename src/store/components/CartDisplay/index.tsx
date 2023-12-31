@@ -132,7 +132,7 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
 
   const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">
-      <img className="image" src={item.picture} alt={item.itemName} />
+      <img className="image" src={item.merchPhotos[0]?.uploadedPhoto} alt={item.itemName} />
     </div>
   );
 

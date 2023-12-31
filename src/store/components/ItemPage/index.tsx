@@ -42,7 +42,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { outOfStock: optionOutOfStock } = currentOption ? processItem([currentOption]) : { outOfStock: false };
   const itemOptionPrice = currentOption ? processItemPrice([currentOption]) : null;
 
-  const { itemName, description, hasVariantsEnabled, options, picture, hidden } = item;
+  const { itemName, description, hasVariantsEnabled, options, merchPhotos, hidden } = item;
 
   const limitHit = item.monthlyRemaining === 0 || item.lifetimeRemaining === 0;
   let limitMessage;
@@ -60,7 +60,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
       <StoreHeader breadcrumb breadcrumbTitle="Shopping" breadcrumbLocation="/store" showBalance showCart />
       <div className="item-page">
         <div className="item-image-container">
-          <img className="item-image" src={picture} alt={description} />
+          <img className="item-image" src={merchPhotos[0]?.uploadedPhoto} alt={description} />
         </div>
         <div className="item-contents">
           <h2 className="item-name">{itemName}</h2>
@@ -141,7 +141,7 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
       >
         <p className="item-page-modal-title">Added to cart</p>
         <div className="item-page-modal-content">
-          <img className="item-page-modal-item-image" src={picture} alt={description} />
+          <img className="item-page-modal-item-image" src={merchPhotos[0]?.uploadedPhoto} alt={description} />
           <div className="item-page-modal-item-details">
             <p className="item-page-modal-item-title">{itemName}</p>
             {hasVariantsEnabled && currentOption && currentOption.metadata && (

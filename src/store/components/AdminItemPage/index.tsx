@@ -104,7 +104,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
     collection: item?.collection?.uuid ?? '',
     itemName: item?.itemName ?? '',
     description: item?.description ?? '',
-    existingPicture: item?.picture,
+    existingPicture: item?.merchPhotos[0]?.uploadedPhoto,
     newPicture: undefined,
     hidden: item?.hidden ?? false,
     monthlyLimit: item?.monthlyLimit.toString() ?? '',
