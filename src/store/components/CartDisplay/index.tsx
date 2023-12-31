@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Select, Table, Typography } from 'antd';
 
 import { CartItem, PublicMerchItem, PublicMerchItemOption } from '../../../types';
-import { toProperCase } from '../../../utils';
+import { getDefaultMerchItemPicture, toProperCase } from '../../../utils';
 import { addToCart, editInCart, removeFromCart } from '../../storeActions';
 
 import './style.less';
@@ -132,7 +132,7 @@ const CartDisplay: React.FC<CartDisplayProps> = (props) => {
 
   const renderItemImage = (item: PublicMerchItem) => (
     <div className="image-container">
-      <img className="image" src={item.merchPhotos[0]?.uploadedPhoto} alt={item.itemName} />
+      <img className="image" src={getDefaultMerchItemPicture(item)} alt={item.itemName} />
     </div>
   );
 

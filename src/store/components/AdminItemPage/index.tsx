@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Config from '../../../config';
 import { history } from '../../../redux_store';
 import { PublicMerchCollection, PublicMerchItem } from '../../../types';
-import { fetchService, notify } from '../../../utils';
+import { fetchService, getDefaultMerchItemPicture, notify } from '../../../utils';
 
 import OptionDisplay from '../OptionDisplay';
 import StoreButton from '../StoreButton';
@@ -104,7 +104,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
     collection: item?.collection?.uuid ?? '',
     itemName: item?.itemName ?? '',
     description: item?.description ?? '',
-    existingPicture: item?.merchPhotos[0]?.uploadedPhoto,
+    existingPicture: getDefaultMerchItemPicture(item),
     newPicture: undefined,
     hidden: item?.hidden ?? false,
     monthlyLimit: item?.monthlyLimit.toString() ?? '',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { PublicMerchItem } from '../../../types';
-import { processItem, processItemPrice } from '../../../utils';
+import { getDefaultMerchItemPicture, processItem, processItemPrice } from '../../../utils';
 
 import StorePlus from '../../../assets/icons/store-plus-icon.svg';
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
@@ -36,7 +36,9 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
     return null;
   }
 
-  const { uuid, itemName, description, merchPhotos, hidden } = item;
+  const { uuid, itemName, description, hidden } = item;
+
+  const picture = getDefaultMerchItemPicture(item);
 
   const { outOfStock } = processItem(item.options);
 
@@ -50,7 +52,7 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
       <Link to={`/store/item/${uuid}`}>
         <div className={`item-card-contents${outOfStock ? ' out-of-stock' : ''}`}>
           <div className="item-card-image-container">
-            <img className="item-card-image" src={merchPhotos[0]?.uploadedPhoto} alt={description} />
+            <img className="item-card-image" src={picture} alt={description} />
           </div>
           <div className="item-card-name">
             {itemName}
