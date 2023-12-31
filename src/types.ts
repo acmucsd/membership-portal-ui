@@ -83,7 +83,7 @@ export interface PublicMerchItem {
     uploadedPhoto: string;
     uploadedAt: string;
     position: number;
-  };
+  }[];
   description: string;
   monthlyLimit: number;
   lifetimeLimit: number;
