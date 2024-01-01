@@ -78,6 +78,9 @@ export interface PublicMerchItem {
   uuid: Uuid;
   itemName: string;
   collection?: PublicMerchCollection;
+  // Old remnant of when merch photos were only restricted to one.
+  // This is kept here so older carts are still backwards compatible.
+  picture?: string;
   merchPhotos: {
     uuid: string;
     uploadedPhoto: string;
@@ -106,7 +109,7 @@ export interface CartItem {
 export interface PublicCartMerchItem {
   uuid: Uuid;
   itemName: string;
-  picture: string;
+  uploadedPhoto: string;
   description: string;
 }
 
