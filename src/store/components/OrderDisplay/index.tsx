@@ -87,10 +87,11 @@ const OrderDisplay: React.FC<OrderDisplayProps> = (props) => {
   const updatedItems = Array.from(itemMap, ([, value]) => value);
 
   const orderData = updatedItems.map((orderItem) => {
+    const picture = orderItem.option.item.uploadedPhoto;
     const {
       uuid,
       option: {
-        item: { itemName, picture },
+        item: { itemName },
         metadata,
       },
       quantity,
