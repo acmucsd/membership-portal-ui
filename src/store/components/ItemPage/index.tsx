@@ -5,7 +5,7 @@ import { replace } from 'connected-react-router';
 import { Modal } from 'antd';
 
 import { PublicMerchItemWithPurchaseLimits, PublicMerchItemOption, UserAccessType } from '../../../types';
-import { processItem, processItemPrice } from '../../../utils';
+import { getDefaultMerchItemPicture, processItem, processItemPrice } from '../../../utils';
 import { addToCart } from '../../storeActions';
 
 import StoreHeader from '../StoreHeader';
@@ -42,7 +42,8 @@ const ItemPage: React.FC<ItemPageProps> = (props) => {
   const { outOfStock: optionOutOfStock } = currentOption ? processItem([currentOption]) : { outOfStock: false };
   const itemOptionPrice = currentOption ? processItemPrice([currentOption]) : null;
 
-  const { itemName, description, hasVariantsEnabled, options, picture, hidden } = item;
+  const { itemName, description, hasVariantsEnabled, options, hidden } = item;
+  const picture = getDefaultMerchItemPicture(item);
 
   const limitHit = item.monthlyRemaining === 0 || item.lifetimeRemaining === 0;
   let limitMessage;

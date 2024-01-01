@@ -2,7 +2,7 @@ import React from 'react';
 import { notification } from 'antd';
 
 import Storage from './storage';
-import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption, OrderStatus } from './types';
+import { HttpRequestMethod, MimeType, FetchServiceOptions, PublicMerchItemOption, OrderStatus, PublicMerchItem } from './types';
 
 import DiamondDisplay from './store/components/DiamondDisplay';
 
@@ -308,4 +308,16 @@ export const parseOrderStatus = (status: OrderStatus) => {
     default:
       return '';
   }
+};
+
+/**
+ * Given a merch item, return the first picture associated with it.
+ */
+export const getDefaultMerchItemPicture = (item: PublicMerchItem | undefined): string | undefined => {
+  if (item && item.merchPhotos.length !== 0) {
+    // Get the item here with the smallest position (since it doesn't always arrive sorted)
+    item.merchPhotos.sort((a, b) => a.position - b.position);
+    return item.merchPhotos[0].uploadedPhoto;
+  }
+  return undefined;
 };

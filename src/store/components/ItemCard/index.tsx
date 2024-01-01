@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { PublicMerchItem } from '../../../types';
-import { processItem, processItemPrice } from '../../../utils';
+import { getDefaultMerchItemPicture, processItem, processItemPrice } from '../../../utils';
 
 import StorePlus from '../../../assets/icons/store-plus-icon.svg';
 import EditableIcon from '../../../assets/icons/editable-icon.svg';
@@ -36,7 +36,9 @@ const ItemCard: React.FC<ItemCardProps> = (props) => {
     return null;
   }
 
-  const { uuid, itemName, description, picture, hidden } = item;
+  const { uuid, itemName, description, hidden } = item;
+
+  const picture = getDefaultMerchItemPicture(item);
 
   const { outOfStock } = processItem(item.options);
 
