@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Option } from 'react-dropdown';
 
 import Config from '../../../config';
 import { history } from '../../../redux_store';
@@ -132,6 +133,12 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
     discountPercentage: (!item?.hasVariantsEnabled && item?.options[0].discountPercentage.toString()) || '',
   };
 
+  // converts uuid of a collection to { label: ..., value: ... }
+  const getOptionFormat: (string) => Option = (uuid: string) => {
+    const selected = collections.find((c) => c.uuid === uuid);
+    return { label: selected?.title ?? '', value: selected?.uuid ?? '' };
+  };
+
   return (
     <>
       <StoreHeader breadcrumb breadcrumbLocation="/store" />
@@ -250,7 +257,7 @@ const AdminItemPage: React.FC<AdminItemPageProps> = (props) => {
                   onChange={(option) => {
                     setFieldValue('collection', option.value);
                   }}
-                  value={values.collection}
+                  value={getOptionFormat(values.collection)}
                   error={touched.collection && errors.collection}
                 />
               </div>
